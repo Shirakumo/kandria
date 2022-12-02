@@ -1,75 +1,74 @@
 # hub
 ~ catherine
-| 
-| 
-| 
-| 
-| 
-| 
-| 
+| Oke, die "Rennen"(orange)! "Finde die Dose"(orange) die wir versteckt haben.
+| (:excited)"Schnapp sie dir, bring sie zurück, und ich messe die Zeit"(orange). Und, "je schneller, desto grösser die Belohnung"(orange)!
+| (:normal)Wir haben "5 Routen"(orange) für dich. Wenn du eine erledigst, zeigen wir dir die nächste.
+| Du kannst die Routen so oft versuchen wie du willst, aber es gibt "nur eine Belohnung wenn du deine Zeit verbesserst"(orange).
+| Jeder Ort is auch mit einem kleinen Rätsel verbunden. Zuerst raus zu finden wo das genau ist, wäre bestimmt nicht dumm.
+| (:normal)Wir beginnen mit "Route 1"(orange), das sollte einfach sein. (:excited)"Sag mir einfach wenn do bereit bist"(orange). Bin schon richtig gespannt!
 ! eval (clear-pending-interactions)
 
 # start
 ? (timer-quest)
 | ~ catherine
-| | 
+| | (:concerned)Sieht so aus als "wärst du bereits in einem Rennen"(orange)! Du musst das erst beenden oder abbrechen.
 | < quit
 
 ~ catherine
-| 
-| 
-| 
+| (:cheer)Okey! Zeit für ein Rennen!
+| (:excited)"{(quest:title (quest:find-named 'race task))}."(orange)
+| (:normal)Die Stufen sind: "Gold:"(orange) {(format-relative-time gold)} - "Silber:"(orange) {(format-relative-time silver)} - "Bronze:"(orange) {(format-relative-time bronze)}.
 ? (var 'pb)
-| | 
+| | Deine "Bestzeit"(orange) ist "{(format-relative-time pb)}"(orange).
 ~ catherine
-| 
+| (:excited)[? Und... los! | Bereit? Auf.... gehts! | Drei... Zwei... Eins... Los!]
 ! eval (complete task)
 ! eval (clear-pending-interactions)
 
 # cancel
 ~ catherine
-| 
+| "Du willst aufhören"(orange)? Ich kann dir dafür leider keine Belohnung geben...
 ~ player
-- 
+- Nein, ich mach weiter
   ~ catherine
-  | 
-- 
+  | Okey (:excited)- Weiter gehhts!
+- Ja, bitte beende das Rennen
   ~ catherine
-  | 
+  | Kein Problem. (:excited) Bis bald!
   ! eval (activate 'cancel-it)
 
 # return
 ~ catherine
-| 
-| 
-| 
+| (:cheer)Stop!!
+| (:excited)Das ist die richtige Dose. Super!
+| (:normal)Deine Zeit war: "{(format-relative-time (clock quest))}"(orange).
 ? (and pb (< pb (clock quest)))
-| | 
+| | (:conerned)Ah, leider, "keine Verbesserung"(orange) über deinen Rekord von "{(format-relative-time pb)}"(orange).
 |?
 | ? (not (null pb))
-| | | 
+| | | (:cheer)Super, das ist ein "neuer Rekord"(orange)!
 | ! eval (setf pb (clock quest))
 | ? (< pb gold)
-| | | 
-| | | 
+| | | (:cheer)Wie hast du das denn so schnell geschafft?
+| | | Da hast du gleich ne "Goldmedallie" verdient, mit den "250 Bruchteilen"(orange)!
 | | ! eval (store 'item:parts 250)
 | | ! eval (status "Received 250 Scrap Part")
 | |? (< pb silver)
-| | | 
-| | | 
+| | | (:excited)Sehr zügig, das ist "Silber"(orange).
+| | | Da gibts "150 Bruchteile"(orange)!
 | | ! eval (store 'item:parts 150)
 | | ! eval (status "Received 150 Scrap Part")
 | |? (< pb bronze)
-| | | 
-| | | 
+| | | (:excited)Nicht schlecht, "Bronze"(orange) hast du damit schon im Sack.
+| | | Dafür gibt es auch "100 Bruchteile"(orange).
 | | ! eval (store 'item:parts 100)
 | | ! eval (status "Received 100 Scrap Part")
 | |?
-| | | 
-| | | 
+| | | (:concerned)Leider warst du "nicht schnell genug"(orange).
+| | | (:normal)Aber keine sorge, du kannst das nochmals versuchen. Ich bin mir sicher du kriegst das noch hin!
   
 ~ catherine
-| 
+| (:excited)Komm bald wieder!
 ! eval (activate 'complete-it)
 
 # quit
