@@ -1,96 +1,96 @@
 # hub
 ~ semi-barkeep
-| 
-| 
-| 
-| 
-| 
-| 
+| Hah, wusste doch, dass du nicht wiederstehen kannst. Na dann:
+| "Finde den Genera Core, und bring ihn zurück"(orange).
+| Je "schneller, desto mehr Bruchteile"(orange) gibts als Belohnung.
+| Wir haben uns "6 Routen"(orange) ausgedacht. "Wir geben dir die nächste Route aber nur, wenn du eine abschliesst"(orange).
+| Beim Start geb Ich einem Jäger bescheid. Er wird den Core an den richtigen Ort setzen.
+| "Sag mir, wenn du bereit bist"(orange), und gib uns ne gute Show!
 ! eval (clear-pending-interactions)
 
 # start
 ? (timer-quest)
 | ~ semi-barkeep
-| | 
+| | Hey wart mal, du "bist bereits in einem Rennen"(orange). "Mach das erst fertig oder brich es ab"(orange).
 | < quit
 
 ~ semi-barkeep
-| 
+| Showtime! Okey, los gehts!
 | "{(quest:title (quest:find-named 'race task))}."(orange)
 ? (eq (quest:name quest) 'sq5-race-2)
 | ? (active-p (unit 'blocker-engineers))
-| | | 
+| | | Die Ingenieure haben einen Core, aber sie sind noch gefangen. Warum hilfst du ihnen auch noch gleich aus, wenn du schon dabei bist?
 | |?
-| | | 
+| | | Seit du den Tunnel geräümt hast, ist die Route um einiges einfacher geworden...
   
-| 
+| Unsere Bestzeiten für diese Strecke sind:  "Gold:"(orange) {(format-relative-time gold)} - "Silber:"(orange) {(format-relative-time silver)} - "Bronze:"(orange) {(format-relative-time bronze)}.
 ? (eq (quest:name quest) 'sq5-race-2)
 | ? (active-p (unit 'blocker-engineers))
-| | | 
+| | | Doch muss ich zugeben, dass diese Zeiten aufgenommen wurden bevor der Tunnel kollabiert ist.
 ? (var 'pb)
-| | 
+| | Deine "Bestzeit"(orange) ist "{(format-relative-time pb)}"(orange).
 ~ semi-barkeep
-| 
+| Go!
 ! eval (complete task)
 ! eval (clear-pending-interactions)
 
 # cancel
 ~ semi-barkeep
-| 
+| "Bist du sicher, dass du abbrechen willst?"(orange) Für solch eine schlechte Show gibt es keine Belohnung!
 ~ player
-- 
+- Nein, ich mach weiter
   ~ semi-barkeep
-  | 
-- 
+  | Great! Na dann los mit dir.
+- Ja, brich es ab
   ~ semi-barkeep
-  | 
+  | Wie du willst...
   ! eval (activate 'cancel-it)
 
 # return
 ~ semi-barkeep
-| 
-| 
-| 
+| Uuuund Stop!
+| Okey, zeig mir den Core... Hmm, ja die Seriennummer passt.
+| Das hast du in "{(format-relative-time (clock quest))}"(orange) geschaft.
 ? (and pb (< pb (clock quest)))
-| | 
+| | Leider "keine Verbesserung"(orange) im Vergleich zu deinem Rekord "{(format-relative-time (clock pb))}"(orange).
 |?
 | ? (not (null pb))
-| | | 
+| | | Aha! Eine neue "Bestzeit"(orange)!
 | ! eval (setf pb (clock quest))
 | ? (< pb gold)
-| | | 
+| | | Boah, noch schneller als unsere "gold"(orange) Zeit!
 | | ~ semi-patron-1
-| | | 
+| | | Niiice!
 | | ~ semi-barkeep
-| | | 
+| | | Erstaunlich. Deine Belohnung dafür: "500 Bruchteile"(orange).
 | | ! eval (store 'item:parts 500)
 | | ! eval (status "Received 500 Scrap Part")
-| | | 
+| | | Aber hast du noch mehr drauf?
 | |? (< pb silver)
-| | | 
+| | | Nicht schlecht! Besser als unsere "silber"(orange) Zeit. Nicht ganz Spitzenzeit, aber...
 | | ~ semi-patron-2
-| | | 
+| | | Nochmal, nochmal!
 | | ~ semi-barkeep
-| | | 
+| | | Deine Belohnung: "300 Bruchteile"(orange).
 | | ! eval (store 'item:parts 300)
 | | ! eval (status "Received 300 Scrap Part")
 | |? (< pb bronze)
-| | | 
+| | | Und damit hast du unsere "bronze"(orange) Zeit geschlagen. Nicht schlecht.
 | | ~ semi-patron-1
-| | | 
+| | | Aber auch nicht gut! Ist das alles, was ein Android kann?
 | | ~ semi-barkeep
-| | | 
+| | | Hier deine Belohnung: "200 Bruchteile"(orange).
 | | ! eval (store 'item:parts 200)
 | | ! eval (status "Received 200 Scrap Part")
 | |?
-| | | 
+| | | Nicht mals besser als unsere "bronze"(orange) Zeit. Sad!
 | | ~ semi-patron-2
-| | | 
+| | | Das gibts doch nicht. Einfach nur traurig, da brauch ich gleich noch ein Bier!
 | | ~ semi-barkeep
-| | | 
+| | | "Dafür gibt es leider auch keine Belohnung"(orange).
   
 ~ semi-barkeep
-| 
+| Bis zum nächsten mal!
 ! eval (activate 'complete-it)
 
 # quit
