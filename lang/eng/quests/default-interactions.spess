@@ -245,7 +245,7 @@
 |? (complete-p 'Q4-FIND-ALEX)
 | | I don't serve your kind.
 |? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
-| | You're looking for Alex?... "Are you blind?!"(orange).
+| | You're looking for Alex?... "Are you blind?!"(orange)
 |?
 | | I don't serve your kind.
 

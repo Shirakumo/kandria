@@ -1,346 +1,348 @@
 # innis
 ~ innis
 ? (complete-p 'Q14-ENVOY)
-| | 
+| | (:angry)Ich hab dich im Auge.
 |? (complete-p 'Q13-PLANTING-BOMB)
-| | 
+| | (:sly)Hah, schau mal wer das ist.
 |? (complete-p 'Q11A-BOMB-RECIPE)
-| | 
+| | Wer hätte gedacht, dass ein Androide ne ganze Faktion überzeugen könnte.
 |? (complete-p 'Q7-MY-NAME)
-| | 
+| | (:angry)Hau ab, wir sind beschäftigt!
 |? (complete-p 'Q5A-RESCUE-ENGINEERS 'Q5B-INVESTIGATE-CCTV)
-| | 
+| | (:angry)Wenn du dich nicht vom Acker machst, dann nehm ich dich gleich auseinander!
 |? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
-| | 
+| | (:sly)Was ist denn mit dir? Bist du verloren?
 |?
-| | 
+| | Was willst denn du?
 
 # islay
 ~ islay
 ? (complete-p 'Q15-CATHERINE)
-| | 
+| | (:nervous)...
 |? (complete-p 'Q13-PLANTING-BOMB)
-| | 
+| | Ah, du bist zurück!
 |? T
-| | 
+| | Hallo.
 
 # alex
 ~ alex
 ? (complete-p 'Q14-ENVOY)
-| | 
+| | (:angry)Du hast die falsche Seite gewählt.
 |? (complete-p 'Q13-PLANTING-BOMB)
-| | 
+| | (:angry)Hallo.
 |? (complete-p 'Q13-INTRO)
-| | 
+| | (:angry)Das Ende ist nah.
 |? (complete-p 'Q7-MY-NAME)
-| | 
+| | (:angry)Hau ab.
 |? (complete-p 'Q4-FIND-ALEX)
-| | 
+| | (:angry)Geh mir nicht auf den Sack, Android!
 |?
-| | 
+| | (:angry)<-Hick->. Verpiss dich.
 
 # trader
 ~ trader
 ? T
-| | 
+| | Sorry, habibti. Ich hab keine Zeit bis meine Karawane wieder fix ist.
 
 # cerebat-trader-quest
 ~ cerebat-trader-quest
 ? T
-| | 
+| | Steck deine Nase woanders hin!
 
 # jack
 ~ jack
 ? (complete-p 'Q14-ENVOY)
-| | 
+| | Hab ich dich falsch eingeschätzt, {(nametag player)}?
 |? (complete-p 'Q13-PLANTING-BOMB)
-| | 
+| | Na schau mal wer hier reingestolpert ist.
 |? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
-| | 
+| | (:annoyed){#@innis-nametag} meint sie sei der Boss hier oder was?
 |? (complete-p 'Q10A-RETURN-TO-FI)
-| | 
+| | (:annoyed)Wie ist das alles passiert? WARUM?
 |? (complete-p 'Q10-WRAW)
-| | 
+| | Ich hoffe für dich, dass du auch mal gute Nachrichten bringst.
 |? (complete-p 'SQ11-SABOTAGE-STATION)
-| | 
+| | Welches Kraftwerk? Ich hab noch nie davon gehört!
 |? (complete-p 'Q6-RETURN-TO-FI)
-| | 
+| | Warum bringst du immer neue Probleme mit dir?
 |? (complete-p 'Q5A-RESCUE-ENGINEERS 'Q5B-INVESTIGATE-CCTV)
-| | 
+| | Ah. Du bist es.
 |? (complete-p 'Q3-NEW-HOME)
-| | 
+| | (:annoyed)Machs dir nur gemütlich, wir gehen nirgendwo hin.
 |? (complete-p 'Q1-WATER)
-| | 
+| | Ich hab dich im Auge!
 |? (active-p 'Q1-WATER)
-| | 
+| | "Gehst du mit Catherine"(orange) oder was?
 |? (complete-p 'Q0-FIND-JACK)
-| | 
+| | Hm?
 |?
-| | 
+| | Wer bist denn du?
 
 # fi
 ~ fi
 ? (complete-p 'Q14-ENVOY)
-| | 
+| | Du bist eine von uns.
 |? (complete-p 'Q13-PLANTING-BOMB)
-| | 
+| | (:unsure){(nametag player)}...
 |? (complete-p 'Q11A-BOMB-RECIPE)
-| | 
+| | Hi!
 |? (complete-p 'Q11-RECRUIT-SEMIS)
-| | 
+| | (:unsure)Was auch immer du versuchst, bitte beeil dich.
 |? (complete-p 'Q4-FIND-ALEX)
-| | 
+| | Irgendwelche Neuigkeiten über {#@alex-nametag}? Wir brauchen Ihn.
 |? (complete-p 'Q2-SEEDS)
-| | 
+| | Was machen wir bloss ohne Wasser oder Essen?
 |? (complete-p 'Q1-WATER)
-| | 
+| | {(nametag player)}.
 |?
-| | 
+| | Konnichiwa.
 
 # catherine
 ~ catherine
 ? (complete-p (find-task 'EPILOGUE-HOME '3-INTERACT-CATHERINE))
-| | 
+| | (:concerned)Ich hoffe, dass alle OK sind.
 |? (complete-p 'EXPLOSION)
-| | 
+| | ... Haben wir gewonnen?
 |? (complete-p 'Q15-BOSS)
-| | 
+| | (:excited)Ich kann kaum glauben, dass du den riesen Roboter erledigt hast!
 |? (complete-p 'Q14-ENVOY)
-| | 
+| | (:conncerned)Du gehörst nicht {#@zelah-nametag}. Du gehörst niemandem!
 |? (complete-p 'Q13-PLANTING-BOMB)
-| | 
+| | Hah, er sieht gar nicht so stark aus. (:excited)Ich könnte ihn auch selbst schlagen!
 |? (complete-p 'Q13-INTRO)
-| | 
+| | (:excited)Was auch immer du tust, jag dich einfach nicht selbst hoch, OK?
 |? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
-| | 
+| | (:concerned)Sorry, {(nametag player)} - Ich muss mich konzentrieren.
 |? (complete-p 'Q10A-RETURN-TO-FI)
-| | 
+| | Wir werden das schaffen. Alles wird gut rauskommen.
 |? (complete-p 'Q10-WRAW)
-| | 
+| | (:excited)Oh mann, bin ich froh dich zu sehen!
 |? (complete-p 'Q6-RETURN-TO-FI)
-| | 
+| | (:concerned)Ich mag das gar nicht, mit all diesen Zweifeln zu leben...
 |? (complete-p 'TRADER-ARRIVE)
-| | 
+| | (:excited)Hast du {#@trader-nametag} gesehen? Er ist echt toll!
 |? (complete-p 'Q1-WATER)
-| | 
+| | Hey {(nametag player)}!
 |? (complete-p (quest:find-named '22-GO-TO-Q1-PHONE (thing 'q1-water)))
-| | 
+| | (:excited)Lass uns "zur Siedlung zurückkehren"(orange)!
 |? (active-p (quest:find-named '22-GO-TO-Q1-PHONE (thing 'q1-water)))
-| | 
+| | Nur zu, "ruf Jack mit dem Telefon an"(orange). Ich bin gleich bei dir.
 |? (active-p (quest:find-named '16-GO-TO-PUMP-BOSS-LOC (thing 'q1-water)))
-| | 
+| | Was machst du?! - "Zerstör die Servo"(orange)]
 |? (complete-p 'Q1-READY)
-| | 
+| | (:excited)Bleib bei mir!
 |?
-| | 
+| | Alles OK?
 
 # zelah
 ~ zelah
 ? (complete-p 'Q14-ENVOY)
-| | 
+| | Jetzt gibts kein zurück mehr, weder für dich, noch für die anderen.
 |?
-| | 
+| | Nix zu sehen hier.
 
 # semi-engineer-team
 ~ npc
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
-| | 
+| | [? Nach all der Arbeit am Zug... | Ich bin mir gewöhnt Züge zu reparieren, nicht Knarren. | Du bist unser Retter, oder?]
 |? (not (active-p (unit 'blocker-engineers)))
-| | 
+| | [? Fühlt sich gut an wieder frische Luft zu schnappen. | Da hab ich einige Überstunden angesammelt... | Danke dir vielmals! Wer weiss wie lange wir noch festgesteckt wären.]
 |?
-| | 
+| | [? "Sprich mit dem Leiter"(orange) | Ich will nur noch schlafen gehen. | Ein... Android? Nee das gibts doch nicht. | Unser "Boss sollte hier rum sein"(orange).]
 
 # semi-engineer-base
 ~ npc
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
-| | 
+| | [? Ich hoffe es gibt noch was zu reparieren. | Fühlt sich komisch an, nur zu warten... | Mit einem Androiden auf unserer Seite können wir nicht verlieren... Oder? | Was passiert als nächstes? ]
 |?
-| | 
+| | [? Hmm, ich wünschte wir könnten deine Technologie replizieren. | Und, wie schlägst du dich so rum? | Kannst du dich auch gut verteidigen? | Wie haben die das früher nur auf die Reihe gekriegt?]
 
 # soldier
 ~ npc
 ? (complete-p 'Q14-ENVOY)
-| | 
+| | [? Ich hab keine Angst vor dir. | Du siehst aus wie ein Detektiv, oder vielleicht eine Krankenschwester, nicht wie ein Söldner. | Verpiss dich! | Hah, du kannst mir nix machen!]
 |? (complete-p 'Q13-PLANTING-BOMB)
-| | 
+| | Hau ab!
 |?
-| | 
+| | [? Hm? | Ja? | Was?]
 
 # semi-roboticist
 ~ semi-roboticist
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
-| | 
+| | Wir könnten echt n paar Servos auf unserer Seite brauchen.
 |? (complete-p 'Q10-WRAW)
-| | 
+| | Früher hab ich nur über Servos nachgedacht, und jetzt...
 |? (complete-p 'SQ4-ANALYSE-ROBOTS)
-| | 
+| | Hah, ich werd noch rausfinden wie du funktionierst!
 |? (complete-p 'Q4-FIND-ALEX)
-| | 
+| | Sorry, keine Zeit. Es gibt Servos zu untersuchen!
 |? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
-| | 
+| | "Alex"(orange)? Keine Ahnung wer das sein soll, sorry. "Probiers in der Bar"(orange).
 |?
-| | 
+| | Sorry, keine Zeit. Es gibt Servos zu untersuchen!
 
 # semi-barkeep
 ~ semi-barkeep
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
-| | 
+| | Hmm, das ist die Oberfläche? Sieht ziemlich karg aus, und es ist viel zu hell!
 |? (complete-p 'Q10-WRAW)
-| | 
+| | Keine Zeit für Rennen, oder Saufen!
 |? (complete-p 'Q4-FIND-ALEX)
-| | 
+| | Wast bist denn du für eine?
 |? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
-| | 
+| | Alex? Yeah, "das ist der dort drüben, mit dem lauten Maul"(orange).
 |?
-| | 
+| | Wast bist denn du für eine?
 
 # semi-barkeep-2
 ~ semi-barkeep-2
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
-| | 
+| | Bah, hier gibts ja nichtmal was zu trinken. Wo ist all das Bier?
 |? (complete-p 'Q10-WRAW)
-| | 
+| | Hab doch gewusst, dass du uns nur Probleme bringst!
 |? (complete-p 'Q4-FIND-ALEX)
-| | 
+| | Psh, jemandem wir dir geb ich nix!
 |? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
-| | 
+| | Du suchst nach Alex? "Bist du blind oder was?!"(orange)
 |?
-| | 
+| | Psh, jemandem wir dir geb ich nix!
 
 # semi-patron-1
 ~ semi-patron-1
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
-| | 
+| | Mit dem Krieg sieht gleich alles anders aus... Ich beklag mich nie mehr über schlechtes Bier!
+| | Naja, oder zumindest nicht mehr so oft.
 |? (complete-p 'Q10-WRAW)
-| | 
+| | Sogar ich hab meine Lust auf Rennen verloren.
 |? (complete-p 'SQ5-INTRO)
-| | 
+| | Ich habe grosse Erwartungen an dich, Android!
 |? (complete-p 'Q4-FIND-ALEX)
-| | 
+| | Lust auf ne Wette?
 |? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
-| | 
+| | Der "Typ mit den blonden Haaren könnte Alex sein"(orange). Kam offenbar von der Oberfläche.
 |?
-| | 
+| | Lust auf ne Wette?
 
 # semi-patron-2
 ~ semi-patron-2
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
-| | 
+| | Wo ist denn die verdammte Bar hier?
 |? (complete-p 'Q10-WRAW)
-| | 
+| | Oh gott, mir kommts gleich wieder rauf.
 |? (complete-p 'SQ5-INTRO)
-| | 
+| | Sind wir am Rennen? Wo bin ich?
 |? (complete-p 'Q4-FIND-ALEX)
-| | 
+| | __MALZEIT!__
 |? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
-| | 
+| | Eh? Alex? Kenn nur ne... "Alice. Dort drüben"(orange).
 |?
-| | 
+| | __MALZEIT!__
 
 # semi-partner
 ~ semi-partner
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
-| | 
+| | Ich geh nirgends hin ohne sie!
 |? (complete-p 'Q10-WRAW)
-| | 
+| | Ich hoffe sie denkt noch an mich.
 |? (complete-p 'SQ6-DELIVER-LETTER)
-| | 
+| | {#@cerebat-partner-nametag} hat mich angerufen! Wir sind noch immer Freunde.
 |? (complete-p 'Q4-FIND-ALEX)
-| | 
+| | ... Wart mal, da ist jemand.
+| | Hm? Was ist los? Siehst du nicht, dass ich am Telefon bin?
 |? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
-| | 
+| | ... Wart mal, da ist jemand.
+| | Hm? "Schau in der Bar nach"(orange), ich hab keine Zeit.
 |?
-| | 
+| | ... Wart mal, da ist jemand.
+| | Hm? Was ist los? Siehst du nicht, dass ich am Telefon bin?
 
 # cerebat-partner
 ~ cerebat-partner
 ? (complete-p 'Q10-WRAW)
-| | 
-|? (complete-p 'CEREBAT-TRADER-ARRIVE)
-| | 
+| | Die ganze Welt schon wieder im Eimer. Toll.
 |? (complete-p 'Q7-MY-NAME)
-| | 
-| | 
+| | Das "Kollegium"(orange)? Die sollen nur weiter versteckt bleiben. Haben nix gutes gebracht.
+| | Dank ihnen ist der Markt jetzt voller Schwindler und anderen Gaunern, wie zum Beispiel der "Typ in der Hintergasse im oberen Stock"(orange).
 |? (complete-p 'SQ6-DELIVER-LETTER)
-| | 
+| | Das ist persönlich.
 |?
-| | 
+| | Nur weiter gehen.
 
 # cerebat-good-trader
 ~ cerebat-good-trader
 ? (complete-p 'Q10-WRAW)
-| | 
+| | Ich hab das irgendwie überlebt. Machs gut.
 |? (complete-p 'SQ8-FIND-COUNCIL)
-| | 
+| | Ich brauch n bisschen Zeit.
 |? (complete-p 'CEREBAT-TRADER-ARRIVE)
-| | 
+| | Ich werde das Kollegium finden, pass nur auf.
 |? (complete-p 'Q7-MY-NAME)
-| | 
-| | 
-| | 
+| | Schaut so aus als hätten wir ein gemeinsames Interesse das "Kollegium"(orange) zu finden. Vielleicht kannst du mir helfen.
+| | Der "Gauner in der Hintergasse unter mir"(orange) kannst du dir mal vornehmen.
+| | Oder ihn auch einfach gleich in den Boden stopfen, beides wäre mir recht.
 |?
-| | 
+| | Ich hab einiges zu tun, sorry.
 
 # semi-spy
 ~ semi-spy
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
-| | 
+| | Was ist denn das für ne Hölle hier? Da schmilzt man ja gleich bei diesen Temperaturen!
 |? (complete-p 'Q10-WRAW)
-| | 
+| | Die Cerebat haben anderes im Kopf. Kommt mir zurecht.
 |? (complete-p 'CEREBAT-TRADER-ARRIVE)
-| | 
+| | Ich hab dir nix gesagt, OK? Gar nix!
 |? (complete-p 'Q7-MY-NAME)
-| | 
-| | 
-| | 
+| | Das "Kollegium"(orange) ist, wie du sicher schon bemerkt hast, nicht hier.
+| | Eine meiner Sourcen hat gesaght, dass es ein "Händler gibt, der weiss wo sie sind"(orange).
+| | Leider keine Ahnung wie der heisst. Versuchs in den "Hintergassen"(orange).
 |?
-| | 
+| | <-Boo->. Hau ab! Du verratest mich noch!
 
 # wraw-sergeant
 ~ wraw-sergeant
 ? (complete-p 'Q10-WRAW)
-| | 
+| | Du hast das ganze verpasst.
 |? (complete-p 'CEREBAT-TRADER-ARRIVE)
-| | 
+| | Wie bist du denn durchgeschlüpft? Die Kaserne ist dort drüben.
 |? (complete-p 'Q7-MY-NAME)
-| | 
-| | 
+| | Frag mich nur nach dem "Kollegium"(orange) wenn du auch gleich selber in die Hölle versetzt werden willst.
+| | Wer denkst du denn, dass ich bin? Wohl nicht dieser "Schurke eines Händlers"(orange), oder?
 |?
-| | 
+| | Meld dich gleich fürs Training an, Rekrut!
 
 # sq4a-zombie
 ~ sq4a-zombie
 ? (complete-p 'SQ4-ANALYSE-ROBOTS)
-| | 
+| | [? __Urrghh__ | __AAaaaa__ | __OooooO___ | __Krrkrks__ | Wer | Wo das | Freund? | __Auaaaa__ | Geh nicht | Wer hat | Du?... | Nicht mehr | Stop! | Ich... nein ]
 |?
-| | 
+| | [? __Urrghh__ | __AAaaaa__ | __OooooO___ | __Krrkrks__]
 
 # synthesis
 ~ synthesis
 ? (complete-p 'Q11A-BOMB-RECIPE)
-| | 
+| | (:grin)Alle Antworten sind mir offenbahrt! Alles hat sich geklärt...
 |? (complete-p 'SQ14C-SYNTHESIS)
-| | 
+| | (:normal)Wenn die Migränen uns nicht Schleier vor die Augen setzen, sehen wir den Weg ganz klar.
 |?
-| | 
+| | (:grin)Wir wissen, wer du bist.
 
 # npc
 ~ npc
 ? (eql 'surface (subregion 'player))
-| | 
+| | [? Hah! Und das soll besser sein als unsere alte Basis? | Hmm, die Noka hier sehen noch recht nett aus. | Ich war noch nie auf der Oberfläche. | Es ist viel zu hell! | Ich mag die warme Luft hier | Dieser Sand kommt in alles rein... | Boa, hörst du das? Der Wind hier ist ganz anders. | Ich hoffe wir können wieder zurück. | Ich hab so viel zuhause liegen gelassen. | Diese verdammten Wraw! | Ich bin mir nicht wohl hier. | Ich bin so durstig! | Lebst du hier? ]
 |? (eql 'region1 (subregion 'player))
 | ? (complete-p 'Q10-WRAW)
-| | | 
+| | | [? Wer hätte gedacht, dass die Wraw sowas vor hatten? | Wir schaffen das doch noch... oder? | Sag mal, was ist hier alles los? Wraw? Invasion? Ich kapier nix mehr. | Oh je, oh Gott, ich weiss gar nicht mehr was ich tun soll. Wo ist die Bar?! | Aber warum denn nur? | Nein, das glaub ich nicht. | Pah! Ich hab das schon immer gesagt! Und auf mich hört natürlich niemand!]
 | |? (complete-p 'Q6-RETURN-TO-FI)
-| | | 
+| | | [? Wir müssen uns auf alles gefasst machen. | Ich glaub nicht, dass die Wraw uns angreiffen. Zu offensichtlich! | Warum ist plötlich so viel los hier? | Ich halt das nicht mehr aus. | Verräter! Verräter überall! | Warum können wirs alle nicht einfach easy nehmen? N bisschen chillen?]
 | |?
-| | | 
+| | | [? Woah! Hab schon viel von dir gehört. | Mann, ich halt das nicht mehr aus, jeden Tag nur Pilze essen. | Wer bist denn du? | Hm? Was? Ich hör nix! | Psh, n Android? Wen kümmert's? | Du siehst ja mal merkwürdig aus. Was ist denn das fürn outfit? | Warum leuchten deine Ohren so? | Wer bist denn du? | Keine Zeit! Bier wartet!]
 |? (eql 'region2 (subregion 'player))
 | ? (complete-p 'Q10-WRAW)
-| | | 
+| | | [? Was willst denn du? | Zu spät um jetzt noch eine Seite auszusuchen. | Für wen hältest du dich denn? Meinst du kannst die Wraw aleine besiegen? Ja klar! | Meiner meinung nach ist das alles die schuld des Kollegiums! | Oh Gott, das ist gar nicht gut für die Aktien! | Wir sollten uns nicht streiten! Dre freie Markt funktioniert nicht wenn sich alle einfach nehmen was sie können! | Gegen die Wraw? Gegen mich. Hau ab! | Steh nicht einfach rum, zu den Waffen! ]
 | |? (complete-p 'Q5A-RESCUE-ENGINEERS 'Q5B-INVESTIGATE-CCTV)
-| | | 
+| | | [? Hire mal ein guter Tipp: frag nicht zu viel. | Sorry, wir sind geschlossen. | Kein Markt, heute. | Psst! Nur mit der ruhe! | Irgendwas ist los, aber keiner sagt mir was. | Wer sollst denn du sein? Huh? | Meine Aktien... | Kaufen? Verkaufen? | Ha ha ha ha ha... Was? | Schon wieder ne Karavane die festgesteckt ist... | Was ist los? ]
 | |?
-| | | 
+| | | [? Cooles Schwert! Wie viel willst du dafür? 50 Bruchteile? | Schönes Outfit. Willst du tauschen? | Das ist der bestventillierte Ort im ganzen Untergrund. Glaub mir! | Verlier dich nicht in all den Packeten. | Riiiiiiicolaaaaa! Boah, das echo hört man ja für ewigkeiten. ]
 |?
-| | 
+| | [? Hab dich noch nie gesehen. | ... | Hallo? | Wer bist denn du? | Sorry. | Keeeine Zeit! ]
