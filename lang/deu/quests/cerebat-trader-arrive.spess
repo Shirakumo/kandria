@@ -1,140 +1,133 @@
 # talk-trader/talk-to-trader
 ~ cerebat-trader-quest
-| 
+| Ne, hier zum Handeln?
 ~ player
-| 
+| Wo ist das Cerebat Kollegium?
 ~ cerebat-trader-quest
-| 
-| 
-| 
+| ...
+| Psst! Nicht so laut!
+| Was willst du denn mit denen?
 ~ player
-- 
+- Das ist Privatsache
   ~ cerebat-trader-quest
-  | 
-- 
+  | So so. Dann soll das aber auch so bleiben.
+- Ein paar Fragen stellen
   ~ cerebat-trader-quest
-  | 
-- 
+  | Ein kleiner Rat für dich: nicht gerade die beste Zeit um Fragen zu stellene
+- Ich bin von den Noka
   ~ cerebat-trader-quest
-  | 
-  | 
+  | Noka? Sind das die Leute auf der Oberfläche?
+  | Ne Gruppe von Spinnern, wenn du mich fragst.
 ~ cerebat-trader-quest
-| 
-| 
-| 
-| 
+| Wie auch immer, das Kollegium kannst weder du noch sonst jemand sehen.
+| Aber, glücklicherweise hab ich einiges an... pikanter Information.
+| Und noch besser, ich bin bereit zu teilen. Für den richtigen Preis.
 ~ player
-- 
+- Und was für ein Preis wäre das?
   ~ cerebat-trader-quest
-  | 
-  | 
-  | 
-- 
+  | Ja dazu komm ich doch gleich, nur mit der ruhe.
+- Was willst du?
   ~ cerebat-trader-quest
-  | 
-- 
+  | Ah, nix grosses, nix grosses, keine Sorge.
+- Ok.
   ~ cerebat-trader-quest
-  | 
+  | Super. Einfach nur Handelssache, neh?
 ~ cerebat-trader-quest
-| 
-| 
-| 
+| Wenn ich meinen Nacken dafür hinstellen soll, dan gilt das gleiche für dich.
+| Meine Lieferanten sind schon ne Weile festgesteckt, und das macht die ... Finanzen schwierig für einen Händler.
+| Als ausgleich dafür, wie tönen "{(var 'trader-bribe)} Bruchteile"(orange)?
 ~ player
-- 
+- Also eine Bestechung?
   ~ cerebat-trader-quest
-  | 
+  | Nein nein, komm schon. Das ist ein fairer Handel!
   ~ player
-  - 
+  - Zu teuer
     < haggle
-  - 
+  - Okey
     ~ cerebat-trader-quest
-    | 
-- 
+    | Genial. Aber nur mit der Weile!
+- Gibts da auch einen Rabatt?
   < haggle
-- 
+- Wenn das genügt
   ~ cerebat-trader-quest
-  | 
+  | Allerdings! Aber nimms gemütlich.
 ! label patient
 ~ cerebat-trader-quest
-| 
+| "Denk drüber nach. Ich werd noch weiter hier sein"(orange).
 ! label goodbye
-| 
-~ player
-| 
 ? (<= (var 'trader-bribe) (item-count 'item:parts))
 | ~ player
-| | 
-| | 
+| | (:giggle)"Hmm, "Ich hab schon genug"(orange)..."(light-gray, italic)
+| | (:normal)"Aber ich könnte auch noch ein bisschen mehr auf Vorrat sammeln. "Am einfachsten in dem ich was an {#@trader-nametag} oder {#@islay-nametag} verkaufe"(orange)."(light-gray, italic)
 |?
 | ~ player
-| | 
-| | 
+| | "Okey, "Ich hab noch nicht genug Geld um ihn zu bezahlen"(orange)."(light-gray, italic)
+| | "Der einfachste Weg mehr zu bekommen ist Sachen an {#@trader-nametag} oder {#@islay-nametag} zu verkaufen"(orange)."(light-gray, italic)
 ? (active-p (find-task 'q8-meet-council 'task-search))
 | ! eval (deactivate (find-task 'q8-meet-council 'task-search))
 | ! eval (activate (find-task 'q8-meet-council 'task-search-hold))
 
 # haggle
 ~ cerebat-trader-quest
-| 
-| 
-| 
+| Oho! Du bist ja ganz heimtückisch!
+| Aber dennoch, es ist schwer dem Feilschen zu wiederstehen...
+| Na gut, du hast mich überzeugt. Was ist dein Offerte?
 ! label haggle-reset
 ~ player
-- 
+- 100
   ~ cerebat-trader-quest
-  | 
-  | 
-  | 
+  | Ha ha ha! Guter Witz!
+  | ... Wart ma, du meinst das ernst?
+  | Komm schon, gib mir ein richtiges Angebot.
   < haggle-reset
-- 
+- 300
   ~ cerebat-trader-quest
-  | 
-  | 
-  | 
+  | ...?
+  | Ho ho, richtig mutig, neh?
+  | 600.
   ~ player
-  - 
+  - 450
     ~ cerebat-trader-quest
-    | 
-    | 
+    | ...
+    | Hrmmh. Na gut. Machen wer's so.
     ! eval (setf (var 'trader-bribe) 450)
-  - 
+  - Deal
     ~ cerebat-trader-quest
-    | 
+    | Aha!
     ! eval (setf (var 'trader-bribe) 600)
-- 
+- 500
   ~ cerebat-trader-quest
-  | 
-  | 
+  | ...?
+  | 600.
   ~ player
-  - 
+  - 550
     ~ cerebat-trader-quest
-    | 
-    | 
+    | ...
+    | Hrmmh. Na gut. Machen wer's so.
     ! eval (setf (var 'trader-bribe) 550)
-  - Deal.
+  - Deal
     ~ cerebat-trader-quest
-    | 
+    | Aha!
     ! eval (setf (var 'trader-bribe) 600)
-- 
+- 700
   ~ cerebat-trader-quest
-  | 
-  | 
+  | ...
+  | 800.
   ~ player
-  - 
+  - 750
     ~ cerebat-trader-quest
-    | 
-    | 
+    | ...
+    | Hah! Super.
     ! eval (setf (var 'trader-bribe) 750)
-  - 
+  - Deal
     ~ cerebat-trader-quest
-    | 
+    | Hah! Super.
     ! eval (setf (var 'trader-bribe) 800)
-- 
+- 900
   ~ cerebat-trader-quest
-  | 
-  | 
+  | ...?
+  | __DEAL__!
   ! eval (setf (var 'trader-bribe) 900)
 ~ cerebat-trader-quest
-| 
-| 
+| Oke, "{(var 'trader-bribe)} Bruchteile"(orange)!
 < goodbye
