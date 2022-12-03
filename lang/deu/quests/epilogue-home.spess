@@ -1,45 +1,40 @@
 # 3-interact-catherine/interaction
 ~ catherine
-| (:concerned)Oh God. "The surface... everything we had... It's completely levelled"(orange).
-~ catherine
-| (:concerned)What are we gonna do? Where are we gonna go?
-~ catherine
-| (:excited)I "can't see any Wraw - we must have buried them"(orange) big time!
-~ catherine
-| (:concerned)Oh shit. Are those "bodies up ahead? Or people?"(orange) Please everyone be okay...
+| (:concerned)Oh Gott, "die Oberfläche... alles ist zerstört"(orange)!
+| (:concerned)Was machen wir denn jetzt?
+| (:excited)Ich "sehe keine Wraw... sind wohl alle begraben"(orange).
+| (:concerned)Wart! Was ist das in der Ferne? "Sind das Leute"(orange)?
 ~ player
-| "There are "people on the ground, unmoving. But others are still standing"(orange)."(light-gray, italic)
+| "Es gibt "einige Leute in der ferne, ein paar bewegen sich nicht mehr"(orange)."(light-gray, italic)
 ~ player
-- Should I identify them?
+- Soll ich sie identifizieren?
   ~ catherine
   | (:concerned)...
-  | I don't know... Yes, I suppose.
+  | Ich weiss nicht... Ja?
   < identify
-- I need to know who they are.
+- Ich muss wissen wer das ist
   ~ catherine
   | (:concerned)...
-  | Yeah, I guess you're right.
+  | Ja, ich denke du hast recht.
   < identify
-- Let's keep moving.
+- Lass uns weiter gehen
   < end
 
 # identify
 ~ player
-| "Zooming in and increasing resolution..."(light-gray, italic)
-| It's "{#@fi-nametag}, {#@jack-nametag}, and {#@innis-nametag}"(orange). "They're okay"(orange) but they look "worried sick"(orange). "{#@fi-nametag}'s nursing her arm"(orange)...
-| That "might be {#@trader-nametag}"(orange) standing beyond and "a few others"(orange). I "can't see {#@islay-nametag}"(orange).
+| "Vergrössere das bild..."(light-gray, italic)
+| Es sind "{#@fi-nametag}, {#@jack-nametag}, und {#@innis-nametag}"(orange). Sie "sehen OK, aber sehr besorgt aus"(orange). Scheint, dass "{#@fi-nametag} ihren Arm verletzt hat"(orange).
+| Das könnte noch "{#@trader-nametag}"(orange) und ein paar andere sein. Ich kann "{#@islay-nametag} nicht sehen"(orange).
 ~ catherine
-| (:concerned)Oh no...
+| (:concerned)Oh nein...
 ~ player
-| There's "no {#@alex-nametag}, and no Wraw"(orange).
+| Ich kann "keine Wraw ausmachen"(orange).
 < end
 
 # end
 ~ catherine
-| (:concerned)"Alright, let's go."(orange)
-
-; the Fi injured ellipsis works if you flirted with Fi, and if not, then it works for Catherine's benefit
+| (:concerned)"Okey, auf gehts."(orange)
 
 # walk-end/walkntalk
 ~ catherine
-| (:excited)Yes!! Looks like you're A-okay! "Let's go"(orange).
+| (:excited)Oh mein Gott! Sie sehen noch gesund aus!
