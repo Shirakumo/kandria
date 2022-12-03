@@ -7,11 +7,6 @@
 (defmethod alloy:text ((button station-button))
   (language-string (name (alloy:value button))))
 
-(defmethod (setf alloy:focus) :after (focus (button station-button))
-  (when focus
-    ;; FIXME: Show preview
-    ))
-
 (defmethod alloy:activate ((button station-button))
   (cond ((unlocked-p (alloy:value button))
          (unless (eq (alloy:value button) (source button))

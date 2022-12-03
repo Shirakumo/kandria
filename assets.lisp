@@ -130,7 +130,8 @@
   (region1-overlay :wrapping :repeat)
   (region2-overlay :wrapping :repeat)
   (region3-overlay :wrapping :repeat)
-  (wall-overlay :wrapping :repeat))
+  (wall-overlay :wrapping :repeat)
+  (achievements :min-filter :linear :mag-filter :linear))
 
 (define-assets-from-path (sound trial-harmony:sound "**/*.wav")
   (T :volume (db -8))
