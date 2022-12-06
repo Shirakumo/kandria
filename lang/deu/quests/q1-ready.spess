@@ -1,36 +1,33 @@
 # q1-ready-chat/talk-catherine
 ~ catherine
-| You ready to "fix that leak"(orange)?
+| Bist du bereit das "Leck zu schliessen"(orange)?
 ~ player
-- Not yet.
+- Noch nicht
   ~ catherine
-  | [? Alright, you can have a minute. | Okay but we need to hurry - the water supply isn't gonna fix itself. | Okay, but whatever you need to do, please be quick about it.]
-- (Review task log)
+  | Ok, aber beeil dich bitte!
+- (Aufgabenliste)
   ~ player
-  | "My "Log Files"(orange) record data about my assigned tasks; if I'm ever unsure what to do next, I should access and review them."(light-gray, italic)
-  | (:giggle)"The benefits of being an android!"(light-gray, italic)
-- What are we doing again?
+  | "Meine "Aufzeichnungen"(orange) beinhalten daten über meine momentanen Aufgaben. Wenn ich unsicher bin, was ich als nächstes tun soll, kann ich die jederzeit anschauen."(light-gray, italic)
+  | (:giggle)"Die Vorteile eines Androiden!"(light-gray, italic)
+- Was machen wir schon wieder?
   ~ catherine
-  | (:concerned)Um, did your short-term memory corrupt? We need to fix the leak - before we lose the crop and everyone starves!
+  | (:concerned)Ist dein Kurzzeitgedächtniss kaputt? Wir müssen das Leck in der Leitung schliessen, bevor alles verdurstet!
   ~ player
-  - I don't need to eat.
+  - Ich muss nichts trinken
     ~ catherine
-    | (:concerned)Well the rest of us aren't so lucky. Aren't so unlucky, actually.
-  - Ah, I remember now.
+    | (:concerned)Das gleiche gilt aber nicht für uns!
+  - Ah, jetzt erinner ich mich
     ~ catherine
-    | (:concerned)Good. Well...
-  - But my systems are currently sub-optimal.
+    | (:concerned)Gut. Na dann...
+  - Mein System ist nicht optimal funtktionstüchtig
     ~ catherine
-    | Decades sat on your ass in a cave will do that.
-    | (:concerned)I don't think there's much I can do for you right now though. Sorry.
+    | Einige Jahrzehnte in einer Höle macht sowas aus.
+    | (:concerned)Ich glaube nicht, dass du dagegen im Moment viel tun kannst. Sorry.
   ~ catherine
-  | "Let me know"(orange) when you're ready to go. But we can't afford to wait too long.
-- I'm ready.
+  | "Gib mir bescheid"(orange) wenn du bereit bist zu gehen.
+- Ich bin bereit
   ~ catherine
-  | Alright. We're going down that "hole in the floor over there"(orange).
-  ~ player
-  | "She's grabbing a welding torch and goggles from the shelf - she means business."(light-gray, italic)
-  ~ catherine
-  | Follow the "red pipeline"(orange) and "stay close"(orange) to me.
+  | OK. Wir gehen das "Loch dort drüben runter"(orange).
+  | Folg der "roten Leitung"(orange) und "bleib nahe bei mir"(orange).
   ! eval (deactivate interaction)
   ! eval (complete task)

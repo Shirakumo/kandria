@@ -1,39 +1,37 @@
 # 2-interact-catherine/interaction
 ~ catherine
-| (:excited)What did I tell you? Incredible, right!
+| (:excited)Was hab ich dir gesagt? Unglaublich, oder?
 ~ player
-- Crops? In a desert?
+- Weitzen? In der Wüste?
   ~ catherine
-  | (:excited)Isn't it amazing.
+  | (:excited)Genial, oder?
   | (:normal)...
-  | (:concerned)Well don't look too excited. Growing these "post-Calamity"(red) is a real feat, believe me.
-- How did you manage this?
+  | (:concerned)Na ein bisschen Aufregung würde nicht schaden. Glaub mir, das ist ein Kunststück "nach der Katastrophe"(red)!
+- Wie habt ihr das geschafft?
   ~ catherine
-  | (:normal)Don't ask me - I'm just an engineer. I helped install the irrigation though.
-  | Needless to say, growing crops "post-Calamity"(red) isn't easy.
-  | (:excited)Heh, I knew you'd be impressed.
-- I've seen these before. Lots of times.
+  | (:normal)Frag mich nicht, ich bin nur ein Ingenieur. Ich hab aber geholfen die Bewässerung zu installieren.
+  | Das ganze "nach der Katastrophe"(red) hin zu kriegen ist nicht ohne!
+  | (:excited)Hah, ich wusste, du würdest beeindruckt sein!
+- Ich hab das schon oft gesehen
   ~ catherine
-  | (:normal)Oh, from before the "Calamity"(red)? I bet they had loads of plantations. We don't have many.
-  | (:excited)That's so cool. I wish I could have seen that too.
+  | (:normal)Ah, von "vor der Katastrophe"(red)? Damals müssen solche Plantagen wohl üblich gewesen sein...
+  | (:excited)Heute ist das hier aber glaube ich die einzige!
 ~ catherine
-| (:concerned)Erm, hang on a second. Where is everyone?
-| This isn't the welcome I was expecting.
+| (:concerned)Warte mal... wo sind alle hin?
 ~ player
-- Is something wrong?
+- Was ist los?
   ~ catherine
-  | (:concerned)I just reactivated an "old-world"(red) android. I guess I thought they'd all be here to see you.
-- What were you expecting?
+  | (:concerned)Ich hätte gedacht, dass alle gespannt auf uns warten. Kaum jemand hat je einen "Alt-Welt"(red) Androiden gesehen...
+- Was hast du erwartet?
   ~ catherine
-  | (:concerned)I don't know...
-  | Though I just reactivated an "old-world"(red) android. I guess I thought everyone would be here to see you.
-- Is it me?
+  | (:concerned)Ich weiss nicht...
+  | (:concerned)Ich hätte gedacht, dass alle gespannt auf uns warten. Kaum jemand hat je einen "Alt-Welt"(red) Androiden gesehen...
+- Hab ich was gemacht?
   ~ catherine
-  | (:concerned)You?... No of course not.
-  | ... I mean, (:excited)I think you're amazing - a working android from the "old world"(red).
-  | (:normal)But not everyone has fond tales to tell about androids, I guess. Their loss though.
-  | But I'm sure it's not that.
+  | (:concerned)Do? Nein, natürlich nicht.
+  | ... Ich meine, (:excited)du bist toll, fantastisch! Ein funktionierender "Alt-Welt"(red) Android!
+  | (:normal)Nicht alle sind von Androiden so angetan wie ich, aber das ist ihr Problem.
 ~ catherine
-| (:concerned)We'd better find "{#@jack-nametag}"(yellow). He'll be at the "Camp"(red), in "Engineering"(red).
+| (:concerned)Wir sollten "{#@jack-nametag}"(yellow) finden. Hoffentlich ist er im "Ingenieurgebäude in der Siedlung"(red).
 ! eval (activate 'q0-find-jack)
 

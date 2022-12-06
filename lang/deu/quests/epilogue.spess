@@ -1,46 +1,46 @@
 # 4-interact-catherine/interaction
 ~ catherine
-| (:concerned)
-| 
+| (:concerned)... Du hast mir richtig angst gemacht! Ich hab schon gedacht du würdest nie mehr erwachen!
+| Alles OK?
 ~ player
-- 
+- Was ist passiert?
   ~ catherine
-  | (:concerned)
-  | 
-- Where am I?
+  | (:concerned)Alles!
+  | Ich weiss nicht wie lange ich selber unbewusst war. "Ich bin vor etwa 15 Minuten erwacht"(orange) und musste dich zwischen den Steinen rausbuddeln.
+- Wo bin ich?
   ~ catherine
-  | (:concerned)
-  | 
-- How many decades was I out this time?
+  | (:concerned)Immernoch am gleichen Ort, mehr oder weniger.
+  | Ich weiss nicht wie lange ich selber unbewusst war. "Ich bin vor etwa 15 Minuten erwacht"(orange) und musste dich zwischen den Steinen rausbuddeln.
+- Wie viele Jahrzente hab ich diesmal geschlafen?
   ~ catherine
-  | 
-  | (:concerned)
+  | Weniger als eines, hoffe ich. Bin mir selber nicht ganz sicher, ich bin "erst for 15 Minuten aufgewacht"(orange).
+  | (:concerned)Bist du sicher, dass alles in Ordnung ist?
 ~ catherine
-| (:concerned)
-| (:excited)
-| (:concerned)
-| 
-| 
+| (:concerned)Ich glaube "alle Bomben sind explodiert"(orange) und eine davon "praktisch in unser Gesicht"(orange)!
+| (:excited)Heisst das, dass wir gewonnen haben?
+| (:concerned)Hmm, aber die explosionen waren auch deutlich "grösser als erwartet"(orange)...
+| Ich hab mich ein bisschen umgesehen, Ich glaube "dieser ganze Bereich ist kollabiert"(orange).
+| Ich kann nur hoffen, dass {#@islay-nametag} OK ist.
 ~ player
-- 
+- Bestimmt
   ~ catherine
-  | (:concerned)
-- 
+  | (:concerned)Hoffen wirs.
+- Und du?
   ~ catherine
-  | (:concerned)
-- 
+  | (:concerned)Ich hab Kopfweh, wahrscheinlich eine Erschütterung, aber ich erhol mich davon.
+- Sie war gleich bei einer Bombe
   ~ catherine
   | (:concerned)...
-  | 
+  | Wir aber auch, und wir sind immer noch da.
 ~ catherine
-| (:concerned)
+| (:concerned)Auf alle Fälle ist es hier "nicht sicher"(orange). Wir sollten zurück an die Oberfläche. "Kannst du laufen"(orange)?
 ~ player
-- 
+- Glaube schon
   ~ catherine
-  | (:excited)
-- 
+  | (:excited)Ok, auf gehts!
+- Nur einen Weg das rauszufinden
   ~ catherine
-  | 
-- 
+  | Nur mit Ruhe.
+- Wenn nicht glaube ich nicht, dass du mich tragen kannst
   ~ catherine
-  | 
+  | Du bist einiges schwerer als du aussiehst.

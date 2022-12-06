@@ -1,25 +1,25 @@
 # 2-interact-catherine/interaction
 ~ catherine
-| (:cheer)__Tada!__ Here we are.
-| What do you think...?
+| (:cheer)__Tadaa!__ Da sind wir!
+| Und, was meinst du?
 ~ player
-- The city was destroyed.
+- Die Stadt liegt in Trümmern
   ~ catherine
-  | (:excited)Yay, your voice box works too.
-  | Yep. This is home.
-- It's nice.
+  | (:excited)Cool, deine Stimme funktioniert auch!
+  | Ja, das ist mein Zuhause.
+- Sieht nett aus
   ~ catherine
-  | (:excited)Yay, your voice box works too.
-  | I knew you'd love our home.
-- (Lie) It's nice.
+  | (:excited)Cool, deine Stimme funktioniert auch!
+  | Ich wusste du würdest beeindruckt sein!
+- (Lüge) Sieht nett aus
   ~ catherine
-  | (:excited)Yay, your voice box works too.
-  | Really? You like it? I knew you'd love our home.
-- You live here?
+  | (:excited)Cool, deine Stimme funktioniert auch!
+  | Wirklich? Ich wusste du würdest beeindruckt sein!
+- Du lebst hier?
   ~ catherine
-  | (:excited)Yay, your voice box works too.
-  | Yep. Pretty amazing home, huh?
+  | (:excited)Cool, deine Stimme funktioniert auch!
+  | Ja, ziemlich erstaunend, oder?
 ~ catherine
-| And "come look at this"(orange) - I guarantee you won't have ever seen anything like it.
+| Und "schau dir das an"(orange) - Ich garantiere du hast sowas noch nie gesehen.
 ! eval (complete 'tutorial)
 ! eval (activate 'q0-settlement-arrive)
