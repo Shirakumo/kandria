@@ -1,53 +1,54 @@
 # find-seeds/q2-reminder
 ~ fi
-| Travel "across the surface to the east"(orange) and beneath the "Ruins - retrieve whatever seeds remain"(orange) in the cache.
-| Good luck, {(nametag player)}.
+| "Überquere die Wüste zum Osten"(orange) und finde die "Ruine"(orange). In der Tiefe sollte "ein Bunker"(orange) mit den Samen sein.
+| Viel Glück, {(nametag player)}.
 
 # find-seeds/seeds-arrive
 ~ player
-| "It's an old-world bunker. This must be the storage cache."(light-gray, italic)
-| "It smells as old as it looks. Containers and sacks of seeds are strewn about. Someone's been through here before."(light-gray, italic)
-| "Most of this is spoiled, but some of the drawers may still contain usable seeds. Let's see..."(light-gray, italic)
+| "Ein Bunker der alten Welt. Das muss wohl ein Lager gewesen sein."(light-gray, italic)
+| "Es riecht so alt wie es aussieht. Behälter und Säcke sind über den Boden verstreut. Jemand anderes war schon hier."(light-gray, italic)
+| "Das meiste ist verrottet, aber einige dieser Schubladen beinhalten noch brauchbare Samen."(light-gray, italic)
 ! eval (store 'item:seeds 24)
 ! eval (status "Received 24 Seed Sachet")
-| "This is all that's left: "24 sachets"(orange). Inside each one the seeds are tiny and hard like grit."(light-gray, italic)
-| (:thinking)"Will they still grow? I guess we'll find out."(light-gray, italic)
-| (:normal)"I should "return to {#@fi-nametag}"(orange)."(light-gray, italic)
+| "Insgesammt nur noch "24 Säckel"(orange) brauchbarer Samen."(light-gray, italic)
+| (:thinking)"Ich frag mich ob die immernoch wachsen werden?"(light-gray, italic)
+| (:normal)"Ich sollte "zu {#@fi-nametag} zurückkehren"(orange)."(light-gray, italic)
 ! eval (deactivate 'q2-reminder)
 
 # return-seeds/seeds-return-fi
 ~ fi
-| You're back - did you find the seeds?
+| Du bist wieder da - hast du was gefunden?
 ~ player
-- I've got them right here.
-- I've got a surprise for you.
-- (Give her the seeds)
+- Ich hab die Samen bei mir
+- Ich hab ne Überraschung für dich
+- (Gib ihr die Samen)
 ~ fi
 ! eval (retrieve 'item:seeds T)
 ! eval (status "Lost 24 Seed Sachet")
-| (:happy)Oh my. There must be... twenty sachets. All fully stocked. Was this all of them?
+| (:happy)Oh wow, das müssen über zwanzig Säckel sein. War das alles?
 ~ player
-- It was.
-- There are 24 actually.
-- I was thorough.
+- Ja
+- 24, insgesammt
+- Ich hab gründlich gesucht
 ~ fi
-| (:happy)You've done well. Very well. I'll see these are sown right away.
-| This buys us hope I never thought we'd have.
-| (:normal)Know that you are earning my trust, {(nametag player)}. Perhaps you will become a part of the "Noka"(red) yourself.
-| But for now, please "accept these parts"(orange) as a token of my appreciation.
+| (:happy)Das hast du gut gemacht, sehr gut. Wir werden die schnellstmöglich sähen.
+| Das gibt uns Hoffnung, die ich nicht erwartet hatte.
+| (:normal)Du gewinnst mein Vertrauen, {(nametag player)}. Vielleicht könntest du uns "Noka"(red) sogar offiziell beitreten.
+| {#@alex-nametag} ist für lange Zeit unser einziger Jäger gewesen. Ich denke du kannst diese Rolle auch erfüllen, und vielleicht sogar noch mehr.
+| Für jetzt, bitte "nimm diese Bruchteile"(orange) als Entschädigung.
 ! eval (store 'item:parts 200)
 ! eval (status "Received 200 Scrap Part")
 ~ fi
 ? (complete-p 'q3-new-home)
-| | You should "check in with {#@catherine-nametag}"(orange) - I'm sure she'd like to see you again.
-| | (:happy)I think I know what I'd like you to do next as well. "Let me know"(orange) when you're ready.
+| | Ich denke "{#@catherine-nametag} hatt eine neue Aufgabe"(orange) für dich.
+| | (:happy)Und ich ebenso. "Gib mir bescheid"(orange) wenn du bereit bist.
 | ! eval (activate 'sq-act1-intro)
 | ! eval (activate 'q4-intro)
 |?
 | ? (not (active-p 'q3-new-home))
-| | | Oh, I've also "given {#@jack-nametag} a special job"(orange) - something I think you'll be well-suited to help with.
-| | | He'll be in "Engineering"(orange).
+| | | Ich hab "{#@jack-nametag} einen neuen Job gegeben"(orange). Ich denke du könntest ihm dabei helfen.
+| | | Er ist im "Ingenieurgebäude"(orange).
 |   
-| | I also heard "{#@trader-nametag} is here - our trader friend"(orange). His caravan is down in the Midwest Market, beneath the "Zenith Hub"(red).
-| | You would be wise to equip well for your work.
+| | Ausserdem hab ich gehört, dass "{#@trader-nametag} wieder zurück ist"(orange). Er hat "im Midwest Markt"(orange) seinen Shop aufgestellt.
+| | Schau mal bei ihm vorbei.
 | ! eval (activate 'trader-arrive)

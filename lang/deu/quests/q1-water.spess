@@ -229,149 +229,146 @@
 ! eval (ensure-nearby 'shutter-1 'catherine)
 ! eval (setf (nametag (unit 'fi)) (@ fi-nametag))
 ~ catherine
-| (:cheer)
+| (:cheer)Wir sind wieder da! Habt ihr uns vermisst?
 ~ jack
-| (:annoyed)
+| (:annoyed)Ich seh wohl nicht recht.
 ~ catherine
-| 
+| Was ist los? Hast du gedacht ich komm nicht in einem Stück zurück?
 ~ jack
-| (:annoyed)
+| (:annoyed)Etwas in diese Richtung, ja.
 ~ fi
-| 
-| 
+| Gute Arbeit, {#@catherine-nametag}. Ein Android ist ein grosser Vorteil für uns.
+| "Zumindest, wenn wir ihr vertrauen können"(orange).
 ~ catherine
-| (:concerned)
+| (:concerned)Was meinst du?
 ~ fi
-| 
+| Ist es nicht etwas auffällig, dass unsere Wasserleitung zur gleichen Zeit sabotiert wurde, wie du den Androiden gefunden hast?
 ? (not (var 'servos-early))
 | ~ catherine
-| | 
+| | Aber ich hab die Servos gesehen, die die Pumpe angegriffen haben. Es kann nicht sie gewesen sein!
 |? (var 'servos-cath-know)
 | ~ catherine
-| | 
-| | 
+| | Aber ich hab den Schaden gesehen, den die Servos angerichtet haben.
+| | Und sie hat mir gesagt, sie hätte die Servos zerstört.
 | ~ jack
-| | 
-| | 
+| | Und du hast das geglaubt?
+| | Schau mal...
 |?
 | | ~ catherine
-| | 
+| | Aber ich hab den Schaden gesehen, den die Servos angerichtet haben. Es kann nicht sie gewesen sein!
 | ~ jack
-| | 
-| | 
+| | Woher weisst du das?
+| | Und es gibt noch eine andere Möglichkeit.
   
 ~ jack
-| 
+| Hast du dir mal überlegt, dass sie die Servos kontrollieren könnte?
 ~ catherine
 | (:concerned)...
-| (:concerned)
-| 
-| (:normal)
-| 
+| (:concerned)Androide haben ein FFCS- ein Fernkommunikationsmodul.
+| Es ist plausibel, dass sowas bessere verbindung hat im Untergrund als unsere Radios.
+| (:normal)Aber ich glaub dennoch nicht, dass sie es war. Sie war für Jahrzente ausser Betrieb, ich bin mir sicher.
+| Und seit sie wieder online ist, war sie immer bei mir!
 ~ jack
-| 
+| Aber was wissen wir schon über Androide? Gar nix!
 ~ catherine
-| 
+| Na dann frag doch sie! "Hast du uns betrogen, {(nametag player)}"(orange)?
 ~ player
-- 
+- Nein hab ich nicht
   ~ catherine
-  | 
+  | Da hast dus. Ihre Erinnerungen sind ein bisschen durcheinander, aber darüber ist sie sich sicher.
   ~ fi
-  | 
-- 
+  | In Ordnung... Ich hoffe das ist die Wahrheit. (:annoyed)Wenn nicht, dann wissen die Wraw unseren Standort und sind sicher schon auf dem Weg.
+- Ich glaube nicht
   ~ catherine
-  | 
+  | Ihre Erinnerungen sind noch immer durcheinander vom langen Schlaf. Sie hat uns nicht Betrogen, glaub mir.
   ~ fi
-  | 
-- 
+  | In Ordnung... Ich hoffe das ist die Wahrheit. (:annoyed)Wenn nicht, dann wissen die Wraw unseren Standort und sind sicher schon auf dem Weg.
+- Möglicherweise
   ~ catherine
-  | (:concerned)
+  | (:concerned)Sie kann sich nicht einmal an ihren eigenen Namen erinnern. Wie soll sie denn noch sonst etwas wissen?
   ~ fi
-  | 
-  | (:annoyed)
-- 
+  | OK. As ist wohl kaum eine definitive Antwort, aber ich hoffe {#@catherine-nametag} hat recht.
+  | (:annoyed)(:annoyed)Wenn nicht, dann wissen die Wraw unseren Standort und sind sicher schon auf dem Weg.
+- Ja
   ~ catherine
   | (:concerned)...
-  | (:excited)
-  | (:concerned)
-  | 
+  | (:excited)Ja klar, sie ist ein totaler Verräter!
+  | (:concerned)Kommt schon! Ich weiss ich bin gutgläubig, aber denkt ihr wirklich ich hätte es nicht bemerkt wenn sonst noch etwas los wäre?
   ~ fi
-  | 
-  | (:annoyed)
+  | OK. As ist wohl kaum eine definitive Antwort, aber ich hoffe {#@catherine-nametag} hat recht.
+  | (:annoyed)(:annoyed)Wenn nicht, dann wissen die Wraw unseren Standort und sind sicher schon
 ~ jack
-| (:shocked)
+| (:shocked)...? {#@fi-nametag}, das nimmst du einfach so hin?
 ~ fi
-| 
+| Was für eine Wahl hab ich?
 ~ jack
-| 
+| Nimm das Ding auseinander, untersuch es.
 ~ fi
-| (:unsure)
+| (:unsure){#@catherine-nametag}, haben Androiden nicht eine Black-Box oder sowas? Können wir irgendwie rausfinden, was sie gemacht hat?
 ~ catherine
-| 
-| (:concerned)
-| 
+| ... Wir müssten einen Daten-Anschluss finden.
+| (:concerned)Und wir bräüchten einen Computer, was nicht gerade einfach zu finden ist.
+| Aber auch wenn wir das alles hätten, glaubt ihr nicht, dass wir sie fragen sollten ob das OK ist?
 ~ fi
-| 
-| 
+| Du hast recht, {#@catherine-nametag}.
+| Tut mir leid, {(nametag player)}, richtig?
 ~ jack
 | (:annoyed)...
 ~ fi
-| 
+| "Würdest du uns erlauben dich zu untersuchen"(orange), wenn möglich?
 ~ player
-- 
+- Lieber nicht
   ~ fi
-  | 
+  | Das ist deine Entscheidung.
   ~ jack
-  | (:annoyed)
+  | (:annoyed)Echt? Du lasst das einfach machen, was es will?
   ~ fi
-  | 
-  | 
-  | 
-  | 
+  | "Das" ist eine Person, {#@jack-nametag}. Ich erwarte, dass du sie auch so behandelst.
+  | Ich vertraue {#@catherine-nametag}. Für den Moment ist {(nametag player)} unser Gast.
+  | Wie auch immer, {#@jack-nametag}, sprich mit "{#@trader-nametag}"(yellow) wenn er ankommt, vielleicht weiss er über Androide bescheid.
   ~ jack
-  | (:annoyed)
-- 
+  | (:annoyed)Wenn es sein muss.
+- Wieso auch nicht
   ~ fi
-  | 
+  | Gut. {#@jack-nametag}, sprich mit "{#@trader-nametag}"(yellow) wenn er ankommt, vielleicht weiss er bescheid.
   ~ jack
-  | (:annoyed)
-- 
+  | (:annoyed)Wenn es sein muss.
+- Solange ich danach noch online bin
   ~ catherine
-  | 
+  | Das geht klar.
   ~ fi
-  | 
+  | Ok. {#@jack-nametag}, sprich mit "{#@trader-nametag}"(yellow) wenn er ankommt, vielleicht weiss er bescheid.
   ~ jack
-  | (:annoyed)
+  | (:annoyed)Wenn es sein muss.
 ~ fi
-| (:annoyed)
-| 
-| (:normal)
+| (:annoyed)Wie dem auch sei, ich bin mir sicher, dass "die Wraw unsere Angreiffer sind"(orange).
+| Was bedeutet, dass sie bald unseren Standort entdecken werden.
+| (:normal)"Ich muss unsere nächsten Schritte planen"(orange).
 ~ catherine
-| 
-| 
+| Wenns sonst nix mehr gibt, dann seh ich euch später.
+| Hey, {(nametag player)}, wart mal. "Ich will noch was sagen"(orange).
 ~ fi
-| 
+| Sayonara {#@catherine-nametag}, {(nametag player)}.
 ~ jack
-| 
+| Bis später, Catherine.
 ! eval (move-to 'fi-farm 'fi)
 ! eval (setf (walk 'fi) T)
 ! eval (move-to 'eng-jack 'jack)
 ! eval (setf (walk 'jack) T)
 ~ catherine
-| (:concerned)
-| (:normal)
-| 
+| (:concerned)Ach, die Alten...
+| (:normal)Oh, hier, das hab ich fast vergessen:
+| "Hier sind ein paar Bruchteile"(orange). Als Dankeschön.
 ! eval (store 'item:parts 200)
 ! eval (status "Received 200 Scrap Part")
-| 
-| (:concerned)
-| (:normal)
-| (:normal)
-| 
-| 
-| (:normal)
-| (:excited)
-| 
+| Das ist nicht viel, aber du kannst mit denen "handeln"(orange). Oder zumindest "sobald {#@trader-nametag} hier ist"(orange).
+| (:concerned)Er ist verspätet, was eigentlich nicht normal ist. Vielleicht haben ihn die Servos abgeschreckt.
+| (:normal)Wie auch immer, mach dir keine Sorgen um {#@jack-nametag} und {#@fi-nametag}. Ich bin mir sicher sie sehen bald, was ich sehe: (:excited)Eine __Superheldin__ die uns beschützen kann!
+| (:normal)Na dann, ich hab Arbeit zu tun.
+| "Schau mal bei {#@fi-nametag} und {#@jack-nametag}"(orange) vorbei. Die haben sicher noch weitere Aufgaben für dich.
+| Aber für den Moment bist du frei zu tun, was du willst.
+| (:excited)"Schau dich einfach um, die ganze Welt steht dir offen"(orange)!
+| Bis später, {(nametag player)}!
 
 # main-leak-2/walkntalk
 ~ catherine

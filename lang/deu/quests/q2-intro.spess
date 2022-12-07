@@ -1,104 +1,101 @@
 # talk-to-fi/talk-fi
 ~ fi
-| Greetings, {(nametag player)}.
+| Grüss dich, {(nametag player)}.
 ~ player
-- Can I help with anything?
+- Kann ich irgendwie helfen?
   ~ fi
-  | Yes, I think you can. First though...
-- So you're the leader around here?
+  | Ich denke schon. Aber bevor wir dazu kommen...
+- Du bist also die Anführerin hier?
   ~ fi
-  | Something like that.
-- How's the water supply?
+  | Soetwas in der Art.
+- Wie ist der Wasserstand?
   ~ fi
-  | Fully-restored, thanks to yours and {#@catherine-nametag}'s efforts.
-  | We might well owe you our lives.
+  | Vollständig wiederhergestellt, dank {#@catherine-nametag}'s und deiner Arbeit.
+  | Es ist gut möglich, dass wir dir unser Leben verdanken.
 ~ fi
-| I wanted to apologise for {#@jack-nametag}'s behaviour - and my own short-sightedness. You are our guest, and you have helped us.
-| But you must also understand that as chieftain I have responsibilities. I must be diligent.
-| But I think I have a way that you can help us again.
-| Though the water is back, our crops are unlikely to survive much longer.
-| I knew coming here would be hard, but we are on the brink - if we don't starve, then it seems the Wraw will get us in the end.
-| They'll be coming, sooner or later - no one escapes them and lives very long.
+| Ich wollte mich für {#@jack-nametag}'s Verhalten und meine Kurzsichtigkeit entschuldigen. Du bist unser Gast, und hast uns geholfen.
+| Aber versteh dies: als Anführerin hab ich einige Verantwortungen. Ich muss alles gründlich übersehen.
+| Ich glaube du kannst uns nochmals zur Hilfe stehen:
+| Obwohl das Wasser wieder läüft, unsere Ernte hält nicht für lange Zeit.
+| Und wenn wir nicht verhungern, dann werden uns die Wraw schlussendlich einfangen.
+| Früher oder später werden sie sich auf den Weg machen.
 ! label questions
 ~ player
-- Who are the Wraw?
+- Wer sind die Wraw?
   ~ fi
-  | Another faction, deep underground. We were part of them.
-  | Let's just say they've got the monopoly on what's left of the geothermal power generators. And they don't like to share.
+  | Eine andere Fraktion. Sie leben tief im Untergrund.
+  | Sagen wirs so: sie haben ein Monopol für geothermische Energie und teilen das nicht gerne.
   < questions
-- Can't you move underground?
+- Kannst du nicht in den Untergrund umziehen?
   ~ fi
-  | The levels below us are unstable. And if we go even lower we'd enter the territory of other factions.
-  | We came to the surface because we honestly thought we could grow food like people used to.
-  | But we also thought the Wraw wouldn't follow.
-  | (:annoyed)I guess we were wrong. Well, I was wrong.
+  | Der Bereich direkt unter uns ist nicht stabil, und weiter unten würden wir auf das Gebiet anderer Fraktionen treten.
+  | Wir sind zur Oberfläche geflüchtet weil wir hofften, wir könnten wieder wie früher leben, und den Wraw entweichen.
+  | (:annoyed)Aber ich muss zugeben, dass ich dabei wohl falsch lag.
   < questions
-- Why am I suddenly your confidante?
+- Warum vertraust du mir plötzlich?
   ~ fi
-  | I don't know. You're a stranger, if you'll pardon the pun. But you've helped us.
-  | And I value fresh perspective. I don't get much of that around here.
+  | Ich bin mir nicht sicher. Du bist eine Fremde, aber du hast uns geholfen.
+  | Ausserdem schätze ich neue Perspektiven, davon gibt es nicht viel hier.
   < questions
-- What's next?
+- Wie geht es weiter?
 ~ fi
-| I haven't told the others about the failing crops, but they aren't blind. I'm telling you because I think you can help.
-| There's a place "across the surface to the east"(orange) and beneath the "Ruins"(red), where we first found the seeds that you see growing here.
-| "{#@alex-nametag}"(yellow) found it, our hunter. I want you to retrace their steps, "find the cache"(orange), and if it's still intact "recover all the seeds"(orange) that remain.
-| If we can sow enough of them, and soon enough, then...
-| Well, let's not get ahead of ourselves, shall we.
+| Ich hab den anderen noch nicht von der Fehlernte erzählt, aber ich sag es dir, weil ich denke, dass du uns helfen kannst.
+| "In der Wüste, im Osten"(orange) gibt es eine "Ruine"(red), die zu einem Bunker führt. Dort haben wir die Samen gefunden, die wir angepflanzt haben.
+| "{#@alex-nametag}"(yellow), unser Jäger, hat das entdeckt. Ich möchte, dass du den "Bunker findest und die restlichen Samen zurückbringst"(orange).
+| Wenn wir genügend neu sähen können, dann vielleicht...
 ? (complete-p (find-task 'world 'task-world-seeds))
 | ~ player
-| - Actually I've got the seeds right here.
-| - I've got a surprise for you.
-| - (Give her the seeds)
+| - Ich hab die Samen bereits gefunden
+| - Bereit für eine Überraschung?
+| - (Gib ihr die Samen)
 | < early-end
 |?
 | ~ player
-| - You can rely on me.
+| - Du kannst dich auf mich verlassen
 |   ~ fi
-|   | Thank you.
-| - I'll retrieve what I can.
+|   | Danke
+| - Ich mach was ich kann
 |   ~ fi
-|   | That is all I am asking.
-| - What if I fail?
+|   | Mehr will ich nicht
+| - Was wenn ich scheitere?
 |   ~ fi
-|   | I don't know about the world you came from, but I discovered long ago that it's better to make one plan at a time.
-|   | This world tries to pull you down, so you have to act quickly and roll with the punches.
+|   | Meiner Meinung nach ist es am besten einen Schritt nach dem Anderen zu machen.
+|   | Wir leben in einer brutalen Welt, und müssen auf alles gefasst sein.
 | ~ fi
-| | {#@alex-nametag} has been our sole hunter for some time. You could be a hunter too, and more besides I think.
-| | Good luck.
+| | {#@alex-nametag} ist für lange Zeit unser einziger Jäger gewesen. Ich denke du kannst diese Rolle auch erfüllen, und vielleicht sogar noch mehr.
+| | Viel Glück.
 | ! eval (deactivate (find-task 'world 'task-world-seeds))
 | ! eval (activate 'q2-seeds)
 
-;; very similar dialogue to q2-seeds/return-seeds/seeds-return-fi - just different context. Quest logic is identical though.
 # early-end
 ~ fi
 ! eval (retrieve 'item:seeds T)
 ! eval (status "Lost 24 Seed Sachet")
-| (:happy)Oh my, you've been to the cache already? There must be... twenty sachets. All fully stocked. Was this all of them?
+| (:happy)Oh! Du warst schon dort? Wow, das müssen über zwanzig Säckel sein. War das alles?
 ~ player
-- It was.
-- There are 24 actually.
-- I was thorough.
+- Ja
+- 24, insgesammt
+- Ich hab gründlich gesucht
 ~ fi
-| (:happy)You've done well. Very well. I'll see these are sown right away.
-| This buys us hope I never thought we'd have.
-| (:normal)Know that you are earning my trust, {(nametag player)}. Perhaps you will become a part of the "Noka"(red) yourself.
-| {#@alex-nametag} has been our sole hunter for some time. You could be a hunter too, and more besides I think.
-| But for now, please "accept these parts"(orange) as a token of my appreciation.
+| (:happy)Das hast du gut gemacht, sehr gut. Wir werden die schnellstmöglich sähen.
+| Das gibt uns Hoffnung, die ich nicht erwartet hatte.
+| (:normal)Du gewinnst mein Vertrauen, {(nametag player)}. Vielleicht könntest du uns "Noka"(red) sogar offiziell beitreten.
+| {#@alex-nametag} ist für lange Zeit unser einziger Jäger gewesen. Ich denke du kannst diese Rolle auch erfüllen, und vielleicht sogar noch mehr.
+| Für jetzt, bitte "nimm diese Bruchteile"(orange) als Entschädigung.
 ! eval (store 'item:parts 200)
 ! eval (status "Received 200 Scrap Part")
 ~ fi
 ? (complete-p 'q3-new-home)
-| | You should "check in with {#@catherine-nametag}"(orange) - I'm sure she'd like to see you again.
-| | (:happy)I think I know what I'd like you to do next as well. "Let me know"(orange) when you're ready.
+| | Ich denke "{#@catherine-nametag} hatt eine neue Aufgabe"(orange) für dich.
+| | (:happy)Und ich ebenso. "Gib mir bescheid"(orange) wenn du bereit bist.
 | ! eval (activate 'sq-act1-intro)
 | ! eval (activate 'q4-intro)
 |?
 | ? (not (active-p 'q3-new-home))
-| | | Oh, I've also "given {#@jack-nametag} a special job"(orange) - something I think you'll be well-suited to help with.
-| | | He'll be in "Engineering"(orange).
+| | | Ich hab "{#@jack-nametag} einen neuen Job gegeben"(orange). Ich denke du könntest ihm dabei helfen.
+| | | Er ist im "Ingenieurgebäude"(orange).
 |   
-| | I also heard "{#@trader-nametag} is here - our trader friend"(orange). His caravan is down in the Midwest Market, beneath the "Zenith Hub"(red).
-| | You would be wise to equip well for your work.
+| | Ausserdem hab ich gehört, dass "{#@trader-nametag} wieder zurück ist"(orange). Er hat "im Midwest Markt"(orange) seinen Shop aufgestellt.
+| | Schau mal bei ihm vorbei.
 | ! eval (activate 'trader-arrive)
 ! eval (complete 'q2-seeds)
