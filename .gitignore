@@ -1,9 +1,9 @@
 bin/
+data
+world
 doc/*.html
 *~
 .*
 data/music/*.wav
-world/regions/*/data/*.graph
-world/regions/*/trace.dat
 docs/news.html
 Thumbs.db
