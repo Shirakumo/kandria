@@ -1,0 +1,48 @@
+# Kandria Contbriution Guidelines
+This documentation describes basic contribution requirements. Please read it carefully before submitting patches.
+
+## Base License Agreement
+Before anything, if you are going to contribute patches to this project, you must agree to the basic "license"(link LICENSE), and provide your contributions under the same license text. In addition, you must:
+
+Grant full, perpetual, and sublicensable modification and commercial distribution rights of the derivative intellectual property you produce of this project to Nicolas Hafner and Shirakumo Games.
+
+Regardless of the above you retain authorship rights of your work.
+
+## Code Style
+Please follow the basic code style guidelines outlined in the "Trial documentation"(link https://shirakumo.github.io/trial/style.html).
+
+## Documentation Style
+Documentation is written in "Markless"(https://shirakumo.github.io/markless). Please follow its syntax. Submissions in Markdown or other markup languages will be rejected.
+
+## Contribution Scope
+This repository is for the core Kandria content. Please do not submit things such as:
+
+- New mechanics
+- New areas
+- Generally any kind of additional game content
+- Large changes to the game's visuals
+
+If you are interested in adding these kinds of changes, please create a mod instead. Things that should be submitted to this repository:
+
+- New language translations
+- Bug fixes
+- Spelling/grammar fixes in the translations
+- Performance optimisations
+- Documentation improvements
+- etc.
+
+## Contribution Pipeline
+The process for contributing goes roughly as follows:
+
+1. You clone the repository and create the changes.
+2. You add an entry to the "changelog"(link CHANGES.mess) with your name and a description of what you changed.
+3. You submit a Pull Request for the change.
+4. A maintainer will look at your changes and review them.
+   1. If there are any outstanding issues with your code, they will be discussed.
+   2. You may have to go back and amend some changes, for your contribution to fit into the style and scope of the project.
+   3. This repeats until your changes are considered ready to merge.
+5. The changes are merged into the master branch of the repository and officially accepted.
+6. A new game build is uploaded to storefronts such as Steam such that players can profit.
+   Note that this is a manual process and it may take some days before we get to it.
+
+If you are unsure whether your contribution would be accepted or not, please file an Issue ticket first, and we will discuss your proposal.
