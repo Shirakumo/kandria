@@ -1,49 +1,46 @@
-; could have been sent here by Fi or Catherine
 # talk-to-jack/talk-jack
 ~ jack
-| (:annoyed)Oh, it's you. Come to kill me?
+| (:annoyed)Oh, du bist es. Gekommen um mich umzubringen?
 ~ player
-- What?
+- Was?
   ~ jack
-  | (:annoyed)No sense of humour. Figures.
-- What do you think?
+  | (:annoyed)Kein Humor, wie erwartet.
+- Was denkst du?
   ~ jack
-  | (:annoyed)No. Not while you've got {#@fi-nametag} and Cathy wrapped around your fake little finger.
-- I wish.
+  | (:annoyed)Nein. Nicht solange du {#@fi-nametag} and {#@catherine-nametag} an der Leine führst.
+- Ich wünschte
   ~ jack
-  | (:shocked)O oh, you keep talking like that and {#@fi-nametag} will dismantle you. Wouldn't want that, would ya?
+  | (:shocked)Wenn du weiter so sprichst wird {#@fi-nametag} dich auseinander nehmen!
 ~ jack
-| Anyway, you can do something for me.
-| {#@fi-nametag} wants to "scout for a new home"(orange) - I guess she's worried sick now the Wraw are breathing down our necks.
-| Well as you can see, I'm no scout. I guess I just don't have the physique for it.
-| (:annoyed)"{#@alex-nametag}"(yellow) is our hunter, but God knows where they are. So it's up to you... //{(nametag player)}//.
+| Wie auch immer, ich hab eine Aufgabe für dich.
+| {#@fi-nametag} will, dass wir "ein neues Zuhause suchen"(orange) - Sie ist wahrscheinlich besorgt, jetzt wo die Wraw auf unserer Spur sind.
+| Wie du siehst, bin ich dafür nicht gut ausgelegt.
+| (:annoyed)"{#@alex-nametag}"(yellow) ist unser Jäger, aber keine Ahnung wo der steckt. Also ist es jetzt dein Problem, //{(nametag player)}//.
 ~ player
-- Lucky me.
+- Was für ein Glück
   ~ jack
-  | I hope so.
-- What's the plan?
-- You got it boss.
+  | Das hoffe ich
+- Was ist der Plan?
+- OK, Boss
   ~ jack
-  | (:annoyed)Don't you try and sweet-talk me, darlin'. Look...
+  | (:annoyed)Mich ziehst du nicht so einfach eine rüber. Schau mal...
 ~ jack
-| I think the "Ruins"(red) to the "east"(orange) are your best shot. It keeps us close to the "Farm"(red), and still gives us shelter.
-| So "cross the surface"(orange), scout around, climb, dig - do whatever an android does.
-| Just remember while you ninja around that we mere mortals gotta follow your path.
-| Your android brain might think the top of a skyscraper is the safest place there is; but people can't climb up there, let alone live up there.
-| You get me?
+| Ich denke die "Ruinen"(red) "im Osten"(orange) haben die höchsten Erfolgschancen. Das ist in der Nähe der Farm und sollte uns trotzdem etwas Schutz geben.
+| Also schau dich um, scanne, kletter, was auch immer du kannst.
+| Aber vergess nicht, dass wir nicht so akrobatisch sind wie du.
+| Wir müssen den Ort auch irgendwie noch erreichen können.
+| Verstanden
 ~ player
-- Got it.
-- Not really.
+- Alles klar
+- Nicht wirklich
   ~ jack
-  | (:annoyed)Tough shit - I ain't repeating myself.
-- Do you think I'm stupid?
+  | (:annoyed)Dann must dus wohl selbst rausfinden.
+- Ich bin nicht dumm
   ~ jack
-  | (:annoyed)I'm yet to see evidence otherwise. Just do the job, okay?
+  | (:annoyed)Hab ich nicht bemerkt.
 ~ jack
-| Well, I guess I should say good luck.
-| Don't bother to check in with your FFS or whatever the fuck it's called - I'm busy.
-| Seeya.
+| Na dann, toi toi toi.
 ~ player
-| "Charming as always."(light-gray, italic)
-| "Speaking of my FFCS: it indicates "4 candidate locations to the east"(orange). That should help me narrow things down."(light-gray, italic)
+| "Freundlich wie immer."(light-gray, italic)
+| "Mein FFCS zeight "4 Orte im Osten"(orange) an, die ich anschauen sollte."(light-gray, italic)
 
