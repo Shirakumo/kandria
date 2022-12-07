@@ -16,8 +16,5 @@
   :itch (:user "Shinmera")
   :steam (:branch "developer"
           :user "shirakumo_org")
-  :rsync (:user "root"
-          :hostname "string.vpn.tymoon.eu"
-          :path "/var/www/nginx/kandria/docs/releases/")
-  :upload (:targets #(:steam :rsync))
+  :upload (:targets #(:steam))
   :system "kandria")
