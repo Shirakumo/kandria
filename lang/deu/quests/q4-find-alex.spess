@@ -1,72 +1,70 @@
 # find-alex-reminder/q4-reminder
 ~ fi
 ? (not (complete-p 'find-alex-cerebats))
-| | Go to the "Cerebats township deep underground, find {#@alex-nametag} and bring them back"(orange) for debriefing.
-| | Watch out for the Semi Sisters on your way. They're not our enemies, but they are unpredictable.
-| | You can "access the lower levels through the floor in the pump room"(orange).
+| | "Finde {#@alex-nametag} im Cerebat Gebiet und bring ihn zurück"(orange).
+| | Pass auf die Semi Schwesternschaft auf. Sie sind nicht feindlich, aber unberechenbar.
+| | "Im Pumpenraum hat es einen Zugriffsschaft"(orange) mit dem du tiefer eindringen kannst.
 |?
-| | (:unsure){#@alex-nametag} isn't with the Cerebats? That is worrying.
-| | (:normal)Well they still haven't returned. I suggest you "search the tunnels between the Semis and the Cerebats"(orange).
-| | I hope they're okay.
+| | (:unsure){#@alex-nametag} ist nicht bei den Cerebat? Das ist keine gute Nachricht.
+| | (:normal)Er ist auch immer noch nicht zurückgekehrt. Vielleicht kannst du ihn "irgendwo auf dem Weg von den Cerebats finden"(orange).
 
-; this version might not play any more, as I think the triggers mean you will always get the "remote" version instead (see below)
 # find-alex/innis-stop-local
 ~ innis
-| (:angry)<-STOP-> WHERE YOU ARE!
-| Did you think ya could just waltz right through here?
-| (:sly)We've been watching you, android. You and your wee excursions with {#@catherine-nametag}.
-| And now you've come to visit us. How thoughtful.
+| (:angry)<-STOP->!
+| Hast du wirklich gedacht, du könntest einfach hier reinwaltzen?
+| (:sly)Wir haben dich beobachtet, Android. Dich, und deine kleinen Abenteuer mit {#@catherine-nametag}.
+| Und jetzt besuchst du auch uns. Wie schön!
 ~ player
-- Who are you?
+- Wer bist du?
   ~ innis
-  | Alas, no' too smart...
-- What do you want?
+  | Hmm, leider nicht zu intelligent...
+- Was willst du?
   ~ innis
-  | (:sly)I'll ask the questions if ya dinnae mind.
-- Are you the Semi Sisters?
+  | (:sly)Ich stell die Fragen hier.
+- Bist du teil der Semi Schwesternschaft
   ~ innis
-  | (:sly)I'll ask the questions if ya dinnae mind.
+  | (:sly)Ich stell die Fragen hier.
 ~ innis
-| (:sly)What //should// we do with you? I bet your Genera core could run our entire operation.
-| What do you think, "{#@islay-nametag}"(yellow)?
+| (:sly)Was machen wir nur mit dir? Ich wette dein Genera Core hätte einige wertvolle Geheimnisse in sich.
+| Was denkst du, "{#@islay-nametag}"(yellow)?
 ! eval (setf (nametag (unit 'islay)) (@ islay-nametag))
 ~ islay
-| (:nervous)I think you should leave her alone.
+| (:nervous)Ich denke du solltest sie in ruhe lassen.
 ~ innis
 | (:angry)...
-| (:normal)Come now, sister - the pinnacle of human engineering is standing before you, and that's all you can say?
-| (:sly)That wasn't a compliment by the way, android. (:normal)But let's no' get off on the wrong foot now.
+| (:normal)Komm schon, Schwester! Die grösste menschliche Errungenschaft steht vor dir, und das ist alles was du sagen kannst?
+| (:sly)Das ist kein Kompliment an dich, nur damit das klar ist.
 ~ player
-- My name's {(nametag player)}.
+- Ich bin {(nametag player)}.
   ~ innis
-  | This I ken, android. (:sly)Tell me, why are you here?
+  | Das weiss ich schon. (:sly)Sag mir, warum bist du hier?
 - ...
   ~ innis
-  | (:sly)Why are you here? I ken lots about you, but I want more.
+  | (:sly)Warum bist du hier? Ich weiss schon einiges, nur das ist mir noch unklar.
 ~ innis
-| (:sly)What //does// {#@fi-nametag} send her robot dog to do?
-| To prove her loyalty, I think.
+| (:sly)Was hatt {#@fi-nametag} bloss mit ihrem robotischen Hündchen vor?
+| Vielleicht um dessen Treue zu beweisen?
 ~ player
-- My business is my business.
+- Das ist meine Sache
   ~ innis
-  | If that's your prerogative.
-  | But you'll be pleased to ken that "{#@alex-nametag} is here"(orange).
-- I'm looking for someone called {#@alex-nametag}, have you seen them?
+  | Das sehen wir noch.
+  | Aber du wirst sicher erfreut sein zu hören, dass "{#@alex-nametag} heir ist"(orange).
+- Ich suche nach {#@alex-nametag}. Hast du ihn gesehen?
   ~ innis
-  | (:sly)You see, sister, the direct approach once again yields results - and confirms my information.
-  | (:normal)You'll be pleased to ken that "{#@alex-nametag} is here"(orange).
-- Fuck you.
+  | (:sly)Siehst du, Schwester! Mit Direktheit erzielt man Resultate!
+  | (:normal)Du wirst sicher erfreut sein zu hören, dass "{#@alex-nametag} heir ist"(orange).
+- Fick dich
   ~ islay
   | ...
   ~ innis
   | (:angry)...
-  | I remember your kind! You think you're clever just 'cause you can mimic us.
-  | You're a machine, and if I wanted I could have you pulled apart and scattered to the four corners of this valley.
-  | (:normal)Now, let's try again.
-  | You'll be pleased to ken that the one you seek, "{#@alex-nametag}, is here"(orange).
+  | Ich erinner mich noch an //euch//. Denkt ihr seit besonders schlau, nur weil ihr euch für Menschen abgeben könnt!
+  | Du bist eine Maschine, nichts weiter, und wenn ich es so möchte, könnte ich dich auseinander nehmen.
+  | (:normal)Also, probieren wir das norhmals.
+  | Du wirst sicher erfreut sein zu hören, dass "{#@alex-nametag} heir ist"(orange).
 ~ innis
-| Indulge me, would you? I want to see how smart you are.
-| See if you can "find them"(orange) for yourself.
+| Gib mer ne kleine Show, OK? Ich will sehen was du drauf hast.
+| "Finde {#@alex-nametag}"(orange).
 ! eval (deactivate 'innis-stop-remote)
 ! eval (deactivate (unit 'innis-stop-2))
 ! eval (deactivate (unit 'innis-stop-3))
@@ -82,75 +80,69 @@
 | ! eval (deactivate (unit 'player-stop-cerebats))
 ? (active-p 'find-alex-semis-route)
 | ! eval (deactivate 'find-alex-semis-route)
-; dinnae = don't (Scots)
-; ken = know (Scots)
 
-; Similar to the "local" version above, but tweaked to suit Innis being remote.
-; The body is the same in local and remote, but remote has different start and ending dialogue (hence why can't jump to a label, as don't know which one jump back to - could set a variable to branch, but could get finicky if wanted more differences between the two; hence copy-paste-edit)
 # find-alex/innis-stop-remote
-~ innis
-| (:angry)<-STOP-> WHERE YOU ARE!
-| Did you think ya could just waltz right through here?
-| (:sly)We've been watching you, android. You and your wee excursions with {#@catherine-nametag}.
-| And now you've come to visit us. How thoughtful.
-! label questions
+| (:angry)<-STOP->!
+| Hast du wirklich gedacht, du könntest einfach hier reinwaltzen?
+| (:sly)Wir haben dich beobachtet, Android. Dich, und deine kleinen Abenteuer mit {#@catherine-nametag}.
+| Und jetzt besuchst du auch uns. Wie schön!
 ~ player
-- Who are you?
+- Wer bist du?
   ~ innis
-  | (:sly)You'll find out soon enough.
-- Where are you?
+  | Hmm, leider nicht zu intelligent...
+- Wo bist du?
   ~ innis
-  | (:sly)Close by.
-- What do you want?
+  | (:sly)In der nähe.
+- Was willst du?
   ~ innis
-  | (:sly)I'll ask the questions if ya dinnae mind.
-- Are you the Semi Sisters?
+  | (:sly)Ich stell die Fragen hier.
+- Bist du teil der Semi Schwesternschaft
   ~ innis
-  | (:sly)I'll ask the questions if ya dinnae mind.
+  | (:sly)Ich stell die Fragen hier.
 ~ innis
-| (:sly)What //should// we do with you? I bet your Genera core could run our entire operation.
-| What do you think, "{#@islay-nametag}"(yellow)?
+| (:sly)Was machen wir nur mit dir? Ich wette dein Genera Core hätte einige wertvolle Geheimnisse in sich.
+| Was denkst du, "{#@islay-nametag}"(yellow)?
 ! eval (setf (nametag (unit 'islay)) (@ islay-nametag))
 ~ islay
-| (:nervous)I think you should leave her alone.
+| (:nervous)Ich denke du solltest sie in ruhe lassen.
 ~ innis
 | (:angry)...
-| (:normal)Come now, sister - you're speaking with the pinnacle of human engineering, and that's all you can say?
-| (:sly)That wasn't a compliment by the way, android. (:normal)But let's no' get off on the wrong foot now.
+| (:normal)Komm schon, Schwester! Die grösste menschliche Errungenschaft steht vor dir, und das ist alles was du sagen kannst?
+| (:sly)Das ist kein Kompliment an dich, nur damit das klar ist.
 ~ player
-- My name's {(nametag player)}.
+- Ich bin {(nametag player)}.
   ~ innis
-  | This I ken, android. (:sly)Tell me, why are you here?
+  | Das weiss ich schon. (:sly)Sag mir, warum bist du hier?
 - ...
   ~ innis
-  | (:sly)Why are you here? I ken lots about you, but I want more.
+  | (:sly)Warum bist du hier? Ich weiss schon einiges, nur das ist mir noch unklar.
 ~ innis
-| (:sly)What //does// {#@fi-nametag} send her robot dog to do?
-| To prove her loyalty, I think.
+| (:sly)Was hatt {#@fi-nametag} bloss mit ihrem robotischen Hündchen vor?
+| Vielleicht um dessen Treue zu beweisen?
 ~ player
-- My business is my business.
+- Das ist meine Sache
   ~ innis
-  | If that's your prerogative.
-  | But you'll be pleased to ken that "{#@alex-nametag} is here"(orange).
-- I'm looking for someone called {#@alex-nametag}, have you seen them?
+  | Das sehen wir noch.
+  | Aber du wirst sicher erfreut sein zu hören, dass "{#@alex-nametag} heir ist"(orange).
+- Ich suche nach {#@alex-nametag}. Hast du ihn gesehen?
   ~ innis
-  | (:sly)You see, sister, the direct approach once again yields results - and confirms my information.
-  | (:normal)You'll be pleased to ken that "{#@alex-nametag} is here"(orange).
-- Fuck you.
+  | (:sly)Siehst du, Schwester! Mit Direktheit erzielt man Resultate!
+  | (:normal)Du wirst sicher erfreut sein zu hören, dass "{#@alex-nametag} heir ist"(orange).
+- Fick dich
   ~ islay
   | ...
   ~ innis
   | (:angry)...
-  | I remember your kind! You think you're clever just 'cause you can mimic us.
-  | You're a machine, and if I wanted I could have you pulled apart and scattered to the four corners of this valley.
-  | (:normal)Now, let's try again.
-  | You'll be pleased to ken that the one you seek, "{#@alex-nametag}, is here"(orange).
+  | Ich erinner mich noch an //euch//. Denkt ihr seit besonders schlau, nur weil ihr euch für Menschen abgeben könnt!
+  | Du bist eine Maschine, nichts weiter, und wenn ich es so möchte, könnte ich dich auseinander nehmen.
+  | (:normal)Also, probieren wir das norhmals.
+  | Du wirst sicher erfreut sein zu hören, dass "{#@alex-nametag} heir ist"(orange).
 ~ innis
-| Indulge me, would you? I want to see how smart you are.
-| See if you can "find them"(orange) for yourself.
+| Gib mer ne kleine Show, OK? Ich will sehen was du drauf hast.
+| "Finde {#@alex-nametag}"(orange).
 ~ player
-| "She's gone. That was an FFCS broadcast, from somewhere nearby."(light-gray, italic)
-| "That means "{#@alex-nametag} is close"(orange). Unless it's a trap."(light-gray, italic)
+| "Und sie ist weg. Das war eine FFCS Kommunikation, irgendwo in der Nähe"(light-gray, italic)
+| "Was bedeutet, dass "{#@alex-nametag} auch nahe ist"(orange). Ausser das ist eine Falle..."(light-gray, italic)
 ! eval (deactivate 'innis-stop-local)
 ! eval (deactivate (unit 'innis-stop-1))
 ! eval (deactivate (unit 'innis-stop-2))
@@ -167,17 +159,15 @@
 | ! eval (deactivate (unit 'player-stop-cerebats))
 ? (active-p 'find-alex-semis-route)
 | ! eval (deactivate 'find-alex-semis-route)
-; dinnae = don't (Scots)
-; ken = know (Scots)
 
 # find-alex-cerebats/player-stop-cerebats
 ~ player
-| "Hmmm, I don't think {#@alex-nametag} is here."(orange, italic)
-| (:thinking)"Perhaps I missed them en route - I should "follow the path back up towards the Semi Sisters"(orange)."(light-gray, italic)
+| "{#@alex-nametag} scheint nicht hier zu sein."(orange, italic)
+| (:thinking)"Vielleicht hab ich ihn auf dem Weg verpasst. "Ich sollte entlang der Route aufwärts nach ihm schauen"(orange)."(light-gray, italic)
 
 # find-alex-semis/islay-hint
 ~ islay
-| Hello, {(nametag player)}. It's an honour to meet you.
+| Hallo, {(nametag player)}. It's an honour to meet you.
 | (:nervous)I'm sorry about my sister.
 | (:normal)If you're looking for "{#@alex-nametag}, try the bar"(orange). It's "on the level above us"(orange).
 | Just don't tell "{#@innis-nametag}"(yellow) I told you. She'll think I've gone soft for androids.
