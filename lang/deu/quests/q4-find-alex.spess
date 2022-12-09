@@ -167,144 +167,135 @@
 
 # find-alex-semis/islay-hint
 ~ islay
-| Hallo, {(nametag player)}. It's an honour to meet you.
-| (:nervous)I'm sorry about my sister.
-| (:normal)If you're looking for "{#@alex-nametag}, try the bar"(orange). It's "on the level above us"(orange).
-| Just don't tell "{#@innis-nametag}"(yellow) I told you. She'll think I've gone soft for androids.
+| Hallo, {(nametag player)}. Es ist eine Ehre dich zu treffen.
+| (:nervous)Ich entschuldige mich vielmals für meine Schwester.
+| (:normal)Wenn du "{#@alex-nametag} suchst, versuchs in der Bar"(orange). Die ist gleich "über uns"(orange).
+| Sag einfach "{#@innis-nametag}"(yellow) nicht, dass ich dir geholfen hab. Sonst denkt sie noch ich hätte was für Androiden.
 ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
 ! eval (setf (var 'android-soft) T)
 
-; Alex speaks London multicultural English
-; the barkeep in this scene is female
 # find-alex-semis/alex-meet
 ~ player
-| "This person's breath smells like diesel mixed with seaweed."(light-gray, italic)
+| "Der Geruch... Der hier stinkt wie ein Fass überreifer Most."(light-gray, italic)
 ~ alex
-| (:angry)What you looking at? <-Hic->.
+| (:angry)Was guckst du so dumm? <-Hic->.
 ~ player
 - {#@alex-nametag}?
-- (Lie) I wasn't looking at you.
+- (Lie) Ich gucke nicht
   ~ alex
-  | (:angry)Goes away then.
+  | (:angry)Dann hau ab
   ~ player
-  | Are you {#@alex-nametag}?
-- A drunk in a bar.
-  ~ alex
-  | (:angry)'Ow dare you.
-  ~ player
-  | Are you {#@alex-nametag}?
+  | Bist du {#@alex-nametag}?
 ~ alex
-| I ain't Alice.
+| Was? Alice? Bin ich nicht.
 ~ player
-| I said "{#@alex-nametag}" not "Alice".
+| Ich hab "{#@alex-nametag}" gesagt, nicht "Alice".
 ~ alex
-| <-Hic->. That's what I said.
+| <-Hic->. Genau, Alice.
 ~ player
-| Oh boy.
-| Are you {#@alex-nametag} from the Noka? Do you know {#@fi-nametag}?
+| Meine Güte...
+| Bist du {#@alex-nametag} von den Noka? Kennst du {#@fi-nametag}?
 ~ alex
 | ...
-| Yeah that's me. <-Hic->.
+| Ja das bin ich. <-Hic->.
 ! eval (setf (nametag (unit 'alex)) (@ alex-nametag))
 ~ player
-- My name is {(nametag player)}.
+- Ich bin {(nametag player)}.
   ~ alex
-  | <-Hic->. I know. You're the new hunter.
-  | The android.
-- {#@fi-nametag} sent me.
+  | <-Hic->. Ja ich weiss. Du bist der neue Jäger.
+  | Der Android.
+- {#@fi-nametag} hat mich geschickt
   ~ alex
-  | <-Hic->. I know. You're the new hunter.
-  | The android.
-- I'm an android.
+  | <-Hic->. Ja ich weiss. Du bist der neue Jäger.
+  | Der Android.
+- Ich bin ein Android
   ~ alex
-  | You wanna medal? <-Hic->. I know who you are. You're the new hunter.
+  | Und was? Willst ne Medallie? <-Hic->. Ich weiss wer du bist, du bist der neue Jäger.
 ~ alex
-| Lemme save you some trouble. "I ain't going back"(orange).
+| Ich spar dir die Arbeit: "Ich geh nicht zurück"(orange).
 ~ player
-- Why not?
+- Warum nicht?
   ~ alex
-  | (:angry)You really gotta ask that?
+  | (:angry)Musst du das echt wissen?
   | ...
-  | Alright, you asked for it: <-Hic->. "You're the reason"(orange).
-- It's important that you do.
+  | Na gut, du hast gefragt: <-Hic->. "Wegen dir"(orange).
+- Aber das ist wichtig!
   ~ alex
-  | No it ain't. Far from it.
+  | Nein ist es wirklich nicht.
 ~ alex
-| (:angry)I've 'eard about you, doing my job- <-Hic->.
-| "{#@innis-nametag}"(yellow) even showed me the CCCTV. Semi Sisters been nice to me.
+| (:angry)Ich hab gehört was du machst, nimmst mir meinen Job weg- <-Hic->.
+| "{#@innis-nametag}"(yellow) hat mir sogar die Videoaufnahmen gezeigt. Die Schwesternschaft ist nett zu mir.
 ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
-| "So why would {#@fi-nametag} need little ol' me any more?"(orange)
+| "Dann sag mir, warum sollte {#@fi-nametag} mich noch brauchen?"(orange)
 ~ player
-- Can't we both be hunters?
+- Können wir nicht beide helfen?
   ~ alex
-  | (:angry)No we bloody can't!
-- But this is what I'm good at too.
+  | (:angry)Nein können wir verdammt nochmal nicht!
+- Aber das ist auch was ich kann
   ~ alex
-  | Hunting? Tough titty.
-- I'm sorry.
+  | Jäger sein. Tja.
+- Tut mir leid
   ~ alex
-  | Bit late for that.
+  | Bissl spät dafür.
 ~ alex
-| Run along matey - <-hic-> - an' tell {#@fi-nametag} to spin on that, why dontcha?
+| Jetzt hau ab - <-hic-> - und sag {#@fi-nametag} sie soll sichs stecken, verstanden?
 ~ player
-| Do you know about the Wraw's plan to attack the Noka?
+| Weisst du, dass die Wraw uns angreiffen wollen?
 ~ alex
-| They're always planning to attack. <-Hic->. This just {#@fi-nametag} getting her knickers in a twist again.
-| (:angry)<-Hic->. Speaking o' twists, can't a geezer get a refill round 'ere? __BARKEEP!__
+| Das wollen die schon ewig. <-Hic->. Ist nur {#@fi-nametag} wieder mal beim Panick machen.
+| (:angry)<-Hic->. Wenn wir schon von Panick sprechen, ich krieg gleich eine wenn ich nix mehr zu trinken hab. __BARMANN!__
 ~ player
-| "They're not going to get anyone's attention like that."(light-gray, italic) (:embarassed)"Oh great, now the barkeep's scowling at me too."(light-gray, italic)
+| "Ich glaub nicht, dass er so was bekommen wirt."(light-gray, italic) (:embarassed)"Na super, jetzt starrt sie mich auch noch an."(light-gray, italic)
 ~ player
-- (Buy {#@alex-nametag} another drink - 40)
+- (Kauff {#@alex-nametag} ein Bier - 40)
   ? (<= 40 (item-count 'item:parts))
   | ! eval (retrieve 'item:parts 40)
   | ! eval (status "Lost 40 Scrap Part")
   | ~ alex
-  | | Ugh, thansssks. <-Hic->.
+  | | Ugh, dankschön. <-Hic->.
   | ~ player
-  | | "I'm not surprised the barkeep won't look at me while she pours the drink."(light-gray, italic)
-  | | "Instead she's watching the dirty, soulless liquid slosh into Alex's can."(light-gray, italic)
+  | | "Der Barmann, oder sollte ich sagen, die Barfrau will mir nicht einmal in die Augen schauen."(light-gray, italic)
   | ~ player
-  | | "Wow, Alex downed it in one."(light-gray, italic)
-  | | (:embarassed)"Are they going to throw up?!... I should move."(light-gray, italic)
-  | | (:normal)"Oh, they swallowed it back down. Lovely."(light-gray, italic)
-  | | "I'm glad that can't happen to androids."(light-gray, italic)
+  | | "Wow, Alex hatt das in einem Zug runtergespült."(light-gray, italic)
+  | | (:embarassed)"Uh-oh, kommts wieder nach oben?!... Ich sollte mich vom Acker machen."(light-gray, italic)
+  | | (:normal)"Ah, nein, Falschalarm. Er hats wieder runtergeschluckt. Toll."(light-gray, italic)
+  | | "Die menschliche Gastronomie ist sehr appetitlich."(light-gray, italic)
   |?
   | ~ player
-  | | (:embarassed)"I don't have enough scrap for that. I didn't think the barkeep's brow could furrow any more, but it has."(light-gray, italic)
-- (Buy {#@alex-nametag} a soft drink - 20)
+  | | (:embarassed)"Verdammt, ich hab nicht genug Geld dafür. Hätte nicht gedacht, dass der Barmann mich noch stärker anstarren könnte..."(light-gray, italic)
+- (Kauff {#@alex-nametag} einen Softdrink - 20)
   ? (<= 20 (item-count 'item:parts))
   | ! eval (retrieve 'item:parts 20)
   | ! eval (status "Lost 20 Scrap Part")
   | ~ player
-  | | "I'm not surprised the barkeep won't look at me while she pours the drink."(light-gray, italic)
-  | | "Instead she's watching the rouge, carbonated liquid slosh into Alex's can. It smells like beetroot."(light-gray, italic)
+  | | "Der Barmann, oder sollte ich sagen, die Barfrau will mir nicht einmal in die Augen schauen."(light-gray, italic)
   | ~ alex
-  | | (:angry)This ain't booze! What am I suppossed to do wiv this? <-Hic->.
+  | | (:angry)Hey, das ist kein Bier! Wass soll ich mit der Schlürze anfangen? <-Hic->.
   | ~ player
-  | | "Oh, they're drinking it anyway."(light-gray, italic)
+  | | "Oh. Und runter gehts trotzdem."(light-gray, italic)
   |?
   | ~ player
-  | | (:embarassed)"I don't have enough scrap for that. I didn't think the barkeep's brow could furrow any more, but it has."(light-gray, italic)
-- (Don't buy them a drink)
+  | | (:embarassed)"Verdammt, ich hab nicht genug Geld dafür. Hätte nicht gedacht, dass der Barmann mich noch stärker anstarren könnte..."(light-gray, italic)
+- (Kauff ihm nichts)
 ~ player
-| "Whoa, {#@alex-nametag} nearly fell over. I'm not sure they can see straight. Now they're looking at me again."(light-gray, italic)
+| "Whoa, {#@alex-nametag} ist fast umgefallen. Ich bin mir nicht sicher, ob er überhaupt sehen kann."(light-gray, italic)
 ~ alex
-| You're a stenacious one, aren't ya? <-Hic->.
+| Du lässt nicht nach, was? <-Hic->.
 ~ player
-- Did you learn anything from the Cerebats?
+- Hast du etwas von den Cerebat gelernt?
   ~ alex
-  | I learned where all the tunnels go. <-Hic->. Mapped that whole area, an' the one below that.
-- Where have you been all this time?
+  | Hab gelernt wo all die Tunnell hin führen. <-Hic->. Ganzen bereich aufgezeichnet.
+- Wo warst du die ganze Zeit?
   ~ alex
-  | 'Ere, mostly.
-  | Oh, an' I mapped this whole area, an' the ones below that.
+  | Vor allem hier.
+  | Oh, und hab den ganzen Bereich aufgezeichnet. Auf ner schönen Karte.
 ~ player
-| Those maps could really help me.
+| Das wär echt hilfreich für mich.
 ~ alex
-| (:angry)You mad? I give you these an' I really would have nuffin'. <-Hic->.
-| Now get lost.
-| (:normal)Actually, before you go: Did you know it was me that found you? <-Hic->. I told {#@catherine-nametag} where you were.
-| I was just runnin' along an' there you were. Exposed by an earthquake I reckon. <-Hic->. I pulled you outta the rubble.
-| (:angry)Now I wish I'd kept my mouth shut an' smashed you up instead.
+| (:angry)Gehts noch? Warum sollte ich die dir denn geben? <-Hic->.
+| Jetzt verpiss dich.
+| (:normal)Oh, hast du gewusst, dass ich der erste war, der dich gefunden hatt? <-Hic->. Ich hab {#@catherine-nametag} darüber erzählt.
+| Ich war einfach am rumschauen, und dort bist du gelegen, in den Trümmern. <-Hic->. Hab dich rausgezogen.
+| (:angry)Grösster Fehler meines Lebens!
 ! eval (deactivate 'islay-hint)
 

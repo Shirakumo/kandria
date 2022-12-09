@@ -1,75 +1,75 @@
 # 1-interact-fi/interaction
 ~ fi
-| Okay, it's like this: The Wraw are almost certainly coming to reclaim us.
-| But we cannot defend ourselves without knowing their plans: where they'll attack, and more importantly //when//.
-| {#@alex-nametag} was hunting in "Cerebat territory"(red) deeper underground, and might have the answers we need. It's a plentiful place of traders and diplomats.
-| (:unsure)But they've been gone a long time now. Too long.
-| (:normal)I want you to "find {#@alex-nametag} and bring them back"(orange) for debriefing.
-| They've got "blonde hair, they're probably not quite as tall as you, and they've a British accent"(orange). You might have to "ask around"(orange).
-| To reach the Cerebats township you'll need to pass through lands controlled by the tech-witch "Semi Sisters"(red).
-| We have good relations so it //should// be okay. They built the infrastructure that keeps us going, like the water pump and telephones.
-| You can reach their land "through the floor in the pump room"(orange).
-| But they've never seen an android before - not since before the Calamity at least. Hopefully they'll play nice.
-| If not... you'll have to improvise.
+| Also, die Situation ist so: die Wraw sind praktisch garantiert auf unseren Spuren.
+| Aber wir können uns nicht verteidigen, wenn wir ihre Pläne nicht wissen: wo sie angreiffen, und wichtiger, //wann//.
+| {#@alex-nametag} sollte im "Cerebat gebiet"(red) weiter unten nach Information am suchen sein.
+| (:unsure)Aber wir haben schon lange nicht mehr von ihm gehört. Zu lange.
+| (:normal)Ich möchte, dass du "{#@alex-nametag} findest und ihn zurück bringst"(orange).
+| Er hatt "blondes Haar, und ist ein bisschen kleiner als du"(orange). Womöglich must du "nach ihm fragen"(orange).
+| Um die Cerebat Region zu erreichen musst du durch das Gebiet der "Semi Schwesternschaft"(red) gehen.
+| Wir haben ein gutes Verhältnis, von dem her sollte das in Ordnung sein. Sie haben einiges an Infrastruktur aufgebaut, dir wir auch benutzen.
+| Es gibt einen Weg zu ihnen "unter dem Pumpenraum"(orange).
+| Aber sie haben seit der Katastrophe keinen Androiden mehr gesehen... Hoffentlich gibt das kein Problem.
+| Und wenn, dann improvisier einfach.
 ~ player
-- Improvise?
+- Improvisieren?
   ~ fi
-  | Are you familiar with the concept?
-  | (:unsure)... I apologise, that came out wrong. I meant, can androids...?
-  | (:normal)... I think you've answered this question already.
-  | I'm sorry I can't be more specific. Just be prepared for anything.
-- I'll be fine.
+  | Weisst du was das ist?
+  | (:unsure)... Sorry, das kam falsch raus. Ich meine... können Androide...?
+  | (:normal)... Uhm. Ich glaube du hast die Frage bereits beantwortet.
+  | Was ich meine ist, dass du dich auf alles gefasst machen solltest.
+- Das ist kein Problem
   ~ fi
-  | (:happy)I believe you will.
-- I'm designed for that.
+  | (:happy)Ich glaube dir.
+- Dafür bin ich gemacht
   ~ fi
-  | You're a remarkable piece of-
-  | (:unsure)... Person. (:normal)You're a remarkable //person//.
+  | Wortwörtlich, oder?...
+  | (:unsure)Sorry, ich hab nix gesagt.
 ~ fi
-| Is everything clear? You know what you need to do?
+| Ist alles klar? Du weisst, was du machen musst?
 ~ player
-- I have some questions.
+- Ich hab noch ein paar Fragen
   ~ fi
-  | Of course.
+  | In ordnung.
   < questions
-- It's clear.
+- Alles klar
   ~ fi
-  | Excellent.
+  | Super.
   < end
 # questions
 ~ player
-- (Ask about {#@alex-nametag})
+- (Frag nach {#@alex-nametag})
   ~ fi
-  | They're a hunter, like you. They've been with us from the beginning.
-  | I hope you'll meet them soon - it would be nice to get to know them yourself.
-  | Two hunters is a luxury. I'm excited to see what you can do together.
+  | Alex ist ein Jäger, wie du. Er war schon seit dem Anfang bei uns dabei.
+  | Ich hoffe du triffst ihn bald - es wäre schön, wenn du ihn endlich kennen lernst.
+  | Zwei Jäger ist ein wahrer Luxus, muss ich sagen.
   < questions
-- (Ask about the Semi Sisters)
+- (Frag über die Semi Schwesternschaft)
   ~ fi
-  | They're tech witches, old enough to remember before the Calamity. They worked for Semi and a bunch of other megacorps.
-  | They keep the power and water on in this whole area, and don't seem to mind if we siphon a little off.
-  | Two sisters are in charge. It would be best to avoid them for now.
+  | Die Semis haben schon vor der Katastrophe existiert. Sie waren ein teil der Semi Firma, einer der alten Megafirmen.
+  | Sie haben die Kontrolle über das Wasser und die Energie in diesem bereich, aber scheinen kein Problem damit zu haben etwas davon mit uns zu teilen.
+  | Zwei Schwestern sind die Anführer von ihnen. Am besten vermeidest du sie.
   < questions
-- (Ask about the Cerebats)
+- (Frag über die Cerebats)
   ~ fi
-  | I suppose they're the closest thing there is to a council in the valley.
-  | They manage trade and arbitrate disputes between factions.
-  | But I think most people know who's really pulling the strings.
-  | Perhaps I should be surprised that politics survived the apocalypse. (:annoyed)But I'm not.
+  | Die Cerebat sind weniger eine konkrete Fraktion, und mehr eine sammlung von Händlern.
+  | Ihr Kollegium ist für Konfliktresolution zwischen den Faktionen und Händlern zuständig.
+  | Zumindest in Theorie hatt dieses Kollegium die Kontrolle, aber jeder weiss, das das so nicht ganz stimmt.
+  | (:annoyed)Leider hatt die Politik die Katastrophe überlebt.
   < questions
-- Do you trust me yet?
+- Vertraust du mir?
   ~ fi
-  | This is not the kind of task for someone you don't trust.
-  | Of course, you'd be right if you said I don't have a choice. No one else can do this.
+  | Das ist nicht eine Aufgabe, die ich jemandem geben kann, dem ich nicht vertraue.
+  | Aber du hast auch recht, wenn du sagst dass es Niemand anders gibt, den ich fragen könnte.
   < questions
-- That'll do.
+- Alles klar
   < end
 # end
 ~ fi
-| See {#@trader-nametag} if you haven't already and buy some supplies - it will be a long journey.
-| {#@catherine-nametag} tells me your "FFCS works with our radios"(orange). You'll be deep underground, and I'd like you to "keep in contact"(orange).
-| As {#@alex-nametag} has shown, falling off the grid isn't helpful.
-| So please stay in touch - you can call me day or night.
+| Schau bei {#@trader-nametag} vorbei, wenn du das noch nicht gemacht hast.
+| {#@catherine-nametag} hatt mir gesagt, dass du uns via "FFCS aus der Ferne erreichen kannst"(orange). Bitte informier mich, wenn etwas passiert.
+| Wie {#@alex-nametag} gezeigt hatt, es gibt uns grosse Schwierigkeiten, wenn jemand verschwindet.
+| Also bleib bitte in Kontakt.
 ! eval (setf (location 'innis) 'innis-intercept)
 ! setf (direction 'innis) -1
 ! eval (setf (location 'islay) 'islay-intercept)
