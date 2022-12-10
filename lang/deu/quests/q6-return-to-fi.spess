@@ -1,119 +1,114 @@
 # leave-semis/fi-ffcs
 ~ player
-| "I might as well call {#@fi-nametag} from here. There's nowhere the Semis don't have eyes and ears."(light-gray, italic)
-| (:normal)Hello, {#@fi-nametag}, it's me.
+| "Ich kann {#@fi-nametag} genau so gut auch von hier anrufen. Die Semis scheinen ja überall Ohren zu haben."(light-gray, italic)
+| (:normal)Hallo, {#@fi-nametag}.
 | ... {#@fi-nametag}?
-| (:thinking)"Something's "interfering with my FFCS signal"(orange)."(light-gray, italic)
-| (:normal)"I probably have {#@innis-nametag} to thank for that. I doubt I'll be able to use the phone either."(light-gray, italic)
-| "Alright, if they don't want me calling home, I'll "go on foot"(orange)."(light-gray, italic)
+| (:thinking)"Etwas "stört mein FFCS Signal"(orange)."(light-gray, italic)
+| (:normal)"Vermutlich ist das {#@innis-nametag}' Schuld. Ich glaube auch nicht, dass das Telefon funktionieren wird."(light-gray, italic)
+| "OK, wenn ich nicht anrufen kann, dann "geh ich zu fuss"(orange)."(light-gray, italic)
 ? (unlocked-p (unit 'station-surface))
-| | (:giggle)"Or maybe I'll "take the train"(orange)!"(light-gray, italic)
+| | (:giggle)"Oder warum nicht "mit dem Zug"(orange)!"(light-gray, italic)
 ! eval (activate 'return-fi)
 ! eval (deactivate (unit 'fi-ffcs-1))
 ! eval (deactivate (unit 'fi-ffcs-2))
 ! eval (deactivate (unit 'fi-ffcs-3))
-; (unlocked-p (unit 'station-surface)) - should be force unlocked now by this point, so the check is redundant; but a good safeguard to keep
 
 # return-fi/talk-fi
 ~ fi
-| (:annoyed)I was starting to worry. Why didn't you call? Where's {#@alex-nametag}?
+| (:annoyed)Ich hatte schon Angst. Warum hast du nicht angerufen, und wo ist {#@alex-nametag}?
 ~ player
-- I got waylaid.
+- Ich wurde abgelenkt
   ~ fi
-  | (:annoyed)Waylaid? What was more important than bringing {#@alex-nametag} back?
-- {#@alex-nametag} isn't coming back yet.
+  | (:annoyed)Abgelenkt? War das wichter als {#@alex-nametag} zurück zu bringen?
+- {#@alex-nametag} kommt noch nicht zurück
   ~ fi
-  | (:unsure)Are they okay? What happened?
-- My FFCS couldn't cut through.
+  | (:unsure)... Was ist passiert?
+- Mein FFCS konnte nicht verbinden
   ~ fi
-  | (:annoyed)... Why not?
+  | (:annoyed)... Warum nicht?
   ~ player
-  | The Semis are running some kind of interference - it blocked the signal.
+  | Ich vermute, dass die Semis das Signal stören.
   ~ fi
-  | (:unsure)The Semi Sisters? You were meant to find {#@alex-nametag} with the Cerebats.
+  | (:unsure)Die Semi Schwesternschaft? Du hättest {#@alex-nametag} bei den Cerebat finden sollen.
 ~ player
-| I found them in the Semi Sisters bar, drunk. They won't cooperate.
-| They aren't happy that I became a hunter. They think I've stolen their job.
+| Ich hab ihn in der Bar der Semis gefunden. Betrunken.
+| Er ist nicht glücklich darüber, dass ich ein Jäger geworden bin, und denkt ich hätte seinen Job gestohlen.
 ~ fi
 | (:unsure)Oh...
 ~ player
-| They did say they'd mapped the regions beneath the Semi Sisters, so they might know something about the Wraw.
-| But they weren't exactly clear, or forthcoming. I let {#@islay-nametag} talk to them while I ran some errands.
+| Er hatt auch gesagt, dass er die Region unter den Semis aufgezeichnet hatt, und könnte etwas über die Wraw erfahren haben.
+| Aber er war nicht bereit mir mehr zu erzählen. {#@islay-nametag} hatt mit ihm gesprochen während dem ich ein paar Aufgaben für sie erledigt hab.
 ~ fi
-| (:annoyed)Damn. This is not the time for this.
-| {#@alex-nametag} has had this problem before.
-| (:normal)We'll have to leave them for now, and hope {#@islay-nametag} can get through.
-| So, you met {#@islay-nametag}. (:unsure)What about {#@innis-nametag}?
+| (:annoyed)Verdammt. Dafür haben wir keine Zeit.
+| {#@alex-nametag} hatte dieses Problem auch schon früher.
+| (:normal)Für den Moment müssen wir ihn alleine lassen und hoffen, dass {#@islay-nametag} ihn überzeugen kann.
+| (:unsure)Hast du auch {#@innis-nametag} getroffen?
 ~ player
-- I met them both.
-- She's almost as bad as {#@jack-nametag}.
-- How could I forget.
+- Ich hab beide getroffen
+- Sie ist fast so schlimm wie {#@jack-nametag}
+- Wie könnte ich sie vergessen
 ~ fi
-| I'm sorry you had to meet them. (:happy)At least you're still intact.
+| Das tut mir leid (:happy)Wenigstens bist du noch in einem Stück.
 ~ player
-| {#@innis-nametag} also thinks the Wraw have invaded the Cerebats - and that the Semi Sisters are next.
+| {#@innis-nametag} denkt, dass die Wraw die Cerebat invadiert haben und sie als nächstes dran kommen.
 ~ fi
-| (:annoyed)Does she. And what proof does she have of that?
+| (:annoyed)Aha. Und was hatt sie als Beweismittel dafür?
 ~ player
-| A group of Rogues crossed the Semi-Cerebat border and took down their CCTV.
-| Then I took them down.
+| Eine Bande Rogues hatt die Grenze überquert und ihre Kameras sabotiert.
 ~ fi
-| I'm sure you did.
-| Did she say anything else?
+| Und sonst noch was?
 ~ player
-- She wants {#@catherine-nametag} back or she's turning the water off.
-- You won't like it.
+- Sie droht das Wasser ab zu schalten
+  | Wenn {#@catherine-nametag} nicht zurück kommt.
+- Das wirst du nicht mögen
   ~ fi
-  | (:annoyed)I don't like anything {#@innis-nametag} says. But I still want to hear it.
+  | (:annoyed)Ich mag nix, was {#@innis-nametag} sagt. Aber ich muss es trotzdem hören
   ~ player
-  | She said she wants {#@catherine-nametag} back or she'll turn the water off.
-- (Lie) Nothing of consequence.
+  | Wenn wir {#@catherine-nametag} nicht zurückgeben, dann stellt sie das Wasser ab.
+- (Lie) Nichts von Konsequenz
   ~ fi
-  | (:annoyed)I'll be the judge of that.
+  | (:annoyed)Das werd ich selber beurteilen.
   ~ player
-  | She said she wants {#@catherine-nametag} back or she'll turn the water off.
+  | Wenn wir {#@catherine-nametag} nicht zurückgeben, dann stellt sie das Wasser ab.
 ~ fi
 | (:unsure)...
-| Do you think she meant it?
+| Meint sie das ernst?
 ~ player
-- You know her better than I do.
+- Du kennst sie besser als ich
   ~ fi
-  | (:unsure)I wouldn't go that far. But...
-- I think we have to assume that she did.
-- Knowing {#@innis-nametag}, that's a yes.
+  | (:unsure)Das würde ich nicht sagen...
+- Müssen wir annehmen
+- So wie ich sie kenne, ja
 ~ fi
-| (:annoyed)Damn.
-| {#@catherine-nametag} was raised by the Semi Sisters, as you might have guessed from her skills.
-| But she came with us when we left the Wraw.
-| She doesn't want to go back, even though I know she'd do it to help us.
+| (:annoyed)Verdammt.
+| {#@catherine-nametag} wurde von ihnen aufgezogen, wie du vielleicht erraten hast.
+| Aber sie ist mit uns mitgekommen, als wir die Wraw verlassen haben.
+| Sie will nicht zurück, auch wenn sie es machen würde um uns zu helfen.
 ~ player
-- Are you sure?
+- Bist du sicher?
   ~ fi
-  | (:annoyed)They treated her like shit. Just like they did with you.
-- Have you asked her?
+- Hast du sie gefragt?
   ~ fi
-  | I don't have to. (:annoyed)They treated her like shit. Just like they did with you.
-- She doesn't want to go back? Or you don't want her to go back?
+  | Muss ich nicht.
+- Will sie nicht zurück, oder du willst sie nicht hergeben?
   ~ fi
-  | {#@catherine-nametag} is an asset, obviously she is. But she's also our friend.
-  | (:annoyed)The Semi Sisters treated her like shit. Just like they did with you.
+  | {#@catherine-nametag} ist uns wertvoll, natürlich. Aber sie ist auch unsere Freundin.
 ~ fi
-| (:annoyed){#@innis-nametag} is bluffing. She's a spy, a technocrat - a grouch! (:normal)But she's not a killer. She won't turn the water off.
-| (:normal)And as for the Wraw invading the Cerebats: I know you fought Rogues, but that's not proof.
-| (:happy)Rogues are many in Cerebats territory - it's a market district!
-| (:normal)The Wraw might meddle with Cerebat law, but they're not invaders.
-| They want us, not the Cerebats - and certainly not the Semi Sisters.
-| Their leader, "{#@zelah-nametag}"(yellow), takes the easy route. He doesn't fight battles, he goes after the little guy.
+| (:annoyed)Sie haben sie wie Dreck behandelt, genau wie dich auch.
+| {#@innis-nametag} täüscht das nur vor. Sie ist ein Spion, und eine unmögliche Person. (:normal)Aber sie ist keine Mörderinn. Sie wird das Wasser nicht abschalten.
+| (:normal)Und wegen den Cerebat: Ich weiss du hast die Rogues gesehen, aber das ist noch kein Beweis.
+| (:happy)Es gibt einige davon im Cerebat gebiet.
+| (:normal)Die Wraw schummlen herum im Markt, aber eine Invasion geht zu weit.
+| Sie wollen uns, nicht die Cerebat. Und bestimmt nicht die Semis.
+| Ihr Anführer, "{#@zelah-nametag}"(yellow), nimmt immer den einfachen Weg. Er kämpft nicht gerne und geht einfach den schwachen hinterher.
 ~ fi
-| (:happy)Regardless, I'm glad you're back.
+| (:happy)Wie auch immer, ich bin froh, dass du wieder da bist.
 ~ player
-- It's good to be back.
-- I'm glad to see you too.
-- I feel better now I'm back with you.
+- Ich auch
+- Es ist gut wieder da zu sein
+- Ich fühl mich viel wohler bei dir
   ~ fi
-  | (:happy)Me too.
+  | (:happy)Ich auch
 ~ fi
-| (:happy)Goodbye "for now"(orange), {(nametag player)}.
+| (:happy)Bis später, {(nametag player)}.
 ! eval (setf (music-state 'underground-camp) :ambient)
-
-; there are fewer player choices here about the events in Semis territory, as narratively at this stage the PC wants to inform Fi efficiently, and the player already knows what's happened, so there's no fun in jumping through choice hoops in how to report it a second time. However, there are fresh choices about fresh news e.g. Semis wanting Catherine back
