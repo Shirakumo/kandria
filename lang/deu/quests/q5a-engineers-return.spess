@@ -1,9 +1,9 @@
 # 2-interact-/interaction
 ~ player
-| "That's the "tunnel cleared"(orange). Now the Semis can reach their engineers."(light-gray, italic)
-| "I should "report back to {#@innis-nametag} in the Semis control room"(orange)."(light-gray, italic)
+| "Damit ist der "Tunnel geräumt"(orange). Jetzt können die Ingenieure wieder die Semis erreichen."(light-gray, italic)
+| "Ich sollte mich "bei {#@innis-nametag} im Kontrollraum melden"(orange)."(light-gray, italic)
 ? (not (complete-p (find-task 'q5a-rescue-engineers 'task-engineers)))
-| | "Although I've "not confirmed the engineers are alright"(orange) yet - I could "look nearby, or trust they'll be okay"(orange)."(light-gray, italic)
+| | "Obwohl, ich hab die "Ingenieure selber noch nicht kontaktiert"(orange).
   
 ! eval (move-to 'engineer-home-1 'semi-engineer-1)
 ! eval (move-to 'engineer-home-2 'semi-engineer-2)

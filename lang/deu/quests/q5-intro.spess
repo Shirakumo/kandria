@@ -1,129 +1,123 @@
 # 1-interact-innis/interaction
 ~ innis
-| (:angry)What is it, android?
+| (:angry)Was gibts, Android?
 ~ player
-- {#@islay-nametag} sent me.
+- {#@islay-nametag} hatt mich geschikt
   ~ innis
-  | Good. Then I'll assume she told you about the jobs.
-- I'm here to help with the engineers and CCTV.
+  | Gut. Dann nehm ich an, sie hatt dir deine Aufgaben erklärt.
+- Ich bin hier um bei den Ingenieuren und den CCTVs zu helfen
   ~ innis
-  | Now that's more like it.
-- I found {#@alex-nametag}.
+  | Ah. Das tönt vielversprechend.
+- Ich hab {#@alex-nametag} gefunden
   ~ innis
-  | (:sly)Aye. It was hardly a challenge though, was it?
-  | (:normal)I take it {#@islay-nametag} told you about the jobs? Those are real challenges.
+  | (:sly)Mhm. Wohl kaum eine Errungenschaft.
+  | (:normal)Ich nehme an {#@islay-nametag} hatt dir deine Aufgaben erklärt.
 ~ innis
-| (:angry)They'd have been sorted ages ago if {#@alex-nametag} wasn't propping up the bar.
-| (:normal)Dinnae get me wrong, I like a drink as much as the next lass. But you Noka really canna hold ya booze.
-| I hope you're a tad more reliable.
+| (:angry)Das hätte sich alles schon längst geklärt, wenn {#@alex-nametag} nicht an die Bar gefesselt wäre.
+| (:normal)Versteh mich nicht falsch, ich mag mein Bier so gut wie der nächste, aber ihr Noka könnt wirklich nix vertragen.
+| Ich hoffe du bist ein bisschen verlässlicher.
 ~ player
-- I am.
+- Das binn ich
   ~ innis
-  | (:sly)We'll see.
-- I can't get inebriated.
+  | (:sly)Sehen wir noch.
+- Ich kann nicht betrunken werden
   ~ innis
-  | (:sly)Enlighten me. I never fully understood how an android core makes decisions.
-  | (:normal)Does your programming prevent you from drinking? Or can you just physically not get drunk?
+  | (:sly)Oh? Und wie geht das? (:normal)Verbietet dir deine Programmierung zu trinken?
   ~ player
-  - I can't get drunk.
+  - Alkohol macht einfach nichts
     ~ innis
-    | Makes sense. Though you haven't tried what passes for beer these days.
-    | (:sly)It would rot even your insides, I guarantee it!
-  - Nothing prevents me, I just don't drink.
+    | Macht sinn. Aber du hast was wir haben auch noch nicht probiert.
+    | (:sly)Würde auch deine Innereien verrotten.
+  - Nichns hindert mich, ich trinke einfach nicht
     ~ innis
-    | Each to their own. Though you haven't tried what passes for beer these days.
-    | (:sly)It would rot even your insides, I guarantee it!
+    | Wie du willst. Vielleicht sogar besser so, (:sly)das Bier das wir hier haben würde auch deine Innereien verrotten.
   ~ innis
-  | I suppose there was never a case for androids getting pissed.
-  | (:sly)War zones, ghettos, hospitals - even sweeping the streets. Not the kind of places you want inefficiency.
-- It's not {#@alex-nametag}'s fault.
+  | Ich vermute es gab noch keinen Grund warum Androiden besoffen sein können sollen.
+  | (:sly)Kampfzonen, Spitäler, Ghettos... da will man keine Ineffizienz.
+- Das ist nicht {#@alex-nametag}'s Schuld
   ~ innis
-  | Then whose fault is it?
-  | (:angry)Life's harder than it used to be. People dinnae live in happy wee bubbles any more.
-  | If you canna cut it, you'll fall in the gutter.
+  | Und wessen Schuld ist es dann?
 ~ innis
-| So how much did my esteemed sister say? You ken what needs doing?
+| Wie viel hatt dir meine Schwester erzählt? Weisst du schon was du tun musst?
 ? (not (active-p (unit 'blocker-engineers)))
 | ~ innis
-| | Oh: about the "trapped rail engineers - dinnae worry about them"(orange).
-| | The last report shows "they've been freed"(orange) - by whom I dinnae ken.
+| | Oh: "mach dir keine Sorgen über die Ingenieure"(orange).
+| | Nach dem neusten Report "sind sie schon befreit"(orange) - von wem, keine Ahnung.
 | ~ player
-| - It was me.
+| - Das war ich
 |   ~ innis
-|   | (:sly)Oh really? You just helped us outta the goodness of your heart?
+|   | (:sly)Oh wirklich? Aus reiner Güte?
 |   ~ player
-|   - What's wrong with that?
-|   - That's what I do.
-|   - I was exploring, so figured why not.
+|   - Soll das falsch sein?
+|   - Genau
+|   - Ich war am erforschen
 |   ~ innis
-|   | Well if that's true - and I'll ken soon enough - then thanks.
-|   | But there's more to do.
-| - Your guardian angel.
+|   | Wenn das wahr ist, dann danke dir.
+|   | Aber es gibt noch mehr zu tun.
+| - Dein Schutzengel
 |   ~ innis
-|   | If only that were true.
-|   | (:sly)Wait - are you trying to tell me something?
+|   | Wenn auch nur das wahr wäre.
+|   | (:sly)Oder versuchst du mir was zu sagen?
 |   ~ player
-|   - Yes.
+|   - Ja
 |     ~ innis
-|     | Well if you're saying what I think you're saying - and I'll ken soon enough - then thanks.
-|     | But there's more to do.
-|   - No.
+|     | Wenn das du warst, dann danke dir.
+|     | Aber es gibt noch mehr zu tun.
+|   - Nein
 |     ~ innis
-|     | (:angry)Well shut up then.
-|   - I don't know.
+|     | (:angry)...
+|   - Wer weiss?
 |     ~ innis
-|     | (:angry)Well shut up then.
-| - Why was {#@islay-nametag}'s intel out of date?
+|     | (:angry)...
+| - Warum war {#@islay-nametag}'s Info nikt mer aktuell?
 |   ~ innis
-|   | We might have the technological edge round here, but out in the sticks news travels slowly.
-|   | I only just got word of this change myself.
+|   | Auch mit unserer top Technologie kann es eine Weile dauern, biss alle Information zu uns kommt.
 | ~ innis
-| | The good news for you is that it means our engineering works are back on track. Pun intended.
-| | You see, my sister, in her infinite wisdom, thought it might be a nice gesture if we-... (:angry)well, //if I//, officially grant you "access to the metro"(orange).
-| | ... In the interests of good relations, between the Semi Sisters and yourself.
-| | (:normal)It'll certainly "speed up your errands - once you've found the other stations"(orange).
+| | Die gute Nachricht ist, dass die Ingenieure bereits wieder an der Arbeit sind.
+| | Meine Schwester hatt gedacht es wäre eine nette Geste, wenn wir-... (:angry)//wenn ich//, dir offiziell "Zugriff zur Metro gebe"(orange).
+| | Für bessere Zusammenarbeit zwischen uns.
+| | (:normal)Sollte deine Aufgaben einiges erleichtern, "sobald du die anderen Stationen gefunden hast"(orange).
 | ? (or (unlocked-p (unit 'station-surface)) (unlocked-p (unit 'station-east-lab)) (unlocked-p (unit 'station-semi-sisters)) (unlocked-p (unit 'station-cerebats)) (unlocked-p (unit 'station-wraw)))
-| | | (:sly)You're familiar with the metro already. But now it's official. I'll send out word so you won't be... apprehended.
-| | | (:normal)"The stations run throughout the valley"(orange). Though "not all are operational"(orange) while we expand the network.
+| | | (:sly)Du kennst die Metro bereits, aber hiermit ist es jetzt offiziell.
+| | | (:normal)"Die Stationen sind über das Tal verteilt"(orange). Aber "nicht alle sind brauchbar"(orange) bis wir das Netz erweitern.
 | |?
-| | | (:normal)"They run throughout the valley"(orange), though "no' all are operational"(orange) while we expand the network.
-| | | Just "choose your destination from the route map"(orange) and board the train.
+| | | (:normal)Aber "nicht alle sind brauchbar"(orange) bis wir das Netz erweitern.
 | ? (not (unlocked-p (unit 'station-surface)))
 | | ! eval (activate (unit 'station-surface))
 | ? (not (unlocked-p (unit 'station-semi-sisters)))
-| | | (:normal)"Our station is beneath this central block."(orange)
+| | | (:normal)"Unsere Station ist gleich unter unserer Zentrale."(orange)
 | | ! eval (activate 'semi-station-marker)
 | |?
 | | ! eval (complete 'semi-station-marker)
 | ~ innis
-| | Anyway, this means it's just the "CCTV you need to investigate"(orange).
+| | Wie auch immer, das bedeutet, du musst nur noch "die CCTVs anschauen"(orange).
 |?
 | ~ innis
-| | We need both the "engineers and CCTV"(orange) sorting out, so "investigate them in whatever order you want"(orange). Just do it quickly.
+| | "Die Ingenieure und CCTVs"(orange) brauchen beide Arbeit. "In welcher Reihenfolge ist egal"(orange). Machs einfach schnell.
 ! label questions
 ~ player
-- [(active-p (unit 'blocker-engineers)) Tell me about the trapped engineers.|]
+- [(active-p (unit 'blocker-engineers)) (Frag nach den Ingenieuren)|]
   ~ innis
-  | There were ten of them, working in the "far high west of our territory"(orange).
-  | We're slowly digging out the old maglev metro system. We've got a basic electrified railway going.
-  | (:angry)But it's dangerous work. They didnae report in, and our hunters found the tunnel collapsed.
-  | The hunters canna go any further. But you can.
+  | Es gab zehn von ihnen, "im hohen Westen unseres Gebiets"(orange).
+  | Wir räümen langsam die alten Metro linien.
+  | (:angry)Aber es ist gefährliche Arbeit. Sie haben sich nicht mehr gemeldet und das Tunnel scheint kollabiert zu sein.
+  | Unsere Jäger kommen nicht mehr weiter, aber du schon.
   < questions
-- [(not (active-p (unit 'blocker-engineers))) So the engineers were working on the metro?|]
+- [(not (active-p (unit 'blocker-engineers))) Die Ingenieure haben an der Metro gearbeitet?|]
   ~ innis
-  | Correct. We're slowly digging out the old maglev system. We've got a basic electrified railway going.
-  | (:angry)But it's dangerous work.
+  | Richtig. Wir räümen langsam die alten Metro linien.
+  | (:angry)Aber es ist gefährliche Arbeit.
   < questions
-- Tell me about the down CCTV cameras.
+- (Frag nach den CCTVs)
   ~ innis
-  | We monitor the surrounding areas, immediately above and below.
-  | (:angry)Basically "4 of our cameras"(orange) on the Cerebat border have gone down, in the "distant low eastern region"(orange).
-  | (:normal)It's probably just an electrical fault. (:angry)Unfortunately the way {#@islay-nametag} daisy-chains them together, when one goes they all go.
-  | (:normal)I want you to "check them out"(orange).
+  | Wir bewachen die Bereiche direkt über und unter uns.
+  | (:angry)"4 von unseren Kameras"(orange) an der Grenze zu den Cerebats sind kaputt. Im "tiefen Osten des Gebiets"(orange).
+  | (:normal)Wahrscheinlich nur ein Kabel kaputt oder sowas.
+  | (:normal)Ich will, dass du "die dir anschaust"(orange).
   < questions
-- I've got it.
+- Alles verstanden
 ~ innis
-| "Report back"(orange) when you have news.
+| "Gib mir bescheid"(orange) wenn du was neues Weisst.
 ! eval (activate 'q5b-investigate-cctv)
 ! eval (activate (unit 'cctv-4-trigger))
 ? (active-p (unit 'blocker-engineers))
@@ -132,8 +126,3 @@
 | ! eval (deactivate (find-task 'world 'task-engineers-wall-listen))
 |?
 | ! eval (complete 'q5a-rescue-engineers)
-; ken = know (Scottish)
-; didnae = didn't (Scottish)
-; dinnae = don't (Scottish)
-; canna = cannot (Scottish)
-; player may know of trapped engineers from the barkeep races; but you're not going to just reveal that to Innis, whether you've rescued them already or not

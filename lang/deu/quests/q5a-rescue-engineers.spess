@@ -1,66 +1,67 @@
 # task-reminder/reminder
 ~ innis
-| (:angry)You forgot already? (:normal)"Find the engineers"(orange) in the collapsed rail tunnel, do what you can for them, and report back.
-| It's in the "far upper-west of our territory"(orange).
+| (:angry)Hätte nicht gedacht, dass Androide etwas vergessen können.
+| (:normal)"Finde die Ingenieure"(orange) hinter dem kollabierten Tunnell.
+| Das ist im "hohen Westen unseres Gebiets"(orange).
 
 # task-engineers/engineers
 ? (not (var 'engineers-intro))
 | ~ player
-| | {#@innis-nametag} sent me. Are you the missing Semis engineers?
+| | {#@innis-nametag} hatt mich geschickt. Seit ihr die Ingenieure?
 | ! eval (setf (var 'engineers-intro) T)
 ? (active-p (unit 'blocker-engineers))
 | ? (not (var 'engineers-first-talk))
 | | ~ semi-engineer-chief
-| | | How in God's name did you get in here?
+| | | Wie zur Hölle bist du hier hin gekommen?
 | | ~ player
-| | | There's a tunnel above this shaft - though it's not something a human could navigate.
+| | | Es gibt einen Tunnell über uns, aber der ist nicht begehbar für Menschen.
 | | ~ semi-engineer-chief
-| | | ... A //human//? So you're...
+| | | ... //Menschen//? Also du bist nicht?...
 | | ~ player
-| | - Not human, yes.
+| | - Kein Mensch, ja
 | |   ~ semi-engineer-chief
-| |   | ... An android, as I live and breathe.
-| | - An android.
+| |   | Ein Android? ... Wow
+| | - Ich bin ein Android
 | |   ~ semi-engineer-chief
-| |   | ... As I live and breathe.
-| | - What are you doing in here?
+| |   | ... Wow
+| | - Was machst du hier?
 | | ~ semi-engineer-chief
-| | | "We're the engineers you're looking for"(orange). Thank God for {#@innis-nametag}.
-| | | The tunnel collapsed; we lost the chief and half the company.
+| | | "Wir sind die Ingenieure nach denen du suchst"(orange). Dank Gott für {#@innis-nametag}.
+| | | Der Tunnell ist kollabiert. Wir haben den Hauptingenieur und die hälfte der Truppe verloren.
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
 | | ~ semi-engineer-chief
-| | | We "can't break through"(orange) - can you? Can androids do that?
-| | | "The collapse is just ahead."(orange)
+| | | Wir können "den Tunnell nicht räumen"(orange) - aber vielleicht bist du stärker?
+| | | "Der Einsturz ist gleich vor uns"(orange).
 | | ! eval (setf (var 'engineers-first-talk) T)
 | | ! eval (activate 'task-wall-location)
 | |?
 | | ~ semi-engineer-chief
-| | | How'd it go with the "collapsed wall"(orange)? We can't stay here forever.
+| | | Wie steht's mit dem "Einsturz"(orange)? Wir können nicht auf ewig hier bleiben?
 | | ! eval (activate 'task-wall-location)
 |?
 | ? (not (var 'engineers-first-talk))
 | | ~ semi-engineer-chief
-| | | Who are you? How did you break through the collapsed tunnel?
+| | | Wer bist du? Wie bist du durch den Tunnell durch gekommen?
 | | ~ player
-| | - I'm... not human.
+| | - Ich bin kein Mensch
 | |   ~ semi-engineer-chief
-| |   | ... An android, as I live and breathe.
-| | - I'm an android.
+| |   | Ein Android? ... Wow
+| | - Ich bin ein Android
 | |   ~ semi-engineer-chief
-| |   | ... As I live and breathe.
-| | - What are you doing in here?
+| |   | ... Wow
+| | - Was machst du hier?
 | | ~ semi-engineer-chief
-| | | "We're the engineers you're looking for"(orange). Thank God for {#@innis-nametag}.
-| | | We lost the chief and half the company when the tunnel collapsed.
+| | | "Wir sind die Ingenieure nach denen du suchst"(orange). Dank Gott für {#@innis-nametag}.
+| | | Der Tunnell ist kollabiert. Wir haben den Hauptingenieur und die hälfte der Truppe verloren.
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
 | | ~ semi-engineer-chief
-| | | But things are looking up now the route is open.
-| | | Thank you.
+| | | Aber mit dem Tunnell geräumt sieht's schon viel besser aus.
+| | | Danke.
 | | ! eval (setf (var 'engineers-first-talk) T)
 | |?
 | | ~ semi-engineer-chief
-| | | I can't believe you got through... Now food and medical supplies can get through too. Thank you.
-| | | We can resume our excavations. It'll be slow-going, but we'll get it done.
+| | | Ich kann kaum glauben, dass du durchgekommen bist. Jetzt können wir Medizin und andere Hilfsmittel bekommen.
+| | | Die Tunnellarbeit kann weiter gehen.
   
 ! eval (reset (find-task 'world 'task-world-engineers))
 ! eval (activate (find-task 'world 'task-world-engineers))
@@ -68,57 +69,57 @@
 
 # task-return-engineers/return-engineers
 ~ innis
-| The hurt engineers are already on their way back - I've sent hunters to guide them.
+| Die verletzten Ingenieure sind bereits auf dem Weg zurück.
 ? (complete-p 'task-engineers)
-| | They appreciated you checking in on them as well - thank you.
+| | Sie sind auch froh, dass du bei ihnen vorbei geschaut hast. Danke.
 |?
-| | (:angry)A shame you didnae speak to them though - they could have really used someone to talk to, to let them know what was happening.
+| | (:angry)Hätte aber nicht geschadet noch zu schauen ob sie auch in Odrnung sind.
   
 ~ innis
-| It's tough that we lost people, but sometimes that's the price of progress. I'll have {#@islay-nametag} notify their families.
-| More importantly: How did you clear that debris? Is there something I dinnae ken about androids?
+| Es ist tragisch, dass wir Leute verloren haben, aber manchmal ist das der Preis für Fortschritt.
+| Aber, wichtiger ist: wie hast du des Geröll geräumt?
 ~ player
-- I found a weak point and pushed.
+- Ich hab einen Schwachpunkt gefunden und gedrückt
   ~ innis
-  | That sounds plausible. (:sly)Your fusion reactor would generate the necessary force, and your nanotube muscles could withstand the impact.
-- I cut through with my sword.
+  | Das tönt plausibel. Mit deiner Nanomuskulatur und dem Fusionsreaktor hast do genügend Kraft.
+- Ich hab mit meinem Schwert durchgeschlagen
   ~ innis
-  | I believe you did. Your fusion reactor would generate the necessary force, and your nanotube muscles could withstand the impact.
-  | (:sly)Not to mention the inherent strength of your Artemis blade.
-- (Lie) I pulled a hidden lever and said, "Open sesame!"
+  | Das tönt plausibel. Mit deiner Nanomuskulatur und dem Fusionsreaktor hast do genügend Kraft.
+  | (:sly)Und das Artemis Schwert hilft dabei sicherlich auch.
+- (Lüge) Ich hab "Sesam öffne dich" gesagt! 
   ~ innis
   | (:angry)...
-  | Funny. (:sly)I suspect it has more to do with your formidable combination of fusion reactor and nanotube muscles.
-- Wouldn't you like to know.
+  | Sehr lustig. (:sly)Ich vermute es hatt mehr mit deinem Fusionsreaktor und deiner Nanomuskulatur zu tun.
+- Würdest du gerne wissen!
   ~ innis
-  | (:sly)I would indeed. Dinnae worry, things dinnae remain secret round here very long.
-  | I expect the combination of fusion reactor and nanotube muscles makes you quite formidable.
+  | (:sly)Würde ich, ja. Aber keine Sorge, ich werd das so oder so rausfinden.
+  | Ich vermute es hatt mehr mit deinem Fusionsreaktor und deiner Nanomuskulatur zu tun.
+
 ~ innis
-| This does mean our engineering works are back on track. Pun intended. With that in mind...
-| My sister, in her infinite wisdom, thought it might be a nice gesture if we-... (:angry)well, //if I//, officially grant you access to the metro.
-| ... In the interests of good relations, between the Semi Sisters and yourself.
-| (:normal)It'll certainly "speed up your errands - once you've found the other stations"(orange).
+| Die gute Nachricht ist, dass die Ingenieure bereits wieder an der Arbeit sind.
+| Meine Schwester hatt gedacht es wäre eine nette Geste, wenn wir-... (:angry)//wenn ich//, dir offiziell "Zugriff zur Metro gebe"(orange).
+| Für bessere Zusammenarbeit zwischen uns.
+| (:normal)Sollte deine Aufgaben einiges erleichtern, "sobald du die anderen Stationen gefunden hast"(orange).
 ? (or (unlocked-p (unit 'station-surface)) (unlocked-p (unit 'station-east-lab)) (unlocked-p (unit 'station-semi-sisters)) (unlocked-p (unit 'station-cerebats)) (unlocked-p (unit 'station-wraw)))
-| | (:sly)You're familiar with the metro already. But now it's official. I'll send out word so you won't be... apprehended.
-| | (:normal)"The stations run throughout the valley"(orange). Though "no' all are operational"(orange) while we expand the network.
+| | (:sly)Du kennst die Metro bereits, aber hiermit ist es jetzt offiziell.
+| | (:normal)"Die Stationen sind über das Tal verteilt"(orange). Aber "nicht alle sind brauchbar"(orange) bis wir das Netz erweitern.
 |?
-| | (:normal)"They run throughout the valley"(orange), though "no' all are operational"(orange) while we expand the network.
-| | Just "choose your destination from the route map"(orange) and board the train.
+| | (:normal)Aber "nicht alle sind brauchbar"(orange) bis wir das Netz erweitern.
 ? (not (unlocked-p (unit 'station-surface)))
 | ! eval (activate (unit 'station-surface))
 ? (not (unlocked-p (unit 'station-semi-sisters)))
-| | (:normal)"Our station is beneath this central block."(orange)
+| | (:normal)"Unsere Station ist gleich unter unserer Zentrale."(orange)
 | ! eval (activate 'semi-station-marker)
 |?
 | ! eval (complete 'semi-station-marker)
 ? (complete-p 'q5b-investigate-cctv)
 | ~ innis
-| | You've proven your worth to us. I might have to call on your services again.
-| | But now you should "call {#@fi-nametag}"(orange).
-| | It's a pity you couldnae persuade {#@alex-nametag} to come home. (:sly)I can't wait to see the look on her face when you tell her.
-| | I suppose androids canna do everything.
-| | (:angry)And tell her "we want {#@catherine-nametag} back"(orange) too. We need her now more than ever with the Wraw encroaching.
-| | (:sly)If she disagrees tell her I'll "shut the water off"(orange).
+| | Du hast deine Fähigkeiten gut demonstriert, und es kann sein, dass wird deine Hilfe wieder gebrauchen werden.
+| | Aber für den Moment solltest du "{#@fi-nametag} anrufen"(orange).
+| | Schade, dass du {#@alex-nametag} nicht übrezeugen konntest nach hause zu gehen. (:sly)Ich freu mich schon ihr gesicht zu sehen wenn du ihr die Nachricht gibst.
+| | Androide können wohl nicht alles erreichen.
+| | (:angry)Und sag ihr auch dass "wir {#@catherine-nametag} zurück wollen"(orange). Wir brauchen sie jetzt mehr als je zuvor.
+| | (:sly)Wenn sie nicht einverstanden ist, dann "stellen wir das Wasser ab"(orange).
 | ! eval (activate 'q6-return-to-fi)
 | ! eval (activate (unit 'fi-ffcs-1))
 | ! eval (activate (unit 'fi-ffcs-2))
@@ -128,15 +129,9 @@
 | ! setf (direction 'synthesis) 1
 |?
 | ~ innis
-| | I'll be seeing you.
+| | Bis später.
 ? (not (active-p (find-task 'world 'task-world-engineers)))
 | ! eval (activate (find-task 'world 'task-world-engineers))
   
 ! eval (complete task)
 ! eval (reset interaction)
-
-; dinnae = don't (Scots)
-; didnae = didn't (Scottish)
-; ken = know (Scots)
-; couldnae = couldn't (Scots)
-; canna = cannot (Scottish)

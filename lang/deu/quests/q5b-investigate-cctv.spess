@@ -1,166 +1,154 @@
 # q5b-task-reminder/q5b-reminder
 ~ innis
 ? (complete-p 'q5b-task-cctv-1 'q5b-task-cctv-2 'q5b-task-cctv-3 'q5b-task-cctv-4)
-| | (:angry)You might've found all the CCTV sites, but I want you to "bring me back that saboteur from the distant low eastern region"(orange).
+| | (:angry)Du hast zwar alle CCTVs gefunden, aber du musst mir "die Saboteure bringen"(orange)! Ohne das, ist alles fur nichts!
 |?
 | ? (complete-p 'q5b-boss)
-| | | Go to the "distant low eastern region"(orange) along the Cerebat border, and "investigate the remaining down CCTV cameras"(orange).
-| | | Then "return to me"(orange). (:sly)Hopefully you won't encounter any more saboteurs.
+| | | Geh in die "tiefe östliche Region"(orange) entlang der Cerebat Grenze, und "schau dir die restlichen CCTV Kameras an"(orange).
+| | | Dann "komm zu mir zurück"(orange). (:sly)Hoffentlich gibt es keine weiteren Saboteure.
 | |? (active-p 'q5b-boss)
-| | | Go to the "distant low eastern region"(orange) along the Cerebat border, and "investigate the remaining down CCTV cameras"(orange).
-| | | (:angry)And dinnae forget to "bring me back that saboteur"(orange).
+| | | Geh in die "tiefe östliche Region"(orange) entlang der Cerebat Grenze, und "schau dir die restlichen CCTV Kameras an"(orange).
+| | | (:angry)Und vergiss nicht den "Saboteur mit zu bringen"(orange).
 | |?
-| | | Go to the "distant low eastern region"(orange) along the Cerebat border, and "find out what's wrong with the 4 down CCTV cameras"(orange).
-| | | Then "return to me"(orange).
-; dinnae = don't (Scottish)
+| | | Geh in die "tiefe östliche Region"(orange) entlang der Cerebat Grenze, und "schau dir die CCTV Kameras an"(orange).
+| | | Dann "komm zu mir zurück"(orange).
 
-; NARRATIVE: the saboteur has been destroying the cameras in ways to avoid arousing suspicion, so they seem like electrical fires, poor maintenance, etc. However, by the fourth one, once the sabotage is clearly known, it recasts these descriptions of damage as likely sabotage.
 # q5b-task-cctv-1/cctv-1
 ~ player
-| "Here's "CCTV camera 1"(red)."(light-gray, italic)
-| "The lens is smashed, and judging from the charring on the case there's been a fire."(light-gray, italic)
+| "Hier ist "CCTV Kamera 1"(red)."(light-gray, italic)
+| "Die Linse ist zerbrochen und es sieht so aus als hätte es einen Brandschaden."(light-gray, italic)
 ? (complete-p 'q5b-task-cctv-2 'q5b-task-cctv-3 'q5b-task-cctv-4)
 | ? (complete-p 'q5b-boss)
-| | | "That was the last of the down cameras. I'd better get "back to {#@innis-nametag}"(orange) and report on the saboteurs."(light-gray, italic)
-| | | (:thinking)"Then again, I could also make the most of being out this way, and "map more of the area"(orange)."(light-gray, italic)
+| | | "Das war die letzte Kamera. Ich sollte "zu {#@innis-nametag} zurückkehren"(orange) und meinen Bericht abliefern."(light-gray, italic)
+| | | (:thinking)"Oder ich könnte die Gelegenheit nutzen, um "die Karte weiter auszufüllen"(orange)."(light-gray, italic)
 | | ! eval (deactivate 'q5b-task-reminder)
 | | ! eval (activate 'q5b-task-return-cctv)
 | |?
-| | | "That was the last down camera. But I still need to "find the nearby saboteur"(orange) before I "return to {#@innis-nametag}"(orange)."(light-gray, italic)
+| | | "Das war die letzte Kamera. Aber ich muss noch den "Saboteur finden"(orange) bevor ich "zu {#@innis-nametag} zurückkehre"(orange)."(light-gray, italic)
 |? (not (var 'first-cctv))
-| | "I need to "find the other CCTV sites"(orange)."(light-gray, italic)
+| | "Ok, weiter gehts "zur nächsten Kamera"(orange)."(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
 
 # q5b-task-cctv-2/cctv-2
 ~ player
-| "Here's "CCTV camera 2"(red)."(light-gray, italic)
-| "It's mostly in pieces on the floor, surrounded by rocks and stones."(light-gray, italic)
+| "Hier ist "CCTV Kamera 2"(red)."(light-gray, italic)
+| "Es ist in Stücken auf dem Boden zerstreut."(light-gray, italic)
 ? (complete-p 'q5b-task-cctv-1 'q5b-task-cctv-3 'q5b-task-cctv-4)
 | ? (complete-p 'q5b-boss)
-| | | "That was the last of the down cameras. I'd better get "back to {#@innis-nametag}"(orange) and report on the saboteurs."(light-gray, italic)
-| | | (:thinking)"Then again, I could also make the most of being out this way, and "map more of the area"(orange)."(light-gray, italic)
+| | | "Das war die letzte Kamera. Ich sollte "zu {#@innis-nametag} zurückkehren"(orange) und meinen Bericht abliefern."(light-gray, italic)
+| | | (:thinking)"Oder ich könnte die Gelegenheit nutzen, um "die Karte weiter auszufüllen"(orange)."(light-gray, italic)
 | | ! eval (deactivate 'q5b-task-reminder)
 | | ! eval (activate 'q5b-task-return-cctv)
 | |?
-| | | "That was the last down camera. But I still need to "find the nearby saboteur"(orange) before I "return to {#@innis-nametag}"(orange)."(light-gray, italic)
+| | | "Das war die letzte Kamera. Aber ich muss noch den "Saboteur finden"(orange) bevor ich "zu {#@innis-nametag} zurückkehre"(orange)."(light-gray, italic)
 |? (not (var 'first-cctv))
-| | "I need to "find the other CCTV sites"(orange)."(light-gray, italic)
+| | "Ok, weiter gehts "zur nächsten Kamera"(orange)."(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
 
 # q5b-task-cctv-3/cctv-3
 ~ player
-| "Here's "CCTV camera 3"(red)."(light-gray, italic)
-| "The outer case is missing - it's on the ground beneath the camera. It looks like moisture has shorted out the circuit board."(light-gray, italic)
+| "Hier ist "CCTV Kamera 3"(red)."(light-gray, italic)
+| "Die Hülle ist nicht mehr dran und Wasser scheint die Elektronik durchegbrannt zu haben."(light-gray, italic)
 ? (complete-p 'q5b-task-cctv-1 'q5b-task-cctv-2 'q5b-task-cctv-4)
 | ? (complete-p 'q5b-boss)
-| | | "That was the last of the down cameras. I'd better get "back to {#@innis-nametag}"(orange) and report on the saboteurs."(light-gray, italic)
-| | | (:thinking)"Then again, I could also make the most of being out this way, and "map more of the area"(orange)."(light-gray, italic)
+| | | "Das war die letzte Kamera. Ich sollte "zu {#@innis-nametag} zurückkehren"(orange) und meinen Bericht abliefern."(light-gray, italic)
+| | | (:thinking)"Oder ich könnte die Gelegenheit nutzen, um "die Karte weiter auszufüllen"(orange)."(light-gray, italic)
 | | ! eval (deactivate 'q5b-task-reminder)
 | | ! eval (activate 'q5b-task-return-cctv)
 | |?
-| | | "That was the last down camera. But I still need to "find the nearby saboteur"(orange) before I "return to {#@innis-nametag}"(orange)."(light-gray, italic)
+| | | "Das war die letzte Kamera. Aber ich muss noch den "Saboteur finden"(orange) bevor ich "zu {#@innis-nametag} zurückkehre"(orange)."(light-gray, italic)
 |? (not (var 'first-cctv))
-| | "I need to "find the other CCTV sites"(orange)."(light-gray, italic)
+| | "Ok, weiter gehts "zur nächsten Kamera"(orange)."(light-gray, italic)
 | ! eval (setf (var 'first-cctv) T)
 
 # q5b-task-cctv-4/cctv-4
 ~ player
-| "It's "CCTV camera 4"(red)... The wiring has been cut."(light-gray, italic)
-| "{#@innis-nametag} needs to know about this. Accessing FFCS protocols..."(light-gray, italic)
-| Hello, {#@innis-nametag}.
+| "Das ist "CCTV Kamera 4"(red)... Die Drähte sind durchgeschnitten."(light-gray, italic)
+| "{#@innis-nametag} muss das wissen, öffne FFCS Linie..."(light-gray, italic)
+| Hallo, {#@innis-nametag}.
 ~ innis
-| (:angry)You! How did you reach me?...
-| (:sly)This is an FFCS broadcast, isn't it. Clever android.
-| (:angry)Now isn't a good time. What do you want?
+| (:angry)Du! Wie hast du mich erreicht?...
+| (:sly)Hmm, das ist eine FFCS Übertragun, oder? Clever.
+| (:angry)Das ist kein guter Momnet. Was ist los?
 ~ player
-- This is important.
+- Das ist wichtig
   ~ innis
-  | (:angry)It'd better be. Get on with it then.
-- Sorry to interrupt.
+  | (:angry)Dann schiess los.
+- Sorry für die Störung
   ~ innis
-  | (:angry)I'll accept that apology if you have something useful to say.
-- How do you know about FFCS?
+  | (:angry)Raus damit, was ist los?
+- Woher weisst du über das FFCS?
   ~ innis
-  | (:sly)I wouldnae have been very good at my old job if I didnae ken it.
-  | (:angry)Get on with it then.
+  | (:sly)Ich hätte meinen Job nicht verdient wenn ich das nicht kennen würde.
+  | (:angry)Aber raus damit, was ist los?
 ~ player
-| The power line to one of the cameras has been cut by hand.
+| Die Kabel zu einer der Kameras ist von Hand durchschnitten worden.
 ~ innis
-| (:angry)... Then we have a "saboteur"(orange). (:sly)Maybe a sly Cerebat spy, watching you right now.
+| (:angry)... Dann haben wir einen "Saboteur"(orange). (:sly)Vielleicht ein kleiner Spion, der dich gerade noch überwacht.
 ? (complete-p (unit 'q5b-boss-fight))
 | ~ player
-| - I think I killed them already.
+| - Ich glaube ich hab die schon erledigt
 |   ~ innis
-|   | Go on.
-| - They were "saboteurs". Plural.
+|   | Ich höre zu
+| - Das waren Saboteure. Plural.
 |   ~ innis
-|   | What do you mean?
-| - Way ahead of you.
+|   | Wovon sprichst du?
+| - Bin schon weit voraus
 |   ~ innis
-|   | Explain.
+|   | Erklär.
 | ~ player
-| | I came this way before and was attacked by a gang. I dispatched them.
+| | Ich bin schon hier durchgekommen. Eine Bande hatt mich angegriffen. Und ich sie beseitigt.
 | ~ innis
-| | (:sly)Is that so?
-| | (:angry)Well in that case I'll await your report in the flesh-
-| | ... You know what I mean.
+| | (:sly)So so.
+| | (:angry)Na dann, ich freue mich schon über deinen Report.
 | ! eval (complete 'q5b-boss)
 |?
 | ~ innis
-| | (:angry)"Find them and bring them to me."(orange)
+| | (:angry)"Finde ihn und bring ihn zu mir."(orange)
 | ! eval (activate 'q5b-boss)
   
 ~ player
 ? (complete-p 'q5b-task-cctv-1 'q5b-task-cctv-2 'q5b-task-cctv-3)
-| ? (not (complete-p 'q5b-boss))
-| | | "That was also the last of the down cameras. I'd better "find the nearby saboteur and then return to {#@innis-nametag}"(orange)."(light-gray, italic)
-| |?
-| | | "That was also the last of the down cameras. I'd better get "back to {#@innis-nametag}"(orange), on the double."(light-gray, italic)
-| | | (:thinking)"Then again, I could also make the most of being out this way, and "map more of the area"(orange)."(light-gray, italic)
+| ? (complete-p 'q5b-boss)
+| | | "Das war die letzte Kamera. Ich sollte "zu {#@innis-nametag} zurückkehren"(orange) und meinen Bericht abliefern."(light-gray, italic)
+| | | (:thinking)"Oder ich könnte die Gelegenheit nutzen, um "die Karte weiter auszufüllen"(orange)."(light-gray, italic)
 | | ! eval (deactivate 'q5b-task-reminder)
 | | ! eval (activate 'q5b-task-return-cctv)
+| |?
+| | | "Das war die letzte Kamera. Aber ich muss noch den "Saboteur finden"(orange) bevor ich "zu {#@innis-nametag} zurückkehre"(orange)."(light-gray, italic)
 |? (not (var 'first-cctv))
-| | "I also need to "find the other CCTV sites"(orange)."(light-gray, italic)
-| ! eval (setf (var 'first-cctv) T)
+| | "Ok, weiter gehts "zur nächsten Kamera"(orange)."(light-gray, italic)
 |? (complete-p 'q5b-boss)
-| | "I'd better "check out the last of the CCTV cameras around here"(orange), then "get back to {#@innis-nametag}"(orange) on the double."(light-gray, italic)
-; wouldnae = wouldn't (Scottish)
-; didnae = didn't (Scottish)
-; ken = know (Scottish)
+| | "Ich sollte die "letzten Kameras hier"(orange), anschauen und dann "zu {#@innis-nametag} zurückkehren"(orange)."(light-gray, italic)
 
-; sense: Cerebats wouldn't typically take down CCTV (despite what Innis said in cctv-4 - it was logical though), nor employ Rogues... The Wraw would do both though. And nor would Rogues attack CCTV alone
 # q5b-task-return-cctv/q5b-return-cctv
 ~ innis
-| (:sly)I'm glad you survived the saboteurs.
-| (:normal)So what are we dealing with?
+| (:sly)Ich bin froh, dass du die Saboteure überlebt hast.
+| (:normal)Also, wovon handeln wir hier?
 ~ player
-- It was a band of Rogues.
+- Eine Bande von Rogues
   ~ innis
-  | ... Rogues? They're no' who the Cerebats would employ.
-- Wannabe samurais and their pet dogs.
+  | ... Rogues? Die Cerebat sind nicht bekannt dafür die einzusetzen.
+- Möchtegern Samurai und ihre Hunde
   ~ innis
-  | Rogues then, with wolf packs. They're no' who the Cerebats would employ.
-- Do the Cerebats have a K-9 unit?
-  ~ innis
-  | (:angry)...
-  | (:normal)Rogues then, with wolf packs. They're no' who the Cerebats would employ.
+  | Das tönt nicht nach leuten, die die Cerebat einsetzen würden.
 ~ innis
-| They're no' the kind who would cross our border neither.
+| Sie würden normalerweise auch die Grenze nicht überqueren.
 | ...
-| (:angry)I think we've got a problem. A mutual problem:
-| "The Wraw."(orange)
-| There've been other signs lately that say "the Wraw have invaded the Cerebats"(orange). {#@islay-nametag} warned me about this.
-| And it looks like "we might be next"(orange).
-| Damn it.
-| (:normal)I need to speak with my sister.
+| (:angry)Ich glaube wir haben ein gemeinsames Problem:
+| "Die Wraw."(orange)
+| Wir haben auch andere Information aufgedeckt, welche andeutet, dass "die Wraw die Cerebats invadiert haben"(orange). {#@islay-nametag} hatt mich darüber gewarnt.
+| Und es sieht so aus als würden sie "uns als nächstes vornehmen"(orange).
+| Verdammt.
+| (:normal)Ich muss mit meiner Schwester sprechen.
 ? (complete-p 'q5a-rescue-engineers)
 | ~ innis
-| | You've proven your worth to us. I might have to call on your services again.
-| | But now you should "call {#@fi-nametag}"(orange).
-| | It's a pity you couldnae persuade {#@alex-nametag} to come home. (:sly)I can't wait to see the look on her face when you tell her.
-| | I suppose androids canna do everything.
-| | (:angry)And tell her "we want {#@catherine-nametag} back"(orange) too. We need her now more than ever.
-| | (:sly)If she disagrees tell her I'll "shut the water off"(orange).
+| | Du hast deine Fähigkeiten gut demonstriert, und es kann sein, dass wird deine Hilfe wieder gebrauchen werden.
+| | Aber für den Moment solltest du "{#@fi-nametag} anrufen"(orange).
+| | Schade, dass du {#@alex-nametag} nicht übrezeugen konntest nach hause zu gehen. (:sly)Ich freu mich schon ihr gesicht zu sehen wenn du ihr die Nachricht gibst.
+| | Androide können wohl nicht alles erreichen.
+| | (:angry)Und sag ihr auch dass "wir {#@catherine-nametag} zurück wollen"(orange). Wir brauchen sie jetzt mehr als je zuvor.
+| | (:sly)Wenn sie nicht einverstanden ist, dann "stellen wir das Wasser ab"(orange).
 | ! eval (activate 'q6-return-to-fi)
 | ! eval (activate (unit 'fi-ffcs-1))
 | ! eval (activate (unit 'fi-ffcs-2))
@@ -168,7 +156,4 @@
 | ! eval (activate 'sq14-intro)
 | ! eval (setf (location 'synthesis) 'synthesis-cerebat)
 | ! setf (direction 'synthesis) 1
-; couldnae = couldn't (Scots)
-; dinnae = don't / do not (Scottish)
-; doesnae = does not / doesn't (Scottish)
-; canna = cannot (Scottish)
+

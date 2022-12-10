@@ -1,63 +1,56 @@
 # 3-interact-islay/interaction
 ~ islay
-| Hello again. You found {#@alex-nametag}, I see. How are they?
+| Hallo. Ich sehe, du hast {#@alex-nametag} gefunden. Wie geht es ihm?
 ~ player
-- Drunk as a skunk.
-- They won't cooperate.
-- Angry.
+- Besoffen wie nix
+- Er kooperiert nicht
+- Nicht gut
 ~ islay
-| (:nervous)... Sometimes I wonder why we make alcohol.
-| (:normal)What if I talk to them?
+| (:nervous)... Manchmal frag ich mich warum wir Alkohol herstellen.
+| (:normal)Was wenn ich mit ihm spreche?
 ~ player
-- I'd appreciate that.
+- Das wäre nett
   ~ islay
-  | It's the least I can do.
-- What's the catch?
+  | Das ist das Mindeste.
+- Wo ist der Haken?
   ~ islay
-  | No catch. I just want to help.
-- I think they're a lost cause.
+  | Kein Haken. Ich will nur helfen.
+- Das ist hoffnungslos
   ~ islay
-  | Maybe. But were you yourself not a lost cause before {#@alex-nametag} found you?
+  | Vielleicht, aber einen Versuch wert, denke ich.
 ~ islay
-| You should stay with us a while, give me some time. That way you won't disappoint {#@fi-nametag} by returning empty-handed.
-| And there are things you could help us with.
+| Bleib bei uns für ne Weile, gib mir ein bisschen Zeit. Es gibt ein paar Dinge bei denen uns helfen köntest.
+| Dann müsstest du auch nicht zu {#@fi-nametag} ohne Resultate zurückkehren.
 ~ player
-- So there is a catch.
+- Aha, der Haken
   ~ islay
-  | Not a catch. Think of it more like a trade.
-  | And it couldn't hurt to show my sister what you can do, could it? Sow some seeds of diplomacy.
-- Like you turning me into a battery?
+  | Kein Haken. Mehr ein Handel.
+  | Und wer weiss, vielleicht würde das auch meine Schwester etwas besänftigen.
+- Was für Dinge?
   ~ islay
-  | Of course not. I'm talking about errands.
-  | And it couldn't hurt to show my sister what you can do, could it? Sow some seeds of diplomacy.
-- What things?
-  ~ islay
-  | Well, it couldn't hurt to show my sister what you can do, could it? Sow some seeds of diplomacy.
-- [(var 'android-soft) Won't {#@innis-nametag} think you've gone soft for androids?]
+  | Innis gibt das nicht gerne zu, aber es gibt sachen bei denen uns du alleine helfen kannst.
+- [(var 'android-soft) Wird {#@innis-nametag} nicht denken, dass du zu nett bist mit Androiden?]
   ~ islay
   | ... Touché.
-  | I'll deal with that. But it couldn't hurt to show her what you can do, could it? Sow some seeds of diplomacy.
+  | Aber das wird mein Problem.
 ~ player
-- You're right.
+- Du hast recht
+- Was ist mit deiner Schwester?
   ~ islay
-  | Aye, sometimes I'm right.
-- Tell that to your sister.
+  | {#@innis-nametag} hatt ihre Stärken. Diplomatie ist leider nicht dabei.
+- Ich weiss nicht
   ~ islay
-  | I do. Frequently. {#@innis-nametag} has her qualities. Diplomacy isn't one of them.
-- Diplomacy does not compute.
-  ~ islay
-  | Come now, you're no mere Servo. I know you understand.
+  | Komm schon, einen Versuch ist es wert.
 ~ islay
-| I can sweeten the deal too.
-| I suppose I'm what you'd call the chief engineer around here. Just like {#@jack-nametag} is for the Noka. I stock many things that might be useful to you.
-| We get the usual traders visiting of course, but I'm giving you another option - and "I stock more supplies than most"(orange).
-| Anyhow, much as I'd hate to send you back into the jaws of my sister, she's got my report on our most urgent needs.
-| We've got "rail engineers stuck"(orange) after a tunnel collapse in the "far high west"(orange).
-| And "4 of our CCTV cameras on the distant low eastern"(orange) Cerebat border have gone down.
-| Word's getting around about your arrival too - you might "find some of my sisters are also willing to pay for your skills"(orange).
-| So "leave {#@alex-nametag} to me and speak with {#@innis-nametag}"(orange) - she's gone up to the "control room"(orange).
-| Perhaps see her as another challenge to overcome. I know I do.
-| Ta-ta for now, {(nametag player)}.
+| Ich kann dir auch was Anbieten dafür.
+| Du könntest sagen, dass ich der Hauptingenieur binn hier. Genau wie {#@jack-nametag} für die Noka.
+| Wir haben die üblichen Händler, aber ich kann dir ein besseres Angebot machen - und "ich hab ein grösseres Inventar"(orange).
+| Ich schick dich nicht gerne zurück zu meiner Schwester, aber sie weiss besser über deine Aufgaben bescheid als ich.
+| Ich weiss nur, dass wir "blockierte Ingenieure"(orange) nach einem Tunnelkollaps "im hohen Westen"(orange) haben.
+| Und "4 unserer CCTV Kameras im tiefen Osten"(orange) sind offline gegangen.
+| Es hatt sich auch bereits rumgesprochen, dass du da bist. "Womöglich gibt es noch andere, die Aufgaben für dich haben"(orange).
+| Also "überlass {#@alex-nametag} mir und sprich mit {#@innis-nametag}"(orange) - sie ist im "Kontrollraum über uns"(orange).
+| Bis später, {(nametag player)}.
 ! eval (stop-following 'islay)
 ! eval (move-to 'islay-alex-talk 'islay)
 ! eval (activate 'trader-semi-chat)
