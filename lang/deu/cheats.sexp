@@ -1,7 +1,7 @@
 cheat/hello "HALLO und willkommen zu Games!"
 cheat/cheat-console "Cheat Menü aktiv"
 cheat/tpose "T-Pose"
-cheat/god "Gott Modus"
+cheat/god "Gott-Modus"
 cheat/armageddon "Armageddon"
 cheat/campfire "Grill ne Wurst"
 cheat/matrix "In die Matrix"
