@@ -115,7 +115,7 @@
 |   
 | ~ jack
 | | (:normal)Oh, und "{#@trader-nametag} scheint wieder zurück zu sein"(orange).
-| | Er hat unter dem "Zenith Hub"(red), beim Midwest Markt seinen Halt gemacht.
+| | Er hat unter dem "Zenith Hub"(red), beim Mittwest-Markt seinen Halt gemacht.
 | | Wär vielleicht nicht dumm ihn zu besuchen.
 | ! eval (activate 'trader-arrive)
 

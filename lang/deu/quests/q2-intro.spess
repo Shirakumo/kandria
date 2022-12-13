@@ -95,7 +95,7 @@
 | | | Ich hab "{#@jack-nametag} einen neuen Job gegeben"(orange). Ich denke du könntest ihm dabei helfen.
 | | | Er ist im "Ingenieurgebäude"(orange).
 |   
-| | Ausserdem hab ich gehört, dass "{#@trader-nametag} wieder zurück ist"(orange). Er hat "im Midwest Markt"(orange) seinen Shop aufgestellt.
+| | Ausserdem hab ich gehört, dass "{#@trader-nametag} wieder zurück ist"(orange). Er hat "im Mittwest-Markt"(orange) seinen Shop aufgestellt.
 | | Schau mal bei ihm vorbei.
 | ! eval (activate 'trader-arrive)
 ! eval (complete 'q2-seeds)

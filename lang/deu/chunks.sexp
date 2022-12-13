@@ -1,7 +1,7 @@
 chunk-1840 "Ruinen"
 chunk-1893 "Warenhaus"
 chunk-1951 "Wohnräume"
-chunk-1960 "Midwest Markt"
+chunk-1960 "Mittwest-Markt"
 chunk-1962 "Apartments - Westen"
 chunk-1982 "Brother Büro"
 chunk-2030 "Semi Fabrik"

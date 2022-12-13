@@ -89,7 +89,7 @@
 ; a market area; behind dark glass windows stand the shadows of clothing mannequins from the old world
 # task-world-all/market
 ~ player
-| "The "Midwest Market"(red). Those mannequins behind the glass could almost be real people."(light-gray, italic)
+| "The "Mittwest-Market"(red). Those mannequins behind the glass could almost be real people."(light-gray, italic)
 | (:embarassed)"Like this place wasn't creepy enough."(light-gray, italic)
 
 ; ruined luxury apartments from the old world, now buried in the ground
