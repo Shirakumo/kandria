@@ -1,8 +1,8 @@
 toggle-menu "Menü"
-toggle-menu/description "Öffne das Menü um dein Inventar, Quests, und mehr anzuschauen"
+toggle-menu/description "Öffne das Menü, um dein Inventar, Quests, und mehr anzuschauen"
 open-map/description "Öffne die Karte wenn du dich verloren fühlst. Es zeigt dir wo Quests und Leute sind"
 report-bug "Melde einen Bug"
-report-bug/description "Wenn du ein Problem oder einen Fehler begegnest, bitte melde ihn durch den Dialog"
+report-bug/description "Wenn du einem Problem oder einem Fehler begegnest, melde ihn bitte durch den Dialog"
 quickmenu "Schnellmenü"
 quickmenu/description "Benutze das Schnellmenü um Heilungsmittel zu gebrauchen"
 interact "Interagiere"
@@ -18,9 +18,9 @@ crawl/description "Kriech um durch kleine Öffnungen durchzukommen"
 save "Speichern"
 save/description "Brauch ein Telefon um zu speichern oder speichere durch das Menü wenn du in der Nähe bist.
 (Speicher oft!)"
-attack "Angreiffen"
-attack/description "Halte eine richtung zusammen mit einer leichten oder einer schweren Attacke für verschiedene Aktionen
-Schau dir das Kampfhandbuch an für mehr Informationen"
+attack "Angreifen"
+attack/description "Halte eine Richtung zusammen mit einer leichten oder einer schweren Attacke für verschiedene Aktionen
+Das Kampfhandbuch liefert mehr Informationen"
 sidequests "Sidequests"
 sidequests/description "Schau dich um nach Charakteren mit \"???\" über ihren Köpfen - Sie können Quests für dich haben"
 cast-line "Leine Werfen"
