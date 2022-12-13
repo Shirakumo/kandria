@@ -16,7 +16,7 @@ climb/description "Klettere Wände und Seile. Gib acht, du hast nur limitierte A
 crawl "Kriechen"
 crawl/description "Kriech um durch kleine Öffnungen durchzukommen"
 save "Speichern"
-save/description "Brauch ein Telefon um zu speichern oder speichere durch das Menü wenn du in der Nähe bist.
+save/description "Nutz ein Telefon um zu speichern oder speichere durch das Menü, wenn du in der Nähe bist.
 (Speicher oft!)"
 attack "Angreifen"
 attack/description "Halte eine Richtung zusammen mit einer leichten oder einer schweren Attacke für verschiedene Aktionen
