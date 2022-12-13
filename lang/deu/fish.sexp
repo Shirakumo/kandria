@@ -1,7 +1,7 @@
 fish:crab "Krabbe"
 fish:crab/description "Schnipp Schnapp AaaAA!
 Kann für Bruchteile verkauft werden."
-fish:machine-fish "Maschinen Fish"
+fish:machine-fish "Maschinen-Fish"
 fish:machine-fish/description "Wer macht denn sowas?
 Kann für Bruchteile verkauft werden."
 fish:salmon "Lachs"
