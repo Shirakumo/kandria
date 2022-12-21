@@ -23,6 +23,8 @@
             :all (:depots (:linux :windows :macos :content)))
   :keygen (:key "333B5B5C-9DDC-4E41-9C82-F2254330722E"
            :secret "DCBE2959-5231-4D22-85BF-F12A9C4781D1"
+           :api-base "https://keygen.tymoon.eu/api/"
+           :secrets "keygen.tymoon.eu"
            :bundles (:linux 3
                      :windows 2))
   :itch (:user "Shinmera")
