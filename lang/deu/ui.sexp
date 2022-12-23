@@ -164,6 +164,7 @@ recover-crashed-save "Das Spiel scheint abgestürzt zu sein. Ein Notfalls-Speich
 
 Wenn du OK drückst, wird der #4 Speicherstand ersetzt.
 Wenn du Cancel drückst, wird der Notfalls-Speicherstand gelöscht."
+save-file-corrupted-notice "Die Speicherdatei ist korrupt und konnte nicht geladen werden."
 press-prompted-button "Bitte drücke einer der gezeigten Knöpfe"
 show-lore-of-item "Anschauen"
 unknown-lore-item "???"

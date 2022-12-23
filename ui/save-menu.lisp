@@ -104,7 +104,11 @@
                  :height (alloy:un 300)))))
     (:load
      (when (exists-p (alloy:value button))
-       (resume-state (alloy:value button) +main+)))))
+       (handler-case
+           (with-error-logging (:kandria.save)
+             (resume-state (alloy:value button) +main+))
+         #+kandria-release
+         (error () (messagebox (@ save-file-corrupted-notice))))))))
 
 (presentations:define-realization (ui save-button)
   ((:background simple:rectangle)
