@@ -16,7 +16,7 @@ critter "Streicheln"
 leak "Schweißen"
 mirror "Umziehen"
 workbench "Schwert Verbessern"
-bench "Sitzen"
+bench "Setzen"
 consumable-item "Brauchartikel" ;; not in eng/interactiost.sexp?
 active-effect-item "Aktive Artikel"
 quest-item "Quest Item"
