@@ -17,7 +17,7 @@ leak "Schweißen"
 mirror "Umziehen"
 workbench "Schwert Verbessern"
 bench "Sitzen"
-consumable-item "Brauchartikel"
+consumable-item "Brauchartikel" ;; not in eng/interactiost.sexp?
 active-effect-item "Aktive Artikel"
 quest-item "Quest Item"
 value-item "Wertartikel"
