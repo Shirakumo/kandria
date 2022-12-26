@@ -1,93 +1,93 @@
 # chat-semi/chat-semi
 ~ islay
-| Of course.
+| Aber sicher.
 ! label talk
 ? (not (complete-p 'q7-my-name))
 | ~ player
-| - Why spy on the Noka?
+| - Warum die Noka spionieren?
 |   ~ islay
-|   | We spy on everyone. It's just what we do, it's nothing personal.
-|   | We have the technology, and the motivation. I don't know if you noticed, but most people down here are trying to kill each other.
-|   | For what it's worth I value our friendship with the Noka. {#@fi-nametag}'s a good leader.
+|   | Wir spionieren alle. Das ist einfach was wir machen, nichts persönliches.
+|   | Wir haben die Technologie und die motivation. Du hast vielleicht bemerkt, dass die Leute hier unten nicht so freundlich sind.
+|   | Zumindest mag ich unsere Freundschaft mit den Noka, {#@fi-nametag} ist eine gute Anführerin.
 |   < talk
-| - Can you read my black box?
+| - Kannst du meine Black Box lesen?
 |   ~ islay
-|   | You think you might have unwittingly betrayed the Noka.
-|   | We know a lot about you - but no, we can't read your black box. No one can any more. I'm sorry.
-|   | I saw what happened with the Servos in the pump room - whether they acted independently, or were being controlled, it's hard to say.
-|   | An android could certainly do that though.
+|   | Du denkst, dass du ohne deines Wissens die Noka betrogen hast?
+|   | Wir wissen einiges über Androiden, aber leider haben wir dafür auch nicht das notwendige Werkzeug.
+|   | Ich hab gesehen, wass mit den Servos passiert ist, aber ob sie ferngesteuert waren kann ich nicht sagen.
+|   | Ein Android könnte das auf jeden fall...
 |   < talk
-| - What was it like before the Calamity?
+| - Wie war es vor der Katastrophe?
 |   ~ islay
 |   | ...
-|   | It was another world, another lifetime.
-|   | If you're wondering if androids destroyed the world, I can't help you.
-|   | I wasn't on the surface - (:nervous)few of us were, that's why we're still here.
-|   | (:normal)But I don't see how that would've been possible.
-|   | And even if androids did, I doubt very much it was their own doing. No.
+|   | Es war eine andere Welt, ein anderes Leben.
+|   | Wenn du dich fragst, ob die Androiden die Welt zerstört haben, dann kann ich dir nicht helfen.
+|   | Ich war nie auf der Oberfläche - (:nervous)sehr wenige von uns sind je dort gewesen.
+|   | (:normal)Aber es scheint mir eine sehr unwahrscheinliche Theorie.
+|   | Und auch wenn sie war währe, ich denke nicht, dass es nach dem Willen der Androiden gewesen wäre.
 |   < talk
-| - That'll do.
+| - Das reicht
 |   < leave
 |? (and (complete-p 'q7-my-name) (not (complete-p 'q10-wraw)))
 | ~ player
-| - What's happening on the Cerebat border?
+| - Was ist mit den Cerebat los?
 |   ~ islay
-|   | (:nervous)We're still trying to ascertain that - but we've lost more cameras since you left.
-|   | (:normal){#@innis-nametag} thinks we're next, but I'm not so sure.
-|   | The Wraw are primitive. Maybe they're messing with the Cerebats, but they wouldn't stand a chance against our technology.
-|   | And I'm not just talking about surveillance. We have weapons.
+|   | (:nervous)Das versuchen wir auch raus zu finden. Aber unser Kameranetz ist nur noch schlechter geworden in der Zwischenzeit.
+|   | (:normal){#@innis-nametag} denkt, dass wir als nächstes dran kommen, aber ich bin mir nicht so sicher.
+|   | Die Wraw sind primitiv. Vielleicht schlagen sie sich mit den Cerebat rum, aber gegen unsere Technologie kommen sie nicht an.
+|   | Und ich spreche auch nicht nur von Überwachung, wir haben auch Waffen.
 |   ! eval (setf (var 'semis-weapons) T)
 |   < talk
-| - What's it like living underground?
+| - Wie ist es im Untergrund zu leben?
 |   ~ islay
-|   | (:nervous)You mean apart from the lack of sunlight, and not knowing what time of day it is?
-|   | (:normal)At least we get vitamin D from mushrooms like the flower fungus, once we expose them to UV light.
-|   | Apart from that it's fine - most of us spent our lives underground even before the Calamity.
-|   | (:nervous)Fresh air is a problem, and it's too hot - as you've probably noticed. The wind tunnels help though.
-|   | (:normal)Sometimes I envy the Noka. I know living on the surface has it challenges, but it must be nice living under the sky.
+|   | (:nervous)Du meinst nebst dem Sonnenlichtmangel?
+|   | (:normal)Zumindest Vitamin D können wir in einigen Pilzen erzeugen wenn wir sie mit UV Licht beleuchten.
+|   | Und nebst dem ist es OK, die meisten von uns sind schon seit Kind hier und gewöhnt an das.
+|   | (:nervous)Frische Luft ist ein Problem, und die Klimatisierung auch. Die Wind Tunnell helfen aber.
+|   | (:normal)Manchmal beneide ich die Noka. Auf der Oberfläche zu leben hat bestimmt seine Schwierigkeiten, aber den Himmel zu sehen muss schön sein.
 |   < talk
-| - Why are the Semi Sisters mostly women?
+| - Warum sind die Semi vor allem Frauen?
 |   ~ islay
-|   | (:nervous)Why not?
-|   | Though we're not a religious order, or a bunch of nurses, if that's what you're thinking - despite our uniforms.
-|   | (:normal)Most who worked in the factories were women. After the Calamity we just stayed together.
-|   | And we've done better than most.
-|   | Maybe the world wouldn't have fallen apart if there were more women in charge. Present company included.
+|   | (:nervous)Warum nicht?
+|   | Wir sind nicht eine religiöse Organisation, auch wenn unsere Uniform daran erinnert.
+|   | (:normal)Die meisten, die in den Fabriken von Semi gearbitet hatten waren Frauen, und nach der Katastrophe sind wir zusammen geblieben.
+|   | Und wir haben es bisher besser als viele überlebt.
+|   | Vielleicht wäre die Welt nicht unter gegangen wenn schon früher mehr Frauen in Führungspositionen gewesen wären.
 |   < talk
-| - I need to go.
+| - Ich muss gehen
 |   < leave
 |? (and (complete-p 'q10-wraw) (not (complete-p 'q11-recruit-semis)))
 | ~ player
-| - The Wraw are coming for everyone in the valley.
+| - Die Wraw sind auf dem Weg
 |   ~ islay
-|   | Thank you, but we already know about the scale of their operation.
-|   | (:nervous)We're making... preparations.
+|   | Danke, aber das wussten wir schon.
+|   | (:nervous)Wir bereiten uns vor.
 |   ~ player
-|   - You've been spying on me again.
+|   - Du hast mich wieder ausspioniert
 |     ~ islay
-|     | ... I'm afraid so.
-|     | Good luck, {(nametag player)}.
-|   - What preparations?
+|     | ... Ja das stimmt.
+|     | Viel Glück, {(nametag player)}.
+|   - Wie?
 |     ~ islay
-|     | I'm afraid I can't share that. I'm sorry.
-|     | Good luck, {(nametag player)}.
-|   - Good luck.
+|     | Das kann ich dir leider nicht sagen.
+|     | Viel Glück, {(nametag player)}.
+|   - Viel Glück
 |     ~ islay
-|     | Thank you, {(nametag player)}. To you too.
-|   - Let's talk about something else.
+|     | Danke, {(nametag player)}. Dir auch.
+|   - Lass uns über etwas anderes sprechen
 |   < talk
-| - Do androids live in the mountains?
+| - Gibt es in den Bergen Androiden?
 |   ~ islay
-|   | Oh, that old chestnut...
-|   | Before the Calamity there were hundreds of thousands of androids, and more in production.
-|   | Where did they all go? Were they all destroyed? - Present company excepted.
-|   | Sometimes we find the occasional Genera core; but the truth is no one knows, and we'll probably never know.
-|   | But I doubt any are living in the mountains. We'd have seen or heard something, detected a signal... But there's nothing.
+|   | Ah, dieser alte Rumor...
+|   | Vor der Katastrophe gab es hundertausende von Androiden, und mehr waren in Produktion.
+|   | Wo sind sie alle hin? Wurden sie alle zerstört?
+|   | Manchmal finden wir einen Genera Core, aber das ist etwa alles.
+|   | Ich glaube nicht, dass es in den Bergen welche gibt. Wir hätten bis jetzt davon irgendwas sehen müssen.
 |   < talk
-| - I need to go.
+| - Ich muss gehen
 |   < leave
 
 # leave
 ~ islay
-| [? Take care, {(nametag player)}. | Mind how you go, {(nametag player)}. | I'll be seeing you. | Ta-ta.]
+| [? Sei vorsichtig, {(nametag player)}. | Ta-ta.]
 

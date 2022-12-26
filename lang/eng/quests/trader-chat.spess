@@ -211,8 +211,6 @@
 |   - They're planning to invade the entire valley.
 |     ~ trader
 |     | (:jolly)Oh, that's a good one!
-|   - Let's talk about something else.
-|     < talk
 |   ~ player
 |   | They've amassed an invasion force, mechs and soldiers, big enough to take the whole valley.
 |   ~ trader

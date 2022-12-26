@@ -1,65 +1,59 @@
 # contact-fi/fi-ffcs-cerebat
 ~ player
-| "That should be far enough."(light-gray, italic)
-| (:normal){#@fi-nametag}, are you there? Can you hear me?
+| "Das sollte weit genug sein."(light-gray, italic)
+| (:normal){#@fi-nametag}, kannst du mich hören?
 ~ fi
-| Loud and clear. Where are you?
+| Laut und deutlich. Wo bist du?
 ~ player
-| The Cerebat markets. The Council are gone. They turned the Wraw's water off. The Wraw have taken over.
+| Im Markt der Cerebat. Das Kollegium gibt es nicht mehr und die Wraw haben alles übernommen weil ihnen das Wasser abgedreht worden ist.
 ~ fi
 | ...
-| What happened? Are you okay?
+| Was ist passiert? Alles OK mit dir?
 ~ player
-- I'm fine.
+- Ich bin noch ganz
   ~ fi
-  | (:happy)Good.
-  | (:normal)So what's the situation?
-- I helped the Wraw by mistake.
+  | (:happy)Gut.
+  | (:normal)Also was ist los?
+- Ich habs versaut
   ~ fi
-  | What do you mean?
-- I want to come home.
+  | Was meinst du?
+- Ich will nach hause
   ~ fi
-  | First give me your report.
+  | Erst deinen Report
 ~ player
-| I found a trader willing to talk - if I paid him some scrap parts.
-| I did, and that's when he told me. He also told me he's working for the Wraw.
+| Ich hab einen Händler gefunden, der mir Information verkauft hat.
+| Ich hab ihn bezahlt, und er hat mir vom Kollegium erzählt... und dass er für die Wraw arbeitet.
 ~ fi
 | (:annoyed)...
-| Well, you couldn't have known.
-| But now he's our enemy.
-| (:normal)At least that "explains why the Wraw invaded. Turning the water off would definitely get {#@zelah-nametag}'s attention"(orange).
-| It's not just their drinking water either - they need it for their power station.
-| I knew {#@innis-nametag} was overreacting about the Wraw invading the Semi Sisters too.
-| (:unsure)But I still need to know "when and where the Wraw will try and capture us"(orange).
-| (:normal)I'm sorry to send you "deeper, but we really need to know what {#@zelah-nametag}'s planning"(orange).
-| Can do you that? "Go into Wraw territory"(orange)?
+| Das hättest du nicht wissen können.
+| Aber jetzt ist er auch unser Feind.
+| (:normal)Zumindest ist es klar warum sie invadiert haben. "Das Wasser abzudrehen ist viel zu offensichtlich"(orange).
+| Sie brauchen das nicht nur als Trinkwasser, sondern auch um ihr Kraftwerk zu kühlen.
+| Ich wusste, dass {#@innis-nametag} am überreagiert hat. Die Semis werden nicht invadiert.
+| (:unsure)Aber ich muss immernoch wissen "wann und wo die Wraw uns einfangen wollen"(orange).
+| (:normal)Es tut mir leid, aber ich muss dich "tiefer in das Gebiet schicken. Finde raus was Zelah vor hat"(orange).
+| Kannst du das? "In das Wraw Gebiet eindringen"(orange)?
 ~ player
-- It's my job.
+- Das ist mein Job
   ~ fi
-  | (:happy)And you're very good at it.
-- It'll be fun.
+  | (:happy)Und du machst das sehr gut.
+- Tönt spassig
   ~ fi
-  | (:happy)I'm glad you enjoy your work. But this could be dangerous. Please be careful.
-- Do I have to?
+  | (:happy)Bitte gib acht, das könnte gefährlich werden.
+- Hab ich eine Wahl?
   ~ fi
-  | You always have a choice. But I need you to do this.
-- I'll do it for you.
+  | Du hast immer eine Wahl, aber das ist enorm wichtig für uns.
+- Für dich schon
   ~ fi
   | (:happy)...
-- Technically I'm now already in Wraw territory.
+- Richtig gesehen bin ich beireits im Wraw gebiet
   ~ fi
-  | (:unsure)Yes, I suppose you are. But I'm talking about their "core lands, much deeper"(orange).
+  | (:unsure)... Ja, aber ich meinte "ihr Hauptgebiet, viel tiefer unten"(orange).
 ~ fi
-| (:unsure)Try looking in their "main chambers, in the west of their territory"(orange) - that's a good place to start.
-| (:normal)Your "FFCS might not work so deep"(orange). But "contact me as soon as you can"(orange).
-| Be safe.
+| (:unsure)Schau dir die "Magmakammer im Westen an"(orange) - das sollte ein guter Startpunkt sein.
+| (:normal)Dein "FFCS könnte so tief unten nicht mehr funktionieren"(orange), aber "gib mir bescheid sobald du kannst"(orange).
+| Gib Acht.
 ~ player
-| "I've marked potential locations to investigate on my map."(orange, italic)
+| "Ich hab mir einige wichtige Orte auf der Karte amrkiert."(orange, italic)
 ! eval (deactivate (unit 'fi-ffcs-cerebat-1))
 ! eval (deactivate (unit 'fi-ffcs-cerebat-2))
-
-; Cannot give a reward here, as the player isn't in proximity to Fi. However, can sell stuff to the trader for parts.
-
-; Fi's parting words about a bad feeling here, is a clue that most if not all sidequests will get invalidated once q10 is complete, as the plot escalates
-
-; "if I paid him in scrap parts" - could inflect this base on number of parts given/haggled. But I think it automatically inflects based on how many you know you paid

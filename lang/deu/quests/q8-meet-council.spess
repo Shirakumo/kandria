@@ -1,27 +1,27 @@
 # task-find/interact-reminder
 ~ fi
-| Go and "see the Cerebat Council beneath Semi Sisters territory"(orange) - see what you can "learn about the supposed Wraw takeover"(orange).
+| "Sprich mit dem Cerebat Kollegium im Gebiet unter den Semis"(orange) - schau was du "über die Wraw Invasion lernen kannst"(orange).
 
 # task-find/player-council-chamber
 ~ player
-| "This would seem to be the Cerebat Council chamber..."(light-gray, italic)
-| (:thinking)"But there's "no Council"(orange)."(light-gray, italic)
+| "Das sollte das Rathaus des Cerebat Kollegiums sein..."(light-gray, italic)
+| (:thinking)"Aber ich sehe "kein Kollegium"(orange)."(light-gray, italic)
 ? (not (active-p 'q8a-bribe-trader))
 | ~ player
-| | "I should "ask around, find out where they are"(orange) - "local traders might know something"(orange)."(light-gray, italic)
+| | "Ich sollte "rum fragen, rausfinden wo sie sind"(orange) - "die Händler hier könnten etwas wissen"(orange)."(light-gray, italic)
 | ! eval (activate 'task-search)
 | ! eval (deactivate 'task-find)
 |?
 | ~ player
-| | "Looks like I'll need to "give that trader what he wants to find out where they are"(orange)."(light-gray, italic)
+| | "Schaut aus als hätte ich keine Wahl ausser "dem Händler zu geben, was er will, wenn ich rausfinden will wo das Kollegium ist"(orange)."(light-gray, italic)
 | ! eval (activate 'task-search-hold)
 | ! eval (deactivate 'task-find)
 
 # task-search-hold/interact-reminder
 ~ fi
-| If the Council aren't there, you'll need to investigate. "See if any of the Cerebat traders know anything"(orange).
+| Wenn das Kollegium nicht dort ist, dann "schau ob die Händler etwas darüber wissen"(orange).
 
 # task-search/interact-reminder
 ~ fi
-| If the Council aren't there, you'll need to investigate. "See if any of the Cerebat traders know anything"(orange).
+| Wenn das Kollegium nicht dort ist, dann "schau ob die Händler etwas darüber wissen"(orange).
 

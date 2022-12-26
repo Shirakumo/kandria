@@ -2,47 +2,47 @@
 ? (not (complete-p 'q7-my-name))
 | ? (and (complete-p 'q5a-rescue-engineers) (complete-p 'q5b-investigate-cctv) (not (var 'alex-done)))
 | | ~ alex
-| | | (:angry)What's the matter? Afraid to talk to me yourself, android? <-Hic->.
+| | | (:angry)Was los? Angst mit mir selbst zu sprechen, Android? <-Hick->
 | | ~ islay
-| | | The barkeep has stopped serving them, which is something.
+| | | Der Barmann serviert ihm nichts mehr. Eine erstaunliche Leistung.
 | | ~ alex
-| | | (:angry)Oi, android! <-Hic->. I 'ear you even stole my jobs round 'ere now too.
+| | | (:angry)Hey Android! <-Hick-> Hab gehört du hast noch mehr Jobs gestohlen hier!
 | | ~ islay
-| | | You could work together {#@alex-nametag}, for the Noka - return to {#@fi-nametag} with {(nametag player)} and get your old life back.
+| | | Ihr könntet zusammen arbeiten, {#@alex-nametag}. Wenn du mit {(nametag player)} zu {#@fi-nametag} zurückkehrst könntest du bestimmt dein altes Leben wieder haben.
 | | ~ alex
-| | | "{(nametag player)}", ha. Don't make me laugh- <-Hic->. I'm the stranger. Stranger to my own people. Stranger to myself.
-| | | Get lost, both of you.
+| | | "{(nametag player)}", ha. Was für ein Witz!
+| | | Verpisst euch beide.
 | | ~ islay
-| | | Let's "leave them in peace for a while"(orange). They might feel differently once they've sobered up.
-| | | You've done a lot for us though, with little to show for it.
-| | | "Take these parts as recompense"(orange) - though hopefully soon you'll have {#@alex-nametag} to show for it as well.
+| | | Wir sollten "ihn für eine Weile alleine lassen"(orange). Hoffentlich denkt ehr anders, wenn er wieder nüchtern ist.
+| | | Du hast für uns bereits einiges getan, ohne wirkliche Belohnung.
+| | | Bitte "nimm diese Bruchteile als Entschädigung"(orange).
 | | ! eval (store 'item:parts 600)
 | | ! eval (status "Received 600 Scrap Part")
 | | ! eval (setf (var 'alex-fee) T)
-| | | [(not (complete-p 'q6-return-to-fi)) You should "get back and update {#@fi-nametag}"(orange). I'll keep an eye on {#@alex-nametag}. | Don't worry, I'll keep an eye on them.]
-| | | We'll speak again.
+| | | [(not (complete-p 'q6-return-to-fi)) Du solltest "{#@fi-nametag} sagen was los ist"(orange). Ich behalt {#@alex-nametag} im Auge. | Mach dir keine Sorgen, ich behalte ihn im Auge.]
+| | | Bis später.
 | | ! eval (setf (var 'alex-done) T)
 | | ! eval (clear-pending-interactions)
 | |? (var 'alex-done)
 | | ~ islay
-| | | See for yourself - though I've told the barkeeps not to serve them.
-| | | I need to get back to the control room soon, but I've got a hidden camera trained on them - Alex won't fart without me knowing about it.
+| | | Sieh selbst. Ich hab dem Barmann verboten ihm was zu bringen.
+| | | Ich sollte zum Kontrollraum zurückkehren, aber keine Sorge, wir haben ihn unter beobachtung.
 | |?
 | | ~ islay
-| | | Not much better I'm afraid. (:normal)I think talking is helping though.
-| | | If I can get them out of this bar it'll be a start.
+| | | Nicht viel besser, leider.
+| | | Wenn ich ihn nur aus dieser Bar raus kriegen würde...
 |? (and (complete-p 'q7-my-name) (not (complete-p 'q11-recruit-semis)))
 | ~ islay
-| | (:nervous)"They've gone. I don't know where"(orange). They just upped and left. Managed to evade most of our cameras.
-| | (:normal)If they've not returned to the Noka then I don't know.
-| | I hope they're okay. And sober.
-| | I'm sorry, I should've kept a closer eye. It's not an excuse, but there's a lot happening right now.
+| | (:nervous)"Er ist weg. Keine Ahnung wohin"(orange). Ich hab einen Moment nicht aufgepasst und weg war er.
+| | (:normal)Wenn er nicht bei den Noka ist, dann kann ich dir nicht weiter helfen.
+| | Ich hoffe es geht im gut und er ist wieder bei Verstand.
+| | Tut mir leid, ich hätte ihn genauer beobachten sollen.
 | ? (not (var 'alex-fee))
-| | | You've done a lot for us, with little to show for it.
-| | | Please "take these parts as recompense"(orange).
+| | | Du hast für uns bereits einiges getan, ohne wirkliche Belohnung.
+| | | Bitte "nimm diese Bruchteile als Entschädigung"(orange).
 | | ! eval (store 'item:parts 600)
 | | ! eval (status "Received 600 Scrap Part")
 | | ! eval (setf (var 'alex-fee) T)
 |  
 | ~ islay
-| | Be careful, {(nametag player)}.
+| | Sei vorsichtig, {(nametag player)}.

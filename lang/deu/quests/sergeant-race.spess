@@ -1,74 +1,73 @@
 # hub
 ~ wraw-sergeant
-| So, ye still interested are ya? There's no turning back now.
-| "Find the locations, don't get killed, destroy the targets"(orange). I'll drill that into ye skull if it's the last thing I do.
-| Ye'll be facing "training mannequins and feral dogs"(orange).
-| What did ye expect? That's the extent o' the threat to us out there, so it's what ye'll do.
-| They say the mannequins are what androids used to look like in the old world - so don't get scared!
-| The prize for ye is nothing short o' Wraw immortality. Sound good?
-| <-GOOD!->
-| There are "5 courses"(orange) for ye to go at, easy to hard. Though honestly, I can't see ye getting past the first one.
-| Alright then: "are ye ready to die"(orange)?
+| Aha! Immernoch interesse daran ein Söldner zu werden? Dann gibts jetzt kein zurück mehr!
+| "Finde dein Ziel, und eliminier es"(orange). Mit höchstpräzision!
+| Du wirst gegen "Trainingspuppen und Wölfe"(orange) ankommen.
+| Mehr kann ich Schwächlingen wie dir nicht antrauen.
+| Man sagt, dass die Trainingspuppen aussehen wie Androiden von der alten Welt.
+| Also keine Angst! Nur zuschlagen!
+| Dein Preis ist die erachtung der Wraw! Ein höheres Lob gibt es nicht!
+| Wir haben "5 Kurse"(orange) vorbereitet, aber ein Schwächling wie du wird nicht einmal den ersten bewältigen.
+| Also, Rekrut! "Bereit zu sterben"(orange)?
 ! eval (clear-pending-interactions)
-
-;  "They say the mannequins are what androids used to look like" - a joke amongst the Wraw. Ofc, few know that Zelah actually has an android (you), if that's even true that he has one...
 
 # start
 ? (timer-quest)
 | ~ wraw-sergeant
-| | What're ye playing at? "Ye're on the clock already"(orange)!
+| | Was soll das? "Die Uhr läüft bereits"(orange)!
 | < quit
 
 ~ wraw-sergeant
-| This is ye mission:
+| Deine Mission:
 | "{(quest:title (quest:find-named 'race task))}."(orange)
-| Me times to beat for this course are: "Gold:"(orange) {(format-relative-time gold)} - "Silver:"(orange) {(format-relative-time silver)} - "Bronze:"(orange) {(format-relative-time bronze)}.
+| Meine Zeiten sind: "Gold:"(orange) {(format-relative-time gold)} - "Silber:"(orange) {(format-relative-time silver)} - "Bronze:"(orange) {(format-relative-time bronze)}.
 ? (var 'pb)
-| | Ye "personal best"(orange) for this course is "{(format-relative-time pb)}"(orange).
+| | Deine "Bestzeit"(orange) für diesen Kurs war "{(format-relative-time pb)}"(orange).
 ~ wraw-sergeant
-| Deploy!
+| Vorwärts!
 ! eval (complete task)
 ! eval (clear-pending-interactions)
 
 # cancel
 ~ wraw-sergeant
-| I knew this would be too much for ya. "Ye sur ye want to stop the race?"(orange) There's much shame in that.
+| Pah! Hab erwartet, dass das zu viel ist fur einen Schwächling wie dich! "Du willst also aufhören"(orange)?
 ~ player
-- No, I'll continue the race.
+- Nein, ich mach weiter.
   ~ wraw-sergeant
-  | That's the spirit. Now <-GET MOVING!->
-- Yes, end it.
+  | Dann <-AB MIT DIR->!
+- Ja, beende das Rennen
   ~ wraw-sergeant
-  | Ye'll always be green. Or yella.
+  | Eine absolute Schande!
   ! eval (activate 'cancel-it)
 
 # return
 ~ wraw-sergeant
-| Stop the clock!
-| Reports confirm ye eliminated the targets. Well done.
-| The time was: "{(format-relative-time (clock quest))}"(orange).
+| ZEIT!
+| Nach meinem Bericht wurden alle Ziele eliminiert. Grossartig.
+| Deine Zeit war: "{(format-relative-time (clock quest))}"(orange).
 ? (and pb (< pb (clock quest)))
-| | Ye "didn't better"(orange) yer record o' "{(format-relative-time pb)}"(orange).
-| | So ye won't be joining the Wraw today. Lucky for us.
+| | "Keine Verbesserung"(orange) über deinen Rekord von "{(format-relative-time pb)}"(orange).
+| | Keine Verbesserung, kein Lob!
 |?
 | ? (not (null pb))
-| | | Ye got a "personal best"(orange) - whoop-di-doo.
+| | | Eine "neue Bestzeit"(orange). Und was jetzt, Rekrut? Soll ich dich etwa loben?
 | ! eval (setf pb (clock quest))
 | ? (< pb gold)
-| | | ... Wait. How was that quicker than me "gold"(orange) time?!...
-| | | <-WHAT-> are ye not telling me?
+| | | ... Was zum Teufel! Besser als "gold"(orange)?
+| | | <-WAS GEHT HIER AB?!->
 | |? (< pb silver)
-| | | And that was quicker than me "silver"(orange) time...
-| | | No, that can't be right. Something's wrong. Something's very wrong.
+| | | ... Schneller als "silber"(orange).
+| | | Das kann so nicht stimmen...
 | |? (< pb bronze)
-| | | Hang on, that was quicker than me "bronze"(orange) time...
-| | | Something smells fishy here.
+| | | Wart mal, besser als "bronze"(orange)?
+| | | Hmm, hab ich etwas übersehen?
 | |?
-| | | But it was "slower than me bronze time"(orange). To be expected.
-| | | That's nowt to be ashamed o'. Ye're just not at me calibre. Or the calibre o' any Wraw.
+| | | Pah! Wie erwartet, nicht einmal "bronze"(orange).
+| | | Die Wraw sind die bessten!
   
 ~ wraw-sergeant
-| Ye ain't the real deal yet. Keep tryin'.
+| Ich sag dir was. In meiner Truppe hättest du keine Chance!
+| Hopp hopp! Weiter mit dem Training!
 ! eval (activate 'complete-it)
 
 # quit

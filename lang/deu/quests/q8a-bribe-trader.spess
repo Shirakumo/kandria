@@ -1,55 +1,44 @@
-; character voice: London cockney
 # return-parts/parts-return
 ~ cerebat-trader-quest
-| You "ready to part with them scrap parts"(orange)? I believe we agreed "{(var 'trader-bribe)} in exchange for info on the Council"(orange).
+| Bist du "bereit dich von deinen Bruchteilen zu trennen"(orange)? Ich glaube wir haben uns auf "{(var 'trader-bribe)} geeinigt"(orange).
 ~ player
-- Not yet.
+- Noch nicht
   ~ cerebat-trader-quest
-  | Run along then. Nothin' to see here.
-- [(> (var 'trader-bribe) (item-count 'item:parts)) I don't have enough.|]
+  | Dann los mit dir.
+- [(> (var 'trader-bribe) (item-count 'item:parts)) Ich hab nicht genug|]
   ~ cerebat-trader-quest
-  | And whose fault is that? It ain't mine!
+  | Wohl kaum mein Problem!
   ~ player
-  | "I need to generate some money. I could try "scavenging or fishing, then selling to traders like {#@islay-nametag} and {#@trader-nametag}"(orange)."(light-gray, italic)
-- [(<= (var 'trader-bribe) (item-count 'item:parts)) I'm ready.]
+  | "Ich muss mehr Geld verdienen. Vielleicht "durch handel von Fischen und Rohmaterialien mit {#@islay-nametag} oder {#@trader-nametag}"(orange)."(light-gray, italic)
+- [(<= (var 'trader-bribe) (item-count 'item:parts)) Ich bin bereit]
   < outcome
-
-; " could try" - amongst other activities
 
 # outcome
 ~ cerebat-trader-quest
-| Gimme!
+| Her damit!
 ! eval (retrieve 'item:parts (var 'trader-bribe))
-! eval (status (concatenate 'string "Lost " (write-to-string (var 'trader-bribe)) " Scrap Part"))
-| Just need a sec to count them all.
+! eval (status "~d Bruchteile verloren" (var 'trader-bribe))
+| Ne Sekunde, muss das noch zählen.
 | ...
-| Looks good to me! Now we're in business.
-| I'll just put them to one side. Got a special customer lined up for these scrap parts.
+| Sieht gut aus! Na dann.
 ~ player
-- And now my information.
-  ~ cerebat-trader-quest
-  | I gotta say, I thought you mighta worked it out by now.
-- Ahem.
-  ~ cerebat-trader-quest
-  | Don't worry, I 'aven't forgotten. Though I thought you mighta worked it out by now.
-- What customer?
-  ~ cerebat-trader-quest
-  | I gotta say, I thought you mighta worked it out by now.
+| Raus damit.
 ~ cerebat-trader-quest
-| The "Wraw"(orange).
-| I'm tradin' with the Wraw aren't I.
-| It's the only good thing to come from "them movin' in"(orange), believe me. Though don't tell anyone I said that.
-| So now you know.
-| That's why you can't see the "Council: there isn't one any more. They're dead"(orange).
-| Maybe "they shouldn't 'ave turned the Wraw's water off"(orange).
-| I told you they wouldn't see anyone!
-| Anyway, now I know I can trust you, I'd be "'appy to trade"(orange).
-| Some o' the "others round 'ere might wanna do the same"(orange).
-| Toodle-oo.
+| Ehrlich gesagt hätte ich erwartet, dass du es bereits selbst rausgefunden hast.
+| Die "Wraw"(orange) sind verantwortlich.
+| Ich verhandle mit ihnen.
+| Wohl das einzig Positive, dass von ihrer "geheimen Invasion"(orange) gekommen ist.
+| Sag das aber nur niemand anderem.
+| "Das Kollegium gibt es nicht mehr"(orange). Die sind alle tot.
+| Vielleicht hätten sie "den Wraw das Wasser nicht abdrehen sollen"(orange).
+| Tja, so gehts.
+| Wie auch immer, jetzt wo ich dir vertrauen kann, "mach ich auch gerne weiteren Handel"(orange).
+| Vielleicht ein paar "Andere hier auch"(orange).
+| Bis auf wiedersehen.
 ~ player
 | (:embarassed)...
-| Shit.
-| (:normal)"I need to "contact {#@fi-nametag}"(orange). Though first I should "put some distance between myself and this slippery fella"(orange)."(light-gray, italic)
+| Scheisse.
+| (:normal)"Ich muss mit "{#@fi-nametag} sprechen"(orange). Aber zuerst muss ich mich "von diesem Gauner distanzieren"(orange)."(light-gray, italic)
 ! eval (complete task)
 ! eval (reset interaction)
 ! eval (activate (unit 'fi-ffcs-cerebat-1))
@@ -60,5 +49,3 @@
 ! eval (setf (music-state 'region3) :ambient)
 ? (active-p 'q8-meet-council)
 | ! eval (deactivate (unit 'player-council-chamber))
-
-; "shouldn't have turned the Wraw's water off" - part of what led to the invasion; the Wraw are reliant on their Cerebat puppets for water to drink and power the geothermal power station (less so than most as the "potion" helps their endurance - but they also work in stifling conditions)

@@ -4,241 +4,231 @@
   
 ~ trader
 ? (complete-p 'q13-planting-bomb)
-| | If we must, habibti.
+| | Wenn es sein muss, Habibti.
 |? (complete-p 'q10a-return-to-fi)
-| | ... I'm sorry, {(nametag player)}, I can't.
-| | I'll still trade though, if you want.
+| | ... Tut mir leid, {(nametag player)}, keine Zeit.
+| | Ausser für den Handel, natürlich!
 |?
-| | (:jolly)Assalam alaikum! Let's talk.
+| | (:jolly)Assalam alaikum! Worum gehts?
 | ? (< 80 (health-percentage player))
-| | | (:jolly)[? You look well, {(nametag player)}! | And how robust you're looking! | I don't think I've seen you looking better.]
+| | | (:jolly)Du siehst gut aus, {(nametag player)}!
 | |? (< 50 (health-percentage player))
-| | | [? Have you been fighting, {(nametag player)}? | Are you alright? You look a little... worse for wear. | You've been hammering Servos again, haven't you?]
+| | | Warst du in einem Kampf, {(nametag player)}?
 | |?
-| | | [? Though I think you've seen better days. | You look like you could really use my help. | You look like you've been dragged through the desert backwards. | Forgive me for prying, but you're all scratched and scuffed - anything I can do?]
+| | | Du hast schon bessere Tage gesehen, hm?...
   
 ! label talk
 ? (not (complete-p 'q4-find-alex))
 | ~ player
-| - What's your story?
+| - Was ist deine Geschichte?
 |   ~ trader
-|   | A long and sad one I'm afraid... Like most people's.
-|   | I used to hang with the Wraw too, just like the "Noka"(red) did.
-|   | I got out too, only with my caravan instead of a vendetta.
-|   | And now I tour the settlements, trade supplies, (:jolly)and try not to get killed, haha.
+|   | Eine lange und traurige, muss ich zugeben.
+|   | Ich war ursprünglich mit den Wraw, genau wie die "Noka"(red) auch.
+|   | Und wie sie bin ich auch geflüchtet, nur mit meiner eigenen Karavane.
+|   | Jetzt handel ich zwischen den verschiedenen Siedlungen. (:jolly)Und versuch nicht ermordet zu werden, ha ha.
 |   < talk
-| - What do you make of this place?
+| - Was haltest du von den Noka?
 |   ~ trader
-|   | The "Noka"(red)? They're a nice bunch, what can I say?
-|   | {#@fi-nametag}'s a good person, which is rare these days.
-|   | They broke out all on their own, had enough of that Wraw bullshit.
-|   | Can't blame 'em. It was brave. It might also prove stupid.
+|   | Die "Noka"(red)? Ne nette truppe, was kann ich sagen?
+|   | {#@fi-nametag} ist ein guter Mensch, eine Seltenheit heutzutage.
+|   | Sie sind selber von den Wraw abgebrochen, und ich kann sie dafür nicht blamieren.
+|   | Es war mutig, aber womöglich auch sehr dumm.
 |   < talk
-| - {#@catherine-nametag} said you were later than expected.
+| - {#@catherine-nametag} hat gesagt du seist verspätet
 |   ~ trader
-|   | Yeah, those damn Servos prowling about. Thanks to you though they seem to have scarpered.
-|   | Don't get me wrong, I can handle myself. But it's not easy when you pull your own caravan.
-|   | I used to have an ox, believe it or not. Ha, an ox, in this hellhole! It's hard to imagine.
-|   | Didn't last long after the wolves got at her throat though. Poor Celina.
+|   | Ja, die Servos haben mich abgehalten. Dank dir konnte ich wieder vorbei.
+|   | Versteh mich nicht falsch, ich kann mich selber verteidigen, nur ist es nicht so einfach mit all dem Gepäck.
+|   | Ich hatte früher noch einen Oxen, stell dir das nur vor!
+|   | Leider hatt die arme Celina die Wölfe nicht überlebt...
 |   < talk
-| - Do you know how to examine me?
+| - Weisst du wie man mich untersuchen kann?
 |   ? (not (var 'examine-chat))
 |   | ~ trader
-|   | | Ah... examine you?
-|   | | (:jolly)Oh, examine you!
-|   | | Someone given you a warm welcome, have they?
+|   | | Untersuchen?...
+|   | | (:jolly)Oh, hat dich jemand nett begrüsst?
 |   | ~ player
-|   | - {#@jack-nametag}.
+|   | - {#@jack-nametag}
 |   |   ~ trader
-|   |   | Yeah, that figures. He doesn't like new people.
-|   |   | Heck, he still doesn't like me - I mean, what's not to love?
-|   | - {#@jack-nametag} and {#@fi-nametag}.
+|   |   | Das überrascht mich nicht, er ist menschenscheu.
+|   |   | Er mag nicht einmal mich, kannst du dir das vorstellen?
+|   | - {#@jack-nametag} und {#@fi-nametag}
 |   |   ~ trader
-|   |   | Oh really? I expected nothing less from {#@jack-nametag}. {#@fi-nametag} I'm surprised about.
-|   |   | Mind you, she has a lot of alqarf on her plate. Give her some time.
-|   | - Everyone.
+|   |   | Oh? Das hätte ich von {#@jack-nametag} arwartet, aber {#@fi-nametag}?...
+|   |   | Sie hat viel zu tun, gib ihr ein bisschen Zeit.
+|   | - Alle
 |   |   ~ trader
-|   |   | People can be the worst. And it's got nothing to do with the apocalypse - they were like that before, as I'm sure you remember.
-|   | - Everyone except you and {#@catherine-nametag}.
+|   |   | Ja so kann es leider sein. Die Menschheit war wohl schon immer so, auch vor der Katastrophe.
+|   | - Alle ausser du und {#@catherine-nametag}
 |   |   ~ trader
-|   |   | People can be the worst. And it's got nothing to do with the apocalypse - they were like that before, as I'm sure you remember.
-|   |   | I'm glad I could help though. And {#@catherine-nametag}, well... like I said, she's a great kid.
-|   | - Let's talk about something else.
+|   |   | Ja so kann es leider sein. Die Menschheit war wohl schon immer so, auch vor der Katastrophe.
+|   |   | Ich freue mich aber, dass ich helfen kann.
+|   | - Lass uns über etwas anderes sprechen
 |   |   < talk
 |   | ~ trader
-|   | | (:jolly)At least you've got a sword. Anyone that doesn't like you, just wave that in their face and they'll soon settle down.
-|   | | (:normal)Yes... trust. It was always a common problem with androids.
-|   | | But if you want me to look inside you and say if you've been good or bad, I'm afraid I can't.
-|   | | I can fix superficial damage, but I'm no engineer. Let alone a software one.
-|   | | Sorry, habibti. It looks like you'll have to change their minds the old-fashioned way.
+|   | | (:jolly)Wenigstens hast du ein Schwert. Wenn dich jemand nicht mag, kannst du das einfach vor ihrem Gesicht rumwedeln.
+|   | | (:normal)Hmmm... Vertrauen. Das war schon immer ein Problem mit Androiden.
+|   | | Aber wenn du möchtest, dass ich in dich reinschaue, dann kann ich das leider kaum.
+|   | | Einfache Schäden beheben könnte ich vielleicht, aber ich bin kein Ingenieur.
+|   | | Sorry, Habibti. Du musst ihre Meinungen auf die alte Weise ändern.
 |   | ! eval (setf (var 'examine-chat) T)
 |   | < talk
 |   |?
 |   | ~ trader
-|   | | That's still a no I'm afraid, habibti.
-|   | | I hope you can show them you can be trusted. I really do.
+|   | | Leider immer noch nicht, Habibti.
+|   | | Ich hoffe, dass du ihnen zeigen kannst, dass man dir vertrauen kann.
 |   | < talk
-| - That'll do.
+| - Das reicht
 |   < leave
 |? (and (complete-p 'q4-find-alex) (not (complete-p 'q7-my-name)))
 | ~ player
-| - When are you moving on?
+| - Wann machst du dich auf den Weg?
 |   ~ trader
-|   | Tired of me already? (:jolly)I'm just kidding.
-|   | (:normal)You're right habibti, that is what I do. I'll be gone soon.
-|   | If I stayed in one place too long I'd either run out of stock, or get run through by Rogues. (:jolly)I'm not sure which is worse.
-|   | (:normal)It feels good to have something to look after, you know? Even if a business is no replacement for Khawla.
+|   | Was, du hast schon genug von mir? (:jolly)Das ist ein Scherz.
+|   | (:normal)Du hast reicht, ich werd mich bald vom Acker machen.
+|   | Wenn ich zu lange am gleichen Ort bleib werd ich keine Materialien mehr haben oder von Räubern angegriffen.
+|   | Es fühlt sich gut an, etwas zu tun zu haben. Auch wenn ein Geschäft kein Ersatz für Khawla ist.
 |   ~ player
-|   - Who's Khawla?
+|   - Wer ist Khawla?
 |     ~ trader
-|     | She was my daughter. She's long dead.
+|     | Das war meine Tochter. Sie ist vor langem gestorben.
 |     ! eval (setf (var 'trader-daughter) T)
 |     ~ player
-|     - I'm sorry.
+|     - Tut mir leid
 |       ~ trader
-|       | Me too. It is what it is. Everyone's lost someone.
-|     - What happened?
+|       | Mir auch. Aber es ist wie es ist.
+|     - Was ist passiert?
 |       ~ trader
-|       | I... I'd rather not talk about it, if it's all the same.
-|     - Let's talk about something else.
-|   - Let's talk about something else.
+|       | Ich... spreche lieber nicht davon.
+|     - Lass uns über etwas anderes sprechen
+|   - Lass uns über etwas anderes sprechen
 |   < talk
-| - What do you know of the Semi Sisters?
+| - Was weisst du über die Semi Schwesternschaft?
 |   ~ trader
-|   | They're our resident tech gurus! (:jolly)Ha, remember those?
-|   | (:normal)I remember a presentation from the head of Semi - don't remember his name - unveiling new models of android, just like you.
-|   | The sisters used to work on the production line, in the factories down here. Conditions were terrible by all accounts.
-|   | I quite like they've adopted the name. It stokes the revolutionary in me. Which don't get stoked very often.
-|   | Needless to say they aren't too popular, what with their past associations with androids.
+|   | Das sind unsere Tech-Gurus! (:jolly)Hah, errinerst du dich an das?
+|   | (:normal)Ich erinner mich an eine Präsentation vom Semi CEO über die neuen Androiden, wie du.
+|   | Die beiden Schwestern hatten bei der Produktion gearbeitet, in den Fabriken da unten. Die Arbeitslage war sehr schlecht.
+|   | Ich mag, dass sie den Namen übernommen haben. Spornt den Revolutionär in mir an.
+|   | Sie sind leider nicht zu beliebt, vor allem dank ihren Verbindungen mit Androiden.
 |   < talk
-| - That'll do.
+| - Das reicht
 |   < leave
 |? (and (complete-p 'q7-my-name) (not (complete-p 'q10-wraw)))
 | ~ player
-| - When are you moving on?
+| - Wann machst du dich auf den Weg?
 |   ? (not (var 'rumours-told))
 |   | ~ trader
-|   | | (:jolly)What, you don't want to buy supplies?
-|   | | (:normal)Truth be told, I heard the rumours about the Wraw in Cerebat territory.
-|   | | I would've moved on already if not for that.
-|   | | Are they true, the rumours?
+|   | | (:jolly)Was, du willst nichts mehr kaufen?
+|   | | (:normal)Um ehrlich zu sein, ich hab die Rumoren über die Wraw bei den Cerebat gehört.
+|   | | Das hat mich ein bisschen abgeschreckt.
+|   | | Sind sie wahr?
 |   | ~ player
-|   | - [(complete-p 'q8a-bribe-trader) I'm afraid so - but there's a good reason.|]
+|   | - [(complete-p 'q8a-bribe-trader) Leider, aber es gibt einen guten Grund|]
 |   |   ~ trader
-|   |   | Alqarf!
-|   |   | I'm sure there is. I'd better let you get on. It sounds like you have bigger fish to fry than old {#@trader-nametag}.
-|   | - [(not (complete-p 'q8a-bribe-trader)) That's what I'm trying to find out.|]
+|   |   | Algarf!
+|   |   | Da bin ich mir sicher. Na dann, du hast sicher besseres zu tun als mit {#@trader-nametag} die Zeit tot zu schlagen, oder?
+|   | - [(not (complete-p 'q8a-bribe-trader)) Das versuch ich rauszufinden|]
 |   |   ~ trader
-|   |   | Well in that case I'd better not keep you. You have bigger fish to fry than old {#@trader-nametag}.
-|   | -  [(complete-p 'q8a-bribe-trader) (Lie) I'm not sure.|]
+|   |   | Na dann, du hast sicher besseres zu tun als mit {#@trader-nametag} die Zeit tot zu schlagen, oder?
+|   | -  [(complete-p 'q8a-bribe-trader) (Lügen) Ich weiss nicht|]
 |   |   ~ trader
-|   |   | Still, I'd rather not risk it. I think I'll stay here a while longer.
-|   | - [(not (complete-p 'q8a-bribe-trader)) I'm not sure.|]
+|   |   | Hmm, trotzdem riskier ich das lieber nicht.
+|   | - [(not (complete-p 'q8a-bribe-trader)) Ich weiss nicht|]
 |   |   ~ trader
-|   |   | Still, I'd rather not risk it. I think I'll stay here a while longer.
-|   | - [(not (complete-p 'q8a-bribe-trader)) I don't think so.|]
+|   |   | Hmm, trotzdem riskier ich das lieber nicht.
+|   | - [(not (complete-p 'q8a-bribe-trader)) Ich glaube nicht|]
 |   |   ~ trader
-|   |   | Well that's something. But I think I'll stay here a while longer, just in case.
-|   | - I can't say.
+|   |   | Das ist eine erleichterung. Aber, ich glaube ich bleib noch eine Weile hier.
+|   | - Kann ich nicht sagen
 |   |   ~ trader
-|   |   | I understand, habibti.
-|   |   | Still, I think it would be unwise for me to leave your borders right now. I'm staying right here.
-|   | - Let's talk about something else.
+|   |   | Das versteh ich, Habibti.
+|   |   | Aber, ich glaube ich bleib noch eine Weile hier.
+|   | - Lass uns über etwas anderes sprechen
 |   | ! eval (setf (var 'rumours-told) T)
 |   | < talk
 |   |?
 |   | ~ trader
-|   | | Not yet, that's for sure - not with these Wraw and Cerebat rumours swilling around like... well, like swill.
+|   | | Noch nicht, definitiv nicht mit den Wraw auf dem Weg....
 |   | < talk
-| - What do you know about the Cerebats?
+| - Was weisst du über die Cerebat?
 |   ~ trader
-|   | They're the self-proclaimed council down here, I know that much.
-|   | But what good's a council that can't enforce its laws?
-|   | The only people that can enforce anything down here are the Wraw. Maybe the Semis.
-|   | (:jolly)Maybe you, too!
+|   | Sie sind das selbst-ernannte Händlerkollegium dort unten.
+|   | Aber was für einen Nutzen hat ein Kollegium, dass seine Gesetze nicht in Kraft setzen kann?
+|   | Die einzigen, die dort etwas erreichen können sind die Wraw.
+|   | (:jolly)Oder vielleicht du!
 |   < talk
-| - Have you seen {#@alex-nametag}?
+| - Hast du {#@alex-nametag} gesehen?
 |   ~ trader
-|   | I'm afraid not, habibti.
+|   | Leider nicht, Habibti.
 |   < talk
-| - [(var 'trader-daughter) What happened to your daughter?|]
+| - [(var 'trader-daughter) Was ist mit deiner Tochter geschehen?|]
 |   ? (not (var 'daughter-told))
 |   | ~ trader
 |   | | ...
-|   | | ... I suppose with everything that's happening, now's as good a time as any to talk about her.
-|   | | Her name was Khawla - I think I told you that before. She was a great engineer - almost as good as {#@catherine-nametag}.
-|   | | I lost her on the roads, just like Celina, my ox.
-|   | | 'Cept it wasn't wolves that got her. It was people.
-|   | | Rogues, I think. Maybe a Wraw hunting pack. I wasn't really in a fit state to see who they were.
-|   | | They took her, anyway. And I never saw her again.
+|   | | ... Mit allem, das im Moment los ist, denke ich ich kann dir das auch erzählen.
+|   | | Khawla... Sie war ein grossartiger Ingenieur, fast so gut wie {#@catherine-nametag}.
+|   | | Ich hab sie auf meinen Reisen verloren, genau wie mein Ox, Celina.
+|   | | Wir sind von einer Gruppe angegriffen worden. Vermutlich Gauner, vielleicht Wraw.
+|   | | Sie haben sie entführt, und ich hab sie nie wieder gesehen.
 |   | ~ player
-|   | - I'm so sorry.
+|   | - Das tut mir sehr leid
 |   |   ~ trader
-|   |   | Thank you, {(nametag player)}.
-|   |   | It's okay. Khawla should be remembered and talked about. I should speak her name like I always did.
-|   | - Sorry for making you relive it.
+|   |   | Danke, {(nametag player)}.
+|   |   | Ich sollte mich öfters an sie erinnern. Wenigstens so viel schulde ich ihr.
+|   | - Tut mir leid, dass du das wiederleben musstest
 |   |   ~ trader
-|   |   | It's okay, {(nametag player)}.
-|   |   | Khawla should be remembered and talked about. I should speak her name like I always did.
-|   | - Could she still be alive?
+|   |   | Es ist OK, {(nametag player)}.
+|   |   | Ich sollte mich öfters an sie erinnern. Wenigstens so viel schulde ich ihr.
+|   | - Könnte sie noch am Leben sein?
 |   |   ~ trader
-|   |   | No. Khawla's dead. Slaves don't live very long.
-|   |   | Or she met an even worse end.
-|   |   | ... I'd rather not think about that.
-|   |   | Now I remember the good times instead.
-|   |   | Times that should be remembered and talked about. I should speak her name like I always did.
-|   | - Let's talk about something else.
+|   |   | Nein, sie ist bestimmt tot. Sklaven leben nicht lange.
+|   |   | Darüber denke ich lieber nicht nach.
+|   |   | Wir sollten uns besser auf die Zeiten vor uns konzentrieren.
+|   | - Lass uns über etwas anderes sprechen
 |   | ! eval (setf (var 'daughter-told) T)
 |   | < talk
 |   |?
 |   | ~ trader
-|   | | Khawla's gone, that's all there is to it. Now I just have to remember the good times instead.
+|   | | Khawla ist nicht mehr bei uns, und das ist alles.
+|   | | Wir sollten uns besser auf die Zeiten vor uns konzentrieren.
 |   | < talk
-| - I need to go.
+| - Das reicht
 |   < leave
 |? (and (complete-p 'q10-wraw) (not (complete-p 'q10a-return-to-fi)))
 | ~ player
-| - The Wraw are coming.
+| - Die Wraw sind auf dem Weg
 |   ~ trader
-|   | What, right now?
+|   | Was, jetzt sofort?
 |   ~ player
-|   - I think so.
+|   - Ich glaube schon
 |     ~ trader
-|     | They're coming for the Noka?
-|   - Save yourself!
+|     | Sie kommen den Noka hinterher?
+|   - Rette dich!
 |     ~ trader
-|     | (:jolly)Oh, that's a good one!
-|   - They're planning to invade the entire valley.
+|     | (:jolly)Du machst einen Witz, oder?
+|   - Sie invadieren das ganze Gebiet!
 |     ~ trader
-|     | (:jolly)Oh, that's a good one!
-|   - Let's talk about something else.
-|     < talk
+|     | (:jolly)Du machst einen Witz, oder?
 |   ~ player
-|   | They've amassed an invasion force, mechs and soldiers, big enough to take the whole valley.
+|   | Sie haben eine Armee gesammelt, mit enormen Robotern und vielen Soldaten.
 |   ~ trader
-|   | You're not joking are you?...
-|   | That would explain why traders haven't been allowed on Wraw land for some time.
-|   | Thank you for telling me, {(nametag player)}.
+|   | ...
+|   | Das würde erklären, warum die Händler nicht mehr in das Wraw gebiet gegangen sind.
+|   | Danke für die Info, {(nametag player)}.
 |   < talk
-| - Do androids live in the mountains?
+| - Leben Androiden in den Bergen?
 |   ~ trader
-|   | Ha, I wondered when you might hear about that.
-|   | I like to think they do - especially since I met you. Lots of other {(nametag player)}s running around like gazelles. A real haven.
-|   | Assuming they're friendly, of course.
-|   | But I think I'm in the minority on that particular issue.
+|   | Hah, ich hab mich gewundert, ob du danach fragst.
+|   | Wer weiss, die Berge sind sehr gefährlich und ohne jeglich essbares.
+|   | Ich kenne niemanden der davon zurückgekommen ist.
+|   | Und wer weiss, auch wenn sie dort leben ist es gut möglich, dass sie nicht freundlich wie du wären.
 |   < talk
-| - I need to go.
+| - Das reicht
 |   < leave
 |? (complete-p 'q13-planting-bomb)
 | ~ trader
-| | Look, I'm not proud that I ran. But I'm here now, and I'm ready to fight.
-| | Let's talk later, okay?
+| | Ich bin nicht stolz, dass ich weggerannt bin. Aber jetzt bin ich da und bereit zu kämpfen!
+| | Lass uns später sprechen, ja?
 
 # leave
 ~ trader
-| [? See you later habibti. | You take it easy. | Goodbye for now. | Take care. Masalamah!]
-
-; habibti = dear, my love, buddy (Arabic) (female form)
-; nadhil = bastard (Arabic) - unused at the moment
-; alqarf = shit (Arabic), pronounce: al-kara-fu
-; masalamah = goodbye (Arabic)
+| [? Bis später, Habibti. | Nur mit der Ruhe.]

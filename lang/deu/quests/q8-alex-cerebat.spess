@@ -1,13 +1,13 @@
 # task-1/interact
 ~ alex
-| (:angry)Get lost.
+| (:angry)Hau ab.
 ~ player
 - {#@alex-nametag}?
-- What are you doing here?
-- Are you okay?
-- Are you sober?
+- Was machst du hier?
+- Alles OK?
+- Bist du nüchtern?
 ~ alex
-| (:angry)Mind your own business.
-| (:normal)I'm doing my job, just like you. I'm still a hunter, ya know.
-| We're done.
+| (:angry)Lass mich in ruhe!
+| (:normal)Ich mach meinen Job, so wie du deinen.
+| Alles andere geht dich nichts an.
 

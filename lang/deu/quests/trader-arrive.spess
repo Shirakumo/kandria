@@ -1,106 +1,82 @@
 # talk-trader/talk-to-trader
 ~ trader
-| (:jolly)Well well... Are you who I think you are?
+| (:jolly)Nah schau mal da. Bist du?...
 ~ player
-- Who do you think I am?
-- Most likely.
+- Wer denkst du?
+- Womöglich
 ~ trader
-| (:jolly)You're The {#@player-name-1}!... (:normal)Or was it just {#@player-name-1}?
-? (not (complete-p 'q7-my-name))
-| ~ player
-| - Technically it's just {(nametag player)}.
+| (:jolly)Du bist {#@player-name-1}!
+? (string= (@ player-name-1) (nametag player))
+| - Genau
 |   ~ trader
-|   | (:jolly)Right you are, {(nametag player)}!
-| - Take your pick.
+|   | (:jolly)Schön dich kennen zu lernen, {(player nametag)}!
+| - Ich hatte früher einen anderen Namen
 |   ~ trader
-|   | (:jolly)But it's __YOUR__ name. Now I think about it, I'm sure it was just {(nametag player)}.
-| - I used to have a different name.
-|   ~ trader
-|   | Can't remember it though, right?
-|   | Don't worry. And speaking of remembering, I'm sure it was just {(nametag player)}.
+|   | Aber du kannst dich nicht erinnern, oder?
+|   | (:jolly)Kein Problem. Schön dich kennen zu lernen, {(player nametag)}!
 |?
-| ? (string= (@ player-name-1) (nametag player))
-| | ~ player
-| | - It's {(nametag player)}.
-| |   ~ trader
-| |   | (:jolly)Right you are, {(nametag player)}!
-| | - It's {(nametag player)}, but I used to have a different name.
-| |   ~ trader
-| |   | Can't remember it though, right?
-| |   | (:jolly)Well it's nice to meet you, {(nametag player)}!
-| | - It's {(nametag player)}. It was never The {(nametag player)}.
-| |   ~ trader
-| |   | Oh, my bad, habibti.
-| |   | (:jolly)Well it's nice to meet you, {(nametag player)}!
-| |?
-| | ~ player
-| | - Actually now it's {(nametag player)}.
-| |   ~ trader
-| |   | Old {#@trader-nametag} got old information, huh? I'm sorry, habibti.
-| |   ! eval (setf (nametag (unit 'trader)) (@ trader-nametag))
-| |   ~ trader
-| |   | (:jolly)Well it's nice to meet you, {(nametag player)}!
-| | - It used to be {#@player-name-1}.
-| |   ~ trader
-| |   | Used to be? Old {#@trader-nametag} got old information, huh?
-| |   ! eval (setf (nametag (unit 'trader)) (@ trader-nametag))
-| |   ~ trader
-| |   | Sorry, habibti. What is it now?
-| |   ~ player
-| |   | {(nametag player)}.
-| |   ~ trader
-| |   | (:jolly)Well it's nice to meet you, {(nametag player)}!
-| | - Now it's {(nametag player)}, which was possibly my original name.
-| |   ~ trader
-| |   | Right - because you can't remember.
-| |   | (:jolly)Well it's nice to meet you, {(nametag player)}!
+| ~ player
+| - Ich heisse {(nametag player)}
+|   ~ trader
+|   | Aha, {#@trader-nametag} hatte also alte Info. Tut mir leid, Habibti.
+|   ! eval (setf (nametag (unit 'trader)) (@ trader-nametag))
+|   ~ trader
+|   | (:jolly)Schön dich kennen zu lernen, {(player nametag)}!
+| - Das war früher so
+|   ~ trader
+|   | Früher? {#@trader-nametag} hatte also alte Info. Tut mir leid, Habibti.
+|   ! eval (setf (nametag (unit 'trader)) (@ trader-nametag))
+|   ~ trader
+|   | Was ist denn dein Name jetzt?
+|   ~ player
+|   | {(nametag player)}.
+|   ~ trader
+|   | (:jolly)Schön dich kennen zu lernen, {(player nametag)}!
 ~ trader
-| (:jolly)Word spreads quickly around here. And {#@catherine-nametag} couldn't stop talking about you.
-| Such a great kid, you know? A talented engineer as well. Reminds me of...
-| (:normal)Er-... well, never mind that.
-| So you've come to trade with old {#@trader-nametag}, eh?
+| (:jolly)Es spricht sich schnell rum hier. Und {#@catherine-nametag} konnte sich kaum davor halten.
+| Sie ist wunderbar, nicht? Ein super Ingenieur dazu. Erinnert mich an...
+| (:normal)Ah- verzeih mir, war kurz in Gedanken verloren.
+| Also du willst mit {#@trader-nametag} handeln?
 ! eval (setf (nametag (unit 'trader)) (@ trader-nametag))
 ~ player
-- What do you sell?
+- Was verkaufst du?
   ~ trader
-  | What doesn't old {#@trader-nametag} sell!
-  | Listen: {#@catherine-nametag} told me how you helped her out down here - kicked some Servo ass by the sounds of things.
-- What do I need?
+  | Alles mögliche!
+  | {#@catherine-nametag} hat gesagt du hättest ihr geholfen, und ein paar Servos aufgeräümt.
+- Was brauch ich?
   ~ trader
-  | I don't know. What kind of work are you doing?
-  | {#@catherine-nametag} said you helped her out down here - kicked some Servo ass by the sounds of things.
-- I think I can manage on my own.
+  | Was weiss ich?
+  | {#@catherine-nametag} hat gesagt du hättest ihr geholfen, und ein paar Servos aufgeräümt.
+- Ich komm aleine klar
   ~ trader
-  | Nonsense! You helped {#@catherine-nametag} out - kicked some Servo ass by the sounds of things.
+  | Ah pisch posch! Du hast {#@catherine-nametag} geholfen, und Servos aufgeräümt noch dazu!
 ~ trader
-| The least I can do is help keep you in tip-top condition.
-| I've heard about androids - you're different to those Servos. You've a lot more going on up here, that's for sure.
+| Das Wenigste, das ich tun kann is dir zu helfen im besten Zustand zu bleiben.
+| Ich hab über Androide gehört - ihr seid anders als diese Servos. Geht viel mehr los hier oben, das ist klar.
 ~ player
-| "He's tapping his fingers on his temple. Yes, the crystalline matrix is quite sophisticated"(light-gray, italic) (:embarassed)"- when it's not corrupting your memories."(light-gray, italic)
+| "Ich wünnschte nur das hier oben hätte nicht einfach das Gedächtnis verloren..."(light-gray, italic)
 ~ trader
-| Though I hear there are some similarities under the hood. No offence.
-| Here, I can assemble some useful bits and pieces into a handy repair pack for you.
+| Schau mal, ich kann dir sicher was nützliches basteln.
 ~ player
-| "Why is he rummaging around on those shelves? Surely there's nothing of value back there, judging by all the crap that's clattering to the floor."(light-gray, italic)
-| "Maybe I spoke too soon: he's cramming old circuit boards, clipped wires, and rolls of solder into several tins of different sizes."(light-gray, italic)
-| "There's even a needle and thread."(light-gray, italic)
+| "Er wendet sich zu Behältern voller Krimskrams. Was soll denn das werden?"(light-gray, italic)
+| "Jetzt packt er Drähte, Lötzinn, und Chips in verschiedene Dosen."(light-gray, italic)
+| "Auch noch mit einer Nadel und Faden."(light-gray, italic)
 ~ trader
-| (:jolly)Voila! I give you: "The Android Health Pack"(orange)! Custom made just for you.
+| (:jolly)Voila! Bitteschön, das "Android Heilpacket"(orange)! Nur für dich.
 ~ player
-| "It's crude, but does resemble the ones I used to use."(light-gray, italic)
-| "I'm sure I can do something with it - if only poke my lenses out."(light-gray, italic)
+| "Es sieht primitiv aus, aber könnte nützlich sein."(light-gay, italic)
 ~ player
-- Thanks!
+- Danke!
   ~ trader
-  | (:jolly)Don't mention it!
-- Where did you get all that stuff?
+  | (:jolly)Keine Sache!
+- Woher hast du das alles bekommen?
   ~ trader
-  | I meet all kinds of people on the road. And sometimes I just find things lying around.
-- Is it free?
+  | Ich treffe alle möglichen Leute auf meinem Weg, und manchmal find ich auch selber nützliches.
+- Ist das gratis?
   ~ trader
-  | (:jolly)Haha, I'm afraid not. I got to make a living too.
-  | But my prices are fair, I can promise you that!
+  | (:jolly)Ha ha, leider nicht. Ein Händler muss auch überleben.
+  | Aber meine Preise sind fair, das kann ich dir garantieren!
 ~ trader
-| Just "let me know when you want to trade"(orange), okay?
-| (:jolly)You take it easy, habibti.
-; habibti = dear, my love, buddy (Arabic) (female form)
+| Gib mir bescheid "wenn du handeln möchtest"(orange), OK?
+| (:jolly)Machs gut, Habibti.
+

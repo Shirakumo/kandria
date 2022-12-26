@@ -1,65 +1,62 @@
-; character voice: London cockney
-; short and sweet questions and answers here, as this guy isn't really your friend. Also no need to conditional the questions, as he'll be gone before long
 # chat-trader/chat-with-trader
 ? (not (complete-p 'q10a-return-to-fi))
 | ~ cerebat-trader-quest
-| | Shoot.
+| | Schiess los.
 | ! label questions
 | ~ player
-| - Why are you helping the Wraw?
+| - Warum hilfst du den Wraw?
 |   ~ cerebat-trader-quest
-|   | I know 'ow it looks.
-|   | But they're well stocked, and that's all I care about. A man's gotta make a livin'.
+|   | Ich weiss wies aussieht.
+|   | Aber sie haben viele Ressourcen, und das ist alles was mir wichtig ist.
 |   < questions
-| - What happened to the Cerebat Council?
+| - Was ist mit dem Kollegium passiert?
 |   ~ cerebat-trader-quest
-|   | Like I said, they're gone.
-|   | Some might still be alive though, rottin' in a Wraw jail.
+|   | Wie gesagt, höchstwahrscheinlich alle tot.
+|   | Oder vielleicht einfach nur in Gefangenschaft bei den Wraw. Wer weiss.
 |   < questions
-| - What's your name?
+| - Wie heisst du?
 |   ? (not (var 'name-known))
 |   | ~ cerebat-trader-quest
-|   | | You fink I got this far in business by sharin' my name?
-|   | | You can call me... //{#@cerebat-trader-nametag}//.
+|   | | Hah! Glaubst du wirklich ich würde jemandem meinen echten Namen geben?
+|   | | Nenn mich einfach... //{#@cerebat-trader-nametag}//.
 |   | ! eval (setf (nametag (unit 'cerebat-trader-quest)) (@ cerebat-trader-nametag))
 |   | ~ player
-|   | - Are you for real?
+|   | - Echt jetzt?
 |   |   ~ cerebat-trader-quest
-|   |   | You don't like it?
-|   | - Okay, {#@cerebat-trader-nametag}.
-|   | - Why did you pick that name?
+|   |   | Was, kein guter Name?
+|   | - OK, {#@cerebat-trader-nametag}.
+|   | - Warum den Namen?
 |   |   ~ cerebat-trader-quest
-|   |   | Do you like it? I just made it up.
+|   |   | Magst du ihn? Hab ich gerade jetzt erfunden.
 |   | ~ cerebat-trader-quest
-|   | | What's your name?
+|   | | Und deiner?
 |   | ~ player
-|   | - Nice try.
+|   | - Netter Versuch
 |   |   ~ cerebat-trader-quest
-|   |   | It was wasn't it.
-|   | - [(string= (@ player-name-1) (nametag player)) (Lie) Not {#@player-name-1}.|]
+|   |   | Konnte nicht schaden.
+|   | - [(string= (@ player-name-1) (nametag player)) (Lügen) Nicht {#@player-name-1}|]
 |   |   ~ cerebat-trader-quest
-|   |   | Really? Well that would be a turn-up for the books if it was.
-|   | - [(not (string= (@ player-name-1) (nametag player))) Not {#@player-name-1}.|]
+|   |   | Echt? Hah, das wär mal was.
+|   | - [(not (string= (@ player-name-1) (nametag player))) (Lügen) {#@player-name-1}|]
 |   |   ~ cerebat-trader-quest
-|   |   | Well that would be a turn-up for the books if it was.
-|   | - I don't remember my name.
+|   |   | Hah, wohl kaum.
+|   | - Ich kann mich nicht erinnern
 |   |   ~ cerebat-trader-quest
-|   |   | I don't remember mine neither.
+|   |   | Ich mich an meinen auch nicht.
 |   | ! eval (setf (var 'name-known) T)
 |   | < questions
 |   |?
 |   | ~ cerebat-trader-quest
-|   | | It's {#@cerebat-trader-nametag}, innit. You need to pay closer attention, friend. What's yours?
-|   | | Calm down, I'm just jestin'.
+|   | | Ich bin {#@cerebat-trader-nametag}, vergiss das nicht so einfach.
 |   | < questions
-| - I'm done.
+| - Keine weiteren Fragen
 | ~ cerebat-trader-quest
-| | See you around.
+| | Bis später.
 |? (and (complete-p 'q10a-return-to-fi) (not (complete-p 'q11a-bomb-recipe)))
 | ~ cerebat-trader-quest
-| | Soz pal, no time. Lots 'appenin'. I can trade though, if you're game.
+| | Tut mir leid, mein Freund. Zu viel los im Moment, keine Zeit für Fragen.
 |? (complete-p 'q11a-bomb-recipe)
 | ~ cerebat-trader-quest
-| | No can do I'm afraid. I'm leavin' while I've got the chance.
-| | Good luck, pal.
+| | Nicht möglich. Ich mach mich vom Acker solange ich noch Zeit hab.
+| | Viel Glück, mein Freund.
 

@@ -1,134 +1,129 @@
 # 1-interact-fi/interaction
 ~ fi
-| (:happy)I think it's high time that I "formally welcomed you into the Noka"(orange).
-| You've more than earned it.
+| (:happy)Es ist Zeit, dass wir dich als "Mitglied der Noka begrüssen"(orange).
+| So viel hast du verdient.
 ~ player
-- Thank you.
+- Danke
   ~ fi
-  | (:happy)No, thank you. Thank you for everything you've done.
-- It's true.
+  | (:happy)Nein, dank dir. Für alles.
+- Das stimmt
   ~ fi
   | (:happy)...
-- About time.
+- Endlich
   ~ fi
-  | Yes, sorry about that. Things don't always happen the fastest around here.
+  | Tut mir leid. Es geht nicht alles so schnell wie ich gerne hätte.
 ~ fi
-| I've been thinking about your name too. Do you still not remember it?
+| Ich hab auch über deinen Namen nachgedacht. Kannst du dich daran erinnern?
 ~ player
-| (:thinking)No. At least not completely.
-| There are corrupted data strings in my matrix - one of them could be my name, but I'd have to guess at exactly what it was.
+| (:thinking)Nein, zumindest nicht vollständig.
+| In meiner Datenbank schwirren einige Dateien herum die ich nicht kenne. Eine davon könnte mein Namen sein, aber ich bin mir nicht sicher.
 ~ fi
-| Well, I think {#@catherine-nametag} was sincere when she called you {(nametag player)}; but I wonder if that's really the name you'd choose for yourself.
-| You're not a stranger any more.
-| Do you want to change your name?
+| Ich glaube {#@catherine-nametag} hat keinen Witz gemacht, als sie dich {(nametag player)} genannt hat, aber ich frage mich ob das dir auch so passt.
+| Möchtest du deinen Namen ändern?
 ! label name
 ~ player
-- (Keep name as {#@player-name-1})
+- (Bleib weiterhin {(nametag player)})
   ~ fi
-  | Are you sure? You want us to continue to call you "{#@player-name-1}"(yellow)?
+  | Bist du sicher, dass du weiterhein "{#@player-name-1}"(yellow) heissen möchtest?
   ~ player
-  - (No - choose a different name)
+  - (Nein - Wähle einen anderen Namen)
     < name
-  - (Yes - confirm name as "{#@player-name-1}")
+  - (Ja - Bestätige Namen als "{#@player-name-1}")
     ~ fi
-    | (:happy)If you like it, I like it.
+    | (:happy)Wenn du den Namen magst, dann ist mir das recht so.
     < continue
-- (Choose a new name)
+- (Wähle einen neuen Namen)
   ~ player
-  | "From the corrupted strings in my registry, I'd guess my name was one of these:"(light-gray, italic)
+  | "Von den Dateien müsste es einer der folgenden Namen sein:"(light-gray, italic)
   ! label old-names
   ~ player
-  - {#@player-name-2}.
+  - {#@player-name-2}
     ~ fi
-    | Are you sure? You want us to call you "{#@player-name-2}"(yellow)?
+    | Bist du sicher, dass du "{#@player-name-2}"(yellow) heissen möchtest?
     ~ player
-    - (No - choose a different name)
+    - (Nein - Wähle einen anderen Namen)
       < old-names
-    - (Yes - confirm name as "{#@player-name-2}")
+    - (Ja - Bestätige Namen als "{#@player-name-2}")
       ! eval (setf (nametag player) (@ player-name-2))
       < old-name-chosen
-  - {#@player-name-3}.
+  - {#@player-name-3}
     ~ fi
-    | Are you sure? You want us to call you "{#@player-name-3}"(yellow)?
+    | Bist du sicher, dass du "{#@player-name-3}"(yellow) heissen möchtest?
     ~ player
-    - (No - choose a different name)
+    - (Nein - Wähle einen anderen Namen)
       < old-names
-    - (Yes - confirm name as "{#@player-name-3}")
+    - (Ja - Bestätige Namen als "{#@player-name-3}")
       ! eval (setf (nametag player) (@ player-name-3))
       < old-name-chosen
-  - {#@player-name-4}.
+  - {#@player-name-4}
     ~ fi
-    | Are you sure? You want us to call you "{#@player-name-4}"(yellow)?
+    | Bist du sicher, dass du "{#@player-name-4}"(yellow) heissen möchtest?
     ~ player
-    - (No - choose a different name)
+    - (Nein - Wähle einen anderen Namen)
       < old-names
-    - (Yes - confirm name as "{#@player-name-4}")
+    - (Ja - Bestätige Namen als "{#@player-name-4}")
       ! eval (setf (nametag player) (@ player-name-4))
       < old-name-chosen
-  - {#@player-name-5}.
+  - {#@player-name-5}
     ~ fi
-    | Are you sure? You want us to call you "{#@player-name-5}"(yellow)?
+    | Bist du sicher, dass du "{#@player-name-5}"(yellow) heissen möchtest?
     ~ player
-    - (No - choose a different name)
+    - (Nein - Wähle einen anderen Namen)
       < old-names
-    - (Yes - confirm name as "{#@player-name-5}")
+    - (Ja - Bestätige Namen als "{#@player-name-5}")
       ! eval (setf (nametag player) (@ player-name-5))
       < old-name-chosen
-  - (Go back)
+  - (Zurück)
     < name
-- (Let {#@fi-nametag} choose a name)
+- (Lass {#@fi-nametag} einen Namen wählen)
   ~ fi
-  | (:unsure)You'd let me do that? I thought you might want to choose one for yourself.
+  | (:unsure)Bist du sicher? Das ist eine grosse Verantwortung...
   ~ player
-  - On second thoughts...
+  - Dann lieber nicht...
     < name
-  - You can choose.
+  - Ja, wähl etwas aus
     ~ fi
-    | (:unsure)Okay, no pressure then...
-    | (:normal)I guess to me you seem like... "{#@player-name-fi}"(yellow). What do you think?
+    | (:unsure)OK, lass mich nachdenken...
+    | (:normal)Wie wärs mit "{#@player-name-fi}"(yellow)?
     ~ player
-    - (No - choose a different name)
+    - (Nein - Wähle einen anderen Namen)
       < name
-    - (Yes - confirm name as "{#@player-name-fi}")
+    - (Ja - Bestätige Namen als "{#@player-name-fi}")
       ! eval (setf (nametag player) (@ player-name-fi))
       ~ player
-      | (:giggle)I like it.
+      | (:giggle)Passt mir gut.
       ~ fi
-      | (:happy)Thank you. It means a lot that you let me do that.
+      | (:happy)Das freut mich sehr!
       < continue
 
 # old-name-chosen
 ~ fi
-| (:happy)I like it. Especially since it might have been your old name.
+| (:happy)Schön, dass du dich daran gewöhnt hast.
 < continue
 
 # continue
 ~ fi
-| (:happy)That's settled then, "{(nametag player)}"(yellow). Welcome to the Noka!
-| (:normal)I wish we could talk, but I really need you to take this next job.
-| (:happy)Your first "official" one, no less.
-| (:unsure)It's just... I can't get what {#@innis-nametag} said out of my head. We need to talk to the Cerebats.
-| (:normal)"Go and see the Cerebat Council"(orange) in the heart of their territory, "beneath the Semi Sisters"(orange).
-| "See what you can learn"(orange). If they've been invaded by the Wraw, I think you'll know soon enough.
+| (:happy)Na, dann hatt sich das auch erledigt, "{(nametag player)}"(yellow). Willkommen bei den Noka!
+| (:normal)Ich wünsche wir hätten Zeit zu plaudern, aber dieser nächste Job ist wichtig.
+| (:happy)Dein erster "offizieller" Job.
+| (:unsure)Ich denke immer wieder an was {#@innis-nametag} gesagt hat. Wir müssen mit den Cerebat sprechen.
+| (:normal)"Geh und sprich mit dem Cerebat Kollegium"(orange). Das sollte im Herzen ihres Gebiets, "unter den Semis"(orange) sein.
+| "Sieh was du lernen kannst"(orange). Wenn sie wirklich invadiert worden sind, dann sollte das einfach zu erkennen sein.
 ~ player
-- I will.
-- I don't think there's anything to worry about.
+- Geht klar
+- Keine Sorge
   ~ fi
-  | I hope you're right.
-- So you're sending me into the lion's den?
+  | Ich hoffe du hast recht
+- Du schickst mich in den Löwenkäfig?
   ~ fi
-  | I hope not.
+  | Ich hoffe nicht
 ~ fi
-| Just don't get caught - by the Wraw //or// the Semi Sisters.
-| And "please stay in touch"(orange).
-| Oh, I just remembered: "{#@jack-nametag} said he wanted to talk to you before you go - he's in Engineering"(orange).
-| Good luck, {(nametag player)}.
+| Pass einfach auf, dass du nicht von den Wraw oder den Semis gefangen genommen wirst.
+| Und bitte "melde dich wieder"(orange).
+| Oh, und "{#@jack-nametag} wollte mit dir sprechen bevor du gehst"(orange).
+| Viel Glück, {(nametag player)}.
 ! eval (setf (location 'alex) 'alex-cerebat-loc)
 ! setf (direction 'alex) 1
 ! eval (setf (location 'islay) 'islay-main-loc)
 ! setf (direction 'islay) 1
 ! eval (activate (unit 'player-council-chamber))
-
-; this could be a ceremony with Jack and Catherine in attendance, but it feels more personal with just you and Fi. Also, the others will acknowledge your new name later, the next time you speak to them, to suggest that word has travelled
-
-; "Do you still not remember it?" - in q1-water, the player may not have gone down a branch where Catherine tells Fi that the android can't remember her name. However, we can assume that word has gotten around to Fi by this point.
