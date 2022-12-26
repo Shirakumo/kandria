@@ -97,7 +97,11 @@
                     button)))
       (when (list-saves)
         (with-button (resume-game)
-          (resume-state (first (sort (list-saves) #'> :key #'save-time))))
+          (handler-case
+              (with-error-logging (:kandria.save)
+                (resume-state (first (sort (list-saves) #'> :key #'save-time))))
+            #+kandria-release
+            (error () (messagebox (@ save-file-corrupted-notice)))))
         (with-button (load-game-menu)
           (show-panel 'save-menu :intent :load)))
       (with-button (new-game)
