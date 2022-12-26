@@ -28,7 +28,8 @@
     ((eql T)
      (setf (state main) (first (list-saves)))))
   (let ((depot (depot:ensure-depot (or world
-                                       (probe-file (merge-pathnames "world/" (data-root)))
+                                       (and (probe-file (merge-pathnames "world/init/global.lisp" (data-root)))
+                                            (probe-file (merge-pathnames "world/" (data-root))))
                                        (probe-file (merge-pathnames "world.zip" (data-root)))
                                        (when *install-root*
                                          (probe-file (merge-pathnames "world/" *install-root*)))
