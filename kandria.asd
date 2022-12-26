@@ -231,4 +231,5 @@
                :jsown
                :swank
                :action-list
-               :easing))
+               :easing
+               :promise))

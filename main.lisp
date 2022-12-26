@@ -55,6 +55,7 @@
     (load-region region T)))
 
 (defmethod update ((main main) tt dt fc)
+  (promise:tick-all dt)
   (let* ((scene (scene main))
          (dt (* (time-scale scene) (game-speed main) (float dt 1.0)))
          (ev (load-time-value (allocate-instance (find-class 'tick)))))
