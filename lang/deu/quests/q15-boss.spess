@@ -1,21 +1,21 @@
 # 8-interact-catherine/interaction
 ~ catherine
-| (:concerned)Are you okay? (:excited)That was incredible!
+| (:concerned)Alles in Ordnung? (:excited)Das war unglaublich!
 ~ player
-- I had it under control.
+- Alles unter Kontrolle
   ~ catherine
-  | (:excited)I could tell.
-- That was harder than I expected.
+  | (:excited)Das seh ich.
+- Das war schwieriger als erwartet
   ~ catherine
-  | Well it's all over now. (:concerned)Assuming there aren't any more.
-- I need a vacation.
+  | Jetzt ist alles vorbei. (:concerned)Solange es nicht noch mehr gibt.
+- Ich brauch Ferien
   ~ catherine
-  | (:excited)You and me both. Somewhere without sand or soldiers. Unless it's the beach!
+  | (:excited)Du und ich beide. Irgendwo ohne Sand oder Soldaten.
 ~ catherine
-| "{#@islay-nametag} rewired the detonator and reattached it to the bomb in the flooded room."(orange)
-| Now "she's gone to the one near the hospital apartments"(orange).
-| (:excited)We should "get to the Brother offices and see about that last bomb"(orange).
-| {#@islay-nametag}'s counting on us.
+| "{#@islay-nametag} hat die Bombe beim Pumpenraum repariert."(orange)
+| Sie ist jetzt "in der nähe des Spitals"(orange).
+| (:excited)Wir sollten "zum Bürogebäüde und die Bombe dort überprüfen"(orange).
+| {#@islay-nametag} zählt auf uns.
 ! eval (follow 'player 'catherine)
 ! eval (activate 'q15-target-bomb)
 ! eval (activate (unit 'bomb-explode-1))
@@ -24,6 +24,6 @@
 
 # q15-boss-fight/walkntalk
 ~ player
-| Stay back {#@catherine-nametag}.
+| Bleib zurück, {#@catherine-nametag}.
 ~ catherine
-| (:cheer)Holy shit!
+| (:cheer)Oh Scheisse!

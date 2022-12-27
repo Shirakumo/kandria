@@ -1,51 +1,43 @@
 # 1-interact-fi/interaction
 ~ player
-- What can I do?
+- Was kann ich tun?
   ~ fi
-  | (:happy)I'm glad you asked.
-- I think you forgot about me.
+  | (:happy)Es freut mich, dass du fragst.
+- Ich glaube du hast mich vergessen
   ~ fi
-  | (:happy)On the contrary.
-- Am I a free agent now?
+  | (:happy)Im Gegenteil.
+- Bin ich jetzt frei?
   ~ fi
-  | (:happy)You're always a free agent. (:normal)But I have an important task for you.
+  | (:happy)Du warst schon immer frei. (:normal)Aber ich hab eine wichtige Aufgabe für dich.
 ~ fi
-| So {#@innis-nametag} was right about the Cerebat takeover - it //was// about more than just water.
-| And if the Wraw have marched that far, she's also right that the Semi Sisters are next.
-| (:annoyed)This is no time for division - the Wraw are now a threat to them as much as they are to us.
-| (:normal)I think you've come to earn "{#@innis-nametag}' trust"(orange).
-| I want you to use whatever sway you have with her and "ask the Semis to join us"(orange).
+| {#@innis-nametag} hatte recht, die Wraw invasion bei den Cerebats hatte mit mehr zu tun als nur dem Wasser.
+| Und wenn die Wraw bereits so weit eingedrungen sind, dann sind die Semis als nächstes dran.
+| (:annoyed)Jetzt ist nicht der richtige Zeitpunkt für Kleinigkeiten, die Wraw bedrohen sowohl uns als auch sie.
+| (:normal)Ich glaube, dass du "{#@innis-nametag}'s Vertrauen"(orange) gewonnen hast.
+| Ich möchte, dass du sie überzeugst sich mit uns zusammenzuschliessen.
 ~ player
-- Got it.
-- I wouldn't get your hopes up.
-- What if they join the Wraw?
-- [(var 'semis-weapons) They also have weapons.]
+- OK
+- Würde mir keine Hoffnungen machen
+- Was wenn sie mit den Wraw sind?
+- [(var 'semis-weapons) Sie haben auch Waffen]
   ~ fi
-  | (:unsure)So they say, though I've never seen any.
-  | (:normal)But I'll take what we can get.
+  | (:unsure)Das sagen sie, aber ich hab noch keine gesehen.
+  | (:normal)Aber wir nehmen wass wir kriegen können.
 ~ fi
-| {#@innis-nametag} isn't stupid, despite her other "qualities".
-| Just make sure you get to the Semis first. "Call me when you have news"(orange).
-| Also: things could change quickly down there. Although this is now your "top priority"(orange), if you have "other errands to do, I think now is the time"(orange).
+| {#@innis-nametag} ist nicht dumm, trotz allem.
+| Aber bitte beeil dich, wir müssen sie vor den Wraw erreichen.
+| Und: auch wenn das im Moment deine wichtigste Aufgabe ist, jetzt ist wohl "der letzte Moment, wenn du noch anderes zu tun hast"(orange).
 ~ player
-| "{#@fi-nametag} looks like she wants to say something else, but I think the moment has passed."(light-gray, italic)
-- Are you okay?
+| "{#@fi-nametag} sieht so aus als hätte sie etwas mehr zu sagen, aber ich denke der Moment ist vorbei."(light-gray, italic)
+- Alles OK?
   ~ fi
-  | (:happy)I'm fine. Be safe.
-- I'll be fine.
+  | (:happy)Mir geht es gut. Gib dir acht.
+- Keine Sorge
   ~ fi
-  | (:happy)I know you will. Be safe.
-- See you soon.
+  | (:happy)Ich überlass es dir.
+- Bis bald
   ~ fi
-  | (:happy)Be safe.
-- Goodbye.
-  ~ fi
-  | (:unsure)You say that with such finality.
-  | Please be safe.
-~ player
-- I will.
-- You too.
-- No promises.
+  | (:happy)Ja, bis bald.
 ! eval (setf (location 'innis) (location 'innis-org-loc))
 ! eval (setf (direction 'innis) -1)
 ! eval (setf (location 'islay) (location 'islay-org-loc))

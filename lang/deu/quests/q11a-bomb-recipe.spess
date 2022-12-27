@@ -1,124 +1,118 @@
 # task-reminder/interact-reminder-innis
 ~ innis
-| (:angry)You'd better shake a leg. Altogether {#@islay-nametag} needs "10 blasting caps"(orange) and "20 charge packs"(orange) for the bomb.
-| (:sly)Have fun in "Wraw territory"(orange).
+| (:angry)Du solltest dich auf den Weg machen. {#@islay-nametag} braucht "10 Sprengkapseln"(orange) und "20 Sprengmaterialien"(orange) für die Bombe.
+| (:sly)Viel Spass im "Wraw Gebiet"(orange).
 ~ player
-| "I need to "check Wraw factories and warehouses"(orange). I currently have: "{(item-count 'item:blasting-cap)} blasting cap"(orange), "{(item-count 'item:charge-pack)} charge pack"(orange)."(light-gray, italic)
+| "Ich muss die "Wraw Fabriken and Lagerräüme untersuchen"(orange). Im Moment habe ich: "{(item-count 'item:blasting-cap)} Sprengkapseln"(orange), "{(item-count 'item:charge-pack)} Sprengmaterialien"(orange)."(light-gray, italic)
 
-; optional dialogue - symbolic that Fi is kinda sidelined now, as Islay takes charge with the bomb.
 # task-return-fi/fi-return-recruit
 ~ fi
-| (:happy)Well done with the Semi Sisters.
+| (:happy)Gut gemacht. Das war sicher nicht einfach.
 ~ player
-- Thanks.
+- Danke.
   ~ fi
-  | (:happy)I'm glad you're safe.
-- {#@islay-nametag} did most of the convincing.
+  | (:happy)Natürlich.
+- {#@islay-nametag} hat das meisste gemacht
   ~ fi
-  | Well, she knows {#@innis-nametag} the best I suppose.
-  | But without you speaking with them, none of this would've happened.
+  | Sie kennt {#@innis-nametag} am bessten.
+  | Aber ohne dich hätte dieses Gespräch überhaupt nicht statt gefunden.
   ~ player
-  - I guess I played my part.
+  - Da hast du recht
     ~ fi
-    | (:happy)An important part. And on dangerous roads.
-  - Just doing my job.
+    | (:happy)Natürlich.
+  - Das ist mein Job
     ~ fi
-    | (:happy)More than that I think. Especially with how dangerous the roads are now.
-  - This was your idea though.
+    | (:happy)Mehr als das, denke ich.
+  - Es war aber deine Idee
     ~ fi
-    | Yes, but you had their ear - and took the journey on dangerous roads.
-- It was your idea.
+    | Ja, aber sie haben dir zugehört.
+- Es war aber deine Idee
   ~ fi
-  | Yes, but you had their ear - and took the journey on dangerous roads.
+  | Ja, aber sie haben dir zugehört.
 ~ fi
-| {#@islay-nametag} told me everything, about why you couldn't call.
-| All things considered, it's surprisingly calm around here.
-| (:unsure)Everyone's buying into {#@islay-nametag}'s story that we can stop the Wraw. I suppose this bomb is a convincing message.
-| (:normal)She's been working {#@catherine-nametag} hard to build it, that much I know. (:happy)At least our weapons are ready.
+| {#@islay-nametag} hat mir alles erzählt.
+| Alles in allem ist es ziemlich ruhig hier.
+| (:unsure)Alle glauben {#@islay-nametag}'s Geschichte, dass wir die Wraw besiegen können.
+| (:normal){#@catherine-nametag} arbeitet bereits an der Bombe... (:happy)wenigstens sind unsere Waffen bereit.
 ! label questions
 ~ player
-- You don't think we can win?
+- Du denkst nicht, dass wir gewinnen?
   ~ fi
-  | {#@islay-nametag} says we have good numbers. (:unsure)But she also says she doesn't know how many the Wraw are.
-  | It doesn't fill me with confidence, bomb or no bomb.
+  | {#@islay-nametag} sagt wir haben gute Chancen. (:unsure)Aber sie sagt auch sie wisse nicht wie gross die Wraw Armee ist.
+  | Bombe oder nicht, das gibt mir keine Zuversicht.
   < questions
-- What weapons do we have?
+- Was für Waffen haben wir?
   ~ fi
-  | We've got some old, pre-Calamity guns that {#@catherine-nametag} and {#@jack-nametag} got working. The Semi Sisters have some too, but in better condition and lots more.
-  | I don't remember the Wraw having anything like that - they're more into swords and spears, so they can watch you die up close.
-  | (:unsure)We've also got scythes, shears, and other sharp farming tools.
-  | (:happy)And we've got you.
+  | Ein paar wenige Alt-Welt Pistolen, die {#@catherine-nametag} und {#@jack-nametag} wieder repariert haben. Die Semis haben sicher auch welche.
+  | Ich glaube nicht, dass die Wraw das haben. Sie sind mehr der Hammer und Schwert Typ.
+  | (:unsure)Wir haben auch ein paar Werkzeuge die als improvisierte Waffen gebraucht werden könnten.
+  | (:happy)Und natürlich haben wir dich.
   ~ player
-  - I'll do my best.
+  - Ich versuch mein bestes
     ~ fi
-    | (:happy)I know you will.
-  - You know it.
+    | (:happy)Das weiss ich
+  - Natürlich!
     ~ fi
-    | (:happy)More than most, I think.
-  - [(var 'fight-army) I still can't fight an army.| I can't fight an army.]
+    | (:happy)...
+  - Ich kann keine Armee bekämpfen
     ~ fi
-    | You might not have to. (:unsure)I think {#@islay-nametag} has something special planned for you.
+    | Wenn alles gut geht, dann musst du das auch nicht.
   < questions
-- What do you think about the bomb?
+- Was haltest du von der Bombe?
   ~ fi
-  | It's a bold idea, and it might work.
-  | (:unsure)But I can't help but worry about the devastation it might cause to this whole area. To our way of life.
-  | Though I suppose the Wraw tearing through us would be even worse.
-  | (:normal)And I can't say I'm comfortable having a huge explosive assembled in the middle of our camp.
+  | Es ist eine mutige Idee, und könnte funktionieren.
+  | (:unsure)Aber ich mache mir Sorgen über die breiteren Konsequenzen davon. Es könnte das ganze Tal destabilisieren.
+  | Jedoch sind die Wraw keine bessere Option.
+  | (:normal)Auf alle Fälle ist es mir nicht sehr wohl eine Bombe gleich in unserem Lager zu bauen.
   < questions
-- Who's in charge now?
+- Wer ist jetzt am leiten?
   ~ fi
-  | {#@islay-nametag} has the plan, but she's quite diplomatic. (:happy)It feels like a partnership.
-  | (:annoyed)I'm not sure {#@innis-nametag} sees it that way though.
+  | {#@islay-nametag} hat den Plan, aber sie ist sehr diplomatisch. (:happy)Es ist mehr wie eine Partnerschaft.
+  | (:annoyed)Ob {#@innis-nametag} das auch so sieht weiss ich nicht.
   < questions
-- I have to go.
+- Ich sollte gehen
   ~ fi
-  | If you've got "all the components for the bomb, take them to {#@islay-nametag}"(orange).
-  | We'll talk again soon.
+  | Wenn du "alle Bombenteile hast, bring si zu {#@islay-nametag}"(orange).
+  | Bis bald.
 
 # task-return/components-return
 ~ islay
-| Did you get the components for the bomb?
+| Hast du alles gesammelt?
 ? (or (> 10 (item-count 'item:blasting-cap)) (> 20 (item-count 'item:charge-pack)))
 | ~ islay
-| | Hurry, {(nametag player)} - remember: "10 blasting caps"(orange) and "20 charge packs"(orange).
-| | "Search through Wraw territory."(orange)
+| | Wir haben nicht viel Zeit, {(nametag player)}!
+| | "Durchsuch das Wraw Gebiet nach den Bombenteilen"(orange).
 | ~ player
-| | "I need to "check Wraw factories and warehouses"(orange). I currently have: "{(item-count 'item:blasting-cap)} blasting cap"(orange), "{(item-count 'item:charge-pack)} charge pack"(orange)."(light-gray, italic)
+| | "Ich muss die "Wraw Fabriken and Lagerräüme untersuchen"(orange). Im Moment habe ich: "{(item-count 'item:blasting-cap)} Sprengkapseln"(orange), "{(item-count 'item:charge-pack)} Sprengmaterialien"(orange)."(light-gray, italic)
 |?
 | ~ islay
-| | [(< 30 (+ (item-count 'item:blasting-cap) (item-count 'item:charge-pack))) Yes. That's the last of them, and then some! | Yes. That's the last of them alright!]
-| | Thank you, {(nametag player)}. "Here's your payment per item, as promised"(orange).
+| | [(< 30 (+ (item-count 'item:blasting-cap) (item-count 'item:charge-pack))) Oho, mehr als nötig, sogar! | Ja das ist alles, klasse!]
+| | Danke, {(nametag player)}. "Hier deine Belohnung, wie versprochen"(orange).
 | ! eval (store 'item:parts (* (+ (item-count 'item:blasting-cap) (item-count 'item:charge-pack)) (var 'bomb-fee)))
-| ! eval (status (concatenate 'string "Received " (write-to-string (* (+ (item-count 'item:blasting-cap) (item-count 'item:charge-pack)) (var 'bomb-fee))) " Scrap Part"))
-| ! eval (status (concatenate 'string "Lost " (write-to-string (item-count 'item:blasting-cap)) " Blasting Cap"))
+| ! eval (status "~d Bruchteile Erhalten" (* (+ (item-count 'item:blasting-cap) (item-count 'item:charge-pack)) (var 'bomb-fee)))
+| ! eval (status "~d Sprengkapseln Verloren" (item-count 'item:blasting-cap))
 | ! eval (retrieve 'item:blasting-cap T)
-| ! eval (status (concatenate 'string "Lost " (write-to-string (item-count 'item:charge-pack)) " Charge Pack"))
+| ! eval (status "~d Sprengkapseln Verloren" (item-count 'item:charge-pack))
 | ! eval (retrieve 'item:charge-pack T)
 | < result
 
 # result
 ~ islay
-| I'll take the components to {#@catherine-nametag} so she can finish up.
-| {#@fi-nametag}, would you "join me in Engineering"(orange)?
+| Ich bring die Teile zu {#@catherine-nametag}.
+| {#@fi-nametag}, begleitest du mich bitte zum Ingenieurgebäüde?
 ~ fi
-| If you insist.
-| And what about {(nametag player)}? Since she's the one that brought us together - and brought the components for your bomb.
+| Wenn es sein muss.
+| Und was ist mit {(nametag player)}?
 ~ islay
-| I was about to add... "could you join us as well, {(nametag player)}"(orange)? This concerns you.
-| I'm afraid "any of your other jobs will have to wait"(orange).
-| {#@innis-nametag}, keep an eye on things here.
+| Das wollte ich gerade sagen. "{(nametag player)}, komm bitte mit uns"(orange).
+| "Deine anderen Aufgaben müssen bis später warten"(orange).
+| {#@innis-nametag}, pass auf alles auf hier.
 ~ innis
-| (:angry)Aye, alright.
+| (:angry)Ja ja.
 ! eval (complete task)
 ! eval (reset interaction)
 ! eval (activate 'q13-intro)
 ? (complete-p 'sq14c-synthesis)
 | ! eval (setf (location 'synthesis) 'synthesis-lab)
-| ! setf (direction 'synthesis) -1
-  
+| ! setf (direction 'synthesis) -1  
 ! eval (clear-pending-interactions)
-
-; "your other jobs will have to wait" hints that sidequests will come back in a bit - a small smoothing concession when many sidequests have potentially just been invalidated. But of course, surprise, they don't come back - but hopefully the story makes clear why that is (bombs, Wraw attack, etc.)
-
-; only move synthesis to the lab if completed the final part of the quest, to avoid spoilering their association with the lab on subsequent playthroughs (they're in the lab to either follow up on the info you gave them in sq14c, or to try and obtain it themself if you denied them the info)

@@ -1,34 +1,34 @@
 # bomb-explode/islay-reminder
 ~ islay
-| (:nervous)I need to concentrate on this bomb.
-| (:normal)You need to "go to the one in the Brother offices"(orange). {#@catherine-nametag}, you can "rewire it"(orange).
-| (:nervous)HURRY!
+| (:nervous)Ich muss mich auf diese Bombe konzentrieren.
+| (:normal)Ihr müsst "die im Brother Büro überprüfen"(orange). {#@catherine-nametag}, du kannst das.
+| (:nervous)BEEILT EUCH!
 
 # bomb-explode/call-explode
 ! eval (ensure-nearby 'player 'catherine)
 ~ islay
-| {(nametag player)}, {#@catherine-nametag} - the "bomb in the hospital apartments is rewired"(orange).
-| (:normal)How'd you get on with that mech? Over.
+| {(nametag player)}, {#@catherine-nametag} - die "Bombe im Spital ist repariert"(orange).
+| (:normal)Wie bist du mit den Exoskeletten klar gekommen?
 ~ player
-- It's no longer a threat. Over.
+- Kein Problem
   ~ islay
-  | Good.
-- I kicked its ass. Over.
+  | Gut.
+- In Trümmern
   ~ islay
-  | Excellent.
-- Scratch one mech. Hopefully there aren't any more. Over.
+  | Super.
+- Hoffentlich gibt es nicht mehr
   ~ islay
-  | I've not seen any.
+  | Ich hab noch keine gesehen.
 ~ islay
-| You "head for the Brother offices bomb"(orange). I'm heading for the-
+| Ihr "solltet die Bombe im Brother Büro überprüfen"(orange). Ich gehe zu-
 ~ player
-| "Something cut her off. What's that sound?"(light-gray, italic)
+| "Etwas hat sie unterbrochen. Was ist das für ein Geräüsch?"(light-gray, italic)
 ~ player
 - {#@islay-nametag}?
-- Is that an earthquake?
-- GET DOWN!
+- Ist das ein Erdbeben?
+- DECK DICH!
 ! eval (deactivate (unit 'bomb-explode-1))
 ! eval (deactivate (unit 'bomb-explode-2))
 ! eval (activate 'explosion)
 ! eval (move :freeze player)
-; lock player controls early in this case, before epilogue script
+

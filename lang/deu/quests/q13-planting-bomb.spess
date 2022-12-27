@@ -1,54 +1,54 @@
 # task-reminder/interact-islay
 ~ islay
-| (:normal)Remember where to "plant them"(orange):
-| "The old Brother offices to the west of the Zenith Hub;"(orange)
-| "The sunken room beside the pump;"(orange)
-| "East of the old Rootless hospital apartments."(orange)
-| Good luck.
+| (:normal)Merk dir wo du die Bomben setzen musst:
+| Im "Brother Büro im Westen"(orange);
+| An der "unteren östlichen Grenze, in der nähe des Rootless Spitals"(orange);
+| Im "überfluteten Raum nebst der Pumpe"(orange).
+| Viel Glück.
 
 # task-reminder/interact-fi
 ~ fi
-| {#@islay-nametag} can remind you where to plant the bombs.
-| (:unsure)I'm sorry, my mind is somewhere else.
-| (:normal)One was the sunken room beside the pump, I remember that much.
-| (:happy)Be careful, {(nametag player)}. Please.
+| {#@islay-nametag} kann dir sagen wo die Bomben hin sollen.
+| (:unsure)Sorry, mein Kopf ist anderswo.
+| (:normal)Einer der Orte war neben dem Pumpenraum...
+| (:happy)Sei vorsichtig, {(nametag player)}. Bitte.
 
 # task-reminder/interact-catherine
 ~ catherine
-| Hey, {(nametag player)}! You still good to go? Talk to {#@islay-nametag} if you need anything.
-| (:excited)I can't wait to see us win, and you'll be the hero.
-| (:normal)I'm glad I got to help build the bombs. Feels like sticking it to the Wraw myself.
-| You be careful, okay?
+| Hi, {(nametag player)}! Bist du bereit? Sprich mit {#@islay-nametag} wenn do etwas brauchst.
+| (:excited)Ich kann kaum drauf warten die Bomben zu zünden!
+| (:normal)Ich bin froh, dass ich helfen konnte. Fühlt sich fast an, als würde ich persönlich die Wraw besiegen!
+| Gib acht, OK?
 
 # task-reminder/interact-innis
 ~ innis
-| {#@islay-nametag} can tell you about your task. I dinnae think I've anything to add, if she told you what she said she would.
-| (:sly)I hope I was wrong about you, android.
+| {#@islay-nametag} weiss bescheid. Ich hab nichts dazuzugeben.
+| (:sly)Ich hoffe ich habe mich über dich getäuscht.
 
 # task-reminder/interact-jack
 ~ jack
-| I can't help you, I'm outta the loop now. They didn't even need me for the bomb.
-| All I can do is keep an eye on everyone, make sure they don't freak out.
-| (:annoyed)And the sooner you get goin', the less people will freak out.
+| Ich kann dir nicht weiterhelfen. Sie haben mir nicht einmal etwas über die Bomben erzählt.
+| Ich pass nur auf alle auf, schau dass niemand ausflippt.
+| (:annoyed)Und je schneller du los gehst, desto besser.
 
 # task-bomb-1/interact-bomb
 ~ player
 ! eval (retrieve 'item:explosive 1)
 ! eval (status "Lost 1 Explosive")
-| "This is the "bomb site in the Brother offices"(red)."(light-gray, italic)
-| "Yes, next to a giant mushroom! - Might as well cover them in fungus when they come through."(light-gray, italic)
+| "Ok, hier ist eine der Bombenorte."(light-gray, italic)
+| "Gleich neben einem riesigen Pilz, sehr schön."(light-gray, italic)
 ! eval (retrieve 'item:receiver 2)
 ! eval (status "Lost 2 RF Detonator")
-| "RF detonators inserted, and we're good to go. It's ready."(light-gray, italic)
+| "OK, alles schön befestigt und aktiviert."(light-gray, italic)
 ? (not (var 'first-bomb-done))
-| | "Checking "FFCS... No signal. Wraw interference"(orange), as expected."(light-gray, italic)
-| | "Okay, "2 more bombs to go"(orange)."(light-gray, italic)
+| | "Überprüfe "FFCS... Kein Signal. Wraw Interferenz"(orange), wie erwartet."(light-gray, italic)
+| | "Okay, "noch 2 mehr"(orange)."(light-gray, italic)
 | ! eval (setf (var 'first-bomb-done) T)
 | ! eval (activate 'task-part-move-wraw)
 |? (complete-p 'task-bomb-2 'task-bomb-3)
-| | "Checking "FFCS... More interference"(orange)."(light-gray, italic)
-| | "That's the last bomb planted."(light-gray, italic)
-| | "I'd better "get back to the Zenith Hub"(orange) ASAP and request detonation."(light-gray, italic)
+| | "Überprüfe "FFCS... Kein Signal. Wraw Interferenz"(orange), wie erwartet."(light-gray, italic)
+| | "Das sind alle Bomben."(light-gray, italic)
+| | "Ich sollte "zum Zenith Hub zurückkehren"(orange) und die Detonation anfordern."(light-gray, italic)
 | ! eval (deactivate 'task-reminder)
 | ! eval (activate 'task-return-bombs)
 | ! eval (activate 'task-return-bombs-station)
@@ -58,8 +58,8 @@
 | ! eval (activate (unit 'ffcs-bomb-4))
 | ! eval (activate (unit 'station-surface-trigger))
 |?
-| | "Checking "FFCS... There's still interference"(orange)."(light-gray, italic)
-| | "Now I only have the "last bomb to plant"(orange)."(light-gray, italic)
+| | "Und das "FFCS... Immernoch Interferenz"(orange)."(light-gray, italic)
+| | "Jetzt bloss noch die "letzte Bombe"(orange)."(light-gray, italic)
 
 # task-bomb-2/interact-bomb
 ~ player
@@ -67,19 +67,19 @@
 ! eval (status "Lost 1 Explosive")
 ! eval (retrieve 'item:receiver 2)
 ! eval (status "Lost 2 RF Detonator")
-| "This is the "bomb site beneath the pump room"(red)."(light-gray, italic)
-| "The explosive should stick to the concrete, despite being submerged."(light-gray, italic)
-| "Thankfully the RF detonators also seem to be waterproof."(light-gray, italic)
-| "It's ready."(light-gray, italic)
+| "OK, ich sollte hier eine Bombe befestigen."(light-gray, italic)
+| "Scheint zu halten, trotz des Wassers."(light-gray, italic)
+| "Und der Detonator funktioniert auch immernoch."(light-gray, italic)
+| "Alles bereit."(light-gray, italic)
 ? (not (var 'first-bomb-done))
-| | "Checking "FFCS... No signal. Wraw interference"(orange), as expected."(light-gray, italic)
-| | "Okay, "2 more bombs to go"(orange)."(light-gray, italic)
+| | "Überprüfe "FFCS... Kein Signal. Wraw Interferenz"(orange), wie erwartet."(light-gray, italic)
+| | "Okay, "noch 2 mehr"(orange)."(light-gray, italic)
 | ! eval (setf (var 'first-bomb-done) T)
 | ! eval (activate 'task-part-move-wraw)
 |? (complete-p 'task-bomb-1 'task-bomb-3)
-| | "Checking "FFCS... More interference"(orange)."(light-gray, italic)
-| | "That's the last bomb planted."(light-gray, italic)
-| | "I'd better "get back to the Zenith Hub"(orange) ASAP and request detonation."(light-gray, italic)
+| | "Überprüfe "FFCS... Kein Signal. Wraw Interferenz"(orange), wie erwartet."(light-gray, italic)
+| | "Das sind alle Bomben."(light-gray, italic)
+| | "Ich sollte "zum Zenith Hub zurückkehren"(orange) und die Detonation anfordern."(light-gray, italic)
 | ! eval (deactivate 'task-reminder)
 | ! eval (activate 'task-return-bombs)
 | ! eval (activate 'task-return-bombs-station)
@@ -89,28 +89,26 @@
 | ! eval (activate (unit 'ffcs-bomb-4))
 | ! eval (activate (unit 'station-surface-trigger))
 |?
-| | "Checking "FFCS... There's still interference"(orange)."(light-gray, italic)
-| | "Now I only have the "last bomb to plant"(orange)."(light-gray, italic)
+| | "Und das "FFCS... Immernoch Interferenz"(orange)."(light-gray, italic)
+| | "Jetzt bloss noch die "letzte Bombe"(orange)."(light-gray, italic)
 
 # task-bomb-3/interact-bomb
 ~ player
 ! eval (retrieve 'item:explosive 1)
 ! eval (status "Lost 1 Explosive")
-| "This is the "bomb site beyond the hospital apartments"(red)."(light-gray, italic)
-| "Moulded onto that tile should do nicely."(light-gray, italic)
-| "Just got to push the RF detonators into the plastic. There."(light-gray, italic)
+| "OK, hier kommt eine Bombe hin."(light-gray, italic)
+| "Jetzt bloss noch aktivieren, und... fertig!"(light-gray, italic)
 ! eval (retrieve 'item:receiver 2)
 ! eval (status "Lost 2 RF Detonator")
-| "It's ready."(light-gray, italic)
 ? (not (var 'first-bomb-done))
-| | "Checking "FFCS... No signal. Wraw interference"(orange), as expected."(light-gray, italic)
-| | "Okay, "2 more bombs to go"(orange)."(light-gray, italic)
+| | "Überprüfe "FFCS... Kein Signal. Wraw Interferenz"(orange), wie erwartet."(light-gray, italic)
+| | "Okay, "noch 2 mehr"(orange)."(light-gray, italic)
 | ! eval (setf (var 'first-bomb-done) T)
 | ! eval (activate 'task-part-move-wraw)
 |? (complete-p 'task-bomb-1 'task-bomb-2)
-| | "Checking "FFCS... More interference"(orange)."(light-gray, italic)
-| | "That's the last bomb planted."(light-gray, italic)
-| | "I'd better "get back to the Zenith Hub"(orange) ASAP and request detonation."(light-gray, italic)
+| | "Überprüfe "FFCS... Kein Signal. Wraw Interferenz"(orange), wie erwartet."(light-gray, italic)
+| | "Das sind alle Bomben."(light-gray, italic)
+| | "Ich sollte "zum Zenith Hub zurückkehren"(orange) und die Detonation anfordern."(light-gray, italic)
 | ! eval (deactivate 'task-reminder)
 | ! eval (activate 'task-return-bombs)
 | ! eval (activate 'task-return-bombs-station)
@@ -120,47 +118,42 @@
 | ! eval (activate (unit 'ffcs-bomb-4))
 | ! eval (activate (unit 'station-surface-trigger))
 |?
-| | "Checking "FFCS... There's still interference"(orange)."(light-gray, italic)
-| | "Now I only have the "last bomb to plant"(orange)."(light-gray, italic)
+| | "Und das "FFCS... Immernoch Interferenz"(orange)."(light-gray, italic)
+| | "Jetzt bloss noch die "letzte Bombe"(orange)."(light-gray, italic)
 
 # task-return-bombs/call-bomb
 ~ player
-| "That should be far enough."(light-gray, italic)
-| "Checking "FFCS... OK. I have a signal"(orange)."(light-gray, italic)
-| {#@islay-nametag}, do you read me? The bombs are primed and in position.
-| ... Hello, {#@islay-nametag}?
-| Anyone?
-| (:thinking)"... The connection is open."(light-gray, italic)
+| "Das sollte weit genug sein."(light-gray, italic)
+| ""FFCS... Ah, ich hab Empfang!"(orange)."(light-gray, italic)
+| {#@islay-nametag}, kannst du mich hören? Die Bomben sind gesetzt.
+| ... Hallo, {#@islay-nametag}?
+| (:thinking)"... Die Verbindung ist offen."(light-gray, italic)
 ~ islay
-| (:nervous){(nametag player)}, I read you. We have a problem - "return to the surface NOW"(orange).
+| (:nervous){(nametag player)}, ich hör dich, wir haben ein Problem - "komm sofort zur Oberfläche zurück"(orange).
 ~ player
-- What about the bombs?
-- What problem?
-- Can I talk to {#@fi-nametag}?
+- Was ist mit den Bomben?
+- Was für ein Problem?
+- Kann ich mit {#@fi-nametag} sprechen?
 ~ player
-| "... She closed the connection."(light-gray, italic)
-| <-Shit.->
-| "I'd better "get back to the Camp"(orange)."(light-gray, italic)
+| "... Die Verbindung wurde abgebrochen."(light-gray, italic)
+| <-Scheisse.->
+| "Ich "sollte mich auf den Weg zum Lager machen"(orange)."(light-gray, italic)
 ! eval (complete 'task-return-bombs-station)
 
-; alternate return of the quest, if go via Noka train station - slightly different wording to suit different context
 # task-return-bombs-station/station-surface-trigger
 ~ player
-| "I'd better hurry up and call this in."(light-gray, italic)
-| "Checking "FFCS... OK. I have a signal"(orange)."(light-gray, italic)
-| {#@islay-nametag}, do you read me? The bombs are primed and in position.
-| ... Hello, {#@islay-nametag}?
-| Anyone?
-| (:thinking)"... The connection is open. It might be quicker to just walk from here."(light-gray, italic)
+| "Ich sollte mich beeilen und mich melden"(light-gray, italic)
+| ""FFCS... Ah, ich hab Empfang!"(orange)."(light-gray, italic)
+| {#@islay-nametag}, kannst du mich hören? Die Bomben sind gesetzt.
+| ... Hallo, {#@islay-nametag}?
+| (:thinking)"... Die Verbindung ist offen."(light-gray, italic)
 ~ islay
-| (:nervous){(nametag player)}, I read you. We have a problem - "return to the surface NOW"(orange).
+| (:nervous){(nametag player)}, ich hör dich, wir haben ein Problem - "komm sofort zur Oberfläche zurück"(orange).
 ~ player
-- What about the bombs?
-- What problem?
-- I'm already here, practically.
+- Was ist mit den Bomben?
+- Was für ein Problem?
+- Kann ich mit {#@fi-nametag} sprechen?
 ~ player
-| "... She closed the connection."(light-gray, italic)
-| <-Shit.->
-| "I'd better "get back to the Camp"(orange)."(light-gray, italic)
-! eval (complete 'task-return-bombs)
-
+| "... Die Verbindung wurde abgebrochen."(light-gray, italic)
+| <-Scheisse.->
+| "Ich "sollte auf zum Lager"(orange)."(light-gray, italic)

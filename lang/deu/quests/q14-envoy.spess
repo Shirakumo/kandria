@@ -1,82 +1,81 @@
 # 3-interact-zelah/interaction
 ~ zelah
-| Ah, the guest of honour. We've been waitin' for ya.
+| Ahh, endlich! Unser Ehrengast ist hier!
 ~ player
-- Who are you?
+- Wer bist du?
   ~ zelah
-  | (:jovial)I'm {#@zelah-nametag}, "remember"(orange)?
-- Let me guess: {#@zelah-nametag}.
+  | (:jovial)Ich bin {#@zelah-nametag}. Du "erinnerst dich wohl"(orange)?
+- Lass mich raten: {#@zelah-nametag}
   ~ zelah
-  | Good, ya "remember"(orange).
-- So you lead the Wraw?
+  | Schön, du "erinnerst dich"(orange).
+- Du bist der Wraw Anführer?
   ~ zelah
-  | Ya know I do. I lead everyone round here.
-  | I'm {#@zelah-nametag}, "remember"(orange)?
+  | Genau.
+  | (:jovial)Ich bin {#@zelah-nametag}. Du "erinnerst dich wohl"(orange)?
 ! eval (setf (nametag (unit 'zelah)) (@ zelah-nametag))
 ~ fi
 | ...
-| (:annoyed)What do you want?
+| (:annoyed)Was willst du?
 ~ zelah
-| I'm here for the android. "My android"(orange).
+| Ich bin hier für den Androiden. "Meinen Androiden"(orange).
 ~ jack
-| (:shocked)I knew it.
+| (:shocked)Ich wusste es!
 ~ zelah
-| (:jovial)It's my property. I've been "usin' it to watch you, sabotage your water supply, and plan this attack"(orange).
+| (:jovial)Der gehört mir. Ich hab "euch damit ausspioniert, sabotiert, und diesen Angriff geplant"(orange).
 ~ catherine
-| (:concerned)That can't be true...
+| (:concerned)Das kann nicht wahr sein...
 ~ zelah
-| Now I "want it back"(orange).
+| Und jetzt "will ich es wieder haben"(orange).
 ~ fi
-| (:annoyed)Touch her and I'll kill you.
+| (:annoyed)Wenn du auch nur einen Finger rürst bring ich dich um.
 ~ zelah
-| (:jovial)I won't be touchin' no one. My army will though.
-| (:normal)Come, android. You've done well - thanks to you there'll be peace in the valley, the factions united together.
-| But now the masquerade is over. You're a traitor to these people, remember? It's "time to come home"(orange).
-| "If ya do, I'll even spare the lives of this lot."(orange)
+| (:jovial)Ah, keine Sorge, ich muss niemanden anrühren. Dafür hab ich eine Armee.
+| (:normal)Komm schon, Android. Du hast das gut gemacht, dank dir werden wir alle unter einem Dach arbeiten.
+| Aber jetzt kann diese Maskerade aufhören. Du hast sie alle betrogen, erinnerst du dich? "Es ist zeit nach hause zu kommen"(orange).
+| "Wenn du das machst, dann lass ich diese Schwächlinge sogar am leben"(orange).
 ~ fi
-| (:annoyed)I see only one traitor here.
+| (:annoyed)Ich seh nur einen Verräter hier.
 ~ alex
-| (:angry)You betrayed me first.
-| An' maybe I wouldn't o' done it if you hadn't sent this thing after me.
+| (:angry)Schau dich mal selbst an!
+| Und vielleicht hätte ich ihnen nix gesagt, wenn du dieses Ding nicht mir hinterher gejagt hättest!
 ~ zelah
-| {#@alex-nametag} has merely come home - just like the rest of ya should have.
-| But no, ya betrayed your people when ya ran way, {#@fi-nametag}. And when ya took this android in.
-| (:jovial)I know you're fond of it.
+| {#@alex-nametag} ist nur nach hause gekommen, genau wie ihr das auch hättet machen sollen.
+| Aber nein, ihr habt das Volk betrogen und sind davon gerannt, {#@fi-nametag}.
+| (:jovial)Ich weiss du schätzt diesen Androiden sehr, aber jetzt ist genug.
 ~ fi
-| (:annoyed)She's not going anywhere.
+| (:annoyed)Sie geht niergendwo hin.
 ~ jack
 | (:shocked){#@fi-nametag}...
 ~ innis
-| (:angry)We dinnae need the android. I kent this alliance was a mistake.
+| (:angry)Wir brauchen den Androiden gar nicht! Ich wusste, dass dieses Verbündnis ein Fehler ist!
 ~ islay
-| (:nervous)And having her fight for the Wraw, or not at all, would be better?
+| (:nervous)Und was wäre besser, wenn sie für die Wraw kämpft?
 ~ catherine
-| (:concerned)Don't go, {(nametag player)}.
+| (:concerned)Bitte geh nicht, {(nametag player)}!
 ~ zelah
-| (:jovial)Oh, I forgot ya'd given it a name. How quaint.
+| (:jovial)Oh ihr habt dem einen Namen gegeben? Wie niedlich.
 ~ player
-- I'm staying here.
+- Ich bleibe hier
   ~ zelah
-  | (:jovial)I was hopin' ya'd say that.
-- Maybe I should go. He could be telling the truth.
+  | (:jovial)Ich hab gehofft du würdest das sagen
+- Was wenn er die Wahrheit spricht?
   ~ catherine
   | (:concerned)...
   ~ fi
-  | (:annoyed)He's not.
-- What if I kill you right now?
+  | (:annoyed)Tut er aber nicht.
+- Was wenn ich dich hier und jetzt umbringe?
   ~ zelah
-  | (:jovial)This is an envoy. Kill me and you'll sign everyone's death warrant.
-  | (:normal)And prove you're a traitor.
+  | (:jovial)Während du mit dem beschäftigt bist, bringen meine Kameraden alle hier um.
 ~ fi
-| It doesn't matter what he says, {(nametag player)}. You've shown us who you really are. You didn't even need to.
+| Es ist egal, was er sagt, {(nametag player)}. Du hast uns gezeigt, wer du wirklich bist, auch wenn du das nicht musstest.
 ~ zelah
-| (:jovial)It's ya last chance... //{(nametag player)}//. Come with me, or ya friends will die.
+| (:jovial)Letzte chance, //{(nametag player)}//. Komm mit mir, oder sie werden alle sterben.
 ~ player
-- Nice try.
-- Fuck you.
-- You'll be dead soon.
+- Netter versuch
+- Fick dich
+- Du wirst bald tot sein
 ~ zelah
-| Alright. We'll see ya on the battlefield.
+| Kann mir ja niemand sagen ich hätte es nicht versucht. Bis bald!
 ! eval (move-to 'wraw-surface-rally 'zelah)
 ! eval (move-to 'wraw-surface-rally 'alex)
 ! eval (move-to 'wraw-surface-rally 'soldier-1)
@@ -84,10 +83,6 @@
 ! eval (move-to 'wraw-surface-rally 'soldier-3)
 ~ islay
 | ...
-| {#@fi-nametag}, {(nametag player)} - "come to Engineering"(orange).
-| We "need to talk"(orange).
+| {#@fi-nametag}, {(nametag player)} - "komm ins Ingenieurgebäüde"(orange).
+| Wir "müssen sprechen"(orange).
 ! eval (activate (unit 'zelah-gone))
-
-; kent = knew (Scottish)
-; Zelah motivation: greed, resource/people acquisition
-; male, main antagonist, leader of the Wraw faction. Northern British accent/dialect

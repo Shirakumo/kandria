@@ -1,189 +1,182 @@
 # task-reminder/interact-reminder
 ~ fi
-| "Go and see the Semi Sisters, and convince them to join us."(orange)
+| "Finde die Semis und überzeug sie sich mit uns zusammenzuschliessen."(orange)
 
 # task-destination/interact-innis
 ~ innis
-| (:angry){#@catherine-nametag} still isn't here. What's the hold up? Or do the Noka prefer drinking sand instead of water?
+| (:angry){#@catherine-nametag} ist immernoch nicht hier. Was ist los? Trinken die Noka etwa lieber Sand als Wasser?
 ~ player
-- I thought you'd have bigger things to worry about.
+- Ihr habt grössere Probleme
   ~ innis
-  | You mean the Wraw? It's in hand.
-  | (:angry)Now run along - I've nothing more to say to you.
-- She isn't coming.
+  | Du meinst die Wraw? Psh, das haben wir im Griff.
+  | (:angry)Jetzt geh schon, es gibt nichts mehr zu sagen.
+- Sie kommt nicht
   ~ innis
-  | (:angry)What?
-- We need to talk.
+  | (:angry)Was?
+- Wir müssen reden
   ~ innis
-  | (:angry)Unless you can explain why {#@catherine-nametag} isn't here, I've nothing more to say to you.
+  | (:angry)Wenn du nicht sagen kannst warum {#@catherine-nametag} nicht hier ist, dann gibt es nichts zu besprechen.
 ~ islay
-| (:nervous)Sister! {(nametag player)} isn't our enemy. The Noka are not our enemy.
+| (:nervous)Schwester! {(nametag player)} ist nicht unser Feind, und die Noka auch nicht.
 ~ innis
-| (:angry)Shut up, {#@islay-nametag}. Remember who's in charge!
-| (:normal)And anyway, this time I dinnae ken why you're here, android.
+| (:angry)Halts Maul. Du bist nicht die Cheffin hier.
+| (:normal)Und wie auch immer, ich weiss nicht warum du hier bist, Android.
 ~ player
-- I need your help.
+- Ich brauch deine Hilfe
   ~ innis
-  | (:sly)What? An all-powerful android needs our help?
-  | (:normal)I dinnae think so. More like {#@fi-nametag} needs our help.
-- We need your help.
+  | (:sly)Was? Ein allmächtiger Android braucht //unsere// hilfe?
+  | (:normal)Das glaub ich wohl nicht. Das ist nur wieder {#@fi-nametag}.
+- Wir brauchen deine Hilfe
   ~ innis
-  | (:sly)More like {#@fi-nametag} needs our help.
-  | (:normal)You dinnae need our help - you're an android.
-- We can help you.
+  | (:sly){#@fi-nametag} ist wieder am betteln?
+- Wir können euch helfen
   ~ innis
-  | (:angry)The Noka? Help us? Dinnae make me laugh.
+  | (:angry)Die Noka? Uns? Mach keine Witze!
 ~ innis
-| (:sly)... Oh, dinnae tell me you care for the Noka.
-| I never understood why they gave androids emotions. Nothing but a distraction.
+| (:sly)... Ach sag mir bloss nicht du kümmerst dich um die Noka!
+| Ich hab nie verstanden warum sie Androiden Emotionen gegeben haben. Bloss eine Ablenkung.
 ~ islay
-| (:nervous)Listen to her {#@innis-nametag}, for Christ's sake!
+| (:nervous){#@innis-nametag}, hör ihr doch einfach zu, um Gottes Willen!
 ~ innis
 | (:angry)...
 ~ islay
-| (:nervous)The Wraw are on our doorstep. Somehow they're running interference on our network.
-| We're deaf and blind.
+| (:nervous)Die Wraw sind vor unserer Tür. Sie interferieren mit unserem Netzwerk.
+| Wir sind Taub und Blind.
 ~ innis
-| (:angry)It's no' your call.
+| (:angry)Das ist nicht deine Entscheidung!
 ~ islay
-| (:nervous)Well why don't you ask our people? They see our cameras shutting down one by one, and our guns sat in storage.
-| Just what exactly is your plan, sister?
+| (:nervous)Warum fragst du dann nicht unsere Leute? Sie sehen wie die Kameras eine nach der anderen kaputt gehen.
+| Was genau hast du für einen Plan, Schwester?
 ~ innis
-| (:angry)Are you saying you could do better?
+| (:angry)Sagst du etwa sie hätten etwas besseres im Sinn?
 ~ islay
-| (:nervous)I'm saying we need help. We need the Noka - and we need {(nametag player)}.
+| (:nervous)Ich sage wir brauchen Hilfe. Wir brauchen die Noka, und besonders {(nametag player)}.
 ~ innis
 | (:angry)...
-| Alright. Say we ally with the Noka. Then what?
+| Sagen wir mal wir würden uns verbünden. Und dann was?
 ~ islay
-| We pool our resources - our weapons and people.
-| We don't know the Wraw's exact numbers and capabilities, but I can hazard a guess from the hunters you sent. And how many came back.
+| Wir setzen unsere Ressourcen zusammen, unsere Waffen und Leute.
+| Wir kennen die genaue grösse der Wraw Armee nicht, noch ihre Fähigkeiten.
 ~ player
-| I've seen their mechs and supplies too - they're considerable.
+| Ich habe ihre Exoskelette und Vorräte gesehen. Sie sind beeindruckend.
 ~ islay
-| Right. They are. But I think we stand a fighting chance if we work together.
-| ... And we abandon our home.
+| Genau. Aber ich glaube wir haben eine Chance wenn wir zusammen arbeiten.
+| ... Und unsere Heimat verlassen.
 ~ innis
-| (:angry)No. Never.
+| (:angry)Nein. Nie im Leben!
 ~ islay
-| It's not forever. But the Wraw are already here, and we can't fight them alone.
-| We load up a train and leave for the surface. Take as much as we can carry.
-| Everything we leave behind is something the Wraw could use against us.
+| Nicht für immer, aber die Wraw sind bereits hier, und wir können sie nicht alleine bekämpfen.
+| Wir laden den Zug voll un reisen an die Oberfläche.
+| Alles was wir zurücklassen könnte gegen uns eingesetzt werden.
 ~ innis
-| And what about the bomb?
+| Und was ist mit der Bombe?
 ~ player
-- Bomb?
-- Now you're talking.
-- We blow them up!
+- Bombe?
+- Das tönt vielversprechend
+- Jagen wir sie in die Luft!
 ~ islay
-| I've improvised an explosive that could stop their advance. Collapse the tunnels completely - including the metro.
-| ... We can still use it.
-| But we're "missing key components"(orange) - the hunters that survived barely got out with their lives, never mind the supplies we needed.
+| Ich hab eine improvisierte Bombe geplant, die die Tunnel kollabieren könnte, inklusive der Metro.
+| ... Aber uns fehlen "einige kritische Teile"(orange). Unsere Jäger sind kaum mit ihrem Leben davon gekommen, und natürlich ohne die Ressourcen die wir brauchen.
 ~ innis
-| (:sly)Send the android while we evacuate.
+| (:sly)Schick den Androiden rein während wir evakuieren.
 ~ islay
-| (:normal)Aye, that might work. You'd need to go behind enemy lines again.
-| "The Wraw hoard this kind of stuff"(orange) - they should have plenty lying around now.
-| (:normal)We need "blasting caps"(orange) for the detonator, and "charge packs"(orange) for the explosive.
-| I think "10 of each"(orange) should be enough, allowing for a few spares.
-| Actually, make it "20 charge packs"(orange), just to be sure it has a big enough explosive yield.
-| And you'll "get paid for your efforts"(orange): I'm a trader after all.
+| (:normal)Das könnte klappen. Du musst nochmals ins "Wraw Gebiet eindringen"(orange).
+| Sie sollten einiges am Material angesammelt haben.
+| (:normal)Wir brauchen "Sprengkapseln"(orange) für den Zündmechanismus, und "Sprengmaterialien"(orange) für die Ladung.
+| Ich denke "10 von beiden"(orange) würde reichen.
+| ... Oder doch besser "20 Sprengmaterialien"(orange), nur um auf Sicher zu gehen.
+| Und natürlich werden wir dich "für deine Arbeit belohnen"(orange).
 ! eval (setf (var 'bomb-fee) 25)
 ~ player
-- Thank you.
+- Danke
   ~ islay
-  | It's alright - we value your work. I can give you "25 parts per item"(orange).
-  | But don't thank me yet - this will be dangerous.
-- There's no need.
+  | Kein Problem. Ich geb dir "25 Bruchteile"(orange) pro Stück.
+  | Aber dank mir noch nicht, das wird gefährlich.
+- Nicht nötig
   ~ islay
-  | No, I insist. We value your work, and this will be dangerous.
-  | I can give you "25 parts per item"(orange).
+  | Nein, das ist mir wichtig. Es wird gefährlich, und eine Belohnung ist angemessen.
+  | Ich geb dir "25 Bruchteile"(orange) pro Stück.
   ~ innis
   | ...
-- How much?
+- Wie viel?
   ~ innis
   | (:angry)...
   ~ islay
-  | I can give you "25 parts per item"(orange).
+  | "25 Bruchteile"(orange) pro Stück.
   ~ player
-  - Works for me.
+  - Das passt
     ~ islay
-    | Okay then. We do value your work, and this will be dangerous.
-  - Make it 50.
+    | Super.
+  - Mach das 50
     ~ innis
-    | (:angry)Fuck that! And what're ya gonna spend it on after the Wraw have rolled through here?
+    | (:angry)Was soll das? Du brauchst das Geld nicht einmal!
     ~ islay
-    | If we stop them, life might return to normal.
-    | But we can't afford 50 - we need those parts. "How about 35?"(orange) We do value your work, and this will be dangerous.
+    | Das ist nicht unsere Sache.
+    | Aber 50 ist zu viel. Wie wärs mit "35"(orange)?
     ~ player
-    - Deal.
+    - Einverstanden
       ~ islay
-      | Great, "35 it is"(orange).
+      | Super, also "35"(orange).
       ! eval (setf (var 'bomb-fee) 35)
       ~ innis
       | (:angry)...
-    - Actually 25 is fine.
+    - 25 ist in Ordnung
       ~ innis
       | (:angry)...
       ~ islay
-      | Alright then, "25 it is"(orange).
-    - I've changed my mind: I'll take less than 25.
-      ~ islay
-      | No, I insist. This won't be easy, and "25 is fair"(orange).
-      ~ innis
-      | (:angry)...
-  - I could take a little less, but not much.
+      | Wenn du meinst.
+  - Ich könnte ein bisschen weniger vertragen
     ~ islay
-    | No, I insist. We value your work, and this will be dangerous. I think "25 is fair"(orange).
+    | Nein, nein. "25 ist fair"(orange).
     ~ innis
     | ...
 ~ islay
-| But please hurry.
-| We'll "leave the metro running for now"(orange) to help you - but the "Wraw might use the tunnels to move their troops"(orange).
+| Aber bitte beeil dich!
+| "Wir lassen die Metro in betrieb"(orange) für den Moment, aber "die Wraw könnten die Tunnel auch gebrauchen"(orange).
 ~ innis
-| (:angry)Or they'll derail the trains.
+| (:angry)Oder sie zerstören die Züge.
 ~ islay
-| (:nervous)Let's hope they don't.
+| (:nervous)Hoffen wir dass sie nicht auf die Idee kommen.
 ~ player
-| I'll update {#@fi-nametag}, then be on my way.
+| Ich geb {#@fi-nametag} bescheid und mach mich auf den Weg.
 ~ innis
-| (:sly)That's right, you be a good dog.
+| (:sly)Genau, guter Hund!
 ~ islay
 | (:nervous)<-{#@innis-nametag}!->
-| (:normal)... You "can't tell {#@fi-nametag}"(orange) - whatever the "Wraw are doing to mess with our network, it affects your FFCS"(orange) too.
+| (:normal)... Du "kannst das {#@fi-nametag} nicht sagen"(orange). "Was auch immer die Wraw mit unserem Netzwerk machen betrifft auch dein FFCS"(orange).
 ~ player
-- (Check FFCS)
+- (Probiers trotzdem)
   ~ player
-  | "Checking FFCS..."(light-gray, italic)
-  | (:embarassed)""It's blocked"(orange). Shit."(light-gray, italic)
+  | "Starte FFCS..."(light-gray, italic)
+  | (:embarassed)""Es ist blockiert"(orange). Scheisse."(light-gray, italic)
   ~ innis
-  | (:sly)I think she just checked her FFCS.
-  | (:angry)And you want us to trust you?
-- (Trust {#@islay-nametag})
-- Are you sure it's not you running interference like before?
+  | (:sly)Ich glaube sie hats gerade probiert.
+  | (:angry)Und wir sollen dir vertrauen?
+- (Vertraue {#@islay-nametag})
+- Bist du sicher es seit nicht ihr wie bevor?
   ~ innis
-  | (:angry)How dare you!
+  | (:angry)Du wagst es-!
   ~ islay
-  | (:nervous)... Look, if we're going to trust one another, now is the time to start.
+  | (:nervous)Wir müssen uns gegenseitig vertrauen von jetzt an.
 ~ islay
-| I'll explain everything to {#@fi-nametag} once we reach the surface. "Meet us there when you have the components"(orange).
-| You got it? This is important.
+| Ich werd das alles {#@fi-nametag} erklären sobald wir auf der Oberfläche sind. "Triff uns dort wenn du die Materialien hast"(orange).
+| Alles verstanden?
 ~ player
-- One more time.
+- Noch einmal bitte
   ~ islay
-  | So: we need "10 blasting caps"(orange) and "20 charge packs"(orange) for the bomb.
-  | You should find them "deep in Wraw territory"(orange). Then "meet us at the Noka Camp on the surface"(orange).
-- Got it.
+  | Wir brauchen "10 Sprengkapseln"(orange) und "20 Sprengmaterialien"(orange) für die Bombe.
+  | Such die im "Wraw Gebiet"(orange), und "triff uns auf der Oberfläche wenn du fertig bist"(orange).
+- Klaro
 ~ islay
-| Good luck, {(nametag player)}.
+| Viel glück, {(nametag player)}.
 ~ player
-| (:thinking)"I think I "know where I might find components like these"(orange), after my last foray into Wraw territory."(light-gray, italic)
-| (:normal)"I should "check their factories and warehouses"(orange) - I'll "update my map"(orange)."(light-gray, italic)
-| "I should also "finish any existing jobs for people as well"(orange) if I haven't already, before the shit hits the proverbial wind turbine."(light-gray, italic)
+| (:thinking)"Ich glaub ich weiss "wo ich sowas finden kann"(orange)."(light-gray, italic)
+| (:normal)"Ich sollte die "Fabriken und Lager"(orange) anschauen. Ich habs schon auf der Karte markiert."(light-gray, italic)
+| "Ich sollte auch "alle ausstehenden Arbeiten erledigen"(orange). Sonst wird es zu spät dafür."(light-gray, italic)
 ? (or (or (active-p 'sq3-race) (complete-p 'sq3-race)) (or (active-p 'sq5-race) (complete-p 'sq5-race)) (or (active-p 'sq9-race) (complete-p 'sq9-race)) (or (active-p 'sq10-race) (complete-p 'sq10-race)))
 | ~ player
-| | "Though I think it's time to "retire from time trials"(orange), and hang up my speedy boots."(light-gray, italic)
-  
+| | "Ich denke jetzt ist auch der falsche Zeitpunkt um noch Rennen zu erledigen."(light-gray, italic)
+
 ! eval (deactivate 'task-reminder)
 ! eval (activate 'q12-help-alex)
 ! eval (setf (location 'alex) 'alex-wraw-loc)
@@ -201,11 +194,3 @@
 ! eval (activate (unit 'bomb-charge-3))
 ! eval (activate (unit 'bomb-charge-4))
 ! eval (activate (unit 'bomb-charge-5))
-
-; dinnae = don't / do not (Scottish)
-
-; "finish any existing jobs for people as well" - simpler than doing a conditional to check many sidequest statuses, and implies the character themselves will need to check their log to see what's done and not done - they aren't infallible in their memory after all (also makes no reference to starting new sidequests, since starting them is now curtailed - but had Fi warning in q11-intro)
-
-; also now has a conditional to explain why races void here, using the core log quest for each race type to check if active or complete (and thus whether unlocked actual races themselves). "Speed boots" is a non-licence infringing reference to Sonic's Power Sneakers :)
-
-; "shit hits the proverbial wind turbine" - a post-Calamity riff on the old-world phrase, "when the shit hits the fan"; player has likely seen cerebat wind turbines in the tunnels to make the joke, if not necessarily talked to Catherine about them (sq7), heard world NPCs talking about them, or found the lore interacts
