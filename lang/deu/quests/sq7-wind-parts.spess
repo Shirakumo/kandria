@@ -1,28 +1,28 @@
 # return-supplies/supplies-return
 ~ catherine
-| (:excited)Did you get the parts for the windmills? Let's see!
+| (:excited)Hast du die Windmühlenteile gebracht? Zeig mal!
 ? (or (> 5 (item-count 'item:anemometer)) (> 5 (item-count 'item:disc-brake)) (> 5 (item-count 'item:transformer)))
 | ~ catherine
-| | Ah, don't worry - see what you can find in "Semi warehouses and Cerebat wind tunnels"(orange).
-| | Remember: "anemometers, disc brakes, transformers - 5 of each"(orange).
+| | Ah, keine Sorge - Du solltest was in den "Semi Lagerhäüsern und in den Cerebat Windtunnel finden können"(orange).
+| | Merk dir: "Anemometer, Scheibenbremsen, Transformer - je 5"(orange).
 | ~ player
-| | "I currently have: "{(item-count 'item:anemometer)} anemometer"(orange), "{(item-count 'item:disc-brake)} disc brake"(orange), "{(item-count 'item:transformer)} transformer"(orange)."(light-gray, italic)
+| | "Ich habe: "{(item-count 'item:anemometer)} Anemometer"(orange), "{(item-count 'item:disc-brake)} Scheibenbremsen"(orange), "{(item-count 'item:transformer)} Transformer"(orange)."(light-gray, italic)
 |?
 | ~ catherine
-| | (:cheer)These are perfect. Thank you!
+| | (:cheer)Perfekt! Danke.
 | ! eval (retrieve 'item:anemometer 5)
-| ! eval (status "Lost 5 Anemometer")
+| ! eval (status "5 Anemometer Verloren")
 | ! eval (retrieve 'item:disc-brake 5)
-| ! eval (status "Lost 5 Disc Brake")
+| ! eval (status "5 Scheibenbremsen Verloren")
 | ! eval (retrieve 'item:transformer 5)
-| ! eval (status "Lost 5 Transformer")
-| | (:excited)Oh man, I can't wait to get started. Imagine seeing windmills right here on the surface...
-| | It'll be like a fantasy kingdom come to life!
-| | (:normal)Not to mention the energy we'll produce.
-| | I really appreciate this, {(nametag player)}.
-| | It must have been dangerous to get these - (:excited)you earned this "reward"(orange).
+| ! eval (status "5 Transformer Verloren")
+| | (:excited)Ich bin richtig gespannt! Stell dir das nur vor, Windmühlen hier auf der Oberfläche.
+| | Wie aus den Geschichten!
+| | (:normal)Und natürlich können wir damit unsere eigene Energie produzieren.
+| | Dank dir vielmals, {(nametag player)}.
+| | Das muss ganz gefährlich gewesen sein - (:excited)Hier, das hast du verdient.
 | ! eval (store 'item:parts 450)
-| ! eval (status "Received 450 Scrap Part")
-| | (:normal)See you soon!
+| ! eval (status "450 Bruchteile Erhalten")
+| | (:normal)Bis bald!
 | ! eval (complete task)
 | ! eval (reset interaction)

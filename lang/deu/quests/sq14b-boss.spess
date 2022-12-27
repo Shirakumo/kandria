@@ -1,14 +1,11 @@
 # 7-interact-/interaction
 ~ player
 ? (not (complete-p 'q11a-bomb-recipe))
-| | "That's their enemies taken care of. Maybe now they'll tell me where I can find the information about the old world."(light-gray, italic)
-| | "I'd better "get back to {#@synthesis-nametag}"(orange)."(light-gray, italic)
+| | "Damit sind die Feinde beseitigt. Vielleicht erzählen sie mir jetzt etwas über die alte Welt."(light-gray, italic)
+| | "Ich sollte mich "auf den Weg zurück zur {#@synthesis-nametag} machen"(orange)."(light-gray, italic)
 |?
-| | "That's the enemies of {#@synthesis-nametag} taken care of."(light-gray, italic)
-| | "But it's "too late to report back to them now"(orange). I should get out of here."(light-gray, italic)
+| | "Damit sind die Feinde der {#@synthesis-nametag} beseitigt."(light-gray, italic)
+| | "Aber es ist wohl ein bisschen zu spät um jetzt mit ihnen zu sprechen."(light-gray, italic)
 | ! eval (activate (unit 'spawner-5703))
 | ! eval (activate (unit 'spawner-5705))
 | ! eval (activate (unit 'spawner-5704))
-
-; ^ invariant check
-; spawners will reactivate while player on screen, but is an edge case

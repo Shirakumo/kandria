@@ -1,22 +1,16 @@
 # task-reminder/reminder
 ~ jack
-| (:annoyed)I said forget we talked about this!
-| (:normal)Look, it's simple: "go to the east of Wraw territory, find the water supply pipe for their geothermal power station - and smash it the fuck up"(orange).
-| You got that? Now shoo.
+| (:annoyed)Ich dachte wir haben das gründlich besprochen?
+| (:normal)Es ist einfach: "geh in den Osten des Wraw gebiets, find die Leitung zu ihrem Generator, und zerstör sie"(orange).
+| Kapiert?
 
 # task-station/station-pipe
 ~ player
-| ""This is the power station supply pipe {#@jack-nametag} wants me to sabotage"(orange), but..."(light-gray, italic)
-| (:embarassed)"It looks like "somebody already did"(orange)."(light-gray, italic)
-| (:thinking)"That, or there's been a "terrible accident here recently"(orange) - perhaps the Wraw are pushing"(light-gray, italic) "too"(light-gray) "hard."(light-gray, italic)
-| "Water could still flow down through here, but the supply would be unreliable at best -"(light-gray, italic) (:giggle)"I'd like to think I know a little about water leaks."(light-gray, italic)
-| (:thinking)"But the inside of the pipe is bone dry. There's also no sound from within - the "turbine is powered down"(orange)."(light-gray, italic)
-| (:normal)"{#@jack-nametag} was right - that's a "big blow to their power generation"(orange)."(light-gray, italic)
-| "Let's hope it makes a difference."(light-gray, italic)
-| "Well, that's "mission accomplished"(orange) then. Sort of."(light-gray, italic)
-
-; the Wraw could be "pushing too hard" right now due to any of these, depending where the player is on the main quest line. Because: they're after the Noka; because they seem to have invaded the Cerebats; because they have invaded the Cerebats; because they are planning to invade the entire valley.
-
-; "somebody already did" - if done q8a by this point, then there's a strong implication here, without needing a conditional, that this could have been how the Cerebats turned the Wraw's water off - destroyed the pipe (happened before the game began or in the early game, as did the Wraw invasion of Cerebats in retaliation)
-
-; "I'd like to think I know a little about water leaks" - the player has defo done the 3 leaks in q1 by this point, possibly the sq1 leaks too (or may do these afterwards)
+| ""Das ist die Leitung, die {#@jack-nametag} sabotieren will"(orange), aber..."(light-gray, italic)
+| (:embarassed)"Sieht so aus als "wäre mir jemand zuvor gekommen"(orange)."(light-gray, italic)
+| (:thinking)"Entweder das, oder "es gab hier einen Unfall"(orange) - vielleicht sind die Wraw etwas zu eifrig."(light-gray, italic)
+| "Wasser könnte theoretisch noch fliessen, aber es wäre sicherlich unverlässlich -"(light-gray, italic) (:giggle)"Ich denke ich kenne mich damit mittlerweile aus."(light-gray, italic)
+| (:thinking)"Aber innen ist es furztrocken. Und die "Turbine ist auch abgeschaltet"(orange)."(light-gray, italic)
+| (:normal)"{#@jack-nametag} hatte recht, "das sollte ihren Strom massiv einschränken"(orange)."(light-gray, italic)
+| "Hoffentlich reicht das um einen Unterschied zu machen."(light-gray, italic)
+| "Hmm, "Mission erledigt"(orange) denke ich."(light-gray, italic)

@@ -1,67 +1,64 @@
-; Synthesis, shady character, unknown gender, Swiss-German accent and dialect, plural first person pronouns
 # return-supplies/supplies-return
 ~ synthesis
-| Where's our potion?
+| Wo ist unser Trank?
 ? (> 4 (item-count 'item:mushroom-bad-1))
 | ~ synthesis
-| | Schnell! We "still need black caps - bring us 4"(orange).
-| | "Check the settlement up there, or the caves."(orange)
+| | Schnell! Wir "brauchen Schwarze Kappen - 4 davon"(orange).
+| | "Durchsuch die Siedlung oben, oder die Hölen."(orange)
 | ~ player
-| | "I currently have "{(item-count 'item:mushroom-bad-1)} black cap mushrooms"(orange)."(light-gray, italic)
+| | "Ich habe "{(item-count 'item:mushroom-bad-1)} Schwarze Kappenpilze"(orange)."(light-gray, italic)
 |?
 | ~ synthesis
-| | (:grin)Das ist gut. Give us those black caps.
+| | (:grin)Das ist gut. Gib sie her.
 | | ! eval (retrieve 'item:mushroom-bad-1 4)
 | | ! eval (status "Lost 4 Black Cap")
 | < result
 
-; they only take the minimum amount they need, as they don't want to rely on you too much; once they're recovered, they can source their own black caps
-
 # result
 ~ synthesis
-| (:grin)Danke. That is them all.
-| (:normal)We need a moment, they shouldn't take long to administer.
+| (:grin)Danke. Das ist alles.
+| (:normal)Einen Moment bitte, wird nicht lange dauern.
 ~ player
-| (:embarassed)"I can't see what they're doing, but I definitely saw a needle."(light-gray, italic)
+| (:embarassed)"Ich bin mir nicht sicher was sie machen, aber ich glaube ich hab eine Nadel gesehen."(light-gray, italic)
 ~ synthesis
 | ...
-| (:grin)We are in business.
-| Now we feel like making them suffer for crossing "{#@synthesis-nametag}"(yellow).
+| (:grin)Jetzt sind wir im Geschäft.
+| Jetzt werden wir sie bestrafen! Sie haben gedacht, sie könnten der "{#@synthesis-nametag}"(yellow) eines rüber ziehen.
 ~ player
-- Now you tell me about the old world.
+- Erzähl mir von der alten Welt
   ~ synthesis
-  | (:grin)You can see for yourself - once it's safe.
-- Is that your name?
-  | (:grin)Our name. And our purpose. In the meantime...
-- Who should suffer?
+  | (:grin)Das kannst du dir selbst ansehen.
+- Ist das dein Name?
+  | (:grin)Unser Name, und unser Zweck. In der Zwischenzeit...
+- Wer?
   ~ synthesis
-  | Bandits. "Rogues"(orange). Headless Highwaymen. Whoever gets in our way.
+  | Räuber. "Banditen"(orange). Wer auch immer uns überquert!
   < task
 ! eval (setf (nametag (unit 'synthesis)) (@ synthesis-nametag))
 ~ synthesis
-| We have our enemies: Bandits. "Rogues"(orange). Headless Highwaymen. Whoever gets in our way.
+| Wir haben unsere Gegner: Räuber. "Banditen"(orange). Wer auch immer uns überquert!
 ! label task
 ! eval (setf (nametag (unit 'synthesis)) (@ synthesis-nametag))
 ~ synthesis
-| They are looking for this information too, and they got close.
-| (:grin)But we took pre-emptive action: hit their camp on the Semi border. Hit it hard. Most ended, but some escaped.
-| Their new camp is to the "low east of here, in the middle of this region"(orange).
-| They want to end us. But if we die, so does our knowledge.
-| You're going to "kill them for us"(orange).
+| Sie suchen auch nach dieser Information, und sie sind nahe dran.
+| (:grin)Aber wir haben vorgesorgt: ihr Lager an der Semi Grenze angegriffen. Einige sind dennoch davongekommen.
+| Ihr neues Lager ist "tiefer östlich von hier, in der Mitte dieser Region"(orange).
+| Sie wollen uns vernichten, und damit unser Wissen, unsere Information.
+| Du wirst sie für uns "auslöschen"(orange).
 ~ player
-- I am?
+- Werd ich das?
   ~ synthesis
-  | (:grin)You are if you want to know more.
-- How do I know they're the bad guys and not you?
+  | (:grin)Wenn du mehr wissen willst.
+- Woher weiss ich, dass ich dir vertrauen kann?
   ~ synthesis
-  | (:grin)You don't.
-- Here's where we part ways.
+  | (:grin)Weisst du nicht.
+- Da hab ich keine Lust
   ~ synthesis
-  | (:grin)If it has to be like that.
-  | But "our offer still stands"(orange). We outcasts, we must stick together.
+  | (:grin)Wenns so sein muss.
+  | Aber "unser Angebot bleibt"(orange). Wir Aussenseiter müssen zusammen bleiben.
   < end
 ~ synthesis
-| (:grin)"Do what we ask and we shall proceed."(orange)
+| (:grin)"Mach nach was wir gefragt haben und wir sehen weiter."(orange)
 < end
 
 # end

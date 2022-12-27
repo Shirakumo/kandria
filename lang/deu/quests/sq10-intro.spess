@@ -1,34 +1,29 @@
-; Wraw drill sergeant, female, organising troops in Cerebat territory after the invasion
-; Northern/pirate accent, similar to Zelah
 # intro/intro-chat
 ~ wraw-sergeant
-| Who are ye? Why aren't ye in uniform?
-| Je-suss, we're really scraping the barrel now. How'd I land this ass-end o' a job...
-| Ye'd better show me what ye can do and quickly if ye wanna join the Wraw.
+| Wer bist du? Warum bist du nicht in Uniform?
+| Meine Fresse, wir sind wirklich auf dem Meeresgrund aufgestossen. Wie hab ich so einen Job nur verdient?
+| Du zeigst mir besser was du kannst, und zack zack! Die Wraw haben keine Zeit für Trödler!
 ! eval (setf (nametag (unit 'wraw-sergeant)) (@ wraw-sergeant-nametag))
 ~ player
-- Yessir!
+- Ja, Herr Kommandant!
   ~ wraw-sergeant
-  | Mmm, maybe there's hope for ye yet.
-- What do I have to do?
+  | Hmmm, vielleicht gibt es doch noch Hoffnung für dich.
+- Was soll ich tun?
   ~ wraw-sergeant
-  | Haha, what //don't// ye have to do.
-- No thanks.
+  | Ha ha! Was sollst du nicht tun?
+- Nein danke
   < leave
 ~ wraw-sergeant
-| We put greens like ye through the vegetable grinder.
-| It's an assault course - designed it meself o' course, and naturally I hold all the records.
-| "Find the locations, don't get killed, destroy the targets"(orange). Them's yer orders.
-| Beat me times - heck, just impress me - and maybe ye will call yerself a Wraw. Better than been a lily-livered Cerebat, right?
-| "I'll be waiting"(orange), greeny.
+| Weicheier wie dich müssen wir erst hart kochen!
+| Das ist ein Angriffskurs, von mir persönlich entworfen. Und natürlich halte ich die Rekorde auch.
+| "Finde den Ort, eliminiere alle Ziele, und überleb es"(orange). Das ist ein Befehl!
+| Schlag meine Zeiten, und vielleicht drück ich ein Auge zu und lass ein Weichei wie dich in die ehrenvolle Wraw Truppen!
+| "Ich warte auf dich"(orange), Weichei.
 ! eval (activate 'sq10-race)
 ! eval (complete task)
 ! eval (reset interaction)
 
 # leave
 ~ wraw-sergeant
-| Get outta me sight.
+| Aus meiner Sicht!
 
-; player can never join the Wraw, no matter how well they do - if they do badly, then it speaks for itself, if they do well, then the sergeant is spiteful; and before long the quest is curtailed since both the player, and the sergeant have bigger things to worry about - the full-scale Wraw invasion
-; We don't clarify here either, but hopefully through gameplay the player will understand, that they are basically using the Wraw here for practice - the quest log does acknowledge this though
-; these par times are supposedly set by the sergeant themselves, but given they're challenging even for an android, I think we can doubt that

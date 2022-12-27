@@ -1,38 +1,34 @@
-; Semi Sisters spy, female, deep in Cerebat territory, and organising races for the player to help themselves blend in undercover
-; formal speaker
 # intro/intro-chat
 ~ semi-spy
-| Aha, {(nametag player)}. This is opportune timing.
+| Aha, {(nametag player)}. Super timing.
 ~ player
-| "Why is she whispering? Her eyes are darting around like she's a mouse peeking from a mouse hole."(light-gray, italic)
+| "Warum flüstert sie? Ihre Augen zucken auch wild hin und her."(light-gray, italic)
 ~ semi-spy
-| I'm a hunter from the Semi Sisters. I'm undercover, but I think someone's onto me.
+| Ich bin ein Jäger von den Semis, bei einer geheimen Mission. Aber ich glaube jemand ist mir auf der Spur.
 ! eval (setf (nametag (unit 'semi-spy)) (@ semi-spy-nametag))
 ~ semi-spy
-| Can you assist? I need to look busy - like "organising the kind of "time trials"(orange) they seem to love down here" kind of busy.
+| Kannst du mir helfen? Ich muss geschäftig aussehen. Zum beispiel könnte ich "Rennen"(orange) organisieren.
 ~ player
-- I'll help.
+- Ich helf dir
   ~ semi-spy
-  | You will? __THANK YOU!__
-  | ... I mean, "thank you"(small).
-- I like time trials.
+  | Echt? __DANK DIR!__
+  | ... Ich meine, "danke"(small).
+- Rennen mag ich gut
   ~ semi-spy
-  | You do? __GREAT!__
-  | ... I mean, "great"(small).
-- I need to go.
+  | Wirklich? __SUPER!__
+  | ... Ich meine, "super"(small).
+- Ich muss gehen
   < leave
 ~ semi-spy
-| I've mapped out this area pretty extensively, and left some hip flasks lying around.
-| "Retrieve a flask, return it to me, and I'll stop the clock."(orange)
-| I've also set some arbitrary times that I think will give you a realistic challenge - this has got to seem plausible after all.
-| I've got a generous bursary of scrap parts here from {#@innis-nametag}, so I can "reward you generously for getting involved"(orange).
-| "Just give me a second"(orange) to make a call, then we can "begin"(orange).
+| Ich hab den Bereich ziemlich gut erkundigt, und einige Flasken versteckt.
+| "Hol dir eine Flaske, und bring sie mir zurück."(orange)
+| Ich geb dir auch ein paar Zeitlimiten die ich mal so ungefähr ausgewählt hab. Es muss ja realistisch wirken.
+| {#@innis-nametag} hat mir auch eine grosszügigen Lohn gegeben, also kann ich dich "für erfolgreiche Rennen belohnen"(orange).
+| "Gib mir einen Moment,"(orange) ich muss einen Anruf machen, dann können wir "anfangen"(orange).
 ! eval (activate 'sq9-race)
 ! eval (complete task)
 ! eval (reset interaction)
 
 # leave
 ~ semi-spy
-| Alright. But if you have a change of heart, I could really use the assist.
-
-; "make a call" - communicating with Semi HQ perhaps, via modified FFCS
+| OK, aber wenn du dich noch anders entscheidest, würd ich das schätzen.

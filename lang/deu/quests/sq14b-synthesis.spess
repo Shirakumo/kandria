@@ -1,30 +1,26 @@
-; Synthesis, shady character, unknown gender, Swiss-German accent and dialect, plural first person pronouns
 # boss-reminder/reminder
 ~ synthesis
-| "Clear out the Rogues' hideout to the low east of here, in the central part of Cerebat territory."(orange)
-| (:grin)Then we can safely retrieve the "information"(italic).
+| "Räum das Lager im unteren Osten des zentralen Cerebat Gebiets aus."(orange)
+| (:grin)Dann können wir die "Information"(italic) sicher extrahieren.
 
 # task-return/boss-return
 ~ synthesis
-| (:grin)It is done.
+| (:grin)Es ist gemacht.
 ~ player
-- How do you know?
+- Wie weisst du das?
   ~ synthesis
-  | (:grin)We know.
-- Was that a question?
+  | (:grin)Wir wissen es.
+- War das eine Frage?
   ~ synthesis
   | ...
-- It is.
+- Ja
   ~ synthesis
-  | We know.
+  | Wir wussten es.
 ~ synthesis
-| (:grin)Now you can "retrieve the old-world information"(orange).
-| The "lab in the far east, near the abandoned station"(orange) - the answers are there.
-| You need them, as do we. And only an android can "access the remaining working terminals"(orange).
-| There are "3 of them"(orange). You'll see. "Search the databases for \"black caps\""(orange).
+| (:grin)Jetzt kannst du die "alt-Welt Information extrahieren"(orange).
+| "Das Labor im fernen Osten, in der nähe der Bahnstation"(orange) - die Antworten liegen dort.
+| Du brauchst die, genau wie wir. "Greiffe auf die verbleibenden Terminale zu"(orange).
+| Es gibt "3 von denen"(orange). Du wirst sehen. "Durchsuche die Datenbanken nach \"Schwarzen Kappen\""(orange).
 ! eval (activate (unit 'spawner-5703))
 ! eval (activate (unit 'spawner-5705))
 ! eval (activate (unit 'spawner-5704))
-
-; reactivate world spawner again
-; "You need them" - the recipe could help the player's allies, the Noka, survive in the desert, on the surface; or further hinting at the Calamity cause, to either confirm android (your?) involvement, or deny it

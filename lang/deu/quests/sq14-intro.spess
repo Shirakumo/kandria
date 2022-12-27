@@ -1,74 +1,70 @@
-; Synthesis, shady character, unknown gender, Swiss-German accent and dialect, plural first person pronouns
 # intro/intro-chat
 ~ synthesis
-| (:grin)It's time, android.
+| (:grin)Es ist Zeit, Android
 ~ player
 - ...
-- Could you sound any more mysterious?
+- Kannst du noch mysteriöser tun?
   ~ synthesis
-  | (:grin)Perhaps.
-- No it's not.
+  | (:grin)Vielleicht.
+- Nein ist es nicht
   < leave
 ~ synthesis
-| (:grin)We have "answers, about the old world"(orange), if you'll help us.
+| (:grin)Wir haben "Antworten, über die alte Welt"(orange), wenn du uns hilfst.
 ~ player
-- Are your pronouns plural, or are there more of you?
+- Ihr?
   ~ synthesis
-  | (:grin)It is only I. "Us"(italic).
-- Is this the royal "we"?
+  | (:grin)Es gibt nur mich. "Uns"(italic).
+- Ist das das königliche "wir"?
   ~ synthesis
-  | Do we look like royalty?
-- Okay...
+  | Sehen wir etwa wie Könige aus?
+- OK...
 ~ synthesis
-| (:grin)Do you want them? The answers?
+| (:grin)Willst du sie? Die Antworten?
 ~ player
-- What answers?
+- Welche Antworten?
   ~ synthesis
-  | Answers that would be valuable to you.
-- What do you want?
-- I could take those answers by force.
+  | Einige die dir wertvoll sind.
+- Was willst du?
+- Ich könnte die mir mit Gewalt holen
   ~ synthesis
-  | (:grin)You could try. But you would fail.
-- Not interested.
+  | (:grin)Das könntest du versuchen. Und dabei fehlschlagen.
+- Nicht interessiert
   < leave
 ~ synthesis
 | Gah...
 ~ player
-| "... I can hardly see their face, but they seem to be having the world's worst headache."(light-gray, italic)
+| "... Ich kann ihr gesicht kaum ausmachen, aber sie scheinen mords Kopfweh zu haben."(light-gray, italic)
 ~ synthesis
 | Ack... <-AH...->
 ~ player
-- Are you okay?
-- You don't look well.
-- I hope that's not contagious.
+- Alles in ordnung?
+- Ihr seht nicht gut aus
+- Ich hoffe das ist nicht ansteckend
 ~ synthesis
-| We need our "potion"(orange). Get it for us.
-| Do you have "black caps"(orange)? Ja, the poisonous ones.
+| Wir brauchen unseren "Trank"(orange). Hohl es für uns.
+| Hast du "Schwarze Kappen"(orange)? Ja, die giftigen.
 ~ player
-- How many do you need?
-- I can get some.
-- [(<= 1 (item-count 'item:mushroom-bad-1)) (Lie) I'm afraid not.]
+- Wie viele brauchst du
+- Ich kann ein paar besorgen
+- [(<= 1 (item-count 'item:mushroom-bad-1)) (Lügen) Leider nicht]
   ~ synthesis
-  | Ack, that's too bad.
+  | Zu dumm
 ~ synthesis
-| "Bring us 4 black caps."(orange)
-| "Search the Cerebat backstreets, or even the caves."(orange)
+| "Bring uns 4 davon."(orange)
+| "Durchsuch das Cerebat gebiet und die Tunnell."(orange)
 | Schnell.
 ? (= 4 (item-count 'item:mushroom-bad-1))
 | ~ player
-| | "I do "have exactly what they need already"(orange)."(light-gray, italic)
+| | "Ich hab bereits "genau was ich brauche"(orange)."(light-gray, italic)
 |? (< 4 (item-count 'item:mushroom-bad-1))
 | ~ player
-| | "I do "have more than they need already"(orange)."(light-gray, italic)
+| | "Ich hab bereits "mehr als genug"(orange)."(light-gray, italic)
 |? (< 1 (item-count 'item:mushroom-bad-1))
 | ~ player
-| | "I do "have {(item-count 'item:mushroom-bad-1)} black caps already"(orange)."(light-gray, italic)
-|? (= 1 (item-count 'item:mushroom-bad-1))
-| ~ player
-| | "Well I only "have 1 black cap at the moment"(orange) so."(light-gray, italic)
+| | "Ich hab bereits "{(item-count 'item:mushroom-bad-1)} davon"(orange)."(light-gray, italic)
 |?
 | ~ player
-| | "I "don't have any black caps right now"(orange). Crud."(light-gray, italic)
+| | "Ich "hab noch keine davon"(orange). Verdammt."(light-gray, italic)
   
 ! eval (activate 'sq14a-synthesis)
 ! eval (complete task)
@@ -76,6 +72,4 @@
 
 # leave
 ~ synthesis
-| (:grin)When you're ready to know the truth, "we'll be here"(orange). But not forever.
-
-; too ill to collect them themselves
+| (:grin)Wenn du bereit bist die Wahrheit kennen zu lernen, "sind wir hier"(orange). Aber nicht für immer.

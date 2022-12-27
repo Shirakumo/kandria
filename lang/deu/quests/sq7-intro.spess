@@ -1,39 +1,37 @@
 # intro/intro-chat
 ~ catherine
-| Actually, I do have a "little project you could help with"(orange), if you have time.
-| It's on the down-low, but I think it could be our saviour: "wind power"(orange)!
-| (:excited)I don't know if you noticed, but it can get pretty windy on the surface - stormy even. I want to "build turbines"(orange) and use the wind to produce electricity.
-| Pretty sweet, huh?
+| Ich hab ein "kleines Projekt bei dem du helfen könntest"(orange), falls du Zeit hast.
+| Es ist nicht enorm wichtig, aber ich denke es könnte uns in der Zukunft retten: "Wind Energie"(orange)!
+| (:excited)Ich weiss nicht ob du das bemerkt hast, aber ist ziemlich windig hier, zum teil sogar mit Stürmen. Ich will "Windturbinen bauen"(orange).
+| Ziemlich cool, oder?
 ~ player
-- Count me in.
-- Like in the old world?
+- Da bin ich dabei
+- Wie in der alten Welt?
   ~ catherine
-  | (:excited)Right! I've heard about those massive windmills.
-  | (:normal)These would be more modestly sized though.
+  | (:excited)Genau! Ich hab schon von massiven Windfarmen gehört.
+  | (:normal)Dieser Prototyp wäre aber ein bisschen kleiner skaliert.
   ~ player
-  - I'm interested.
-  - I'll pass for now.
+  - Ich bin interessiert
+  - Hmm, vielleicht später
     < leave
-- Not now, sorry.
+- Ein Andermal
   < leave
 ~ catherine
-| First thing I'm gonna need is some essential components: "anemometers"(orange), "disc brakes"(orange), "transformers"(orange).
-| Call it "5 of each"(orange) I think, just to get me started. I can "pay you"(orange).
-| The "Semis should have some lying around"(orange). The "Cerebats too - they've already got turbines in their wind tunnels"(orange).
-| Thanks, {(nametag player)}.
+| Erst brauch ich einige wichtige Bauteile: "Anemometer"(orange), "Scheibenbremsen"(orange), "Transformer"(orange).
+| "Je 5"(orange) sollte für den Anfang reichen, denke ich. Ich kann dich auch "bezahlen"(orange).
+| Die "Semis sollten welche rumliegen haben"(orange). Und "die Cerebats auch, mit ihren Windtunnell."(orange).
+| Danke, {(nametag player)}.
 ? (and (<= 5 (item-count 'item:anemometer)) (<= 5 (item-count 'item:disc-brake)) (<= 5 (item-count 'item:transformer)))
 | ~ player
-| | (:giggle)"Oh, wait a sec - "I have enough of those items already"(orange)!"(light-gray, italic)
+| | (:giggle)"Hey warte mal - "Ich hab das alles schon bei mir"(orange)!"(light-gray, italic)
 |? (< 0 (+ (item-count 'item:anemometer) (item-count 'item:disc-brake) (item-count 'item:transformer)))
 | ~ player
-| | "Well at least "I've got some of those items already"(orange)."(light-gray, italic)
+| | "Hmm, "wenigstens hab ich schon ein paar davon"(orange)."(light-gray, italic)
 |?
 | ~ player
-| | "I don't have any of those on me. Bummer."(orange, italic)
+| | "Die Teile hab ich bisher noch nicht gesehen. Schade."(orange, italic)
 ! eval (complete task)
 ! eval (reset interaction)
 
 # leave
 
-; there's an implication here that there'll be more stages to this quest, and that the player may eventually see the windmills assembled; but neither happens, due to the confirmation of the Wraw invasion of the entire valley (q10-wraw) - this itself is part of the tragedy of the story
-; if the player does this quest, or any other quest where Catherine refers to them by name (such as sq1-leaks), after changing their name in q7, then how has Catherine gotten word so quickly to use their new name, if you've come straight from Fi? Can assume Fi let people know quickly. And I don't really want to limit use of the player's new name to avoid this, as it's a cool reflection of the player's choice

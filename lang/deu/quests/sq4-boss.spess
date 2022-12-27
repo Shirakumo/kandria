@@ -1,13 +1,9 @@
 # 7-interact-/interaction
 ~ player
 ? (not (complete-p 'q11a-bomb-recipe))
-| | "Did I notice anything unusual about those Servos?"(light-gray, italic)
-| | "I should "get back to the roboticist and deliver my findings"(orange)."(light-gray, italic)
+| | "Waren die Servos irgendwie unüblich?"(light-gray, italic)
+| | "Ich sollte "zur Robotickerin zurückkehren und meinen Bericht abliefern."(orange)."(light-gray, italic)
 |?
-| | "I guess those were the Servos the roboticist was studying."(light-gray, italic)
-| | "But it's "too late to report back to her now"(orange). I should get out of here."(light-gray, italic)
+| | "Ich glaube das waren die Servos, die die Robotickerin untersuchen wollte."(light-gray, italic)
+| | "Aber jetzt "ist es zu spät mit ihr zu sprechen"(orange). Ich sollte mich vom Acker machen."(light-gray, italic)
 | ! eval (activate (unit 'spawner-5032))
-
-; ^ invariant check
-
-; spawner will reactivate while player on screen, but is an edge case
