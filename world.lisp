@@ -227,7 +227,7 @@
 #-kandria-demo
 (defmethod handle :after ((ev toggle-editor) (world world))
   (when (and (not (find-panel 'menu))
-             (setting :debugging :allow-editor)
+             #++(setting :debugging :allow-editor)
              (region world))
     (toggle-panel 'editor)))
 
