@@ -1,105 +1,103 @@
 # reminder/interact-reminder
 ~ semi-partner
-| "You're looking for {#@cerebat-partner-nametag} in Cerebats territory"(orange). I'm sorry I can't tell you what she looks like - you'll have to "ask around"(orange).
-| The downside of a long distance relationship... Not that I care what she looks like.
+| "Schau dich nach {#@cerebat-partner-nametag} im Cerebat Gebiet um"(orange). Sorry, ich kann dir nicht sagen wie sie aussieht, du musst die Leute dort fragen.
+| So ist es halt mit einer Langdistanz-Beziehung.
 
 # read-letter/interact-read
 ~ semi-partner
-| __You read the letter?__ I don't believe it...
-| Maybe it's true what they say about androids.
+| __Du hast den Brief gelesen?__ Ich glaubs nicht...
+| Wie konnte ich nur einem Androiden vertrauen!
 | ...
-| Just deliver it, alright. I need to know she's safe.
-| Can you do that?
+| Kannst du den Brief wenigstens noch liefern gehen?
+| Ich muss wissen, dass es ihr noch gut geht.
 ! eval (complete task)
 ! eval (reset interaction)
 
-; Kacey, female Cerebat, speaks casual
 # deliver-letter/deliver-chat
 ~ cerebat-partner
-| Who are you?
+| Wer bist du?
 ~ player
 | {#@cerebat-partner-nametag}?
 ~ cerebat-partner
-| Who wants to know?
+| Wer fragt?
 ~ player
-- My name's {(nametag player)}.
+- Ich bin {(nametag player)}
   ~ cerebat-partner
-  | Let me guess: {#@semi-partner-nametag}. This reeks of his overzealousness.
-- {#@semi-partner-nametag} sent me.
+  | Lass mich raten: {#@semi-partner-nametag}. Das stinkt nach seinem Übereifer.
+- {#@semi-partner-nametag} hat mich geschickt
   ~ cerebat-partner
-  | Shit. Yep, this reeks of his overzealousness. He shouldn't have done that.
-- I was sent by a Semi, who's looking for their girlfriend.
+  | Ach du Scheisse. Der wieder mit seinem Übereifer.
+- Ich wurde von einem Semi geschickt der nach seiner Freundin sucht
   ~ cerebat-partner
-  | {#@semi-partner-nametag} then. This reeks of his overzealousness.
+  | {#@semi-partner-nametag} also. Der wieder mit seinem Übereifer.
 ~ cerebat-partner
-| Wait... Are you an android?
+| Wart mal. Bist du ein Android?
 ~ player
-- How did you know?
+- Wie hast du das erraten?
   ~ cerebat-partner
-  | You're insignia. I've heard about androids.
-- Yes.
+  | Dein Signet. Ich hab von Androiden schon gehört.
+- Ja
   ~ cerebat-partner
-  | Wow. I guess I should be amazed. There was a time when I would've been.
-- It's not important.
+  | Ho. Was es nicht gibt.
+- Das ist nicht wichtig
   ~ cerebat-partner
-  | That was hardly a no.
+  | Wohl kaum ein Nein, dann.
 ~ cerebat-partner
-| Yes, "I'm {#@cerebat-partner-nametag}"(orange). Is he alright?
+| Ja, "ich bin {#@cerebat-partner-nametag}"(orange). Geht es ihm gut?
 ! eval (setf (nametag (unit 'cerebat-partner)) (@ cerebat-partner-nametag))
 ? (var 'read-letter)
 | ~ player
-| - (Give her the letter)
+| - (Gib ihr den Brief)
 |   < given
-| - (Keep the letter)
+| - (Behalt den Brief)
 |   < withheld
 |?
 | ~ player
-| | He gave me this to give to you.
+| | Er wollte das dir geben.
 | < given
 
 # withheld
 ~ cerebat-partner
-| Well?
+| Und?
 ~ player
-- He thought something bad had happened to you.
+- Er dachte dir wäre etwas geschehen
   ~ cerebat-partner
-  | That's sweet. But no, nothing worse than usual.
-  | Except having to break up with my boyfriend...
+  | Wie nett. Aber nein, nichts schlimmeres als üblich.
+  | Naja, ausser dass ich mich von ihm getrennt hab.
   < breakup
-- He misses you.
+- Er vermisst dich
   ~ cerebat-partner
-  | I miss him. And I really wish things could've worked out.
+  | Und ich ihn. Ich wünschte das hätte geklappt.
   < breakup
-- He wants to break up.
+- Er will sich trennen
   ~ cerebat-partner
-  | He does?... Well at least we agree about that. Maybe we do still have something in common.
+  | Echt?... Na vielleicht haben wir doch noch etwas gemeinsam.
   < breakup
 
 # given
 ! eval (retrieve 'item:love-letter 1)
 ! eval (status "Lost 1 Tobias' Letter")
 ~ cerebat-partner
-| A letter? Classic {#@semi-partner-nametag}. Let me see.
+| Ein Brief? Klassisch.
 | ...
-| Heh, well at least we agree about this. Maybe we do still have something in common.
+| Hah! Na vielleicht haben wir doch noch etwas gemeinsam.
 ! label breakup
-| I thought he might get the message, if I stopped answering his calls. Save him the pain of having to do this.
-| He knows it couldn't work out, if it ever could.
-| I don't know if you're up on the politics down here, but the Semis and the Cerebats... it's not a good combination.
+| Ich dachte er würde es kapieren, wenn ich seine Anrufe nicht mehr beantworte.
+| Er weiss, dass das nie funktioniert hätte.
+| Wie gut kennst du dich mit der Politik hier aus? Die Semis und Cerebats sind nicht gerade kompatibel, weisst du.
 ~ player
-- Why didn't you just tell him?
+- Warum hast du das ihm nicht einfach gesagt?
   ~ cerebat-partner
-  | Maybe I should have. I didn't want to hurt him.
-- I think ignoring him made it worse.
+  | Vielleicht hätte ich das machen sollen. Ich wollte ihn nicht verletzen.
+- Ich denke ihn zu ignorieren war schlimmer
   ~ cerebat-partner
-  | Do you?
-  | And what are you, a therapist? You look more like a creepy-ass detective.
-- Are you sure you can't work things out?
+  | Denkst du?
+  | Und was bist du? Ein Therapeut oder was? Siehst mehr aus wie ein schlubbriger Detektiv.
+- Bist du sicher?
   ~ cerebat-partner
-  | No, I don't think so. Not now.
-  | And besides, he doesn't want to.
+  | Ja, bin ich. Ausserdem will er ja auch keine Beziehung.
 ~ cerebat-partner
-| Look, I appreciate your android postal service, or whatever this is. But I'm "not paying for it"(orange).
-| "I'll call him"(orange), alright. Set things straight.
-| Thank you, but it's not your problem any more. If it ever was.
+| Ich schätze es, dass du mir den Brief gebracht hast, aber ich "geb dir nix"(orange).
+| "Ich ruf ihn an"(orange), OK?
+| Danke, jetzt lass mich in ruhe.
 

@@ -1,61 +1,59 @@
 # intro/intro-chat
 ~ catherine
-| (:excited)Sure, what's on your mind? How'd it go with {#@alex-nametag}?
+| (:excited)Hey! Was geht ab? Wie stehts mit {#@alex-nametag}?
 ~ player
-- Not good.
+- Nicht gut
   ~ catherine
-  | (:concerned)... Uh, how so?
-  | (:normal)You know what: don't worry about it. I'm sure you've got enough on your plate. I'll talk to {#@fi-nametag}.
-  | (:concerned)... Although there are rumours flying around, about the Wraw invading the Cerebats.
-  | Is it true?
-- We've got bigger problems.
+  | (:concerned)... Wie kommts?
+  | (:normal)Ne, warte, ich frag einfach {#@fi-nametag}.
+  | (:concerned)... Obwohl, ich hör auch einiges Geflüster über eine Wraw Invasion?
+  | Stimmt das?
+- Wir haben grössere Probleme
   ~ catherine
-  | (:concerned)Really? Like what?
+  | (:concerned)Echt? Wie was?
   ~ player
-  | The Semi Sisters think the Wraw have invaded the Cerebats.
+  | Die Semis glauben, dass die Wraw die Cerebats invadiert haben.
   ~ catherine
   | (:concerned)Oh...
-  | Shit.
-  | Is it true?
-- The Semi Sisters want you back.
+  | Scheisse.
+  | Ist das wahr?
+- Die Semis wollen dich zurück
   ~ catherine
   | (:concerned)...
   ~ player
-  - Do you want to go back?
+  - Willst du zurück?
     ~ catherine
-    | (:concerned)Not particularly. I don't know if {#@fi-nametag} told you, but they didn't exactly look after me.
-  - {#@fi-nametag} said you wouldn't want to go back.
+    | (:concerned)Nicht wirklich. Ich weiss nicht wie viel dir {#@fi-nametag} erzählt hat, aber sie haben sich nicht wirklich um mich gekümmert.
+  - {#@fi-nametag} hat gesagt du willst nicht zurück
     ~ catherine
-    | (:concerned)She's right. They didn't exactly look after me.
+    | (:concerned)Da hat sie recht. Sie haben sich nicht gut um mich gekümmert.
   ~ catherine
-  | Don't get me wrong - their skills and tools are sort of amazing. An engineer's dream.
-  | (:concerned)But nah. {#@innis-nametag} can be a real bitch. {#@islay-nametag} too sometimes.
-  | (:excited)Soon as I was old enough I hightailed it outta there.
-  | (:concerned)It was kind of stupid actually. I would have died if {#@fi-nametag} and the others hadn't found me.
-  | (:normal)But I'm still here!
-  | (:concerned)Anyway, what about these rumours? About the Wraw invading the Cerebats?
-  | Is it true?
+  | Versteh mich nicht falsch, ihre Technologie und Werkzeuge sind fantastisch, besonders für einen Ingenieur.
+  | (:concerned)Aber näh. {#@innis-nametag} verhält sich echt scheisse. {#@islay-nametag} manchmal auch.
+  | (:excited)Sobald ich alt genug war bin ich dort raus.
+  | (:concerned)Das war ziemlich dumm von mir. Ohne {#@fi-nametag} und die anderen hätte ich nicht überlebt.
+  | (:normal)Aber ich bin immernoch hier!
+  | (:concerned)Wie auch immer, was ist mit den Rumoren? Über die Wraw und Cerebats?
+  | Ist das alles wahr?
 ~ player
-- [(complete-p 'q8a-bribe-trader) Yes, the Cerebats turned their water off.|]
+- [(complete-p 'q8a-bribe-trader) Die Cerebats haben den Wraw das Wasser abgedreht|]
   ~ catherine
-  | (:excited)They did what? Heh, maybe they had spines after all. Still...
-- [(not (complete-p 'q8a-bribe-trader)) {#@fi-nametag} doesn't think so.|]
+  | (:excited)Was zur Hölle? Hätte nicht gedacht, dass die so mutig sind...
+- [(not (complete-p 'q8a-bribe-trader)) {#@fi-nametag} denkt nicht|]
   ~ catherine
-  | (:concerned)You don't sound too convinced.
-- [(complete-p 'q8a-bribe-trader) They seem to be.|]
+  | (:concerned)Du tönst nicht überzeugt
+- [(complete-p 'q8a-bribe-trader) Scheint so|]
   ~ catherine
   | (:concerned)...
-  | Like we didn't have enough to worry about.
-- [(not (complete-p 'q8a-bribe-trader)) I don't know.|]
+  | Als ob wir nicht bereits genug zu tun hätten.
+- [(not (complete-p 'q8a-bribe-trader)) Ich weiss nicht|]
   ~ catherine
-  | (:concerned)Well that's not good.
-- [(not (complete-p 'q8a-bribe-trader)) I don't think it is.|]
+  | (:concerned)Das ist nicht gut.
+- [(not (complete-p 'q8a-bribe-trader)) Ich glaube nicht|]
   ~ catherine
-  | (:concerned)I hope you're right.
-- What does it matter?
+  | (:concerned)Ich hoffe du hast recht.
+- Kommts drauf an?
 ~ catherine
-| (:concerned)What little glue holds things together down there is thanks to the Cerebats.
-| If they're gone... then it's open season.
-| I wonder what "{#@fi-nametag}'s gonna do"(orange).
-
-; these "rumours" are what soon convince Fi to send you down to investigate the Cerebats, find out if they have been invaded after all
+| (:concerned)Die Cerebats sind eine art... Leim, der noch alles zusammen hält.
+| Wenn sie weg sind, dann fällt alles ziemlich schnell zusammen.
+| Ich frag mich was "{#@fi-nametag}'s Plan ist"(orange).

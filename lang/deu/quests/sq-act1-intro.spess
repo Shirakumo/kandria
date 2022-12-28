@@ -1,174 +1,176 @@
 # sq-act1-catherine/talk-catherine
 ~ catherine
-| Hey, {(nametag player)}. How are you?
+| Hallo, {(nametag player)}. Wie gehts?
 ~ player
-- Can I help out?
+- Kann ich helfen?
   < choices
-- It's nice to see you again.
+- Schön dich zu sehen
   ~ catherine
-  | I wish we could spend more time together.
+  | I wünsche wir könnten mehr Zeit zusammen verbringen.
   < continue
-- Good. How are you?
+- Gut. Und dir?
   ~ catherine
-  | Me? Oh, same as always. (:concerned){#@jack-nametag}'s as overbearing as ever, but I can take it.
-  | (:normal)I think if I can just keep my head down and keep doing something, then I won't worry about the future. Or the past.
-  | Just take it day by day, you know?
+  | Mir? Oh, so wie immer. (:concerned){#@jack-nametag} ist überheblich wie immer, aber ich bin mir das gewöhnt.
+  | (:normal)Wenn ich mich beschäftigen kann, dann muss ich mich nicht über die Zukunft sorgen. Oder die Vergangenheit.
+  | Nimms einfach Tag nach Tag, weisst du?
   < continue
-- I'm feeling low.
+- Ich fühl mich nicht gut
   ~ catherine
-  | (:concerned)Oh no... I'm sorry. People are mean, I don't understand why.
-  | Anyone that's different, they've already made up their minds about them.
-  | (:normal)You just keep being you. I'll talk to them, I promise.
+  | (:concerned)Das tut mir leid.
+  | (:normal)Aber jeder hat solche Tage. Mach dir nichts draus.
+  | Es wird ein Morgen geben, und du wirst weiterhin da sein dafür.
   < continue
-- I need to go.
+- Ich muss los
   < leave
 
 # continue
 ~ player
-- Can I help out?
-- I need to go.
+- Kann ich helfen?
+- Ich muss los
   < leave
 ! label choices
 ~ catherine
-| You are strangely perceptive... (:excited)Man I'd love to understand how your core works.
-| (:normal)The "water pressure is off again"(orange), so you could "check the pipeline"(orange).
+| Du bist sehr Scharfsinnig... (:excited)Hmm, ich wünsche ich würde verstehen wie du funktionierst!
+| (:normal)Der "Wasserdruck ist wieder gesunken"(orange), also sollte jemand "die Leitung überprüfen"(orange).
 ? (<= 25 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)) )
-| | (:normal)I was going to say we need some "mushrooms too, what with food stocks running out"(orange).
-| | (:excited)But is it me, or are those "mushrooms you're carrying"(orange)?
-| | (:excited)You're very proactive, {(nametag player)}, I like that! Let's see what you've got.
+| | (:normal)Ich wollte sagen, dass wir "auch Pilze brauchen"(orange).
+| | (:excited)Aber bin das nur ich, oder hast du bereits welche?
+| | (:excited)Ich mag deine Initiative, {(nametag player)}!
 | ? (have 'item:mushroom-good-1)
-| | | (:excited)"Flower fungus"(red), nice! I'll get these to {#@fi-nametag} and straight into the cooking pot.
-| | | (:normal)Apparently if you eat them raw they'll give you the skitters. One day I'll test that theory.
-| | ! eval (status (concatenate 'string "Lost " (write-to-string (item-count 'item:mushroom-good-1)) " Flower Fungus"))
+| | | (:excited)"Rosenpilze"(red), sehr schön! Ich bring die gleich zu {#@fi-nametag} und rein damit in den Suppentopf!
+| | | (:normal)Angeblich wenn man die Roh ist bekommt man Flecken auf der Haut. Das will ich mal ausprobieren.
+| | ! eval (status "~a Rosenpilze Verloren" (item-count 'item:mushroom-good-1))
 | | ! eval (retrieve 'item:mushroom-good-1 T)
 | ? (have 'item:mushroom-good-2)
-| | | (:cheer)"Rusty puffball"(red), great! I like to eat these the most - and I made my neckerchief from them, believe it or not.
-| | | (:normal)I weaved them together with synthetic scraps; I needed a mask so the spores from mature specimens wouldn't give me lung disease.
-| | ! eval (status (concatenate 'string "Lost " (write-to-string (item-count 'item:mushroom-good-2)) " Rusty Puffball"))
+| | | (:cheer)"Rostige Kappen"(red), toll! Die mag ich am bessten. Hab auch mein Halstuch daraus gemacht, wenn du das glauben kannst.
+| | | (:normal)Leider sind die Sporen davon giftig. Ich musste dauernd eine Maske anbehalten während der Arbeit.
+| | ! eval (status "~a Rostige Kappen Verloren" (item-count 'item:mushroom-good-2))
 | | ! eval (retrieve 'item:mushroom-good-2 T)
 | ? (have 'item:mushroom-bad-1)
-| | | (:concerned)Oh, "black cap"(red)... Not a lot I can do with poisonous ones.
-| | | (:normal)Don't worry, I'll burn them later - don't want anyone eating them by accident.
-| | ! eval (status (concatenate 'string "Lost " (write-to-string (item-count 'item:mushroom-bad-1)) " Black Cap"))
+| | | (:concerned)Oh, "Schwarze Pilze"(red)... Damit kann ich nicht viel anfangen.
+| | | (:normal)Keine Sorge, die verbrenn ich später noch.
+| | ! eval (status "~a Schwarze Pilze Verloren" (item-count 'item:mushroom-bad-1))
 | | ! eval (retrieve 'item:mushroom-bad-1 T)
 |  
-| | (:normal)You know, it might not seem like much, but hauls like these could be the difference between us making it and not making it.
-| | We get birds, fish and bats when we can too, but they're harder to catch. Mushrooms don't run away.
-| | (:excited)We owe you big time. Here, "take these parts"(orange), you've definitely earned them.
+| | (:normal)Es sieht nicht nach viel aus, aber diese Pilze sind enorm wichtig solange unsere Ernte noch nicht stabil ist.
+| | Wir fangen auch Frösche und Vögel ein wenn wir können, aber Pilze rennen einem nicht davon.
+| | (:excited)Hier, "nimm diese Bruchteile"(orange), das hast du dir reichlich verdient.
+| ! eval (store 'item:parts 300)
+| ! eval (status "300 Bruchteile Erhalten")
+| | (:normal)Wenn du "noch mehr Pilze findest"(orange), dann nimm die mitt.
+| | Auch wenn wir sie nicht brauchen, kannst du sie immer "an {#@trader-nametag} verkaufen"(orange).
 | ! eval (store 'item:parts 300)
 | ! eval (status "Received 300 Scrap Part")
 | | (:normal)If you "find any more mushrooms"(orange), make sure you grab them.
 | | If we don't need them, the least you could do is "trade them with {#@trader-nametag}"(orange).
 | ! eval (complete 'sq2-mushrooms)
 |?
-| | (:normal)With food stocks running out, {#@fi-nametag} wants to "forage for more mushrooms"(orange) too. Plus they're good for clothing.
-| | I'd say at least "25 puffballs or flower fungus"(orange) should do. "Avoid black caps"(orange) though.
+| | (:normal)Da unser Vorrat niedrig ist, möchte {#@fi-nametag} dass jemand "auf Pilzjagt geht"(orange). Wir können die auch brauchen um Kleidung herzustellen.
+| | Etwa "25 Rosenpilze oder Rostige Kappen"(orange) sollte genügen. "Sammel keine Schwarze Pilze"(orange).
 | ? (< 0 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)))
 | | ~ player
-| | | "I have some of those already - but I need to find more."(orange, italic)
+| | | "Ich hab bereits welche davon, aber noch nicht genug."(orange, italic)
 | |?
 | | ~ player
-| | | "I don't have any right now - I need to search underground."(orange, italic)
+| | | "Ich hab noch keine davon. Wird es sicher im Untergrund geben."(orange, italic)
   
 ~ catherine
-| (:excited)Oh, I've been speaking with my friends - we're all eager to see what you're really capable of.
-| How do "time trial races"(orange) sound, eh?
-| (:normal)Basically we've planted "beer cans for you to find and bring back"(orange).
-| So there you go - lots to do, if you fancy it. You want any more info?
+| (:excited)Oh, und ich hab mit meinen Freunden gesprochen. Wir möchten alle sehen was du wirklich drauf hast.
+| Wie wärs mit "Zeitrennen"(orange)?
+| (:normal)Wir haben "Bierkannen versteckt die du mir bringen musst"(orange).
+| Da hast dus. Einiges zu tun! Hast du noch Fragen?
 ! label task-choice
 ~ player
-- (Ask about the leaks)
+- (Frag nach den Lecken)
   ~ catherine
-  | Sure thing. I've secured the pump now, so I'm pretty sure it's "just a few leaks"(orange). (:concerned)Hopefully the saboteurs aren't back.
+  | Klaro. Wir haben die Pumpe repariert, also denke ich sind es nur "ein paar Lecke"(orange). (:concerned)Hoffentlich ohne Saboteure.
   ? (not (var 'asked-leaks))
-  | | (:normal)Androids can weld from their fingertips, right?
+  | | (:normal)Androide haben ein Schweissgerät eingebaut, oder?
   | ~ player
-  | - I can do that?
+  | - Echt?
   |   ~ catherine
-  |   | I'm pretty sure you can. Try it out.
+  |   | Bin ziemlich sicher.
   |   ~ player
-  |   | "She's right. Kinda of. I thought about it, and now a small torch is glowing from the index finger on my right hand."(light-gray, italic)
-  |   | (:thinking)"It's not hot enough to weld, though it could solder - it's probably for self-repairs. But what if I increased the power significantly?..."(light-gray, italic)
-  |   | (:giggle)"Now that's a welding torch! It tickles."(light-gray, italic)
-  |   | (:embarassed)"Better keep the intensity low, so as not to blind us."(light-gray, italic)
+  |   | "Sie hat recht. Wow. Ein mini Schweissgerät direkt in meinen Fingern."(light-gray, italic)
+  |   | (:thinking)"Es ist wahrscheinlich nicht für Metallarbeit gedacht, aber mit etwas Finesse sollte das klappen."(light-gray, italic)
+  |   | (:giggle)"Der Funken kitzelt etwas."(light-gray, italic)
+  |   | (:embarassed)"Ich sollte damit wohl hier nicht einfach so rumspielen."(light-gray, italic)
   |   ~ catherine
-  |   | (:excited)See!
+  |   | (:excited)Sieh!
   |   ~ player
   |   - Cool!
-  |   - I forgot I could do that.
+  |   - Ich hab das ganz vergessen
   |     ~ catherine
-  |     | Don't worry.
-  |   - Need a light?
+  |     | Mach dir nix draus
+  |   - Brauchst du Feuer?
   |     ~ catherine
-  |     | Sorry, I don't smoke.
-  | - Solder, not weld - for self-repairs.
+  |     | Sorry, ich rauche nicht.
+  | - Das ist für Selbstreparatur
   |   ~ catherine
-  |   | Oh okay, that's cool. Maybe you should take a welding torch then.
+  |   | Oh OK, cool.
   |   ~ player
-  |   | "That said, what if I significantly increased the power to the soldering iron?..."(light-gray, italic)
-  |   | (:giggle)"That worked! It tickles."(light-gray, italic)
-  |   | (:normal)"She looks impressed. I suppose a welding torch glowing from the tip of someone's finger isn't the most common sight around here."(light-gray, italic)
-  |   | (:embarassed)"Better keep the intensity low, so as not to blind us."(light-gray, italic)
+  |   | (:thinking)"Es ist wahrscheinlich nicht für Metallarbeit gedacht, aber mit etwas Finesse sollte das klappen."(light-gray, italic)
+  |   | (:giggle)"Der Funken kitzelt etwas."(light-gray, italic)
+  |   | (:embarassed)"Ich sollte damit wohl hier nicht einfach so rumspielen."(light-gray, italic)
   |   ~ catherine
-  |   | (:excited)That's so cool!
-  | - Where did you hear that?
+  |   | (:excited)Super cool!
+  | - Wo hast du das gehört?
   |   ~ catherine
-  |   | It's just one of those things I know about androids. (:excited)Why, is it a big secret?
-  |   | Let me see!
+  |   | Weiss nicht, ich hab mich nur an den Fakt erinnert. (:excited)Warum, ist das geheim?
+  |   | Zeig mir das!
   |   ~ player
-  |   | "Technically I can solder, not weld, for self-repairs. But what if I significantly increased the power to the soldering iron?..."(light-gray, italic)
-  |   | (:giggle)"That worked! It tickles."(light-gray, italic)
-  |   | (:normal)"She looks impressed. I suppose a welding torch glowing from the tip of someone's finger isn't the most common sight around here."(light-gray, italic)
-  |   | (:embarassed)"Better keep the intensity low, so as not to blind us."(light-gray, italic)
+  |   | (:thinking)"Es ist wahrscheinlich nicht für Metallarbeit gedacht, aber mit etwas Finesse sollte das auch klappen."(light-gray, italic)
+  |   | (:giggle)"Der Funken kitzelt etwas."(light-gray, italic)
+  |   | (:embarassed)"Ich sollte damit wohl hier nicht einfach so rumspielen."(light-gray, italic)
   |   ~ catherine
-  |   | (:excited)That's so cool!
-  | | (:normal)Okay, I think you're good to go.
+  |   | (:excited)Sehr cool!
+  | | (:normal)OK, ich glaube du bist bereit.
   | ! eval (setf (var 'asked-leaks) T)
     
-  | (:normal)Just "follow the red pipeline"(orange) down like we did before.
-  | Judging from the pressure drop, these leaks "aren't too far away"(orange), so you'll be within radio range.
+  | (:normal)"Folg einfach der roten Leitung"(orange) wie zuvor.
+  | Die Lecke sollten "nicht weit weg sein"(orange), also weiterhin in Radio Reichweite.
   ~ player
-  | "My FFCS indicates "3 leaks"(orange), close to the surface as {#@catherine-nametag} said."(light-gray, italic)
+  | "Mein FFCS zeigt "3 Lecke"(orange), nahe an der Oberfläche an wie {#@catherine-nametag} gesagt hat."(light-gray, italic)
   < task-choice
-- [(not (complete-p 'sq2-mushrooms)) (Ask about the mushrooms)|]
+- [(not (complete-p 'sq2-mushrooms)) (Frag nach den Pilzen)|]
   ~ catherine
-  | They grow in the "caves beneath the Camp"(orange), in the dim light and moisture there.
-  | Edible mushrooms like the "flower fungus"(orange) can sustain us even if the crop fails.
-  | They're all we used to eat before we moved to the surface.
-  | Fibrous ones like the "rusty puffball"(orange) can also be used to weave clothing.
-  | We combine them with recycled synthetic clothes from the old world - like yours - and pelts from animals we hunt.
-  | Just don't breathe in their spores - though I doubt they will affect you.
-  | Other kinds are deadly poisonous, like the "black cap - avoid those if you can"(orange).
-  | At least "25 puffballs or flower fungus"(orange) should suffice for now. (:excited)Happy mushrooming, {(nametag player)}!
+  | Sie wachsen "in den Hölen unter uns"(orange). Das dimme Licht und die Feuchtigkeit sind perfekt.
+  | Essbare Pilze wie "Rosenpilze"(orange) können uns durch eine schlechte Ernte bringen.
+  | Wir haben vorher nur solche Pilze gegessen.
+  | Fasrige wie "Rostige Kappen"(orange) kann man auch für Kleidung gebrauchen.
+  | Wir kombinieren sie mit synthetischem Material das wir sammeln, und mit Pelzen von Tieren.
+  | Leider sind die Sporen giftig, also Achtung mit der Atmung.
+  | Andere sind sehr giftif, wie die "Schwarzen Pilze"(orange). Bitte vermeide die.
+  | Wenigstens "25 Rosenpilze oder Rostige Kappen"(orange) sollte für den Moment genügen. (:excited)Viel Spass beim Sammeln, {(nametag player)}!
   < task-choice
-- (Ask about the time trials)
+- (Frag nach den Rennen)
   ~ catherine
-  | (:excited)Heh, I knew that would intrigue you. I can't wait to see what an almost-fully-functional android can do!
-  | (:normal)So yeah, we've planted old-world "beer cans around the area for you to find and bring back"(orange).
-  | I'll "record your times"(orange) for posterity - this is anthropology! The "faster you are, the more parts you'll get"(orange).
-  | (:excited)Pretty cool, huh?
+  | (:excited)Hah, ich wusste das wird dich interessieren!
+  | (:normal)Also, wir haben "Bierkannen versteckt, die du finden und zurückbringen musst"(orange).
+  | Ich "nehm deine Zeiten auf"(orange). Je "schneller, desto mehr Bruchteile gibts als Belohnung"(orange).
+  | (:excited)Ziemlich cool, oder?
   < task-choice
-- I'm ready.
+- Ich bin bereit
   ~ catherine
-  | (:excited)Well alright.
+  | (:excited)Na gut.
   < end
 
 # end
 ~ catherine
-| You can handle yourself, but check in if you feel the need. You want to "take a walkie, or just use your FFCS"(orange)? - It will work with our radios.
+| Du kommst sicher aleine klar, aber hab keine Angst mit mir zu sprechen wenn du willst. Willst du "ein Walkie, oder reicht dein FFCS aus"(orange)? Es sollte mit unseren Radios kompatibel sein.
 ~ player
-- My FFCS will suffice.
+- Mein FFCS reicht
   ~ catherine
-  | You got it.
-- I'll take a walkie.
+  | Alles klar.
+- Ich nehm ein Walkie
   ~ catherine
-  | You got it - take this one.
+  | Verstanden, hier.
   ! eval (store 'item:walkie-talkie 1)
-  ! eval (status "Received 1 Walkie-Talkie")
+  ! eval (status "1 Walkie-Talkie Erhalten")
   ! eval (setf (var 'take-walkie) T)
 ~ catherine
-| "Let me know if you need more info"(orange) - and "if you want to start a time trial"(orange).
-| (:excited)Good luck!
+| "Sag mir wenn du mehr wissen willst"(orange) und "wenn du ein Rennen starten möchtest"(orange).
+| (:excited)Viel Glück.
 ! eval (activate 'sq1-leaks)
 ? (not (complete-p 'sq2-mushrooms))
 | ! eval (activate 'sq2-mushrooms)
@@ -179,7 +181,4 @@
 
 # leave
 ~ catherine
-| Hey, no worries! Let's talk again soon - "I've got a couple of jobs you might like"(orange).
-
-; "We get birds and fish when we can too" meaning they hunt them themselves now they can, living on the surface; but they also trade them with sahil from time to time
-; tasks get added to journal in one fell swoop (player did ask) - but they're sidequests, so they don't have to do them
+| Kein Problem. Bis bald - "Ich hab noch weitere Aufgaben, wenn du Zeit hast"(orange).

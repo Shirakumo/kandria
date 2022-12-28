@@ -1,73 +1,72 @@
-; Cerebat "good" market trader, concerned about the missing Cerebat Council
 # intro/intro-chat
 ~ cerebat-good-trader
-| I don't want to bother you, but I don't know what else to do.
+| Ich will dich nicht stören, aber ich weiss sonst nicht weiter.
 ~ player
-- Don't worry, I'm listening.
-- I need to leave.
+- Kein Problem
+- Ich hab keine Zeit
   < leave
 ~ cerebat-good-trader
-| It's the "Cerebat Council - they're gone"(orange).
-| Things have "gone to shit since the Wraw moved in"(orange) - we need to restore order, before our way of life disappears forever.
-| I'm only a trader - I don't know what to do.
+| Es geht ums "Cerebat Kollegiat. Sie sind alle weg"(orange).
+| Alles ist zur Hölle gegangen "seit die Wraw eingezogen sind"(orange) - wir müssen wieder Ordnung schaffen, bevor es zu spät ist.
+| Ich bin nur ein Händler, ich hab keine Ahnung was ich tun soll.
 ! eval (setf (nametag (unit 'cerebat-good-trader)) (@ cerebat-good-trader-nametag))
 ~ cerebat-good-trader
-| But if you can "find the Council, bring them back"(orange)...
-| I mean, the Wraw won't like it, but at least we could mount a resistance.
+| Aber wenn du "das Kollegium wieder zurückbringen kannst"(orange)...
+| Ich meine, die Wraw hätten bestimmt nicht freude, aber wir könnten dann zumindest Wiederstand leisten.
 ~ player
-- I'm in.
-- Aren't the Council dead?
+- Ich bin dabei
+- Sind sie nicht tot?
   ~ cerebat-good-trader
-  | I won't believe it till I see their bodies.
-- I need to go.
+  | Das glaub ich erst wenn ich ihre Leichen sehe.
+- Ich muss gehen
   < leave
 ~ cerebat-good-trader
-| Here, take this. It's one of the "councillors' headdresses"(orange)... I found it.
+| Hier, nimm das. Das ist die "Kopfbedeckung eines der Mitglieder"(orange)... Ich habs gefunden
 ! eval (store 'item:headdress 1)
-! eval (status "Received 1 Headdress")
+! eval (status "1 Kopfbedeckung Erhalten")
 ~ player
-| "It's ornate and covered in pearls."(light-gray, italic) (:embarassed)"But it's also damp and stinks of algae."(light-gray, italic)
+| "Es ist gut beschmückt, mit Perlen sogar."(light-gray, italic) (:embarassed)"Aber es stinkt nach Algen und ist nass."(light-gray, italic)
 ~ cerebat-good-trader
-| "Look for anything similar in Wraw territory"(orange) - that's where I think they've taken them.
+| "Schau dich nach Ähnlichem im Wraw Gebiet um"(orange) - ich glaube sie wurden dorthin entführt.
 ! label questions
 ~ player
-- Where did you find the headdress?
+- Woher hast du die Kopfbedeckung
   ~ cerebat-good-trader
-  | In a lake, nearby.
+  | Ich hab sie in einem See in der Nähe gefunden.
   ~ player
-  - Could they have drowned?
+  - Könnten sie ertrunken sein?
     ~ cerebat-good-trader
-    | No. Absolutely not! I mean... there weren't any bodies, so.
-  - That doesn't bode well.
+    | Nein, definitiv nicht. Es hatte keine Leichen.
+  - Das tönt nicht gut.
     ~ cerebat-good-trader
-    | It doesn't. But I'm hopeful.
+    | Nein. Aber ich will noch Hoffnung haben.
   < questions
-- What if the Council are dead?
+- Was wenn sie tot sind?
   ~ cerebat-good-trader
-  | Then I see no way forward. For the Cerebats, nor any other faction down here.
-  | They're irreplaceable. We need experience to fight the Wraw, and unity.
-  | But we're just a band of traders, each looking out for themselves.
+  | Dann seh ich nur schwarz, und zwar nicht nur für uns, sondern für alle.
+  | Das Kollegium ist unersetzbar. Ohne sie haben wir keine Chance gegen die Wraw.
+  | Wir sind nur ein paar Händler, alle zu eigensinnig.
   ~ player
-  - You're different.
+  - Du bist anders
     ~ cerebat-good-trader
-    | I suppose I am.
-    | But I'm just one person.
-  - Then I hope they're alive.
+    | Vielleicht.
+    | Aber ich bin nur eine Person.
+  - Dann hoffe ich sie sind noch am Leben
     ~ cerebat-good-trader
-    | As do I.
+    | Ich auch.
   < questions
-- How many councillors?
+- Wie viele Mitglieder?
   ~ cerebat-good-trader
-  | There are "8"(orange), plus the "high councillor"(orange), "Dashad"(yellow).
-  | I think the headdress is "Antonio's"(yellow).
+  | Es gibt "8"(orange), und das "Oberhaupt"(orange), "Dashad"(yellow).
+  | Ich glaube die Kopfbedeckung gehört "Antonio"(yellow).
   < questions
-- I'm ready to go.
+- Ich bin bereit
 ~ cerebat-good-trader
-| I'll be here when you get back. Actually, no - at the rate people are disappearing...
-| Meet me in the "back alleys instead, beneath the market"(orange).
-| Stay safe.
+| Ich werd hier sein wenn du wieder kommst. Oder, warte, wenn die Leute so schnell verschwinden wie jetzt...
+| Triff mich in den "Hintergassen unter dem Markt"(orange).
+| Gib acht.
 ~ player
-| "I think my FFCS can isolate "3 Wraw locations"(orange) where the councillors are likely being held. If they're even alive."(light-gray, italic)
+| "Mein FFCS scheint "3 Wraw Orte"(orange) anzuzeigen, wo die Mitglieder noch sein könnten. Wenn sie noch am Leben sind."(light-gray, italic)
 ! eval (complete task)
 ! eval (reset interaction)
 ! eval (activate (unit 'sq8-spawner))

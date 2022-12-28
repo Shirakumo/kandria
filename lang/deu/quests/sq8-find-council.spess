@@ -1,86 +1,84 @@
-; Cerebat "good" market trader, concerned about the missing Cerebat Council, well spoken
 # reminder/interact-reminder
 ~ cerebat-good-trader
-| "Go to Wraw territory, find the Cerebat Council, and bring them back."(orange)
-| Only then can we think about mounting a resistance.
+| "Geh ins Wraw Gebiet, finde das Kollegium, und bring alle zurück."(orange)
+| Nur dann können wir uns überlegen einen Wiederstand zu organisieren.
 ~ player
-| "My FFCS indicated "3 likely locations"(orange)."(light-gray, italic)
+| "Mein FFCS hat "3 mögliche Orte"(orange) aufgenommen."(light-gray, italic)
 
-; use the task move-npc to determine if this is the first site visited or not, and if it is, activate move-npc
 # site-1/interact-site
 ~ player
-| "This is "site 1"(red), where the "councillors might have been held"(orange)."(light-gray, italic)
-| (:thinking)"There's blood on the floor, and faeces in the corner."(light-gray, italic)
-| (:normal)"There's also "nothing else to see here"(orange)."(light-gray, italic)
+| "Das ist "Ort #1"(red), wo die "Mitglieder möglicherweise in gefangenschaft waren"(orange)."(light-gray, italic)
+| (:thinking)"Es hat Blut und andere Spuren auf dem Boden"(light-gray, italic)
+| (:normal)"Und "sonst nichts"(orange)."(light-gray, italic)
 ? (not (complete-p 'move-npc))
 | ~ player
-| | "I need to "check the other 2 sites"(orange) for any sign of the councillors."(light-gray, italic)
+| | "Ich muss "die anderen 2 Orte"(orange) nach Lebzeichen durchsuchen."(light-gray, italic)
 | ! eval (activate 'move-npc)
 |? (complete-p 'site-2 'site-3-listener)
 | ~ player
-| | "That was the last place to check. If the Council are still alive, they aren't here. I'd better "return to the Cerebat trader"(orange)."(light-gray, italic)
+| | "Das war der letzte Ort. Wenn sie noch am Leben sind, dann nicht hier. Ich sollte "zum Händler zurückkehren"(orange)."(light-gray, italic)
 | ! eval (activate 'task-return)
 |?
 | ~ player
-| | "That leaves "1 more location"(orange) to check."(light-gray, italic)
+| | "Das lässt noch "einen weiteren Ort"(orange) übrig."(light-gray, italic)
 
 # site-2/interact-site
 ~ player
-| "This is "site 2"(red). "No sign of the councillors though"(orange)."(light-gray, italic)
-| (:thinking)"It's a pretty robust prison, between the spikes down there"(light-gray, italic) "and"(light-gray) "the natural [(not (active-p (unit 'blocker-5663))) barrier (until I broke out!) | barrier]."(light-gray, italic)
-| (:thinking)"Did the councillors somehow break [(not (active-p (unit 'blocker-5663))) out too | out]?"(light-gray, italic)
+| "Das ist "Ort #2"(red). "Kein Zeichen von den Mitgliedern"(orange)."(light-gray, italic)
+| (:thinking)"Ein solides Gefängnis zwischen den Stacheln dort unten"(light-gray, italic) "und"(light-gray) "der natürlichen [(not (active-p (unit 'blocker-5663))) Blockade (zumindest bevor ich die aufgehoben hab) | Blockade]."(light-gray, italic)
+| (:thinking)"Sind sie irgendwie [(not (active-p (unit 'blocker-5663))) auch ausgebrochen | ausgebrochen]?"(light-gray, italic)
 ? (not (complete-p 'move-npc))
 | ~ player
-| | "I need to "check the other 2 sites"(orange) for any sign of them."(light-gray, italic)
+| | "Ich muss "die anderen 2 Orte"(orange) nach Lebzeichen durchsuchen."(light-gray, italic)
 | ! eval (activate 'move-npc)
 |? (complete-p 'site-1 'site-3-listener)
 | ~ player
-| | "That was the last place to check. If the Council are still alive, they aren't here. I'd better "return to the Cerebat trader"(orange)."(light-gray, italic)
+| | "Das war der letzte Ort. Wenn sie noch am Leben sind, dann nicht hier. Ich sollte "zum Händler zurückkehren"(orange)."(light-gray, italic)
 | ! eval (activate 'task-return)
 |?
 | ~ player
-| | "That leaves "1 more location"(orange) to check."(light-gray, italic)
+| | "Das lässt noch "einen weiteren Ort"(orange) übrig."(light-gray, italic)
 
 # task-return/interact-return
 ~ cerebat-good-trader
-| I see no Council. Tell me there's good news.
+| Ich sehe keine Mitglieder. Bitte sag mir du hast gute Neuigkeiten.
 ~ player
-- I wish I could.
+- Ich wünschte
   ~ cerebat-good-trader
-  | Oh no.
-  | What's that you've got?...
+  | Oh nein.
+  | Was ist das?
   < tunic
-- Bad news only I'm afraid.
-  ~ cerebat-good-trader
-  | ...
-  | What's that you've got?...
-  < tunic
-- I found this.
-  < tunic
-- They might still be alive.
+- Nur schlechte Nachrichten
   ~ cerebat-good-trader
   | ...
-  | What's that you've got?...
+  | Was ist das?...
+  < tunic
+- Ich hab das gefunden
+  < tunic
+- Sie könnten noch am Leben sein
+  ~ cerebat-good-trader
+  | ...
+  | Was ist das?...
   < tunic
 ! label tunic
 ! eval (retrieve 'item:tunic 1)
-! eval (status "Lost 1 Tunic Scrap")
+! eval (status "1 Kleidungsfetzen Verloren")
 ~ cerebat-good-trader
-| This was torn from a councillor's tunic.
-| Oh God... it's covered in blood.
-| So there was nothing else?... No one else?...
+| Das ist von dem Gewand eines der Mitglieder.
+| Oh Gott... Es ist mit Blut verschmiert!
+| Und sonst? Nichts? Keine Spur?
 ~ player
-| (:embarassed)"I wish I could do more than just shake my head."(light-gray, italic)
+| (:embarassed)"Ich wünsche ich könnte etwas tun ausser meinen Kopf zu schütteln."(light-gray, italic)
 ~ cerebat-good-trader
-| Do you still have the headdress?
+| Hast du die Kopfbedeckung noch?
 ! eval (retrieve 'item:headdress 1)
-! eval (status "Lost 1 Headdress")
-| Thank you. This might be all that's left of the Council.
-| ... Of "Antonio"(yellow).
-| I'm grateful, but I need some time on my own. Please.
+! eval (status "1 Kopfbedeckung Verloren")
+| Danke. Das könnte alles sein das noch von ihnen übrig bleibt.
+| ... "Antonio"(yellow).
+| Bitte lass mich aleine. Ich brauch Zeit für mich.
 ~ player
-- I'm sorry.
-- Of course.
-- What about the resistance?
+- Tut mir leid
+- Aber klar
+- Was ist mit dem Wiederstand
   ~ cerebat-good-trader
-  | There won't be one. Not now.
+  | Nichts. Vergiss es.
