@@ -1,92 +1,83 @@
-; sent here by Fi before starting q8 in earnest (a medium priority errand), or catching up with Jack later on when high priority things are happening (like the Wraw need investigating, or their invasion is confirmed, or needing to recruit Semis and build bomb)
-; Jack could be: milling around in Engineering at this point; on the surface with Fi and Catherine awaiting q10 wraw invasion hand in; calling people back to camp (from Engineering) after Wraw invasion reported in q10a; on the surface next to Innis and co once the Semis have arrived (q11a)
 # intro/intro-chat
 ~ jack
-| Ah good, you're here.
+| Ah, da bist du.
 ~ player
-- {#@fi-nametag} said you wanted to see me.
-- Can we hurry this up?
+- {#@fi-nametag} hat gesagt du wolltest mich sehen
+- Können wir das schnell machen?
   ~ jack
-  | Fine by me. You're not exactly high on my list of priorities either.
-- This better be important.
+  | Passt mir so. Du bist nicht gerade hoch auf meiner Prioritätenliste.
+- Hoffentlich ist das wichtig
   ~ jack
-  | Of course. I wouldn't waste my breath talking to ya if it wasn't.
+  | Natürlich. Würde mich sonst nicht mit dir rumschlagen.
 ~ player
-| "{#@jack-nametag} looks sheepish, which isn't like him at all."(light-gray, italic)
+| "{#@jack-nametag} sieht verlegen aus. Merkwürdig."(light-gray, italic)
 ~ jack
-| You want to be a loyal Noka and stick it to the Wraw? And I'm not talking about doing things by the book.
+| Wenn du deine loyalität beweisen willst, dann hab ich eine Aufgabe für dich.
 ~ player
-- What have you got in mind?
-- Not interested.
+- Und zwar?
+- Nicht interresiert
   < leave
 ~ jack
-| They sabotaged us, we sabotage them. Simple.
-| They think it's fun messing with our water pipes and putting our lives at risk. Well I say we mess with their power station pipes!
-| (:annoyed)Let's see them make steam without water!
-| (:normal)There's "a supply pipe in the far east of their territory"(orange), well out of the way - I used to work maintenance on it.
-| "Destroy that pipe"(orange) and you'll deal them a "crippling blow"(orange)!
-| We don't really have any weapons or explosives for this - but I'm hoping that being an android, you can find a way.
-| 'Course, {#@fi-nametag} doesn't know about any of this, and I want to keep it that way.
-| So, you in?
+| Die Wraw haben uns sabotiert, also zahlen wir ihnen das zurück.
+| Wir sind nicht die einzigen, die Wasser brauchen.
+| (:annoyed)Schauen wir mal wie gut sie ihre Turbinen ohne Wasser betreiben können!
+| (:normal)Es gibt eine "Zulaufsleitung im fernen Osten ihres Gebiets"(orange). Ich hab früher daran gearbeitet.
+| "Zerstör die Leitung"(orange).
+| Wir haben keine Bomben oder Waffen dafür, aber ich bin mir sicher du findest einen Weg.
+| {#@fi-nametag} weiss nix von diesem Plan, und das soll auch weiter so bleiben. Kapiert?
 ! label questions
 ~ player
-- How should I "find a way"?
+- Und wie soll ich das machen?
   ~ jack
-  | (:shocked)You're the android. With a sword. Just do whatever you did to destroy the world.
+  | (:shocked)Du hast ein Schwert, bist ein Android... denk mal selber nach.
   ~ player
   | "..."(light-gray, italic)
   < questions
-- Now you trust me?
+- Jetzt vertraust du mir?
   ~ jack
-  | (:annoyed)No. But if you do this, you //might// convince me you aren't working for the Wraw.
+  | (:annoyed)Nein. Aber wenn du das machst, dann glaub ich dir wenigstens, dass du nicht für die Wraw arbeitest.
   < questions
-- What's in this for you?
+- Und was bringt das dir?
   ~ jack
-  | What do you think? I don't want the Wraw hanging over us a second longer.
-  | I won't lie I have personal reasons too. I lost my leg thanks to the Wraw's "work ethic".
-  | Betina, my wife, made this prosthetic. When I wasn't strong enough to work, they worked her to the bone instead. They killed her.
+  | Bist du dumm oder was? Mehr Schaden für die Wraw = Weniger Schaden für uns.
+  | Ich hab aber auch einen persönlichen grund. Dass ich mein Bein verloren hab, ist den Wraw zu verdanken.
+  | Betina, meine Frau, hat mir diese Prothese gemacht. Und während ich nicht arbeiten konnte, haben die Wraw sie dazu gezwungen, und sie zu tode gearbeitet.
   ~ player
-  - I'm sorry.
-  - Those bastards.
+  - Das tut mir leid
+  - Was für Wixer
     ~ jack
-    | (:annoyed)That's just what a traitor would say...
-  - The prosthetic reminds you of her...
+    | (:annoyed)Genau was ein Verräter sagen würde
+  - Die Prothese erinnert dich an sie...
   ~ jack
-  | Cathy says she wants to make me a new leg, a better one. But I ain't trading this one for the world.
+  | {#@catherine-nametag} wollte mir eine neue Prothese machen, aber ich werd mich nie von der hier trennen.
   < questions
-- You know a lot about the Wraw...
+- Du weisst einiges über die Wraw
   ~ jack
-  | (:annoyed)Hey! I ain't the traitor here, remember.
-  | (:normal)Well, we were Wraw, weren't we - myself, {#@fi-nametag}, {#@alex-nametag}, and the others. Not Cathy though.
-  | I'll admit, hard as life was down there, I wasn't eager to leave - no sane person ever lived on the surface.
-  | (:shocked)I shit a brick when I heard the idea came from {#@fi-nametag}. (:normal)Once {#@alex-nametag} found those seeds... I guess they planted in her mind.
-  | She twisted my arm - needed a chief engineer. And I guess I had nothing left to live for down there; even though, post-Calamity, the Wraw were all I'd known.
+  | (:annoyed)Hey! Ich bin nicht der Verräter hier.
+  | (:normal){#@fi-nametag}, {#@alex-nametag}, Ich, und ein paar andere waren früher ein Teil der Wraw. Catherine aber nicht.
+  | Ich muss zugeben, das Leben war nicht einfach da unten, aber auf der Oberfläche zu leben? Das hätte sich niemand gedacht.
+  | (:shocked)Ich dachte {#@fi-nametag} wäre durchgedreht, als ich ihr Plan zum ersten mal gehört hab. (:normal)Aber als {#@alex-nametag} die Samen gefunden hatte...
+  | {#@fi-nametag} brauchte einen Ingenieur, und ohne meine Frau hat mich auch nichts mehr an die Wraw gebunden.
   < questions
-- Destabilising their power station might be dangerous.
+- Das könnte gefährlich werden
   ~ jack
-  | (:annoyed)No shit.
-  | (:normal)But what's the worst that could happen? It explodes and buries them alive? Sounds good to me.
-  | You can run fast, can't you? You'll be fine!
-  | But if you do as I say then it won't explode. It'll just stop working. Trust me.
+  | (:annoyed)Na klar.
+  | (:normal)Aber das ist der Punkt. Wenn das explodiert und noch mehr schaden anrichtet? Umso besser!
+  | Du bist ziemlich schnell, oder? Dann renn einfach davon.
+  | Aber vertrau mir. Das wird nicht in die Luft gehen.
   < questions
-- I want out.
+- Nicht interessiert
   < leave
-- I'm in.
+- Tönt gut
 ~ jack
-| Alright then. You know what to do: "go to the east of Wraw territory, find the water pipe that supplies their geothermal power station - and lay waste"(orange).
-| "I don't need an update call - I don't even need nor want you to come back and tell me when it's done."(orange)
-| I just want you to do it. For the Noka. Okay?
-| And forget we spoke about this.
+| OK, du weisst was du tun musst: "geh in den Osten des Wraw Gebiets, finde die Leitung, und zerstör sie"(orange).
+| "Komm einfach zu mir zurück wenn du fertig bist."(orange)
+| Mach das für uns. Für die Noka. OK?
+| Und sag niemandem, dass wir darüber gesprochen haben.
 ! eval (activate 'sq11-sabotage-station)
 ! eval (complete task)
 ! eval (reset interaction)
 # leave
 ~ jack
-| Don't wanna prove me wrong? That's fine.
-| I'm not going anywhere - "come see me when you see some sense"(orange).
-
-; Wraw's "work ethic" could also refer to the "potion", explained more in Synthesis quest
-
-; Jack's (opt-in) explanation about the Wraw may be the first time you learn the Noka came from the Wraw; or you may have learned this from Fi (q2-intro) or during early Sahil chats. If the latter, then at least you have some privy knowledge Jack doesn't know about, and he doesn't labour the point. Why would your character still prompt this if they have this knowledge already? - because Jack seems to have some VERY specific knowledge about the Wraw, so it's a chance to throw some sus his way
-
-; quest could run concurrent to the Semi's bomb parts acquisition - so Jack's comment about burying the Wraw if the station explodes, even though he's pretty much out of the loop when it comes to the bomb plans (even when the Semis arrive on the surface), is thematically relevant
+| Hah, ein Verräter bis ans letzte.
+| Aber "ich bin noch weiter hier, wenn du dich umentscheidest"(orange).
