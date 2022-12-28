@@ -1,121 +1,114 @@
-; Semi Sisters robotics engineer, female, strong empathy for machines, talky scientist
 # boss-reminder/reminder
 ~ semi-roboticist
-| Android brains aren't all they're cracked up to be, huh? Or maybe your head got cracked.
-| You need to "find the Servo robots in the far east"(orange), "fight them"(orange), then "bring me your analysis of their behaviour"(orange).
+| Android Gehirne sind etwa nicht so toll wie ich gedacht hatte, hm?
+| Du musst "die Servos im fernen Osten finden"(orange), "sie besiegen"(orange), und dann "mir eine Verhaltensanalyse geben"(orange).
 
 # task-return/servo-return
 ~ semi-roboticist
-| Welcome back. How went the study? I've got "4 questions"(orange), which will help me parse the results.
-| Think carefully now.
-| "Question 1"(orange): Did any of the Servos show hesitation before attacking you?
+| Willkommen zurück. Wie war deine Untersuchung? Ich hab "4 Fragen"(orange), die bei der Evaluierung helfen werden.
+| Denk genau nach.
+| "Frage #1"(orange): Haben die Servos gezögert, bevor sie dich angegriffen haben?
 ~ player
-- Are you joking?
+- Machst du Witze?
   ~ semi-roboticist
-  | I'm a scientist.
+  | Ich bin eine Wissenschaftlerin
   ~ player
-  - They didn't hesitate no.
-  - Then I'm not sure.
-- None.
-- I'm not sure.
-- I think a few may have.
+  - Sie haben nicht gezögert
+  - Ich bin mir nicht sicher
+- Nein
+- Ich bin mir nicht sicher
+- Einige, vielleicht
   ~ semi-roboticist
-  | Interesting.
+  | Interessant.
 ~ semi-roboticist
-| "Question 2"(orange): Did they exhibit strategy, such as attacking in waves?
+| "Frage #2"(orange): Hatten sie irgendwelche Strategien genutzt, wie in Wellen anzugreiffen?
 ~ player
-- It was a ruckus.
+- Es war ein Durcheinander
   ~ semi-roboticist
-  | Hmm, yes, I can imagine. Well no, I can't imagine actually.
-- They came at me one at a time. Like in those old movies.
+  | Hmm, ja das kann ich mir vorstellen.
+- Sie sind einer nach dem anderen gekommen
   ~ semi-roboticist
-  | I used to love those! Interesting...
-- They weren't fighting each other, so perhaps?
+  | Interessant.
+- Sie haben sich nicht gegenseitig bekämpft
   ~ semi-roboticist
-  | Intriguing.
-- They were snarling - maybe that's how they communicate strategy?
+  | Faszinierend.
+- Sie haben geknurrt. Vielleicht eine Kommunikation?
   ~ semi-roboticist
-  | An imaginative theory. Unproven, however.
-| "Question 3"(orange): Did any show concern for their fellow Servos?
+  | Eine wilde Idee, aber dennoch faszinierend.
+| "Frage #3"(orange): Haben sie sich gegenseitig beschützt?
 ~ player
-- No.
-- I was their only concern. Or rather, my death was.
-- Does standing in front of one another count?
+- Nein
+- Sie haben sich nur auf mich konzentriert
+- Sie sind vor sich gestanden. Gilt das?
   ~ semi-roboticist
-  | In such a confined space, probably not.
-- None of them ran away, so... solidarity?
+  | In so einem engen Raum wohl kaum.
+- Keiner ist davon gerannt. Solidarität?
   ~ semi-roboticist
-  | ... No.
+  | ... Nein.
 ~ semi-roboticist
-| And finally, "question 4"(orange): Were there any other machines with the Servos, or were they alone?
+| Und letztlich, "Frage #4"(orange): Hatte es noch andere Maschinen bei den Servos, oder waren sie alleine?
 ~ player
-- Flying drones.
+- Fliegende Dronen
   ~ semi-roboticist
-  | Indeed. How many?
+  | Mhm. Wie viele?
   ~ player
-  - Several? I don't quite remember.
+  - Mehrere? Weiss nicht mehr genau
     ~ semi-roboticist
-    | That's good enough.
-  - Eight.
+    | Gut genug.
+  - Acht.
     ~ semi-roboticist
-    | Wow, you could count them, even in the heat of battle? I'm impressed.
-  - I don't know.
+    | Oho, sogar in mitte des Kampfes noch gezählt? Beeindruckend.
+  - Ich weiss nicht.
     ~ semi-roboticist
-    | That's okay, don't worry. I expect it's hard to keep track in the heat of battle.
-- (Lie) They were alone.
+    | Kein Problem.
+- (Lüge) Sie waren alleine
   ~ semi-roboticist
-  | I've sometimes seen them accompanied by Drones, but not this time then.
+  | Hmm, ich hab gehört sie seien manchmal von Dronen begleitet. Wohl nicht diesmal.
 ~ semi-roboticist
-| Alright, we're done. That was incredibly useful, thank you.
-| Let me "fix your payment"(orange).
+| OK, das war alles. Vielen Dank.
+| Hier "deine Entschädigung"(orange).
 ~ player
-- Thanks.
+- Danke
   < reward
-- Am I really the experiment here?
+- War das Experiment in echt über mich?
   ~ semi-roboticist
-  | What? No...
-  | Ah, I'm sorry. Was I that obvious?
-  | Look, I am studying Servos. But how could I pass up the chance to "also study an android"(orange)!
+  | Was? Nein.
+  | Ah, sorry, war das nicht offensichtlich?
+  | Ich erforsche Servos, aber ich kann doch wohl nicht eine Chance aufgeben "auch einen Androiden zu untersuchen"(orange)!
   ~ player
-  - It's fine.
+  - Kein Problem
     ~ semi-roboticist
-    | It's not, but I appreciate that.
-    | Here, let me "up your payment"(orange) to "500 parts"(orange) for your trouble.
+    | Danke.
+    | Hier, deine "Belohnung, 500 Bruchteile"(orange).
     < big-reward
-  - Ask next time.
+  - Frag das nächste mal
     ~ semi-roboticist
-    | I will. Of course.
-    | And here, let me "up your payment"(orange) to "500 parts"(orange) for your trouble.
+    | Selbstverständlich.
+    | Als entschädigung "drück ich deine Belohnung auf 500 Bruchteile"(orange) rauf.
     < big-reward
-  - I want more compensation for this.
+  - Ich will eine Entschädigung
     ~ semi-roboticist
-    | Of course. Here, let me "up your payment"(orange) to "500 parts"(orange) for your trouble.
+    | Natürlich. Ich "drück deine Belohnung auf 500 Bruchteile"(orange) rauf.
     < big-reward
-- There's no need. The work was important enough.
+- Nicht nötig, die Arbeit ist wichtig
   ~ semi-roboticist
-  | Interesting... I mean- You're right of course. But science in these parts is well funded.
-  | And besides, I'm not paying - {#@islay-nametag} is!
-  | Here, take it!
+  | Interessant... Ich meine- Offensichtlich!
+  | Und auch wenn schon, ich zahle das nicht selbst. Das kommt aus {#@islay-nametag}'s Kasse!
   < reward
 
 # reward
 ! eval (store 'item:parts 400)
-! eval (status "Received 400 Scrap Part")
+! eval (status "400 Bruchteile Erhalten")
 < end
 
 # big-reward
 ! eval (store 'item:parts 500)
-! eval (status "Received 500 Scrap Part")
+! eval (status "500 Bruchteile Erhalten")
 < end
 
 # end
 ~ semi-roboticist
-| Well, I need to compare this Servo data with my previous findings, see what conclusions I can draw.
-| I'll use those to plan my next study.
-| Thank you again. Goodbye, {(nametag player)}.
+| OK, ich muss die neuen Daten vergleichen und schauen wie sich das Modell ändert...
+| Dann kann ich die nächste Exkursion planen.
+| Vielen Dank, und gute Reise, {(nametag player)}.
 ! eval (activate (unit 'spawner-5032))
-
-; reactivate world spawner again, now you're away from it
-; the ability to lie here is to skew the results, when you might sense that the roboticist is also discreetly psycho-analysing you (the frequency of questions, and esp the last one)
-; don't have so many questions that the player would want to skip the experiment - need to keep them small in number, but potent (hence no skip choice, which would void the purpose of the quest anyway)
-; no conclusive (lie) answers from the player, which would go against the actual AI behaviour of the Servos - only "maybes"

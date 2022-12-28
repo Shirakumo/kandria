@@ -3,10 +3,10 @@
 | Wo ist unser Trank?
 ? (> 4 (item-count 'item:mushroom-bad-1))
 | ~ synthesis
-| | Schnell! Wir "brauchen Schwarze Kappen - 4 davon"(orange).
+| | Schnell! Wir "brauchen Schwarze Pilze - 4 davon"(orange).
 | | "Durchsuch die Siedlung oben, oder die Hölen."(orange)
 | ~ player
-| | "Ich habe "{(item-count 'item:mushroom-bad-1)} Schwarze Kappenpilze"(orange)."(light-gray, italic)
+| | "Ich habe "{(item-count 'item:mushroom-bad-1)} Schwarze Pilze"(orange)."(light-gray, italic)
 |?
 | ~ synthesis
 | | (:grin)Das ist gut. Gib sie her.

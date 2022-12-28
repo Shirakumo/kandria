@@ -1,43 +1,43 @@
 # return-mushrooms/mushrooms-return
 ~ catherine
-| How was your mushrooming? Let's see what you've got.
+| Wie wars mit der Pilzjagt? Zeig mal was du hast.
 ? (> 25 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)))
 | ~ catherine
-| | Oh, I don't think you've got enough yet. I need "25 rusty puffballs or flower fungus"(orange). "Avoid black caps"(orange) though. Keep "searching underground"(orange).
-| | (:excited)Good luck!
+| | Hmm, das reicht noch nicht. Ich brauch "25 Rostige Kappen oder Rosenpilze"(orange). "Vermeid Schwarze Pilze"(orange). "Such weiterhin im Untergrund"(orange).
+| | (:excited)Viel Glück!
 | ~ player
-| | "I currently have: "{(item-count 'item:mushroom-good-1)} flower fungus"(orange), "{(item-count 'item:mushroom-good-2)} rusty puffball"(orange), "{(item-count 'item:mushroom-bad-1)} black cap"(orange)."(light-gray, italic)
+| | "Ich habe momentan: "{(item-count 'item:mushroom-good-1)} Rosenpilze"(orange), "{(item-count 'item:mushroom-good-2)} Rostige Kappen"(orange), "{(item-count 'item:mushroom-bad-1)} Schwarze Pilze"(orange)."(light-gray, italic)
 | < end
 |? (= 25 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)))
 | ~ catherine
-| | (:excited)Wow, you got exactly what I asked for. I guess I shouldn't be surprised that you're so precise.
+| | (:excited)Wow, genau so viel ich wollte und kein einziger mehr.
 |? (< 25 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)))
 | ~ catherine
-| | (:cheer)Wow, you got even more than I asked for!
+| | (:cheer)Hey, sogar noch mehr als wir brauchen. Toll!
 ? (have 'item:mushroom-good-1)
-| | (:excited)"Flower fungus"(red), nice! I'll get these to {#@fi-nametag} and straight into the cooking pot.
-| | (:normal)Apparently if you eat them raw they'll give you the skitters. One day I'll test that theory.
-| ! eval (status (concatenate 'string "Lost " (write-to-string (item-count 'item:mushroom-good-1)) " Flower Fungus"))
+| | (:excited)"Rosenpilze"(red), sehr schön! Ich bring die gleich zu {#@fi-nametag} und rein damit in den Suppentopf!
+| | (:normal)Angeblich wenn man die Roh ist bekommt man Flecken auf der Haut. Das will ich mal ausprobieren.
+| ! eval (status "~a Rosenpilze Verloren" (item-count 'item:mushroom-good-1))
 | ! eval (retrieve 'item:mushroom-good-1 T)
 ? (have 'item:mushroom-good-2)
-| | (:cheer)"Rusty puffball"(red), great! I like to eat these the most - and I made my neckerchief from them, believe it or not.
-| | (:normal)I weaved them together with synthetic scraps; I needed a mask so the spores from mature specimens wouldn't give me lung disease.
-| ! eval (status (concatenate 'string "Lost " (write-to-string (item-count 'item:mushroom-good-2)) " Rusty Puffball"))
+| | (:cheer)"Rostige Kappen"(red), toll! Die mag ich am bessten. Hab auch mein Halstuch daraus gemacht, wenn du das glauben kannst.
+| | (:normal)Leider sind die Sporen davon giftig. Ich musste dauernd eine Maske anbehalten während der Arbeit.
+| ! eval (status "~a Rostige Kappen Verloren" (item-count 'item:mushroom-good-2))
 | ! eval (retrieve 'item:mushroom-good-2 T)
 ? (have 'item:mushroom-bad-1)
-| | (:concerned)Oh, "black cap"(red)... Not a lot I can do with poisonous ones.
-| | (:normal)Don't worry, I'll burn them later - don't want anyone eating them by accident.
-| ! eval (status (concatenate 'string "Lost " (write-to-string (item-count 'item:mushroom-bad-1)) " Black Cap"))
+| | (:concerned)Oh, "Schwarze Pilze"(red)... Damit kann ich nicht viel anfangen.
+| | (:normal)Keine Sorge, die verbrenn ich später noch.
+| ! eval (status "~a Schwarze Pilze Verloren" (item-count 'item:mushroom-bad-1))
 | ! eval (retrieve 'item:mushroom-bad-1 T)
   
-| (:normal)You know, it might not seem like much, but hauls like these could be the difference between us making it and not making it.
-| We get birds, fish and bats when we can too, but they're harder to catch. Mushrooms don't run away.
-| (:excited)We owe you big time. Here, "take these parts"(orange), you've definitely earned them.
+| (:normal)Es sieht nicht nach viel aus, aber diese Pilze sind enorm wichtig solange unsere Ernte noch nicht stabil ist.
+| Wir fangen auch Frösche und Vögel ein wenn wir können, aber Pilze rennen einem nicht davon.
+| (:excited)Hier, "nimm diese Bruchteile"(orange), das hast du dir reichlich verdient.
 ! eval (store 'item:parts 300)
-! eval (status "Received 300 Scrap Part")
-| (:normal)If you "find any more mushrooms"(orange), make sure you grab them.
-| If we don't need them, the least you could do is "trade them with {#@trader-nametag}"(orange).
-| See you around, {(nametag player)}!
+! eval (status "300 Bruchteile Erhalten")
+| (:normal)Wenn du "noch mehr Pilze findest"(orange), dann nimm die mitt.
+| Auch wenn wir sie nicht brauchen, kannst du sie immer "an {#@trader-nametag} verkaufen"(orange).
+| Bis bald wieder, {(nametag player)}!
 ! eval (complete task)
 ! eval (reset interaction)
 
