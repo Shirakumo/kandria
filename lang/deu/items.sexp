@@ -1,14 +1,15 @@
-item:small-health-pack "Kleines Heilpacket"
+item:small-health-pack "Kleines Heilpack"
 item:small-health-pack/description "[Heilt 10% HP] Eine Sammlung von Drähten, Lötzinn, und anderem Krimskrams für Reparaturen."
-item:medium-health-pack "Mittleres Heilpacket"
-item:medium-health-pack/description "[Heilt 25% HP] Wie ein kleines Paket, nur mit mehr drinn."
-item:large-health-pack "Grosses Heilpacket"
+item:medium-health-pack "Mittleres Heilpack"
+item:medium-health-pack/description "[Heilt 25% HP] Wie ein kleines Pack, nur mit mehr drinn."
+item:large-health-pack "Grosses Heilpack"
+>>>>>>> 2084322a0 (deu: items typos)
 item:large-health-pack/description "[Heilt 50% HP] Der effizienteste Weg um das Spital zu vermeiden."
-item:damage-shield "Schaden Schild"
+item:damage-shield "Schadens-Schild"
 item:damage-shield/description "[-20% Schaden für 30s] Härtet mich gegen Schlagtrauma ab."
-item:combat-booster "Schaden Booster"
+item:combat-booster "Schadens-Booster"
 item:combat-booster/description "[+20% Angriffskraft für 30s] Gibt dem Fusionsreaktor einen kleinen Boost um die Stärke zu erhöhen."
-item:nanomachine-salve "Nanomaschinen Salbe"
+item:nanomachine-salve "Nanomaschinen-Salbe"
 item:nanomachine-salve/description "[Heilt 25% HP über 10s] Sieht aus wie eine herkömmliche Salbe, ist aber aus Nanomaschinen gemacht."
 item:parts "Bruchteile"
 item:parts/description "Diverse metallische Bruchteile. Wird als Geld verwendet."
@@ -19,28 +20,28 @@ item:satchel "Säckel"
 item:satchel/description "Ein kleiner Sack für Reisemittel. Er ist leer.
 Kann für Bruchteile verkauft werden."
 item:screw "Schraube"
-item:screw/description "Wo wären wir nur ohne Schrauben?
+item:screw/description "Wo wären wir ohne Schrauben?
 Kann für Bruchteile verkauft werden."
-item:bolt "Boltzen"
+item:bolt "Bolzen"
 item:bolt/description "Braucht eine passende Mutter.
 Kann für Bruchteile verkauft werden."
 item:nut "Mutter"
-item:nut/description "Nicht meine eigene Mutter, sondern die eines Boltzen.
+item:nut/description "Nicht meine eigene Mutter, sondern die eines Bolzen.
 Kann für Bruchteile verkauft werden."
 item:gear "Zahnrad"
-item:gear/description "Kaum zu glauben, dass die ersten Rechner mit Zahnräder gemacht wurden.
+item:gear/description "Kaum zu glauben, dass die ersten Rechner aus Zahnrädern gemacht wurden.
 Kann für Bruchteile verkauft werden."
 item:bent-rod "Verbogener Draht"
 item:bent-rod/description "Wer weiss für was das noch gebraucht wird.
 Kann für Bruchteile verkauft werden."
-item:large-gear "Grosses Zahnrad"
+item:large-gear "Großes Zahnrad"
 item:large-gear/description "Erinnert mich an grosse industrielle Dampfmaschinen.
 Kann für Bruchteile verkauft werden."
 item:copper-ring "Kupferring"
 item:copper-ring/description "Wird oft für Rohre und Leitungen gebraucht.
 Kann für Bruchteile verkauft werden."
 item:metal-ring "Metallring"
-item:metal-ring/description "Zu gross für einen Heiratsring, aber womöglich für anderes nutzbar.
+item:metal-ring/description "Zu gross für einen Ehering, aber womöglich für anderes nutzbar.
 Kann für Bruchteile verkauft werden."
 item:broken-ring "Verbrochener Ring"
 item:broken-ring/description "Noch mehr Schrott. Vielleicht kann man das wenigstens wieder schmelzen.
@@ -51,8 +52,8 @@ Kann für Bruchteile verkauft werden."
 item:light-rod "Leichter Stab"
 item:light-rod/description "Hmm, vielleicht könnte man mit dem hier Baseball spielen?
 Kann für Bruchteile verkauft werden."
-item:simple-gadget "Einfaches Garät"
-item:simple-gadget/description "Ein kleines Garät. Keine Ahnung für was das gebraucht wurde.
+item:simple-gadget "Einfaches Gerät"
+item:simple-gadget/description "Ein kleines Gerät. Keine Ahnung für was das gebraucht wurde.
 Kann für Bruchteile verkauft werden."
 item:dented-plate "Verbogene Platte"
 item:dented-plate/description "Vielleicht Teil einer Rüstung?
@@ -75,8 +76,8 @@ Kann für Bruchteile verkauft werden."
 item:coin "Alte Münze"
 item:coin/description "Das Signet ist leider unleserlich. Keine Ahnung woher diese Münze kommt.
 Kann für Bruchteile verkauft werden."
-item:controller "Spielcontroller"
-item:controller/description "Ein alter Controller von bevor man direkt das Hirn angebunden hat.
+item:controller "Spielkontroller"
+item:controller/description "Ein alter Kontroller aus der Zeit vor direkter Hirn-Anbindung.
 Kann für Bruchteile verkauft werden."
 item:connector "Verbindungsstück"
 item:connector/description "Ein kleines Stück um zwei verschiedene Anschlüsse zu verbinden.
@@ -85,10 +86,10 @@ item:cable "Elektronikkabel"
 item:cable/description "Leitet den Strom ziemlich gut.
 Kann für Bruchteile verkauft werden."
 item:memory "Speicher"
-item:memory/description "Eine kleine integrierte Schaltung die Daten speichern kann.
+item:memory/description "Eine kleine integrierte Schaltung, die Daten speichern kann.
 Kann für Bruchteile verkauft werden."
 item:genera-core "Zerstörter Genera Core"
-item:genera-core/description "Kam von einem Androiden. Die Matrix ist allerdings zerstört und das einzige das lesbar ist, ist die Seriennummer.
+item:genera-core/description "Kam von einem Androiden. Die Matrix ist allerdings zerstört und das einzig lesbare ist die Seriennummer.
 Kann für Bruchteile verkauft werden."
 item:rusted-key "Verrosteter Schlüssel"
 item:rusted-key/description "Sehr zerbrechlich. Wohl kaum mehr brauchbar.
@@ -97,11 +98,11 @@ item:clay-clump "Tonklumpen"
 item:clay-clump/description "Wenn ich Zeit hätte, könnte ich daraus einen schönen Topf oder sowas machen.
 Kann für Bruchteile verkauft werden."
 item:gold-nugget "Goldklumpen"
-item:gold-nugget/description "Gold ist auch jetzt noch wertvoll, wenn auch nur für Elektronik.
-Kann für Bruchteile verkauft werden oder für Verbesserungen verwendet werden."
+item:gold-nugget/description "Gold ist immernoch wertvoll, wenn auch nur für Elektronik.
+Kann für Bruchteile verkauft oder für Verbesserungen verwendet werden."
 item:silver-ore "Silber Erz"
-item:silver-ore/description "Erz aus dem Silber gewonnen werden kann mit dem richtigen Prozess.
-Kann für Bruchteile verkauft werden oder für Verbesserungen verwendet werden."
+item:silver-ore/description "Erz, aus dem mit dem richtigen Prozess Silber gewonnen werden kann.
+Kann für Bruchteile verkauft oder für Verbesserungen verwendet werden."
 item:bronze-clump "Bronzeklumpen"
 item:bronze-clump/description "Eine Kombination aus Kupfer und Zinn. Wurde vor langer Zeit viel verwendet.
 Kann für Bruchteile verkauft werden."
@@ -111,24 +112,24 @@ Kann für Bruchteile verkauft werden."
 item:meteorite-fragment "Meteorfragment"
 item:meteorite-fragment/description "Die Erde wurde schon seit jeher von Meteoren bombardiert.
 Kann für Bruchteile verkauft werden."
-item:hardened-alloy "Erhärtetes Algamat"
+item:hardened-alloy "Erhärtete Legierung"
 item:hardened-alloy/description "Ich weiss nicht aus was das zusammengesetzt ist, aber es ist erstaunlich hart.
-Kann für Bruchteile verkauft werden oder für Verbesserungen verwendet werden"
-item:quartz-crystal "Quarz Kristall"
-item:quartz-crystal/description "Weniger Wertvoll als Gold, aber dennoch einiges schöner.
+Kann für Bruchteile verkauft oder für Verbesserungen verwendet werden"
+item:quartz-crystal "Quarz-Kristall"
+item:quartz-crystal/description "Weniger wertvoll als Gold, aber dennoch um einiges schöner.
 Kann für Bruchteile verkauft werden."
 item:rusted-clump "Verrosteter Klumpen"
 item:rusted-clump/description "Womöglich das beste Signet für den Zerfall.
-Kann für Bruchteile verkauft werden oder für Verbesserungen verwendet werden"
+Kann für Bruchteile verkauft oder für Verbesserungen verwendet werden"
 item:pearl "Perle"
 item:pearl/description "Soweit ich das feststellen kann, ist das eine echte Perle. Wow!
-Kann für Bruchteile verkauft werden oder für Verbesserungen verwendet werden"
+Kann für Bruchteile verkauft oder für Verbesserungen verwendet werden"
 item:dirt-clump "Dreckklumpen"
 item:dirt-clump/description "Hm. Vielleicht nützlich für die Anpflanzung?
 Kann für Bruchteile verkauft werden."
 item:coolant "Kühlmittel"
 item:coolant/description "Sehr nützlich um Überhitzung zu vermeiden.
-Kann für Bruchteile verkauft werden oder für Verbesserungen verwendet werden"
+Kann für Bruchteile verkauft oder für Verbesserungen verwendet werden"
 item:pure-water "Pures Wasser"
 item:pure-water/description "Sehr nützlich für Chemie.
 Kann für Bruchteile verkauft werden."
@@ -140,21 +141,21 @@ item:refined-oil/description "Immer noch immens nützlich als Brennstoff, jetzt 
 Kann für Bruchteile verkauft werden oder für Verbesserungen verwendet werden"
 item:thermal-fluid "Leitmittel"
 item:thermal-fluid/description "Nützlich um thermische Energie von A nach B zu transportieren.
-Kann für Bruchteile verkauft werden oder für Verbesserungen verwendet werden"
+Kann für Bruchteile verkauft oder für Verbesserungen verwendet werden"
 item:mossy-water "Moosiges Wasser"
 item:mossy-water/description "Wasser das von Algen infiziert ist.
 Kann für Bruchteile verkauft werden."
 item:cloudy-water "Trübes Wasser"
-item:cloudy-water/description "Keine Ahnung was da drinn steckt, aber wahrscheinlich nichts gesundes.
+item:cloudy-water/description "Keine Ahnung was da drinn steckt. Wahrscheinlich nichts gesundes.
 Kann für Bruchteile verkauft werden."
-item:ruined-pelt "Zerfranselter Peltz"
-item:ruined-pelt/description "Dieser Peltz ist leider in keinem guten Umstand mehr.
+item:ruined-pelt "Zerfetzter Pelz"
+item:ruined-pelt/description "Dieser Pelz ist leider in keinem guten Umstand mehr.
 Kann für Bruchteile verkauft werden."
 item:fine-pelt "Pelz"
-item:fine-pelt/description "Ein rechter Pelz. Bin mir aber nicht sicher von welchem Tier.
+item:fine-pelt/description "Ein guter Pelz. Bin mir aber nicht sicher von welchem Tier.
 Kann für Bruchteile verkauft werden."
 item:pristine-pelt "Schöner Pelz"
-item:pristine-pelt/description "Ein extrem schöner Pelz. Hält dich garantiert durch alle Winter warm.
+item:pristine-pelt/description "Sehr schöner Pelz. Hält dich garantiert im Winter warm.
 Kann für Bruchteile verkauft werden."
 item:seeds "Säckel mit Samen"
 item:seeds/description "Voller Samen für Pflanzen. Hoffentlich wachsen die noch."
