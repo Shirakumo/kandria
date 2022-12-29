@@ -27,8 +27,10 @@
            :secrets "keygen.tymoon.eu"
            :bundles (:linux 3
                      :windows 2))
-  :itch (:user "Shinmera")
+  :itch (:user "Shinmera"
+         :bundles (:linux "kandria:linux-64"
+                   :windows "kandria:windows-64"))
   :steam (:branch "developer"
           :user "shirakumo_org")
-  :upload (:targets #(:steam :keygen))
+  :upload (:targets #(:steam :keygen :itch))
   :system "kandria")
