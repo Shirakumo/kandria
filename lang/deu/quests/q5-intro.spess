@@ -99,13 +99,13 @@
 - [(active-p (unit 'blocker-engineers)) (Frag nach den Ingenieuren)|]
   ~ innis
   | Es gab zehn von ihnen, "im hohen Westen unseres Gebiets"(orange).
-  | Wir räümen langsam die alten Metro linien.
+  | Wir räumen langsam die alten Metro linien.
   | (:angry)Aber es ist gefährliche Arbeit. Sie haben sich nicht mehr gemeldet und das Tunnel scheint kollabiert zu sein.
   | Unsere Jäger kommen nicht mehr weiter, aber du schon.
   < questions
 - [(not (active-p (unit 'blocker-engineers))) Die Ingenieure haben an der Metro gearbeitet?|]
   ~ innis
-  | Richtig. Wir räümen langsam die alten Metro linien.
+  | Richtig. Wir räumen langsam die alten Metro linien.
   | (:angry)Aber es ist gefährliche Arbeit.
   < questions
 - (Frag nach den CCTVs)

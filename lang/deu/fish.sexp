@@ -1,7 +1,7 @@
 fish:crab "Krabbe"
 fish:crab/description "Schnipp Schnapp AaaAA!
 Kann für Bruchteile verkauft werden."
-fish:machine-fish "Maschinen-Fish"
+fish:machine-fish "Maschinen-Fisch"
 fish:machine-fish/description "Wer macht denn sowas?
 Kann für Bruchteile verkauft werden."
 fish:salmon "Lachs"
@@ -47,7 +47,7 @@ fish:piranha "Piranha"
 fish:piranha/description "Hm. Sieht nicht so aus wie ich mir es vorgestellt hatte.
 Kann für Bruchteile verkauft werden."
 fish:sandfish "Sandfisch"
-fish:sandfish/description "Klever getarnt! Man könnte meinen, ich hätte eine Hampfel Sand in den Händen.
+fish:sandfish/description "Clever getarnt! Man könnte meinen, ich hätte eine hand voll Sand in den Händen.
 Kann für Bruchteile verkauft werden." ;; what is a hampfel?
 fish:ratfish "Rattenfisch"
 fish:ratfish/description "Woah. Was für eine interessante Kombination.
@@ -137,4 +137,4 @@ fish:alligator "Alligator"
 fish:alligator/description "Kein Krokodil! Die Schnauze ist anders.
 Kann für Bruchteile verkauft werden."
 fish:distilled-water-bottle "Destilliertes Wasser"
-fish:distilled-water-bottle/description "Wow, diese Flasche Wasser ist immernoch rein, ohne jegliche Kontamination!"
+fish:distilled-water-bottle/description "Wow, diese Flasche Wasser ist immer noch rein, ohne jegliche Kontamination!"

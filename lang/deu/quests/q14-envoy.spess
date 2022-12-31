@@ -83,6 +83,6 @@
 ! eval (move-to 'wraw-surface-rally 'soldier-3)
 ~ islay
 | ...
-| {#@fi-nametag}, {(nametag player)} - "komm ins Ingenieurgebäüde"(orange).
+| {#@fi-nametag}, {(nametag player)} - "komm ins Ingenieurgebäude"(orange).
 | Wir "müssen sprechen"(orange).
 ! eval (activate (unit 'zelah-gone))

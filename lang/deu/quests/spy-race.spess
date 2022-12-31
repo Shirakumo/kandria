@@ -69,9 +69,9 @@
 | | ! eval (status "Received 300 Scrap Part")
 | |?
 | | | Leider nicht einmal "Bronzezeit"(orange). Tut mir leid.
-| | | "Kannst du enttäüscht aussehen? Das wirkt glaublicher."(small)
+| | | "Kannst du enttäuscht aussehen? Das wirkt glaublicher."(small)
 | | ~ player
-| | | (:embarassed)"Ich weiss nicht, was mein Gesicht für einen Ausdruck macht. Seh ich enttäüscht aus?"(light-gray, italic)
+| | | (:embarassed)"Ich weiss nicht, was mein Gesicht für einen Ausdruck macht. Seh ich enttäuscht aus?"(light-gray, italic)
   
 ~ semi-spy
 | Wie wärs mit noch einem Rennen? Lass mich nicht im Stich!

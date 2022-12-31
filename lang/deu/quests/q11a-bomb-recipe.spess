@@ -3,7 +3,7 @@
 | (:angry)Du solltest dich auf den Weg machen. {#@islay-nametag} braucht "10 Sprengkapseln"(orange) und "20 Sprengmaterialien"(orange) für die Bombe.
 | (:sly)Viel Spass im "Wraw Gebiet"(orange).
 ~ player
-| "Ich muss die "Wraw Fabriken and Lagerräüme untersuchen"(orange). Im Moment habe ich: "{(item-count 'item:blasting-cap)} Sprengkapseln"(orange), "{(item-count 'item:charge-pack)} Sprengmaterialien"(orange)."(light-gray, italic)
+| "Ich muss die "Wraw Fabriken and Lagerräume untersuchen"(orange). Im Moment habe ich: "{(item-count 'item:blasting-cap)} Sprengkapseln"(orange), "{(item-count 'item:charge-pack)} Sprengmaterialien"(orange)."(light-gray, italic)
 
 # task-return-fi/fi-return-recruit
 ~ fi
@@ -83,7 +83,7 @@
 | | Wir haben nicht viel Zeit, {(nametag player)}!
 | | "Durchsuch das Wraw Gebiet nach den Bombenteilen"(orange).
 | ~ player
-| | "Ich muss die "Wraw Fabriken and Lagerräüme untersuchen"(orange). Im Moment habe ich: "{(item-count 'item:blasting-cap)} Sprengkapseln"(orange), "{(item-count 'item:charge-pack)} Sprengmaterialien"(orange)."(light-gray, italic)
+| | "Ich muss die "Wraw Fabriken and Lagerräume untersuchen"(orange). Im Moment habe ich: "{(item-count 'item:blasting-cap)} Sprengkapseln"(orange), "{(item-count 'item:charge-pack)} Sprengmaterialien"(orange)."(light-gray, italic)
 |?
 | ~ islay
 | | [(< 30 (+ (item-count 'item:blasting-cap) (item-count 'item:charge-pack))) Oho, mehr als nötig, sogar! | Ja das ist alles, klasse!]
@@ -99,7 +99,7 @@
 # result
 ~ islay
 | Ich bring die Teile zu {#@catherine-nametag}.
-| {#@fi-nametag}, begleitest du mich bitte zum Ingenieurgebäüde?
+| {#@fi-nametag}, begleitest du mich bitte zum Ingenieurgebäude?
 ~ fi
 | Wenn es sein muss.
 | Und was ist mit {(nametag player)}?

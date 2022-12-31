@@ -14,7 +14,7 @@
 ~ catherine
 | "{#@islay-nametag} hat die Bombe beim Pumpenraum repariert."(orange)
 | Sie ist jetzt "in der nähe des Spitals"(orange).
-| (:excited)Wir sollten "zum Bürogebäüde und die Bombe dort überprüfen"(orange).
+| (:excited)Wir sollten "zum Bürogebäude und die Bombe dort überprüfen"(orange).
 | {#@islay-nametag} zählt auf uns.
 ! eval (follow 'player 'catherine)
 ! eval (activate 'q15-target-bomb)

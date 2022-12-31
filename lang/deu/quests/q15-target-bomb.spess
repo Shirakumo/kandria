@@ -22,7 +22,7 @@
 ~ islay
 | Ihr "solltet die Bombe im Brother Büro überprüfen"(orange). Ich gehe zu-
 ~ player
-| "Etwas hat sie unterbrochen. Was ist das für ein Geräüsch?"(light-gray, italic)
+| "Etwas hat sie unterbrochen. Was ist das für ein Geräusch?"(light-gray, italic)
 ~ player
 - {#@islay-nametag}?
 - Ist das ein Erdbeben?

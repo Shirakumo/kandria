@@ -5,7 +5,7 @@ default-lead-interrupt "
 | Wohin gehst du? Komm schon, hier lang!"
 catherine-lead-interrupt "
 ~ catherine
-| [? Hierhin! | Folg mir. | Komm schon! | Los gehts!]"
+| [? Hierhin! | Folge mir. | Komm schon! | Los gehts!]"
 unsafe-region-interrupt "
 ~ npc
 | Das sieht gefährlich aus. Ich warte hier auf dich."

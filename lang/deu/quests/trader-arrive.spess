@@ -42,14 +42,14 @@
 - Was verkaufst du?
   ~ trader
   | Alles mögliche!
-  | {#@catherine-nametag} hat gesagt du hättest ihr geholfen, und ein paar Servos aufgeräümt.
+  | {#@catherine-nametag} hat gesagt du hättest ihr geholfen, und ein paar Servos aufgeräumt.
 - Was brauch ich?
   ~ trader
   | Was weiss ich?
-  | {#@catherine-nametag} hat gesagt du hättest ihr geholfen, und ein paar Servos aufgeräümt.
+  | {#@catherine-nametag} hat gesagt du hättest ihr geholfen, und ein paar Servos aufgeräumt.
 - Ich komm aleine klar
   ~ trader
-  | Ah pisch posch! Du hast {#@catherine-nametag} geholfen, und Servos aufgeräümt noch dazu!
+  | Ah pisch posch! Du hast {#@catherine-nametag} geholfen, und Servos aufgeräumt noch dazu!
 ~ trader
 | Das Wenigste, das ich tun kann is dir zu helfen im besten Zustand zu bleiben.
 | Ich hab über Androide gehört - ihr seid anders als diese Servos. Geht viel mehr los hier oben, das ist klar.

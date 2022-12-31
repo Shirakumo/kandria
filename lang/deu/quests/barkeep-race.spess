@@ -1,10 +1,10 @@
 # hub
 ~ semi-barkeep
-| Hah, wusste doch, dass du nicht wiederstehen kannst. Na dann:
+| Hah, wusste doch, dass du nicht widerstehen kannst. Na dann:
 | "Finde den Genera Core, und bring ihn zurück"(orange).
 | Je "schneller, desto mehr Bruchteile"(orange) gibts als Belohnung.
 | Wir haben uns "6 Routen"(orange) ausgedacht. "Wir geben dir die nächste Route aber nur, wenn du eine abschliesst"(orange).
-| Beim Start geb Ich einem Jäger bescheid. Er wird den Core an den richtigen Ort setzen.
+| Beim Start gebe Ich einem Jäger Bescheid. Er wird den Core an den richtigen Ort setzen.
 | "Sag mir, wenn du bereit bist"(orange), und gib uns ne gute Show!
 ! eval (clear-pending-interactions)
 
@@ -21,7 +21,7 @@
 | ? (active-p (unit 'blocker-engineers))
 | | | Die Ingenieure haben einen Core, aber sie sind noch gefangen. Warum hilfst du ihnen auch noch gleich aus, wenn du schon dabei bist?
 | |?
-| | | Seit du den Tunnel geräümt hast, ist die Route um einiges einfacher geworden...
+| | | Seit du den Tunnel geräumt hast, ist die Route um einiges einfacher geworden...
   
 | Unsere Bestzeiten für diese Strecke sind:  "Gold:"(orange) {(format-relative-time gold)} - "Silber:"(orange) {(format-relative-time silver)} - "Bronze:"(orange) {(format-relative-time bronze)}.
 ? (eq (quest:name quest) 'sq5-race-2)

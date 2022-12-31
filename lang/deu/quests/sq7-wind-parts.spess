@@ -3,7 +3,7 @@
 | (:excited)Hast du die Windmühlenteile gebracht? Zeig mal!
 ? (or (> 5 (item-count 'item:anemometer)) (> 5 (item-count 'item:disc-brake)) (> 5 (item-count 'item:transformer)))
 | ~ catherine
-| | Ah, keine Sorge - Du solltest was in den "Semi Lagerhäüsern und in den Cerebat Windtunnel finden können"(orange).
+| | Ah, keine Sorge - Du solltest was in den "Semi Lagerhäusern und in den Cerebat Windtunnel finden können"(orange).
 | | Merk dir: "Anemometer, Scheibenbremsen, Transformer - je 5"(orange).
 | ~ player
 | | "Ich habe: "{(item-count 'item:anemometer)} Anemometer"(orange), "{(item-count 'item:disc-brake)} Scheibenbremsen"(orange), "{(item-count 'item:transformer)} Transformer"(orange)."(light-gray, italic)

@@ -14,7 +14,7 @@
 # start
 ? (timer-quest)
 | ~ wraw-sergeant
-| | Was soll das? "Die Uhr läüft bereits"(orange)!
+| | Was soll das? "Die Uhr läuft bereits"(orange)!
 | < quit
 
 ~ wraw-sergeant

@@ -7,7 +7,7 @@
 # find-home-first/new-home-site-1
 ~ player
 | "Das ist "Kandidat #1"(red) für das neue Zuhause."(light-gray, italic)
-| (:thinking)"Lass mich mal in das Gebäüde schauen, reicht das aus..."(light-gray, italic)
+| (:thinking)"Lass mich mal in das Gebäude schauen, reicht das aus..."(light-gray, italic)
 | (:normal)"Dreck und Sand ist durch allerlei Spalten eingedrungen"(light-gray, italic)
 | "Eine Treibsandfalle."(light-gray, italic)
 ? (complete-p 'find-home-second 'find-home-third 'find-home-fourth)

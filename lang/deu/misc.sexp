@@ -103,7 +103,7 @@ Dieses Spiel speichert nicht automatisch. Bitte speichere oft!
 
 Wenn du Schwierigkeiten hast, schau dir bitte die Spiele-Optionen an."
 critical-npc-death-ending "
-Das Genera System des Androided hat einen unerwarteten
+Das Genera System des Androiden hat einen unerwarteten
 Fehler, was es dazu führte alles in Sicht zu zerstören.
 
 Der Fehler eskalierte, was den Fusionsreaktor destabilisierte,
