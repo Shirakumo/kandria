@@ -350,6 +350,8 @@
       (setf (nametag player) nametag))
     ;; Force state to normal to avoid being caught in save animation
     (setf (state player) :normal)
+    (when (setting :gameplay :show-splits)
+      (show-panel 'splits))
     (snap-to-target (camera +world+) player)))
 
 (define-encoder (npc save-v0) (_b _p)
