@@ -2,6 +2,26 @@
 These are changes to Kandria that were realised thanks to public feedback.
 A big thanks to everyone for trying it out and reporting problems!
 
+## 0.9.0
+- Fix lacking aggro dialogue on Zelah
+  Reported by James
+- Improve Drone collision behaviour
+  Reported by Nihiloss
+- Improve location hints when returning to engineering from water quest
+  Reported by Arne Babenhauserheide
+- Improve the ending dialogue
+  Reported by James
+- Fix bug when talking to catherine after the mushroom gathering
+  Reported by Shinrak
+- Fix broken spike collision tests
+  Reported by Shinrak
+- Improve character development on Jack
+  Reported by James
+- Fix menu focus issue in very specific circumstances
+  Reported by Shinrak
+- Fix memory issues when loading music while a track is playing
+  Reported by Fullmera
+
 ## 0.3.1
 - Fix crash when picking up items
   Reported by Gnuxie
