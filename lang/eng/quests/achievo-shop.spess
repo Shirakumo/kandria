@@ -1,0 +1,16 @@
+# achievo-shop/info
+~ player
+| Who are you?
+~ npc
+| Who I am isn't important. What's important is that I trade in goods that nobody else can provide you with.
+| Goods that will give you something that nothing else could give you.
+| It's a feeling! An experience! And so much more than that!
+| For what could fill both your mind, soul, and spirit with more, than achievement!
+| Many people would agree that the point of life is to achieve something with it. And I happen to agree with them!
+| But here's the real kicker. I can help you turn your life around!
+| Turn you from a loser into an achiever! Help you achieve all your dreams!
+| For the right price, of course.
+| So what are you waiting for? Achieve something today!
+
+# achievo-shop/buy
+! eval (show-sales-menu :buy 'achievo-shop)

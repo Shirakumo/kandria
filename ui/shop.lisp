@@ -206,6 +206,9 @@
           (setf (alloy:focus back) :weak)))
       (alloy:finish-structure panel layout focus))))
 
+(defmethod stage :after ((panel sales-menu) (area staging-area))
+  (stage (// 'kandria 'achievements) area))
+
 (defmethod handle ((ev mark-for-bulk) (panel sales-menu))
   (when (typep (alloy:focused (alloy:focus-element panel)) 'sell-button)
     (handle ev (alloy:focused (alloy:focus-element panel)))))
@@ -336,10 +339,15 @@
 (defmethod show :after ((panel transaction-panel) &key)
   (setf (alloy:focus (wheel panel)) :strong))
 
+(defmethod restock-shop (shop))
+
+(defmethod restock-shop ((npc npc))
+  (unless (eql (name npc) 'achievo-shop)
+    (dolist (item '(item:small-health-pack item:medium-health-pack item:large-health-pack
+                    item:damage-shield item:combat-booster item:nanomachine-salve))
+      (ensure-stored item npc 100))))
+
 (defun show-sales-menu (direction character)
   (let ((shop (ensure-unit character)))
-    (when (typep shop 'npc)
-      (dolist (item '(item:small-health-pack item:medium-health-pack item:large-health-pack
-                      item:damage-shield item:combat-booster item:nanomachine-salve))
-        (ensure-stored item shop 100)))
+    (restock-shop shop)
     (show-panel 'sales-menu :shop shop :target (unit 'player T)  :direction direction)))

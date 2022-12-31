@@ -803,7 +803,7 @@
   (ores        :sell 1.5 :buy 1.5)
   (liquids     :sell 2.0 :buy 2.0)
   (skins       :sell 1.5 :buy 2.0)
-  (T))
+  (T           :sell 1.0 :buy 1.0))
 
 (define-price-variants islay
   (consumable-item)
@@ -813,7 +813,7 @@
   (ores        :sell 0.5 :buy 1.5)
   (liquids     :sell 1.0 :buy 1.0)
   (skins       :sell 0.5 :buy 1.0)
-  (T))
+  (T           :sell 1.0 :buy 1.0))
 
 (define-price-variants cerebat-trader-quest
   (consumable-item)
@@ -823,4 +823,4 @@
   (ores        :sell 1.0 :buy 2.0)
   (liquids     :sell 0.5 :buy 1.0)
   (skins       :sell 1.0 :buy 2.0)
-  (T))
+  (T           :sell 1.0 :buy 1.0))

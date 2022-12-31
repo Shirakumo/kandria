@@ -100,7 +100,7 @@
     (store 'item::parts source price)))
 
 (defmethod trade progn (source (target player) (item item) (count integer))
-  (status (@formats 'new-item-in-inventory (language-string (type-of item)))))
+  (status (@formats 'new-item-in-inventory (title item))))
 
 (defmethod experience-reward ((item item))
   10)
@@ -568,35 +568,38 @@
 (define-item (painted-cylinder lore-item) 8 72 8 8)
 (define-item (board-game lore-item) 16 72 8 8)
 
-(defmacro define-achievement-item (name x y)
+(defmacro define-achievement-item (name x y &body args)
   (let ((item-name (intern (string name) '#:org.shirakumo.fraf.kandria.item)))
     `(progn (define-item (,name achievement-item) ,x ,y 64 64
               :texture (// 'kandria 'achievements)
-              :price 1000)
+              ,@args)
             (defmethod title ((item ,item-name))
               (language-string ',name))
             (defmethod description ((item ,item-name))
+              (language-string ',(intern (format NIL "~a/DESCRIPTION" name))))
+            (defmethod item-description ((item ,item-name))
               (language-string ',(intern (format NIL "~a/DESCRIPTION" name)))))))
 
 (defmethod store :after ((item achievement-item) (player player) &optional (count 1))
   (declare (ignore count))
-  (award (find-symbol (string (name item)) #.*package*)))
+  (award (or (find-symbol (string (type-of item)) #.*package*)
+             (error "Badly configured achievement."))))
 
 (defmethod retrieve :after ((item achievement-item) (player player) &optional (count 1))
   (declare (ignore count))
   (setf (active-p (achievement (find-symbol (string (name item)) #.*package*))) NIL))
 
-(define-achievement-item catherine-races 192 64)
-(define-achievement-item barkeep-races 128 64)
-(define-achievement-item spy-races 64 128)
-(define-achievement-item sergeant-races 0 128)
-(define-achievement-item full-map 0 64)
-(define-achievement-item all-fish 192 0)
-(define-achievement-item game-complete 128 0)
-(define-achievement-item early-ending 128 128)
-(define-achievement-item persistence 64 0)
-(define-achievement-item accessibility 0 0)
-(define-achievement-item modder 64 64)
+(define-achievement-item catherine-races 192 64 :price 1000)
+(define-achievement-item barkeep-races 128 64 :price 1000)
+(define-achievement-item spy-races 64 128 :price 1000)
+(define-achievement-item sergeant-races 0 128 :price 1000)
+(define-achievement-item full-map 0 64 :price 1000)
+(define-achievement-item all-fish 192 0 :price 1000)
+(define-achievement-item game-complete 128 0 :price 1000)
+(define-achievement-item early-ending 128 128 :price 1000)
+(define-achievement-item persistence 64 0 :price 1000)
+(define-achievement-item accessibility 0 0 :price 1000)
+(define-achievement-item modder 64 64 :price 1000)
 
 ;; Draws
 (define-random-draw mushrooms
