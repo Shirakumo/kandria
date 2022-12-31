@@ -119,7 +119,8 @@
                              (:file "drag")
                              (:file "auto-tile")))
                (:module "world/quests"
-                :components ((:file "storyline")
+                :components ((:file "achievo-shop")
+                             (:file "storyline")
                              (:file "epilogue-2")
                              (:file "epilogue")
                              (:file "epilogue-home")
