@@ -33,4 +33,5 @@
   :steam (:branch "developer"
           :user "shirakumo_org")
   :upload (:targets #(:steam :keygen :itch))
+  :bundle (:targets #(:windows :linux))
   :system "kandria")
