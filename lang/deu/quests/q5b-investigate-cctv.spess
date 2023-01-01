@@ -1,7 +1,7 @@
 # q5b-task-reminder/q5b-reminder
 ~ innis
 ? (complete-p 'q5b-task-cctv-1 'q5b-task-cctv-2 'q5b-task-cctv-3 'q5b-task-cctv-4)
-| | (:angry)Du hast zwar alle CCTVs gefunden, aber du musst mir "die Saboteure bringen"(orange)! Ohne das, ist alles fur nichts!
+| | (:angry)Du hast zwar alle CCTVs gefunden, aber du musst mir "die Saboteure bringen"(orange)! Ohne das, ist alles für nichts!
 |?
 | ? (complete-p 'q5b-boss)
 | | | Geh in die "tiefe östliche Region"(orange) entlang der Cerebat Grenze, und "schau dir die restlichen CCTV Kameras an"(orange).
@@ -48,7 +48,7 @@
 # q5b-task-cctv-3/cctv-3
 ~ player
 | "Hier ist "CCTV Kamera 3"(red)."(light-gray, italic)
-| "Die Hülle ist nicht mehr dran und Wasser scheint die Elektronik durchegbrannt zu haben."(light-gray, italic)
+| "Die Hülle ist nicht mehr dran und Wasser scheint die Elektronik durchgebrannt zu haben."(light-gray, italic)
 ? (complete-p 'q5b-task-cctv-1 'q5b-task-cctv-2 'q5b-task-cctv-4)
 | ? (complete-p 'q5b-boss)
 | | | "Das war die letzte Kamera. Ich sollte "zu {#@innis-nametag} zurückkehren"(orange) und meinen Bericht abliefern."(light-gray, italic)
@@ -68,21 +68,21 @@
 | Hallo, {#@innis-nametag}.
 ~ innis
 | (:angry)Du! Wie hast du mich erreicht?...
-| (:sly)Hmm, das ist eine FFCS Übertragun, oder? Clever.
-| (:angry)Das ist kein guter Momnet. Was ist los?
+| (:sly)Hmm, das ist eine FFCS Übertragung, oder? Clever.
+| (:angry)Das ist kein guter Moment. Was ist los?
 ~ player
 - Das ist wichtig
   ~ innis
-  | (:angry)Dann schiess los.
+  | (:angry)Dann schieß los.
 - Sorry für die Störung
   ~ innis
   | (:angry)Raus damit, was ist los?
-- Woher weisst du über das FFCS?
+- Woher weißt du über das FFCS?
   ~ innis
   | (:sly)Ich hätte meinen Job nicht verdient wenn ich das nicht kennen würde.
   | (:angry)Aber raus damit, was ist los?
 ~ player
-| Die Kabel zu einer der Kameras ist von Hand durchschnitten worden.
+| Die Kabel zu einer der Kameras ist von Hand durch geschnitten worden.
 ~ innis
 | (:angry)... Dann haben wir einen "Saboteur"(orange). (:sly)Vielleicht ein kleiner Spion, der dich gerade noch überwacht.
 ? (complete-p (unit 'q5b-boss-fight))
@@ -97,7 +97,7 @@
 |   ~ innis
 |   | Erklär.
 | ~ player
-| | Ich bin schon hier durchgekommen. Eine Bande hatt mich angegriffen. Und ich sie beseitigt.
+| | Ich bin schon hier durchgekommen. Eine Bande hat mich angegriffen. Und ich sie beseitigt.
 | ~ innis
 | | (:sly)So so.
 | | (:angry)Na dann, ich freue mich schon über deinen Report.
@@ -131,13 +131,13 @@
   | ... Rogues? Die Cerebat sind nicht bekannt dafür die einzusetzen.
 - Möchtegern Samurai und ihre Hunde
   ~ innis
-  | Das tönt nicht nach leuten, die die Cerebat einsetzen würden.
+  | Das tönt nicht nach Leuten, die die Cerebat einsetzen würden.
 ~ innis
 | Sie würden normalerweise auch die Grenze nicht überqueren.
 | ...
 | (:angry)Ich glaube wir haben ein gemeinsames Problem:
 | "Die Wraw."(orange)
-| Wir haben auch andere Information aufgedeckt, welche andeutet, dass "die Wraw die Cerebats invadiert haben"(orange). {#@islay-nametag} hatt mich darüber gewarnt.
+| Wir haben auch andere Information aufgedeckt, welche andeutet, dass "die Wraw die Cerebats invadiert haben"(orange). {#@islay-nametag} hat mich darüber gewarnt.
 | Und es sieht so aus als würden sie "uns als nächstes vornehmen"(orange).
 | Verdammt.
 | (:normal)Ich muss mit meiner Schwester sprechen.
@@ -145,7 +145,7 @@
 | ~ innis
 | | Du hast deine Fähigkeiten gut demonstriert, und es kann sein, dass wird deine Hilfe wieder gebrauchen werden.
 | | Aber für den Moment solltest du "{#@fi-nametag} anrufen"(orange).
-| | Schade, dass du {#@alex-nametag} nicht übrezeugen konntest nach hause zu gehen. (:sly)Ich freu mich schon ihr gesicht zu sehen wenn du ihr die Nachricht gibst.
+| | Schade, dass du {#@alex-nametag} nicht überzeugen konntest nach hause zu gehen. (:sly)Ich freue mich schon ihr Gesicht zu sehen wenn du ihr die Nachricht gibst.
 | | Androide können wohl nicht alles erreichen.
 | | (:angry)Und sag ihr auch dass "wir {#@catherine-nametag} zurück wollen"(orange). Wir brauchen sie jetzt mehr als je zuvor.
 | | (:sly)Wenn sie nicht einverstanden ist, dann "stellen wir das Wasser ab"(orange).

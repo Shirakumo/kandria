@@ -5,7 +5,7 @@
 
 # 10-interact-catherine/interaction
 ~ catherine
-| (:excited)Woah! Scheint, "dass die meissten deiner Systeme noch funktionieren"(orange)!
+| (:excited)Woah! Scheint, "dass die meißten deiner Systeme noch funktionieren"(orange)!
 | (:normal)Ich bin "{#@catherine-nametag}"(yellow). Komm schon, "wir verziehen uns von hier"(orange).
 ! eval (setf (nametag (unit 'catherine)) (@ catherine-nametag))
 

@@ -10,11 +10,11 @@
   ~ fi
   | (:happy)Du warst schon immer frei. (:normal)Aber ich hab eine wichtige Aufgabe für dich.
 ~ fi
-| {#@innis-nametag} hatte recht, die Wraw invasion bei den Cerebats hatte mit mehr zu tun als nur dem Wasser.
+| {#@innis-nametag} hatte recht, die Wraw Invasion bei den Cerebats hatte mit mehr zu tun als nur dem Wasser.
 | Und wenn die Wraw bereits so weit eingedrungen sind, dann sind die Semis als nächstes dran.
 | (:annoyed)Jetzt ist nicht der richtige Zeitpunkt für Kleinigkeiten, die Wraw bedrohen sowohl uns als auch sie.
 | (:normal)Ich glaube, dass du "{#@innis-nametag}'s Vertrauen"(orange) gewonnen hast.
-| Ich möchte, dass du sie überzeugst sich mit uns zusammenzuschliessen.
+| Ich möchte, dass du sie überzeugst sich mit uns zusammenzuschließen.
 ~ player
 - OK
 - Würde mir keine Hoffnungen machen
@@ -22,10 +22,10 @@
 - [(var 'semis-weapons) Sie haben auch Waffen]
   ~ fi
   | (:unsure)Das sagen sie, aber ich hab noch keine gesehen.
-  | (:normal)Aber wir nehmen wass wir kriegen können.
+  | (:normal)Aber wir nehmen was wir kriegen können.
 ~ fi
 | {#@innis-nametag} ist nicht dumm, trotz allem.
-| Aber bitte beeil dich, wir müssen sie vor den Wraw erreichen.
+| Aber bitte beeile dich, wir müssen sie vor den Wraw erreichen.
 | Und: auch wenn das im Moment deine wichtigste Aufgabe ist, jetzt ist wohl "der letzte Moment, wenn du noch anderes zu tun hast"(orange).
 ~ player
 | "{#@fi-nametag} sieht so aus als hätte sie etwas mehr zu sagen, aber ich denke der Moment ist vorbei."(light-gray, italic)

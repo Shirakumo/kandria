@@ -12,7 +12,7 @@
   ~ catherine
   | Mir? Oh, so wie immer. (:concerned){#@jack-nametag} ist überheblich wie immer, aber ich bin mir das gewöhnt.
   | (:normal)Wenn ich mich beschäftigen kann, dann muss ich mich nicht über die Zukunft sorgen. Oder die Vergangenheit.
-  | Nimms einfach Tag nach Tag, weisst du?
+  | Nimms einfach Tag nach Tag, weißt du?
   < continue
 - Ich fühl mich nicht gut
   ~ catherine
@@ -42,7 +42,7 @@
 | | ! eval (status "~a Rosenpilze Verloren" (item-count 'item:mushroom-good-1))
 | | ! eval (retrieve 'item:mushroom-good-1 T)
 | ? (have 'item:mushroom-good-2)
-| | | (:cheer)"Rostige Kappen"(red), toll! Die mag ich am bessten. Hab auch mein Halstuch daraus gemacht, wenn du das glauben kannst.
+| | | (:cheer)"Rostige Kappen"(red), toll! Die mag ich am besten. Hab auch mein Halstuch daraus gemacht, wenn du das glauben kannst.
 | | | (:normal)Leider sind die Sporen davon giftig. Ich musste dauernd eine Maske anbehalten während der Arbeit.
 | | ! eval (status "~a Rostige Kappen Verloren" (item-count 'item:mushroom-good-2))
 | | ! eval (retrieve 'item:mushroom-good-2 T)
@@ -57,12 +57,12 @@
 | | (:excited)Hier, "nimm diese Bruchteile"(orange), das hast du dir reichlich verdient.
 | ! eval (store 'item:parts 300)
 | ! eval (status "300 Bruchteile Erhalten")
-| | (:normal)Wenn du "noch mehr Pilze findest"(orange), dann nimm die mitt.
+| | (:normal)Wenn du "noch mehr Pilze findest"(orange), dann nimm die mit.
 | | Auch wenn wir sie nicht brauchen, kannst du sie immer "an {#@trader-nametag} verkaufen"(orange).
 | ! eval (store 'item:parts 300)
-| ! eval (status "Received 300 Scrap Part")
-| | (:normal)If you "find any more mushrooms"(orange), make sure you grab them.
-| | If we don't need them, the least you could do is "trade them with {#@trader-nametag}"(orange).
+| ! eval (status "300 Bruchteile Erhalten")
+| | (:normal)Wenn du "noch mehr Pilze findest"(orange), dann nimm die mit.
+| | Auch wenn wir sie nicht brauchen, kannst du sie immer "an {#@trader-nametag} verkaufen"(orange).
 | ! eval (complete 'sq2-mushrooms)
 |?
 | | (:normal)Da unser Vorrat niedrig ist, möchte {#@fi-nametag} dass jemand "auf Pilzjagt geht"(orange). Wir können die auch brauchen um Kleidung herzustellen.
@@ -127,21 +127,21 @@
   | | (:normal)OK, ich glaube du bist bereit.
   | ! eval (setf (var 'asked-leaks) T)
     
-  | (:normal)"Folg einfach der roten Leitung"(orange) wie zuvor.
+  | (:normal)"Folge einfach der roten Leitung"(orange) wie zuvor.
   | Die Lecke sollten "nicht weit weg sein"(orange), also weiterhin in Radio Reichweite.
   ~ player
   | "Mein FFCS zeigt "3 Lecke"(orange), nahe an der Oberfläche an wie {#@catherine-nametag} gesagt hat."(light-gray, italic)
   < task-choice
 - [(not (complete-p 'sq2-mushrooms)) (Frag nach den Pilzen)|]
   ~ catherine
-  | Sie wachsen "in den Hölen unter uns"(orange). Das dimme Licht und die Feuchtigkeit sind perfekt.
+  | Sie wachsen "in den Höhlen unter uns"(orange). Das dimme Licht und die Feuchtigkeit sind perfekt.
   | Essbare Pilze wie "Rosenpilze"(orange) können uns durch eine schlechte Ernte bringen.
   | Wir haben vorher nur solche Pilze gegessen.
   | Fasrige wie "Rostige Kappen"(orange) kann man auch für Kleidung gebrauchen.
   | Wir kombinieren sie mit synthetischem Material das wir sammeln, und mit Pelzen von Tieren.
   | Leider sind die Sporen giftig, also Achtung mit der Atmung.
-  | Andere sind sehr giftif, wie die "Schwarzen Pilze"(orange). Bitte vermeide die.
-  | Wenigstens "25 Rosenpilze oder Rostige Kappen"(orange) sollte für den Moment genügen. (:excited)Viel Spass beim Sammeln, {(nametag player)}!
+  | Andere sind sehr giftig, wie die "Schwarzen Pilze"(orange). Bitte vermeide die.
+  | Wenigstens "25 Rosenpilze oder Rostige Kappen"(orange) sollte für den Moment genügen. (:excited)Viel Spaß beim Sammeln, {(nametag player)}!
   < task-choice
 - (Frag nach den Rennen)
   ~ catherine
@@ -157,7 +157,7 @@
 
 # end
 ~ catherine
-| Du kommst sicher aleine klar, aber hab keine Angst mit mir zu sprechen wenn du willst. Willst du "ein Walkie, oder reicht dein FFCS aus"(orange)? Es sollte mit unseren Radios kompatibel sein.
+| Du kommst sicher alleine klar, aber hab keine Angst mit mir zu sprechen wenn du willst. Willst du "ein Walkie, oder reicht dein FFCS aus"(orange)? Es sollte mit unseren Radios kompatibel sein.
 ~ player
 - Mein FFCS reicht
   ~ catherine

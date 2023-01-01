@@ -4,7 +4,7 @@
 
 # task-destination/interact-innis
 ~ innis
-| (:angry){#@catherine-nametag} ist immernoch nicht hier. Was ist los? Trinken die Noka etwa lieber Sand als Wasser?
+| (:angry){#@catherine-nametag} ist immer noch nicht hier. Was ist los? Trinken die Noka etwa lieber Sand als Wasser?
 ~ player
 - Ihr habt grössere Probleme
   ~ innis
@@ -19,12 +19,12 @@
 ~ islay
 | (:nervous)Schwester! {(nametag player)} ist nicht unser Feind, und die Noka auch nicht.
 ~ innis
-| (:angry)Halts Maul. Du bist nicht die Cheffin hier.
+| (:angry)Halts Maul. Du bist nicht die Chefin hier.
 | (:normal)Und wie auch immer, ich weiss nicht warum du hier bist, Android.
 ~ player
 - Ich brauch deine Hilfe
   ~ innis
-  | (:sly)Was? Ein allmächtiger Android braucht //unsere// hilfe?
+  | (:sly)Was? Ein allmächtiger Android braucht //unsere// Hilfe?
   | (:normal)Das glaub ich wohl nicht. Das ist nur wieder {#@fi-nametag}.
 - Wir brauchen deine Hilfe
   ~ innis
@@ -33,8 +33,8 @@
   ~ innis
   | (:angry)Die Noka? Uns? Mach keine Witze!
 ~ innis
-| (:sly)... Ach sag mir bloss nicht du kümmerst dich um die Noka!
-| Ich hab nie verstanden warum sie Androiden Emotionen gegeben haben. Bloss eine Ablenkung.
+| (:sly)... Ach sag mir bloß nicht du kümmerst dich um die Noka!
+| Ich hab nie verstanden warum sie Androiden Emotionen gegeben haben. Bloß eine Ablenkung.
 ~ islay
 | (:nervous){#@innis-nametag}, hör ihr doch einfach zu, um Gottes Willen!
 ~ innis
@@ -56,7 +56,7 @@
 | Sagen wir mal wir würden uns verbünden. Und dann was?
 ~ islay
 | Wir setzen unsere Ressourcen zusammen, unsere Waffen und Leute.
-| Wir kennen die genaue grösse der Wraw Armee nicht, noch ihre Fähigkeiten.
+| Wir kennen die genaue Größe der Wraw Armee nicht, noch ihre Fähigkeiten.
 ~ player
 | Ich habe ihre Exoskelette und Vorräte gesehen. Sie sind beeindruckend.
 ~ islay
@@ -66,7 +66,7 @@
 | (:angry)Nein. Nie im Leben!
 ~ islay
 | Nicht für immer, aber die Wraw sind bereits hier, und wir können sie nicht alleine bekämpfen.
-| Wir laden den Zug voll un reisen an die Oberfläche.
+| Wir laden den Zug voll und reisen an die Oberfläche.
 | Alles was wir zurücklassen könnte gegen uns eingesetzt werden.
 ~ innis
 | Und was ist mit der Bombe?
@@ -90,12 +90,12 @@
 ~ player
 - Danke
   ~ islay
-  | Kein Problem. Ich geb dir "25 Bruchteile"(orange) pro Stück.
+  | Kein Problem. Ich gebe dir "25 Bruchteile"(orange) pro Stück.
   | Aber dank mir noch nicht, das wird gefährlich.
 - Nicht nötig
   ~ islay
   | Nein, das ist mir wichtig. Es wird gefährlich, und eine Belohnung ist angemessen.
-  | Ich geb dir "25 Bruchteile"(orange) pro Stück.
+  | Ich gebe dir "25 Bruchteile"(orange) pro Stück.
   ~ innis
   | ...
 - Wie viel?
@@ -131,14 +131,14 @@
     ~ innis
     | ...
 ~ islay
-| Aber bitte beeil dich!
+| Aber bitte beeile dich!
 | "Wir lassen die Metro in betrieb"(orange) für den Moment, aber "die Wraw könnten die Tunnel auch gebrauchen"(orange).
 ~ innis
 | (:angry)Oder sie zerstören die Züge.
 ~ islay
 | (:nervous)Hoffen wir dass sie nicht auf die Idee kommen.
 ~ player
-| Ich geb {#@fi-nametag} bescheid und mach mich auf den Weg.
+| Ich geb {#@fi-nametag} Bescheid und mach mich auf den Weg.
 ~ innis
 | (:sly)Genau, guter Hund!
 ~ islay
@@ -148,7 +148,7 @@
 - (Probiers trotzdem)
   ~ player
   | "Starte FFCS..."(light-gray, italic)
-  | (:embarassed)""Es ist blockiert"(orange). Scheisse."(light-gray, italic)
+  | (:embarassed)""Es ist blockiert"(orange). Scheiße."(light-gray, italic)
   ~ innis
   | (:sly)Ich glaube sie hats gerade probiert.
   | (:angry)Und wir sollen dir vertrauen?
@@ -168,7 +168,7 @@
   | Such die im "Wraw Gebiet"(orange), und "triff uns auf der Oberfläche wenn du fertig bist"(orange).
 - Klaro
 ~ islay
-| Viel glück, {(nametag player)}.
+| Viel Glück, {(nametag player)}.
 ~ player
 | (:thinking)"Ich glaub ich weiss "wo ich sowas finden kann"(orange)."(light-gray, italic)
 | (:normal)"Ich sollte die "Fabriken und Lager"(orange) anschauen. Ich habs schon auf der Karte markiert."(light-gray, italic)

@@ -1,11 +1,11 @@
 # hub
 ~ catherine
 | Oke, die "Rennen"(orange)! "Finde die Dose"(orange) die wir versteckt haben.
-| (:excited)"Schnapp sie dir, bring sie zurück, und ich messe die Zeit"(orange). Und, "je schneller, desto grösser die Belohnung"(orange)!
+| (:excited)"Schnappe sie dir, bring sie zurück, und ich messe die Zeit"(orange). Und, "je schneller, desto größer die Belohnung"(orange)!
 | (:normal)Wir haben "5 Routen"(orange) für dich. Wenn du eine erledigst, zeigen wir dir die nächste.
 | Du kannst die Routen so oft versuchen wie du willst, aber es gibt "nur eine Belohnung wenn du deine Zeit verbesserst"(orange).
-| Jeder Ort is auch mit einem kleinen Rätsel verbunden. Zuerst raus zu finden wo das genau ist, wäre bestimmt nicht dumm.
-| (:normal)Wir beginnen mit "Route 1"(orange), das sollte einfach sein. (:excited)"Sag mir einfach wenn do bereit bist"(orange). Bin schon richtig gespannt!
+| Jeder Ort ist auch mit einem kleinen Rätsel verbunden. Zuerst raus zu finden wo das genau ist, wäre bestimmt nicht dumm.
+| (:normal)Wir beginnen mit "Route 1"(orange), das sollte einfach sein. (:excited)"Sag mir einfach wenn du bereit bist"(orange). Bin schon richtig gespannt!
 ! eval (clear-pending-interactions)
 
 # start
@@ -31,7 +31,7 @@
 ~ player
 - Nein, ich mach weiter
   ~ catherine
-  | Okey (:excited)- Weiter gehhts!
+  | Okey (:excited)- Weiter gehts!
 - Ja, bitte beende das Rennen
   ~ catherine
   | Kein Problem. (:excited) Bis bald!
@@ -50,19 +50,19 @@
 | ! eval (setf pb (clock quest))
 | ? (< pb gold)
 | | | (:cheer)Wie hast du das denn so schnell geschafft?
-| | | Da hast du gleich ne "Goldmedallie" verdient, mit den "250 Bruchteilen"(orange)!
+| | | Da hast du gleich ne "Goldmedaille" verdient, mit den "250 Bruchteilen"(orange)!
 | | ! eval (store 'item:parts 250)
-| | ! eval (status "Received 250 Scrap Part")
+| | ! eval (status "250 Bruchteile Erhalten")
 | |? (< pb silver)
 | | | (:excited)Sehr zügig, das ist "Silber"(orange).
 | | | Da gibts "150 Bruchteile"(orange)!
 | | ! eval (store 'item:parts 150)
-| | ! eval (status "Received 150 Scrap Part")
+| | ! eval (status "150 Bruchteile Erhalten")
 | |? (< pb bronze)
 | | | (:excited)Nicht schlecht, "Bronze"(orange) hast du damit schon im Sack.
 | | | Dafür gibt es auch "100 Bruchteile"(orange).
 | | ! eval (store 'item:parts 100)
-| | ! eval (status "Received 100 Scrap Part")
+| | ! eval (status "100 Bruchteile Erhalten")
 | |?
 | | | (:concerned)Leider warst du "nicht schnell genug"(orange).
 | | | (:normal)Aber keine sorge, du kannst das nochmals versuchen. Ich bin mir sicher du kriegst das noch hin!

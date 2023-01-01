@@ -1,12 +1,12 @@
 # hub
 ~ wraw-sergeant
-| Aha! Immernoch interesse daran ein Söldner zu werden? Dann gibts jetzt kein zurück mehr!
-| "Finde dein Ziel, und eliminier es"(orange). Mit höchstpräzision!
+| Aha! Immernoch Interesse daran ein Söldner zu werden? Dann gibts jetzt kein zurück mehr!
+| "Finde dein Ziel, und eliminiere es"(orange). Mit Höchstpräzision!
 | Du wirst gegen "Trainingspuppen und Wölfe"(orange) ankommen.
 | Mehr kann ich Schwächlingen wie dir nicht antrauen.
 | Man sagt, dass die Trainingspuppen aussehen wie Androiden von der alten Welt.
 | Also keine Angst! Nur zuschlagen!
-| Dein Preis ist die erachtung der Wraw! Ein höheres Lob gibt es nicht!
+| Dein Preis ist die Erachtung der Wraw! Ein höheres Lob gibt es nicht!
 | Wir haben "5 Kurse"(orange) vorbereitet, aber ein Schwächling wie du wird nicht einmal den ersten bewältigen.
 | Also, Rekrut! "Bereit zu sterben"(orange)?
 ! eval (clear-pending-interactions)
@@ -30,7 +30,7 @@
 
 # cancel
 ~ wraw-sergeant
-| Pah! Hab erwartet, dass das zu viel ist fur einen Schwächling wie dich! "Du willst also aufhören"(orange)?
+| Pah! Hab erwartet, dass das zu viel ist für einen Schwächling wie dich! "Du willst also aufhören"(orange)?
 ~ player
 - Nein, ich mach weiter.
   ~ wraw-sergeant
@@ -43,7 +43,7 @@
 # return
 ~ wraw-sergeant
 | ZEIT!
-| Nach meinem Bericht wurden alle Ziele eliminiert. Grossartig.
+| Nach meinem Bericht wurden alle Ziele eliminiert. Großartig.
 | Deine Zeit war: "{(format-relative-time (clock quest))}"(orange).
 ? (and pb (< pb (clock quest)))
 | | "Keine Verbesserung"(orange) über deinen Rekord von "{(format-relative-time pb)}"(orange).
@@ -63,7 +63,7 @@
 | | | Hmm, hab ich etwas übersehen?
 | |?
 | | | Pah! Wie erwartet, nicht einmal "bronze"(orange).
-| | | Die Wraw sind die bessten!
+| | | Die Wraw sind die besten!
   
 ~ wraw-sergeant
 | Ich sag dir was. In meiner Truppe hättest du keine Chance!

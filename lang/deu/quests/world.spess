@@ -1,6 +1,6 @@
 # task-world-all/storage-shelves
 ~ player
-| "Ihr Lagerraum. Die Vorräte sind nicht gerade gross, und es riecht nach Ratten."(light-gray, italic)
+| "Ihr Lagerraum. Die Vorräte sind nicht gerade groß, und es riecht nach Ratten."(light-gray, italic)
 
 # task-world-all/noka-train
 ~ player
@@ -44,9 +44,9 @@
 # task-world-all/engineering-bench
 ~ player
 ? (complete-p 'q0-find-jack)
-| | "{#@jack-nametag}'s Werkstatt. Es stinkt nach Schweiss. Arbeitet er hier oder macht er Fitness Training??"(light-gray, italic)
+| | "{#@jack-nametag}'s Werkstatt. Es stinkt nach Schweiß. Arbeitet er hier oder macht er Fitness Training??"(light-gray, italic)
 |?
-| | "Eine Werkstatt. Vielleicht gehört es dem Mann dort. Er schaut mich sehr mistrauisch an."(light-gray, italic)
+| | "Eine Werkstatt. Vielleicht gehört es dem Mann dort. Er schaut mich sehr misstrauisch an."(light-gray, italic)
 
 # task-world-all/sandstorm-view
 ~ player
@@ -77,7 +77,7 @@
 
 # task-world-all/mush-cave-1
 ~ player
-| (:thinking)"Wie zur Hölle sind die Pilze so gross geworden?"(light-gray, italic)
+| (:thinking)"Wie zur Hölle sind die Pilze so groß geworden?"(light-gray, italic)
 ? (or (active-p 'sq2-mushrooms) (complete-p 'sq2-mushrooms))
 | | (:normal)"Ich glaube die sind leider nicht essbar."(light-gray, italic)
 
@@ -109,12 +109,12 @@
 ? (complete-p 'q1-water)
 | | "Die Sprinkler funktionieren wieder. Es könnte aber bereits zu spät sein..."(light-gray, italic)
 |?
-| | "Das sieht nach Weitzen aus. Sterbenden."(light-gray, italic)
+| | "Das sieht nach Weizen aus. Sterbenden."(light-gray, italic)
 
 # task-world-all/grave
 ~ player
 | (:thinking)"Etwas komisch sein eigenes Grab sehen zu können."(light-gray, italic)
-| (:giggle)"Auch nicht der bequemste Ort um einige Jahrzente verbracht zu haben."(light-gray, italic)
+| (:giggle)"Auch nicht der bequemste Ort um einige Jahrzehnte verbracht zu haben."(light-gray, italic)
 
 # task-world-all/grave-cliff
 ~ player
@@ -124,7 +124,7 @@
 
 # task-world-all/semi-cave-east-1
 ~ player
-| "Hmm, waren die Tunnell hier früher Minen, oder wurde das nur für die Wohnflächen ausgegraben?"(light-gray, italic)
+| "Hmm, waren die Tunnel hier früher Minen, oder wurde das nur für die Wohnflächen ausgegraben?"(light-gray, italic)
 
 # task-world-all/semi-cave-east-3
 ~ player
@@ -141,7 +141,7 @@
 
 # task-world-all/semi-train
 ~ player
-| "Oh wow! Das war früher eine magnetische Eisenbahn. Jetzt aber mit angeschweissten Rädern."(light-gray, italic)
+| "Oh wow! Das war früher eine magnetische Eisenbahn. Jetzt aber mit angeschweißten Rädern."(light-gray, italic)
 
 # task-world-all/semi-hub-1
 ~ player
@@ -176,7 +176,7 @@
 
 # task-world-all/semi-hub-7
 ~ player
-| "Eine grosse Hydroponikanlage. Hier wird wohl die ganze Nahrung für die Kolonie hergestellt."(light-gray, italic)
+| "Eine große Hydroponikanlage. Hier wird wohl die ganze Nahrung für die Kolonie hergestellt."(light-gray, italic)
 
 # task-world-all/semi-hub-8
 ~ player
@@ -193,7 +193,7 @@
 
 # task-world-all/semi-cave-west-1
 ~ player
-| "Hm, das leuchtet im dunkeln."(light-gray, italic) (:thinking)"Wie haben sie bloss die Farbe hergestellt?"(light-gray, italic)
+| "Hm, das leuchtet im Dunkeln."(light-gray, italic) (:thinking)"Wie haben sie bloß die Farbe hergestellt?"(light-gray, italic)
 
 # task-world-all/semi-cave-west-2
 ~ player
@@ -207,14 +207,14 @@
 ~ player
 ? (active-p (unit 'blocker-engineers))
 | ? (active-p 'q5a-rescue-engineers)
-| | | "Das sollte der "kollabierte Tunnell"(orange) der die "Semi Ingenieure"(orange) abgeschnitten hat."(light-gray, italic)
+| | | "Das sollte der "kollabierte Tunnel"(orange) der die "Semi Ingenieure"(orange) abgeschnitten hat."(light-gray, italic)
 | | | "Von dieser Seite kann ich nix daran ausrichten."(light-gray, italic)
 | | | (:thinking)"Ich muss "einen Weg darüber rum"(orange) finden."(light-gray, italic)
 | |?
 | | | "Ein kollabiertes Tunnel. Von dieser Seite kann ich aber nix ausrichten."(light-gray, italic)
 | | | (:thinking)"Ich muss "einen Weg darüber rum"(orange) finden."(light-gray, italic)
 |?
-| | "Hier war das Tunnell kollabiert. Es scheint noch stabil genug zu sein."(light-gray, italic)
+| | "Hier war das Tunnel kollabiert. Es scheint noch stabil genug zu sein."(light-gray, italic)
 
 
 # task-world-all/cerebat-lab-1
@@ -241,7 +241,7 @@
 
 # task-world-all/cerebat-bats-1
 ~ player
-| (:giggle)"Hier gibts immernoch Fledermäuse."(light-gray, italic)
+| (:giggle)"Hier gibts immer noch Fledermäuse."(light-gray, italic)
 
 # task-world-all/cerebat-bats-2
 ~ player
@@ -250,7 +250,7 @@
 # task-world-all/cerebat-mush
 ~ player
 | "Es ist extrem feucht hier. Kein Wunder gibt es so viele Pflanzen."(light-gray, italic)
-| (:giggle)"Zum glück muss ich nicht schwitzen, sonst wären meine Kleider zu einem Schwimmbad geworden."(light-gray, italic)
+| (:giggle)"Zum Glück muss ich nicht schwitzen, sonst wären meine Kleider zu einem Schwimmbad geworden."(light-gray, italic)
 
 # task-world-all/cerebat-lake
 ~ player
@@ -278,7 +278,7 @@
 
 # task-world-all/cerebat-old-hideout
 ~ player
-| "Ein verlassenes Versteck. Es verbleiben lediglich noch Fussabdrücke im Boden."(light-gray, italic)
+| "Ein verlassenes Versteck. Es verbleiben lediglich noch Fußabdrücke im Boden."(light-gray, italic)
 | (:thinking)"Möglicherweise war das zu offen für Angriffe von Oben."(light-gray, italic)
 
 # task-world-all/cerebat-encampment
@@ -314,7 +314,7 @@
 
 # task-world-all/wraw-fish
 ~ player
-| "Es braucht ne spezielle art von Lebewesen um im Magma zu schwimmen."(light-gray, italic) (:embarassed)"Und ich gehör nicht dazu."(light-gray, italic)
+| "Es braucht ne spezielle Art von Lebewesen um im Magma zu schwimmen."(light-gray, italic) (:embarassed)"Und ich gehöre nicht dazu."(light-gray, italic)
 
 # task-world-all/wraw-lava
 ~ player
@@ -331,8 +331,8 @@
 # task-world-seeds/seeds-arrive
 ~ player
 | (:thinking)"Hm? Was ist das? Ein Alt-Welt Bunker?"(light-gray, italic)
-| "Ich glaube das war eine "Vorratskammer"(orange), aber es riecht ziemlich tot. Kontainer und Säcke sind über den Boden verstreut. Jemand war schon vor mir hier."(light-gray, italic)
-| (:normal)"Das meisste ist verrottet, aber es scheint noch einige wenige "brauchbare Samen zu haben. Könnte nützlich sein"(orange). Mal sehen..."(light-gray, italic)
+| "Ich glaube das war eine "Vorratskammer"(orange), aber es riecht ziemlich tot. Container und Säcke sind über den Boden verstreut. Jemand war schon vor mir hier."(light-gray, italic)
+| (:normal)"Das meißte ist verrottet, aber es scheint noch einige wenige "brauchbare Samen zu haben. Könnte nützlich sein"(orange). Mal sehen..."(light-gray, italic)
 ! eval (store 'item:seeds 24)
 ! eval (status "24 Samen Säckel Erhalten")
 | "Das ist alles, dass noch übrig bleibt: "24 Säckel"(orange). Die Samen sind winzig und hart wie Steine."(light-gray, italic)
@@ -344,7 +344,7 @@
 | | ~ semi-engineer-chief
 | | | Wie zur Hölle bist du hier hin gekommen?
 | | ~ player
-| | | Es gibt einen Tunnell über uns, aber der ist nicht begehbar für Menschen.
+| | | Es gibt einen Tunnel über uns, aber der ist nicht begehbar für Menschen.
 | | ~ semi-engineer-chief
 | | | ... //Menschen//? Also du bist nicht?...
 | | ~ player
@@ -357,10 +357,10 @@
 | | - Was machst du hier?
 | | ~ semi-engineer-chief
 | | | "Wir sind die Ingenieure nach denen du suchst"(orange). Dank Gott für {#@innis-nametag}.
-| | | Der Tunnell ist kollabiert. Wir haben den Hauptingenieur und die hälfte der Truppe verloren.
+| | | Der Tunnel ist kollabiert. Wir haben den Hauptingenieur und die Hälfte der Truppe verloren.
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
 | | ~ semi-engineer-chief
-| | | Wir können "den Tunnell nicht räumen"(orange) - aber vielleicht bist du stärker?
+| | | Wir können "den Tunnel nicht räumen"(orange) - aber vielleicht bist du stärker?
 | | | "Der Einsturz ist gleich vor uns"(orange).
 | | ! eval (setf (var 'engineers-first-talk) T)
 | | ! eval (activate 'task-wall-location)
@@ -371,7 +371,7 @@
 |?
 | ? (not (var 'engineers-first-talk))
 | | ~ semi-engineer-chief
-| | | Wer bist du? Wie bist du durch den Tunnell durch gekommen?
+| | | Wer bist du? Wie bist du durch den Tunnel durch gekommen?
 | | ~ player
 | | - Ich bin kein Mensch
 | |   ~ semi-engineer-chief
@@ -382,19 +382,19 @@
 | | - Was machst du hier?
 | | ~ semi-engineer-chief
 | | | "Wir sind die Ingenieure nach denen du suchst"(orange). Dank Gott für {#@innis-nametag}.
-| | | Der Tunnell ist kollabiert. Wir haben den Hauptingenieur und die hälfte der Truppe verloren.
+| | | Der Tunnel ist kollabiert. Wir haben den Hauptingenieur und die Hälfte der Truppe verloren.
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
 | | ~ semi-engineer-chief
-| | | Aber mit dem Tunnell geräumt sieht's schon viel besser aus.
+| | | Aber mit dem Tunnel geräumt sieht's schon viel besser aus.
 | | | Danke.
 | | ! eval (setf (var 'engineers-first-talk) T)
 | |?
 | | ~ semi-engineer-chief
 | | | Ich kann kaum glauben, dass du durchgekommen bist. Jetzt können wir Medizin und andere Hilfsmittel bekommen.
-| | | Die Tunnellarbeit kann weiter gehen.
+| | | Die Tunnelarbeit kann weiter gehen.
 
 # task-engineers-surface/engineer-surface
 ~ semi-engineer-chief
-| Es fühlt sich merkwürdig an auf der Oberfläche zu sein. Der Himmel ist so gross!
+| Es fühlt sich merkwürdig an auf der Oberfläche zu sein. Der Himmel ist so groß!
 | Ich hoffe dass unser Zug besser hinhält als diese Wasserleitung.
 

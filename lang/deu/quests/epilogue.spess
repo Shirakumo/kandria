@@ -9,16 +9,16 @@
   | Ich weiss nicht wie lange ich selber unbewusst war. "Ich bin vor etwa 15 Minuten erwacht"(orange) und musste dich zwischen den Steinen rausbuddeln.
 - Wo bin ich?
   ~ catherine
-  | (:concerned)Immernoch am gleichen Ort, mehr oder weniger.
+  | (:concerned)Immer noch am gleichen Ort, mehr oder weniger.
   | Ich weiss nicht wie lange ich selber unbewusst war. "Ich bin vor etwa 15 Minuten erwacht"(orange) und musste dich zwischen den Steinen rausbuddeln.
-- Wie viele Jahrzente hab ich diesmal geschlafen?
+- Wie viele Jahrzehnte hab ich diesmal geschlafen?
   ~ catherine
   | Weniger als eines, hoffe ich. Bin mir selber nicht ganz sicher, ich bin "erst for 15 Minuten aufgewacht"(orange).
   | (:concerned)Bist du sicher, dass alles in Ordnung ist?
 ~ catherine
 | (:concerned)Ich glaube "alle Bomben sind explodiert"(orange) und eine davon "praktisch in unser Gesicht"(orange)!
-| (:excited)Heisst das, dass wir gewonnen haben?
-| (:concerned)Hmm, aber die explosionen waren auch deutlich "grösser als erwartet"(orange)...
+| (:excited)Heißt das, dass wir gewonnen haben?
+| (:concerned)Hmm, aber die Explosionen waren auch deutlich "größer als erwartet"(orange)...
 | Ich hab mich ein bisschen umgesehen, Ich glaube "dieser ganze Bereich ist kollabiert"(orange).
 | Ich kann nur hoffen, dass {#@islay-nametag} OK ist.
 ~ player
@@ -27,7 +27,7 @@
   | (:concerned)Hoffen wirs.
 - Und du?
   ~ catherine
-  | (:concerned)Ich hab Kopfweh, wahrscheinlich eine Erschütterung, aber ich erhol mich davon.
+  | (:concerned)Ich hab Kopfweh, wahrscheinlich eine Erschütterung, aber ich erhole mich davon.
 - Sie war gleich bei einer Bombe
   ~ catherine
   | (:concerned)...
@@ -38,7 +38,7 @@
 - Glaube schon
   ~ catherine
   | (:excited)Ok, auf gehts!
-- Nur einen Weg das rauszufinden
+- Nur einen Weg das raus zu finden
   ~ catherine
   | Nur mit Ruhe.
 - Wenn nicht glaube ich nicht, dass du mich tragen kannst

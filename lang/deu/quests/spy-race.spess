@@ -1,7 +1,7 @@
 # hub
 ~ semi-spy
 | OK! Ich denke ich bin bereit!
-| Und vergiss nicht, "find die Flaske, und bring sie zu mir"(orange).
+| Und vergiss nicht, "finde die Flaske, und bring sie zu mir"(orange).
 | Ich hab "5 Routen"(orange) vorbereitet. Die kannst du eine nach der anderen angehen.
 | Also, "bereit für das erste Rennen"(orange)?
 ! eval (clear-pending-interactions)
@@ -9,7 +9,7 @@
 # start
 ? (timer-quest)
 | ~ semi-spy
-| | Du "bist bereits in einem Rennen"(orange)! Das ist viel zu aufsichtig!
+| | Du "bist bereits in einem Rennen"(orange)! Das erregt zu viel aufsehen!
 | < quit
 
 ~ semi-spy
@@ -26,7 +26,7 @@
 
 # cancel
 ~ semi-spy
-| "Du brichst das Rennen ab"(orange)? Das wird bestimmt mistrauisch erscheinen!
+| "Du brichst das Rennen ab"(orange)? Das wird bestimmt misstrauisch erscheinen!
 | Dafür muss ich deine Belohnung streichen.
 ~ player
 - Nein, ich mach weiter
@@ -56,22 +56,22 @@
 | | | Echt klasse, sogar ne "Goldzeit"(orange)!
 | | | Dafür gibt es die maximale Belohnung von {#@innis-nametag}: "750 Bruchteile"(orange).
 | | ! eval (store 'item:parts 750)
-| | ! eval (status "Received 750 Scrap Part")
+| | ! eval (status "750 Bruchteile Erhalten")
 | |? (< pb silver)
 | | | Ne "Silberzeit"(orange). Toll!
 | | | Dafür gibt es "450 Bruchteile"(orange) von {#@innis-nametag}.
 | | ! eval (store 'item:parts 450)
-| | ! eval (status "Received 450 Scrap Part")
+| | ! eval (status "450 Bruchteile Erhalten")
 | |? (< pb bronze)
 | | | Ne "Bronzezeit"(orange). Nicht schlecht.
 | | | Dafür gibt es "300 Bruchteile"(orange) von {#@innis-nametag}.
 | | ! eval (store 'item:parts 300)
-| | ! eval (status "Received 300 Scrap Part")
+| | ! eval (status "300 Bruchteile Erhalten")
 | |?
 | | | Leider nicht einmal "Bronzezeit"(orange). Tut mir leid.
 | | | "Kannst du enttäuscht aussehen? Das wirkt glaublicher."(small)
 | | ~ player
-| | | (:embarassed)"Ich weiss nicht, was mein Gesicht für einen Ausdruck macht. Seh ich enttäuscht aus?"(light-gray, italic)
+| | | (:embarassed)"Ich weiß nicht, was mein Gesicht für einen Ausdruck macht. Seh ich enttäuscht aus?"(light-gray, italic)
   
 ~ semi-spy
 | Wie wärs mit noch einem Rennen? Lass mich nicht im Stich!

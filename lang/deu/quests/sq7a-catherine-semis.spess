@@ -8,14 +8,14 @@
   | (:normal)Ne, warte, ich frag einfach {#@fi-nametag}.
   | (:concerned)... Obwohl, ich hör auch einiges Geflüster über eine Wraw Invasion?
   | Stimmt das?
-- Wir haben grössere Probleme
+- Wir haben größere Probleme
   ~ catherine
   | (:concerned)Echt? Wie was?
   ~ player
   | Die Semis glauben, dass die Wraw die Cerebats invadiert haben.
   ~ catherine
   | (:concerned)Oh...
-  | Scheisse.
+  | Scheiße.
   | Ist das wahr?
 - Die Semis wollen dich zurück
   ~ catherine
@@ -23,16 +23,16 @@
   ~ player
   - Willst du zurück?
     ~ catherine
-    | (:concerned)Nicht wirklich. Ich weiss nicht wie viel dir {#@fi-nametag} erzählt hat, aber sie haben sich nicht wirklich um mich gekümmert.
+    | (:concerned)Nicht wirklich. Ich weiß nicht wie viel dir {#@fi-nametag} erzählt hat, aber sie haben sich nicht wirklich um mich gekümmert.
   - {#@fi-nametag} hat gesagt du willst nicht zurück
     ~ catherine
     | (:concerned)Da hat sie recht. Sie haben sich nicht gut um mich gekümmert.
   ~ catherine
   | Versteh mich nicht falsch, ihre Technologie und Werkzeuge sind fantastisch, besonders für einen Ingenieur.
-  | (:concerned)Aber näh. {#@innis-nametag} verhält sich echt scheisse. {#@islay-nametag} manchmal auch.
+  | (:concerned)Aber näh. {#@innis-nametag} verhält sich echt scheiße. {#@islay-nametag} manchmal auch.
   | (:excited)Sobald ich alt genug war bin ich dort raus.
   | (:concerned)Das war ziemlich dumm von mir. Ohne {#@fi-nametag} und die anderen hätte ich nicht überlebt.
-  | (:normal)Aber ich bin immernoch hier!
+  | (:normal)Aber ich bin immer noch hier!
   | (:concerned)Wie auch immer, was ist mit den Rumoren? Über die Wraw und Cerebats?
   | Ist das alles wahr?
 ~ player
@@ -46,7 +46,7 @@
   ~ catherine
   | (:concerned)...
   | Als ob wir nicht bereits genug zu tun hätten.
-- [(not (complete-p 'q8a-bribe-trader)) Ich weiss nicht|]
+- [(not (complete-p 'q8a-bribe-trader)) Ich weiß nicht|]
   ~ catherine
   | (:concerned)Das ist nicht gut.
 - [(not (complete-p 'q8a-bribe-trader)) Ich glaube nicht|]
@@ -54,6 +54,6 @@
   | (:concerned)Ich hoffe du hast recht.
 - Kommts drauf an?
 ~ catherine
-| (:concerned)Die Cerebats sind eine art... Leim, der noch alles zusammen hält.
+| (:concerned)Die Cerebats sind eine Art... Leim, der noch alles zusammen hält.
 | Wenn sie weg sind, dann fällt alles ziemlich schnell zusammen.
 | Ich frag mich was "{#@fi-nametag}'s Plan ist"(orange).

@@ -7,7 +7,7 @@
 ~ synthesis
 | (:grin)Es ist gemacht.
 ~ player
-- Wie weisst du das?
+- Wie weißt du das?
   ~ synthesis
   | (:grin)Wir wissen es.
 - War das eine Frage?
@@ -19,7 +19,7 @@
 ~ synthesis
 | (:grin)Jetzt kannst du die "alt-Welt Information extrahieren"(orange).
 | "Das Labor im fernen Osten, in der nähe der Bahnstation"(orange) - die Antworten liegen dort.
-| Du brauchst die, genau wie wir. "Greiffe auf die verbleibenden Terminale zu"(orange).
+| Du brauchst die, genau wie wir. "Greife auf die verbleibenden Terminale zu"(orange).
 | Es gibt "3 von denen"(orange). Du wirst sehen. "Durchsuche die Datenbanken nach \"Schwarzen Kappen\""(orange).
 ! eval (activate (unit 'spawner-5703))
 ! eval (activate (unit 'spawner-5705))

@@ -18,12 +18,12 @@
 ~ catherine
 | Und wir brauchen nicht einmal extra Teile dafür!
 ~ islay
-| Beeil dich, {#@catherine-nametag}.
+| Beeile dich, {#@catherine-nametag}.
 | ... Jetzt müssen wir nur noch wissen wie wir sie setzen.
 ~ player
 | "{#@islay-nametag} und {#@fi-nametag} schauen sich an. Es scheint ein Verständnis da zu sein."(light-gray, italic)
 ~ islay
-| Ich glaube du bist unsere besste Chance, {(nametag player)}.
+| Ich glaube du bist unsere beste Chance, {(nametag player)}.
 ~ player
 - Glaube ich auch
   < brave
@@ -36,13 +36,13 @@
   ~ catherine
   | (:concerned)Ich auch nicht- Sorry, zurück zur Arbeit.
   ~ fi
-  | Aber du hast die grösste Chance von uns allen.
+  | Aber du hast die größte Chance von uns allen.
   < continue
 
 # brave
 ~ fi
 | (:unsure)...
-| (:normal)Du hast die grösste Chance von uns allen, auch wenn ich wünschte das wäre nicht so.
+| (:normal)Du hast die größte Chance von uns allen, auch wenn ich wünschte das wäre nicht so.
 ! eval (setf (var 'brave) T)
 < continue
 
@@ -63,20 +63,20 @@
   | {#@catherine-nametag}, wie sieht's aus?
 - Ich vertraue {#@catherine-nametag}
   ~ catherine
-  | Ach, dank dir! Ich hab bloss den Anweisungen von {#@islay-nametag} gefolgt.
+  | Ach, dank dir! Ich hab bloß den Anweisungen von {#@islay-nametag} gefolgt.
   ~ islay
   | Nur nicht so bescheiden. Na, wie sieht's aus?
 ~ catherine
 | Sie sind bereit. Hier, {(nametag player)}.
 ! eval (store 'item:explosive 3)
-! eval (status "Received 3 Explosive")
+! eval (status "3 Bomben Erhalten")
 ~ player
-| "Ich hab "3 Bomben"(orange), alle etwas grösser als ein Ziegelstein."(light-gray, italic)
+| "Ich hab "3 Bomben"(orange), alle etwas größer als ein Ziegelstein."(light-gray, italic)
 | "Sieht aus wie plastische Bomben."(light-gray, italic)
 ~ catherine
 | Keine Sorge, das ist kein Glyzerin und explodiert nicht einfach so. Sehr sicher!
 ! eval (store 'item:receiver 13)
-! eval (status "Received 13 RF Detonator")
+! eval (status "13 Funkempfänger Erhalten")
 ~ player
 | "An jeder Bombe ist ein Funkempfänger befestigt."(light-gray, italic)
 ~ catherine

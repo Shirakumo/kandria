@@ -7,7 +7,7 @@
 
 # site-1/interact-site
 ~ player
-| "Das ist "Ort #1"(red), wo die "Mitglieder möglicherweise in gefangenschaft waren"(orange)."(light-gray, italic)
+| "Das ist "Ort #1"(red), wo die "Mitglieder möglicherweise in Gefangenschaft waren"(orange)."(light-gray, italic)
 | (:thinking)"Es hat Blut und andere Spuren auf dem Boden"(light-gray, italic)
 | (:normal)"Und "sonst nichts"(orange)."(light-gray, italic)
 ? (not (complete-p 'move-npc))
@@ -68,14 +68,14 @@
 | Oh Gott... Es ist mit Blut verschmiert!
 | Und sonst? Nichts? Keine Spur?
 ~ player
-| (:embarassed)"Ich wünsche ich könnte etwas tun ausser meinen Kopf zu schütteln."(light-gray, italic)
+| (:embarassed)"Ich wünsche ich könnte etwas tun außer meinen Kopf zu schütteln."(light-gray, italic)
 ~ cerebat-good-trader
 | Hast du die Kopfbedeckung noch?
 ! eval (retrieve 'item:headdress 1)
 ! eval (status "1 Kopfbedeckung Verloren")
 | Danke. Das könnte alles sein das noch von ihnen übrig bleibt.
 | ... "Antonio"(yellow).
-| Bitte lass mich aleine. Ich brauch Zeit für mich.
+| Bitte lass mich alleine. Ich brauch Zeit für mich.
 ~ player
 - Tut mir leid
 - Aber klar

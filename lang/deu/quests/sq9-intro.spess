@@ -1,13 +1,13 @@
 # intro/intro-chat
 ~ semi-spy
-| Aha, {(nametag player)}. Super timing.
+| Aha, {(nametag player)}. Super Timing.
 ~ player
 | "Warum flüstert sie? Ihre Augen zucken auch wild hin und her."(light-gray, italic)
 ~ semi-spy
 | Ich bin ein Jäger von den Semis, bei einer geheimen Mission. Aber ich glaube jemand ist mir auf der Spur.
 ! eval (setf (nametag (unit 'semi-spy)) (@ semi-spy-nametag))
 ~ semi-spy
-| Kannst du mir helfen? Ich muss geschäftig aussehen. Zum beispiel könnte ich "Rennen"(orange) organisieren.
+| Kannst du mir helfen? Ich muss geschäftig aussehen. Zum Beispiel könnte ich "Rennen"(orange) organisieren.
 ~ player
 - Ich helf dir
   ~ semi-spy
@@ -22,8 +22,8 @@
 ~ semi-spy
 | Ich hab den Bereich ziemlich gut erkundigt, und einige Flasken versteckt.
 | "Hol dir eine Flaske, und bring sie mir zurück."(orange)
-| Ich geb dir auch ein paar Zeitlimiten die ich mal so ungefähr ausgewählt hab. Es muss ja realistisch wirken.
-| {#@innis-nametag} hat mir auch eine grosszügigen Lohn gegeben, also kann ich dich "für erfolgreiche Rennen belohnen"(orange).
+| Ich gebe dir auch ein paar Zeitlimiten die ich mal so ungefähr ausgewählt hab. Es muss ja realistisch wirken.
+| {#@innis-nametag} hat mir auch eine großzügigen Lohn gegeben, also kann ich dich "für erfolgreiche Rennen belohnen"(orange).
 | "Gib mir einen Moment,"(orange) ich muss einen Anruf machen, dann können wir "anfangen"(orange).
 ! eval (activate 'sq9-race)
 ! eval (complete task)
@@ -31,4 +31,4 @@
 
 # leave
 ~ semi-spy
-| OK, aber wenn du dich noch anders entscheidest, würd ich das schätzen.
+| OK, aber wenn du dich noch anders entscheidest, würde ich das schätzen.

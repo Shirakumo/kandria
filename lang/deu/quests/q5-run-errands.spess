@@ -28,7 +28,7 @@
   | Und wer weiss, vielleicht würde das auch meine Schwester etwas besänftigen.
 - Was für Dinge?
   ~ islay
-  | Innis gibt das nicht gerne zu, aber es gibt sachen bei denen uns du alleine helfen kannst.
+  | Innis gibt das nicht gerne zu, aber es gibt Sachen bei denen uns du alleine helfen kannst.
 - [(var 'android-soft) Wird {#@innis-nametag} nicht denken, dass du zu nett bist mit Androiden?]
   ~ islay
   | ... Touché.
@@ -43,12 +43,12 @@
   | Komm schon, einen Versuch ist es wert.
 ~ islay
 | Ich kann dir auch was Anbieten dafür.
-| Du könntest sagen, dass ich der Hauptingenieur binn hier. Genau wie {#@jack-nametag} für die Noka.
+| Du könntest sagen, dass ich der Hauptingenieur bin hier. Genau wie {#@jack-nametag} für die Noka.
 | Wir haben die üblichen Händler, aber ich kann dir ein besseres Angebot machen - und "ich hab ein grösseres Inventar"(orange).
-| Ich schick dich nicht gerne zurück zu meiner Schwester, aber sie weiss besser über deine Aufgaben bescheid als ich.
+| Ich schick dich nicht gerne zurück zu meiner Schwester, aber sie weiß besser über deine Aufgaben Bescheid als ich.
 | Ich weiss nur, dass wir "blockierte Ingenieure"(orange) nach einem Tunnelkollaps "im hohen Westen"(orange) haben.
 | Und "4 unserer CCTV Kameras im tiefen Osten"(orange) sind offline gegangen.
-| Es hatt sich auch bereits rumgesprochen, dass du da bist. "Womöglich gibt es noch andere, die Aufgaben für dich haben"(orange).
+| Es hatt sich auch bereits herumgesprochen, dass du da bist. "Womöglich gibt es noch andere, die Aufgaben für dich haben"(orange).
 | Also "überlass {#@alex-nametag} mir und sprich mit {#@innis-nametag}"(orange) - sie ist im "Kontrollraum über uns"(orange).
 | Bis später, {(nametag player)}.
 ! eval (stop-following 'islay)

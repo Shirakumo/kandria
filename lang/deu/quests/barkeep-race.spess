@@ -48,9 +48,9 @@
 
 # return
 ~ semi-barkeep
-| Uuuund Stop!
+| Uuuund Stopp!
 | Okey, zeig mir den Core... Hmm, ja die Seriennummer passt.
-| Das hast du in "{(format-relative-time (clock quest))}"(orange) geschaft.
+| Das hast du in "{(format-relative-time (clock quest))}"(orange) geschafft.
 ? (and pb (< pb (clock quest)))
 | | Leider "keine Verbesserung"(orange) im Vergleich zu deinem Rekord "{(format-relative-time (clock pb))}"(orange).
 |?
@@ -64,7 +64,7 @@
 | | ~ semi-barkeep
 | | | Erstaunlich. Deine Belohnung dafür: "500 Bruchteile"(orange).
 | | ! eval (store 'item:parts 500)
-| | ! eval (status "Received 500 Scrap Part")
+| | ! eval (status "500 Bruchteile Erhalten")
 | | | Aber hast du noch mehr drauf?
 | |? (< pb silver)
 | | | Nicht schlecht! Besser als unsere "silber"(orange) Zeit. Nicht ganz Spitzenzeit, aber...
@@ -73,7 +73,7 @@
 | | ~ semi-barkeep
 | | | Deine Belohnung: "300 Bruchteile"(orange).
 | | ! eval (store 'item:parts 300)
-| | ! eval (status "Received 300 Scrap Part")
+| | ! eval (status "300 Bruchteile Erhalten")
 | |? (< pb bronze)
 | | | Und damit hast du unsere "bronze"(orange) Zeit geschlagen. Nicht schlecht.
 | | ~ semi-patron-1
@@ -81,7 +81,7 @@
 | | ~ semi-barkeep
 | | | Hier deine Belohnung: "200 Bruchteile"(orange).
 | | ! eval (store 'item:parts 200)
-| | ! eval (status "Received 200 Scrap Part")
+| | ! eval (status "200 Bruchteile Erhalten")
 | |?
 | | | Nicht mals besser als unsere "bronze"(orange) Zeit. Sad!
 | | ~ semi-patron-2

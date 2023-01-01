@@ -56,10 +56,10 @@
 | "Überprüfe FFCS..."(light-gray, italic)
 | Nein. "Es gibt immernoch Interferenz"(orange).
 ~ fi
-| (:unsure)Dann werden sie wohl bald angreiffen.
+| (:unsure)Dann werden sie wohl bald angreifen.
 | (:normal)OK, "nimm dieses Walkie"(orange) - sie antwortet nicht, "aber vielleicht ruft sie an wenn sie Hilfe braucht"(orange).
 ! eval (store 'item:walkie-talkie-2 1)
-! eval (status "Received 1 Walkie-Talkie")
+! eval (status "1 Walkie-Talkie Erhalten")
 | Ich vermute sie ist zuerst "zum Pumpenraum gegangen"(orange) da es am nächsten an der Grenze liegt.
 | (:annoyed)Sie hat auch "den Detonator genommen"(orange)...
 ! eval (follow 'player 'catherine)

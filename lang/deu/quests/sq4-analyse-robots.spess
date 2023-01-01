@@ -21,7 +21,7 @@
   ~ semi-roboticist
   | Interessant.
 ~ semi-roboticist
-| "Frage #2"(orange): Hatten sie irgendwelche Strategien genutzt, wie in Wellen anzugreiffen?
+| "Frage #2"(orange): Hatten sie irgendwelche Strategien genutzt, wie in Wellen anzugreifen?
 ~ player
 - Es war ein Durcheinander
   ~ semi-roboticist
@@ -52,13 +52,13 @@
   ~ semi-roboticist
   | Mhm. Wie viele?
   ~ player
-  - Mehrere? Weiss nicht mehr genau
+  - Mehrere? Weiß nicht mehr genau
     ~ semi-roboticist
     | Gut genug.
   - Acht.
     ~ semi-roboticist
-    | Oho, sogar in mitte des Kampfes noch gezählt? Beeindruckend.
-  - Ich weiss nicht.
+    | Oho, sogar in Mitte des Kampfes noch gezählt? Beeindruckend.
+  - Ich weiß nicht.
     ~ semi-roboticist
     | Kein Problem.
 - (Lüge) Sie waren alleine
@@ -84,7 +84,7 @@
   - Frag das nächste mal
     ~ semi-roboticist
     | Selbstverständlich.
-    | Als entschädigung "drück ich deine Belohnung auf 500 Bruchteile"(orange) rauf.
+    | Als Entschädigung "drück ich deine Belohnung auf 500 Bruchteile"(orange) rauf.
     < big-reward
   - Ich will eine Entschädigung
     ~ semi-roboticist

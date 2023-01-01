@@ -19,7 +19,7 @@
 ~ player
 - Ich wurde abgelenkt
   ~ fi
-  | (:annoyed)Abgelenkt? War das wichter als {#@alex-nametag} zurück zu bringen?
+  | (:annoyed)Abgelenkt? War das wichtiger als {#@alex-nametag} zurück zu bringen?
 - {#@alex-nametag} kommt noch nicht zurück
   ~ fi
   | (:unsure)... Was ist passiert?
@@ -36,8 +36,8 @@
 ~ fi
 | (:unsure)Oh...
 ~ player
-| Er hatt auch gesagt, dass er die Region unter den Semis aufgezeichnet hatt, und könnte etwas über die Wraw erfahren haben.
-| Aber er war nicht bereit mir mehr zu erzählen. {#@islay-nametag} hatt mit ihm gesprochen während dem ich ein paar Aufgaben für sie erledigt hab.
+| Er hat auch gesagt, dass er die Region unter den Semis aufgezeichnet hat, und könnte etwas über die Wraw erfahren haben.
+| Aber er war nicht bereit mir mehr zu erzählen. {#@islay-nametag} hat mit ihm gesprochen während dem ich ein paar Aufgaben für sie erledigt hab.
 ~ fi
 | (:annoyed)Verdammt. Dafür haben wir keine Zeit.
 | {#@alex-nametag} hatte dieses Problem auch schon früher.
@@ -52,9 +52,9 @@
 ~ player
 | {#@innis-nametag} denkt, dass die Wraw die Cerebat invadiert haben und sie als nächstes dran kommen.
 ~ fi
-| (:annoyed)Aha. Und was hatt sie als Beweismittel dafür?
+| (:annoyed)Aha. Und was hat sie als Beweismittel dafür?
 ~ player
-| Eine Bande Rogues hatt die Grenze überquert und ihre Kameras sabotiert.
+| Eine Bande Rogues hat die Grenze überquert und ihre Kameras sabotiert.
 ~ fi
 | Und sonst noch was?
 ~ player
@@ -95,10 +95,10 @@
   | {#@catherine-nametag} ist uns wertvoll, natürlich. Aber sie ist auch unsere Freundin.
 ~ fi
 | (:annoyed)Sie haben sie wie Dreck behandelt, genau wie dich auch.
-| {#@innis-nametag} täuscht das nur vor. Sie ist ein Spion, und eine unmögliche Person. (:normal)Aber sie ist keine Mörderinn. Sie wird das Wasser nicht abschalten.
-| (:normal)Und wegen den Cerebat: Ich weiss du hast die Rogues gesehen, aber das ist noch kein Beweis.
-| (:happy)Es gibt einige davon im Cerebat gebiet.
-| (:normal)Die Wraw schummlen herum im Markt, aber eine Invasion geht zu weit.
+| {#@innis-nametag} täuscht das nur vor. Sie ist ein Spion, und eine unmögliche Person. (:normal)Aber sie ist keine Mörderin. Sie wird das Wasser nicht abschalten.
+| (:normal)Und wegen den Cerebat: Ich weis du hast die Rogues gesehen, aber das ist noch kein Beweis.
+| (:happy)Es gibt einige davon im Cerebat Gebiet.
+| (:normal)Die Wraw schummeln herum im Markt, aber eine Invasion geht zu weit.
 | Sie wollen uns, nicht die Cerebat. Und bestimmt nicht die Semis.
 | Ihr Anführer, "{#@zelah-nametag}"(yellow), nimmt immer den einfachen Weg. Er kämpft nicht gerne und geht einfach den schwachen hinterher.
 ~ fi

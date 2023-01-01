@@ -3,17 +3,17 @@
 | Okey, da ist ein Leck.
 | Merkwürdig, die Leitung hat einen Sprung.
 ~ player
-- Kannst du es schliessen?
+- Kannst du es schließen?
   ~ catherine
   | Natürlich. Dem Ingenieur ist nix zu schwör!
 - Wie ist es dazu gekommen?
   ~ catherine
-  | Höchstwahrscheinlich durch eine Absinkung, aber es gibt kein Zeichen eines Erdrutsches.
+  | Höchstwahrscheinlich durch eine Absenkung, aber es gibt kein Zeichen eines Erdrutsches.
 - Warum ist es merkwürdig?
   ~ catherine
-  | Normalerweise enstehen diese Sprünge durch Absenkungen, aber ich sehe kein Erdrutsch hier.
+  | Normalerweise entstehen diese Sprünge durch Absenkungen, aber ich sehe kein Erdrutsch hier.
 ~ catherine
-| Wie auch immer, los gehts. Achtung, das Schweissgerät ist sehr hell!
+| Wie auch immer, los gehts. Achtung, das Schweißgerät ist sehr hell!
 ~ player
 | "{#@catherine-nametag} sieht furchterregend aus mit der Lötbrille."(light-gray, italic)
 ~ player
@@ -44,7 +44,7 @@
   | (:thinking)Ich kann mich auch an nicht viel anderes erinnern.
   ~ catherine
   | Ich bin mir sicher, dass das in Ordnung ist. Wahrscheinlich nur ein bisschen Datenverlust.
-- Natürlich haben wir namen!
+- Natürlich haben wir Namen!
   ~ catherine
   | (:concerned)Klar, sorry. Was ist deiner?
   ~ player
@@ -59,11 +59,11 @@
   ~ catherine
   | (:concerned)Wirklich? Das tut mir leid.
   ~ player
-  | (:thinking)Viel Anderes schein ich auch vergessen zu haben.
+  | (:thinking)Viel Anderes scheine ich auch vergessen zu haben.
   ~ catherine
   | Mach dir keine Sorgen, wahrscheinlich nur ein bisschen Datenverlust.
 ~ catherine
-| Na, bis es dir wieder in den Sinn kommt, oder du weisst, wie du genannt werden willst, nenn ich dich einfach (:excited)"__{#@player-name-1}__"(yellow).
+| Na, bis es dir wieder in den Sinn kommt, oder du weißt, wie du genannt werden willst, nenn ich dich einfach (:excited)"__{#@player-name-1}__"(yellow).
 ! eval (setf (nametag player) (@ player-name-1))
 | (:excited)Ziemlich cool, oder?
 | (:normal)OK, wir müssen der Leitung "weiter nach unten folgen"(orange).
@@ -79,19 +79,19 @@
 | (:concerned)Wir sind im "Mittwest-Markt"(red) - genau wie zuvor, die Leitung hat Sprünge, aber es gibt kein Zeichen eines Erdrutsches.
 ~ jack
 | ...
-| (:annoyed)Das muss sabotage sein, ich wusste es!
+| (:annoyed)Das muss Sabotage sein, ich wusste es!
 | (:normal)OK, wart auf mich, ich komm runter.
 ~ catherine
 | Nein! Ich kanns reparieren. Mach dir keine Sorgen.
 ~ jack
-| OK, sei nur vorsichtig. Ich geb den anderen Bescheid.
+| OK, sei nur vorsichtig. Ich gebe den anderen Bescheid.
 | Um auf Sicher zu gehen, "folg der Leitung bis zur Pumpe"(orange).
-| Das Walkie wird dort unten nicht funktionieren, also nutz einfach das Telefon.
+| Das Walkie wird dort unten nicht funktionieren, also nutze einfach das Telefon.
 ~ catherine
-| Ok, lass mich das auch schweissen.
+| Ok, lass mich das auch schweißen.
 ! eval (start-animation 'repair2 'catherine)
 ! eval (setf (animation (unit 'main-leak-2)) 'normal)
-| (:concerned)Wart ma... wer ist das?
+| (:concerned)Wart mal... wer ist das?
   
 # 11-interact-catherine/interaction
 ~ catherine
@@ -106,10 +106,10 @@
 | ~ player
 | - Ich glaube wir haben die Saboteure gefunden
 |   ~ catherine
-|   | (:excited)"Schiess los!"(orange)
+|   | (:excited)"Schieß los!"(orange)
 | - Roboter mit Servos?
 |   ~ catherine
-|   | (:excited)Keine Zeit! "Schiess los!"(orange)
+|   | (:excited)Keine Zeit! "Schieß los!"(orange)
 | - (Kämpfen)
 | ! eval (setf (var 'servos-cath-know) T)
 |?
@@ -118,10 +118,10 @@
 | ~ player
 | - Was ist los?
 |   ~ catherine
-|   | (:concerned)Das war bestimmt eine "Servo"(red) sabotage!
+|   | (:concerned)Das war bestimmt eine "Servo"(red) Sabotage!
 | - Was siehst du?
 |   ~ catherine
-|   | (:concerned)Das war bestimmt eine "Servo"(red) sabotage!
+|   | (:concerned)Das war bestimmt eine "Servo"(red) Sabotage!
 | - Es hatte ein paar Roboter hier
 |   ~ catherine
 |   | (:concerned)"Servos"(red)? Wo sind sie?
@@ -182,7 +182,7 @@
 - Sie sind jetzt bloss noch Trümmer auf dem Boden.
 ~ jack
 | (:annoyed)...
-| (:normal)Servos, hm?... Wenn wir uns nicht mit denen rumschlagen müssen, dann sinds "Rogues"(red).
+| (:normal)Servos, hm?... Wenn wir uns nicht mit denen rumschlagen müssen, dann sind es "Rogues"(red).
 ~ jack
 | OK, "sag Catherine sie soll so schnell wie möglich zurück kommen"(orange).
 | Und "du auch"(orange), //Android// - "{#@fi-nametag}"(yellow) hat Etwas vor.
@@ -231,13 +231,13 @@
 ~ catherine
 | (:cheer)Wir sind wieder da! Habt ihr uns vermisst?
 ~ jack
-| (:annoyed)Ich seh wohl nicht recht.
+| (:annoyed)Ich sehe wohl nicht recht.
 ~ catherine
 | Was ist los? Hast du gedacht ich komm nicht in einem Stück zurück?
 ~ jack
 | (:annoyed)Etwas in diese Richtung, ja.
 ~ fi
-| Gute Arbeit, {#@catherine-nametag}. Ein Android ist ein grosser Vorteil für uns.
+| Gute Arbeit, {#@catherine-nametag}. Ein Android ist ein großer Vorteil für uns.
 | "Zumindest, wenn wir ihr vertrauen können"(orange).
 ~ catherine
 | (:concerned)Was meinst du?
@@ -257,7 +257,7 @@
 | | ~ catherine
 | | Aber ich hab den Schaden gesehen, den die Servos angerichtet haben. Es kann nicht sie gewesen sein!
 | ~ jack
-| | Woher weisst du das?
+| | Woher weißt du das?
 | | Und es gibt noch eine andere Möglichkeit.
   
 ~ jack
@@ -265,8 +265,8 @@
 ~ catherine
 | (:concerned)...
 | (:concerned)Androide haben ein FFCS- ein Fernkommunikationsmodul.
-| Es ist plausibel, dass sowas bessere verbindung hat im Untergrund als unsere Radios.
-| (:normal)Aber ich glaub dennoch nicht, dass sie es war. Sie war für Jahrzente ausser Betrieb, ich bin mir sicher.
+| Es ist plausibel, dass sowas bessere Verbindung hat im Untergrund als unsere Radios.
+| (:normal)Aber ich glaub dennoch nicht, dass sie es war. Sie war für Jahrzehnte außer Betrieb, ich bin mir sicher.
 | Und seit sie wieder online ist, war sie immer bei mir!
 ~ jack
 | Aber was wissen wir schon über Androide? Gar nix!
@@ -293,7 +293,7 @@
   ~ catherine
   | (:concerned)...
   | (:excited)Ja klar, sie ist ein totaler Verräter!
-  | (:concerned)Kommt schon! Ich weiss ich bin gutgläubig, aber denkt ihr wirklich ich hätte es nicht bemerkt wenn sonst noch etwas los wäre?
+  | (:concerned)Kommt schon! Ich weiß ich bin gutgläubig, aber denkt ihr wirklich ich hätte es nicht bemerkt wenn sonst noch etwas los wäre?
   ~ fi
   | OK. As ist wohl kaum eine definitive Antwort, aber ich hoffe {#@catherine-nametag} hat recht.
   | (:annoyed)(:annoyed)Wenn nicht, dann wissen die Wraw unseren Standort und sind sicher schon
@@ -302,7 +302,7 @@
 ~ fi
 | Was für eine Wahl hab ich?
 ~ jack
-| Nimm das Ding auseinander, untersuch es.
+| Nimm das Ding auseinander, untersuche es.
 ~ fi
 | (:unsure){#@catherine-nametag}, haben Androiden nicht eine Black-Box oder sowas? Können wir irgendwie rausfinden, was sie gemacht hat?
 ~ catherine
@@ -325,23 +325,23 @@
   ~ fi
   | "Das" ist eine Person, {#@jack-nametag}. Ich erwarte, dass du sie auch so behandelst.
   | Ich vertraue {#@catherine-nametag}. Für den Moment ist {(nametag player)} unser Gast.
-  | Wie auch immer, {#@jack-nametag}, sprich mit "{#@trader-nametag}"(yellow) wenn er ankommt, vielleicht weiss er über Androide bescheid.
+  | Wie auch immer, {#@jack-nametag}, sprich mit "{#@trader-nametag}"(yellow) wenn er ankommt, vielleicht weiß er über Androide Bescheid.
   ~ jack
   | (:annoyed)Wenn es sein muss.
 - Wieso auch nicht
   ~ fi
-  | Gut. {#@jack-nametag}, sprich mit "{#@trader-nametag}"(yellow) wenn er ankommt, vielleicht weiss er bescheid.
+  | Gut. {#@jack-nametag}, sprich mit "{#@trader-nametag}"(yellow) wenn er ankommt, vielleicht weiß er Bescheid.
   ~ jack
   | (:annoyed)Wenn es sein muss.
 - Solange ich danach noch online bin
   ~ catherine
   | Das geht klar.
   ~ fi
-  | Ok. {#@jack-nametag}, sprich mit "{#@trader-nametag}"(yellow) wenn er ankommt, vielleicht weiss er bescheid.
+  | Ok. {#@jack-nametag}, sprich mit "{#@trader-nametag}"(yellow) wenn er ankommt, vielleicht weiß er Bescheid.
   ~ jack
   | (:annoyed)Wenn es sein muss.
 ~ fi
-| (:annoyed)Wie dem auch sei, ich bin mir sicher, dass "die Wraw unsere Angreiffer sind"(orange).
+| (:annoyed)Wie dem auch sei, ich bin mir sicher, dass "die Wraw unsere Angreifer sind"(orange).
 | Was bedeutet, dass sie bald unseren Standort entdecken werden.
 | (:normal)"Ich muss unsere nächsten Schritte planen"(orange).
 ~ catherine
@@ -360,7 +360,7 @@
 | (:normal)Oh, hier, das hab ich fast vergessen:
 | "Hier sind ein paar Bruchteile"(orange). Als Dankeschön.
 ! eval (store 'item:parts 200)
-! eval (status "Received 200 Scrap Part")
+! eval (status "200 Bruchteile Erhalten")
 | Das ist nicht viel, aber du kannst mit denen "handeln"(orange). Oder zumindest "sobald {#@trader-nametag} hier ist"(orange).
 | (:concerned)Er ist verspätet, was eigentlich nicht normal ist. Vielleicht haben ihn die Servos abgeschreckt.
 | (:normal)Wie auch immer, mach dir keine Sorgen um {#@jack-nametag} und {#@fi-nametag}. Ich bin mir sicher sie sehen bald, was ich sehe: (:excited)Eine __Superheldin__ die uns beschützen kann!

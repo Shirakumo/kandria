@@ -1,7 +1,7 @@
 # task-reminder/interact-reminder-innis
 ~ innis
 | (:angry)Du solltest dich auf den Weg machen. {#@islay-nametag} braucht "10 Sprengkapseln"(orange) und "20 Sprengmaterialien"(orange) für die Bombe.
-| (:sly)Viel Spass im "Wraw Gebiet"(orange).
+| (:sly)Viel Spaß im "Wraw Gebiet"(orange).
 ~ player
 | "Ich muss die "Wraw Fabriken and Lagerräume untersuchen"(orange). Im Moment habe ich: "{(item-count 'item:blasting-cap)} Sprengkapseln"(orange), "{(item-count 'item:charge-pack)} Sprengmaterialien"(orange)."(light-gray, italic)
 
@@ -12,9 +12,9 @@
 - Danke.
   ~ fi
   | (:happy)Natürlich.
-- {#@islay-nametag} hat das meisste gemacht
+- {#@islay-nametag} hat das meiste gemacht
   ~ fi
-  | Sie kennt {#@innis-nametag} am bessten.
+  | Sie kennt {#@innis-nametag} am besten.
   | Aber ohne dich hätte dieses Gespräch überhaupt nicht statt gefunden.
   ~ player
   - Da hast du recht
@@ -38,7 +38,7 @@
 ~ player
 - Du denkst nicht, dass wir gewinnen?
   ~ fi
-  | {#@islay-nametag} sagt wir haben gute Chancen. (:unsure)Aber sie sagt auch sie wisse nicht wie gross die Wraw Armee ist.
+  | {#@islay-nametag} sagt wir haben gute Chancen. (:unsure)Aber sie sagt auch sie wisse nicht wie groß die Wraw Armee ist.
   | Bombe oder nicht, das gibt mir keine Zuversicht.
   < questions
 - Was für Waffen haben wir?
@@ -58,7 +58,7 @@
     ~ fi
     | Wenn alles gut geht, dann musst du das auch nicht.
   < questions
-- Was haltest du von der Bombe?
+- Was halltest du von der Bombe?
   ~ fi
   | Es ist eine mutige Idee, und könnte funktionieren.
   | (:unsure)Aber ich mache mir Sorgen über die breiteren Konsequenzen davon. Es könnte das ganze Tal destabilisieren.
@@ -72,7 +72,7 @@
   < questions
 - Ich sollte gehen
   ~ fi
-  | Wenn du "alle Bombenteile hast, bring si zu {#@islay-nametag}"(orange).
+  | Wenn du "alle Bombenteile hast, bring sie zu {#@islay-nametag}"(orange).
   | Bis bald.
 
 # task-return/components-return
@@ -81,9 +81,9 @@
 ? (or (> 10 (item-count 'item:blasting-cap)) (> 20 (item-count 'item:charge-pack)))
 | ~ islay
 | | Wir haben nicht viel Zeit, {(nametag player)}!
-| | "Durchsuch das Wraw Gebiet nach den Bombenteilen"(orange).
+| | "Durchsuche das Wraw Gebiet nach den Bombenteilen"(orange).
 | ~ player
-| | "Ich muss die "Wraw Fabriken and Lagerräume untersuchen"(orange). Im Moment habe ich: "{(item-count 'item:blasting-cap)} Sprengkapseln"(orange), "{(item-count 'item:charge-pack)} Sprengmaterialien"(orange)."(light-gray, italic)
+| | "Ich muss die "Wraw Fabriken und Lagerräume untersuchen"(orange). Im Moment habe ich: "{(item-count 'item:blasting-cap)} Sprengkapseln"(orange), "{(item-count 'item:charge-pack)} Sprengmaterialien"(orange)."(light-gray, italic)
 |?
 | ~ islay
 | | [(< 30 (+ (item-count 'item:blasting-cap) (item-count 'item:charge-pack))) Oho, mehr als nötig, sogar! | Ja das ist alles, klasse!]

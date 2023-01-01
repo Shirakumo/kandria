@@ -1,6 +1,6 @@
 # intro/intro-chat
 ~ cerebat-good-trader
-| Ich will dich nicht stören, aber ich weiss sonst nicht weiter.
+| Ich will dich nicht stören, aber ich weiß sonst nicht weiter.
 ~ player
 - Kein Problem
 - Ich hab keine Zeit
@@ -12,7 +12,7 @@
 ! eval (setf (nametag (unit 'cerebat-good-trader)) (@ cerebat-good-trader-nametag))
 ~ cerebat-good-trader
 | Aber wenn du "das Kollegium wieder zurückbringen kannst"(orange)...
-| Ich meine, die Wraw hätten bestimmt nicht freude, aber wir könnten dann zumindest Wiederstand leisten.
+| Ich meine, die Wraw hätten bestimmt nicht Freude, aber wir könnten dann zumindest Widerstand leisten.
 ~ player
 - Ich bin dabei
 - Sind sie nicht tot?
@@ -43,7 +43,7 @@
   < questions
 - Was wenn sie tot sind?
   ~ cerebat-good-trader
-  | Dann seh ich nur schwarz, und zwar nicht nur für uns, sondern für alle.
+  | Dann sehe ich nur schwarz, und zwar nicht nur für uns, sondern für alle.
   | Das Kollegium ist unersetzbar. Ohne sie haben wir keine Chance gegen die Wraw.
   | Wir sind nur ein paar Händler, alle zu eigensinnig.
   ~ player

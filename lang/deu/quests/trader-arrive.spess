@@ -16,7 +16,7 @@
 |   | (:jolly)Kein Problem. Schön dich kennen zu lernen, {(player nametag)}!
 |?
 | ~ player
-| - Ich heisse {(nametag player)}
+| - Ich heiße {(nametag player)}
 |   ~ trader
 |   | Aha, {#@trader-nametag} hatte also alte Info. Tut mir leid, Habibti.
 |   ! eval (setf (nametag (unit 'trader)) (@ trader-nametag))
@@ -45,16 +45,16 @@
   | {#@catherine-nametag} hat gesagt du hättest ihr geholfen, und ein paar Servos aufgeräumt.
 - Was brauch ich?
   ~ trader
-  | Was weiss ich?
+  | Was weiß ich?
   | {#@catherine-nametag} hat gesagt du hättest ihr geholfen, und ein paar Servos aufgeräumt.
 - Ich komm aleine klar
   ~ trader
   | Ah pisch posch! Du hast {#@catherine-nametag} geholfen, und Servos aufgeräumt noch dazu!
 ~ trader
-| Das Wenigste, das ich tun kann is dir zu helfen im besten Zustand zu bleiben.
+| Das Wenigste, das ich tun kann ist dir zu helfen im besten Zustand zu bleiben.
 | Ich hab über Androide gehört - ihr seid anders als diese Servos. Geht viel mehr los hier oben, das ist klar.
 ~ player
-| "Ich wünnschte nur das hier oben hätte nicht einfach das Gedächtnis verloren..."(light-gray, italic)
+| "Ich wünschte nur das hier oben hätte nicht einfach das Gedächtnis verloren..."(light-gray, italic)
 ~ trader
 | Schau mal, ich kann dir sicher was nützliches basteln.
 ~ player
@@ -71,12 +71,12 @@
   | (:jolly)Keine Sache!
 - Woher hast du das alles bekommen?
   ~ trader
-  | Ich treffe alle möglichen Leute auf meinem Weg, und manchmal find ich auch selber nützliches.
+  | Ich treffe alle möglichen Leute auf meinem Weg, und manchmal finde ich auch selber nützliches.
 - Ist das gratis?
   ~ trader
   | (:jolly)Ha ha, leider nicht. Ein Händler muss auch überleben.
   | Aber meine Preise sind fair, das kann ich dir garantieren!
 ~ trader
-| Gib mir bescheid "wenn du handeln möchtest"(orange), OK?
+| Gib mir Bescheid "wenn du handeln möchtest"(orange), OK?
 | (:jolly)Machs gut, Habibti.
 

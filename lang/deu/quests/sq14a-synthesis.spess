@@ -4,14 +4,14 @@
 ? (> 4 (item-count 'item:mushroom-bad-1))
 | ~ synthesis
 | | Schnell! Wir "brauchen Schwarze Pilze - 4 davon"(orange).
-| | "Durchsuch die Siedlung oben, oder die Hölen."(orange)
+| | "Durchsuche die Siedlung oben, oder die Höhlen."(orange)
 | ~ player
 | | "Ich habe "{(item-count 'item:mushroom-bad-1)} Schwarze Pilze"(orange)."(light-gray, italic)
 |?
 | ~ synthesis
 | | (:grin)Das ist gut. Gib sie her.
 | | ! eval (retrieve 'item:mushroom-bad-1 4)
-| | ! eval (status "Lost 4 Black Cap")
+| | ! eval (status "4 Schwarze Pilze Verloren")
 | < result
 
 # result
@@ -51,11 +51,11 @@
   | (:grin)Wenn du mehr wissen willst.
 - Woher weiss ich, dass ich dir vertrauen kann?
   ~ synthesis
-  | (:grin)Weisst du nicht.
+  | (:grin)Weißt du nicht.
 - Da hab ich keine Lust
   ~ synthesis
   | (:grin)Wenns so sein muss.
-  | Aber "unser Angebot bleibt"(orange). Wir Aussenseiter müssen zusammen bleiben.
+  | Aber "unser Angebot bleibt"(orange). Wir Außenseiter müssen zusammen bleiben.
   < end
 ~ synthesis
 | (:grin)"Mach nach was wir gefragt haben und wir sehen weiter."(orange)

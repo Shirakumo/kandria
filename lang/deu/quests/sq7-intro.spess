@@ -2,7 +2,7 @@
 ~ catherine
 | Ich hab ein "kleines Projekt bei dem du helfen könntest"(orange), falls du Zeit hast.
 | Es ist nicht enorm wichtig, aber ich denke es könnte uns in der Zukunft retten: "Wind Energie"(orange)!
-| (:excited)Ich weiss nicht ob du das bemerkt hast, aber ist ziemlich windig hier, zum teil sogar mit Stürmen. Ich will "Windturbinen bauen"(orange).
+| (:excited)Ich weiß nicht ob du das bemerkt hast, aber ist ziemlich windig hier, zum teil sogar mit Stürmen. Ich will "Windturbinen bauen"(orange).
 | Ziemlich cool, oder?
 ~ player
 - Da bin ich dabei
@@ -19,7 +19,7 @@
 ~ catherine
 | Erst brauch ich einige wichtige Bauteile: "Anemometer"(orange), "Scheibenbremsen"(orange), "Transformer"(orange).
 | "Je 5"(orange) sollte für den Anfang reichen, denke ich. Ich kann dich auch "bezahlen"(orange).
-| Die "Semis sollten welche rumliegen haben"(orange). Und "die Cerebats auch, mit ihren Windtunnell."(orange).
+| Die "Semis sollten welche rumliegen haben"(orange). Und "die Cerebats auch, mit ihren Windtunnel."(orange).
 | Danke, {(nametag player)}.
 ? (and (<= 5 (item-count 'item:anemometer)) (<= 5 (item-count 'item:disc-brake)) (<= 5 (item-count 'item:transformer)))
 | ~ player

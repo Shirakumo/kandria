@@ -1,20 +1,20 @@
 # wraw-objective/reminder
 ~ fi
-| (:unsure)Du bist wieder da, aber du musst immernoch "tief in das Wraw Gebiet"(orange) und "rausfinden was {#@zelah-nametag} vor hat"(orange).
+| (:unsure)Du bist wieder da, aber du musst immer noch "tief in das Wraw Gebiet"(orange) und "rausfinden was {#@zelah-nametag} vor hat"(orange).
 | (:normal)Versuch es in der "Hauptkammer im Westen ihres Gebiets"(orange).
-| "Gib mir bescheid sobald du kannst"(orange).
+| "Gib mir Bescheid sobald du kannst"(orange).
 ~ player
 | "Ich habe alle möglichen Orte auf meiner Karte markiert."(orange, italic)
 
 # wraw-warehouse/warehouse
 ~ player
 | "Dieses Warenhaus hat einiges an Ressourcen."(light-gray, italic)
-| (:thinking)"Mit dem geothermischen Generatur und all diesen Öl-Reserven könnten sie sicher "Massenproduktion"(orange) einleiten."(light-gray, italic)
+| (:thinking)"Mit dem geothermischen Generator und all diesen Öl-Reserven könnten sie sicher "Massenproduktion"(orange) einleiten."(light-gray, italic)
 ? (complete-p 'q10-boss)
 | ~ player
 | | (:normal)"Sie könnten "das ganze Tal übernehmen"(orange)."(light-gray, italic)
 | | "Ich muss "{#@fi-nametag} kontaktieren"(orange)."(light-gray, italic)
-| | "... "Das FFCS kommt nicht durch"(orange) - womöglich zu viel interferenz hier unten."(light-gray, italic)
+| | "... "Das FFCS kommt nicht durch"(orange) - womöglich zu viel Interferenz hier unten."(light-gray, italic)
 | | "Ich sollte mich besser "vom Acker machen"(orange) und "meinen Report abliefern"(orange)."(light-gray, italic)
 | ! eval (complete 'wraw-objective)
 | ! eval (activate 'q10a-return-to-fi)

@@ -9,7 +9,7 @@
 | "Das ist "Leck #1"(red)."(light-gray, italic)
 | "Es hat ein Loch, gleich wo die Leitung um die Ecke muss hier."(light-gray, italic)
 ? (not (var 'first-leak))
-| | "Zum glück hab ich einen eingebauten Schweissaparat."(light-gray, italic)
+| | "Zum Glück hab ich einen eingebauten Schweissaparat."(light-gray, italic)
 | | [(var 'q1-weld-burn) (:embarassed)"Und diesmal aktivier ich auch die UV Filter."(light-gray, italic) | (:normal)"UV Filter, an!"(light-gray, italic)]
 | | (:normal)"Und fertig."(light-gray, italic)
 | ! eval (setf (animation (unit 'leak-1)) 'normal)
@@ -19,7 +19,7 @@
 | | {#@catherine-nametag}, Ich hab eines der Lecke geschlossen.
 | ~ catherine
 | | Gut gemacht, der Druck ist bereits um einiges besser.
-| | "Dann nur weiter so"(orange) - Gib mir bescheid wenn es Probleme gibt.
+| | "Dann nur weiter so"(orange) - Gib mir Bescheid wenn es Probleme gibt.
 | ~ player
 | | "OK, "2 Lecke"(orange) sind noch übrig."(light-gray, italic)
 | ! eval (setf (var 'first-leak) T)
@@ -55,10 +55,10 @@
 # leak-second/leak-2
 ~ player
 | "Das ist "Leck #2"(red)."(light-gray, italic)
-| "The pipe has split. There's no subsidence, but it's close to {#@catherine-nametag}'s previous repair - I wonder if she damaged it by accident."(light-gray, italic)
+| "Es hat einen Sprung in der Leitung. Keinen Erdrutsch, aber es ist nahe bei der Stelle die {#@catherine-nametag} repariert hatte - Ich frage mich ob sie es beschädigt hat."(light-gray, italic)
 ? (not (var 'first-leak))
-| | "Zum glück hab ich einen eingebauten Schweissaparat."(light-gray, italic)
-| | [(var 'q1-weld-burn) (:embarassed)"Und diesmal aktivier ich auch die UV Filter."(light-gray, italic) | (:normal)"UV Filter, an!"(light-gray, italic)]
+| | "Zum Glück hab ich einen eingebauten Schweissaparat."(light-gray, italic)
+| | [(var 'q1-weld-burn) (:embarassed)"Und diesmal aktiviere ich auch die UV Filter."(light-gray, italic) | (:normal)"UV Filter, an!"(light-gray, italic)]
 | | (:normal)"Und fertig."(light-gray, italic)
 | ! eval (setf (animation (unit 'leak-1)) 'normal)
 | ? (have 'item:walkie-talkie)
@@ -67,7 +67,7 @@
 | | {#@catherine-nametag}, Ich hab eines der Lecke geschlossen.
 | ~ catherine
 | | Gut gemacht, der Druck ist bereits um einiges besser.
-| | "Dann nur weiter so"(orange) - Gib mir bescheid wenn es Probleme gibt.
+| | "Dann nur weiter so"(orange) - Gib mir Bescheid wenn es Probleme gibt.
 | ~ player
 | | "OK, "2 Lecke"(orange) sind noch übrig."(light-gray, italic)
 | ! eval (setf (var 'first-leak) T)
@@ -103,10 +103,10 @@
 # leak-third/leak-3
 ~ player
 | "Das ist "Leck #3"(red)."(light-gray, italic)
-| "The pipe is ruptured, like an artery oozing blood."(light-gray, italic)
+| "Die Leitung hat ein großes Leck."(light-gray, italic)
 ? (not (var 'first-leak))
 | | "Zum glück hab ich einen eingebauten Schweissaparat."(light-gray, italic)
-| | [(var 'q1-weld-burn) (:embarassed)"Und diesmal aktivier ich auch die UV Filter."(light-gray, italic) | (:normal)"UV Filter, an!"(light-gray, italic)]
+| | [(var 'q1-weld-burn) (:embarassed)"Und diesmal aktiviere ich auch die UV Filter."(light-gray, italic) | (:normal)"UV Filter, an!"(light-gray, italic)]
 | | (:normal)"Und fertig."(light-gray, italic)
 | ! eval (setf (animation (unit 'leak-1)) 'normal)
 | ? (have 'item:walkie-talkie)
@@ -115,7 +115,7 @@
 | | {#@catherine-nametag}, Ich hab eines der Lecke geschlossen.
 | ~ catherine
 | | Gut gemacht, der Druck ist bereits um einiges besser.
-| | "Dann nur weiter so"(orange) - Gib mir bescheid wenn es Probleme gibt.
+| | "Dann nur weiter so"(orange) - Gib mir Bescheid wenn es Probleme gibt.
 | ~ player
 | | "OK, "2 Lecke"(orange) sind noch übrig."(light-gray, italic)
 | ! eval (setf (var 'first-leak) T)
@@ -163,7 +163,7 @@
 | - War OK
 | - Nie wieder
 |   ~ catherine
-|   | Oh, that bad huh?
+|   | Oh, so schlimm?
 |? (and (var 'take-walkie) (not (have 'item:walkie-talkie)))
 | ~ catherine
 | | Wo ist das Walkie?
@@ -196,7 +196,7 @@
   - Ich bestehe darauf
     ~ catherine
     | OK, aber nur wenn du dich besser fühlst dafür.
-    | Ich weiss nicht wie viel du dafür bekommen hast, aber das ist egal. Gib mir "die Bruchteile zurück: 150"(orange).
+    | Ich weiß nicht wie viel du dafür bekommen hast, aber das ist egal. Gib mir "die Bruchteile zurück: 150"(orange).
     ~ player
     - Deal
       ~ catherine

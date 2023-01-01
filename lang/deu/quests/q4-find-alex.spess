@@ -32,17 +32,17 @@
 | (:nervous)Ich denke du solltest sie in ruhe lassen.
 ~ innis
 | (:angry)...
-| (:normal)Komm schon, Schwester! Die grösste menschliche Errungenschaft steht vor dir, und das ist alles was du sagen kannst?
+| (:normal)Komm schon, Schwester! Die größte menschliche Errungenschaft steht vor dir, und das ist alles was du sagen kannst?
 | (:sly)Das ist kein Kompliment an dich, nur damit das klar ist.
 ~ player
 - Ich bin {(nametag player)}.
   ~ innis
-  | Das weiss ich schon. (:sly)Sag mir, warum bist du hier?
+  | Das weiß ich schon. (:sly)Sag mir, warum bist du hier?
 - ...
   ~ innis
-  | (:sly)Warum bist du hier? Ich weiss schon einiges, nur das ist mir noch unklar.
+  | (:sly)Warum bist du hier? Ich weiß schon einiges, nur das ist mir noch unklar.
 ~ innis
-| (:sly)Was hatt {#@fi-nametag} bloss mit ihrem robotischen Hündchen vor?
+| (:sly)Was hat {#@fi-nametag} bloß mit ihrem robotischen Hündchen vor?
 | Vielleicht um dessen Treue zu beweisen?
 ~ player
 - Das ist meine Sache
@@ -60,8 +60,8 @@
   | (:angry)...
   | Ich erinner mich noch an //euch//. Denkt ihr seit besonders schlau, nur weil ihr euch für Menschen abgeben könnt!
   | Du bist eine Maschine, nichts weiter, und wenn ich es so möchte, könnte ich dich auseinander nehmen.
-  | (:normal)Also, probieren wir das norhmals.
-  | Du wirst sicher erfreut sein zu hören, dass "{#@alex-nametag} heir ist"(orange).
+  | (:normal)Also, probieren wir das nochmals.
+  | Du wirst sicher erfreut sein zu hören, dass "{#@alex-nametag} hier ist"(orange).
 ~ innis
 | Gib mer ne kleine Show, OK? Ich will sehen was du drauf hast.
 | "Finde {#@alex-nametag}"(orange).
@@ -107,17 +107,17 @@
 | (:nervous)Ich denke du solltest sie in ruhe lassen.
 ~ innis
 | (:angry)...
-| (:normal)Komm schon, Schwester! Die grösste menschliche Errungenschaft steht vor dir, und das ist alles was du sagen kannst?
+| (:normal)Komm schon, Schwester! Die größte menschliche Errungenschaft steht vor dir, und das ist alles was du sagen kannst?
 | (:sly)Das ist kein Kompliment an dich, nur damit das klar ist.
 ~ player
 - Ich bin {(nametag player)}.
   ~ innis
-  | Das weiss ich schon. (:sly)Sag mir, warum bist du hier?
+  | Das weiß ich schon. (:sly)Sag mir, warum bist du hier?
 - ...
   ~ innis
-  | (:sly)Warum bist du hier? Ich weiss schon einiges, nur das ist mir noch unklar.
+  | (:sly)Warum bist du hier? Ich weiß schon einiges, nur das ist mir noch unklar.
 ~ innis
-| (:sly)Was hatt {#@fi-nametag} bloss mit ihrem robotischen Hündchen vor?
+| (:sly)Was hat {#@fi-nametag} bloß mit ihrem robotischen Hündchen vor?
 | Vielleicht um dessen Treue zu beweisen?
 ~ player
 - Das ist meine Sache
@@ -135,14 +135,14 @@
   | (:angry)...
   | Ich erinner mich noch an //euch//. Denkt ihr seit besonders schlau, nur weil ihr euch für Menschen abgeben könnt!
   | Du bist eine Maschine, nichts weiter, und wenn ich es so möchte, könnte ich dich auseinander nehmen.
-  | (:normal)Also, probieren wir das norhmals.
+  | (:normal)Also, probieren wir das nochmals.
   | Du wirst sicher erfreut sein zu hören, dass "{#@alex-nametag} heir ist"(orange).
 ~ innis
 | Gib mer ne kleine Show, OK? Ich will sehen was du drauf hast.
 | "Finde {#@alex-nametag}"(orange).
 ~ player
 | "Und sie ist weg. Das war eine FFCS Kommunikation, irgendwo in der Nähe"(light-gray, italic)
-| "Was bedeutet, dass "{#@alex-nametag} auch nahe ist"(orange). Ausser das ist eine Falle..."(light-gray, italic)
+| "Was bedeutet, dass "{#@alex-nametag} auch nahe ist"(orange). Außer das ist eine Falle..."(light-gray, italic)
 ! eval (deactivate 'innis-stop-local)
 ! eval (deactivate (unit 'innis-stop-1))
 ! eval (deactivate (unit 'innis-stop-2))
@@ -169,7 +169,7 @@
 ~ islay
 | Hallo, {(nametag player)}. Es ist eine Ehre dich zu treffen.
 | (:nervous)Ich entschuldige mich vielmals für meine Schwester.
-| (:normal)Wenn du "{#@alex-nametag} suchst, versuchs in der Bar"(orange). Die ist gleich "über uns"(orange).
+| (:normal)Wenn du "{#@alex-nametag} suchst, versuch es in der Bar"(orange). Die ist gleich "über uns"(orange).
 | Sag einfach "{#@innis-nametag}"(yellow) nicht, dass ich dir geholfen hab. Sonst denkt sie noch ich hätte was für Androiden.
 ! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
 ! eval (setf (var 'android-soft) T)
@@ -202,17 +202,17 @@
 ~ player
 - Ich bin {(nametag player)}.
   ~ alex
-  | <-Hic->. Ja ich weiss. Du bist der neue Jäger.
+  | <-Hic->. Ja ich weiß. Du bist der neue Jäger.
   | Der Android.
 - {#@fi-nametag} hat mich geschickt
   ~ alex
-  | <-Hic->. Ja ich weiss. Du bist der neue Jäger.
+  | <-Hic->. Ja ich weiß. Du bist der neue Jäger.
   | Der Android.
 - Ich bin ein Android
   ~ alex
-  | Und was? Willst ne Medallie? <-Hic->. Ich weiss wer du bist, du bist der neue Jäger.
+  | Und was? Willst ne Medaille? <-Hic->. Ich weiß wer du bist, du bist der neue Jäger.
 ~ alex
-| Ich spar dir die Arbeit: "Ich geh nicht zurück"(orange).
+| Ich spare dir die Arbeit: "Ich geh nicht zurück"(orange).
 ~ player
 - Warum nicht?
   ~ alex
@@ -240,19 +240,19 @@
 ~ alex
 | Jetzt hau ab - <-hic-> - und sag {#@fi-nametag} sie soll sichs stecken, verstanden?
 ~ player
-| Weisst du, dass die Wraw uns angreiffen wollen?
+| Weisst du, dass die Wraw uns angreifen wollen?
 ~ alex
-| Das wollen die schon ewig. <-Hic->. Ist nur {#@fi-nametag} wieder mal beim Panick machen.
-| (:angry)<-Hic->. Wenn wir schon von Panick sprechen, ich krieg gleich eine wenn ich nix mehr zu trinken hab. __BARMANN!__
+| Das wollen die schon ewig. <-Hic->. Ist nur {#@fi-nametag} wieder mal beim Panik machen.
+| (:angry)<-Hic->. Wenn wir schon von Panik sprechen, ich krieg gleich eine wenn ich nix mehr zu trinken hab. __BARMANN!__
 ~ player
-| "Ich glaub nicht, dass er so was bekommen wirt."(light-gray, italic) (:embarassed)"Na super, jetzt starrt sie mich auch noch an."(light-gray, italic)
+| "Ich glaub nicht, dass er so was bekommen wird."(light-gray, italic) (:embarassed)"Na super, jetzt starrt sie mich auch noch an."(light-gray, italic)
 ~ player
 - (Kauff {#@alex-nametag} ein Bier - 40)
   ? (<= 40 (item-count 'item:parts))
   | ! eval (retrieve 'item:parts 40)
-  | ! eval (status "Lost 40 Scrap Part")
+  | ! eval (status "40 Bruchteile Verloren")
   | ~ alex
-  | | Ugh, dankschön. <-Hic->.
+  | | Ugh, dankeschön. <-Hic->.
   | ~ player
   | | "Der Barmann, oder sollte ich sagen, die Barfrau will mir nicht einmal in die Augen schauen."(light-gray, italic)
   | ~ player
@@ -266,11 +266,11 @@
 - (Kauff {#@alex-nametag} einen Softdrink - 20)
   ? (<= 20 (item-count 'item:parts))
   | ! eval (retrieve 'item:parts 20)
-  | ! eval (status "Lost 20 Scrap Part")
+  | ! eval (status "20 Bruchteile Verloren")
   | ~ player
   | | "Der Barmann, oder sollte ich sagen, die Barfrau will mir nicht einmal in die Augen schauen."(light-gray, italic)
   | ~ alex
-  | | (:angry)Hey, das ist kein Bier! Wass soll ich mit der Schlürze anfangen? <-Hic->.
+  | | (:angry)Hey, das ist kein Bier! Was soll ich mit dieser Schlürze anfangen? <-Hic->.
   | ~ player
   | | "Oh. Und runter gehts trotzdem."(light-gray, italic)
   |?
@@ -284,7 +284,7 @@
 ~ player
 - Hast du etwas von den Cerebat gelernt?
   ~ alex
-  | Hab gelernt wo all die Tunnell hin führen. <-Hic->. Ganzen bereich aufgezeichnet.
+  | Hab gelernt wo all die Tunnel hin führen. <-Hic->. Ganzen Bereich aufgezeichnet.
 - Wo warst du die ganze Zeit?
   ~ alex
   | Vor allem hier.
@@ -296,6 +296,6 @@
 | Jetzt verpiss dich.
 | (:normal)Oh, hast du gewusst, dass ich der erste war, der dich gefunden hatt? <-Hic->. Ich hab {#@catherine-nametag} darüber erzählt.
 | Ich war einfach am rumschauen, und dort bist du gelegen, in den Trümmern. <-Hic->. Hab dich rausgezogen.
-| (:angry)Grösster Fehler meines Lebens!
+| (:angry)Größter Fehler meines Lebens!
 ! eval (deactivate 'islay-hint)
 

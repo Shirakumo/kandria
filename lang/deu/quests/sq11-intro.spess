@@ -12,10 +12,10 @@
 ~ player
 | "{#@jack-nametag} sieht verlegen aus. Merkwürdig."(light-gray, italic)
 ~ jack
-| Wenn du deine loyalität beweisen willst, dann hab ich eine Aufgabe für dich.
+| Wenn du deine Loyalität beweisen willst, dann hab ich eine Aufgabe für dich.
 ~ player
 - Und zwar?
-- Nicht interresiert
+- Nicht interessiert
   < leave
 ~ jack
 | Die Wraw haben uns sabotiert, also zahlen wir ihnen das zurück.
@@ -24,7 +24,7 @@
 | (:normal)Es gibt eine "Zulaufsleitung im fernen Osten ihres Gebiets"(orange). Ich hab früher daran gearbeitet.
 | "Zerstör die Leitung"(orange).
 | Wir haben keine Bomben oder Waffen dafür, aber ich bin mir sicher du findest einen Weg.
-| {#@fi-nametag} weiss nix von diesem Plan, und das soll auch weiter so bleiben. Kapiert?
+| {#@fi-nametag} weiß nix von diesem Plan, und das soll auch weiter so bleiben. Kapiert?
 ! label questions
 ~ player
 - Und wie soll ich das machen?
@@ -40,8 +40,8 @@
 - Und was bringt das dir?
   ~ jack
   | Bist du dumm oder was? Mehr Schaden für die Wraw = Weniger Schaden für uns.
-  | Ich hab aber auch einen persönlichen grund. Dass ich mein Bein verloren hab, ist den Wraw zu verdanken.
-  | Betina, meine Frau, hat mir diese Prothese gemacht. Und während ich nicht arbeiten konnte, haben die Wraw sie dazu gezwungen, und sie zu tode gearbeitet.
+  | Ich hab aber auch einen persönlichen Grund. Dass ich mein Bein verloren hab, ist den Wraw zu verdanken.
+  | Betina, meine Frau, hat mir diese Prothese gemacht. Und während ich nicht arbeiten konnte, haben die Wraw sie dazu gezwungen, und sie zu Tode gearbeitet.
   ~ player
   - Das tut mir leid
   - Was für Wixer
@@ -63,7 +63,7 @@
   ~ jack
   | (:annoyed)Na klar.
   | (:normal)Aber das ist der Punkt. Wenn das explodiert und noch mehr schaden anrichtet? Umso besser!
-  | Du bist ziemlich schnell, oder? Dann renn einfach davon.
+  | Du bist ziemlich schnell, oder? Dann renne einfach davon.
   | Aber vertrau mir. Das wird nicht in die Luft gehen.
   < questions
 - Nicht interessiert

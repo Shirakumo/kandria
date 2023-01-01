@@ -18,17 +18,17 @@
 | Das Wasser ist wieder unterbrochen, und diesmal ist es nicht die Pumpe. Irgendwo muss es ein Leck geben.
 | Wenn wir es nicht sofort wieder in Ordnung kriegen geht die ganze Ernte in den Eimer.
 ~ catherine
-| (:concerned)Scheisse!... Ich hätte hier sein sollen.
+| (:concerned)Scheiße!... Ich hätte hier sein sollen.
 ~ jack
 | Ja.
 ~ catherine
-| Naja, jetzt bin ich hier. Was kann ich tun?
+| Na ja, jetzt bin ich hier. Was kann ich tun?
 ~ jack
 | Du kannst hier bleiben und schauen, dass alles in Ordnung bleibt.
-| Ich geh runter und überprüf die Leitung.
+| Ich geh runter und überprüfe die Leitung.
 ~ catherine
 | Das kannst du doch nicht -- nicht mit deinem Bein.
-| Und du weisst, dass es nix gibt, das ich nicht reparieren kann!
+| Und du weißt, dass es nix gibt, das ich nicht reparieren kann!
 ~ jack
 | Auf keinen Fall. Viel zu gefährlich.
 ~ catherine
@@ -49,7 +49,7 @@
 ~ jack
 | (:annoyed)Androide wachsen nicht auf Bäumen hier. Und einige sagen, dass sie für die Katastrophe verantwortlich sind.
 ~ catherine
-| OK, hör mal, wir müssen das Wasser sofort wieder zum fliessen bringen, oder wir sind alle erledigt.
+| OK, hör mal, wir müssen das Wasser sofort wieder zum fließen bringen, oder wir sind alle erledigt.
 | Und Ich UND mein Android sind deine beste Chance!
 ~ jack
 | (:annoyed)Verdammt...
@@ -65,5 +65,5 @@
 | Wart kurz! Nimm dieses Walkie. "Ruf mir an wenn du ein Problem hast"(orange).
 ~ catherine
 | Alles klar. Und keine Sorge, wir sind bald wieder da.
-| OK, Android - "gib mir bescheid wenn du bereit bist"(orange).
+| OK, Android - "gib mir Bescheid wenn du bereit bist"(orange).
 ! eval (activate 'q1-ready)

@@ -2,17 +2,17 @@
 ~ player
 | (:embarassed)"Funktionierende Exoskelette, na super."(light-gray, italic)
 | (:thinking)"Das haben sie aus Turbinen und Bohrern zusammengebastelt. Wahrscheinlich haben sie noch viele mehr davon."(light-gray, italic)
-| "Vielleicht kann ich rausfinden, wovür sie das gebaut haben..."(light-gray, italic)
+| "Vielleicht kann ich rausfinden, wofür sie das gebaut haben..."(light-gray, italic)
 | (:normal)"Da ist ein Anschluss."(light-gray, italic)
 | (:normal)"Hmm? Was ist denn das?"(light-gray, italic)
-| "Untersuche die mögliche existenz von weiteren Androiden: "Genera"(red) in den "westlichen Bergen"(red)."
+| "Untersuche die mögliche Existenz von weiteren Androiden: "Genera"(red) in den "westlichen Bergen"(red)."
 | (:thinking)"... Eine Androidenfraktion in den Bergen?"(light-gray, italic)
 | "Bin ich nicht die einzige?"(light-gray, italic)
 ? (complete-p (find-task 'q10-wraw 'wraw-warehouse))
-| | (:embarassed)"Wie auch immer, mit den Resourcen die die Wraw zur verfügung haben sieht das nicht gut aus."(light-gray, italic)
+| | (:embarassed)"Wie auch immer, mit den Ressourcen die die Wraw zur Verfügung haben sieht das nicht gut aus."(light-gray, italic)
 | | (:normal)"Sie könnten "das ganze Tal übernehmen"(orange)."(light-gray, italic)
 | | "Ich muss "{#@fi-nametag} kontaktieren"(orange)."(light-gray, italic)
-| | "... "Das FFCS kommt nicht durch"(orange) - womöglich zu viel interferenz hier unten."(light-gray, italic)
+| | "... "Das FFCS kommt nicht durch"(orange) - womöglich zu viel Interferenz hier unten."(light-gray, italic)
 | | "Ich sollte mich besser "vom Acker machen"(orange) und "meinen Report abliefern"(orange)."(light-gray, italic)
 | ! eval (complete (find-task 'q10-wraw 'wraw-objective))
 | ! eval (activate 'q10a-return-to-fi)

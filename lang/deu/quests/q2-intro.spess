@@ -1,13 +1,13 @@
 # talk-to-fi/talk-fi
 ~ fi
-| Grüss dich, {(nametag player)}.
+| Grüß dich, {(nametag player)}.
 ~ player
 - Kann ich irgendwie helfen?
   ~ fi
   | Ich denke schon. Aber bevor wir dazu kommen...
 - Du bist also die Anführerin hier?
   ~ fi
-  | Soetwas in der Art.
+  | So Etwas in der Art.
 - Wie ist der Wasserstand?
   ~ fi
   | Vollständig wiederhergestellt, dank {#@catherine-nametag}'s und deiner Arbeit.
@@ -35,7 +35,7 @@
 - Warum vertraust du mir plötzlich?
   ~ fi
   | Ich bin mir nicht sicher. Du bist eine Fremde, aber du hast uns geholfen.
-  | Ausserdem schätze ich neue Perspektiven, davon gibt es nicht viel hier.
+  | Außerdem schätze ich neue Perspektiven, davon gibt es nicht viel hier.
   < questions
 - Wie geht es weiter?
 ~ fi
@@ -70,7 +70,7 @@
 # early-end
 ~ fi
 ! eval (retrieve 'item:seeds T)
-! eval (status "Lost 24 Seed Sachet")
+! eval (status "24 Samen Säckel Verloren")
 | (:happy)Oh! Du warst schon dort? Wow, das müssen über zwanzig Säckel sein. War das alles?
 ~ player
 - Ja
@@ -83,11 +83,11 @@
 | {#@alex-nametag} ist für lange Zeit unser einziger Jäger gewesen. Ich denke du kannst diese Rolle auch erfüllen, und vielleicht sogar noch mehr.
 | Für jetzt, bitte "nimm diese Bruchteile"(orange) als Entschädigung.
 ! eval (store 'item:parts 200)
-! eval (status "Received 200 Scrap Part")
+! eval (status "200 Bruchteile Erhalten")
 ~ fi
 ? (complete-p 'q3-new-home)
-| | Ich denke "{#@catherine-nametag} hatt eine neue Aufgabe"(orange) für dich.
-| | (:happy)Und ich ebenso. "Gib mir bescheid"(orange) wenn du bereit bist.
+| | Ich denke "{#@catherine-nametag} hat eine neue Aufgabe"(orange) für dich.
+| | (:happy)Und ich ebenso. "Gib mir Bescheid"(orange) wenn du bereit bist.
 | ! eval (activate 'sq-act1-intro)
 | ! eval (activate 'q4-intro)
 |?

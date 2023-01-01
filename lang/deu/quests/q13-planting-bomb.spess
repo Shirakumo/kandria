@@ -22,7 +22,7 @@
 
 # task-reminder/interact-innis
 ~ innis
-| {#@islay-nametag} weiss bescheid. Ich hab nichts dazuzugeben.
+| {#@islay-nametag} weiß Bescheid. Ich hab nichts dazu zu geben.
 | (:sly)Ich hoffe ich habe mich über dich getäuscht.
 
 # task-reminder/interact-jack
@@ -34,11 +34,11 @@
 # task-bomb-1/interact-bomb
 ~ player
 ! eval (retrieve 'item:explosive 1)
-! eval (status "Lost 1 Explosive")
+! eval (status "1 Bombe Verloren")
 | "Ok, hier ist eine der Bombenorte."(light-gray, italic)
 | "Gleich neben einem riesigen Pilz, sehr schön."(light-gray, italic)
 ! eval (retrieve 'item:receiver 2)
-! eval (status "Lost 2 RF Detonator")
+! eval (status "2 Funkempfänger Verloren")
 | "OK, alles schön befestigt und aktiviert."(light-gray, italic)
 ? (not (var 'first-bomb-done))
 | | "Überprüfe "FFCS... Kein Signal. Wraw Interferenz"(orange), wie erwartet."(light-gray, italic)
@@ -58,18 +58,18 @@
 | ! eval (activate (unit 'ffcs-bomb-4))
 | ! eval (activate (unit 'station-surface-trigger))
 |?
-| | "Und das "FFCS... Immernoch Interferenz"(orange)."(light-gray, italic)
+| | "Und das "FFCS... Immer noch Interferenz"(orange)."(light-gray, italic)
 | | "Jetzt bloss noch die "letzte Bombe"(orange)."(light-gray, italic)
 
 # task-bomb-2/interact-bomb
 ~ player
 ! eval (retrieve 'item:explosive 1)
-! eval (status "Lost 1 Explosive")
+! eval (status "1 Bombe Verloren")
 ! eval (retrieve 'item:receiver 2)
-! eval (status "Lost 2 RF Detonator")
+! eval (status "2 Funkempfänger Verloren")
 | "OK, ich sollte hier eine Bombe befestigen."(light-gray, italic)
 | "Scheint zu halten, trotz des Wassers."(light-gray, italic)
-| "Und der Detonator funktioniert auch immernoch."(light-gray, italic)
+| "Und der Detonator funktioniert auch immer noch."(light-gray, italic)
 | "Alles bereit."(light-gray, italic)
 ? (not (var 'first-bomb-done))
 | | "Überprüfe "FFCS... Kein Signal. Wraw Interferenz"(orange), wie erwartet."(light-gray, italic)
@@ -95,11 +95,11 @@
 # task-bomb-3/interact-bomb
 ~ player
 ! eval (retrieve 'item:explosive 1)
-! eval (status "Lost 1 Explosive")
+! eval (status "1 Bombe Verloren")
 | "OK, hier kommt eine Bombe hin."(light-gray, italic)
 | "Jetzt bloss noch aktivieren, und... fertig!"(light-gray, italic)
 ! eval (retrieve 'item:receiver 2)
-! eval (status "Lost 2 RF Detonator")
+! eval (status "2 Funkempfänger Verloren")
 ? (not (var 'first-bomb-done))
 | | "Überprüfe "FFCS... Kein Signal. Wraw Interferenz"(orange), wie erwartet."(light-gray, italic)
 | | "Okay, "noch 2 mehr"(orange)."(light-gray, italic)
@@ -118,7 +118,7 @@
 | ! eval (activate (unit 'ffcs-bomb-4))
 | ! eval (activate (unit 'station-surface-trigger))
 |?
-| | "Und das "FFCS... Immernoch Interferenz"(orange)."(light-gray, italic)
+| | "Und das "FFCS... Immer noch Interferenz"(orange)."(light-gray, italic)
 | | "Jetzt bloss noch die "letzte Bombe"(orange)."(light-gray, italic)
 
 # task-return-bombs/call-bomb

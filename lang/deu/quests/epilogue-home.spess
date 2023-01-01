@@ -10,7 +10,7 @@
 - Soll ich sie identifizieren?
   ~ catherine
   | (:concerned)...
-  | Ich weiss nicht... Ja?
+  | Ich weiß nicht... Ja?
   < identify
 - Ich muss wissen wer das ist
   ~ catherine
@@ -22,7 +22,7 @@
 
 # identify
 ~ player
-| "Vergrössere das bild..."(light-gray, italic)
+| "Vergrößere das Bild..."(light-gray, italic)
 | Es sind "{#@fi-nametag}, {#@jack-nametag}, und {#@innis-nametag}"(orange). Sie "sehen OK, aber sehr besorgt aus"(orange). Scheint, dass "{#@fi-nametag} ihren Arm verletzt hat"(orange).
 | Das könnte noch "{#@trader-nametag}"(orange) und ein paar andere sein. Ich kann "{#@islay-nametag} nicht sehen"(orange).
 ~ catherine

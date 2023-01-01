@@ -2,13 +2,13 @@
 ~ fi
 | (:unsure)Was ist los? Sollten wir jetzt die Bomben zünden?
 ~ islay
-| {#@zelah-nametag} ist immernoch in der Nähe. Und was wenn er darüber bescheid weiss?
+| {#@zelah-nametag} ist immer noch in der Nähe. Und was wenn er darüber Bescheid weiß?
 ~ fi
 | (:annoyed)Er weiss von nichts.
 ~ islay
 | ...
 | OK.
-| Dann machen wirs jetzt. Kollabieren die Tunnell, und alle Überlebenden werden in Gefangenschaft genommen.
+| Dann machen wirs jetzt. Kollabieren die Tunnel, und alle Überlebenden werden in Gefangenschaft genommen.
 ~ fi
 | Wenn du sicher bist.
 ~ islay
@@ -22,14 +22,14 @@
 ~ fi
 | (:annoyed)Was? Warum?
 ~ islay
-| (:nervous)Weiss ich nicht.
+| (:nervous)Weiß ich nicht.
 | (:normal)"Das Signal geht durch"(orange)...
 | Es sollte trotz aller Interferenz die Bomben erreichen.
 ~ fi
 | (:unsure)Haben sie die Bomben entdeckt?
 ~ islay
 | ... Ich hoffe nicht.
-| (:nervous)Scheisse.
+| (:nervous)Scheiße.
 | Jemand muss da runter.
 ~ player
 - Kein Problem
@@ -58,5 +58,5 @@
 | Du könntest mit {#@catherine-nametag} mitgehen, {(nametag player)}. Um sie zu beschützen.
 ~ islay
 | Bitte "hol sie her"(orange).
-| Und "sag mir wenn du handlen willst"(orange) - das "könnte deine letzte Chance sein"(orange).
+| Und "sag mir wenn du Handeln willst"(orange) - das "könnte deine letzte Chance sein"(orange).
 

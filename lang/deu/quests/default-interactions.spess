@@ -5,7 +5,7 @@
 |? (complete-p 'Q13-PLANTING-BOMB)
 | | (:sly)Hah, schau mal wer das ist.
 |? (complete-p 'Q11A-BOMB-RECIPE)
-| | Wer hätte gedacht, dass ein Androide ne ganze Faktion überzeugen könnte.
+| | Wer hätte gedacht, dass ein Androide ne ganze Fraktion überzeugen könnte.
 |? (complete-p 'Q7-MY-NAME)
 | | (:angry)Hau ab, wir sind beschäftigt!
 |? (complete-p 'Q5A-RESCUE-ENGINEERS 'Q5B-INVESTIGATE-CCTV)
@@ -87,11 +87,11 @@
 |? (complete-p 'Q11A-BOMB-RECIPE)
 | | Hi!
 |? (complete-p 'Q11-RECRUIT-SEMIS)
-| | (:unsure)Was auch immer du versuchst, bitte beeil dich.
+| | (:unsure)Was auch immer du versuchst, bitte beeile dich.
 |? (complete-p 'Q4-FIND-ALEX)
 | | Irgendwelche Neuigkeiten über {#@alex-nametag}? Wir brauchen Ihn.
 |? (complete-p 'Q2-SEEDS)
-| | Was machen wir bloss ohne Wasser oder Essen?
+| | Was machen wir bloß ohne Wasser oder Essen?
 |? (complete-p 'Q1-WATER)
 | | {(nametag player)}.
 |?
@@ -104,17 +104,17 @@
 |? (complete-p 'EXPLOSION)
 | | ... Haben wir gewonnen?
 |? (complete-p 'Q15-BOSS)
-| | (:excited)Ich kann kaum glauben, dass du den riesen Roboter erledigt hast!
+| | (:excited)Ich kann kaum glauben, dass du den Riesen Roboter erledigt hast!
 |? (complete-p 'Q14-ENVOY)
 | | (:conncerned)Du gehörst nicht {#@zelah-nametag}. Du gehörst niemandem!
 |? (complete-p 'Q13-PLANTING-BOMB)
 | | Hah, er sieht gar nicht so stark aus. (:excited)Ich könnte ihn auch selbst schlagen!
 |? (complete-p 'Q13-INTRO)
-| | (:excited)Was auch immer du tust, jag dich einfach nicht selbst hoch, OK?
+| | (:excited)Was auch immer du tust, jage dich einfach nicht selbst hoch, OK?
 |? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
 | | (:concerned)Sorry, {(nametag player)} - Ich muss mich konzentrieren.
 |? (complete-p 'Q10A-RETURN-TO-FI)
-| | Wir werden das schaffen. Alles wird gut rauskommen.
+| | Wir werden das schaffen. Alles wird gut raus kommen.
 |? (complete-p 'Q10-WRAW)
 | | (:excited)Oh mann, bin ich froh dich zu sehen!
 |? (complete-p 'Q6-RETURN-TO-FI)
@@ -146,7 +146,7 @@
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
 | | [? Nach all der Arbeit am Zug... | Ich bin mir gewöhnt Züge zu reparieren, nicht Knarren. | Du bist unser Retter, oder?]
 |? (not (active-p (unit 'blocker-engineers)))
-| | [? Fühlt sich gut an wieder frische Luft zu schnappen. | Da hab ich einige Überstunden angesammelt... | Danke dir vielmals! Wer weiss wie lange wir noch festgesteckt wären.]
+| | [? Fühlt sich gut an wieder frische Luft zu schnappen. | Da hab ich einige Überstunden angesammelt... | Danke dir vielmals! Wer weiß wie lange wir noch festgesteckt wären.]
 |?
 | | [? "Sprich mit dem Leiter"(orange) | Ich will nur noch schlafen gehen. | Ein... Android? Nee das gibts doch nicht. | Unser "Boss sollte hier rum sein"(orange).]
 
@@ -210,12 +210,12 @@
 # semi-patron-1
 ~ semi-patron-1
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
-| | Mit dem Krieg sieht gleich alles anders aus... Ich beklag mich nie mehr über schlechtes Bier!
+| | Mit dem Krieg sieht gleich alles anders aus... Ich beklage mich nie mehr über schlechtes Bier!
 | | Naja, oder zumindest nicht mehr so oft.
 |? (complete-p 'Q10-WRAW)
 | | Sogar ich hab meine Lust auf Rennen verloren.
 |? (complete-p 'SQ5-INTRO)
-| | Ich habe grosse Erwartungen an dich, Android!
+| | Ich habe große Erwartungen an dich, Android!
 |? (complete-p 'Q4-FIND-ALEX)
 | | Lust auf ne Wette?
 |? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
@@ -228,13 +228,13 @@
 ? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
 | | Wo ist denn die verdammte Bar hier?
 |? (complete-p 'Q10-WRAW)
-| | Oh gott, mir kommts gleich wieder rauf.
+| | Oh Gott, mir kommts gleich wieder rauf.
 |? (complete-p 'SQ5-INTRO)
 | | Sind wir am Rennen? Wo bin ich?
 |? (complete-p 'Q4-FIND-ALEX)
 | | __MALZEIT!__
 |? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
-| | Eh? Alex? Kenn nur ne... "Alice. Dort drüben"(orange).
+| | Eh? Alex? Kenne nur ne... "Alice. Dort drüben"(orange).
 |?
 | | __MALZEIT!__
 
@@ -293,8 +293,8 @@
 | | Ich hab dir nix gesagt, OK? Gar nix!
 |? (complete-p 'Q7-MY-NAME)
 | | Das "Kollegium"(orange) ist, wie du sicher schon bemerkt hast, nicht hier.
-| | Eine meiner Sourcen hat gesaght, dass es ein "Händler gibt, der weiss wo sie sind"(orange).
-| | Leider keine Ahnung wie der heisst. Versuchs in den "Hintergassen"(orange).
+| | Eine meiner Sourcen hat gesagt, dass es ein "Händler gibt, der weiss wo sie sind"(orange).
+| | Leider keine Ahnung wie der heißt. Versuchs in den "Hintergassen"(orange).
 |?
 | | <-Boo->. Hau ab! Du verratest mich noch!
 
@@ -303,7 +303,7 @@
 ? (complete-p 'Q10-WRAW)
 | | Du hast das ganze verpasst.
 |? (complete-p 'CEREBAT-TRADER-ARRIVE)
-| | Wie bist du denn durchgeschlüpft? Die Kaserne ist dort drüben.
+| | Wie bist du denn durch geschlüpft? Die Kaserne ist dort drüben.
 |? (complete-p 'Q7-MY-NAME)
 | | Frag mich nur nach dem "Kollegium"(orange) wenn du auch gleich selber in die Hölle versetzt werden willst.
 | | Wer denkst du denn, dass ich bin? Wohl nicht dieser "Schurke eines Händlers"(orange), oder?
@@ -313,14 +313,14 @@
 # sq4a-zombie
 ~ sq4a-zombie
 ? (complete-p 'SQ4-ANALYSE-ROBOTS)
-| | [? __Urrghh__ | __AAaaaa__ | __OooooO___ | __Krrkrks__ | Wer | Wo das | Freund? | __Auaaaa__ | Geh nicht | Wer hat | Du?... | Nicht mehr | Stop! | Ich... nein ]
+| | [? __Urrghh__ | __AAaaaa__ | __OooooO___ | __Krrkrks__ | Wer | Wo das | Freund? | __Auaaaa__ | Geh nicht | Wer hat | Du?... | Nicht mehr | Stopp! | Ich... nein ]
 |?
 | | [? __Urrghh__ | __AAaaaa__ | __OooooO___ | __Krrkrks__]
 
 # synthesis
 ~ synthesis
 ? (complete-p 'Q11A-BOMB-RECIPE)
-| | (:grin)Alle Antworten sind mir offenbahrt! Alles hat sich geklärt...
+| | (:grin)Alle Antworten sind mir offenbart! Alles hat sich geklärt...
 |? (complete-p 'SQ14C-SYNTHESIS)
 | | (:normal)Wenn die Migränen uns nicht Schleier vor die Augen setzen, sehen wir den Weg ganz klar.
 |?
@@ -329,20 +329,20 @@
 # npc
 ~ npc
 ? (eql 'surface (subregion 'player))
-| | [? Hah! Und das soll besser sein als unsere alte Basis? | Hmm, die Noka hier sehen noch recht nett aus. | Ich war noch nie auf der Oberfläche. | Es ist viel zu hell! | Ich mag die warme Luft hier | Dieser Sand kommt in alles rein... | Boa, hörst du das? Der Wind hier ist ganz anders. | Ich hoffe wir können wieder zurück. | Ich hab so viel zuhause liegen gelassen. | Diese verdammten Wraw! | Ich bin mir nicht wohl hier. | Ich bin so durstig! | Lebst du hier? ]
+| | [? Hah! Und das soll besser sein als unsere alte Basis? | Hmm, die Noka hier sehen noch recht nett aus. | Ich war noch nie auf der Oberfläche. | Es ist viel zu hell! | Ich mag die warme Luft hier | Dieser Sand kommt in alles rein... | Boa, hörst du das? Der Wind hier ist ganz anders. | Ich hoffe wir können wieder zurück. | Ich hab so viel Zuhause liegen gelassen. | Diese verdammten Wraw! | Ich bin mir nicht wohl hier. | Ich bin so durstig! | Lebst du hier? ]
 |? (eql 'region1 (subregion 'player))
 | ? (complete-p 'Q10-WRAW)
 | | | [? Wer hätte gedacht, dass die Wraw sowas vor hatten? | Wir schaffen das doch noch... oder? | Sag mal, was ist hier alles los? Wraw? Invasion? Ich kapier nix mehr. | Oh je, oh Gott, ich weiss gar nicht mehr was ich tun soll. Wo ist die Bar?! | Aber warum denn nur? | Nein, das glaub ich nicht. | Pah! Ich hab das schon immer gesagt! Und auf mich hört natürlich niemand!]
 | |? (complete-p 'Q6-RETURN-TO-FI)
-| | | [? Wir müssen uns auf alles gefasst machen. | Ich glaub nicht, dass die Wraw uns angreiffen. Zu offensichtlich! | Warum ist plötlich so viel los hier? | Ich halt das nicht mehr aus. | Verräter! Verräter überall! | Warum können wirs alle nicht einfach easy nehmen? N bisschen chillen?]
+| | | [? Wir müssen uns auf alles gefasst machen. | Ich glaub nicht, dass die Wraw uns angreifen. Zu offensichtlich! | Warum ist plötzlich so viel los hier? | Ich halt das nicht mehr aus. | Verräter! Verräter überall! | Warum können wirs alle nicht einfach easy nehmen? N bisschen chillen?]
 | |?
 | | | [? Woah! Hab schon viel von dir gehört. | Mann, ich halt das nicht mehr aus, jeden Tag nur Pilze essen. | Wer bist denn du? | Hm? Was? Ich hör nix! | Psh, n Android? Wen kümmert's? | Du siehst ja mal merkwürdig aus. Was ist denn das fürn outfit? | Warum leuchten deine Ohren so? | Wer bist denn du? | Keine Zeit! Bier wartet!]
 |? (eql 'region2 (subregion 'player))
 | ? (complete-p 'Q10-WRAW)
-| | | [? Was willst denn du? | Zu spät um jetzt noch eine Seite auszusuchen. | Für wen hältest du dich denn? Meinst du kannst die Wraw aleine besiegen? Ja klar! | Meiner meinung nach ist das alles die schuld des Kollegiums! | Oh Gott, das ist gar nicht gut für die Aktien! | Wir sollten uns nicht streiten! Dre freie Markt funktioniert nicht wenn sich alle einfach nehmen was sie können! | Gegen die Wraw? Gegen mich. Hau ab! | Steh nicht einfach rum, zu den Waffen! ]
+| | | [? Was willst denn du? | Zu spät um jetzt noch eine Seite auszusuchen. | Für wen hältst du dich denn? Meinst du kannst die Wraw alleine besiegen? Ja klar! | Meiner Meinung nach ist das alles die schuld des Kollegiums! | Oh Gott, das ist gar nicht gut für die Aktien! | Wir sollten uns nicht streiten! Der freie Markt funktioniert nicht wenn sich alle einfach nehmen was sie können! | Gegen die Wraw? Gegen mich. Hau ab! | Steh nicht einfach rum, zu den Waffen! ]
 | |? (complete-p 'Q5A-RESCUE-ENGINEERS 'Q5B-INVESTIGATE-CCTV)
-| | | [? Hire mal ein guter Tipp: frag nicht zu viel. | Sorry, wir sind geschlossen. | Kein Markt, heute. | Psst! Nur mit der ruhe! | Irgendwas ist los, aber keiner sagt mir was. | Wer sollst denn du sein? Huh? | Meine Aktien... | Kaufen? Verkaufen? | Ha ha ha ha ha... Was? | Schon wieder ne Karavane die festgesteckt ist... | Was ist los? ]
+| | | [? Hier mal ein guter Tipp: frag nicht zu viel. | Sorry, wir sind geschlossen. | Kein Markt, heute. | Psst! Nur mit der ruhe! | Irgendwas ist los, aber keiner sagt mir was. | Wer sollst denn du sein? Hm? | Meine Aktien... | Kaufen? Verkaufen? | Ha ha ha ha ha... Was? | Schon wieder ne Karawane die festgesteckt ist... | Was ist los? ]
 | |?
-| | | [? Cooles Schwert! Wie viel willst du dafür? 50 Bruchteile? | Schönes Outfit. Willst du tauschen? | Das ist der bestventillierte Ort im ganzen Untergrund. Glaub mir! | Verlier dich nicht in all den Packeten. | Riiiiiiicolaaaaa! Boah, das echo hört man ja für ewigkeiten. ]
+| | | [? Cooles Schwert! Wie viel willst du dafür? 50 Bruchteile? | Schönes Outfit. Willst du tauschen? | Das ist der best ventilierte Ort im ganzen Untergrund. Glaub mir! | Verliere dich nicht in all den Paketen. | Riiiiiiicolaaaaa! Boah, das echo hört man ja für Ewigkeiten. ]
 |?
 | | [? Hab dich noch nie gesehen. | ... | Hallo? | Wer bist denn du? | Sorry. | Keeeine Zeit! ]

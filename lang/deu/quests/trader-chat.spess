@@ -7,7 +7,7 @@
 | | Wenn es sein muss, Habibti.
 |? (complete-p 'q10a-return-to-fi)
 | | ... Tut mir leid, {(nametag player)}, keine Zeit.
-| | Ausser für den Handel, natürlich!
+| | Außer für den Handel, natürlich!
 |?
 | | (:jolly)Assalam alaikum! Worum gehts?
 | ? (< 80 (health-percentage player))
@@ -24,12 +24,12 @@
 |   ~ trader
 |   | Eine lange und traurige, muss ich zugeben.
 |   | Ich war ursprünglich mit den Wraw, genau wie die "Noka"(red) auch.
-|   | Und wie sie bin ich auch geflüchtet, nur mit meiner eigenen Karavane.
+|   | Und wie sie bin ich auch geflüchtet, nur mit meiner eigenen Karawane.
 |   | Jetzt handel ich zwischen den verschiedenen Siedlungen. (:jolly)Und versuch nicht ermordet zu werden, ha ha.
 |   < talk
 | - Was haltest du von den Noka?
 |   ~ trader
-|   | Die "Noka"(red)? Ne nette truppe, was kann ich sagen?
+|   | Die "Noka"(red)? Ne nette Truppe, was kann ich sagen?
 |   | {#@fi-nametag} ist ein guter Mensch, eine Seltenheit heutzutage.
 |   | Sie sind selber von den Wraw abgebrochen, und ich kann sie dafür nicht blamieren.
 |   | Es war mutig, aber womöglich auch sehr dumm.
@@ -39,13 +39,13 @@
 |   | Ja, die Servos haben mich abgehalten. Dank dir konnte ich wieder vorbei.
 |   | Versteh mich nicht falsch, ich kann mich selber verteidigen, nur ist es nicht so einfach mit all dem Gepäck.
 |   | Ich hatte früher noch einen Oxen, stell dir das nur vor!
-|   | Leider hatt die arme Celina die Wölfe nicht überlebt...
+|   | Leider hat die arme Celina die Wölfe nicht überlebt...
 |   < talk
 | - Weisst du wie man mich untersuchen kann?
 |   ? (not (var 'examine-chat))
 |   | ~ trader
 |   | | Untersuchen?...
-|   | | (:jolly)Oh, hat dich jemand nett begrüsst?
+|   | | (:jolly)Oh, hat dich jemand nett begrüßt?
 |   | ~ player
 |   | - {#@jack-nametag}
 |   |   ~ trader
@@ -53,12 +53,12 @@
 |   |   | Er mag nicht einmal mich, kannst du dir das vorstellen?
 |   | - {#@jack-nametag} und {#@fi-nametag}
 |   |   ~ trader
-|   |   | Oh? Das hätte ich von {#@jack-nametag} arwartet, aber {#@fi-nametag}?...
+|   |   | Oh? Das hätte ich von {#@jack-nametag} erwartet, aber {#@fi-nametag}?...
 |   |   | Sie hat viel zu tun, gib ihr ein bisschen Zeit.
 |   | - Alle
 |   |   ~ trader
 |   |   | Ja so kann es leider sein. Die Menschheit war wohl schon immer so, auch vor der Katastrophe.
-|   | - Alle ausser du und {#@catherine-nametag}
+|   | - Alle außer du und {#@catherine-nametag}
 |   |   ~ trader
 |   |   | Ja so kann es leider sein. Die Menschheit war wohl schon immer so, auch vor der Katastrophe.
 |   |   | Ich freue mich aber, dass ich helfen kann.
@@ -104,7 +104,7 @@
 |   < talk
 | - Was weisst du über die Semi Schwesternschaft?
 |   ~ trader
-|   | Das sind unsere Tech-Gurus! (:jolly)Hah, errinerst du dich an das?
+|   | Das sind unsere Tech-Gurus! (:jolly)Hah, erinnerst du dich an das?
 |   | (:normal)Ich erinner mich an eine Präsentation vom Semi CEO über die neuen Androiden, wie du.
 |   | Die beiden Schwestern hatten bei der Produktion gearbeitet, in den Fabriken da unten. Die Arbeitslage war sehr schlecht.
 |   | Ich mag, dass sie den Namen übernommen haben. Spornt den Revolutionär in mir an.
@@ -137,7 +137,7 @@
 |   |   | Hmm, trotzdem riskier ich das lieber nicht.
 |   | - [(not (complete-p 'q8a-bribe-trader)) Ich glaube nicht|]
 |   |   ~ trader
-|   |   | Das ist eine erleichterung. Aber, ich glaube ich bleib noch eine Weile hier.
+|   |   | Das ist eine Erleichterung. Aber, ich glaube ich bleib noch eine Weile hier.
 |   | - Kann ich nicht sagen
 |   |   ~ trader
 |   |   | Das versteh ich, Habibti.
@@ -164,8 +164,8 @@
 |   ? (not (var 'daughter-told))
 |   | ~ trader
 |   | | ...
-|   | | ... Mit allem, das im Moment los ist, denke ich ich kann dir das auch erzählen.
-|   | | Khawla... Sie war ein grossartiger Ingenieur, fast so gut wie {#@catherine-nametag}.
+|   | | ... Mit allem, das im Moment los ist, denke ich, dass ich dir das auch erzählen kann.
+|   | | Khawla... Sie war ein großartiger Ingenieur, fast so gut wie {#@catherine-nametag}.
 |   | | Ich hab sie auf meinen Reisen verloren, genau wie mein Ox, Celina.
 |   | | Wir sind von einer Gruppe angegriffen worden. Vermutlich Gauner, vielleicht Wraw.
 |   | | Sie haben sie entführt, und ich hab sie nie wieder gesehen.
@@ -174,7 +174,7 @@
 |   |   ~ trader
 |   |   | Danke, {(nametag player)}.
 |   |   | Ich sollte mich öfters an sie erinnern. Wenigstens so viel schulde ich ihr.
-|   | - Tut mir leid, dass du das wiederleben musstest
+|   | - Tut mir leid, dass du das wieder erleben musstest
 |   |   ~ trader
 |   |   | Es ist OK, {(nametag player)}.
 |   |   | Ich sollte mich öfters an sie erinnern. Wenigstens so viel schulde ich ihr.
@@ -212,7 +212,7 @@
 |   | Sie haben eine Armee gesammelt, mit enormen Robotern und vielen Soldaten.
 |   ~ trader
 |   | ...
-|   | Das würde erklären, warum die Händler nicht mehr in das Wraw gebiet gegangen sind.
+|   | Das würde erklären, warum die Händler nicht mehr in das Wraw Gebiet gegangen sind.
 |   | Danke für die Info, {(nametag player)}.
 |   < talk
 | - Leben Androiden in den Bergen?
@@ -226,7 +226,7 @@
 |   < leave
 |? (complete-p 'q13-planting-bomb)
 | ~ trader
-| | Ich bin nicht stolz, dass ich weggerannt bin. Aber jetzt bin ich da und bereit zu kämpfen!
+| | Ich bin nicht stolz, dass ich weg gerannt bin. Aber jetzt bin ich da und bereit zu kämpfen!
 | | Lass uns später sprechen, ja?
 
 # leave

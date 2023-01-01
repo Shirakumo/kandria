@@ -20,7 +20,7 @@
 - (Suche nach Schwarzen Kappen)
   ~ player
   | "Archivaufzeichnung:"
-  | "Tricholoma furvus, in Umgangsprache bekannt als "Schwarze Kappen"(orange)."
+  | "Tricholoma furvus, in Umgangssprache bekannt als "Schwarze Kappen"(orange)."
   | "Nicht tödlich, und wurden als Vitamin D Quelle benutzt."
   | "Neue Studien zeigen allerdings das verlängerter Konsum über mehrere Wochen das "Immunsystem schwächt"(orange)."
   | "Tod wird deshalb nicht direkt von den Pilzen verursacht, sondern durch Infektion."
@@ -94,7 +94,7 @@
   | "ZENITH TAGESBLICK - Freitag, 21 Juli, 2367"
   | "OPIUM GERICHTSERFOLG DEUTET AUF EIN NEUES KAPITEL"
   | "Chase Yasiri, Korrespondent"
-  | "Der Mann und die Frau die vor einem riesigen Glasgebäude mit ihren Händen in die Luftgestreckt stehen sind als Professor Molly Jacobson und Doctor Devan Kerr benannt."(light-gray, italic)
+  | "Der Mann und die Frau die vor einem riesigen Glasgebäude mit ihren Händen in die Luft gestreckt stehen sind als Professor Molly Jacobson und Doctor Devan Kerr benannt."(light-gray, italic)
   | "OK, Schauen wir mal was da drin steht. Ich erwarte nichts gutes vom Tagesblick."(light-gray, italic)
   | "Langstehender Gerichtsentscheid endlich gefällt: ein Riesenerfolg für die Schmerztoleranz."
   | "Rootless haben endlich alle Blockaden beseitigt und können nun ihre "neue Droge, Expediate,"(orange) für den Verkauf freischalten."
@@ -102,7 +102,7 @@
   | "Bridges und Swift haben angedeutet, dass sie für die Auslieferung zuständig sein werden."
   | "Die Droge wird von Allen atemlos erwartet, vor allem mit "den neuen Hitzewellen, die letztlich die Produktion eingeschränkt haben"(orange)."
   | "Viele Arbeitsverträge werden Änderungen einführen, um den Konsum der Droge mandatorisch zu machen."
-  | "Trotz Angstmacherei um den Verwand von "Schwarzen Pilzen"(orange) in der Herstellung der Droge haben klinische Studien keine adversen Effekte aufgezeigt."
+  | "Trotz Angstmacherei um die Verwendung von "Schwarzen Pilzen"(orange) in der Herstellung der Droge haben klinische Studien keine adversen Effekte aufgezeigt."
   | "Die Studien zeigen stattdessen eine "hohe Schmerztoleranz, vor allem gegen Hitze."(orange)"
   | "Die Vorteile für die Wirtschaft sind offensichtlich: "längere Arbeitszeiten, und reduzierter konsum von Lebensmitteln und Wasser"(orange)."
   | "Guiding Light adaptiert bereits ihr Ausbildungsmaterial um sicherzustellen, dass kommende Generationen den Vorteil von Expediate verstehen."
@@ -197,12 +197,12 @@
   ~ player
   | "Ehrliche Informationen über Drogen"
   | "Meistgelesener Artikel: "Expediate"(orange)"
-  | "Expediate, auch gennant 'Der Trank'. Hergestellt von Rootless und mit dem Slogan #ExpediteYourLife vermarktet."
-  | "Wie sieht es aus, und wie schmeckt es? Meistens vertrieben in Tablettenform, aber auch erhältlich als Syrup."
-  | "Normalerweise farblos und geruchlos, aber kann manchmal einen süsslichen geschmack haben."
+  | "Expediate, auch genannt 'Der Trank'. Hergestellt von Rootless und mit dem Slogan #ExpediteYourLife vermarktet."
+  | "Wie sieht es aus, und wie schmeckt es? Meistens vertrieben in Tablettenform, aber auch erhältlich als Sirup."
+  | "Normalerweise farblos und geruchlos, aber kann manchmal einen süßlichen Geschmack haben."
   | "Wie lange hält die Wirkung an? Die Wirkdauer hängt von der Dosis, deiner Körpergrösse, und den anderen Wirkstoffen in deinem System ab."
   | "Wenn du die Droge von deiner Arbeit verschrieben bekommen hast, dann kontaktiere deinen Repräsentanten für mehr Information."
-  | "Kenn die Risiken! In mässigen Dosen kann Expediate als ein wirksamer Schmerzstoff eingesetzt werden. Viele Arbeitsverträge überschreiten die Maximaldosis aber massiv."
+  | "Kenne die Risiken! In mäßigen Dosen kann Expediate als ein wirksamer Schmerzstoff eingesetzt werden. Viele Arbeitsverträge überschreiten die Maximaldosis aber massiv."
   | ""Typische Symptome beinhalten: Erbrechen, Schwindel, Trägheit, Sucht"(orange). Die genaueren Umstände werden noch untersucht."
   | "Wie wird Expediate hergestellt? Die Droge wird durch "chemische Synthese von Opium und Antibiotika von Tricholoma furvus (Schwarze Pilze)"(orange) hergestellt."
   | "Ein "Katalysatorenzym ist ebenfalls notwendig"(orange)."
@@ -214,7 +214,7 @@
   | (:giggle)"Wow, das ging schnell. Oh, nur 34KB... Text ist schön klein! Und es scheint nicht korruptiert zu sein."(light-gray, italic)
   | (:normal)"Ok "ich hab was ich brauche von dem"(orange)."(light-gray, italic)
   ? (not (var 'first-one))
-  | | "Ich "formatiere den Speicher"(orange). Lieber auf nummer sicher gehen."(light-gray, italic)
+  | | "Ich "formatiere den Speicher"(orange). Lieber auf Nummer sicher gehen."(light-gray, italic)
   | | "Wenn ich aber schon dabei bin "könnte ich noch nach mehr Info suchen"(orange) solange es noch geht."(light-gray, italic)
   |?
   | | "Ich "formatiere den Speicher"(orange), aber ich könnte auch noch "nach mehr Info suchen"(orange) solange es noch geht."(light-gray, italic)
@@ -231,7 +231,7 @@
   | "Notstrombatterien aufgebraucht."
   | "Backup Generator in betrieb seit 3.4957.2368... WARTUNG BENÖTIGT"
   | "Überprüfe Lüftung... AUSSER BETRIEB"
-  | "Motherboard Temperator hat 100C überschritten... BRANDGEFAHR!"
+  | "Motherboard Temperatur hat 100C überschritten... BRANDGEFAHR!"
   < terminal-3-query
 - (Suche nach {#@synthesis-nametag})
   ~ player
@@ -248,7 +248,7 @@
   | "Alana: Hallo, ich bin Alana. Wie kann ich Ihnen heute behilflich sein?"
   | "Alana: Möchten Sie einen Termin mit einem unserer Doktoren abmachen?"
   | "Alana: Sind Sie noch da?"
-  | "guest3324568: esss hat begonnennnn schaun ach draussen"
+  | "guest3324568: esss hat begonnennnn schaun ach draußen"
   | "guest3324568: du musst raus"
   | "Alana: ?"
   | "guest3324568 hat den Chat verlassen"
@@ -326,11 +326,11 @@
   | (:grin)Komm schon. Bist du wirklich so dumm?
 - Geht es nicht einfach auch ohne?
   ~ synthesis
-  | (:grin)Machst do Witze? Sieht es etwa so aus als würde es den Leuten gut gehen?
+  | (:grin)Machst du Witze? Sieht es etwa so aus als würde es den Leuten gut gehen?
   | (:normal)Ein paar der Überlebenden denken sie kommen auch ohne aus, aber das sind weitaus nicht alle.
   | Und wir sind sicher nicht ohne Expediate besser dran.
 ~ synthesis
-| (:grin)So "verbessern wir ihre Leben"(orange). Im Untergrund zu leben ist hart, nicht nur weil es so heiss ist. Es ist "noch schlimmer für deine Freunde auf der Oberfläche"(orange).
+| (:grin)So "verbessern wir ihre Leben"(orange). Im Untergrund zu leben ist hart, nicht nur weil es so heiß ist. Es ist "noch schlimmer für deine Freunde auf der Oberfläche"(orange).
 | Der Trank ist die Antwort. Schau nur "was die Wraw damit anstellen konnten"(orange). Die "Nebeneffekte kann man ignorieren solange die Dosis richtig kontrolliert wird"(orange).
 | Und die Sucht... was kommts drauf an wenn man das so oder so braucht?
 | Wenn alle darauf zugriff hätten, dann wären sie so fähig wie die Wraw. "Und dann würden die Wraw nicht dominieren"(orange).
@@ -346,9 +346,9 @@
   | (:grin)Hah! Wir hassen die Wraw. Sie glauben an Kontrolle durch Gewalt.
 - Also willst du reich werden?
   ~ synthesis
-  | (:grin)Das ist ein Teil davonx. Aber "wir wollen Zusammenkunft mehr als Geld."(orange)
+  | (:grin)Das ist ein Teil davon. Aber "wir wollen Zusammenkunft mehr als Geld."(orange)
 ~ synthesis
-| (:grin)Es gibt auch "Abschreckungsmöglichkeiten"(orange), weisst du?
+| (:grin)Es gibt auch "Abschreckungsmöglichkeiten"(orange), weißt du?
 | "Also, gibst du uns die Info oder nicht?"(orange)
 ~ player
 - (Gib ihnen Expediate.txt)
@@ -364,24 +364,24 @@
 - (Änder die Datei)
   ~ player
   | "Ich werd die Datei wohl vorlesen müssen, da ich kein Drucker hab."(light-gray, italic)
-  | "Aber nicht bevor ich sie ändere. Ich bin kein chemiker, aber die Mengen zu ändern sollte ausreichen."(light-gray, italic)
-  | (:giggle)"Vielleicht explodierts sogar!"(light-gray, italic)
+  | "Aber nicht bevor ich sie ändere. Ich bin kein Chemiker, aber die Mengen zu ändern sollte ausreichen."(light-gray, italic)
+  | (:giggle)"Vielleicht explodiert es sogar!"(light-gray, italic)
   ! eval (store 'item:synthesis-file-1 1)
   ! eval (status "1 Expediate (verändert).txt Erhalten")
  | "Aha, sie haben einen Stift und Papier. Gut vorbereitet."(light-gray, italic)
   | (:embarassed)"Die Chemischen Formeln sind extrem langweilig. Ich glaube ich lass das einfach automatisch abspielen"(light-gray, italic)
   | (:normal)"..."(light-gray, italic)
-  | "Oh, das wars? Hat nicht so lange gedeaurt wie ich fürchtete."(light-gray, italic)
+  | "Oh, das wars? Hat nicht so lange gedauert wie ich fürchtete."(light-gray, italic)
   ~ synthesis
   | (:grin)Da haben wirs. Das Rezept ist... "faszinierend"(italic).
   < good-end
 - (Corrupt and share it)
   ~ player
   | "Ich werd die Datei wohl vorlesen müssen, da ich kein Drucker hab."(light-gray, italic)
-  | "Aber erst korrigier ich das noch ein bisschen mit extra Korruption..."(light-gray, italic)
+  | "Aber erst korrigiere ich das noch ein bisschen mit extra Korruption..."(light-gray, italic)
   | (:giggle)"Uund fertig. Ich bin sehr erstaunt, wenn das irgendwer noch so reproduzieren kann."(light-gray, italic)
   ! eval (store 'item:synthesis-file-2 1)
-  ! eval (status "Received 1 Expediate (corrupted).txt")
+  ! eval (status "1 Expediate (korruptiert).txt Erhalten")
   | "Aha, sie haben einen Stift und Papier. Gut vorbereitet."(light-gray, italic)
   | (:embarassed)"Die Chemischen Formeln sind extrem langweilig. Ich glaube ich lass das einfach automatisch abspielen"(light-gray, italic)
   | (:normal)"..."(light-gray, italic)
@@ -394,7 +394,7 @@
   - Ich hab die Datei genau vorgelesen wie sie ist
   ~ synthesis
   | ...
-  | Vielleicht können wir den rest noch reproduzieren, aber wir sind uns nicht sicher.
+  | Vielleicht können wir den Rest noch reproduzieren, aber wir sind uns nicht sicher.
   | (:grin)Aber, das ist besser als nichts. Das Labor könnte auch noch mehr Einsicht geben.
   < end-end
 - (Behalte die Datei)
@@ -413,7 +413,7 @@
   - Ich hab die Datei nicht mehr
   - Ich habs gelöscht
   ~ synthesis
-  | ... Unsere Gedult hat auch ihre Grenzen, Android.
+  | ... Unsere Geduld hat auch ihre Grenzen, Android.
   < bad-end
 
 # bad-end

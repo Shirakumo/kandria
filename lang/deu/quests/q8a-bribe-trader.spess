@@ -37,7 +37,7 @@
 | Bis auf wiedersehen.
 ~ player
 | (:embarassed)...
-| Scheisse.
+| Scheiße.
 | (:normal)"Ich muss mit "{#@fi-nametag} sprechen"(orange). Aber zuerst muss ich mich "von diesem Gauner distanzieren"(orange)."(light-gray, italic)
 ! eval (complete task)
 ! eval (reset interaction)

@@ -9,7 +9,7 @@
 ~ catherine
 | (:concerned){#@islay-nametag}, du bist richtig nass.
 ~ islay
-| (:nervous)Verdammt... Du hättest nicht kommen sollen, ich kann das aleine.
+| (:nervous)Verdammt... Du hättest nicht kommen sollen, ich kann das alleine.
 ~ player
 - Lass uns helfen
   ~ catherine
@@ -26,7 +26,7 @@
 | (:normal)Aber ich glaube "ich kann das neu verkabeln"(orange) damit das nicht wieder passieren kann.
 | Sie haben einen "Bombenentschärfungsroboter"(orange) - Ich hab ihn "im Pumpenraum gesehen"(orange).
 | Wenn du schon hier bist kannst du "in zerstören"(orange).
-| Und danach beeil dich "zum Brother Büro. {#@catherine-nametag}, kann die Bombe neu verkabeln"(orange).
+| Und danach beeile dich "zum Brother Büro. {#@catherine-nametag}, kann die Bombe neu verkabeln"(orange).
 ~ catherine
 | (:excited)Alles klar.
 ~ islay

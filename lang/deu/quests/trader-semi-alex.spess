@@ -13,20 +13,20 @@
 | | | "{(nametag player)}", ha. Was für ein Witz!
 | | | Verpisst euch beide.
 | | ~ islay
-| | | Wir sollten "ihn für eine Weile alleine lassen"(orange). Hoffentlich denkt ehr anders, wenn er wieder nüchtern ist.
+| | | Wir sollten "ihn für eine Weile alleine lassen"(orange). Hoffentlich denkt er anders, wenn er wieder nüchtern ist.
 | | | Du hast für uns bereits einiges getan, ohne wirkliche Belohnung.
 | | | Bitte "nimm diese Bruchteile als Entschädigung"(orange).
 | | ! eval (store 'item:parts 600)
-| | ! eval (status "Received 600 Scrap Part")
+| | ! eval (status "600 Bruchteile Erhalten")
 | | ! eval (setf (var 'alex-fee) T)
-| | | [(not (complete-p 'q6-return-to-fi)) Du solltest "{#@fi-nametag} sagen was los ist"(orange). Ich behalt {#@alex-nametag} im Auge. | Mach dir keine Sorgen, ich behalte ihn im Auge.]
+| | | [(not (complete-p 'q6-return-to-fi)) Du solltest "{#@fi-nametag} sagen was los ist"(orange). Ich behalte {#@alex-nametag} im Auge. | Mach dir keine Sorgen, ich behalte ihn im Auge.]
 | | | Bis später.
 | | ! eval (setf (var 'alex-done) T)
 | | ! eval (clear-pending-interactions)
 | |? (var 'alex-done)
 | | ~ islay
 | | | Sieh selbst. Ich hab dem Barmann verboten ihm was zu bringen.
-| | | Ich sollte zum Kontrollraum zurückkehren, aber keine Sorge, wir haben ihn unter beobachtung.
+| | | Ich sollte zum Kontrollraum zurückkehren, aber keine Sorge, wir haben ihn unter Beobachtung.
 | |?
 | | ~ islay
 | | | Nicht viel besser, leider.
@@ -41,7 +41,7 @@
 | | | Du hast für uns bereits einiges getan, ohne wirkliche Belohnung.
 | | | Bitte "nimm diese Bruchteile als Entschädigung"(orange).
 | | ! eval (store 'item:parts 600)
-| | ! eval (status "Received 600 Scrap Part")
+| | ! eval (status "600 Bruchteile Erhalten")
 | | ! eval (setf (var 'alex-fee) T)
 |  
 | ~ islay

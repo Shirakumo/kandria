@@ -30,7 +30,7 @@
 | (:normal)Zumindest ist es klar warum sie invadiert haben. "Das Wasser abzudrehen ist viel zu offensichtlich"(orange).
 | Sie brauchen das nicht nur als Trinkwasser, sondern auch um ihr Kraftwerk zu kühlen.
 | Ich wusste, dass {#@innis-nametag} am überreagiert hat. Die Semis werden nicht invadiert.
-| (:unsure)Aber ich muss immernoch wissen "wann und wo die Wraw uns einfangen wollen"(orange).
+| (:unsure)Aber ich muss immer noch wissen "wann und wo die Wraw uns einfangen wollen"(orange).
 | (:normal)Es tut mir leid, aber ich muss dich "tiefer in das Gebiet schicken. Finde raus was Zelah vor hat"(orange).
 | Kannst du das? "In das Wraw Gebiet eindringen"(orange)?
 ~ player
@@ -46,14 +46,14 @@
 - Für dich schon
   ~ fi
   | (:happy)...
-- Richtig gesehen bin ich beireits im Wraw gebiet
+- Richtig gesehen bin ich bereits im Wraw Gebiet
   ~ fi
   | (:unsure)... Ja, aber ich meinte "ihr Hauptgebiet, viel tiefer unten"(orange).
 ~ fi
 | (:unsure)Schau dir die "Magmakammer im Westen an"(orange) - das sollte ein guter Startpunkt sein.
-| (:normal)Dein "FFCS könnte so tief unten nicht mehr funktionieren"(orange), aber "gib mir bescheid sobald du kannst"(orange).
+| (:normal)Dein "FFCS könnte so tief unten nicht mehr funktionieren"(orange), aber "gib mir Bescheid sobald du kannst"(orange).
 | Gib Acht.
 ~ player
-| "Ich hab mir einige wichtige Orte auf der Karte amrkiert."(orange, italic)
+| "Ich hab mir einige wichtige Orte auf der Karte markiert."(orange, italic)
 ! eval (deactivate (unit 'fi-ffcs-cerebat-1))
 ! eval (deactivate (unit 'fi-ffcs-cerebat-2))

@@ -24,7 +24,7 @@
 ~ player
 - (Bleib weiterhin {(nametag player)})
   ~ fi
-  | Bist du sicher, dass du weiterhein "{#@player-name-1}"(yellow) heissen möchtest?
+  | Bist du sicher, dass du weiterhin "{#@player-name-1}"(yellow) heißen möchtest?
   ~ player
   - (Nein - Wähle einen anderen Namen)
     < name
@@ -39,7 +39,7 @@
   ~ player
   - {#@player-name-2}
     ~ fi
-    | Bist du sicher, dass du "{#@player-name-2}"(yellow) heissen möchtest?
+    | Bist du sicher, dass du "{#@player-name-2}"(yellow) heißen möchtest?
     ~ player
     - (Nein - Wähle einen anderen Namen)
       < old-names
@@ -48,7 +48,7 @@
       < old-name-chosen
   - {#@player-name-3}
     ~ fi
-    | Bist du sicher, dass du "{#@player-name-3}"(yellow) heissen möchtest?
+    | Bist du sicher, dass du "{#@player-name-3}"(yellow) heißen möchtest?
     ~ player
     - (Nein - Wähle einen anderen Namen)
       < old-names
@@ -57,7 +57,7 @@
       < old-name-chosen
   - {#@player-name-4}
     ~ fi
-    | Bist du sicher, dass du "{#@player-name-4}"(yellow) heissen möchtest?
+    | Bist du sicher, dass du "{#@player-name-4}"(yellow) heißen möchtest?
     ~ player
     - (Nein - Wähle einen anderen Namen)
       < old-names
@@ -66,7 +66,7 @@
       < old-name-chosen
   - {#@player-name-5}
     ~ fi
-    | Bist du sicher, dass du "{#@player-name-5}"(yellow) heissen möchtest?
+    | Bist du sicher, dass du "{#@player-name-5}"(yellow) heißen möchtest?
     ~ player
     - (Nein - Wähle einen anderen Namen)
       < old-names
@@ -77,7 +77,7 @@
     < name
 - (Lass {#@fi-nametag} einen Namen wählen)
   ~ fi
-  | (:unsure)Bist du sicher? Das ist eine grosse Verantwortung...
+  | (:unsure)Bist du sicher? Das ist eine große Verantwortung...
   ~ player
   - Dann lieber nicht...
     < name
@@ -103,7 +103,7 @@
 
 # continue
 ~ fi
-| (:happy)Na, dann hatt sich das auch erledigt, "{(nametag player)}"(yellow). Willkommen bei den Noka!
+| (:happy)Na, dann hat sich das auch erledigt, "{(nametag player)}"(yellow). Willkommen bei den Noka!
 | (:normal)Ich wünsche wir hätten Zeit zu plaudern, aber dieser nächste Job ist wichtig.
 | (:happy)Dein erster "offizieller" Job.
 | (:unsure)Ich denke immer wieder an was {#@innis-nametag} gesagt hat. Wir müssen mit den Cerebat sprechen.

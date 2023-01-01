@@ -18,7 +18,7 @@
 
 # wraw-fi-ffcs/station-surface-trigger
 ~ player
-| "Endlich wieder zuhause."(light-gray, italic)
+| "Endlich wieder Zuhause."(light-gray, italic)
 | "Ich sollte "{#@fi-nametag} von der Wraw invasion erzählen"(orange)."(light-gray, italic)
 
 # return-fi/talk-fi
@@ -35,7 +35,7 @@
   | (:concerned)Echt?
 - Die Wraw invadieren das ganze Tal
   ~ fi
-  | (:unsure)Was heisst das?
+  | (:unsure)Was heißt das?
 ~ player
 | Sie haben Exoskelette, und genügend davon um das ganze Gebiet hier mit Gewalt an sich zu reissen.
 | Und ich glaube sie sind jetzt bereits auf dem Weg hierhin.
@@ -49,7 +49,7 @@
 ~ jack
 | {#@fi-nametag}?...
 | (:annoyed){#@fi-nametag}? Was machen wir?
-| (:shocked)... Verdammte scheisse, wir müssen von hier weg!
+| (:shocked)... Verdammte scheiße, wir müssen von hier weg!
 ~ catherine
 | (:concerned)Und wohin?
 | Wir haben Kinder und Alte um die wir uns kümmern müssen.
@@ -59,7 +59,7 @@
   | Wo?
 - Ich hab mich mit einem der Exoskelette verbunden
   ~ jack
-  | (:annoyed)Erspar uns deine makabernen Geschichten
+  | (:annoyed)Erspare uns deine makaberen Geschichten
   ~ fi
   | (:annoyed)<-JACK!-> Nicht jetzt!
 - Gibt es in den Bergen Androiden?
@@ -113,7 +113,7 @@
 ~ catherine
 | (:excited)Geht klar!
 ~ fi
-| Ich find raus wo {#@trader-nametag} hin gegangen ist.
+| Ich finde raus wo {#@trader-nametag} hin gegangen ist.
 ! eval (move-to 'check-supplies 'catherine)
 ! eval (move-to 'eng-jack 'jack)
 ! eval (setf (walk 'jack) T)

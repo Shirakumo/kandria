@@ -33,11 +33,11 @@
 ~ synthesis
 | Gah...
 ~ player
-| "... Ich kann ihr gesicht kaum ausmachen, aber sie scheinen mords Kopfweh zu haben."(light-gray, italic)
+| "... Ich kann ihr Gesicht kaum ausmachen, aber sie scheinen Mords Kopfweh zu haben."(light-gray, italic)
 ~ synthesis
 | Ack... <-AH...->
 ~ player
-- Alles in ordnung?
+- Alles in Ordnung?
 - Ihr seht nicht gut aus
 - Ich hoffe das ist nicht ansteckend
 ~ synthesis
@@ -51,7 +51,7 @@
   | Zu dumm
 ~ synthesis
 | "Bring uns 4 davon."(orange)
-| "Durchsuch das Cerebat gebiet und die Tunnell."(orange)
+| "Durchsuch das Cerebat Gebiet und die Tunnel."(orange)
 | Schnell.
 ? (= 4 (item-count 'item:mushroom-bad-1))
 | ~ player

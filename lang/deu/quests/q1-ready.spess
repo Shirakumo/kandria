@@ -4,14 +4,14 @@
 ~ player
 - Noch nicht
   ~ catherine
-  | Ok, aber beeil dich bitte!
+  | Ok, aber beeile dich bitte!
 - (Aufgabenliste)
   ~ player
-  | "Meine "Aufzeichnungen"(orange) beinhalten daten über meine momentanen Aufgaben. Wenn ich unsicher bin, was ich als nächstes tun soll, kann ich die jederzeit anschauen."(light-gray, italic)
+  | "Meine "Aufzeichnungen"(orange) beinhalten Daten über meine momentanen Aufgaben. Wenn ich unsicher bin, was ich als nächstes tun soll, kann ich die jederzeit anschauen."(light-gray, italic)
   | (:giggle)"Die Vorteile eines Androiden!"(light-gray, italic)
 - Was machen wir schon wieder?
   ~ catherine
-  | (:concerned)Ist dein Kurzzeitgedächtniss kaputt? Wir müssen das Leck in der Leitung schliessen, bevor alles verdurstet!
+  | (:concerned)Ist dein Kurzzeitgedächtnis kaputt? Wir müssen das Leck in der Leitung schliessen, bevor alles verdurstet!
   ~ player
   - Ich muss nichts trinken
     ~ catherine
@@ -19,15 +19,15 @@
   - Ah, jetzt erinner ich mich
     ~ catherine
     | (:concerned)Gut. Na dann...
-  - Mein System ist nicht optimal funtktionstüchtig
+  - Mein System ist nicht optimal funktionstüchtig
     ~ catherine
-    | Einige Jahrzehnte in einer Höle macht sowas aus.
+    | Einige Jahrzehnte in einer Höhle macht sowas aus.
     | (:concerned)Ich glaube nicht, dass du dagegen im Moment viel tun kannst. Sorry.
   ~ catherine
   | "Gib mir bescheid"(orange) wenn du bereit bist zu gehen.
 - Ich bin bereit
   ~ catherine
   | OK. Wir gehen das "Loch dort drüben runter"(orange).
-  | Folg der "roten Leitung"(orange) und "bleib nahe bei mir"(orange).
+  | Folge der "roten Leitung"(orange) und "bleib nahe bei mir"(orange).
   ! eval (deactivate interaction)
   ! eval (complete task)

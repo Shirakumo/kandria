@@ -1,20 +1,20 @@
 # chat-trader/chat-with-trader
 ? (not (complete-p 'q10a-return-to-fi))
 | ~ cerebat-trader-quest
-| | Schiess los.
+| | Schieß los.
 | ! label questions
 | ~ player
 | - Warum hilfst du den Wraw?
 |   ~ cerebat-trader-quest
-|   | Ich weiss wies aussieht.
+|   | Ich weiß wies aussieht.
 |   | Aber sie haben viele Ressourcen, und das ist alles was mir wichtig ist.
 |   < questions
 | - Was ist mit dem Kollegium passiert?
 |   ~ cerebat-trader-quest
 |   | Wie gesagt, höchstwahrscheinlich alle tot.
-|   | Oder vielleicht einfach nur in Gefangenschaft bei den Wraw. Wer weiss.
+|   | Oder vielleicht einfach nur in Gefangenschaft bei den Wraw. Wer weiß.
 |   < questions
-| - Wie heisst du?
+| - Wie heißt du?
 |   ? (not (var 'name-known))
 |   | ~ cerebat-trader-quest
 |   | | Hah! Glaubst du wirklich ich würde jemandem meinen echten Namen geben?

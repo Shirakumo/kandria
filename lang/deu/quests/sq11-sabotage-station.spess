@@ -1,7 +1,7 @@
 # task-reminder/reminder
 ~ jack
 | (:annoyed)Ich dachte wir haben das gründlich besprochen?
-| (:normal)Es ist einfach: "geh in den Osten des Wraw gebiets, find die Leitung zu ihrem Generator, und zerstör sie"(orange).
+| (:normal)Es ist einfach: "geh in den Osten des Wraw Gebiets, finde die Leitung zu ihrem Generator, und zerstör sie"(orange).
 | Kapiert?
 
 # task-station/station-pipe
@@ -9,7 +9,7 @@
 | ""Das ist die Leitung, die {#@jack-nametag} sabotieren will"(orange), aber..."(light-gray, italic)
 | (:embarassed)"Sieht so aus als "wäre mir jemand zuvor gekommen"(orange)."(light-gray, italic)
 | (:thinking)"Entweder das, oder "es gab hier einen Unfall"(orange) - vielleicht sind die Wraw etwas zu eifrig."(light-gray, italic)
-| "Wasser könnte theoretisch noch fliessen, aber es wäre sicherlich unverlässlich -"(light-gray, italic) (:giggle)"Ich denke ich kenne mich damit mittlerweile aus."(light-gray, italic)
+| "Wasser könnte theoretisch noch fließen, aber es wäre sicherlich unverlässlich -"(light-gray, italic) (:giggle)"Ich denke ich kenne mich damit mittlerweile aus."(light-gray, italic)
 | (:thinking)"Aber innen ist es furztrocken. Und die "Turbine ist auch abgeschaltet"(orange)."(light-gray, italic)
 | (:normal)"{#@jack-nametag} hatte recht, "das sollte ihren Strom massiv einschränken"(orange)."(light-gray, italic)
 | "Hoffentlich reicht das um einen Unterschied zu machen."(light-gray, italic)

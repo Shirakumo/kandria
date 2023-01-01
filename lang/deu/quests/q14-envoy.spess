@@ -27,23 +27,23 @@
 ~ zelah
 | Und jetzt "will ich es wieder haben"(orange).
 ~ fi
-| (:annoyed)Wenn du auch nur einen Finger rürst bring ich dich um.
+| (:annoyed)Wenn du auch nur einen Finger rührst bring ich dich um.
 ~ zelah
 | (:jovial)Ah, keine Sorge, ich muss niemanden anrühren. Dafür hab ich eine Armee.
 | (:normal)Komm schon, Android. Du hast das gut gemacht, dank dir werden wir alle unter einem Dach arbeiten.
 | Aber jetzt kann diese Maskerade aufhören. Du hast sie alle betrogen, erinnerst du dich? "Es ist zeit nach hause zu kommen"(orange).
 | "Wenn du das machst, dann lass ich diese Schwächlinge sogar am leben"(orange).
 ~ fi
-| (:annoyed)Ich seh nur einen Verräter hier.
+| (:annoyed)Ich sehe nur einen Verräter hier.
 ~ alex
 | (:angry)Schau dich mal selbst an!
 | Und vielleicht hätte ich ihnen nix gesagt, wenn du dieses Ding nicht mir hinterher gejagt hättest!
 ~ zelah
 | {#@alex-nametag} ist nur nach hause gekommen, genau wie ihr das auch hättet machen sollen.
 | Aber nein, ihr habt das Volk betrogen und sind davon gerannt, {#@fi-nametag}.
-| (:jovial)Ich weiss du schätzt diesen Androiden sehr, aber jetzt ist genug.
+| (:jovial)Ich weiß du schätzt diesen Androiden sehr, aber jetzt ist genug.
 ~ fi
-| (:annoyed)Sie geht niergendwo hin.
+| (:annoyed)Sie geht nirgendwo hin.
 ~ jack
 | (:shocked){#@fi-nametag}...
 ~ innis
@@ -69,7 +69,7 @@
 ~ fi
 | Es ist egal, was er sagt, {(nametag player)}. Du hast uns gezeigt, wer du wirklich bist, auch wenn du das nicht musstest.
 ~ zelah
-| (:jovial)Letzte chance, //{(nametag player)}//. Komm mit mir, oder sie werden alle sterben.
+| (:jovial)Letzte Chance, //{(nametag player)}//. Komm mit mir, oder sie werden alle sterben.
 ~ player
 - Netter versuch
 - Fick dich

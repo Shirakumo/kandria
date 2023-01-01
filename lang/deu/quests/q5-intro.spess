@@ -2,16 +2,16 @@
 ~ innis
 | (:angry)Was gibts, Android?
 ~ player
-- {#@islay-nametag} hatt mich geschikt
+- {#@islay-nametag} hat mich geschickt
   ~ innis
-  | Gut. Dann nehm ich an, sie hatt dir deine Aufgaben erklärt.
+  | Gut. Dann nehme ich an, sie hat dir deine Aufgaben erklärt.
 - Ich bin hier um bei den Ingenieuren und den CCTVs zu helfen
   ~ innis
   | Ah. Das tönt vielversprechend.
 - Ich hab {#@alex-nametag} gefunden
   ~ innis
   | (:sly)Mhm. Wohl kaum eine Errungenschaft.
-  | (:normal)Ich nehme an {#@islay-nametag} hatt dir deine Aufgaben erklärt.
+  | (:normal)Ich nehme an {#@islay-nametag} hat dir deine Aufgaben erklärt.
 ~ innis
 | (:angry)Das hätte sich alles schon längst geklärt, wenn {#@alex-nametag} nicht an die Bar gefesselt wäre.
 | (:normal)Versteh mich nicht falsch, ich mag mein Bier so gut wie der nächste, aber ihr Noka könnt wirklich nix vertragen.
@@ -26,7 +26,7 @@
   ~ player
   - Alkohol macht einfach nichts
     ~ innis
-    | Macht sinn. Aber du hast was wir haben auch noch nicht probiert.
+    | Macht Sinn. Aber du hast was wir haben auch noch nicht probiert.
     | (:sly)Würde auch deine Innereien verrotten.
   - Nichns hindert mich, ich trinke einfach nicht
     ~ innis
@@ -38,7 +38,7 @@
   ~ innis
   | Und wessen Schuld ist es dann?
 ~ innis
-| Wie viel hatt dir meine Schwester erzählt? Weisst du schon was du tun musst?
+| Wie viel hat dir meine Schwester erzählt? Weißt du schon was du tun musst?
 ? (not (active-p (unit 'blocker-engineers)))
 | ~ innis
 | | Oh: "mach dir keine Sorgen über die Ingenieure"(orange).
@@ -66,15 +66,15 @@
 |   - Nein
 |     ~ innis
 |     | (:angry)...
-|   - Wer weiss?
+|   - Wer weiß?
 |     ~ innis
 |     | (:angry)...
-| - Warum war {#@islay-nametag}'s Info nikt mer aktuell?
+| - Warum war {#@islay-nametag}'s Info nicht mehr aktuell?
 |   ~ innis
-|   | Auch mit unserer top Technologie kann es eine Weile dauern, biss alle Information zu uns kommt.
+|   | Auch mit unserer Top-Technologie kann es eine Weile dauern, biss alle Information zu uns kommt.
 | ~ innis
 | | Die gute Nachricht ist, dass die Ingenieure bereits wieder an der Arbeit sind.
-| | Meine Schwester hatt gedacht es wäre eine nette Geste, wenn wir-... (:angry)//wenn ich//, dir offiziell "Zugriff zur Metro gebe"(orange).
+| | Meine Schwester hat gedacht es wäre eine nette Geste, wenn wir-... (:angry)//wenn ich//, dir offiziell "Zugriff zur Metro gebe"(orange).
 | | Für bessere Zusammenarbeit zwischen uns.
 | | (:normal)Sollte deine Aufgaben einiges erleichtern, "sobald du die anderen Stationen gefunden hast"(orange).
 | ? (or (unlocked-p (unit 'station-surface)) (unlocked-p (unit 'station-east-lab)) (unlocked-p (unit 'station-semi-sisters)) (unlocked-p (unit 'station-cerebats)) (unlocked-p (unit 'station-wraw)))
@@ -99,13 +99,13 @@
 - [(active-p (unit 'blocker-engineers)) (Frag nach den Ingenieuren)|]
   ~ innis
   | Es gab zehn von ihnen, "im hohen Westen unseres Gebiets"(orange).
-  | Wir räumen langsam die alten Metro linien.
+  | Wir räumen langsam die alten Metro Linien.
   | (:angry)Aber es ist gefährliche Arbeit. Sie haben sich nicht mehr gemeldet und das Tunnel scheint kollabiert zu sein.
   | Unsere Jäger kommen nicht mehr weiter, aber du schon.
   < questions
 - [(not (active-p (unit 'blocker-engineers))) Die Ingenieure haben an der Metro gearbeitet?|]
   ~ innis
-  | Richtig. Wir räumen langsam die alten Metro linien.
+  | Richtig. Wir räumen langsam die alten Metro Linien.
   | (:angry)Aber es ist gefährliche Arbeit.
   < questions
 - (Frag nach den CCTVs)
@@ -117,7 +117,7 @@
   < questions
 - Alles verstanden
 ~ innis
-| "Gib mir bescheid"(orange) wenn du was neues Weisst.
+| "Gib mir bescheid"(orange) wenn du was neues Weißt.
 ! eval (activate 'q5b-investigate-cctv)
 ! eval (activate (unit 'cctv-4-trigger))
 ? (active-p (unit 'blocker-engineers))

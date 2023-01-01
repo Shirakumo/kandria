@@ -13,7 +13,7 @@
 | ! eval (deactivate 'task-find)
 |?
 | ~ player
-| | "Schaut aus als hätte ich keine Wahl ausser "dem Händler zu geben, was er will, wenn ich rausfinden will wo das Kollegium ist"(orange)."(light-gray, italic)
+| | "Schaut aus als hätte ich keine Wahl außer "dem Händler zu geben, was er will, wenn ich rausfinden will wo das Kollegium ist"(orange)."(light-gray, italic)
 | ! eval (activate 'task-search-hold)
 | ! eval (deactivate 'task-find)
 

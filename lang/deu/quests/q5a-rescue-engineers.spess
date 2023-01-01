@@ -1,7 +1,7 @@
 # task-reminder/reminder
 ~ innis
 | (:angry)Hätte nicht gedacht, dass Androide etwas vergessen können.
-| (:normal)"Finde die Ingenieure"(orange) hinter dem kollabierten Tunnell.
+| (:normal)"Finde die Ingenieure"(orange) hinter dem kollabierten Tunnel.
 | Das ist im "hohen Westen unseres Gebiets"(orange).
 
 # task-engineers/engineers
@@ -27,10 +27,10 @@
 | | - Was machst du hier?
 | | ~ semi-engineer-chief
 | | | "Wir sind die Ingenieure nach denen du suchst"(orange). Dank Gott für {#@innis-nametag}.
-| | | Der Tunnell ist kollabiert. Wir haben den Hauptingenieur und die hälfte der Truppe verloren.
+| | | Der Tunnell ist kollabiert. Wir haben den Hauptingenieur und die Hälfte der Truppe verloren.
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
 | | ~ semi-engineer-chief
-| | | Wir können "den Tunnell nicht räumen"(orange) - aber vielleicht bist du stärker?
+| | | Wir können "den Tunnel nicht räumen"(orange) - aber vielleicht bist du stärker?
 | | | "Der Einsturz ist gleich vor uns"(orange).
 | | ! eval (setf (var 'engineers-first-talk) T)
 | | ! eval (activate 'task-wall-location)
@@ -41,7 +41,7 @@
 |?
 | ? (not (var 'engineers-first-talk))
 | | ~ semi-engineer-chief
-| | | Wer bist du? Wie bist du durch den Tunnell durch gekommen?
+| | | Wer bist du? Wie bist du durch den Tunnel durch gekommen?
 | | ~ player
 | | - Ich bin kein Mensch
 | |   ~ semi-engineer-chief
@@ -52,16 +52,16 @@
 | | - Was machst du hier?
 | | ~ semi-engineer-chief
 | | | "Wir sind die Ingenieure nach denen du suchst"(orange). Dank Gott für {#@innis-nametag}.
-| | | Der Tunnell ist kollabiert. Wir haben den Hauptingenieur und die hälfte der Truppe verloren.
+| | | Der Tunnel ist kollabiert. Wir haben den Hauptingenieur und die Hälfte der Truppe verloren.
 | | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
 | | ~ semi-engineer-chief
-| | | Aber mit dem Tunnell geräumt sieht's schon viel besser aus.
+| | | Aber mit dem Tunnel geräumt sieht's schon viel besser aus.
 | | | Danke.
 | | ! eval (setf (var 'engineers-first-talk) T)
 | |?
 | | ~ semi-engineer-chief
 | | | Ich kann kaum glauben, dass du durchgekommen bist. Jetzt können wir Medizin und andere Hilfsmittel bekommen.
-| | | Die Tunnellarbeit kann weiter gehen.
+| | | Die Tunnelarbeit kann weiter gehen.
   
 ! eval (reset (find-task 'world 'task-world-engineers))
 ! eval (activate (find-task 'world 'task-world-engineers))
@@ -73,7 +73,7 @@
 ? (complete-p 'task-engineers)
 | | Sie sind auch froh, dass du bei ihnen vorbei geschaut hast. Danke.
 |?
-| | (:angry)Hätte aber nicht geschadet noch zu schauen ob sie auch in Odrnung sind.
+| | (:angry)Hätte aber nicht geschadet noch zu schauen ob sie auch in Ordnung sind.
   
 ~ innis
 | Es ist tragisch, dass wir Leute verloren haben, aber manchmal ist das der Preis für Fortschritt.
@@ -81,23 +81,23 @@
 ~ player
 - Ich hab einen Schwachpunkt gefunden und gedrückt
   ~ innis
-  | Das tönt plausibel. Mit deiner Nanomuskulatur und dem Fusionsreaktor hast do genügend Kraft.
+  | Das tönt plausibel. Mit deiner Nanomuskulatur und dem Fusionsreaktor hast du genügend Kraft.
 - Ich hab mit meinem Schwert durchgeschlagen
   ~ innis
-  | Das tönt plausibel. Mit deiner Nanomuskulatur und dem Fusionsreaktor hast do genügend Kraft.
+  | Das tönt plausibel. Mit deiner Nanomuskulatur und dem Fusionsreaktor hast du genügend Kraft.
   | (:sly)Und das Artemis Schwert hilft dabei sicherlich auch.
 - (Lüge) Ich hab "Sesam öffne dich" gesagt! 
   ~ innis
   | (:angry)...
-  | Sehr lustig. (:sly)Ich vermute es hatt mehr mit deinem Fusionsreaktor und deiner Nanomuskulatur zu tun.
+  | Sehr lustig. (:sly)Ich vermute es hat mehr mit deinem Fusionsreaktor und deiner Nanomuskulatur zu tun.
 - Würdest du gerne wissen!
   ~ innis
   | (:sly)Würde ich, ja. Aber keine Sorge, ich werd das so oder so rausfinden.
-  | Ich vermute es hatt mehr mit deinem Fusionsreaktor und deiner Nanomuskulatur zu tun.
+  | Ich vermute es hat mehr mit deinem Fusionsreaktor und deiner Nanomuskulatur zu tun.
 
 ~ innis
 | Die gute Nachricht ist, dass die Ingenieure bereits wieder an der Arbeit sind.
-| Meine Schwester hatt gedacht es wäre eine nette Geste, wenn wir-... (:angry)//wenn ich//, dir offiziell "Zugriff zur Metro gebe"(orange).
+| Meine Schwester hat gedacht es wäre eine nette Geste, wenn wir-... (:angry)//wenn ich//, dir offiziell "Zugriff zur Metro gebe"(orange).
 | Für bessere Zusammenarbeit zwischen uns.
 | (:normal)Sollte deine Aufgaben einiges erleichtern, "sobald du die anderen Stationen gefunden hast"(orange).
 ? (or (unlocked-p (unit 'station-surface)) (unlocked-p (unit 'station-east-lab)) (unlocked-p (unit 'station-semi-sisters)) (unlocked-p (unit 'station-cerebats)) (unlocked-p (unit 'station-wraw)))
@@ -116,7 +116,7 @@
 | ~ innis
 | | Du hast deine Fähigkeiten gut demonstriert, und es kann sein, dass wird deine Hilfe wieder gebrauchen werden.
 | | Aber für den Moment solltest du "{#@fi-nametag} anrufen"(orange).
-| | Schade, dass du {#@alex-nametag} nicht übrezeugen konntest nach hause zu gehen. (:sly)Ich freu mich schon ihr gesicht zu sehen wenn du ihr die Nachricht gibst.
+| | Schade, dass du {#@alex-nametag} nicht überzeugen konntest nach hause zu gehen. (:sly)Ich freue mich schon ihr Gesicht zu sehen wenn du ihr die Nachricht gibst.
 | | Androide können wohl nicht alles erreichen.
 | | (:angry)Und sag ihr auch dass "wir {#@catherine-nametag} zurück wollen"(orange). Wir brauchen sie jetzt mehr als je zuvor.
 | | (:sly)Wenn sie nicht einverstanden ist, dann "stellen wir das Wasser ab"(orange).

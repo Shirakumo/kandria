@@ -26,7 +26,7 @@
   | Lass mich raten: {#@semi-partner-nametag}. Das stinkt nach seinem Übereifer.
 - {#@semi-partner-nametag} hat mich geschickt
   ~ cerebat-partner
-  | Ach du Scheisse. Der wieder mit seinem Übereifer.
+  | Ach du Scheiße. Der wieder mit seinem Übereifer.
 - Ich wurde von einem Semi geschickt der nach seiner Freundin sucht
   ~ cerebat-partner
   | {#@semi-partner-nametag} also. Der wieder mit seinem Übereifer.
@@ -63,7 +63,7 @@
 - Er dachte dir wäre etwas geschehen
   ~ cerebat-partner
   | Wie nett. Aber nein, nichts schlimmeres als üblich.
-  | Naja, ausser dass ich mich von ihm getrennt hab.
+  | Naja, außer dass ich mich von ihm getrennt hab.
   < breakup
 - Er vermisst dich
   ~ cerebat-partner
@@ -76,15 +76,15 @@
 
 # given
 ! eval (retrieve 'item:love-letter 1)
-! eval (status "Lost 1 Tobias' Letter")
+! eval (status "1 Tobias' Brief Verloren")
 ~ cerebat-partner
 | Ein Brief? Klassisch.
 | ...
 | Hah! Na vielleicht haben wir doch noch etwas gemeinsam.
 ! label breakup
 | Ich dachte er würde es kapieren, wenn ich seine Anrufe nicht mehr beantworte.
-| Er weiss, dass das nie funktioniert hätte.
-| Wie gut kennst du dich mit der Politik hier aus? Die Semis und Cerebats sind nicht gerade kompatibel, weisst du.
+| Er weiß, dass das nie funktioniert hätte.
+| Wie gut kennst du dich mit der Politik hier aus? Die Semis und Cerebats sind nicht gerade kompatibel, weißt du.
 ~ player
 - Warum hast du das ihm nicht einfach gesagt?
   ~ cerebat-partner
@@ -95,7 +95,7 @@
   | Und was bist du? Ein Therapeut oder was? Siehst mehr aus wie ein schlubbriger Detektiv.
 - Bist du sicher?
   ~ cerebat-partner
-  | Ja, bin ich. Ausserdem will er ja auch keine Beziehung.
+  | Ja, bin ich. Außerdem will er ja auch keine Beziehung.
 ~ cerebat-partner
 | Ich schätze es, dass du mir den Brief gebracht hast, aber ich "geb dir nix"(orange).
 | "Ich ruf ihn an"(orange), OK?

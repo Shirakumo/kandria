@@ -9,9 +9,9 @@
 | "Es riecht so alt wie es aussieht. Behälter und Säcke sind über den Boden verstreut. Jemand anderes war schon hier."(light-gray, italic)
 | "Das meiste ist verrottet, aber einige dieser Schubladen beinhalten noch brauchbare Samen."(light-gray, italic)
 ! eval (store 'item:seeds 24)
-! eval (status "Received 24 Seed Sachet")
+! eval (status "24 Samen Säckel Erhalten")
 | "Insgesammt nur noch "24 Säckel"(orange) brauchbarer Samen."(light-gray, italic)
-| (:thinking)"Ich frag mich ob die immernoch wachsen werden?"(light-gray, italic)
+| (:thinking)"Ich frag mich ob die immer noch wachsen werden?"(light-gray, italic)
 | (:normal)"Ich sollte "zu {#@fi-nametag} zurückkehren"(orange)."(light-gray, italic)
 ! eval (deactivate 'q2-reminder)
 
@@ -24,7 +24,7 @@
 - (Gib ihr die Samen)
 ~ fi
 ! eval (retrieve 'item:seeds T)
-! eval (status "Lost 24 Seed Sachet")
+! eval (status "24 Samen Säckel Verloren")
 | (:happy)Oh wow, das müssen über zwanzig Säckel sein. War das alles?
 ~ player
 - Ja
@@ -37,10 +37,10 @@
 | {#@alex-nametag} ist für lange Zeit unser einziger Jäger gewesen. Ich denke du kannst diese Rolle auch erfüllen, und vielleicht sogar noch mehr.
 | Für jetzt, bitte "nimm diese Bruchteile"(orange) als Entschädigung.
 ! eval (store 'item:parts 200)
-! eval (status "Received 200 Scrap Part")
+! eval (status "200 Bruchteile Erhalten")
 ~ fi
 ? (complete-p 'q3-new-home)
-| | Ich denke "{#@catherine-nametag} hatt eine neue Aufgabe"(orange) für dich.
+| | Ich denke "{#@catherine-nametag} hat eine neue Aufgabe"(orange) für dich.
 | | (:happy)Und ich ebenso. "Gib mir bescheid"(orange) wenn du bereit bist.
 | ! eval (activate 'sq-act1-intro)
 | ! eval (activate 'q4-intro)
@@ -49,6 +49,6 @@
 | | | Ich hab "{#@jack-nametag} einen neuen Job gegeben"(orange). Ich denke du könntest ihm dabei helfen.
 | | | Er ist im "Ingenieurgebäude"(orange).
 |   
-| | Ausserdem hab ich gehört, dass "{#@trader-nametag} wieder zurück ist"(orange). Er hat "im Mittwest-Markt"(orange) seinen Shop aufgestellt.
+| | Außerdem hab ich gehört, dass "{#@trader-nametag} wieder zurück ist"(orange). Er hat "im Mittwest-Markt"(orange) seinen Shop aufgestellt.
 | | Schau mal bei ihm vorbei.
 | ! eval (activate 'trader-arrive)

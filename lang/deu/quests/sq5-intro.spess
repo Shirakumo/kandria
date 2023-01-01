@@ -3,7 +3,7 @@
 ! eval (setf (nametag (unit 'semi-patron-1)) (@ semi-patron-1-nametag))
 ! eval (setf (nametag (unit 'semi-patron-2)) (@ semi-patron-2-nametag))
 ~ semi-barkeep
-| Grüss dich, {(nametag player)}.
+| Grüß dich, {(nametag player)}.
 | Ich hab gehofft, du würdest vorbei kommen. Die hier haben zu viel Zeit, wie du siehst.
 | Wie wärs mit ein paar "Rennen"(orange) um die Zeit tot zu schlagen?
 ~ player
@@ -18,7 +18,7 @@
   ~ semi-patron-1
   | Androide können also trinken! Du schuldest mir fünfzig.
   ~ semi-patron-2
-  | Verdammtnochmal. Aber du trinkst nicht wie ein richtiger Trinker, oder?
+  | Verdammt nochmal. Aber du trinkst nicht wie ein richtiger Trinker, oder?
   ~ semi-patron-1
   | Hey, damit kommst du nicht weg. Wenn sies trinkt, dann gilt das.
   ~ player
@@ -46,7 +46,7 @@
 ~ semi-barkeep
 | Wie gesagt, hier wird es oft etwas langweilig, zumindest für alle, die nicht viel mit unseren Anführerinnen zu tun haben.
 | Wir haben ein //gutes// leben, zumindest für nach der Katastrophe. Aber es geht nicht viel ab.
-| Das heisst, wenn ein Android zur Tür reinschneit, dann hören plötzlich einige zu.
+| Das heißt, wenn ein Android zur Tür reinschneit, dann hören plötzlich einige zu.
 ~ semi-patron-2
 | Komm zum Punkt! Die hat nicht den ganzen Tag!
 ? (var 'lost-bet-2)
@@ -61,7 +61,7 @@
 | Wir wollen wissen ob du "unsere Bestzeiten schlagen kannst"(orange).
 | Hier in der Bar machen wir Wetten und "du kriegst einen Teil der Einsätze. Je besser die Zeit, desto grösser der Anteil"(orange).
 | Hmm, mal schauen... wir haben einige "kaputte Genera Cores"(orange). Das sollte passen.
-| Die Jäger können sie "fern und breit setzen"(orange) - hauptsächlich in unserem Gebiet, aber vielleicht auch ausserhalb.
+| Die Jäger können sie "fern und breit setzen"(orange) - hauptsächlich in unserem Gebiet, aber vielleicht auch außerhalb.
 | "Sag mir wenn du dabei bist"(orange). In der Zwischenzeit kümmer ich mich um die Wetten.
 ! eval (activate 'sq5-race)
 ! eval (complete task)

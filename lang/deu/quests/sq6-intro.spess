@@ -8,7 +8,7 @@
   < leave
 ~ semi-partner
 | Meine Freundin, "{#@cerebat-partner-nametag}"(yellow) - sie ist in Gefahr, ich bin mir sicher.
-| Sie ist ein "Cerebat, kein Semi"(orange). Wir haben früher oft per radio telefoniert, aber sie antwortet seit einer Weile nicht mehr.
+| Sie ist ein "Cerebat, kein Semi"(orange). Wir haben früher oft per Radio telefoniert, aber sie antwortet seit einer Weile nicht mehr.
 | Ich bin "{#@semi-partner-nametag}"(yellow), übrigens.
 ! eval (setf (nametag (unit 'semi-partner)) (@ semi-partner-nametag))
 ~ player
@@ -30,7 +30,7 @@
 | Dank dir, {(nametag player)}. Niemand sonst kümmert sich darum, und ich kann selber den Weg nicht bewältigen.
 | Hier ist der "Brief. Bitte bewahre ihn sicher auf."(orange)
 ! eval (store 'item:love-letter 1)
-! eval (status "Received 1 Tobias' Letter")
+! eval (status "1 Tobias' Brief Erhalten")
 ! eval (activate (unit 'sq6-check-note))
 ! eval (activate 'check-note)
 ! eval (activate 'sq6-deliver-letter)
@@ -57,7 +57,7 @@
 | ""Ich glaube es wäre das beste für uns beide wenn wir unsere eigenen Wege gehen."(light-gray, italic)"
 | ""Tut mir leid, dass das nicht ist was du hören wolltest. Aber wir sollten erst am leben bleiben, oder?"(light-gray, italic)"
 | ""Wenn alles wieder normal ist, vielleicht können wir uns dann in Person treffen? Schauen wie es ist?"(light-gray, italic)"
-| ""Bitte ruf mich an wenn du kannst. Ich mach mir immernoch Sorgen."(light-gray, italic)"
+| ""Bitte ruf mich an wenn du kannst. Ich mach mir immer noch Sorgen."(light-gray, italic)"
 | ""Mit aller Liebe, {#@semi-partner-nametag} x x x"(light-gray, italic)"
 | (:embarassed)""Er trennt sich von ihr"(orange)... Wow."(light-gray, italic)
 | "Naja, geht mich eigentlich nichts an."(light-gray, italic)

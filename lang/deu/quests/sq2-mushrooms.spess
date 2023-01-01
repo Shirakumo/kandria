@@ -20,7 +20,7 @@
 | ! eval (status "~a Rosenpilze Verloren" (item-count 'item:mushroom-good-1))
 | ! eval (retrieve 'item:mushroom-good-1 T)
 ? (have 'item:mushroom-good-2)
-| | (:cheer)"Rostige Kappen"(red), toll! Die mag ich am bessten. Hab auch mein Halstuch daraus gemacht, wenn du das glauben kannst.
+| | (:cheer)"Rostige Kappen"(red), toll! Die mag ich am besten. Hab auch mein Halstuch daraus gemacht, wenn du das glauben kannst.
 | | (:normal)Leider sind die Sporen davon giftig. Ich musste dauernd eine Maske anbehalten während der Arbeit.
 | ! eval (status "~a Rostige Kappen Verloren" (item-count 'item:mushroom-good-2))
 | ! eval (retrieve 'item:mushroom-good-2 T)
@@ -35,7 +35,7 @@
 | (:excited)Hier, "nimm diese Bruchteile"(orange), das hast du dir reichlich verdient.
 ! eval (store 'item:parts 300)
 ! eval (status "300 Bruchteile Erhalten")
-| (:normal)Wenn du "noch mehr Pilze findest"(orange), dann nimm die mitt.
+| (:normal)Wenn du "noch mehr Pilze findest"(orange), dann nimm die mit.
 | Auch wenn wir sie nicht brauchen, kannst du sie immer "an {#@trader-nametag} verkaufen"(orange).
 | Bis bald wieder, {(nametag player)}!
 ! eval (complete task)

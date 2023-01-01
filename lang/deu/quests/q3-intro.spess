@@ -7,7 +7,7 @@
   | (:annoyed)Kein Humor, wie erwartet.
 - Was denkst du?
   ~ jack
-  | (:annoyed)Nein. Nicht solange du {#@fi-nametag} and {#@catherine-nametag} an der Leine führst.
+  | (:annoyed)Nein. Nicht solange du {#@fi-nametag} und {#@catherine-nametag} an der Leine führst.
 - Ich wünschte
   ~ jack
   | (:shocked)Wenn du weiter so sprichst wird {#@fi-nametag} dich auseinander nehmen!
@@ -27,14 +27,14 @@
 ~ jack
 | Ich denke die "Ruinen"(red) "im Osten"(orange) haben die höchsten Erfolgschancen. Das ist in der Nähe der Farm und sollte uns trotzdem etwas Schutz geben.
 | Also schau dich um, scanne, kletter, was auch immer du kannst.
-| Aber vergess nicht, dass wir nicht so akrobatisch sind wie du.
+| Aber vergesse nicht, dass wir nicht so akrobatisch sind wie du.
 | Wir müssen den Ort auch irgendwie noch erreichen können.
 | Verstanden
 ~ player
 - Alles klar
 - Nicht wirklich
   ~ jack
-  | (:annoyed)Dann must dus wohl selbst rausfinden.
+  | (:annoyed)Dann musst dus wohl selbst rausfinden.
 - Ich bin nicht dumm
   ~ jack
   | (:annoyed)Hab ich nicht bemerkt.
@@ -42,5 +42,5 @@
 | Na dann, toi toi toi.
 ~ player
 | "Freundlich wie immer."(light-gray, italic)
-| "Mein FFCS zeight "4 Orte im Osten"(orange) an, die ich anschauen sollte."(light-gray, italic)
+| "Mein FFCS zeigt "4 Orte im Osten"(orange) an, die ich anschauen sollte."(light-gray, italic)
 

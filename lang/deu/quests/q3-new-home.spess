@@ -2,7 +2,7 @@
 ~ jack
 | (:annoyed)Unser neues Zuhause findet sich nicht selbst.
 ~ player
-| "{#@jack-nametag} hat gesaght ich sollte "in den Ruinen im Osten suchen"(orange). Mein FFCS hat mir "4 mögliche Orte angezeigt"(orange)."(light-gray, italic)
+| "{#@jack-nametag} hat gesagt ich sollte "in den Ruinen im Osten suchen"(orange). Mein FFCS hat mir "4 mögliche Orte angezeigt"(orange)."(light-gray, italic)
 
 # find-home-first/new-home-site-1
 ~ player
@@ -37,7 +37,7 @@
 ~ player
 | "Das ist "Kandidat #3"(red) für das neue Zuhause."(light-gray, italic)
 | (:thinking)"Es ist vom Wetter geborgen und gut versteckt."(light-gray, italic)
-| (:normal)"Aber diese Klippe ist ein Problem, vor allem wenn es noch regelmässig Erdbeben gibt."(light-gray, italic)
+| (:normal)"Aber diese Klippe ist ein Problem, vor allem wenn es noch regelmäßig Erdbeben gibt."(light-gray, italic)
 ? (complete-p 'find-home-first 'find-home-second 'find-home-fourth)
 | | (:normal)"Das war der letzte Kandidat. Ich sollte "zu Jack zurückkehren"(orange)."(light-gray, italic)
 | ! eval (activate 'return-new-home)
@@ -49,7 +49,7 @@
 # find-home-fourth/new-home-site-4
 ~ player
 | "Das ist "Kandidat #4"(red) für das neue Zuhause."(light-gray, italic)
-| (:thinking)"Die Fabrik hat viel Lagerplatz, und womöglich auch nutzvolle Werkzeuge für die Ingenieurarbeit."(light-gray, italic)
+| (:thinking)"Die Fabrik hat viel Lagerplätze, und womöglich auch nutzvolle Werkzeuge für die Ingenieurarbeit."(light-gray, italic)
 | "Mit etwas Hilfe könnten die Hindernisse auch entfernt werden, damit das wieder gut begehbar ist."(light-gray, italic)
 | (:thinking)"Aber die Erdbeben und gefährlichen Stacheln sind ein Problem."(light-gray, italic)
 ? (complete-p 'find-home-first 'find-home-second 'find-home-third)
@@ -66,7 +66,7 @@
 ~ player
 - Was denkst du?
   ~ jack
-  | Ich muss zugeben ich hatte keine grosse Hoffnung...
+  | Ich muss zugeben ich hatte keine große Hoffnung...
 - Keine guten Nachrichten
   ~ jack
   | (:annoyed)Verdammt.
@@ -74,7 +74,7 @@
   ~ jack
   | (:annoyed)Verdammt.
 ~ jack
-| {#@fi-nametag} wird das nicht mögen. (:annoyed)Besser ich geb ihr bescheid als du.
+| {#@fi-nametag} wird das nicht mögen. (:annoyed)Besser ich gebe ihr Bescheid als du.
 | (:normal)Danke für deine Hilfe, aber das ist jetzt Menschensache.
 | Willst du was für deine Arbeit?
 ~ player
@@ -97,7 +97,7 @@
 
 # reward
 ! eval (store 'item:parts 100)
-! eval (status "Received 100 Scrap Part")
+! eval (status "100 Bruchteile Erhalten")
 < continue
 
 # continue

@@ -1,20 +1,20 @@
 # 1-interact-fi/interaction
 ~ fi
 | Also, die Situation ist so: die Wraw sind praktisch garantiert auf unseren Spuren.
-| Aber wir können uns nicht verteidigen, wenn wir ihre Pläne nicht wissen: wo sie angreiffen, und wichtiger, //wann//.
+| Aber wir können uns nicht verteidigen, wenn wir ihre Pläne nicht wissen: wo sie angreifen, und wichtiger, //wann//.
 | {#@alex-nametag} sollte im "Cerebat gebiet"(red) weiter unten nach Information am suchen sein.
 | (:unsure)Aber wir haben schon lange nicht mehr von ihm gehört. Zu lange.
 | (:normal)Ich möchte, dass du "{#@alex-nametag} findest und ihn zurück bringst"(orange).
-| Er hatt "blondes Haar, und ist ein bisschen kleiner als du"(orange). Womöglich must du "nach ihm fragen"(orange).
+| Er hatt "blondes Haar, und ist ein bisschen kleiner als du"(orange). Womöglich mußt du "nach ihm fragen"(orange).
 | Um die Cerebat Region zu erreichen musst du durch das Gebiet der "Semi Schwesternschaft"(red) gehen.
 | Wir haben ein gutes Verhältnis, von dem her sollte das in Ordnung sein. Sie haben einiges an Infrastruktur aufgebaut, dir wir auch benutzen.
 | Es gibt einen Weg zu ihnen "unter dem Pumpenraum"(orange).
 | Aber sie haben seit der Katastrophe keinen Androiden mehr gesehen... Hoffentlich gibt das kein Problem.
-| Und wenn, dann improvisier einfach.
+| Und wenn, dann improvisiere einfach.
 ~ player
 - Improvisieren?
   ~ fi
-  | Weisst du was das ist?
+  | Weißt du was das ist?
   | (:unsure)... Sorry, das kam falsch raus. Ich meine... können Androide...?
   | (:normal)... Uhm. Ich glaube du hast die Frage bereits beantwortet.
   | Was ich meine ist, dass du dich auf alles gefasst machen solltest.
@@ -26,11 +26,11 @@
   | Wortwörtlich, oder?...
   | (:unsure)Sorry, ich hab nix gesagt.
 ~ fi
-| Ist alles klar? Du weisst, was du machen musst?
+| Ist alles klar? Du weißt, was du machen musst?
 ~ player
 - Ich hab noch ein paar Fragen
   ~ fi
-  | In ordnung.
+  | In Ordnung.
   < questions
 - Alles klar
   ~ fi
@@ -47,15 +47,15 @@
 - (Frag über die Semi Schwesternschaft)
   ~ fi
   | Die Semis haben schon vor der Katastrophe existiert. Sie waren ein teil der Semi Firma, einer der alten Megafirmen.
-  | Sie haben die Kontrolle über das Wasser und die Energie in diesem bereich, aber scheinen kein Problem damit zu haben etwas davon mit uns zu teilen.
+  | Sie haben die Kontrolle über das Wasser und die Energie in diesem Bereich, aber scheinen kein Problem damit zu haben etwas davon mit uns zu teilen.
   | Zwei Schwestern sind die Anführer von ihnen. Am besten vermeidest du sie.
   < questions
 - (Frag über die Cerebats)
   ~ fi
-  | Die Cerebat sind weniger eine konkrete Fraktion, und mehr eine sammlung von Händlern.
-  | Ihr Kollegium ist für Konfliktresolution zwischen den Faktionen und Händlern zuständig.
-  | Zumindest in Theorie hatt dieses Kollegium die Kontrolle, aber jeder weiss, das das so nicht ganz stimmt.
-  | (:annoyed)Leider hatt die Politik die Katastrophe überlebt.
+  | Die Cerebat sind weniger eine konkrete Fraktion, und mehr eine Sammlung von Händlern.
+  | Ihr Kollegium ist für Konfliktresolution zwischen den Fraktionen und Händlern zuständig.
+  | Zumindest in Theorie hatt dieses Kollegium die Kontrolle, aber jeder weiß, dass das so nicht ganz stimmt.
+  | (:annoyed)Leider hat die Politik die Katastrophe überlebt.
   < questions
 - Vertraust du mir?
   ~ fi
@@ -67,8 +67,8 @@
 # end
 ~ fi
 | Schau bei {#@trader-nametag} vorbei, wenn du das noch nicht gemacht hast.
-| {#@catherine-nametag} hatt mir gesagt, dass du uns via "FFCS aus der Ferne erreichen kannst"(orange). Bitte informier mich, wenn etwas passiert.
-| Wie {#@alex-nametag} gezeigt hatt, es gibt uns grosse Schwierigkeiten, wenn jemand verschwindet.
+| {#@catherine-nametag} hat mir gesagt, dass du uns via "FFCS aus der Ferne erreichen kannst"(orange). Bitte informiere mich, wenn etwas passiert.
+| Wie {#@alex-nametag} gezeigt hat, es gibt uns große Schwierigkeiten, wenn jemand verschwindet.
 | Also bleib bitte in Kontakt.
 ! eval (setf (location 'innis) 'innis-intercept)
 ! setf (direction 'innis) -1

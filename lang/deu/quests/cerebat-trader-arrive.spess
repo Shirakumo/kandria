@@ -13,7 +13,7 @@
   | So so. Dann soll das aber auch so bleiben.
 - Ein paar Fragen stellen
   ~ cerebat-trader-quest
-  | Ein kleiner Rat für dich: nicht gerade die beste Zeit um Fragen zu stellene
+  | Ein kleiner Rat für dich: nicht gerade die beste Zeit um Fragen zu stellen
 - Ich bin von den Noka
   ~ cerebat-trader-quest
   | Noka? Sind das die Leute auf der Oberfläche?
@@ -28,18 +28,18 @@
   | Ja dazu komm ich doch gleich, nur mit der ruhe.
 - Was willst du?
   ~ cerebat-trader-quest
-  | Ah, nix grosses, nix grosses, keine Sorge.
+  | Ah, nix großes, nix großes, keine Sorge.
 - Ok.
   ~ cerebat-trader-quest
   | Super. Einfach nur Handelssache, neh?
 ~ cerebat-trader-quest
-| Wenn ich meinen Nacken dafür hinstellen soll, dan gilt das gleiche für dich.
+| Wenn ich meinen Nacken dafür hinstellen soll, dann gilt das gleiche für dich.
 | Meine Lieferanten sind schon ne Weile festgesteckt, und das macht die ... Finanzen schwierig für einen Händler.
-| Als ausgleich dafür, wie tönen "{(var 'trader-bribe)} Bruchteile"(orange)?
+| Als Ausgleich dafür, wie tönen "{(var 'trader-bribe)} Bruchteile"(orange)?
 ~ player
 - Also eine Bestechung?
   ~ cerebat-trader-quest
-  | Nein nein, komm schon. Das ist ein fairer Handel!
+  | Nein, nein, komm schon. Das ist ein fairer Handel!
   ~ player
   - Zu teuer
     < haggle
@@ -70,7 +70,7 @@
 # haggle
 ~ cerebat-trader-quest
 | Oho! Du bist ja ganz heimtückisch!
-| Aber dennoch, es ist schwer dem Feilschen zu wiederstehen...
+| Aber dennoch, es ist schwer dem Feilschen zu widerstehen...
 | Na gut, du hast mich überzeugt. Was ist dein Offerte?
 ! label haggle-reset
 ~ player
