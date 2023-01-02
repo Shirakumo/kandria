@@ -618,6 +618,13 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'synthesis)))
 
+(define-shader-entity vinny (npc creatable)
+  ((name :initform 'vinny)
+   (profile-sprite-data :initform (asset 'kandria 'vinny-profile))
+   (nametag :initform (@ unknown-nametag)))
+  (:default-initargs
+   :sprite-data (asset 'kandria 'vinny)))
+
 (define-shader-entity cerebat-trader-quest (npc creatable)
   ((name :initform 'cerebat-trader-quest)
    (profile-sprite-data :initform (asset 'kandria 'cerebat-trader-profile))
@@ -824,3 +831,10 @@
   (liquids     :sell 0.5 :buy 1.0)
   (skins       :sell 1.0 :buy 2.0)
   (T           :sell 1.0 :buy 1.0))
+
+(define-price-variants vinny
+  (item:mushroom-good-1 :sell 2.0 :buy 3.0)
+  (item:mushroom-good-2 :sell 2.0 :buy 3.0)
+  (item:mushroom-bad-1  :sell 2.0 :buy 3.0)
+  (fish:shroomfish      :sell 2.0 :buy 3.0)
+  (T                    :sell 0.2 :buy 3.0))

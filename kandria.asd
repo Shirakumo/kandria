@@ -197,6 +197,7 @@
                              (:file "trader-cerebat")
                              (:file "trader-islay")
                              (:file "tutorial")
+                             (:file "vinny")
                              (:file "world-engineers-wall")
                              (:file "world")
                              (:file "world-move-engineers"))))

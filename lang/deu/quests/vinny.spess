@@ -1,0 +1,28 @@
+# intro/first
+~ vinny
+| Hey! Hast du gute Pilze dabei? Und ich spreche nicht von den billigen wie Rosenpilzen. Ich brauch das gute Zeug.
+| Solche wie Rebenpilze oder Fleischpilze, weisst du?
+~ player
+| Entschuldige, hab noch nie von sowas gehört.
+~ vinny
+| OK, schau mal, wenn du meinen freund Scoot findest, sag ihm das Vinny seine neue Sauce braucht.
+! eval (setf (nametag (unit 'vinny)) "Vinny")
+~ player
+| (:thinking)"Keinen Plan von was oder wem er spricht. Meine Datenbank "hat keinerlei Aufzeichnungen von Rebenpilzen oder Fleischpilzen, oder jemandem der Scoot heisst"(orange). Merkwürdig."(light-gray, italic)
+| (:normal)Kein Problem. Brauchst du sonst noch was?
+~ vinny
+| Na, wenn du noch andere Pilze hast, dann kaufe ich die dir ab.
+| Ich sag dir, mit der richtigen Sauce sind die... Bellissimo!
+
+# shop/info
+~ player
+| Wer bist du schon wieder?
+~ vinny
+| Wie konntest du nur deinen freund Vinny vergessen?
+| Vor der Katastrophe war ich ein weltbekannter <-Content Creator->, weisste.
+| Heutzutage kümmer ich mich einfach um das Fleisch mit meinem Freund, Scoot.
+~ player
+| (:thinking)"Ich bin mir echt nicht sicher was ich von ihm halten soll. Internet Personalitäten waren schon immer ein bisschen exzentrisch auch als es die noch gab, aber er scheint einiges mehr gelassen zu sein als die an die ich mich erinnere."(light-gray, italic)
+
+# shop/sell
+! eval (show-sales-menu :sell 'vinny)

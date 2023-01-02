@@ -1,0 +1,28 @@
+# intro/first
+~ vinny
+| Hey, you got any good mushrooms on you? And I'm not talking about the basic ones like flower fungus. I need the rare stuff.
+| You know, vine shrooms, meat shrooms, that kinda thing.
+~ player
+| Sorry, can't say I've ever come across any.
+~ vinny
+| OK, listen, if you find my friend Scoot, tell him Vinny needs his new sauce, alright?
+! eval (setf (nametag (unit 'vinny)) "Vinny")
+~ player
+| (:thinking)"I have no idea who or what he's talking about. My database has "no record of vine shrooms or meat shrooms, or anyone named Scoot"(orange). Weird."(light-gray, italic)
+| (:normal)Uhm, will do. Is there anything else I can help you with?
+~ vinny
+| Yeah alright, if you got any of the other mushrooms I'll take them off your hands.
+| I'm telling ya, with the right sauce these things... Bellissimo!
+
+# shop/info
+~ player
+| Who are you again?
+~ vinny
+| How could you forget about your pal, Vinny?
+| Before the calamity I used to be a world famous <-content creator->, you know.
+| These days I just take care of meat with my pal Scoot.
+~ player
+| (:thinking)"I really don't know what to make of him. I guess internet personalities when those still existed used to be rather eccentric, though he seems a lot more relaxed than the ones I remember."(light-gray, italic)
+
+# shop/sell
+! eval (show-sales-menu :sell 'vinny)

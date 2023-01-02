@@ -104,7 +104,8 @@
   (islay-profile :min-filter :linear :mag-filter :linear)
   (zelah-profile :min-filter :linear :mag-filter :linear)
   (synthesis-profile :min-filter :linear :mag-filter :linear)
-  (cerebat-trader-profile :min-filter :linear :mag-filter :linear))
+  (cerebat-trader-profile :min-filter :linear :mag-filter :linear)
+  (vinny-profile :min-filter :linear :mag-filter :linear))
 
 (define-assets-from-path (kandria tile-data "tileset/*.lisp" :ignore-directory T))
 
