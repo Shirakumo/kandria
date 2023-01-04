@@ -21,6 +21,12 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Shinrak
 - Fix memory issues when loading music while a track is playing
   Reported by Fullmera
+- Fix cheats being usable on the main menu
+  Reported by Duuqnd
+- Fix keybind display problem
+  Reported by Belphie
+- Fix missing music in two chunks in region1/lower
+  Reported by Belphie
 
 ## 0.3.1
 - Fix crash when picking up items
