@@ -23,20 +23,21 @@
                                       (lambda () ,@action)))))
 
 (defun process-cheats (key)
-  (loop for cheat in *cheat-codes*
-        for i = (cheat-idx cheat)
-        for code = (cheat-code cheat)
-        do (let ((new (if (string= key code :start2 i :end2 (+ i (length key))) (1+ i) 0)))
-             (cond ((<= (length code) new)
-                    (setf (cheat-idx cheat) 0)
-                    (hide-panel 'cheat-panel)
-                    (v:info :kandria.cheats "Activating cheat code ~s" (cheat-name cheat))
-                    (let ((name (language-string (symb T 'cheat/ (cheat-name cheat)))))
-                      (if (funcall (cheat-effect cheat))
-                          (status (@formats 'game-cheat-activated name))
-                          (status (@formats 'game-cheat-deactivated name)))))
-                   (T
-                    (setf (cheat-idx cheat) new))))))
+  (when (region +world+)
+    (loop for cheat in *cheat-codes*
+          for i = (cheat-idx cheat)
+          for code = (cheat-code cheat)
+          do (let ((new (if (string= key code :start2 i :end2 (+ i (length key))) (1+ i) 0)))
+               (cond ((<= (length code) new)
+                      (setf (cheat-idx cheat) 0)
+                      (hide-panel 'cheat-panel)
+                      (v:info :kandria.cheats "Activating cheat code ~s" (cheat-name cheat))
+                      (let ((name (language-string (symb T 'cheat/ (cheat-name cheat)))))
+                        (if (funcall (cheat-effect cheat))
+                            (status (@formats 'game-cheat-activated name))
+                            (status (@formats 'game-cheat-deactivated name)))))
+                     (T
+                      (setf (cheat-idx cheat) new)))))))
 
 (define-cheat hello
   T)
