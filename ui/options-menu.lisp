@@ -98,8 +98,8 @@
 
 (defmethod alloy:text ((label input-label))
   (let ((event (alloy:value label)))
-    (if event
-        (prompt-string event)
+    (or (when event
+          (prompt-string event))
         "...")))
 
 (defmethod alloy:accept ((label input-label))
