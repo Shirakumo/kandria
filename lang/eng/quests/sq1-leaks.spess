@@ -9,7 +9,7 @@
 | "It's "leak 1"(red)."(light-gray, italic)
 | "There's a hole in the pipe - probably caused by duress where it bends around this corner."(light-gray, italic)
 ? (not (var 'first-leak))
-| | "There's the welding torch at my fingertip."(light-gray, italic)
+| | "There's the improvised welding torch at my fingertip."(light-gray, italic)
 | | [(var 'q1-weld-burn) (:embarassed)"This time I'll enable the UV filters on my cameras."(light-gray, italic) | (:normal)"It's camera-UV-filter time again."(light-gray, italic)]
 | | (:normal)"Weld complete."(light-gray, italic)
 | ! eval (setf (animation (unit 'leak-1)) 'normal)
@@ -58,7 +58,7 @@
 | "It's "leak 2"(red)."(light-gray, italic)
 | "The pipe has split. There's no subsidence, but it's close to {#@catherine-nametag}'s previous repair - I wonder if she damaged it by accident."(light-gray, italic)
 ? (not (var 'first-leak))
-| | "There's the welding torch at my fingertip."(light-gray, italic)
+| | "There's the improvised welding torch at my fingertip."(light-gray, italic)
 | | [(var 'q1-weld-burn) (:embarassed)"This time I'll enable the UV filters on my cameras."(light-gray, italic) | (:normal)"It's camera-UV-filter time again."(light-gray, italic)]
 | | (:normal)"Weld complete."(light-gray, italic)
 | ! eval (setf (animation (unit 'leak-1)) 'normal)
@@ -106,7 +106,7 @@
 | "It's "leak 3"(red)."(light-gray, italic)
 | "The pipe is ruptured, like an artery oozing blood."(light-gray, italic)
 ? (not (var 'first-leak))
-| | "There's the welding torch at my fingertip."(light-gray, italic)
+| | "There's the improvised welding torch at my fingertip."(light-gray, italic)
 | | [(var 'q1-weld-burn) (:embarassed)"This time I'll enable the UV filters on my cameras."(light-gray, italic) | (:normal)"It's camera-UV-filter time again."(light-gray, italic)]
 | | (:normal)"Weld complete."(light-gray, italic)
 | ! eval (setf (animation (unit 'leak-1)) 'normal)
