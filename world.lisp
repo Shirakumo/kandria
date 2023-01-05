@@ -324,3 +324,16 @@
 
 (defmethod quest:find-trigger (name (world world) &optional (error T))
   (quest:find-trigger name (storyline world) error))
+
+(defun find-world ()
+  (flet ((try-depot (path)
+           (when (probe-file path)
+             (let ((depot (depot:ensure-depot path)))
+               (when (depot:entry-exists-p "init/global.lisp" depot)
+                 depot)))))
+    (or (try-depot (merge-pathnames "world/" (data-root)))
+        (try-depot (merge-pathnames "world.zip" (data-root)))
+        (when *install-root*
+          (or (try-depot (merge-pathnames "world/" *install-root*))
+              (try-depot (merge-pathnames "world.zip" *install-root*))))
+        (error "No world present."))))

@@ -27,15 +27,9 @@
      (setf (state main) (minimal-load-state (merge-pathnames state (save-state-path "1")))))
     ((eql T)
      (setf (state main) (first (list-saves)))))
-  (let ((depot (depot:ensure-depot (or world
-                                       (and (probe-file (merge-pathnames "world/init/global.lisp" (data-root)))
-                                            (probe-file (merge-pathnames "world/" (data-root))))
-                                       (probe-file (merge-pathnames "world.zip" (data-root)))
-                                       (when *install-root*
-                                         (probe-file (merge-pathnames "world/" *install-root*)))
-                                       (when *install-root*
-                                         (probe-file (merge-pathnames "world.zip" *install-root*)))
-                                       (error "No world present.")))))
+  (let ((depot (if world
+                   (depot:ensure-depot world)
+                   (find-world))))
     (when (typep depot 'org.shirakumo.zippy:zip-file)
       (org.shirakumo.zippy:move-in-memory depot))
     (setf (scene main) (make-instance 'world :depot depot))))
