@@ -16,9 +16,9 @@ exec sbcl --dynamic-space-size 4GB --noinform --no-sysinit --no-userinit --load 
        (setf *kandria-install-root* (uiop:parse-native-namestring (uiop:read-file-string (merge-pathnames ".install" *kandria-root*)))))
       (T
        (error #+win32 "Kandria install root is not configured.
-Please create a symbolic link called install within the source directory which points to your installation."
+Please create a symbolic link called install within the source directory which points to your installation and then try again"
               #-win32 "Kandria install root is not configured.
-Please create a file called .install within the source directory which contains the path to your installation.")))
+Please create a file called .install within the source directory which contains the path to your installation and then try again.")))
 
 ;;; Load quicklisp
 (unless (find-package '#:quicklisp)
@@ -31,11 +31,11 @@ Please create a file called .install within the source directory which contains 
   (asdf:load-asd (merge-pathnames "kandria.asd" *kandria-root*)))
 
 ;;; Ensure extra projects are known
-(push (merge-pathnames "local-projects/" *kandria-root*) ql:*local-project-directories*)
+(pushnew (merge-pathnames "local-projects/" *kandria-root*) ql:*local-project-directories* :test #'equalp)
 
 ;;; Configure CFFI early to ensure shared libraries can be found.
 (ql:quickload "cffi")
-(push *kandria-install-root* cffi:*foreign-library-directories*)
+(pushnew *kandria-install-root* cffi:*foreign-library-directories* :test #'equalp)
 
 ;;; Load er in.
 (ql:quickload "kandria")

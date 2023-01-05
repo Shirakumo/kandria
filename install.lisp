@@ -93,7 +93,7 @@ exec sbcl --dynamic-space-size 4GB --noinform --no-sysinit --no-userinit --load 
     (loop for pathname = (uiop:parse-native-namestring (read-line *query-io*) :ensure-directory T)
           do (if (probe-file pathname)
                  (with-open-file (stream (merge-pathnames ".install" *kandria-root*) :direction :output)
-                   (write-string (truename pathname) stream))
+                   (write-string (uiop:native-namestring pathname) stream))
                  (status "The given path does not exist. Please try again."))))
   (load (merge-pathnames "setup.lisp" path))
   (status "Done!"))

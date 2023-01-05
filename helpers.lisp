@@ -8,12 +8,16 @@
 
 (defun set-pool-paths-from-install (install)
   (setf *install-root* install)
+  (pushnew *install-root* cffi:*foreign-library-directories* :test #'equalp)
   (setf (base (find-pool 'kandria)) (pathname-utils:subdirectory install "pool" "kandria"))
   (setf (base (find-pool 'music)) (pathname-utils:subdirectory install "pool" "music"))
   (setf (base (find-pool 'sound)) (pathname-utils:subdirectory install "pool" "sound")))
 
-(when (find-symbol (string '*kandria-install-root*) "CL-USER")
-  (set-pool-paths-from-install (symbol-value (find-symbol (string '*kandria-install-root*) "CL-USER"))))
+(let ((root #.(make-pathname :name NIL :type NIL :defaults (or *compile-file-pathname* *load-pathname*))))
+  (cond ((probe-file (merge-pathnames "install/" root))
+         (set-pool-paths-from-install (merge-pathnames "install/" root)))
+        ((probe-file (merge-pathnames ".install" root))
+         (set-pool-paths-from-install (uiop:parse-native-namestring (uiop:read-file-string (merge-pathnames ".install" root)))))))
 
 (define-asset (kandria 1x) mesh
     (make-rectangle 1 1 :align :bottomleft))
