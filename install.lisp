@@ -90,7 +90,7 @@ exit
     (status "Installing Quicklisp...")
     (install-quicklisp :path path))
   (unless (find "shirakumo" (f ql-dist all-dists) :key #'ql-dist:name :test #'string-equal)
-    (f ql-dist install-dist "http://dist.tymoon.eu/shirakumo.txt" :prompt NIL))
+    (f ql-dist install-dist "http://dist.shirakumo.org/shirakumo.txt" :prompt NIL))
   (unless (or (probe-file (merge-pathnames "install/" *kandria-root*))
               (probe-file (merge-pathnames ".install" *kandria-root*)))
     (status "Please enter the location of the Kandria game installation.")
