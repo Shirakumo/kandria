@@ -351,7 +351,7 @@
     ;; Force state to normal to avoid being caught in save animation
     (setf (state player) :normal)
     (when (setting :gameplay :show-splits)
-      (show-panel 'splits))
+      (show-panel 'splits :player player))
     (snap-to-target (camera +world+) player)))
 
 (define-encoder (npc save-v0) (_b _p)

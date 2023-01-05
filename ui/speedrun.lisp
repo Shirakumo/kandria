@@ -80,15 +80,16 @@
 
 (defclass splits (panel)
   ((list :initform (make-instance 'splits-layout))
-   (timer :initform (alloy:represent (stats-play-time (stats (unit 'player +world+))) 'split-total))))
+   (timer)))
 
-(defmethod initialize-instance :after ((panel splits) &key)
+(defmethod initialize-instance :after ((panel splits) &key (player (unit 'player +world+)))
   (let ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
         (clipper (make-instance 'alloy:clip-view)))
     (alloy:enter (slot-value panel 'list) clipper)
     (loop for quest in (quest:known-quests (storyline +world+))
           do (alloy:enter quest panel))
     (alloy:enter clipper layout :constraints `((:left 0) (:top 0) (:width 300) (:height 150)))
+    (setf (slot-value panel 'timer) (alloy:represent (stats-play-time (stats player)) 'split-total))
     (alloy:enter (slot-value panel 'timer) layout :constraints `((:left 0) (:below ,clipper 0) (:width 300) (:height 50)))
     (alloy:finish-structure panel layout NIL)))
 
