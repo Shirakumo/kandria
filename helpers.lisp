@@ -12,6 +12,15 @@
   (setf (base (find-pool 'music)) (pathname-utils:subdirectory install "pool" "music"))
   (setf (base (find-pool 'sound)) (pathname-utils:subdirectory install "pool" "sound")))
 
+(defun maybe-set-pool-paths-from-root (root)
+  (cond ((probe-file (merge-pathnames "install/" root))
+         (set-pool-paths-from-install (merge-pathnames "install/" root)))
+        ((probe-file (merge-pathnames ".install" root))
+         (set-pool-paths-from-install (pathname (uiop:read-file-string (merge-pathnames ".install" root)))))))
+
+(when (find-symbol (string '*kandria-root*) "CL-USER")
+  (maybe-set-pool-paths-from-root (symbol-value (find-symbol (string '*kandria-root*) "CL-USER"))))
+
 (define-asset (kandria 1x) mesh
     (make-rectangle 1 1 :align :bottomleft))
 

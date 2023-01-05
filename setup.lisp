@@ -26,14 +26,6 @@ exit
 ;;; Load er in
 (ql:quickload "kandria")
 
-;;; Stub out the pool paths
-(cond ((probe-file (merge-pathnames "install/" *kandria-root*))
-       (funcall (find-symbol (string '#:set-pool-paths-from-install) '#:kandria)
-                (merge-pathnames "install/" *kandria-root*)))
-      ((probe-file (merge-pathnames ".install" *kandria-root*))
-       (funcall (find-symbol (string '#:set-pool-paths-from-install) '#:kandria)
-                (pathname (uiop:read-file-string (merge-pathnames ".install" *kandria-root*))))))
-
 ;;; Launch Emacs
 (unless (or swank::*connections*
             (find-package '#:org.shirakumo.fraf.kandria.install))
