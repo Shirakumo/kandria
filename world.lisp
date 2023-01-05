@@ -329,7 +329,7 @@
   (flet ((try-depot (path)
            (when (probe-file path)
              (let ((depot (depot:ensure-depot path)))
-               (when (depot:entry-exists-p "init/global.lisp" depot)
+               (when (depot:entry-exists-p "global.lisp" (depot:entry "init" depot))
                  depot)))))
     (or (try-depot (merge-pathnames "world/" (data-root)))
         (try-depot (merge-pathnames "world.zip" (data-root)))
