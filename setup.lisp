@@ -5,9 +5,20 @@ exec sbcl --dynamic-space-size 4GB --noinform --no-sysinit --no-userinit --load 
 (in-package #:cl-user)
 
 (defvar *kandria-root* #.(make-pathname :type NIL :name NIL :defaults (or *load-pathname* (error "This file must be LOADed."))))
+(defvar *kandria-install-root* NIL)
 
 (unless (find-package '#:asdf)
   (require :asdf))
+
+(cond ((probe-file (merge-pathnames "install/" *kandria-root*))
+       (setf *kandria-install-root* (merge-pathnames "install/" *kandria-root*)))
+      ((probe-file (merge-pathnames ".install" *kandria-root*))
+       (setf *kandria-install-root* (uiop:parse-native-namestring (uiop:read-file-string (merge-pathnames ".install" *kandria-root*)))))
+      (T
+       (error #+win32 "Kandria install root is not configured.
+Please create a symbolic link called install within the source directory which points to your installation."
+              #-win32 "Kandria install root is not configured.
+Please create a file called .install within the source directory which contains the path to your installation.")))
 
 ;;; Load quicklisp
 (unless (find-package '#:quicklisp)
@@ -22,7 +33,11 @@ exec sbcl --dynamic-space-size 4GB --noinform --no-sysinit --no-userinit --load 
 ;;; Ensure extra projects are known
 (push (merge-pathnames "local-projects/" *kandria-root*) ql:*local-project-directories*)
 
-;;; Load er in
+;;; Configure CFFI early to ensure shared libraries can be found.
+(ql:quickload "cffi")
+(push *kandria-install-root* cffi:*foreign-library-directories*)
+
+;;; Load er in.
 (ql:quickload "kandria")
 
 ;;; Launch Emacs

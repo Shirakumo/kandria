@@ -1,10 +1,7 @@
 #| How to:
 # First, install SBCL by whatever means you can. On Linux, this is
-# usually via your package manager. On Windows you should either
-# install MSYS2 and compile SBCL, or use an installer from
-# sbcl.org. Using MSYS2 is highly recommended, as you will also need
-# support libraries like GLFW3 to be present on your system, which is
-# much easier to achieve with MSYS2.
+# usually via your package manager. On Windows you'll need an installer
+# from sbcl.org.
 # 
 # Next, run this script. From a Unix shell, you should be able to just
 # run ./install.lisp . If you are using a Windows command prompt,
