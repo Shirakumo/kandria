@@ -1,6 +1,5 @@
 #|
-sbcl --noinform --no-sysinit --no-userinit --load "$0" --quit
-exit
+exec sbcl --dynamic-space-size 4GB --noinform --no-sysinit --no-userinit --load "$0"
 |#
 
 (in-package #:cl-user)

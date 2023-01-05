@@ -11,12 +11,10 @@
 # instead ensure SBCL is in your PATH, and perform the following line
 # on your own.
 
-sbcl --noinform --no-sysinit --no-userinit --load "$0" --eval '(org.shirakumo.fraf.kandria.install:install)' --quit
+exec sbcl --dynamic-space-size 4GB --noinform --no-sysinit --no-userinit --load "$0" --eval '(org.shirakumo.fraf.kandria.install:install)' --quit
 
 # The script will set up Quicklisp inside the Kandria distribution and
 # also install any other prerequisite libraries.
-
-exit
 |#
 
 #-sbcl (error "You must use the SBCL lisp implementation to set up Kandria.")
