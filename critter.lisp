@@ -165,9 +165,10 @@
    :sprite-data (asset 'kandria 'critter-cat)))
 
 (defmethod interact :around ((npc tame-cat) (player player))
-  (setf (vx (location player)) (- (vx (location npc))
-                                  (* (direction npc) 9)))
-  (setf (direction player) (direction npc))
+  (setf (vx (location player)) (+ (vx (location npc))
+                                  (* (direction npc) 15)))
+  (setf (direction player) (- (direction npc)))
+  (start-animation 'stand npc)
   (start-animation 'pet player))
 
 (define-shader-entity baba (pet creatable)
