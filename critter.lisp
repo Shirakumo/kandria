@@ -176,8 +176,9 @@
   (:default-initargs :sprite-data (asset 'kandria 'critter-baba)))
 
 (defmethod interact :around ((npc baba) (player player))
-  (setf (vx (location player)) (- (vx (location npc)) (* 8 (direction npc))))
-  (setf (direction player) (direction npc))
+  (setf (vx (location player)) (+ (vx (location npc)) (* 16 (direction npc))))
+  (setf (direction player) (- (direction npc)))
+  (start-animation 'idle npc)
   (start-animation 'pet player))
 
 (define-shader-entity chameleon (pet)
