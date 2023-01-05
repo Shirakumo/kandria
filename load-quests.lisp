@@ -86,12 +86,10 @@
 
 (defun load-quest-file (file &optional (world (find-world)))
   (let* ((root (depot:entry "quests" world))
-         (entry (if (depot:entry-exists-p (format NIL "~a.fasl" file) root)
-                    (depot:entry (format NIL "~a.fasl" file) root)
-                    (depot:entry (format NIL "~a.lisp" file) root))))
+         (entry (depot:entry (format NIL "~a.lisp" file) root)))
     (if (typep entry 'depot:file)
         (cl:load (depot:to-pathname entry))
-        (trial:with-tempfile (tempfile :type (if (equal "lisp" (depot:attribute :type entry)) "lisp" "fasl"))
+        (trial:with-tempfile (tempfile :type "lisp")
           (depot:read-from entry tempfile)
           (cl:load tempfile)))))
 
