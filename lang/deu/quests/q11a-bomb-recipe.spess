@@ -114,5 +114,5 @@
 ! eval (activate 'q13-intro)
 ? (complete-p 'sq14c-synthesis)
 | ! eval (setf (location 'synthesis) 'synthesis-lab)
-| ! setf (direction 'synthesis) -1  
+| ! setf (direction 'synthesis) -1
 ! eval (clear-pending-interactions)

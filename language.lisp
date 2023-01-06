@@ -100,9 +100,12 @@
             (find-mess name chapter))))
       clone)))
 
+(defmethod refresh-language ((all (eql T)))
+  (clrhash *cached-dialogue-assemblies*)
+  (refresh-language (quest:storyline T))
+  (load-default-interactions (quest:storyline T)))
+
 (define-language-change-hook refresh-quests (language)
   (declare (ignore language))
   (when (and +world+ (storyline +world+))
-    (clrhash *cached-dialogue-assemblies*)
-    (refresh-language (storyline +world+))
-    (load-default-interactions)))
+    (refresh-language T)))
