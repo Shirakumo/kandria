@@ -117,7 +117,7 @@
           <a href="https://kandria.com/itch">
             <i class="fab fa-itch-io"></i> Itchio
           </a>
-          <a id="direct-purchase-button">
+          <a id="direct-purchase-button" href="https://purchase.xsolla.com/pages/buy?type=game&project_id=197258&sku=drm-free">
             <i class="fas fa-cart-shopping"></i> Direct
           </a>
         </nav>
@@ -200,11 +200,12 @@
       s.async = true;
       s.src = "https://cdn.xsolla.net/embed/buy-button/3.1.8/widget.min.js";
       s.addEventListener('load', function (e) {
+          document.querySelector("#direct-purchase-button").removeAttribute("href");
           XBuyButtonWidget.create({
-              project_id: "197258",
-              sku: "drm-free",
-              item_type: "unit",
-              widget_ui: {
+                  project_id: "197258",
+                  sku: "drm-free",
+                  item_type: "unit",
+                  widget_ui: {
                   target_element: "#direct-purchase-button",
                   template: 'simple',
               }
