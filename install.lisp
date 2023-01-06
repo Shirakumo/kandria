@@ -16,6 +16,9 @@ exec sbcl --dynamic-space-size 4GB --noinform --no-sysinit --no-userinit --load 
 
 #-sbcl (error "You must use the SBCL lisp implementation to set up Kandria.")
 
+(eval-when (:load-toplevel :execute)
+  (require :sb-bsd-sockets))
+
 (defpackage #:org.shirakumo.fraf.kandria.install
   (:use #:cl)
   (:export #:install))
