@@ -98,8 +98,10 @@
         ((or source (and (slot-boundp interaction 'source) (source interaction)))
          (let ((dialogue (apply #'find-mess (enlist (or source (source interaction))))))
            (apply #'call-next-method interaction slots :dialogue dialogue args)))
-        (task
-         (let* ((source (list (quest:name (quest:quest task)) (format NIL "~(~a/~a~)" (quest:name task) name)))
+        ((or task (and (slot-boundp interaction 'quest:task) (quest:task interaction)))
+         (let* ((task (or task (quest:task interaction)))
+                (name (or name (quest:name interaction)))
+                (source (list (quest:name (quest:quest task)) (format NIL "~(~a/~a~)" (quest:name task) name)))
                 (dialogue (apply #'find-mess source)))
            (setf (source interaction) source)
            (apply #'call-next-method interaction slots :dialogue dialogue args)))

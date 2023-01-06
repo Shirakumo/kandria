@@ -244,6 +244,7 @@ Possible sub-commands:
                   (go retry)))))
   (show-panel 'load-panel :loader (loader main))
   (render main main)
+  (refresh-language T)
   (load-state state main))
 
 (defmethod reset ((main main))
