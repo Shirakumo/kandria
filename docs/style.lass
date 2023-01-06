@@ -167,10 +167,20 @@
    :margin-top 0
    :padding 2em 0
    :border-bottom 1px solid (hex 808080)
+   (h2
+    :background none
+    :color inherit)
    (>*
     :display block
     :max-width 700px
-    :margin 1em auto 0 auto)))
+    :margin 1em auto 0 auto)
+   (nav.purchase
+    :display flex
+    :justify-content space-around
+    (i :font-size 5em)
+    (a :display flex
+       :flex-direction column
+       :align-items center))))
  (footer
   :padding-bottom 2em
   :background white
@@ -203,3 +213,23 @@
    :min-height 1050px
    (.centercontent
     :width 45em))))
+
+(body
+ (.x-buy-button-widget-simple
+  :font-family inherit
+  (.translate-message-amount
+   :display none)
+  (.x-buy-button-widget-simple-payment-button
+   :display inline-flex))
+ (nav.purchase
+  (.x-buy-button-widget-simple-payment-button
+   :display flex
+   :flex-direction column
+   :text-align center)
+  ((:and .x-buy-button-widget-simple-payment-button :before)
+   :font-size 5em))
+ ((:and .x-buy-button-widget-simple-payment-button :before)
+  :font-family "\"Font Awesome 6 Free\""
+  :font-weight 900
+  :line-height 1
+  :content " "))

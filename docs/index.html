@@ -36,8 +36,8 @@
         <a href="https://kandria.com/steam">
           <i class="fab fa-steam"></i> Steam
         </a>
-        <a href="prototype.html">
-          <i class="fas fa-download"></i> Demo
+        <a href="#purchase">
+          <i class="fas fa-cart-shopping"></i> Purchase
         </a>
         <a href="press/">
           <i class="fas fa-bullhorn"></i> Press Kit
@@ -107,6 +107,20 @@
           <li><a href="press/screenshot 13.png" target="_blank"><img src="press/screenshot 13.png"></a></li>
           <li><a href="press/screenshot 14.png" target="_blank"><img src="press/screenshot 14.png"></a></li>
         </ul>
+      </section>
+      <section class="plain" id="purchase">
+        <h2>Purchase</h2>
+        <nav class="purchase">
+          <a href="https://kandria.com/steam">
+            <i class="fab fa-steam"></i> Steam
+          </a>
+          <a href="https://kandria.com/itch">
+            <i class="fab fa-itch-io"></i> Itchio
+          </a>
+          <a id="direct-purchase-button">
+            <i class="fas fa-cart-shopping"></i> Direct
+          </a>
+        </nav>
       </section>
       <section class="plain" id="subscribe">
         <a href="https://courier.tymoon.eu/subscription/1" class="button">
@@ -180,6 +194,24 @@
               }
           });
       }
+
+      var s = document.createElement('script');
+      s.type = "text/javascript";
+      s.async = true;
+      s.src = "https://cdn.xsolla.net/embed/buy-button/3.1.8/widget.min.js";
+      s.addEventListener('load', function (e) {
+          XBuyButtonWidget.create({
+              project_id: "197258",
+              sku: "drm-free",
+              item_type: "unit",
+              widget_ui: {
+                  target_element: "#direct-purchase-button",
+                  template: 'simple',
+              }
+          });
+      }, false);
+      var head = document.getElementsByTagName('head')[0];
+      head.appendChild(s);
     </script>
   </body>
 </html>
