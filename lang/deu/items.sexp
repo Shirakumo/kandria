@@ -3,7 +3,6 @@ item:small-health-pack/description "[Heilt 10% HP] Eine Sammlung von Drähten, L
 item:medium-health-pack "Mittleres Heilpack"
 item:medium-health-pack/description "[Heilt 25% HP] Wie ein kleines Pack, nur mit mehr drinn."
 item:large-health-pack "Grosses Heilpack"
->>>>>>> 2084322a0 (deu: items typos)
 item:large-health-pack/description "[Heilt 50% HP] Der effizienteste Weg um das Spital zu vermeiden."
 item:damage-shield "Schadens-Schild"
 item:damage-shield/description "[-20% Schaden für 30s] Härtet mich gegen Schlagtrauma ab."
