@@ -137,4 +137,5 @@ fish:alligator "Alligator"
 fish:alligator/description "Kein Krokodil! Die Schnauze ist anders.
 Kann für Bruchteile verkauft werden."
 fish:distilled-water-bottle "Destilliertes Wasser"
-fish:distilled-water-bottle/description "Wow, diese Flasche Wasser ist immer noch rein, ohne jegliche Kontamination!"
+fish:distilled-water-bottle/description "Wow, diese Flasche Wasser ist immer noch rein, ohne jegliche Kontamination!
+Kann für Bruchteile verkauft werden."

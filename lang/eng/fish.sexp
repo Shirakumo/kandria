@@ -138,4 +138,5 @@ fish:alligator "Alligator"
 fish:alligator/description "It's not a crocodile - the snout gives it away.
 Can be sold for scrap."
 fish:distilled-water-bottle "Bottle of Distilled Water"
-fish:distilled-water-bottle/description "Somehow this plastic bottle of distilled water has survived without a trace of contamination."
+fish:distilled-water-bottle/description "Somehow this plastic bottle of distilled water has survived without a trace of contamination.
+Can be sold for scrap."
