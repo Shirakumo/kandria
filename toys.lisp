@@ -460,7 +460,7 @@
   (when (active-p hider)
     (let ((visibility (decf (visibility hider) 0.02)))
       (cond ((= 0.98 visibility)
-             (harmony:play (// 'sound 'hider-reveal)))
+             (harmony:play (// 'sound 'hider-reveal) :reset T))
             ((<= visibility 0.0)
              (setf (visibility hider) 0.0)
              (setf (active-p hider) NIL)
