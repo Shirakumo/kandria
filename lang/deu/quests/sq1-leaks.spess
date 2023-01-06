@@ -60,7 +60,7 @@
 | | "Zum Glück hab ich einen eingebauten Schweissaparat."(light-gray, italic)
 | | [(var 'q1-weld-burn) (:embarassed)"Und diesmal aktiviere ich auch die UV Filter."(light-gray, italic) | (:normal)"UV Filter, an!"(light-gray, italic)]
 | | (:normal)"Und fertig."(light-gray, italic)
-| ! eval (setf (animation (unit 'leak-1)) 'normal)
+| ! eval (setf (animation (unit 'leak-2)) 'normal)
 | ? (have 'item:walkie-talkie)
 | | | "Und jetzt das Walkie."(light-gray, italic) (:thinking)"Wie geht das?"(light-gray, italic)
 |  
@@ -108,7 +108,7 @@
 | | "Zum glück hab ich einen eingebauten Schweissaparat."(light-gray, italic)
 | | [(var 'q1-weld-burn) (:embarassed)"Und diesmal aktiviere ich auch die UV Filter."(light-gray, italic) | (:normal)"UV Filter, an!"(light-gray, italic)]
 | | (:normal)"Und fertig."(light-gray, italic)
-| ! eval (setf (animation (unit 'leak-1)) 'normal)
+| ! eval (setf (animation (unit 'leak-3)) 'normal)
 | ? (have 'item:walkie-talkie)
 | | | "Und jetzt das Walkie."(light-gray, italic) (:thinking)"Wie geht das?"(light-gray, italic)
 |  

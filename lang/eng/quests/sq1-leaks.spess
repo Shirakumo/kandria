@@ -61,7 +61,7 @@
 | | "There's the improvised welding torch at my fingertip."(light-gray, italic)
 | | [(var 'q1-weld-burn) (:embarassed)"This time I'll enable the UV filters on my cameras."(light-gray, italic) | (:normal)"It's camera-UV-filter time again."(light-gray, italic)]
 | | (:normal)"Weld complete."(light-gray, italic)
-| ! eval (setf (animation (unit 'leak-1)) 'normal)
+| ! eval (setf (animation (unit 'leak-2)) 'normal)
 | ? (have 'item:walkie-talkie)
 | | | "Now for the walkie-talkie."(light-gray, italic) (:thinking)"How's this thing work?"(light-gray, italic)
 |  
@@ -109,7 +109,7 @@
 | | "There's the improvised welding torch at my fingertip."(light-gray, italic)
 | | [(var 'q1-weld-burn) (:embarassed)"This time I'll enable the UV filters on my cameras."(light-gray, italic) | (:normal)"It's camera-UV-filter time again."(light-gray, italic)]
 | | (:normal)"Weld complete."(light-gray, italic)
-| ! eval (setf (animation (unit 'leak-1)) 'normal)
+| ! eval (setf (animation (unit 'leak-3)) 'normal)
 | ? (have 'item:walkie-talkie)
 | | | "Now for the walkie-talkie."(light-gray, italic) (:thinking)"How's this thing work?"(light-gray, italic)
 |  
