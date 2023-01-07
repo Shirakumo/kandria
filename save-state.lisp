@@ -57,6 +57,7 @@
                        (unsupported-save-file ()
                          (v:warn :kandria.save "Save state ~s is too old, ignoring." file)
                          NIL)
+                       #+kandria-release
                        (error (e)
                          (v:warn :kandria.save "Save state ~s failed to load, ignoring." file)
                          (v:debug :kandria.save e)
@@ -78,9 +79,7 @@
       (when (depot:entry-exists-p "image.png" depot)
         ;; KLUDGE: This fucking sucks, yo.
         (let ((temp (tempfile :type "png" :id (format NIL "kandria-~a" (pathname-name file)))))
-          (depot:with-open (in (depot:entry "image.png" depot) :input '(unsigned-byte 8))
-            (with-open-file (out temp :direction :output :if-exists :supersede :element-type '(unsigned-byte 8))
-              (uiop:copy-stream-to-stream (depot:to-stream in) out :element-type '(unsigned-byte 8))))
+          (depot:read-from (depot:entry "image.png" depot) temp :if-exists :supersede)
           (push temp initargs)
           (push :image initargs)))
       (apply #'make-instance 'save-state :file file initargs))))
