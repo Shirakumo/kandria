@@ -29,6 +29,22 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Belphie
 - Improve petting of Baba and cats
   Implemented by Duuqnd
+- Fix starting a new game with speedrun splits active crashing the game
+  Reported by Toxic Larva
+- Fix misaligned doorways in dreamscape apartments
+  Reported by A Flamingo
+- Fix some minor tiling mistakes
+  Reported by Dwarf Woot
+- Fix missing "can be sold for scrap" description on the water bottle
+  Reported by Belphie
+- Fix weird zoom behaviour when alt tabbing from fullscreen mode
+  Reported by A Flamingo
+- Fix several bugs with retained language after language switch
+  Reported by John McCloud
+- Fix second leak in sidequest not deactivating when doing the second leak first
+  Reported by Crian
+- Fix Mouse 4/5/etc buttons not displaying properly
+  Reported by Bridget Endeavor
 
 ## 0.3.1
 - Fix crash when picking up items
