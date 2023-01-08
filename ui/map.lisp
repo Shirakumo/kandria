@@ -157,13 +157,15 @@
             (color (colored:color 0 0.8 1 0.5)))
         (flet ((flush ()
                  (when (< 0 (length points))
-                   (add-shape (simple:line-strip renderer points
-                                                 :name 'trace
-                                                 :pattern color
-                                                 :line-width (alloy:un 4)
-                                                 :hidden-p T
-                                                 :z-index -5))
-                   (setf (fill-pointer points) 0))))
+                   (let ((shape (simple:line-strip renderer points
+                                                   :name 'trace
+                                                   :pattern color
+                                                   :line-width (alloy:un 4)
+                                                   :hidden-p T
+                                                   :z-index -5)))
+                     (add-shape shape)
+                     (setf (org.shirakumo.alloy.renderers.opengl::size shape) 0)
+                     (setf (fill-pointer points) 0)))))
           (loop for i from 0 below (length trace) by 2
                 do (cond ((float-features:float-nan-p (aref trace i))
                           (flush)
