@@ -161,7 +161,7 @@ void main(){
                    sword-rotating-swing-1 sword-rotating-swing-2 bomb-plant
                    sword-air-swing-1 sword-air-swing-2 sword-air-swing-3-jab
                    sword-hammer-swing-1 sword-hammer-swing-2
-                   sword-overhead-swing-1 sword-overhead-swing-2))
+                   sword-overhead-swing-1 sword-overhead-swing-2 sword-overhead-swing-3-tornado))
     (stage (// 'sound sound) area))
   (stage (fishing-line player) area)
   (stage (stamina-wheel player) area)

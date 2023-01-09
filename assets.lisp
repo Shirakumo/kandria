@@ -166,6 +166,7 @@
   (sword-hammer-swing-2 :volume (db -6))
   (sword-overhead-swing-1 :volume (db -6))
   (sword-overhead-swing-2 :volume (db -6))
+  (sword-overhead-swing-3-tornado :volume (db -6))
   (slide :volume (db -22) :repeat T)
   (telephone-save :volume (db -3))
   (falling-platform-rattle :volume (db -6))

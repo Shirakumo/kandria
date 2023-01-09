@@ -346,6 +346,9 @@ void main(){
   :voice (list (// 'sound 'sword-overhead-swing-1)
                (// 'sound 'sword-overhead-swing-2)))
 
+(define-effect overhead-swing-tornado sound-effect
+  :voice (// 'sound 'sword-overhead-swing-3-tornado))
+
 (define-effect counter sound-effect
   :voice (// 'sound 'player-counter))
 
