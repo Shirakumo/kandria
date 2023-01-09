@@ -391,22 +391,22 @@ item:singing-bowl "Tonschüssel"
 item:singing-bowl/description "Die Schüssel ist alt, rostig, und staubig. Sie gibt einen F# Ton von sich."
 item:singing-bowl/lore "Zu Beginn seiner Ausbildung hat der Mönch diese Schüssel bekommen. Er brauchte Sie regelmäßig um den Beginn und das Ende seiner Meditation zu markieren.
 
-Da es eines seiner wenigen Besitzstücke war, hat er gut acht gegeben, und es oft poliert. Er hat dies bis ins tiefe Alter weitergeführt.
+Da es eines seiner wenigen Besitzstücke war, hat er gut acht gegeben und es oft poliert. Er hat dies bis ins tiefe Alter weitergeführt.
 
-Die Schüssel wartete jeden Tag geduldig auf den Mönch, bis auf ein mal er nicht mehr kam. Es wartete und wartete, aber er hat nie erfahren, was ihm geschehen ist.
+Die Schüssel wartete jeden Tag geduldig auf den Mönch, bis er auf ein mal nicht mehr kam. Sie wartete und wartete, hat aber nie erfahren, was ihm geschehen ist.
 
 [Unter der Schüssel ist eine Karte auf dem das Signet des Zenith Museum für Archäologie und Anthropologie aufgedruckt ist.]"
 item:painted-cylinder "Kleiner Bemalter Zylinder"
 item:painted-cylinder/description "Ein kleiner Zylinder der mit einem Gesicht bemalt ist."
 item:painted-cylinder/lore "Er hätte ersetzt werden sollen. Er war nicht perfekt. Und doch, in einem gewissen Sinne, war er perfekt.
 
-Über sieben Monate hinweg war dieser Zylinder perfekt. \"Seine Fleischigkeit\", das war sein Name, denn er war nicht nur ein Zylinder, sondern ein Gott. Ein Gott, der für alles mögliche gebraucht wurde, nichts von wessen er ursprünglich gemacht wurde. Und dennoch erfüllte er alle seine Aufgaben fehlerlos, und mit der Zeit wurde er zu mehr als einem Gott: ein Grundbestandteil des Universums.
+Über sieben Monate hinweg war dieser Zylinder perfekt. \"Seine Fleischigkeit\", das war sein Name, denn er war nicht nur ein Zylinder, sondern ein Gott. Ein Gott, der für alles mögliche gebraucht wurde, nur nicht wofür er ursprünglich gemacht wurde. Und dennoch erfüllte er alle seine Aufgaben fehlerlos und mit der Zeit wurde er zu mehr als einem Gott: ein Grundbestandteil des Universums.
 
-Aber leider konnte seine Macht nicht bis ewig überleben. In den frühen Tagen seines siebten Monats hatten seine Verehrer einen Ersatz gefunden. Und so, null Komma nix, ohne Fanfaren, wurde er begraben. Sein Nachfolger war besser in jeglicher Hinsicht, aber das bedeutete wenig für den Zylinder, denn er war nur ein Stück Plastik."
+Aber leider konnte seine Macht nicht auf ewig überleben. In den frühen Tagen seines siebten Monats hatten seine Verehrer einen Ersatz gefunden. Und so, null Komma nix, ohne Fanfaren, wurde er begraben. Sein Nachfolger war besser in jeglicher Hinsicht, aber das bedeutete wenig für den Zylinder, denn er war nur ein Stück Plastik."
 item:board-game "Brettspiel"
-item:board-game/description "Eine alte Schachtel für ein Brettspiel mit einigen farbigen Figuren, Karten, und eine grosse Karte. Der Druck ist kaum zu lesen und die Anleitung leider auch nicht."
-item:board-game/lore "\"Spaß für die ganze Familie!\" versprach das Spiel. Sie holte das Spiel immer voller Freude und Aufregung raus, wenn auch immer ihre Freunde oder Cousinen sie besuchten. Zuerst sagten sie zu, und sie setzte das Spiel auf während alle sich über die Figuren stritten.
+item:board-game/description "Eine alte Schachtel für ein Brettspiel mit einigen farbigen Figuren, Karten, und einer grosse Karte. Die Beschriftung ist kaum zu lesen und die Anleitung leider auch nicht."
+item:board-game/lore "\"Spaß für die ganze Familie!\" versprach das Spiel. Sie holte das Spiel immer voller Freude und Aufregung raus, wann immer ihre Freunde oder Cousinen sie besuchten. Zuerst sagten sie zu, und sie baute das Spiel auf während alle sich über die Figuren stritten.
 
-Aber nach fünfzehn Minuten Erklärung hatte sie erst ein Drittel der Regeln erklärt, und ihre Freunde versuchten sich schon jetzt darum zu drücken. Sie sagten, dass sie in der Küche helfen sollten, oder dass sie jemanden etwas versprochen hatten -- die üblichen Ausreden. Trotzdem versuchte sie es erneut bei jedem Besuch, aber sie hatten immer eine gute Ausrede bereit.
+Aber nach fünfzehn Minuten Erklärung hatte sie erst ein Drittel der Regeln erklärt, und ihre Freunde versuchten sich schon jetzt darum zu drücken. Sie sagten, dass sie in der Küche helfen sollten, oder dass sie jemandem etwas versprochen hätten -- die üblichen Ausreden. Trotzdem versuchte sie es bei jedem Besuch erneut, aber sie hatten immer eine gute Ausrede bereit.
 
-Eines tages, versprach sie sich, eines tages werden wir spielen!"
+Eines Tages, versprach sie sich, eines Tages werden wir spielen!"
