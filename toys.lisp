@@ -805,7 +805,8 @@ void main(){
    (played-p :initform NIL :accessor played-p)))
 
 (defmethod stage :after ((bomb bomb) (area staging-area))
-  (stage (// 'sound 'bomb-active) area))
+  (stage (// 'sound 'bomb-active) area)
+  (stage (// 'sound 'bomb-explode) area))
 
 (defmethod handle :after ((ev tick) (bomb bomb))
   (unless (played-p bomb)

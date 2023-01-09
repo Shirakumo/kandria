@@ -255,6 +255,8 @@ void main(){
         (shake-intensity (camera +world+)) 10.0
         (velocity (u 'sandstorm)) 0.05
         (kind (u 'fade)) :black)
+  (setf (override (u 'environment)) 'null)
+  (eval (harmony:play (// 'sound 'bomb-explode)))
   (delay 0.2)
   (ease 0.1 (shake-intensity (camera +world+)) :from 10.0 :to 0.0)
   (delay 0.7)
