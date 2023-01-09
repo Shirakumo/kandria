@@ -185,7 +185,9 @@
   (= 0 (vy (hit-normal hit))))
 
 (defmethod collide :after ((moving moving) (block block) hit)
-  (when (< 0 (vy (hit-normal hit)))
+  (when (or (< 0 (vy (hit-normal hit)))
+            (and (typep block 'slope)
+                 (= 0.0 (hit-time hit))))
     (setf (air-time moving) 0.0)))
 
 (defmethod collide :after ((moving moving) (solid solid) hit)
