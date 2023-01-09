@@ -99,7 +99,7 @@
 
 # catherine
 ~ catherine
-? (complete-p (find-task 'EPILOGUE-HOME '3-INTERACT-CATHERINE))
+? (complete-p (find-task 'EPILOGUE-HOME '4-INTERACT-CATHERINE))
 | | (:concerned)Ich hoffe, dass alle OK sind.
 |? (complete-p 'EXPLOSION)
 | | ... Haben wir gewonnen?

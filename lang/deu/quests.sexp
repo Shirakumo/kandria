@@ -1,7 +1,7 @@
 epilogue-2/2-wait-6.0/title "Warte für 6.0 Sekunden"
 epilogue-home/1-go-to-epilogue-walk/title "Versuch zu laufen"
 epilogue-home/2-go-to-epilogue-surface/title "Geh zurück zur Oberfläche"
-epilogue-home/3-interact-catherine/title "Hör Catherine zu"
+epilogue-home/4-interact-catherine/title "Hör Catherine zu"
 epilogue-home/4-go-to-epilogue-end/title "Geh zurück zur Siedlung"
 epilogue-home/6-wait-2.0/title "Warte für 2.0 Sekunden"
 epilogue-home/description "Catherine und ich müssen zur Oberfläche zurück"
