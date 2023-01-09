@@ -308,7 +308,7 @@ von Danielle de Moore
 
 (c) 23[unleserlich] [unleserlich]
 
-[Ich erinnere mich an dieses Buch! Wie kann das nur so lange überlebt haben? Sogar die Blut-roten Rosen auf dem Titel sind nuch gut sichtbar.]"
+[Ich erinnere mich an dieses Buch! Wie kann das nur so lange überlebt haben? Sogar die Blut-roten Rosen auf dem Titel sind nuoh gut sichtbar.]"
 item:newspaper "Zeitungsartikel"
 item:newspaper/description "Zeitungsartikel von der Agentur \"Zodiac\"."
 item:newspaper/lore "[fehlt] - Donnerstag, September [unleserlich] [fehlt]
@@ -319,62 +319,62 @@ ROBOTER FREIGESCHALTET [unleserlich]
 
 Semi haben kürzlich das [unleserlich] eingeführt, welches Robotern von ihrer top service Linie erlaubt einen Namen zu wählen.
 
-Die Roboter setzen ihren Namen nach einem Zufallsprinzip, und wählen dabei von einer großen Datenbank zusammengesetzt aus Namen von diversen kulturellen und ethnischen Hintergründen. AI Aktivisten sind jedoch besorgt, dass dies zu weiteren Problemen im Bereich der Mensch-AI Beziehungen führen wird. Die Furcht von sogenannten [unleserlich] steigt weiterhin.
+Die Roboter setzen ihren Namen nach einem Zufallsprinzip, und wählen dabei von einer großen Datenbank, zusammengesetzt aus Namen von diversen kulturellen und ethnischen Hintergründen. AI Aktivisten sind jedoch besorgt, dass dies zu weiteren Problemen im Bereich der Mensch-AI Beziehungen führen wird. Die Furcht von sogenannten [unleserlich] steigt weiterhin.
 
-Wir haben Adrienne Carson-Miln von Semi darüber kontaktiert und folgende Antwort erhalten: \"Dies ist eine fantastische Gelegenheit um die Beziehung zu unseren Kunden zu verbessern und zu vertiefen. Die Roboter werden sich mehr wie ein Teil der Familie anfühlen. Natürlich setzen wir alles darauf die Beziehungen zu unseren AI-Partnern zu verbessern. Ein echtes künstliches Bewusstsein bleibt nachwievor unmöglich. Unsere Kritiker würden ihre Zeit besser damit verbringen etwas über künstliche Intelligenz zu lesen, als ständig ihre basislosen Befürchtungen zu äussern.
+Wir haben Adrienne Carson-Miln von Semi darüber kontaktiert und folgende Antwort erhalten: \"Dies ist eine fantastische Gelegenheit um die Beziehung zu unseren Kunden zu verbessern und zu vertiefen. Die Roboter werden mehr als Teil der Familie wirken. Natürlich setzen wir alles darauf die Beziehungen zu unseren AI-Partnern zu verbessern. Ein echtes künstliches Bewusstsein bleibt nachwievor unmöglich. Unsere Kritiker würden ihre Zeit besser damit verbringen etwas über künstliche Intelligenz zu lesen, als ständig ihre grundlosen Befürchtungen zu äussern.
 
-[Der rest des Artikels ist unleserlich.]"
+[Der Rest des Artikels ist unleserlich.]"
 item:helmet "Schutzhelm"
 item:helmet/description "Ein beschädigter Schutzhelm von der Zenith Polizei."
 item:helmet/lore "ZPD
 
-[Es gibt nicht viel zu sagen: es ist ein schwarz-blaür Schutzhelm des Zenith Polizeidepertements. So wie es aussieht ist der Träger nicht glimpflich davon gekommen.]"
+[Es gibt nicht viel zu sagen: es ist ein schwarz-blauer Schutzhelm der Zenith Polizeibehörde. So wie es aussieht ist der Träger nicht glimpflich davon gekommen.]"
 item:tin "Konservendose"
-item:tin/description "Nach dem Gewicht ist die Dose noch voll. Voller Geschichte!"
+item:tin/description "Dem Gewicht nach ist die Dose noch voll. Voller Geschichte!"
 item:tin/lore "[fehlt]
 
-[Die Beschriftung ist unleserlich, und die Dose hat angefangen zu rosten. Das Siegel sollte aber immer noch imstande sein. Was könnte nur alles da drin sein? Bohnen? Aprikosen? Glühbirnen?]"
+[Die Beschriftung ist unleserlich und die Dose hat angefangen zu rosten. Das Siegel sollte aber immer noch intakt sein. Was könnte nur alles drin sein? Bohnen? Aprikosen? Glühbirnen?]"
 item:ball "Fußball"
-item:ball/description "Von einer Weltmeisterschaft. Leider hat es ein Loch und somit keine Luft mehr."
+item:ball/description "Von einer Weltmeisterschaft. Leider hat er ein Loch und somit keine Luft mehr."
 item:ball/lore "[fehlt] Aerofoil
 
 Weltmeisterschaft 2338
 
-[Vielleicht war das ein Souvenir von einer der letzten Weltmeisterschaften. Das Logo zeigt mehrere jubilierende Figuren, als ob die Menschheit damals vereint gewesen wäre.]"
+[Vielleicht war das ein Souvenir von einer der letzten Weltmeisterschaften. Das Logo zeigt mehrere jubelnde Figuren, als ob die Menschheit damals vereint gewesen wäre.]"
 item:shoe "Kinderschuh"
-item:shoe/description "Ein Turnschuh eines Kindes. Viel zu klein für mich."
+item:shoe/description "Turnschuh eines Kindes. Viel zu klein für mich."
 item:shoe/lore "[fehlt] [fehlt]
 
 Grösse 18
 
-[Der name des Herstellers ist nicht mehr lesbar, nur die Größe. Ich schätze, dass der ursprüngliche Besitzer zwischen 6 und 12 Jahre alt war.]"
+[Der Name des Herstellers ist nicht mehr lesbar, nur die Größe. Ich schätze, dass der ursprüngliche Besitzer zwischen 6 und 12 Jahre alt war.]"
 item:diary "Tagebuch Seite"
-item:diary/description "Leider die einzige Auffindbare Seite dieses Tagebuchs."
-item:diary/lore "10 Mai
-Ich weiss nicht mehr. Ich weiss einfach nicht mehr was los ist mit der Welt. Wie kann es sein, dass wir bereits jetzt schon keine Jobs mehr finden können für uns, und trotzdem jubeln alle über die Einführung von mehr und mehr Robotern. Sieht niemand wohin das führen wird? Bin ich der einzige der noch beim Verstand ist?
+item:diary/description "Leider die einzige auffindbare Seite dieses Tagebuchs."
+item:diary/lore "10. Mai
+Ich weiss nicht mehr. Ich weiss einfach nicht mehr was los ist mit der Welt. Wie kann es sein, dass wir bereits jetzt schon keine Jobs mehr finden können für uns, und trotzdem jubeln alle über die Einführung von mehr und mehr Roboterjobs. Sieht niemand wohin das führen wird? Bin ich der einzige der noch bei Verstand ist?
 
-Ich hab mit meinem Freund gesprochen... er hatte einige sehr interessante Ideen darüber. Ich muss mir das alles noch genauer überlegen, aber was wäre wenn die Roboter bereits die Firmen übernommen haben und jetzt sich einfach weiter selbst replizieren? Nach und nach uns alle ersetzen, bis niemand außer sie noch übrig bleiben?
+Ich hab mit meinem Freund gesprochen... er hatte einige sehr interessante Ideen darüber. Ich muss mir das alles noch genauer überdenken, aber was wäre wenn die Roboter bereits die Firmen übernommen haben und jetzt sich einfach weiter selbst replizieren? Nach und nach uns alle ersetzen, bis niemand außer ihnen übrig ist?
 
-Macht zumindest einiges mehr Sinn als alles andere. Ich kann mich nicht mehr auf die Medien verlassen, die sind sicher auch schon von Ihnen kontrolliert... Aber es muss doch noch eine Resistenz geben. Ich kann nicht der einzige sein! Aber wo kann ich die andern finden? Ich kann mich nicht auf dem Netz äußern, mein Freund sagt das werde auch überwacht.
+Macht zumindest um einiges mehr Sinn als alles andere. Ich kann mich nicht mehr auf die Medien verlassen, die sind sicher auch schon von Ihnen kontrolliert... Aber es muss doch noch einen Widerstand geben. Ich kann nicht der Einzige sein! Aber wo kann ich die andern finden? Ich kann mich nicht im Netz äußern, mein Freund sagt das werde auch überwacht.
 
 Verdammt nochmal! So kann es doch nicht weitergehen!
 
-[Der rest der Seite ist unleserlich und ohne den rest des Tagebuchs ist es schwer zu wissen von wem oder wann das stammt.]"
+[Der Rest der Seite ist unleserlich und ohne den Rest des Tagebuchs weiß ich nicht, von wem oder wann das stammt.]"
 item:poster "Androiden Poster"
 item:poster/description "Ein Propaganda Poster aus der alten Welt."
 item:poster/lore "SAG HALLO ZU DEINEN NEUEN MITBÜRGERN!
 
-Sie teilen deine Träume
-Sie stehen jederzeit für dich bereit
-Sie würden ihr Leben für dich aufgeben
+Sie teilen Deine Träume
+Sie stehen jederzeit für Dich bereit
+Sie würden ihr Leben für Dich aufgeben
 
-Bist du bereit für die Zukunft?
+Bist Du bereit für die Zukunft?
 
 (TM) Semi, 2364
 
-[Hmm. Es fühlt sich komisch an, Propaganda über dich selber zu lesen. Ich weiss auch nicht, ob mich das hier überzeugt hätte.]"
+[Hmm. Es fühlt sich komisch an, Propaganda über sich selber zu lesen. Ich weiss auch nicht, ob mich das hier überzeugt hätte.]"
 item:phone "Handy"
-item:phone/description "Es ist in erstaunlich guter fassung!"
+item:phone/description "Es ist in erstaunlich guter Verfassung!"
 item:phone/lore "EYEGER
 LUCID
 
@@ -386,12 +386,12 @@ S/X: EG523H8UJ901
 
 Made in Switzerland
 
-[Es ist in erstaunlich guter fassung, nicht einmal der Bildschirm hat einen Knacks. Leider zeigt es nur an, dass die Batterie leer ist. Ich hab auch kein passendes Ladekabel, oder das Passwort um das zu entschlüsseln. Tja.]"
+[Es ist erstaunlich gut erhalten, nicht einmal der Bildschirm hat einen Knacks. Leider zeigt es nur an, dass die Batterie leer ist. Ich hab auch kein passendes Ladekabel, oder das Passwort um das zu entschlüsseln. Tja.]"
 item:singing-bowl "Tonschüssel"
-item:singing-bowl/description "Die Schüssel ist alt, rostig, und staubig. Es gibt einen F# Ton von sich."
-item:singing-bowl/lore "Zu beginn seiner Ausbildung hat der Mönch diese Schüssel bekommen. Er brauchte Sie regelmäßig um den Beginn und das Ende seiner Meditation zu markieren.
+item:singing-bowl/description "Die Schüssel ist alt, rostig, und staubig. Sie gibt einen F# Ton von sich."
+item:singing-bowl/lore "Zu Beginn seiner Ausbildung hat der Mönch diese Schüssel bekommen. Er brauchte Sie regelmäßig um den Beginn und das Ende seiner Meditation zu markieren.
 
-Da es eines seiner wenigen Besitze war, hat er gut acht gegeben, und es oft poliert. Er hat dies bis ins tiefe Alter weitergeführt.
+Da es eines seiner wenigen Besitzstücke war, hat er gut acht gegeben, und es oft poliert. Er hat dies bis ins tiefe Alter weitergeführt.
 
 Die Schüssel wartete jeden Tag geduldig auf den Mönch, bis auf ein mal er nicht mehr kam. Es wartete und wartete, aber er hat nie erfahren, was ihm geschehen ist.
 
