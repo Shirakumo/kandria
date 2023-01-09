@@ -333,6 +333,19 @@ void main(){
   :voice (list (// 'sound 'sword-rotating-swing-1)
                (// 'sound 'sword-rotating-swing-2)))
 
+(define-effect air-swing sound-effect
+  :voice (list (// 'sound 'sword-air-swing-1)
+               (// 'sound 'sword-air-swing-2)
+               (// 'sound 'sword-air-swing-3-jab)))
+
+(define-effect hammer-swing sound-effect
+  :voice (list (// 'sound 'sword-hammer-swing-1)
+               (// 'sound 'sword-hammer-swing-2)))
+
+(define-effect overhead-swing sound-effect
+  :voice (list (// 'sound 'sword-overhead-swing-1)
+               (// 'sound 'sword-overhead-swing-2)))
+
 (define-effect counter sound-effect
   :voice (// 'sound 'player-counter))
 
