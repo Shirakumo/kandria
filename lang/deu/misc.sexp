@@ -97,24 +97,24 @@ Pinging genera ...                                                 OK
 [INFO] Marking route to closest service facility
 [ERR ] NFCS unavailable, failed to mark route
 [INFO] Initiating core loop"
-startup-credits-line "Ein Spiel von Shinmera, Tim, Blob, Mikel, und Cai."
+startup-credits-line "Ein Spiel von Shinmera, Tim, Blob, Mikel und Cai."
 game-intro-notice "
 Dieses Spiel speichert nicht automatisch. Bitte speichere oft!
 
 Wenn du Schwierigkeiten hast, schau dir bitte die Spiele-Optionen an."
 critical-npc-death-ending "
 Das Genera System des Androiden hat einen unerwarteten
-Fehler, was es dazu führte alles in Sicht zu zerstören.
+Fehler, was es dazu brachte alles in Sicht zu zerstören.
 
-Der Fehler eskalierte, was den Fusionsreaktor destabilisierte,
+Der Fehler eskalierte, destabilisierte den Fusionsreaktor,
 und ungefähr 1.256 Sekunden nach dem ursprünglichen
 Fehler wurde das ganze Tal in einem massiven Feuerball
 vernichtet.
 
 Super Arbeit!"
 zelah-early-death-ending "
-Mit ihrem Führer erledigt viel die Wraw Armee schnell in einen Tumult.
-Das Tal kam zu einem instabilen und unsicheren Frieden, doch Frieden
-war es trotzdem.
+Mit dem Tod ihrer Führung zerfiel die Wraw Armee rapide.
+Das Tal fand Frieden, einen instabilen und unsicheren,
+doch Frieden nichtsdestotrotz.
 
 Gut gemacht!"
