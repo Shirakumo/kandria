@@ -703,7 +703,7 @@
    :default-interaction 'npc
    :sprite-data (asset 'kandria 'villager-hunter)))
 
-(define-shader-entity villager (paletted-npc roaming-npc creatable)
+(define-shader-entity villager (paletted-npc roaming-npc)
   ((name :initform (generate-name "VILLAGER"))
    (profile-sprite-data :initform (asset 'kandria 'villager-profile))
    (nametag :initform (@ villager-nametag)))

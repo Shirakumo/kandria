@@ -81,7 +81,7 @@
   (stage (resource (profile-sprite-data profile) 'texture) area)
   (stage (resource (profile-sprite-data profile) 'vertex-array) area))
 
-(define-shader-entity door (lit-animated-sprite interactable ephemeral creatable)
+(define-shader-entity door (lit-animated-sprite interactable ephemeral)
   ((target :initform NIL :initarg :target :accessor target)
    (bsize :initform (vec 11 20))
    (primary :initform T :initarg :primary :accessor primary)
