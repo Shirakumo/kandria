@@ -99,7 +99,7 @@
                   ("Redo" (edit 'redo editor))
                   :separator
                   ("Select" (edit 'select-entity editor))
-                  ("Insert" (edit 'insert-enitty editor))
+                  ("Insert" (edit 'insert-entity editor))
                   ("Clone" (edit 'clone-entity editor))
                   ("Delete" (edit 'delete-entity editor))
                   :separator
