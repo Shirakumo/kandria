@@ -51,6 +51,8 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Human Spider
 - Fix jumping off of slopes sometimes not working correctly due to bad air time controller
   Reported by Renpona and Bridget Endeavor
+- Fix quest logic mistake in German translation
+  Reported by NoFear13
 
 ## 0.3.1
 - Fix crash when picking up items

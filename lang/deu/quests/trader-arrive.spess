@@ -9,11 +9,11 @@
 ? (string= (@ player-name-1) (nametag player))
 | - Genau
 |   ~ trader
-|   | (:jolly)Schön dich kennen zu lernen, {(player nametag)}!
+|   | (:jolly)Schön dich kennen zu lernen, {(nametag player)}!
 | - Ich hatte früher einen anderen Namen
 |   ~ trader
 |   | Aber du kannst dich nicht erinnern, oder?
-|   | (:jolly)Kein Problem. Schön dich kennen zu lernen, {(player nametag)}!
+|   | (:jolly)Kein Problem. Schön dich kennen zu lernen, {(nametag player)}!
 |?
 | ~ player
 | - Ich heiße {(nametag player)}
@@ -21,7 +21,7 @@
 |   | Aha, {#@trader-nametag} hatte also alte Info. Tut mir leid, Habibti.
 |   ! eval (setf (nametag (unit 'trader)) (@ trader-nametag))
 |   ~ trader
-|   | (:jolly)Schön dich kennen zu lernen, {(player nametag)}!
+|   | (:jolly)Schön dich kennen zu lernen, {(nametag player)}!
 | - Das war früher so
 |   ~ trader
 |   | Früher? {#@trader-nametag} hatte also alte Info. Tut mir leid, Habibti.
@@ -31,7 +31,7 @@
 |   ~ player
 |   | {(nametag player)}.
 |   ~ trader
-|   | (:jolly)Schön dich kennen zu lernen, {(player nametag)}!
+|   | (:jolly)Schön dich kennen zu lernen, {(nametag player)}!
 ~ trader
 | (:jolly)Es spricht sich schnell rum hier. Und {#@catherine-nametag} konnte sich kaum davor halten.
 | Sie ist wunderbar, nicht? Ein super Ingenieur dazu. Erinnert mich an...
