@@ -363,7 +363,7 @@ void main(){
 (define-fish trilobite 104 24 16 16
   :price 100)
 (define-fish rubber-duck 104 40 8 8
-  :price 50)
+  :price 150)
 (define-fish toy-submarine 112 40 8 8
   :price 50)
 (define-fish alligator 64 72 48 8
