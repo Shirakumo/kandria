@@ -5,6 +5,8 @@ A big thanks to everyone for trying it out and reporting problems!
 ## 1.0.0
 - Fix price of Rubber Duck
   Reported by Adoom Mear
+- Fix out of bounds issue with two region 1 elevator shafts
+  Reported by Alexander Roper
 
 ## 0.9.0
 - Fix lacking aggro dialogue on Zelah
