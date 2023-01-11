@@ -29,7 +29,7 @@ If you already have an existing Common Lisp setup, you can still make use of the
 
 1. Install the Shirakumo dist:
    ::
-   (ql-dist:install-dist "http://dist.tymoon.eu/shirakumo.txt" :prompt NIL)
+   (ql-dist:install-dist "http://dist.shirakumo.org/shirakumo.txt" :prompt NIL)
    ::
 2. Clone Kandria to a folder where it can be found, such as Quicklisp's local-projects.
    ::
