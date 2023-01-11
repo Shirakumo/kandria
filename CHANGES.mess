@@ -7,6 +7,12 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Adoom Mear
 - Fix out of bounds issue with two region 1 elevator shafts
   Reported by Alexander Roper
+- Fix an issue with a room being far too difficult
+  Reported by Adoom Mear
+- Fix DS2 support under Linux
+  Reported by Andy Price
+- Fix a crash when trying to use inexistent glyphs in the rendering
+  Reported by Herathol, SuwakoGreenFrog
 
 ## 0.9.0
 - Fix lacking aggro dialogue on Zelah
