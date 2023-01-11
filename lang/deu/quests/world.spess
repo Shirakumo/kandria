@@ -367,7 +367,6 @@
 | |?
 | | ~ semi-engineer-chief
 | | | Wie steht's mit dem "Einsturz"(orange)? Wir können nicht auf ewig hier bleiben?
-| | ! eval (activate 'task-wall-location)
 |?
 | ? (not (var 'engineers-first-talk))
 | | ~ semi-engineer-chief
