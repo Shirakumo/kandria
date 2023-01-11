@@ -307,3 +307,6 @@
    (bsize :initform (vec 16 8))
    (size :initform (vec 32 32))
    (max-speed :initarg :max-speed :initform (vec 0.0 10.0) :accessor max-speed)))
+
+(defmethod interact :afcheaterter ((elevator service-elevator) thing)
+  (setf (vy (max-speed elevator)) 10.0))
