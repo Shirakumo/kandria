@@ -172,7 +172,7 @@
        (eq :active (state lantern))))
 
 (defmethod collide ((player player) (lantern lantern) hit)
-  (harmony:play (// 'sound 'lantern-crash) :reset T)
+  (harmony:play (// 'sound 'lantern-crash) :reset T :location (vxy_ (location lantern)))
   (setf (climb-strength player) (p! climb-strength))
   (setf (direction lantern) (direction player))
   (setf (dash-exhausted player) NIL)
@@ -203,7 +203,7 @@
     (:inactive
      (setf (multiplier (light lantern)) 0.0)
      (when (<= (decf (respawn-time lantern) (dt ev)) 0.0)
-       (harmony:play (// 'sound 'lantern-restore) :reset T)
+       (harmony:play (// 'sound 'lantern-restore) :reset T :location (vxy_ (location lantern)))
        (setf (state lantern) :active)
        (setf (animation lantern) 'respawn)))))
 

@@ -210,7 +210,7 @@
 (define-assets-from-path (sound trial-harmony:sound "**/*.ogg")
   (T :volume 0.4)
   (bomb-explode :volume (db 0.0))
-  (ambience-strong-wind :repeat T)
+  (ambience-strong-wind :repeat T :min-distance 100000000000.0 :max-distance 100000100000.0)
   (player-low-health :volume 0.1 :min-distance 100000000000.0 :max-distance 100000100000.0)
   (ambience-water-pipe-leak :repeat T :volume 0.2 :max-distance (* +tile-size+ 32) :min-distance (* +tile-size+ 3))
   (ambience-water-dripping :repeat T :volume 1.0 :max-distance (* +tile-size+ 16) :min-distance (* +tile-size+ 3))
