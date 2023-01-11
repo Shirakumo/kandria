@@ -14,7 +14,7 @@
     (or (steam:show-text-input (steam:interface 'steam:steamutils T)
                                :default (alloy:text input)
                                :description (@ enter-name-prompt))
-        (steam:show-floating-text-input (steam:interface 'steam:steamutils T))
+        (ignore-errors (steam:show-floating-text-input (steam:interface 'steam:steamutils T)))
         (v:warn :trial.steam "Failed to open gamepad text input panel..."))))
 
 (presentations:define-realization (ui name-input)
