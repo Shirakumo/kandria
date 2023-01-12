@@ -29,7 +29,7 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by spicypants
 - Fix crash when buoy goes out of bounds (due to editing the map)
   Reported by antenirulf
-- Fix crash related to a bad late-night fix
+- Fix crash related to a bad late-night fix around service elevators
   Reported by ModBot2000
 
 ## 0.9.0
