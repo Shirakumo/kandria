@@ -408,7 +408,7 @@
 
 (define-decoder (elevator save-v0) :after (initargs _p)
   (when (eql :recall (state elevator))
-    (setf (state elevator) :normal)))
+    (setf (slot-value elevator 'state) :normal)))
 
 (define-encoder (rope save-v0) (_b _p)
   `(:extended ,(extended rope)))
