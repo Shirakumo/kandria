@@ -363,7 +363,6 @@
 | | | Wir können "den Tunnel nicht räumen"(orange) - aber vielleicht bist du stärker?
 | | | "Der Einsturz ist gleich vor uns"(orange).
 | | ! eval (setf (var 'engineers-first-talk) T)
-| | ! eval (activate 'task-wall-location)
 | |?
 | | ~ semi-engineer-chief
 | | | Wie steht's mit dem "Einsturz"(orange)? Wir können nicht auf ewig hier bleiben?
