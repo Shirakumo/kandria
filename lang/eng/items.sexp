@@ -281,6 +281,8 @@ item:palette-the-third "Outfit: The Third"
 item:palette-the-third/description "This uniform has seen many a heist."
 item:palette-error "Outfit: ERROR"
 item:palette-error/description "ERROR: Missing texture pack"
+item:palette-weiss "Outfit: Weiss"
+item:palette-weiss/description "This outfit fills you with rage."
 item:manual "Combat Manual"
 item:manual/description "Essential information for combat model androids. Given my memory troubles, I should probably refresh on it."
 item:manual/lore "Combat Manual

@@ -272,6 +272,8 @@ item:palette-the-third "Outfit: The Third"
 item:palette-the-third/description "Diese Uniform hat einige Räubereien erlebt."
 item:palette-error "Outfit: FEHLER"
 item:palette-error/description "FEHLER: Texturpack nicht gefunden."
+item:palette-weiss "Outfit: Weiss"
+item:palette-weiss/description "Diese Uniform füllt dich mit einer Lust nach Rache."
 item:manual "Kampfhandbuch"
 item:manual/description "Wichtige Informationen über meine Kampffähigkeiten."
 item:manual/lore "Kampfhandbuch
