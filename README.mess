@@ -35,9 +35,13 @@ If you already have an existing Common Lisp setup, you can still make use of the
    ::
    git clone https://github.com/shirakumo/kandria.git ~/quicklisp/local-projects/kandria
    ::
-3. Load Kandria with Quicklisp:
+3. Create a file called ``.install`` within the kandria directory that contains a full path to your full kandria game install.
    ::
-   (ql:quickload :kandria)
+   echo "$HOME/.steam/steam/steamapps/common/Kandria/" > kandria/.install
+   ::
+4. Load Kandria from the REPL through the setup script:
+   ::
+   (load "setup.lisp")
    ::
 
 ## Support
