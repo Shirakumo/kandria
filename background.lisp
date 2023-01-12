@@ -153,8 +153,9 @@
         (setf (lighting-strength b) (lighting-strength info))))))
 
 (defmethod handle ((ev switch-chunk) (background background))
-  (setf (background background) (background (chunk ev)))
-  (update-background background))
+  (when (allocated-p (// 'kandria 'backgrounds))
+    (setf (background background) (background (chunk ev)))
+    (update-background background)))
 
 (defmethod handle ((ev change-time) (background background))
   #++
