@@ -105,7 +105,7 @@
   (let ((player (unit 'player +world+)))
     (and (null (find-panel 'dialog))
          player
-         (svref (collisions player) 2)
+         (typep (svref (collisions player) 2) '(or ground platform slope))
          (eql :normal (state player))
          (< 5 (combat-time player))
          (null (timer-quest))
