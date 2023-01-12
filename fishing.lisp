@@ -19,6 +19,9 @@
   (unless (eq water (medium buoy))
     (harmony:play (// 'sound 'fishing-bob-lands-in-water))))
 
+(defmethod kill ((buoy fishing-buoy))
+  (handle (make-instance 'stop-fishing) (u 'player)))
+
 (defmethod handle :before ((ev tick) (buoy fishing-buoy))
   (let ((vel (velocity buoy))
         (dt (dt ev)))
