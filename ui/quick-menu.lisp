@@ -64,12 +64,15 @@
   (title (alloy:value button)))
 
 (defmethod alloy:activate ((button item-button))
-  (harmony:play (// 'sound 'ui-use-item) :reset T)
-  (use (alloy:value button) (inventory button))
-  (alloy:mark-for-render button)
-  (when (= 0 (item-count (alloy:value button) (inventory button)))
-    (setf (alloy:focus (alloy:focus-parent button)) :strong)
-    (alloy:leave button T)))
+  (cond ((< 0 (item-count (alloy:value button) (inventory button)))
+         (harmony:play (// 'sound 'ui-use-item) :reset T)
+         (use (alloy:value button) (inventory button))
+         (alloy:mark-for-render button)
+         (when (= 0 (item-count (alloy:value button) (inventory button)))
+           (setf (alloy:focus (alloy:focus-parent button)) :strong)
+           (alloy:leave button T)))
+        (T
+         (harmony:play (// 'sound 'ui-error) :reset T))))
 
 (defclass quick-menu (menuing-panel)
   ())
