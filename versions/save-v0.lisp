@@ -406,6 +406,10 @@
     (setf (slot-value moving-platform 'state) state)
     moving-platform))
 
+(define-decoder (elevator save-v0) :after (initargs _p)
+  (when (eql :recall (state elevator))
+    (setf (state elevator) :normal)))
+
 (define-encoder (rope save-v0) (_b _p)
   `(:extended ,(extended rope)))
 
