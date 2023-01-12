@@ -13,6 +13,22 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Andy Price
 - Fix a crash when trying to use inexistent glyphs in the rendering
   Reported by Herathol, SuwakoGreenFrog
+- Fix a rare crash related to use-before-allocate in the background
+  Reported by Polyethylene
+- Fix bad reference to task in German translation
+  Reported by John McCloud, Hattnschattn
+- Fix reference to SteamUtils function crashing on older SteamWorks SDK versions
+  Reported by Goldberg
+- Fix rare crash when using items from the inventory
+  Reported by Hwi Noree
+- Fix bug in editor creation dialogue
+  Reported by A_M4n
+- Fix rare crash with custom NPC
+  Reported by twmiller
+- Fix rare crash due to bad deallocation order when shutting down
+  Reported by spicypants
+- Fix crash when buoy goes out of bounds (due to editing the map)
+  Reported by antenirulf
 
 ## 0.9.0
 - Fix lacking aggro dialogue on Zelah
