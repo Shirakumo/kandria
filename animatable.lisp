@@ -328,6 +328,7 @@
          (when (<= (idle-time animatable) 0.0)
            (setf (idle-time animatable) (+ (minimum-idle-time animatable) (random 8.0)))
            (start-animation 'idle animatable)))
+        ((null (animation animatable)))
         ((not (eql 'idle (name (animation animatable))))
          (setf (idle-time animatable) (minimum-idle-time animatable)))))
 
