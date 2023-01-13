@@ -424,7 +424,11 @@
 
 (defmethod collide :after ((enemy drone) thing hit)
   (nvunit* (velocity enemy))
-  (nv* (velocity enemy) -2.0))
+  (nv* (velocity enemy) -2.0)
+  (nv+ (location enemy) (velocity enemy)))
+
+(defmethod path ((enemy drone))
+  (list T))
 
 (defmethod apply-transforms progn ((enemy drone))
   (translate-by 0 -12 0))
