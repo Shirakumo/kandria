@@ -33,6 +33,16 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by ModBot2000
 - Fix crash related to saves done while an elevator is in recall mode
   Reported by AOAB!, derp rock galactic
+- Fix text scrolling speed at zero not showing text at all
+  Reported by Toxic Frog
+- Fix fish names being cut off when scrolling via gamepad
+  Reported by Adoom Mear
+- Fix opening the cheat menu while fishing leading to input confusion
+  Reported by Adoom Mear
+- Fix opening a chest while crawling under a block being able to clip you
+  Reported by Mirarant
+- Fix hitting an open chest with attacks cancelling the animation
+  Reported by Dwarf Woot
 
 ## 0.9.0
 - Fix lacking aggro dialogue on Zelah
