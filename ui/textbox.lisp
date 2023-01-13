@@ -270,7 +270,7 @@ void main(){
                       (T 1))))
            (when (<= (char-timer textbox) 0.0)
              (harmony:stop (// 'sound 'ui-scroll-dialogue))
-             (setf (scroll-index textbox) (array-total-size (text textbox)))))
+             (scroll-text textbox (array-total-size (text textbox)))))
          (scroll-text textbox))))
 
 (defmethod handle ((rq dialogue:request) (textbox textbox)))
