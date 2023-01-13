@@ -408,6 +408,17 @@
 (defclass unlock-button (item-icon)
   ((inventory :initarg :inventory :accessor inventory)))
 
+;; KLUDGE: copypasta to add padding to the scroll
+(defmethod alloy:ensure-visible ((element unlock-button) (layout alloy:clip-view))
+  (let* ((view (alloy:bounds layout))
+         (element (alloy:bounds element))
+         (vyb (- (alloy:pxy (alloy:offset layout))))
+         (vyt (- (alloy:pxh view) (alloy:pxy (alloy:offset layout)))))
+    (cond ((< (+ (alloy:pxy element) 50) vyb)
+           (setf (alloy:offset layout) (alloy:px-point 0.0 (- (- (alloy:pxy element) 50)))))
+          ((< vyt (+ (alloy:pxy element) (alloy:pxh element)))
+           (setf (alloy:offset layout) (alloy:px-point 0.0 (- (alloy:pxh view) (alloy:pxy element) (alloy:pxh element))))))))
+
 (presentations:define-realization (ui unlock-button T)
   ((:border simple:rectangle)
    (alloy:margins -4)
