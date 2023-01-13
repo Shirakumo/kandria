@@ -282,7 +282,8 @@
                     (setf (iframe-idx entity) (frame-idx animatable))
                     (setf (iframes entity) 60))))
                (chest                   ; KLUDGE: generify this...
-                (when (contained-p hurtbox entity)
+                (when (and (contained-p hurtbox entity)
+                           (eql :closed (state entity)))
                   (interact entity animatable))))))))
       (:stunned
        (cond ((and (<= (stun-time animatable) 0)
