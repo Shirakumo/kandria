@@ -20,6 +20,10 @@
       (hide panel))
     (alloy:finish-structure panel layout label)))
 
+(defmethod show :before ((panel cheat-panel) &key)
+  (when (eql :fishing (state (u 'player)))
+    (handle (make-instance 'stop-fishing) (u 'player))))
+
 (defmethod handle ((ev text-entered) (panel cheat-panel))
   (let ((longest 0)
         (text ""))
