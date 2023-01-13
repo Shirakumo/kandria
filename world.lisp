@@ -325,6 +325,16 @@
 (defmethod quest:find-trigger (name (world world) &optional (error T))
   (quest:find-trigger name (storyline world) error))
 
+(define-condition no-world-found (error) ()
+  (:report (lambda (c s) (format s "No world to load found!
+
+Vital game content files are either missing or corrupted.
+Please verify that your installation is not corrupted and
+remove any partial world directory in the game folder."))))
+
+(defmethod report-on-error ((error no-world-found))
+  (emessage "~a" error))
+
 (defun find-world ()
   (flet ((try-depot (path)
            (when (probe-file path)
@@ -337,4 +347,4 @@
         (when *install-root*
           (or (try-depot (merge-pathnames "world/" *install-root*))
               (try-depot (merge-pathnames "world.zip" *install-root*))))
-        (error "No world present."))))
+        (error 'no-world-found))))
