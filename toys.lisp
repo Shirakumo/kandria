@@ -601,7 +601,8 @@ void main(){
     (harmony:play (// 'sound 'chest-open) :reset T)
     (spawn (location chest) (or (draw-item chest) 'item:parts))
     (setf (state chest) :open)
-    (start-animation 'pickup player)))
+    (unless (eql :crawling (state player))
+      (start-animation 'pickup player))))
 
 (define-shader-entity shutter (lit-animated-sprite collider solid ephemeral)
   ((name :initform NIL)
