@@ -1,28 +1,28 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(define-achievement catherine-races quest-completed
+(define-achievement catherine-races task-completed
   :icon (// 'kandria 'ach-racecat)
   (loop with storyline = (storyline +world+)
         for quest in '(sq3-race-1 sq3-race-2 sq3-race-3 sq3-race-4 sq3-race-5)
-        always (eql :complete (quest:status (quest:find-quest quest storyline)))))
+        always (eql :complete (quest:status (quest:find-task 'return (quest:find-quest quest storyline))))))
 
-(define-achievement barkeep-races quest-completed
+(define-achievement barkeep-races task-completed
   :icon (// 'kandria 'ach-racebar)
   (loop with storyline = (storyline +world+)
         for quest in '(sq5-race-1 sq5-race-2 sq5-race-3 sq5-race-4 sq5-race-5 sq5-race-6)
-        always (eql :complete (quest:status (quest:find-quest quest storyline)))))
+        always (eql :complete (quest:status (quest:find-task 'return (quest:find-quest quest storyline))))))
 
-(define-achievement spy-races quest-completed
+(define-achievement spy-races task-completed
   :icon (// 'kandria 'ach-racespy)
   (loop with storyline = (storyline +world+)
         for quest in '(sq9-race-1 sq9-race-2 sq9-race-3 sq9-race-4 sq9-race-5)
-        always (eql :complete (quest:status (quest:find-quest quest storyline)))))
+        always (eql :complete (quest:status (quest:find-task 'return (quest:find-quest quest storyline))))))
 
-(define-achievement sergeant-races quest-completed
+(define-achievement sergeant-races task-completed
   :icon (// 'kandria 'ach-racesarge)
   (loop with storyline = (storyline +world+)
         for quest in '(sq10-race-1 sq10-race-2 sq10-race-3 sq10-race-4 sq10-race-5)
-        always (eql :complete (quest:status (quest:find-quest quest storyline)))))
+        always (eql :complete (quest:status (quest:find-task 'return (quest:find-quest quest storyline))))))
 
 (define-achievement full-map switch-chunk
   :icon (// 'kandria 'ach-map)

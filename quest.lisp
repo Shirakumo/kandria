@@ -15,6 +15,7 @@
 (define-event quest-started (event) quest)
 (define-event quest-completed (event) quest)
 (define-event quest-failed (event) quest)
+(define-event task-completed (event) task)
 (define-event game-over (event) ending)
 
 (alloy:make-observable '(setf clock) '(value alloy:observable))
@@ -86,6 +87,9 @@
     (call-next-method))
   (when (and (marker task) (setting :gameplay :display-hud))
     (show (make-instance 'quest-indicator :target (unlist (marker task))))))
+
+(defmethod quest:complete :after ((task task))
+  (issue +world+ 'task-completed :task task))
 
 (defclass interaction (quest:interaction)
   ((source :initform NIL :initarg :source :accessor source)
