@@ -164,12 +164,13 @@
                  (not (is-collider-for moving (hit-object hit))))))
       (unless (eq :noclip (state moving))
         (let ((l (scan +world+ (tvec (- (vx loc) (vx size) 1) (vy loc) 1 (- (vy size) 2)) #'test)))
-          (when l
+          ;; KLUDGE: this *sucks*
+          (when (and l (not (typep (hit-object l) 'crumbling-platform)))
             (when (< (vx vel) 0.0)
               (setf (vx loc) (+ (vx (hit-location l)) (vx (bsize moving)) (vx (bsize (hit-object l))))))
             (setf (aref collisions 3) (hit-object l))))
         (let ((r (scan +world+ (tvec (+ (vx loc) (vx size) 1) (vy loc) 1 (- (vy size) 2)) #'test)))
-          (when r
+          (when (and r (not (typep (hit-object r) 'crumbling-platform)))
             (when (< 0.0 (vx vel))
               (setf (vx loc) (- (vx (hit-location r)) (vx (bsize moving)) (vx (bsize (hit-object r))))))
             (setf (aref collisions 1) (hit-object r))))
