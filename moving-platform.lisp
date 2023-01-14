@@ -69,6 +69,10 @@
   (decf (vy (location platform)) 64))
 
 (defmethod handle ((ev switch-chunk) (platform falling-platform))
+  (quest:reset platform))
+
+(defmethod quest:reset progn ((platform falling-platform) &rest args)
+  (declare (ignore args))
   (setf (location platform) (initial-location platform)))
 
 (defmethod handle ((ev tick) (platform falling-platform))
