@@ -502,7 +502,7 @@ void main(){
          (chunk (chunk player))
          (ground (svref collisions 2))
          (ground-limit (cond
-                         ((and (not (eql :keyboard +input-source+))
+                         ((and (typep +input-source+ 'gamepad:device)
                                ;; FIXME: This is really bad and terrible lmao.
                                (< (abs (gamepad:axis :l-h +input-source+)) 0.75)
                                (< (abs (gamepad:axis :dpad-h +input-source+)) 0.75)
