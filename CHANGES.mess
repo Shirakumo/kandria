@@ -30,6 +30,8 @@ A big thanks to everyone for trying it out and reporting problems!
 - Add a race stats panel, accessible via the cheat ``how fast am i``
 - Change the ending stats panel to "X / Y" secrets found
   Suggested by HaltingState
+- Properly pass :path argument to quicklisp-quickstart:install.
+  Suggested by Tim Van den Langenbergh
 
 ## 1.0.0
 - Fix price of Rubber Duck

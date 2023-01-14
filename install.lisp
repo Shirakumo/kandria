@@ -24,6 +24,8 @@ exec sbcl --dynamic-space-size 4GB --noinform --no-sysinit --no-userinit --load 
   (:export #:install))
 (in-package #:org.shirakumo.fraf.kandria.install)
 
+(declaim (optimize (debug 3)))
+
 (defvar *kandria-root* #.(make-pathname :name NIL :type NIL :defaults (or *load-pathname* (error "This file must be LOADed."))))
 
 (defun call-with-connection (function host port)
@@ -75,10 +77,10 @@ exec sbcl --dynamic-space-size 4GB --noinform --no-sysinit --no-userinit --load 
              (load output)
           (delete-file output))))))
 
-(defun install-quicklisp (&rest args)
+(defun install-quicklisp (&key (path #P""))
   (unless (find-package 'quicklisp-quickstart)
     (load-quicklisp-quickstart))
-  (f quicklisp-quickstart install args))
+  (f quicklisp-quickstart install :path path))
 
 (defun status (format &rest args)
   (format *query-io* "; ~?~%" format args))
