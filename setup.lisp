@@ -36,6 +36,7 @@ Please create a file called .install within the source directory which contains 
 ;;; Configure CFFI early to ensure shared libraries can be found.
 (ql:quickload "cffi")
 (pushnew *kandria-install-root* cffi:*foreign-library-directories* :test #'equalp)
+(ql:quickload "deploy")
 
 ;;; Load er in.
 (ql:quickload "kandria")
