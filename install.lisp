@@ -51,6 +51,10 @@ exec sbcl --dynamic-space-size 4GB --noinform --no-sysinit --no-userinit --load 
   `(funcall (find-symbol (string ',function) ',package)
             ,@args))
 
+(defmacro a (package function &rest args)
+  `(apply (find-symbol (string ',function) ',package)
+          ,@args))
+
 (defun load-quicklisp-quickstart ()
   (with-connection (stream "beta.quicklisp.org" 80)
     (format stream "GET /quicklisp.lisp HTTP/1.1~c~c" #\Return #\Linefeed)
@@ -78,7 +82,7 @@ exec sbcl --dynamic-space-size 4GB --noinform --no-sysinit --no-userinit --load 
 (defun install-quicklisp (&rest args)
   (unless (find-package 'quicklisp-quickstart)
     (load-quicklisp-quickstart))
-  (f quicklisp-quickstart install args))
+  (a quicklisp-quickstart install args))
 
 (defun status (format &rest args)
   (format *query-io* "; ~?~%" format args))
