@@ -97,7 +97,8 @@
                              (:file "speedrun")
                              (:file "startup")
                              (:file "early-end")
-                             (:file "gamepad")))
+                             (:file "gamepad")
+                             (:file "races")))
                (:module "editor"
                 :components ((:file "history")
                              (:file "tool")
