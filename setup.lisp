@@ -28,7 +28,8 @@ Please create a file called .install within the source directory which contains 
 
 ;;; Ensure Kandria is known
 (unless (asdf:find-system "kandria" NIL)
-  (asdf:load-asd (merge-pathnames "kandria.asd" *kandria-root*)))
+  (asdf:load-asd (merge-pathnames "kandria.asd" *kandria-root*))
+  (asdf:load-asd (merge-pathnames "quest/kandria-quest.asd" *kandria-root*)))
 
 ;;; Ensure extra projects are known
 (pushnew (merge-pathnames "local-projects/" *kandria-root*) ql:*local-project-directories* :test #'equalp)
