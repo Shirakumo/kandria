@@ -28,6 +28,8 @@ A big thanks to everyone for trying it out and reporting problems!
 - Disable heat wave effect under epilepsy safety mode
   Suggested by Serth
 - Add a race stats panel, accessible via the cheat ``how fast am i``
+- Change the ending stats panel to "X / Y" secrets found
+  Suggested by HaltingState
 
 ## 1.0.0
 - Fix price of Rubber Duck
