@@ -84,9 +84,11 @@ exec sbcl --dynamic-space-size 4GB --noinform --no-sysinit --no-userinit --load 
   (format *query-io* "; ~?~%" format args))
 
 (defun install-environment (&optional (path *kandria-root*))
-  (unless (find-package :quicklisp)
-    (status "Installing Quicklisp...")
-    (install-quicklisp :path path))
+  (cond ((find-package :quicklisp)
+         (status "Installing Quicklisp...")
+         (install-quicklisp :path path))
+        (T
+         (ql:update-all-dists)))
   (unless (find "shirakumo" (f ql-dist all-dists) :key #'ql-dist:name :test #'string-equal)
     (f ql-dist install-dist "http://dist.shirakumo.org/shirakumo.txt" :prompt NIL))
   (unless (or (probe-file (merge-pathnames "install/" *kandria-root*))
