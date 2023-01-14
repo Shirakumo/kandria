@@ -2,6 +2,26 @@
 These are changes to Kandria that were realised thanks to public feedback.
 A big thanks to everyone for trying it out and reporting problems!
 
+## 1.0.1
+- Fix upgrade menu not updating requirements after activating an upgrade
+  Reported by ShimShamSam
+- Fix nanomachine salves not stacking correctly
+  Reported by Toxic Frog
+- Fix sneaky tutorial inconsistency
+  Reported by ZΞTA
+- Fix crash when clicking on separators in the editor
+  Reported by Heisenborg
+- Fix rare crash related to switching from gamepad to keyboard during gameplay
+  Reported by Yoha Quiryn
+- Fix crash when unable to save temporary screenshot file to disk due to lack of space or permissions
+  Reported by Batmanatee
+- Fix rare crash when updating the sound location of an elevator
+  Reported by pfox
+- Fix crash when creating a new region in the editor
+  Reported by Goldberg
+- Fix rare crash due to background load order weirdness
+  Reported by Disappointment
+
 ## 1.0.0
 - Fix price of Rubber Duck
   Reported by Adoom Mear
