@@ -30,7 +30,7 @@
 (defmethod die :after ((enemy enemy))
   (let ((item (draw-item enemy)))
     (when item
-      (spawn (location enemy) item))))
+      (mark-as-spawned (spawn (location enemy) item)))))
 
 (defmethod capable-p ((enemy enemy) (edge crawl-node)) T)
 (defmethod capable-p ((enemy enemy) (edge jump-node)) T)
