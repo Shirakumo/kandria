@@ -76,8 +76,10 @@ void main(){
 (defmethod handle ((ev change-time) (heatwave heatwave))
   ;; Scale strength based on time of day (8 day hours)
   (setf (strength heatwave)
-        (* (float (max 0 (/ (- 4 (abs (- (hour +world+) 12))) 4.0)) 0f0)
-           0.0075)))
+        (if (setting :gameplay :visual-safe-mode)
+            0.0
+            (* (float (max 0 (/ (- 4 (abs (- (hour +world+) 12))) 4.0)) 0f0)
+               0.0075))))
 
 (defmethod render :before ((heatwave heatwave) (program shader-program))
   (setf (uniform program "offset") (offset heatwave)))

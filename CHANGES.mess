@@ -25,6 +25,8 @@ A big thanks to everyone for trying it out and reporting problems!
 - Fix empty textboxes appearing sometimes
 - Fix achievements for races and game endings not triggering
   Reported by Adoom Mear, Paragus Rants
+- Disable heat wave effect under epilepsy safety mode
+  Suggested by Serth
 
 ## 1.0.0
 - Fix price of Rubber Duck
