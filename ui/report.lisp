@@ -35,7 +35,9 @@
              (report (org.shirakumo.fraf.trial.feedback:submit-report
                       :user (if (string= "" username) "anonymous" username)
                       :description description)))
-        (status (@formats 'feedback-report-submitted (gethash "_id" report))))
+        (status (@formats 'feedback-report-submitted (gethash "_id" report)))
+        (let ((save (find "report" (list-saves) :key (lambda (s) (pathname-name (file s))) :test #'string=)))
+          (when save (delete-file (file save)))))
       (hide-panel 'report-panel))))
 
 (defmethod initialize-instance :after ((dialog report-dialog) &key)
