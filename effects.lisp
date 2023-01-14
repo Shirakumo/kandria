@@ -224,7 +224,7 @@ void main(){
         (strength (u 'fade)) 0.0
         (kind (u 'fade)) :blue)
   (ease 0.5 (strength (u 'fade)) :from 0.0 :to 1.0 :ease #'easing-f:in-exp)
-  (eval (show-panel 'game-over))
+  (eval (show-panel 'game-over-panel))
   (ease 0.5 (strength (u 'fade)) :from 1.0 :to 0.0 :ease #'easing-f:out-exp)
   (ease 2.0 (strength (u 'distortion)) :from 1.0 :to 0.0 :ease #'easing-f:in-circ))
 

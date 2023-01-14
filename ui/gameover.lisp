@@ -14,10 +14,10 @@
               ((:weak :strong) colors:black)
               ((NIL) colors:white))))
 
-(defclass game-over (pausing-panel menuing-panel)
+(defclass game-over-panel (pausing-panel menuing-panel)
   ())
 
-(defmethod initialize-instance :after ((panel game-over) &key)
+(defmethod initialize-instance :after ((panel game-over-panel) &key)
   (let* ((layout (make-instance 'load-screen-layout :style `((:bg :pattern ,(colored:color 0.2 0.3 0.7 0.75)))))
          (focus (make-instance 'alloy:focus-list))
          (buttons (make-instance 'alloy:vertical-linear-layout :min-size (alloy:size 300 40)))
