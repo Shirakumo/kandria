@@ -604,6 +604,7 @@
   (setf (animation enemy) 'dead)
   (transition
     :kind :black
+    (issue +world+ 'game-over :ending :zelah)
     (show-panel 'early-end-screen :message (language-string 'zelah-early-death-ending))))
 
 (define-shader-entity mech (ground-enemy major-enemy solid immovable creatable)

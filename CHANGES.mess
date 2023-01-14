@@ -23,7 +23,8 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Disappointment
 - Fix crumbling platforms pushing you out sideways in some cases
 - Fix empty textboxes appearing sometimes
-
+- Fix achievements for races and game endings not triggering
+  Reported by Adoom Mear, Paragus Rants
 
 ## 1.0.0
 - Fix price of Rubber Duck
