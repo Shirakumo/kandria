@@ -186,3 +186,6 @@
 (define-cheat (complete-quests |i implore you to reconsider|)
   (dolist (quest (remove-if-not #'quest:active-p (quest:known-quests (storyline +world+))))
     (quest:complete quest)))
+
+(define-cheat (race-panel |how fast am i|)
+  (toggle-panel 'race-results-screen))
