@@ -170,6 +170,7 @@
 
 (defun clear-spawns ()
   (loop for entity being the hash-keys of +spawn-tracker+
+        when entity
         do (leave entity T))
   (clrhash +spawn-cache+)
   (clrhash +spawn-tracker+))
