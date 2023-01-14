@@ -27,7 +27,7 @@ Please create a file called .install within the source directory which contains 
   (load (merge-pathnames "quicklisp/setup.lisp" *kandria-root*)))
 
 ;;; Ensure Kandria is known
-(unless (asdf:find-system "kandria")
+(unless (asdf:find-system "kandria" NIL)
   (asdf:load-asd (merge-pathnames "kandria.asd" *kandria-root*)))
 
 ;;; Ensure extra projects are known
