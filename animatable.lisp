@@ -316,7 +316,7 @@
   (when (active-effects animatable)
     (setf (active-effects animatable)
           (delete-if (lambda (effect)
-                       (apply-effect effect animatable)
+                       (apply-effect effect animatable (dt ev))
                        (<= (decf (clock effect) (dt ev)) 0))
                      (active-effects animatable)))
     (handle ev (active-effects-sprite animatable)))

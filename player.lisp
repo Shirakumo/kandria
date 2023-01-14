@@ -475,7 +475,7 @@ void main(){
   (unless (eql :noclip (state player))
     (call-next-method)))
 
-(defmethod apply-effect :after (effect (player player))
+(defmethod apply-effect :after (effect (player player) dt)
   (setf (combat-time player) 0f0))
 
 (defmethod handle :before ((ev tick) (player player))

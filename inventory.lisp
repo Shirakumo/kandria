@@ -315,29 +315,29 @@
   ((clock :initform 30.0 :initarg :duration :accessor clock)))
 
 (defmethod use ((item active-effect-item) (animatable animatable))
-  (push item (active-effects animatable)))
+  (print (push (clone item) (active-effects animatable))))
 
 (define-item (damage-shield active-effect-item value-item) 48 0 8 8
   :price 200)
 (defmethod item-order ((_ item:damage-shield)) 110)
 
-(defmethod apply-effect ((effect item:damage-shield) (animatable animatable))
+(defmethod apply-effect ((effect item:damage-shield) (animatable animatable) dt)
   (decf (damage-input-scale animatable) 0.2))
 
 (define-item (combat-booster active-effect-item value-item) 40 0 8 8
   :price 200)
 (defmethod item-order ((_ item:combat-booster)) 111)
 
-(defmethod apply-effect ((effect item:combat-booster) (animatable animatable))
+(defmethod apply-effect ((effect item:combat-booster) (animatable animatable) dt)
   (incf (damage-output-scale animatable) 0.2))
 
 (define-item (nanomachine-salve active-effect-item value-item) 32 0 8 8
   :price 200 :duration 10.0)
 (defmethod item-order ((_ item:nanomachine-salve)) 112)
 
-(defmethod apply-effect ((effect item:nanomachine-salve) (animatable animatable))
+(defmethod apply-effect ((effect item:nanomachine-salve) (animatable animatable) dt)
   ;; We want to buff 25% by the end of the 10s.
-  (incf (health animatable) (* (maximum-health animatable) (/ 0.25 1000))))
+  (incf (health animatable) (* (maximum-health animatable) 0.25 0.1 dt)))
 
 ;; VALUE ITEMS
 (define-item (parts value-item) 8 16 8 8
