@@ -68,7 +68,8 @@
 
 (presentations:define-update (ui upgrade-checkbox)
   (level)
-  (improvement)
+  (improvement
+   :text (@formats 'upgrade-ui-improvement (* 50 (alloy:on-value alloy:renderable))))
   (backdrop
    :hidden-p (not alloy:focus))
   (requirements
