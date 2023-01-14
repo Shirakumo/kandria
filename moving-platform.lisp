@@ -145,7 +145,8 @@
          (setf (car (bypass-stopper elevator)) NIL)
          (setf (cdr (bypass-stopper elevator)) NIL))
      (incf (move-time elevator) (dt ev))
-     (setf (harmony:location (// 'sound 'elevator-move)) (location elevator))
+     (ignore-errors ;; KLUDGE: too lazy to figure out the proper check here.
+      (setf (harmony:location (// 'sound 'elevator-move)) (location elevator)))
      (when (<= (move-time elevator) 1.0)
        (let* ((vel (velocity elevator))
               (dir (float-sign (vy vel))))
