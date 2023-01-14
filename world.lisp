@@ -135,6 +135,7 @@
 
 (defmethod stage :after ((world world) (area staging-area))
   (stage (// 'kandria 'placeholder) area)
+  (stage (// 'kandria 'editor-bg) area)
   (stage (// 'kandria 'effects 'texture) area)
   (stage (// 'kandria 'effects 'vertex-array) area)
   (stage (// 'kandria 'items) area)
