@@ -92,6 +92,8 @@
   (trade source target item (item-count item source)))
 
 (defmethod trade progn ((source inventory) (target player) (item item) (count integer))
+  (when (< (item-count item source) count)
+    (error "Can't remove ~s, don't have enough in inventory." item))
   (let ((price (* count (price-for-buy item source))))
     (retrieve 'item::parts target price)))
 
