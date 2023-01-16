@@ -353,6 +353,8 @@
 (defmethod collides-p ((drone drone) (other stopper) hit) NIL)
 (defmethod collides-p ((drone drone) (other platform) hit) NIL)
 
+(defmethod base-health ((enemy enemy)) 800)
+
 (defmethod stage :after ((drone drone) (area staging-area))
   (dolist (sound '(drone-damage drone-attack-001 drone-attack-002 drone-die drone-notice))
     (stage (// 'sound sound) area)))
