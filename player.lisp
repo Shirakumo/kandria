@@ -270,6 +270,7 @@ void main(){
       (setf (combat-time player) 0.0)
       (let ((dir (float-sign (- (vx (location endangering)) (vx (location player))))))
         (setf (direction player) dir)
+        (setf (iframes player) 1.0)
         (start-animation 'evade-left player))
       T)))
 
@@ -1403,22 +1404,25 @@ void main(){
     ;; Prevent instant kills
     (when (and (<= (maximum-health player) (health player))
                (<= (health player) real-damage))
-      (setf real-damage (1- (health player))))
+      (setf real-damage (1- (health player)))
+      (setf (iframes player) 2.0))
+    ;; Cancel
+    (let ((dialog (find-panel 'dialog)))
+      (when dialog
+        (quest:complete (interaction dialog))
+        (fast-forward dialog)
+        (walk-n-talk (@ player-hurt-while-talking))))
     ;; Evasions
-    (if (and (eql :dashing (state player))
-               (< (dash-time player) (p! dash-evade-grace-time)))
-        (handle-evasion player)
-        (call-next-method player (floor real-damage)))))
-
-(defmethod hurt :after ((player player) (by integer))
-  (let ((dialog (find-panel 'dialog)))
-    (when dialog
-      (quest:complete (interaction dialog))
-      (fast-forward dialog)
-      (walk-n-talk (@ player-hurt-while-talking))))
-  (start-action-list 'hurt)
-  (setf (combat-time player) 0f0)
-  (shake-camera :intensity 5))
+    (cond ((and (eql :dashing (state player))
+                (< (dash-time player) (p! dash-evade-grace-time)))
+           (handle-evasion player))
+          (T
+           (call-next-method player (floor real-damage))
+           (when (<= (* +hard-hit+ (maximum-health player)) real-damage)
+             (setf (iframes player) 1.5))
+           (start-action-list 'hurt)
+           (setf (combat-time player) 0f0)
+           (shake-camera :intensity 5)))))
 
 (defmethod (setf climb-strength) :around (value (player player))
   (unless (setting :gameplay :infinite-climb)
