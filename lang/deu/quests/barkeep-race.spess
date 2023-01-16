@@ -52,7 +52,7 @@
 | Okey, zeig mir den Core... Hmm, ja die Seriennummer passt.
 | Das hast du in "{(format-relative-time (clock quest))}"(orange) geschafft.
 ? (and pb (< pb (clock quest)))
-| | Leider "keine Verbesserung"(orange) im Vergleich zu deinem Rekord "{(format-relative-time (clock pb))}"(orange).
+| | Leider "keine Verbesserung"(orange) im Vergleich zu deinem Rekord "{(format-relative-time pb)}"(orange).
 |?
 | ? (not (null pb))
 | | | Aha! Eine neue "Bestzeit"(orange)!
