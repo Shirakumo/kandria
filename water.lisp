@@ -275,6 +275,8 @@ void main(){
 (defmethod entity-at-point (point (bubbler bubbler))
   NIL)
 
+(defmethod spawned-p ((bubbler bubbler)) T)
+
 (defmethod handle ((ev tick) (emitter bubbler))
   (let ((loc (location (parent emitter)))
         (bsize (bsize (parent emitter))))
