@@ -2,6 +2,28 @@
 These are changes to Kandria that were realised thanks to public feedback.
 A big thanks to everyone for trying it out and reporting problems!
 
+## 1.0.2
+- Fix drones not exploding properly
+- Fix focus loss on game over screen when exiting focus
+  Reported by Hempuli
+- Fix buying items that are out of stock still reducing scrap count
+  Reported by Gwyn
+- Fix switching language while in-game not switching out default interactions
+  Reported by elimik31
+- Fix corrupted monitor names leading to a crash when opening the options
+  Reported by charlieb
+- Fix a rare crash due to degenerate bvh leading to a stack overflow
+  Reported by pfox
+- Fix a rare crash related to trigger volumes still being active for inactive quests
+  Reported by pfox
+- Fix a minor mistake in the German translation leading to a crash
+  Reported by irgendnkerl
+- Improve iframe grace timing, preventing you from being stun locked and insta-killed
+- Improve visual feedback when executing a successful dodge
+- Reduce damage dealt by drones
+- Reduce stun-lockability of rogues and wraw
+- Reduce lag time on attack moves
+
 ## 1.0.1
 - Fix upgrade menu not updating requirements after activating an upgrade
   Reported by ShimShamSam
