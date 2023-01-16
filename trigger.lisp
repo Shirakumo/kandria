@@ -68,7 +68,10 @@
 
 (defmethod interact ((trigger interaction-trigger) entity)
   (when (typep entity 'player)
-    (show (make-instance 'dialog :interactions (list (quest:find-trigger (interaction trigger) +world+))))))
+    (handler-case
+        (show (make-instance 'dialog :interactions (list (quest:find-trigger (interaction trigger) +world+))))
+      #+kandria-release
+      (error () (quest:deactivate trigger)))))
 
 (defclass walkntalk-trigger (one-time-trigger creatable)
   ((interaction :initarg :interaction :initform NIL :accessor interaction :type symbol)
