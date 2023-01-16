@@ -18,6 +18,8 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by pfox
 - Fix a minor mistake in the German translation leading to a crash
   Reported by irgendnkerl
+- Ensure the Zelah entourage also trigger Zelah when attacked
+  Reported by DwarfWoot
 - Improve iframe grace timing, preventing you from being stun locked and insta-killed
 - Improve visual feedback when executing a successful dodge
 - Reduce damage dealt by drones

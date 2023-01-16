@@ -585,6 +585,7 @@
                    (start-animation 'idle enemy)
                    (setf (timer enemy) (random* 3.0 1.0)))
                   ((< (abs (- (vx ploc) (vx eloc))) (* +tile-size+ 2))
+                   (setf (direction enemy) (signum (- (vx ploc) (vx eloc))))
                    (start-animation 'attack enemy))
                   ((or (svref (collisions enemy) 1)
                        (svref (collisions enemy) 3))
