@@ -666,16 +666,6 @@
   (:default-initargs
    :sprite-data (asset 'kandria 'villager-hunter)))
 
-;; soldier template (used for some minor quest NPCs e.g. Zelah's bodyguards)
-(define-shader-entity soldier (paletted-npc creatable)
-  ((profile-sprite-data :initform (asset 'kandria 'villager-profile))
-   (nametag :initform (@ unknown-nametag))
-   (palette :initform (// 'kandria 'rogue-palette))
-   (palette-index :initform 0))
-  (:default-initargs
-   :default-interaction 'soldier
-   :sprite-data (asset 'kandria 'rogue)))
-
 ;; wraw drill sergeant (combat races)
 (define-shader-entity npc-soldier (paletted-npc creatable)
   ((profile-sprite-data :initform (asset 'kandria 'villager-profile))
@@ -759,6 +749,20 @@
   (walk-n-talk (@ zelah-attack-start))
   (override-music 'battle)
   (change-class npc 'zelah-enemy))
+
+;; soldier template (used for some minor quest NPCs e.g. Zelah's bodyguards)
+(define-shader-entity soldier (paletted-npc creatable)
+  ((profile-sprite-data :initform (asset 'kandria 'villager-profile))
+   (nametag :initform (@ unknown-nametag))
+   (palette :initform (// 'kandria 'rogue-palette))
+   (palette-index :initform 0))
+  (:default-initargs
+   :default-interaction 'soldier
+   :sprite-data (asset 'kandria 'rogue)))
+
+(defmethod hurt ((npc soldier) (player player))
+  (hurt (u 'zelah) (u 'player))
+  (change-class npc 'rogue))
 
 ;; roaming engineers used in the questline
 (define-shader-entity semi-engineer-team (roaming-npc creatable)
