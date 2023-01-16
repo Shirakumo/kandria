@@ -25,7 +25,8 @@
     (macrolet ((with-button (name &body body)
                  `(let ((button (alloy:represent (@ ,name) 'pause-button :focus-parent focus :layout-parent buttons)))
                     (alloy:on alloy:activate (button)
-                      ,@body))))
+                      ,@body)
+                    button)))
       (when (setting :gameplay :allow-resuming-death)
         (with-button resume-game
           (setf (health (unit 'player T))
@@ -35,11 +36,14 @@
       (with-button load-last-save
         (hide panel)
         (load-game T +main+))
-      (with-button return-to-main-menu
-        (reset (unit 'environment +world+))
-        (transition
-          :kind :black
-          (reset +main+))))
+      (let ((exit (with-button return-to-main-menu
+                    (reset (unit 'environment +world+))
+                    (transition
+                      :kind :black
+                      (reset +main+)))))
+        (alloy:on alloy:exit (focus)
+          (setf (alloy:focus focus) :strong)
+          (setf (alloy:focus exit) :weak))))
     (alloy:enter header layout
                  :constraints `((:top 50) (:left 0) (:right 0) (:height 100)))
     (alloy:enter buttons layout
