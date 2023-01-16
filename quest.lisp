@@ -267,7 +267,7 @@
 
 (defun load-default-interactions (&optional (storyline (quest:storyline T)) (file (merge-pathnames "quests/default-interactions.spess" (language-dir))))
   (let ((*package* #.*package*)
-        (interactions (default-interactions storyline))
+        (interactions (make-hash-table :test 'eql))
         (root (dialogue:parse file))
         (section NIL))
     (flet ((start-new (name)
@@ -278,10 +278,10 @@
             do (if (typep component 'components:header)
                    (start-new (read-from-string (aref (components:children component) 0)))
                    (vector-push-extend component (components:children section))))
-      (loop for name being the hash-keys of interactions
-            for root being the hash-values of interactions
+      (loop with defaults = (default-interactions storyline)
+            for name being the hash-keys of interactions using (hash-value root)
             do (when (typep root 'components:root-component)
-                 (setf (gethash name interactions) (make-instance 'stub-interaction :dialogue root)))))))
+                 (setf (gethash name defaults) (ensure-instance (gethash name defaults) 'stub-interaction :dialogue root)))))))
 
 (defmacro define-sequence-quest ((storyline name) &body body)
   (let ((counter 0))
