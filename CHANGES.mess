@@ -2,6 +2,16 @@
 These are changes to Kandria that were realised thanks to public feedback.
 A big thanks to everyone for trying it out and reporting problems!
 
+## 1.0.3
+- Fix rare problem with invalid checkpoint respawns
+  Reported by DrSkipper and others
+- Fix rare issue with incomplete quest tasks still showing up on the map even though the quest has been completed
+  Reported by ToxicFrog
+- Fix rare crash due to invalid input spam from the operating system
+  Reported by AverageJez
+- Fix issue with keyboard input events after focusing on a text input field such as in the shop
+  Reported by Hempuli
+
 ## 1.0.2
 - Fix drones not exploding properly
 - Fix focus loss on game over screen when exiting focus
