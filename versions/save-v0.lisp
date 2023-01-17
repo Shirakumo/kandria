@@ -24,21 +24,18 @@
       (let ((stream (depot:to-stream tx)))
         (princ* (list :region (name region)
                       :clock (clock world)
-                      :timestamp (timestamp world)
-                      :zoom (if (find-panel 'editor)
-                                1.0
-                                (zoom (camera +world+))))
+                      :timestamp (timestamp world))
                 stream)
         (princ* (encode (unit 'environment world))
                 stream)))))
 
 (define-decoder (world save-v0) (_b depot)
   (destructuring-bind (world-data &optional env-data) (parse-sexps (depot:read-from (depot:entry "global.lisp" depot) 'character))
-    (destructuring-bind (&key region (clock 0.0) (timestamp (initial-timestamp)) (zoom 1.0)) world-data
+    (destructuring-bind (&key region (clock 0.0) (timestamp (initial-timestamp))) world-data
       (setf (clock world) clock)
       (setf (timestamp world) timestamp)
-      (setf (zoom (camera +world+)) zoom)
-      (setf (intended-zoom (camera +world+)) zoom)
+      (setf (zoom (camera +world+)) 1.0)
+      (setf (intended-zoom (camera +world+)) 1.0)
       (let* ((region (cond ((and (region world) (eql region (name (region world))))
                             ;; Ensure we trigger necessary region reset events even if we're still in the same region.
                             (issue world 'switch-region :region (region world))
