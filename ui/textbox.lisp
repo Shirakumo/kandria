@@ -243,7 +243,7 @@ void main(){
                        (v:warn :sound.dialog "Requested missing emote ~s" (second (pending textbox)))
                        (ignore-errors (setf (animation (profile textbox)) 'normal)))))
                   (:prompt
-                   (if (string= "" (text textbox))
+                   (if (eq (clear-text-string) (text textbox))
                        (setf (prompt textbox) NIL)
                        (setf (prompt textbox) (second (pending textbox)))))
                   (:end
@@ -258,7 +258,7 @@ void main(){
            (decf (prompt textbox) (dt ev))
            (when (<= (prompt textbox) 0.0)
              (handle (make-instance 'advance) textbox)))
-         (when (and (string= "" (text textbox))
+         (when (and (eq (clear-text-string) (text textbox))
                     (or (null (choices textbox))
                         (= 0 (alloy:element-count (choices textbox)))))
            (advance textbox)))
