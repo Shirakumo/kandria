@@ -53,7 +53,7 @@
    (auto-deactivate :initarg :auto-deactivate :initform NIL :accessor auto-deactivate :type boolean)
    (active-p :initarg :active-p :initform T :accessor active-p :type boolean)
    (jitter-y-p :initarg :jitter-y-p :initform T :accessor jitter-y-p :type boolean)
-   (rng :initarg :rng :initform (random-state:make-generator :squirrel T) :accessor rng)))
+   (rng :initarg :rng :initform (random-state:make-generator :squirrel (random (1- (ash 1 32)))) :accessor rng)))
 
 (defmethod initargs append ((spawner spawner))
   '(:spawn-type :spawn-count :spawn-args :auto-deactivate :active-p :jitter-y-p))
