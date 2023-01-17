@@ -11,6 +11,10 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by AverageJez
 - Fix issue with keyboard input events after focusing on a text input field such as in the shop
   Reported by Hempuli
+- Fix another checkpoint respawn issue introduced by the prior fix
+  Reported by Hempuli
+- Fix some minor tiling issues
+  Reported by Wobbly Python
 
 ## 1.0.2
 - Fix drones not exploding properly
