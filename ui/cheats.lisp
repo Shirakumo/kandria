@@ -17,12 +17,16 @@
         (label (make-instance 'cheat-label)))
     (alloy:enter label layout :constraints `((:fill)))
     (alloy:on alloy:exit (label)
-      (hide panel))
+      (setf (alloy:focus label) :strong))
     (alloy:finish-structure panel layout label)))
 
 (defmethod show :before ((panel cheat-panel) &key)
   (when (eql :fishing (state (u 'player)))
     (handle (make-instance 'stop-fishing) (u 'player))))
+
+(defmethod handle ((ev key-release) (panel cheat-panel))
+  (when (eql :escape (key ev))
+    (hide panel)))
 
 (defmethod handle ((ev text-entered) (panel cheat-panel))
   (let ((longest 0)
