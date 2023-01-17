@@ -101,7 +101,7 @@
 (defun find-ground (layer location)
   (let* ((w (truncate (vx (size layer))))
          (h (truncate (vy (size layer))))
-         (size (* w h))
+         (size (* 2 (* w h)))
          (data (pixel-data (tilemap layer))))
     (%with-layer-xy (layer location)
       (let ((i (or (loop for i downfrom (* 2 (+ x (* y w))) to 0 by (* 2 w)

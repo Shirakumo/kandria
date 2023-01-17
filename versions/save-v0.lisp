@@ -31,7 +31,7 @@
 
 (define-decoder (world save-v0) (_b depot)
   (destructuring-bind (world-data &optional env-data) (parse-sexps (depot:read-from (depot:entry "global.lisp" depot) 'character))
-    (destructuring-bind (&key region (clock 0.0) (timestamp (initial-timestamp))) world-data
+    (destructuring-bind (&key region (clock 0.0) (timestamp (initial-timestamp)) &allow-other-keys) world-data
       (setf (clock world) clock)
       (setf (timestamp world) timestamp)
       (setf (zoom (camera +world+)) 1.0)
