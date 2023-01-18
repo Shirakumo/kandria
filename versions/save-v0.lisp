@@ -36,6 +36,7 @@
       (setf (timestamp world) timestamp)
       (setf (zoom (camera +world+)) 1.0)
       (setf (intended-zoom (camera +world+)) 1.0)
+      (setf (time-scale +world+) 1.0)
       (let* ((region (cond ((and (region world) (eql region (name (region world))))
                             ;; Ensure we trigger necessary region reset events even if we're still in the same region.
                             (issue world 'switch-region :region (region world))
