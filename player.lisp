@@ -1412,7 +1412,7 @@ void main(){
         (walk-n-talk (@ player-hurt-while-talking))))
     ;; Prevent instant kills
     (when (< 1 (health player) real-damage)
-      (setf real-damage (1- (health player)))
+      (setf real-damage (max 1 (1- (health player))))
       (setf (iframes player) 2.0))
     ;; Evasions
     (cond ((and (eql :dashing (state player))
