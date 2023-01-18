@@ -13,6 +13,9 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Joram Shrijver, Carrie Carrarium, Hempuli
 - Fix rare issues in dialogue not advancing properly or skipping strangely
   Reported by Hempuli, Ari
+- Fix wraw trader position to avoid being in damage range
+  Reported by S Yoshiks
+- Add workbenches to wraw and cerebat locations
 
 ## 1.0.3
 - Fix rare problem with invalid checkpoint respawns
