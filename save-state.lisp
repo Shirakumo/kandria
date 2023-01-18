@@ -18,7 +18,7 @@
    (file :initarg :file :accessor file))
   (:default-initargs
    :id (make-uuid)
-   :author (pathname-utils:directory-name (user-homedir-pathname))
+   :author (username T)
    :start-time (get-universal-time)
    :save-time (get-universal-time)
    :play-time (total-play-time)))
