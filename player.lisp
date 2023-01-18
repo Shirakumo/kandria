@@ -1418,6 +1418,7 @@ void main(){
     (cond ((and (eql :dashing (state player))
                 (< (dash-time player) (p! dash-evade-grace-time)))
            (handle-evasion player))
+          ((= 0 damage))
           (T
            (call-next-method player (floor real-damage))
            (when (<= (* +hard-hit+ (maximum-health player)) real-damage)
