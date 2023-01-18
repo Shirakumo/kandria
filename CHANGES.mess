@@ -17,6 +17,8 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by S Yoshiks
 - Add workbenches to wraw and cerebat locations
 - Clarify text when exiting to main menu
+- Fix for being undying after being prevented from insta-killed
+  Reported by DwarfWoot
 
 ## 1.0.3
 - Fix rare problem with invalid checkpoint respawns

@@ -1411,8 +1411,8 @@ void main(){
         (fast-forward dialog)
         (walk-n-talk (@ player-hurt-while-talking))))
     ;; Prevent instant kills
-    (when (< 1 (health player) real-damage)
-      (setf real-damage (max 1 (1- (health player))))
+    (when (< 2 (health player) real-damage) ;; KLUDGE: needs to be 2 due to floatiness of health.
+      (setf real-damage (floor (1- (health player))))
       (setf (iframes player) 2.0))
     ;; Evasions
     (cond ((and (eql :dashing (state player))
@@ -1420,7 +1420,7 @@ void main(){
            (handle-evasion player))
           ((= 0 damage))
           (T
-           (call-next-method player (floor real-damage))
+           (call-next-method player real-damage)
            (when (<= (* +hard-hit+ (maximum-health player)) real-damage)
              (setf (iframes player) (max (iframes player) 1.5)))
            (start-action-list 'hurt)
