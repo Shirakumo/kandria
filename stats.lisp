@@ -108,7 +108,7 @@
          'rank-penguin)
         ((< 1000 (stats-kills (stats player)))
          'rank-bear)
-        ((< (stats-kills (stats player)) 10)
+        ((< (stats-kills (stats player)) 20)
          'rank-snake)
         ((< (* 60 60 20) (stats-play-time (stats player)))
          'rank-turtle)
