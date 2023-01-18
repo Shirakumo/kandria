@@ -208,6 +208,7 @@ void main(){
                   (button (alloy:represent choice 'dialog-choice)))
              (alloy:on alloy:activate (button)
                (setf (text textbox) (clear-text-string))
+               (setf (prompt textbox) NIL)
                (setf (scroll-index textbox) 0)
                (setf (choices textbox) ())
                (harmony:play (// 'sound 'ui-advance-dialogue))

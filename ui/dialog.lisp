@@ -152,6 +152,7 @@
   (when (<= (timeout dialog) 0.0)
     (cond ((/= 0 (alloy:element-count (choices dialog))))
           ((prompt dialog)
+           (setf (pending dialog) NIL)
            (setf (prompt dialog) NIL)
            (harmony:play (// 'sound 'ui-advance-dialogue))
            (advance dialog))
