@@ -617,7 +617,7 @@
    (damage-input-scale :initform 0.5)
    (damage-accumulated :initform 0.0 :accessor damage-accumulated)
    (level :initform 20)
-   (ai-state :initform :active))
+   (ai-state :initform :normal))
   (:default-initargs
    :sprite-data (asset 'kandria 'mech)))
 
@@ -639,7 +639,10 @@
   (case (state enemy)
     (:normal
      (case (ai-state enemy)
-       (:normal)
+       (:normal
+        (when (in-view-p (location enemy) (bsize enemy))
+          (setf (cooldown-time enemy) 3.0)
+          (setf (ai-state enemy) :active)))
        (:active
         (when (<= (cooldown-time enemy) 0.0)
           (let* ((player (unit 'player +world+))
@@ -649,7 +652,7 @@
                                   ((< (* +tile-size+ 12) distance) 'pierce)
                                   ((< (* +tile-size+ 6) distance) 'jump)
                                   (T 'bash))))
-            (when (< (* +tile-size+ 100) distance)
+            (when (< (* +tile-size+ 70) distance)
               (setf (ai-state enemy) :normal))
             (flet ((select (move)
                      (setf (timer enemy) 3.0)
