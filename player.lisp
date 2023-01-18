@@ -1402,17 +1402,18 @@ void main(){
 
 (defmethod hurt ((player player) (damage integer))
   (let ((real-damage (floor (* damage (setting :gameplay :damage-input)))))
-    ;; Prevent instant kills
-    (when (and (<= (maximum-health player) (health player))
-               (<= (health player) real-damage))
-      (setf real-damage (1- (health player)))
-      (setf (iframes player) 2.0))
     ;; Cancel
     (let ((dialog (find-panel 'dialog)))
       (when dialog
         (quest:complete (interaction dialog))
         (fast-forward dialog)
         (walk-n-talk (@ player-hurt-while-talking))))
+    ;; Prevent instant kills
+    (when (< 1 (health player) real-damage)
+      (print :PREVENTING-INSTAKILL)
+      (setf real-damage (1- (health player)))
+      (setf (iframes player) 2.0))
+    (print (list :HURTING real-damage))
     ;; Evasions
     (cond ((and (eql :dashing (state player))
                 (< (dash-time player) (p! dash-evade-grace-time)))
@@ -1420,7 +1421,7 @@ void main(){
           (T
            (call-next-method player (floor real-damage))
            (when (<= (* +hard-hit+ (maximum-health player)) real-damage)
-             (setf (iframes player) 1.5))
+             (setf (iframes player) (max (iframes player) 1.5)))
            (start-action-list 'hurt)
            (setf (combat-time player) 0f0)
            (shake-camera :intensity 5)))))
