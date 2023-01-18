@@ -16,6 +16,7 @@ A big thanks to everyone for trying it out and reporting problems!
 - Fix wraw trader position to avoid being in damage range
   Reported by S Yoshiks
 - Add workbenches to wraw and cerebat locations
+- Clarify text when exiting to main menu
 
 ## 1.0.3
 - Fix rare problem with invalid checkpoint respawns
