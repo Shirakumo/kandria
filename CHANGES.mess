@@ -2,6 +2,18 @@
 These are changes to Kandria that were realised thanks to public feedback.
 A big thanks to everyone for trying it out and reporting problems!
 
+## 1.0.4
+- Fix being able to move when at zero health and dying
+  Reported by Wobbly Python, Carrie Carrarium, Hempuli, Joram Shrijver
+- Fix being able to get instant killed from above 1HP
+  Reported by Hempuli, Carrie Carrarium
+- Add initial delay to Mech boss fights to avoid cheap hits
+  Reported by Hempuli
+- Fix rare problem where death slowdown would persist after reloading
+  Reported by Joram Shrijver, Carrie Carrarium, Hempuli
+- Fix rare issues in dialogue not advancing properly or skipping strangely
+  Reported by Hempuli, Ari
+
 ## 1.0.3
 - Fix rare problem with invalid checkpoint respawns
   Reported by DrSkipper and others
