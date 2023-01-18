@@ -19,6 +19,8 @@ A big thanks to everyone for trying it out and reporting problems!
 - Clarify text when exiting to main menu
 - Fix for being undying after being prevented from insta-killed
   Reported by DwarfWoot
+- Fix very rare issue with the game not launching when visual safety mode is on
+  Reported by DwarfWoot
 
 ## 1.0.3
 - Fix rare problem with invalid checkpoint respawns
