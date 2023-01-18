@@ -215,8 +215,10 @@ void main(){
 
 (define-setting-observer visual-safe-mode :gameplay :visual-safe-mode (value)
   (when value
-    (setf (active-p (unit 'distortion T)) NIL)
-    (setf (active-p (unit 'sandstorm T)) NIL)))
+    (when (unit 'distortion T)
+      (setf (active-p (unit 'distortion T)) NIL))
+    (when (unit 'sandstorm T)
+      (setf (active-p (unit 'sandstorm T)) NIL))))
 
 (action-list:define-action-list death
   (ease 1.5 (strength (u 'distortion)) :from 0.0 :to 1.0 :ease #'easing-f:out-circ)
