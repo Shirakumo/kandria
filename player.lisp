@@ -612,12 +612,14 @@ void main(){
        (when (retained 'down) (setf (vy vel) (- (vx (p! velocity-limit))))))
       (:oob
        (vsetf vel 0 0))
-      ((:dying :stunned :respawning)
+      (:stunned
        (handle-animation-states player ev)
        (when (and (cancelable-p (frame player))
                   (or (retained 'left)
                       (retained 'right)))
          (setf (state player) :normal)))
+      ((:dying :respawning)
+       (handle-animation-states player ev))
       (:fishing
        (let* ((line (fishing-line player))
               (visible (container line)))
@@ -1451,6 +1453,7 @@ void main(){
 (defmethod kill ((player player))
   (cond ((<= (health player) 0)
          (setf (state player) :dying)
+         (setf (buffer player) NIL)
          (setf (animation player) 'die)
          (setf (override (unit 'environment +world+)) 'null)
          (harmony:play (// 'sound 'player-die))
