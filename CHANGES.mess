@@ -8,6 +8,7 @@ A big thanks to everyone for trying it out and reporting problems!
 - Show race times with hundredths of a second on race time stats panel
   Reported by Minirop
 - Fix the default pick for save states to consult the system's display name or Steam's username if available
+- Show Steam keyboard overlay when opening cheat menu
 
 ## 1.0.4
 - Fix being able to move when at zero health and dying

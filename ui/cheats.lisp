@@ -22,7 +22,11 @@
 
 (defmethod show :before ((panel cheat-panel) &key)
   (when (eql :fishing (state (u 'player)))
-    (handle (make-instance 'stop-fishing) (u 'player))))
+    (handle (make-instance 'stop-fishing) (u 'player)))
+  (ignore-errors (steam:show-floating-text-input (steam:interface 'steam:steamutils T))))
+
+(defmethod hide :after ((panel cheat-panel))
+  (ignore-errors (steam:hide-floating-text-input (steam:interface 'steam:steamutils T))))
 
 (defmethod handle ((ev key-release) (panel cheat-panel))
   (when (eql :escape (key ev))
