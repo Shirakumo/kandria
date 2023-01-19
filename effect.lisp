@@ -387,6 +387,9 @@ void main(){
 (define-effect player-damage sound-effect
   :voice (// 'sound 'player-damage))
 
+(define-effect player-hurt sound-effect
+  :voice (// 'sound 'player-die))
+
 (define-effect mech-bash sound-effect
   :voice (// 'sound 'mech-bash))
 
