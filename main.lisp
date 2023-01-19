@@ -25,6 +25,8 @@
     (when (typep depot 'org.shirakumo.zippy:zip-file)
       (org.shirakumo.zippy:move-in-memory depot))
     (setf (scene main) (make-instance 'world :depot depot)))
+  (when (and world (null state))
+    (setf state :new))
   (etypecase state
     (save-state
      (setf (state main) state))
@@ -32,8 +34,9 @@
      (setf (state main) (minimal-load-state (merge-pathnames state (save-state-path "1")))))
     ((eql T)
      (setf (state main) (first (list-saves))))
-    (null
-     (when world (setf (state main) (initial-state (scene main)))))))
+    ((eql :new)
+     (setf (state main) :new))
+    (null)))
 
 (defmethod trial-harmony:server-initargs append ((main main))
   (list :mixers '((:music mixed:basic-mixer :effects ((mixed:biquad-filter :filter :lowpass :name :music-lowpass)))
@@ -267,11 +270,11 @@ Possible sub-commands:
     (show-panel 'main-menu)))
 
 (defmethod setup-rendering :after ((main main))
-  (disable :cull-face :scissor-test :depth-test)  (print :you)
-  (cond ((state main)
-         (load-game (state main) main))
-        (T
-         (show-panel 'startup-screen))))
+  (disable :cull-face :scissor-test :depth-test)
+  (etypecase (state main)
+    (save-state (load-game (state main) main))
+    ((eql :new) (setf (state main) (make-instance 'save-state :filename "new")) (load-game NIL main))
+    (null (show-panel 'startup-screen))))
 
 (define-setting-observer video-misc :display (value)
   (when *context*
