@@ -2,7 +2,7 @@
 
 (defclass cheat-label (label)
   ((markup :initform () :accessor markup)
-   (alloy:value :initform "")))
+   (alloy:value :initform "Type in a cheat code")))
 
 (presentations:define-update (ui cheat-label)
   (:label
