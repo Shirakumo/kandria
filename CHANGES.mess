@@ -5,6 +5,9 @@ A big thanks to everyone for trying it out and reporting problems!
 ## 1.0.5
 - Fix race achievement checks not properly considering gold timing
   Reported by Justice
+- Show race times with hundredths of a second on race time stats panel
+  Reported by Minirop
+- Fix the default pick for save states to consult the system's display name or Steam's username if available
 
 ## 1.0.4
 - Fix being able to move when at zero health and dying
