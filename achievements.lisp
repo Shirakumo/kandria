@@ -2,7 +2,6 @@
 
 (defun race-achieved-p (race)
   (let ((quest (quest:find-quest race (storyline +world+))))
-    (print (quest:bindings quest))
     (and (quest:var 'pb quest)
          (<= (quest:var 'pb quest) (quest:var 'gold quest)))))
 
