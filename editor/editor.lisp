@@ -365,12 +365,12 @@
         (load path)))))
 
 (defmethod edit ((action (eql 'save-world)) (editor editor))
-  (save-world +world+ (depot +world+)))
+  (save-world +world+ (depot:to-pathname (depot +world+))))
 
 (defmethod edit ((action (eql 'save-world-as)) (editor editor))
   (let ((path (file-select:new :title "Select World File" :default (depot:to-pathname (depot +world+)) :filter '(("ZIP files" "zip")))))
     (when path
-      (save-world +world+ path))))
+      (setf (depot +world+) (save-world +world+ path)))))
 
 ;; FIXME: This information does not belong here. where else to put it? world-v0?
 (defmethod edit ((action (eql 'load-initial-state)) (editor editor))

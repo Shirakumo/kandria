@@ -397,4 +397,5 @@ remove any partial world directory in the game folder."))))
         (princ* `()))
       (when (quest:name (storyline world))
         (with-maybe-entry "storyline.lisp"
-          (princ* `(,(quest:name (storyline world)))))))))
+          (princ* `(,(quest:name (storyline world))))))))
+  depot)
