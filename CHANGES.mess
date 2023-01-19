@@ -9,6 +9,8 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Minirop
 - Fix the default pick for save states to consult the system's display name or Steam's username if available
 - Show Steam keyboard overlay when opening cheat menu
+- Internal changes to the world data layout have been made in anticipation of level sharing support
+- Creating new worlds, saving, and loading them works properly again
 
 ## 1.0.4
 - Fix being able to move when at zero health and dying
