@@ -2,6 +2,10 @@
 These are changes to Kandria that were realised thanks to public feedback.
 A big thanks to everyone for trying it out and reporting problems!
 
+## 1.0.5
+- Fix race achievement checks not properly considering gold timing
+  Reported by Justice
+
 ## 1.0.4
 - Fix being able to move when at zero health and dying
   Reported by Wobbly Python, Carrie Carrarium, Hempuli, Joram Shrijver
