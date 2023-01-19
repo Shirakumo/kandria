@@ -40,13 +40,11 @@
         :effects '((mixed:biquad-filter :filter :lowpass :name :lowpass)
                    (mixed:speed-change :name :speed))))
 
-(defmethod initialize-instance :after ((main main) &key region)
+(defmethod initialize-instance :after ((main main) &key)
   (setf (mixed:min-distance harmony:*server*) (* +tile-size+ 5))
   (setf (mixed:max-distance harmony:*server*) (* +tile-size+ (vx +tiles-in-view+)))
   (setf (game-speed main) (setting :gameplay :game-speed))
-  (load-achievement-data T)
-  (when region
-    (load-region region T)))
+  (load-achievement-data T))
 
 (defmethod update ((main main) tt dt fc)
   (promise:tick-all dt)

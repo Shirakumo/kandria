@@ -26,3 +26,7 @@
  org.shirakumo.file-select.macos::cocoa)
 
 (deploy:remove-hook :deploy 'org.shirakumo.fraf.trial.alloy::alloy)
+
+(depot:with-depot (depot (find-world))
+  (v:info :kandria.quest "Setting up default world, this can take a bit...")
+  (setup-world NIL depot))

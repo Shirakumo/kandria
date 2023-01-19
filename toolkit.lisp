@@ -733,3 +733,14 @@
 
 (defun u (name)
   (gethash name (name-map +world+)))
+
+(defun load-source-file (file)
+  (etypecase file
+    (pathname
+     (cl:load file))
+    (depot:file
+     (cl:load (depot:to-pathname file)))
+    (depot:entry
+     (trial:with-tempfile (tempfile :type "lisp")
+       (depot:read-from file tempfile)
+       (cl:load tempfile)))))

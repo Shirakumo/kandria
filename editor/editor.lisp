@@ -80,11 +80,11 @@
          (top (make-instance 'alloy:vertical-linear-layout :min-size (alloy:size 10 30) :cell-margins (alloy:margins)))
          (menu (alloy:with-menu
                  ("File"
-                  ("New Region" (edit 'new-region editor))
-                  ("Load Region..." (edit 'load-region editor))
+                  ("New World" (edit 'new-world editor))
+                  ("Load World..." (edit 'load-world editor))
                   :separator
-                  ("Save Region" (edit 'save-region editor))
-                  ("Save Region As..." (edit 'save-region-as editor))
+                  ("Save World" (edit 'save-world editor))
+                  ("Save World As..." (edit 'save-world-as editor))
                   :separator
                   ("Close Editor" (issue +world+ 'toggle-editor)))
                  ("State"
@@ -293,7 +293,7 @@
     (#\h (edit 'move editor))
     (#\l (setf (tool editor) 'line))
     (#\o (when (retained :control)
-           (edit 'load-region editor)))
+           (edit 'load-world editor)))
     (#\p (setf (tool editor) 'paint))
     (#\r (setf (tool editor) 'rectangle))
     (#\s (when (retained :control)
@@ -333,8 +333,8 @@
   (redo action (unit 'region T))
   (commit action (history editor)))
 
-(defmethod edit ((action (eql 'new-region)) (editor editor))
-  (alloy:with-confirmation ("Are you sure you want to create a new region?" :ui (unit 'ui-pass T))
+(defmethod edit ((action (eql 'new-world)) (editor editor))
+  (alloy:with-confirmation ("Are you sure you want to create a new world?" :ui (unit 'ui-pass T))
     (let ((old (region +world+))
           (region (make-instance 'region))
           (chunk (make-instance 'chunk)))
@@ -352,33 +352,33 @@
       (update-background (unit 'background region) T)
       (show-cursor *context*))))
 
-(defmethod edit ((action (eql 'load-region)) (editor editor))
+(defmethod edit ((action (eql 'load-world)) (editor editor))
   (flet ((load (path)
-           (load-region path T)
+           (load-world path +world+)
            (setf (background (unit 'background T)) (background 'editor))
            (update-background (unit 'background T) T)
            (clear (history editor))
            (setf (entity editor) (region +world+))
            (trial:commit +world+ +main+)))
-    (let ((path (file-select:existing :title "Select Region File")))
+    (let ((path (file-select:existing :title "Select World File")))
       (when path
         (load path)))))
 
-(defmethod edit ((action (eql 'save-region)) (editor editor))
-  (save-region T T))
+(defmethod edit ((action (eql 'save-world)) (editor editor))
+  (save-world +world+ (depot +world+)))
 
-(defmethod edit ((action (eql 'save-region-as)) (editor editor))
-  (let ((path (file-select:new :title "Select Region File" :default (depot:to-pathname (depot +world+)) :filter '(("ZIP files" "zip")))))
+(defmethod edit ((action (eql 'save-world-as)) (editor editor))
+  (let ((path (file-select:new :title "Select World File" :default (depot:to-pathname (depot +world+)) :filter '(("ZIP files" "zip")))))
     (when path
-      (save-region (region +world+) path))))
+      (save-world +world+ path))))
 
 ;; FIXME: This information does not belong here. where else to put it? world-v0?
 (defmethod edit ((action (eql 'load-initial-state)) (editor editor))
-  (let ((depot (region-entry (region +world+) +world+)))
+  (let ((depot (depot:entry "region" (depot +world+))))
     (decode-payload (first (parse-sexps (depot:read-from (depot:entry "init.lisp" depot) 'character))) (region +world+) depot 'save-v0)))
 
 (defmethod edit ((action (eql 'save-initial-state)) (editor editor))
-  (let ((depot (region-entry (region +world+) +world+)))
+  (let ((depot (depot:entry "region" (depot +world+))))
     (depot:with-open (tx (depot:ensure-entry "init.lisp" depot) :output 'character)
       (princ* (encode-payload (region +world+) NIL depot 'save-v0) (depot:to-stream tx)))))
 

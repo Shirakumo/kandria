@@ -2,8 +2,7 @@
 
 (defclass world (pipelined-scene)
   ((depot :initarg :depot :accessor depot)
-   (storyline :initarg :storyline :initform (make-instance 'quest:storyline) :accessor storyline)
-   (regions :initarg :regions :initform (make-hash-table :test 'eq) :accessor regions)
+   (storyline :initarg :storyline :initform (make-instance 'storyline) :accessor storyline)
    (handler-stack :initform () :accessor handler-stack)
    (initial-state :initform NIL :accessor initial-state)
    (time-scale :initform 1.0 :accessor time-scale)
@@ -19,13 +18,17 @@
 
 (defmethod initialize-instance :after ((world world) &key depot)
   (enter (make-instance 'environment-controller) world)
-  (let ((sub (depot:ensure-depot (depot:entry "regions" depot))))
-    (dolist (entry (depot:list-entries sub))
-      (let ((depot (depot:ensure-depot entry)))
-        (let ((name (getf (second (parse-sexps (depot:read-from (depot:entry "meta.lisp" depot) 'character)))
-                          :name)))
-          (setf (gethash name (regions world)) depot)))))
   (setf (initial-state world) (minimal-load-state (depot:entry "init" depot))))
+
+(defmethod reset ((world world))
+  (setf (storyline world) (make-instance 'storyline))
+  (setf (initial-state world) NIL)
+  (setf (time-scale world) 1.0)
+  (setf (pause-timer world) 0.0)
+  (setf (clock-scale world) 60.0)
+  (setf (timestamp world) (initial-timestamp))
+  (setf (action-lists world) NIL)
+  (setf (clock world) 0.0))
 
 (defmethod finalize :after ((world world))
   (close (depot world) :abort T))
@@ -80,20 +83,8 @@
           (setf (mixed:frequency segment) target)))
       (harmony:transition (unit 'environment world) 1.0))))
 
-(defmethod region-entry ((name symbol) (world world))
-  (or (gethash name (regions world))
-      (error "No such region ~s" name)))
-
-(defmethod region-entry ((region region) (world world))
-  (region-entry (name region) world))
-
 (defmethod enter :after ((region region) (world world))
   (setf (gethash 'region (name-map world)) region)
-  ;; Register region in region table if the region is new.
-  (unless (gethash (name region) (regions world))
-    (setf (gethash (name region) (regions world))
-          (depot:ensure-depot (depot:ensure-entry (format NIL "regions/~a/" (string-downcase (name region)))
-                                                  (depot world)))))
   ;; Let everyone know we switched the region.
   (issue world 'switch-region :region region))
 
@@ -286,7 +277,7 @@
   (location-info (language-string (name (chunk ev)) NIL)))
 
 (defmethod save-region (region (world world) &rest args)
-  (let ((depot (region-entry region world)))
+  (let ((depot (depot:entry "region" (depot world))))
     (apply #'save-region region depot args)
     (depot:commit depot)))
 
@@ -296,14 +287,11 @@
 (defmethod save-region ((region (eql T)) (world world) &rest args)
   (apply #'save-region (unit 'region world) world args))
 
-(defmethod load-region ((name symbol) (world world))
-  (load-region (region-entry name world) world))
+(defmethod load-region ((region (eql T)) (world world))
+  (load-region (depot:entry "region" (depot world)) world))
 
 (defmethod load-region (region (world (eql T)))
   (load-region region +world+))
-
-(defmethod load-region ((region (eql T)) (world world))
-  (load-region (name (unit 'region world)) world))
 
 (defmethod load-region :around ((depot depot:depot) (world world))
   (let ((old-region (unit 'region world)))
@@ -312,7 +300,8 @@
       (abort ()
         :report "Give up changing the region and continue with the old."
         (when (and old-region (not (eql old-region (unit 'region world))))
-          (enter old-region world))))))
+          (enter old-region world)
+          NIL)))))
 
 (defmethod quest:find-named (name (world world) &optional (error T))
   (quest:find-named name (storyline world) error))
@@ -349,3 +338,62 @@ remove any partial world directory in the game folder."))))
           (or (try-depot (merge-pathnames "world/" *install-root*))
               (try-depot (merge-pathnames "world.zip" *install-root*))))
         (error 'no-world-found))))
+
+(defmethod load-world ((path pathname) (world world))
+  (depot:with-depot (depot path)
+    (load-world depot world)))
+
+(defvar *world-setup-function*)
+
+(defmacro define-setup ((world depot) &body body)
+  `(setf *world-setup-function* (lambda (,world ,depot)
+                                  (declare (ignorable ,world ,depot))
+                                  ,@body
+                                  ,world)))
+
+(defun setup-world (world depot)
+  (when (depot:entry-exists-p "setup.lisp" depot)
+    (let ((*world-setup-function* (constantly T)))
+      (load-source-file (depot:entry "setup.lisp" depot))
+      (funcall *world-setup-function* world depot)))
+  world)
+
+(defun load-quest-files (depot &rest files)
+  (dolist (file files)
+    (load-source-file (depot:entry* depot "quests" (format NIL "~a.lisp" file)))))
+
+(defmethod load-world ((depot depot:depot) (world world))
+  (let ((old-initial-state (initial-state world))
+        (old-storyline (storyline world)))
+    (reset world)
+    (setup-world world depot)
+    (setf (initial-state world) (minimal-load-state (depot:entry "init" depot)))
+    (cond ((load-region (depot:entry "region" depot) world)
+           (setf (depot world) depot))
+          (T
+           (setf (storyline world) old-storyline)
+           (setf (initial-state world) old-initial-state)))))
+
+(defmethod save-world ((world world) (path pathname))
+  (depot:with-depot (depot path :commit T)
+    (save-world world depot)))
+
+(defmethod save-world ((world world) (depot depot:depot))
+  (save-region (region world) (depot:ensure-entry "region" depot :type :directory))
+  (let ((init (depot:ensure-entry "init" depot :type :directory)))
+    (macrolet ((with-maybe-entry (name &body body)
+                 `(unless (depot:entry-exists-p ,name init)
+                    (depot:with-open (tx (depot:ensure-entry ,name depot) :output 'character)
+                      (let ((stream (depot:to-stream tx)))
+                        (flet ((princ* (expr)
+                                 (princ* expr stream)))
+                          ,@body))))))
+      (with-maybe-entry "meta.lisp"
+        (princ* `(:identifier save-state :version ,(type-of (current-save-version))))
+        (princ* `()))
+      (with-maybe-entry "global.lisp"
+        (princ* `(:region ,(name (region world))))
+        (princ* `()))
+      (when (quest:name (storyline world))
+        (with-maybe-entry "storyline.lisp"
+          (princ* `(,(name (storyline world)))))))))

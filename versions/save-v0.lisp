@@ -37,17 +37,14 @@
       (setf (zoom (camera +world+)) 1.0)
       (setf (intended-zoom (camera +world+)) 1.0)
       (setf (time-scale +world+) 1.0)
-      (let* ((region (cond ((and (region world) (eql region (name (region world))))
-                            ;; Ensure we trigger necessary region reset events even if we're still in the same region.
-                            (issue world 'switch-region :region (region world))
-                            (region world))
-                           (T
-                            (load-region region world))))
+      (let* ((region (or (region world) (load-region T world)))
              (initargs (handler-case (first (parse-sexps (depot:read-from (depot:entry* depot "regions" (format NIL "~(~a~).lisp" (name region))) 'character)))
                          (error (e)
                            (v:warn :kandria.save "Falied to load region initargs: ~a" e)))))
         (when initargs (decode region initargs))
-        (setf (storyline world) (decode 'quest:storyline))))
+        (if (depot:entry-exists-p "storyline.lisp" depot)
+            (setf (storyline world) (decode 'quest:storyline))
+            (setf (storyline world) (make-instance 'storyline)))))
     (when env-data
       (decode (unit 'environment world) env-data))))
 

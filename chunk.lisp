@@ -582,17 +582,17 @@ void main(){
         while closest
         finally (return location)))
 
-(defun clear-chunk-cache (&key (region "hub") dry-run)
+(defun clear-chunk-cache (&key dry-run)
   (dolist (path (directory (merge-pathnames (make-pathname :name :wild :type "graph")
-                                            (pathname-utils:subdirectory (data-root) "world" "regions" region "data"))))
+                                            (pathname-utils:subdirectory (data-root) "world" "region" "data"))))
     (v:info :kandria.chunk "Deleting ~a" path)
     (unless dry-run
       (delete-file path))))
 
-(defun delete-unlinked-chunk-data (&key (region "hub") dry-run)
+(defun delete-unlinked-chunk-data (&key dry-run)
   (let ((chunks (make-hash-table :test 'equal)))
     (handler-bind ((error #'continue))
-      (for:for ((entity over (load-region (pathname-utils:subdirectory (data-root) "world" "regions" region) NIL)))
+      (for:for ((entity over (load-region (pathname-utils:subdirectory (data-root) "world" "region") NIL)))
         (when (and (typep entity 'layer)
                    (not (eql 'layer (type-of entity)))
                    (not (eql 'bg-layer (type-of entity))))
@@ -600,16 +600,16 @@ void main(){
           (dotimes (i +layer-count+)
             (setf (gethash (format NIL "~a-~d" (name entity) i) chunks) T)))))
     (dolist (path (directory (merge-pathnames (make-pathname :name :wild :type "raw")
-                                              (pathname-utils:subdirectory (data-root) "world" "regions" region "data"))))
+                                              (pathname-utils:subdirectory (data-root) "world" "region" "data"))))
       (unless (gethash (pathname-name path) chunks)
         (v:info :kandria.chunk "Deleting ~a" path)
         (unless dry-run
           (delete-file path))))))
 
-(defun find-illegal-chunks (&key (region "hub"))
+(defun find-illegal-chunks (&key)
   (let ((chunks (make-hash-table :test 'equal)))
     (handler-bind ((error #'continue))
-      (for:for ((entity over (load-region (pathname-utils:subdirectory (data-root) "world" "regions" region) NIL)))
+      (for:for ((entity over (load-region (pathname-utils:subdirectory (data-root) "world" "region") NIL)))
         (when (typep entity 'chunk)
           (push entity (gethash (list (vx (location entity)) (vy (location entity))) chunks)))))
     (loop for key being the hash-keys of chunks

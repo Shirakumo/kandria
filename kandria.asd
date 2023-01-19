@@ -118,8 +118,7 @@
                              (:file "move-to")
                              (:file "lighting")
                              (:file "drag")
-                             (:file "auto-tile")))
-               (:file "load-quests"))
+                             (:file "auto-tile"))))
   :serial T
   :defsystem-depends-on (:deploy)
   :depends-on (:trial-glfw
