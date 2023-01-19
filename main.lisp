@@ -19,20 +19,21 @@
 (defmethod initialize-instance ((main main) &key app-id world state)
   (declare (ignore app-id))
   (call-next-method)
-  (etypecase state
-    (null)
-    (save-state
-     (setf (state main) state))
-    ((or pathname string)
-     (setf (state main) (minimal-load-state (merge-pathnames state (save-state-path "1")))))
-    ((eql T)
-     (setf (state main) (first (list-saves)))))
   (let ((depot (if world
                    (depot:ensure-depot world)
                    (find-world))))
     (when (typep depot 'org.shirakumo.zippy:zip-file)
       (org.shirakumo.zippy:move-in-memory depot))
-    (setf (scene main) (make-instance 'world :depot depot))))
+    (setf (scene main) (make-instance 'world :depot depot)))
+  (etypecase state
+    (save-state
+     (setf (state main) state))
+    ((or pathname string)
+     (setf (state main) (minimal-load-state (merge-pathnames state (save-state-path "1")))))
+    ((eql T)
+     (setf (state main) (first (list-saves))))
+    (null
+     (when world (setf (state main) (initial-state (scene main)))))))
 
 (defmethod trial-harmony:server-initargs append ((main main))
   (list :mixers '((:music mixed:basic-mixer :effects ((mixed:biquad-filter :filter :lowpass :name :music-lowpass)))
@@ -120,7 +121,8 @@
   (+ (- (get-universal-time) (timestamp main))
      (play-time (state main)))
   ;; FIXME: This is /not/ correct either as it's influenced by time dilution and dilation.
-  (clock (scene main)))
+  (when (scene main)
+    (clock (scene main))))
 
 (defun main ()
   (let* ((args (uiop:command-line-arguments))
@@ -265,7 +267,7 @@ Possible sub-commands:
     (show-panel 'main-menu)))
 
 (defmethod setup-rendering :after ((main main))
-  (disable :cull-face :scissor-test :depth-test)
+  (disable :cull-face :scissor-test :depth-test)  (print :you)
   (cond ((state main)
          (load-game (state main) main))
         (T

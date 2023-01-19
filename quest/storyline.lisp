@@ -3,7 +3,7 @@
 (defvar *storylines* ())
 
 (defclass storyline (describable scope)
-  ((name :initform 'storyline)
+  ((name :initform NIL)
    (title :initform "storyline")
    (quests :initform (make-hash-table :test 'eql) :reader quests)
    (known-quests :initform () :accessor known-quests)
