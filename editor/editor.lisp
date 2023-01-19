@@ -359,6 +359,7 @@
            (update-background (unit 'background T) T)
            (clear (history editor))
            (setf (entity editor) (region +world+))
+           (setf (state +main+) NIL)
            (trial:commit +world+ +main+)))
     (let ((path (file-select:existing :title "Select World File")))
       (when path
