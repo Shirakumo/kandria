@@ -304,6 +304,7 @@
     (when (setting :debugging :show-debug-settings)
       (with-tab development-settings
         (control show-debug-settings (:debugging :show-debug-settings) 'alloy:checkbox)
+        (control kiosk-mode (:debugging :kiosk-mode) 'alloy:checkbox)
         (control send-diagnostics (:debugging :send-diagnostics) 'alloy:checkbox)
         (control send-error-reports (:debugging :dont-submit-reports) 'alloy:checkbox)
         #++(control allow-editor (:debugging :allow-editor) 'alloy:checkbox)
