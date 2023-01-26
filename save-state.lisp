@@ -65,6 +65,23 @@
          when state collect state)
    #'string<* :key (lambda (f) (pathname-name (file f)))))
 
+(defun find-canonical-save (save-ish)
+  (etypecase save-ish
+    (string (find-canonical-save (save-state-path save-ish)))
+    (pathname (when (probe-file save-ish)
+                (find-canonical-save (minimal-load-state save-ish))))
+    (save-state
+     (let* ((filename (pathname-name (file save-ish)))
+            (other-path (save-state-path (if (string= "resume-" filename)
+                                             (subseq filename (length "resume-"))
+                                             (format NIL "resume-~a" filename)))))
+       (if (not (probe-file other-path))
+           save-ish
+           (let ((other (minimal-load-state other-path)))
+             (if (< (save-time other) (save-time save-ish))
+                 save-ish
+                 other)))))))
+
 (defun delete-saves ()
   (dolist (save (list-saves))
     (delete-file (file save))))

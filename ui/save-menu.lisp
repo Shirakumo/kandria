@@ -165,9 +165,8 @@
         (focus (make-instance 'alloy:focus-list))
         (saves (list-saves)))
     (alloy:enter list layout :constraints `((:left 50) (:right 50) (:bottom 100) (:top 100)))
-    (dolist (names '(("resume-1" "1") ("resume-2" "2") ("resume-3" "3") ("resume-4" "4")))
-      (let ((save (or (loop for name in names
-                            thereis (find name saves :key (lambda (s) (pathname-name (file s))) :test #'string=))
+    (dolist (name '("1" "2" "3" "4"))
+      (let ((save (or (find-canonical-save name)
                       (make-instance 'save-state :author (@ empty-save-file) :filename (second names)))))
         (make-instance 'save-button :value save :layout-parent list :focus-parent focus :intent intent)))
     (alloy:enter (make-instance 'label :value (ecase intent

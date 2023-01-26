@@ -618,7 +618,8 @@
         (alloy:enter (alloy:represent (@ open-options-menu) 'tab :constructor #'constructor) tabs))
 
       (labels ((save-and-quit ()
-                 (save-state +world+ (clone (state +main+) :filename (format NIL "resume-~a" (pathname-name (file (state +main+))))))
+                 (save-state +world+ (clone (state +main+) :filename (format NIL "resume-~a" (pathname-name (file (state +main+))))
+                                                           :save-time (get-universal-time)))
                  (return-to-main-menu)))
         (let ((mins (floor (- (get-universal-time) (save-time (state +main+))) 60)))
           (if (or (<= mins 1) (not (saving-possible-p)))
