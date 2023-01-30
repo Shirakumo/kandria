@@ -7,6 +7,9 @@
 (defmethod trial:report-on-error ((error org.shirakumo.fraf.vorbis:vorbis-error))
   (trial:emessage "An audio file is corrupted and could not be read. Please verify your installation."))
 
+(defmethod trial:report-on-error ((error org.shirakumo.depot:depot-condition))
+  (trial:emessage "A game resource file is corrupted and could not be read. Please verify your installation."))
+
 (deploy:define-hook (:deploy kandria -1) (directory)
   (org.shirakumo.zippy:compress-zip
    (pathname-utils:subdirectory (data-root) "world")
