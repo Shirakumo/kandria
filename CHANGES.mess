@@ -2,6 +2,19 @@
 These are changes to Kandria that were realised thanks to public feedback.
 A big thanks to everyone for trying it out and reporting problems!
 
+## 1.0.6
+- Add a kiosk mode (no saves) to the debug options
+- Fix rare problem with resume saves not being used if there was a crash in the interim
+  Reported by irgendnkerl, joram shrijver
+- Report better error on corrupted world or save files
+  Reported by Goldberg
+- Fix chest spawn in a particular room dropping rarely the item into the abyss
+  Reported by ikharios
+- Fix a rare crash on game close on Linux
+  Reported by stacy
+- Report better errors when crashing due to out of memory
+  Reported by Noob
+
 ## 1.0.5
 - Fix race achievement checks not properly considering gold timing
   Reported by Justice
