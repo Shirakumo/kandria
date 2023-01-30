@@ -197,6 +197,8 @@
   (let ((normal (hit-normal hit)))
     (when (< 0 (vy normal))
       (setf (vx (velocity item)) (* 0.95 (vx (velocity item)))))
+    (when (< (vy normal) 0)
+      (setf (vy (velocity item)) (- (vy (velocity item)))))
     (when (<= (abs (vx (velocity item))) 0.1)
       (setf (vx (velocity item)) 0))
     (unless (light item)
