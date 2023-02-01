@@ -14,6 +14,8 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by stacy
 - Report better errors when crashing due to out of memory
   Reported by Noob
+- Fix target framerate not being applied when starting the game
+  Reported by Th30n
 
 ## 1.0.5
 - Fix race achievement checks not properly considering gold timing

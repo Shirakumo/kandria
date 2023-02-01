@@ -208,8 +208,7 @@ Possible sub-commands:
                                         :fullscreen (setting :display :fullscreen)
                                         :title "Kandria"
                                         :version '(3 3)
-                                        :profile :core)
-                         :audio-backend (setting :audio :backend))))))
+                                        :profile :core))))))
 
 (defmethod setup-scene ((main main) (scene world))
   (enter (camera scene) scene)
