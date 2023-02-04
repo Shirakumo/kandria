@@ -68,9 +68,9 @@
                (opos (* 2 (+ x (* y ow)))))
            (dotimes (c 2)
              (setf (aref new-tilemap (+ npos c)) (aref tilemap (+ opos c))))))))
+    (setf (pixel-data (tilemap layer)) new-tilemap)
     ;; Resize the tilemap. Internal mechanisms should take care of re-mapping the pixel data.
     (when (gl-name (tilemap layer))
-      (setf (pixel-data (tilemap layer)) new-tilemap)
       (resize (tilemap layer) nw nh))))
 
 (defmethod (setf size) :after (value (layer layer))
