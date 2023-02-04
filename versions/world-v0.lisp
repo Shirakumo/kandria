@@ -5,7 +5,7 @@
 (defclass world-v0 (v0) ())
 
 (define-decoder (region world-v0) (info depot)
-  (let* ((region (apply #'make-instance 'region :depot depot info))
+  (let* ((region (apply #'make-instance 'region :depot depot :allow-other-keys T info))
          (content (parse-sexps (depot:read-from (depot:entry "data.lisp" depot) 'character)))
          (data (depot:ensure-depot (depot:entry "data" depot))))
     (let ((*region* region))

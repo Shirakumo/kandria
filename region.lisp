@@ -1,12 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (defclass region (bag ephemeral)
-  ((name :initform 'test :initarg :name :accessor name :type symbol)
-   (author :initform "Anonymous" :initarg :author :accessor author :type string)
-   (version :initform "0.0.0" :initarg :version :accessor version :type string)
-   (description :initform "" :initarg :description :accessor description :type string)
-   (preview :initform NIL :initarg :preview :accessor preview)
-   (chunk-graph :initform NIL :accessor chunk-graph)
+  ((chunk-graph :initform NIL :accessor chunk-graph)
    (bvh :initform (bvh:make-bvh) :reader bvh)
    (depot :initarg :depot :accessor depot)
    (indefinite-extent-entities :initform () :accessor indefinite-extent-entities)))

@@ -1,7 +1,11 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (defclass world (pipelined-scene)
-  ((depot :initarg :depot :accessor depot)
+  ((name :initform 'test :initarg :name :accessor name :type symbol)
+   (author :initform "Anonymous" :initarg :author :accessor author :type string)
+   (version :initform "0.0.0" :initarg :version :accessor version :type string)
+   (description :initform "" :initarg :description :accessor description :type string)
+   (depot :initarg :depot :accessor depot)
    (storyline :initarg :storyline :initform (make-instance 'storyline) :accessor storyline)
    (handler-stack :initform () :accessor handler-stack)
    (initial-state :initform NIL :accessor initial-state)

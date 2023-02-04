@@ -61,7 +61,7 @@
   ((name :initform :editor)
    (marker :initform (make-instance 'marker) :accessor marker)
    (zoom :initform NIL :accessor zoom)
-   (entity :initform NIL :accessor entity)
+   (entity :initform +world+ :accessor entity)
    (tool :initform NIL :accessor tool)
    (alt-tool :accessor alt-tool)
    (toolbar :accessor toolbar)
@@ -128,7 +128,7 @@
     (update-marker editor)))
 
 (defmethod show :after ((editor editor) &key)
-  (setf (entity editor) (region +world+))
+  (setf (entity editor) +world+)
   (setf (background (unit 'background T)) (background 'editor))
   (update-background (unit 'background T) T)
   (setf (zoom (camera +world+)) (expt 0.8 5))
@@ -266,7 +266,7 @@
                           ((find :shift (modifiers ev)) 10)
                           (T 5))))
     (case (key ev)
-      (:tab (setf (entity editor) (region +world+)) T)
+      (:tab (setf (entity editor) +world+) T)
       (:f5 (edit 'save-game T))
       (:f6 (edit 'save-region T))
       (:f7 (edit 'load-game T))
@@ -314,10 +314,10 @@
   NIL)
 
 (defmethod handle ((event mouse-release) (editor editor))
-  (when (and (eq (entity editor) (region +world+))
+  (when (and (eq (entity editor) +world+)
              (eq :left (button event)))
     (let ((pos (mouse-world-pos (pos event))))
-      (setf (entity editor) (entity-at-point pos +world+)))))
+      (setf (entity editor) (or (entity-at-point pos +world+) +world+)))))
 
 (defmethod edit :around (thing (editor editor))
   (with-editor-error-handling
@@ -343,7 +343,7 @@
       (enter (make-instance 'player :chunk chunk) region)
       (leave old +world+)
       (enter region +world+)
-      (setf (entity editor) region)
+      (setf (entity editor) +world+)
       (trial:commit +world+ +main+ :unload NIL)
       (setf (background (unit 'background region)) (background 'editor))
       (reset (camera +world+))
@@ -358,7 +358,7 @@
            (setf (background (unit 'background T)) (background 'editor))
            (update-background (unit 'background T) T)
            (clear (history editor))
-           (setf (entity editor) (region +world+))
+           (setf (entity editor) +world+)
            (setf (state +main+) NIL)
            (trial:commit +world+ +main+)))
     (let ((path (file-select:existing :title "Select World File")))
@@ -412,7 +412,7 @@
            ;;        Maybe at deploy time?
            (with-commit (editor)
              ((leave entity container)
-              (setf (entity editor) (region +world+)))
+              (setf (entity editor) +world+))
              ((enter-and-load entity container +main+)
               (setf (entity editor) entity)))))))
 
@@ -423,12 +423,13 @@
   (make-instance 'creator :ui (unit 'ui-pass T)))
 
 (defmethod edit ((action (eql 'clone-entity)) (editor editor))
-  (cond ((typep (entity editor) 'player)
-         (v:warn :kandria.editor "Refusing to clone the player.")
-         (alloy:message "Cannot clone the player." :title "Error" :ui (unit 'ui-pass T)))
-        (T
-         (let ((loc (vcopy (closest-acceptable-location (entity editor) (location (camera +world+))))))
-           (edit (make-instance 'insert-entity :entity (clone (entity editor) :location loc)) editor)))))
+  (let ((entity (entity editor)))
+    (cond ((typep entity '(or player world region camera))
+           (v:warn :kandria.editor "Refusing to clone.")
+           (alloy:message (format NIL "Cannot clone the ~a" (type-of entity)) :title "Error" :ui (unit 'ui-pass T)))
+          (T
+           (let ((loc (vcopy (closest-acceptable-location entity (location (camera +world+))))))
+             (edit (make-instance 'insert-entity :entity (clone entity :location loc)) editor))))))
 
 (defmethod edit ((action (eql 'undo)) (editor editor))
   (undo editor (unit 'region T)))
@@ -466,7 +467,7 @@
       ((enter entity (unit 'region T))
        (setf (entity editor) entity))
       ((leave entity (unit 'region T))
-       (setf (entity editor) (region +world+))))))
+       (setf (entity editor) +world+)))))
 
 (defmethod edit ((action (eql 'change-lighting)) (editor editor))
   (make-instance 'lighting :ui (unit 'ui-pass T)))
