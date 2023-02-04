@@ -9,7 +9,7 @@
            #:camera #:light #:shadow-map-pass
            #:shadow-render-pass #:action #:editor-camera
            #:animatable #:sprite-data #:sprite-animation
-           #:commit #:prompt #:in-view-p #:layer)
+           #:commit #:prompt #:in-view-p #:layer #:*modules*)
   (:local-nicknames
    (#:fish #:org.shirakumo.fraf.kandria.fish)
    (#:item #:org.shirakumo.fraf.kandria.item)

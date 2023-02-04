@@ -28,8 +28,6 @@ The ``identifier`` must always be the symbol ``save-state``. The ``version`` mus
 The contents of the packet otherwise are version dependent. The following subsections define the format for each version.
 
 ### ``save-v0``
-The contents of the payload follow immediately after the header and are formatted in standard s-expression format. The structure must be as follows.
-
 The packet must contain an entry named ``global.lisp``, the contents of which are encoded in standard s-expression format and follow this structure:
 
 :: ADL

@@ -58,11 +58,13 @@
                (:file "effects")
                (:file "displacement")
                (:file "achievements")
+               (:file "module")
                (:module "versions"
                 :components ((:file "v0")
                              (:file "binary-v0")
                              (:file "world-v0")
-                             (:file "save-v0")))
+                             (:file "save-v0")
+                             (:file "module-v0")))
                (:module "ui"
                 :components ((:file "general")
                              (:file "components")

@@ -1,0 +1,46 @@
+# Kandria Mod Format
+This document describes the mod file format used in Kandria. The spec is formulated using both natural language descriptions and the ADL language, described in "adl"(link adl.mess).
+
+## Container
+The save state file format is represented through a multitude of files in a hierarchical structure. This may be a directory, a zip archive, or anything similar that can store named binary blobs. In any case, the container must have a ``meta.lisp`` entry at its toplevel. If the ``meta.lisp`` entry is missing or malformed, the packet is considered invalid.
+
+## Metadata
+The ``meta.lisp`` entry must contain data as follows, encoded in standard s-expression format.
+
+:: ADL
+file: [ header, information ]
+
+header: {
+  identifier: symbol,
+  version: symbol
+}
+
+information: {
+  name: symbol,
+  title: string,
+  version: string,
+  author: [string],
+  description: _string,
+  upstream: _string
+}
+::
+
+The ``identifier`` must always be the symbol ``module``. The ``version`` must be a symbol designating a subclass of ``version``.
+
+The packet //may// contain an entry called ``preview.png`` which should be a 192x108 large PNG file showing some kind of capsule for the mod.
+
+## Payload
+The contents of the packet otherwise are version dependent. The following subsections define the format for each version.
+
+### ``module-v0``
+The packet must contain an entry named ``setup.lisp``, containing raw Common Lisp code that is evaluated when the mod is loaded.
+
+After a successful load, the system proceeds as in "initialization"(link #initialization)
+
+### ``module-v1``
+The packet must contain an entry named ``Blueprint``, which is a "Forge"(https://github.com/shirakumo/forge) blueprint format describing the mod's build. The blueprint must define a project of the same symbol name of the ``name`` as contained in the metadata. When the mod is loaded the project of that name is built.
+
+After a successful BUILD, the system proceeds as in "initialization"(link #initialization)
+
+## Initialization
+a subclass of ``module`` with the same class-name as is defined in the ``name`` field of the metadata must exist. This class is instantiated, and globally registered via ``load-module``. If the module has been previously loaded already, no new class is instantiated. Instead, ``reinitialize-instance`` and ``load-module`` are called on the old instance.
