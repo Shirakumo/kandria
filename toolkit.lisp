@@ -743,4 +743,5 @@
     (depot:entry
      (trial:with-tempfile (tempfile :type "lisp")
        (depot:read-from file tempfile)
+       ;; FIXME: *load-pathname* / *load-truename* make no sense here...
        (cl:load tempfile)))))

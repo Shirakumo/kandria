@@ -43,4 +43,4 @@ The packet must contain an entry named ``Blueprint``, which is a "Forge"(https:/
 After a successful BUILD, the system proceeds as in "initialization"(link #initialization)
 
 ## Initialization
-a subclass of ``module`` with the same class-name as is defined in the ``name`` field of the metadata must exist. This class is instantiated, and globally registered via ``load-module``. If the module has been previously loaded already, no new class is instantiated. Instead, ``reinitialize-instance`` and ``load-module`` are called on the old instance.
+A subclass of ``module`` named by a symbol from the ``org.shirakumo.fraf.kandria.mod`` package with the same symbol-name as the ``name`` field of the metadata must exist. This class is instantiated, and globally registered via ``load-module``. If the module has been previously loaded already, no new class is instantiated. Instead, ``reinitialize-instance`` and ``load-module`` are called on the old instance.

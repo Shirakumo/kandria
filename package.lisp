@@ -40,4 +40,25 @@
    (#:filesystem-utils #:org.shirakumo.filesystem-utils)
    (#:promise #:org.shirakumo.promise))
   (:export
-   #:launch))
+   #:launch)
+  ;; ui/general.lisp
+  (:export
+   #:show
+   #:show-panel)
+  ;; ui/popup.lisp
+  (:export
+   #:info-panel)
+  ;; module.lisp
+  (:export
+   #:module
+   #:name
+   #:title
+   #:version
+   #:author
+   #:description
+   #:upstream
+   #:preview
+   #:list-modules
+   #:load-module
+   #:find-module
+   #:define-module))

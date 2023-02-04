@@ -60,6 +60,13 @@
       (decode-payload initargs 'module depot version))))
 
 (defmethod load-module ((module module))
+  module)
+
+(defmethod load-module :around ((module module))
+  (call-next-method)
+  module)
+
+(defmethod load-module :after ((module module))
   (setf (gethash (name module) *modules*) module))
 
 (defmethod load-module ((module stub-module))
@@ -67,3 +74,29 @@
 
 (defmethod find-module ((name symbol))
   (gethash name *modules*))
+
+(defun ensure-mod-package ()
+  (let ((package (or (find-package '#:org.shirakumo.fraf.kandria.mod)
+                     (make-package '#:org.shirakumo.fraf.kandria.mod :use (list '#:cl+trial)))))
+    (do-external-symbols (symbol '#:org.shirakumo.fraf.kandria)
+      (shadowing-import symbol package))
+    (import 'define-module '#:cl-user)
+    (do-symbols (symbol package)
+      (export symbol package))))
+
+(ensure-mod-package)
+
+(defmacro define-module (name &optional superclasses slots &rest options)
+  (let* ((package-name (format NIL "~a.~a" '#:org.shirakumo.fraf.kandria.mod name))
+         (class-name (intern (string name) '#:org.shirakumo.fraf.kandria.mod))
+         (use (find :use options :key #'car)))
+    `(progn
+       (defpackage ,package-name
+         (:use #:org.shirakumo.fraf.kandria.mod ,@(rest use))
+         (:import-from #:org.shirakumo.fraf.kandria.mod ,(string class-name))
+         ,@(remove use options))
+       (in-package ,package-name)
+       
+       (defclass ,class-name (,@superclasses module)
+         ((name :initform ',name)
+          ,@slots)))))
