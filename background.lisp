@@ -152,6 +152,12 @@
         (setf (offset b) (offset info))
         (setf (lighting-strength b) (lighting-strength info))))))
 
+(defmethod stage :after ((background background) (area staging-area))
+  (when (background background)
+    (stage (background background) area))
+  (stage (texture-a background) area)
+  (stage (texture-b background) area))
+
 (defmethod handle ((ev switch-chunk) (background background))
   (when (allocated-p (// 'kandria 'backgrounds))
     (setf (background background) (background (chunk ev)))
