@@ -346,9 +346,9 @@
       (setf (entity editor) +world+)
       (trial:commit +world+ +main+ :unload NIL)
       (setf (background (unit 'background region)) (background 'editor))
+      (reset +world+)
       (reset (camera +world+))
       (setf (target (camera +world+)) (unit 'player region))
-      (setf (storyline +world+) (make-instance 'storyline))
       (update-background (unit 'background region) T)
       (show-cursor *context*))))
 

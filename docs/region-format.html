@@ -33,20 +33,14 @@ article code{
 
 article .code-block{
     padding: 0.1em 0.5em;
-}</style><h1 id="leaf region file format">Leaf Region File Format</h1><p>This document is the specification for Leaf's region file format. The format is defined by a combination of textual and ADL descriptions. A more formal definition of ADL can be found in the <a class="external-link" href="adl.html">adl</a> file.</p><h2 id="container">Container</h2><p>The region file format is represented through a multitude of files or entries in a hierarchical structure. This may be a directory, a zip archive, or anything similar that can store named binary blobs. In any case, the container must have a <code>meta.lisp</code> entry at its toplevel. If the <code>meta.lisp</code> entry is missing or malformed, the packet is considered invalid.</p><h2 id="metadata">Metadata</h2><p>The <code>meta.lisp</code> entry must contain data as follows, encoded in standard s-expression format.</p><code style="display:block" class="code-block" data-language="ADL"><pre>file: [ header, information ]
+}</style><h1 id="region file format">Region File Format</h1><p>This document is the specification for Leaf's region file format. The format is defined by a combination of textual and ADL descriptions. A more formal definition of ADL can be found in the <a class="external-link" href="adl.html">adl</a> file.</p><h2 id="container">Container</h2><p>The region file format is represented through a multitude of files or entries in a hierarchical structure. This may be a directory, a zip archive, or anything similar that can store named binary blobs. In any case, the container must have a <code>meta.lisp</code> entry at its toplevel. If the <code>meta.lisp</code> entry is missing or malformed, the packet is considered invalid.</p><h2 id="metadata">Metadata</h2><p>The <code>meta.lisp</code> entry must contain data as follows, encoded in standard s-expression format.</p><code style="display:block" class="code-block" data-language="ADL"><pre>file: [ header, information ]
 
 header: {
   identifier: symbol,
   version: symbol
 }
 
-information: {
-  name: symbol,
-  author: string,
-  version: string,
-  description: string,
-  preview: _pathname
-}</pre></code><p>The <code>identifier</code> must always be the symbol <code>leaf:region</code>. The <code>version</code> in the <code>header</code> must be a symbol designating a subclass of <code>leaf:version</code>.</p><p>The <code>preview</code>, if not <code>null</code>, must name an entry in the packet.</p><h2 id="data payload">Data Payload</h2><p>The contents of the packet otherwise are version dependent. The following subsections define the format for each version.</p><h3 id="v0"><code>v0</code></h3><p>The packet must contain an entry named <code>data.lisp</code> at the top level. The contents are encoded in standard s-expression format with the following data structure.</p><code style="display:block" class="code-block" data-language="ADL"><pre>scene: ( { type: entity } )
+information: {...}</pre></code><p>The <code>identifier</code> must always be the symbol <code>region</code>. The <code>version</code> in the <code>header</code> must be a symbol designating a subclass of <code>version</code>.</p><h2 id="data payload">Data Payload</h2><p>The contents of the packet otherwise are version dependent. The following subsections define the format for each version.</p><h3 id="v0"><code>v0</code></h3><p>The packet must contain an entry named <code>data.lisp</code> at the top level. The contents are encoded in standard s-expression format with the following data structure.</p><code style="display:block" class="code-block" data-language="ADL"><pre>scene: ( { type: entity } )
 
 type: ( symbol )
 

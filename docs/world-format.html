@@ -33,7 +33,7 @@ article code{
 
 article .code-block{
     padding: 0.1em 0.5em;
-}</style><h1 id="leaf world file format">Leaf World File Format</h1><p>This document specifies the file format used in Leaf to store a complete world. The format is defined by a combination of textual and ADL description. A more formal definition of ADL can be ound in the <a class="external-link" href="adl.html">adl</a> file.</p><h2 id="container">Container</h2><p>The world file format is represented through a multitude of files in a hierarchical structure. This may be a directory, a zip archive, or anything similar that can store named binary blobs. In any case, the container must have a <code>meta.lisp</code> entry at its toplevel. If the <code>meta.lisp</code> entry is missing or malformed, the packet is considered invalid.</p><h2 id="metadata">Metadata</h2><p>The <code>meta.lisp</code> entry must contain data as follows, encoded in standard s-expression format.</p><code style="display:block" class="code-block" data-language="ADL"><pre>file: [ header, information ]
+}</style><h1 id="world file format">World File Format</h1><p>This document specifies the file format used in Leaf to store a complete world. The format is defined by a combination of textual and ADL description. A more formal definition of ADL can be ound in the <a class="external-link" href="adl.html">adl</a> file.</p><h2 id="container">Container</h2><p>The world file format is represented through a multitude of files in a hierarchical structure. This may be a directory, a zip archive, or anything similar that can store named binary blobs. In any case, the container may have a <code>meta.lisp</code> entry at its toplevel.</p><h2 id="metadata">Metadata</h2><p>The <code>meta.lisp</code> entry must contain data as follows, encoded in standard s-expression format.</p><code style="display:block" class="code-block" data-language="ADL"><pre>file: [ header, information ]
 
 header: {
   identifier: symbol,
@@ -41,38 +41,9 @@ header: {
 }
 
 information: {
+  id: string,
+  title: string,
   author: string,
-  version: string
-}</pre></code><p>The <code>identifier</code> must always be the symbol <code>leaf:world</code>. The <code>version</code> must be a symbol designating a subclass of <code>leaf:version</code>.</p><h2 id="payload">Payload</h2><p>The contents of the packet otherwise are version dependent. The following subsections define the format for each version.</p><h3 id="v0"><code>v0</code></h3><p>The packet must contain an entry named <code>system.lisp</code>, the contents of which are encoded in standard s-expression format and follow this structure:</p><code style="display:block" class="code-block" data-language="ADL"><pre>file: {
-  sources: [ pathname ],
-  initial-state: pathname
-}</pre></code><p>Each <code>pathname</code> must refer to an entry within the packet.</p><p>The packet must contain an entry named <code>storyline.lisp</code>, the contents of which are encoded in standard s-expression format and follow this structure:</p><code style="display:block" class="code-block" data-language="ADL"><pre>file: ( { type: entry } )
-
-type: ( symbol )
-
-entry: ( quest | trigger | task )
-
-quest: {
-  name: symbol,
-  title: string,
-  description: string,
-  effects: [ symbol ]
-}
-
-task: {
-  name: symbol,
-  title: string,
-  description: string,
-  effects: [ symbol ],
-  triggers: [ symbol ],
-  invariant: source,
-  condition: source
-}
-
-trigger: ( interaction )
-
-interaction: {
-  name: symbol,
-  interactable: symbol,
-  dialogue: pathname
-}</pre></code><p>The <code>source</code> type refers to a valid Common Lisp source form. Each <code>pathname</code> must refer to an entry within the packet.</p><p>The system must recognise a pool with the name <code>leaf:world</code>, the base of which is the prefix <code>data/</code> under the packet. This pool must exist and be properly based before the <code>sources</code> are loaded.</p><p>Map data for regions may be stored under the prefix <code>regions/</code> in the packet. Every entry under that prefix must be added to the world's region index.</p><p>Pathnames used for <code>dialogue</code> must be prefixed with <code>dialogue/</code>.</p><p>When the world is loaded, it must go through each path listed in <code>sources</code> and load the referenced entries in that order. During this loading, the dynamic variable <code>leaf:*load-world*</code> must be bound to the instance of the <code>world</code> currently being loaded.</p></article>
+  version: string,
+  description: string
+}</pre></code><p>The <code>identifier</code> must always be the symbol <code>world</code>. The <code>version</code> must be a symbol designating a subclass of <code>version</code>.</p><h2 id="payload">Payload</h2><p>The contents of the packet otherwise are version dependent. The following subsections define the format for each version.</p><h3 id="v0"><code>v0</code></h3><p>The packet may contain an entry named <code>setup.lisp</code>, the contents of which are raw Common Lisp source code. The file <em>should</em> contain a call to <code>define-setup</code> to define the setup entry function, which is called when the world is loaded. The <code>setup.lisp</code> file is primarily meant to load in quest data, but may contain other directives.</p><p>The packet must contain an entry named <code>init/</code>, the contents of which are a <a class="external-link" href="save-state.html">save-state</a> describing the initial state of the world.</p><p>The packet must contain an entry named <code>region/</code>, the contents of which are a <a class="external-link" href="region-format.html">region</a>.</p></article>

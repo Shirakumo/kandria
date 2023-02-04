@@ -55,7 +55,6 @@
                (:file "save-state")
                (:file "camera")
                (:file "main")
-               (:file "deploy")
                (:file "effects")
                (:file "displacement")
                (:file "achievements")
@@ -118,7 +117,8 @@
                              (:file "move-to")
                              (:file "lighting")
                              (:file "drag")
-                             (:file "auto-tile"))))
+                             (:file "auto-tile")))
+               (:file "deploy"))
   :serial T
   :defsystem-depends-on (:deploy)
   :depends-on (:trial-glfw

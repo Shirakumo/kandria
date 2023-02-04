@@ -4,7 +4,6 @@
   ((entity :initarg :entity :initform NIL :accessor entity
            :representation (alloy:label :ideal-size (alloy:size 0 0)))))
 
-(alloy:define-subcomponent (entity-widget region) ((name (unit 'region T)) alloy:label))
 (alloy:define-subbutton (entity-widget insert) () (edit 'insert-entity T))
 (alloy:define-subbutton (entity-widget clone) () (edit 'clone-entity T))
 (alloy:define-subbutton (entity-widget delete) () (edit 'delete-entity T))
@@ -14,7 +13,6 @@
 
 (alloy:define-subcontainer (entity-widget layout)
     (alloy:vertical-linear-layout)
-  region
   (alloy:build-ui
    (alloy:grid-layout
     :col-sizes '(T T T) :row-sizes '(30) :cell-margins (alloy:margins 1 0 0 0)

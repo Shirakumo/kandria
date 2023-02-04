@@ -4,6 +4,66 @@
 
 (defclass world-v0 (v0) ())
 
+(defun current-world-version ()
+  (make-instance 'world-v0))
+
+(defvar *world-setup-function*)
+
+(defmacro define-setup ((world depot) &body body)
+  `(setf *world-setup-function* (lambda (,world ,depot)
+                                  (declare (ignorable ,world ,depot))
+                                  ,@body
+                                  ,world)))
+
+(defun setup-world (world depot)
+  (when (depot:entry-exists-p "setup.lisp" depot)
+    (let ((*world-setup-function* (constantly T)))
+      (load-source-file (depot:entry "setup.lisp" depot))
+      (funcall *world-setup-function* world depot)))
+  world)
+
+(defun load-quest-files (depot &rest files)
+  (dolist (file files)
+    (load-source-file (depot:entry* depot "quests" (format NIL "~a.lisp" file)))))
+
+(define-decoder (world world-v0) (init depot)
+  (let ((old-initial-state (initial-state world))
+        (old-storyline (storyline world)))
+    (reset world)
+    (apply #'reinitialize-instance world init)
+    (setup-world world depot)
+    (setf (initial-state world) (minimal-load-state (depot:entry "init" depot)))
+    (cond ((load-region (depot:entry "region" depot) world)
+           (setf (depot world) depot))
+          (T
+           (setf (storyline world) old-storyline)
+           (setf (initial-state world) old-initial-state)))))
+
+(define-encoder (world world-v0) (_b depot)
+  (save-region (region world) (depot:ensure-entry "region" depot :type :directory) :version world-v0)
+  (macrolet ((with-maybe-entry (name &body body)
+               `(unless (depot:entry-exists-p ,name depot)
+                  (depot:with-open (tx (depot:ensure-entry ,name depot) :output 'character)
+                    (let ((stream (depot:to-stream tx)))
+                      (flet ((princ* (expr)
+                               (princ* expr stream)))
+                        ,@body))))))
+    (let ((depot (depot:ensure-entry "init" depot :type :directory)))
+      (with-maybe-entry "meta.lisp"
+        (princ* `(:identifier save-state :version ,(type-of (current-save-version))))
+        (princ* `()))
+      (with-maybe-entry "global.lisp"
+        (princ* `(:region ,(name (region world))))
+        (princ* `()))
+      (when (quest:name (storyline world))
+        (with-maybe-entry "storyline.lisp"
+          (princ* `(,(quest:name (storyline world))))))))
+  (list :id (id world)
+        :title (title world)
+        :author (author world)
+        :version (version world)
+        :description (description world)))
+
 (define-decoder (region world-v0) (info depot)
   (let* ((region (apply #'make-instance 'region :depot depot :allow-other-keys T info))
          (content (parse-sexps (depot:read-from (depot:entry "data.lisp" depot) 'character)))
@@ -48,10 +108,7 @@
   (unless (depot:entry-exists-p "init.lisp" depot)
     (depot:with-open (tx (depot:ensure-entry "init.lisp" depot) :output 'character)
       (princ* (encode-payload region NIL depot 'save-v0) (depot:to-stream tx))))
-  (list :name (name region)
-        :author (author region)
-        :version (version region)
-        :description (description region)))
+  ())
 
 (define-decoder (chunk world-v0) (initargs depot)
   (destructuring-bind (&key name location size tile-data pixel-data layers background bg-overlay gi environment (visible-on-map-p T)) initargs

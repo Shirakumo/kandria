@@ -21,10 +21,14 @@
   (call-next-method)
   (let ((depot (if world
                    (depot:ensure-depot world)
-                   (find-world))))
+                   (find-world)))
+        (initargs ()))
     (when (typep depot 'org.shirakumo.zippy:zip-file)
       (org.shirakumo.zippy:move-in-memory depot))
-    (setf (scene main) (make-instance 'world :depot depot)))
+    ;; KLUDGE: this sucks. Spillage from version protocol to prefetch...
+    (when (depot:entry-exists-p "meta.lisp" depot)
+      (setf initargs (second (parse-sexps (depot:read-from (depot:entry "meta.lisp" depot) 'character)))))
+    (setf (scene main) (apply #'make-instance 'world :depot depot initargs)))
   (when (and world (null state))
     (setf state :new))
   (etypecase state

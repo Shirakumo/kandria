@@ -7,13 +7,12 @@
 (defclass save-v1.3 (save-v1.2) ())
 (defclass save-v1.4 (save-v1.3) ())
 (defclass save-v1.5 (save-v1.4) ())
+(defclass save-v2 (save-v1.5) ())
 
-#-kandria-demo
-(defmethod supported-p ((_ save-v1.2)) T)
 (defmethod supported-p ((_ save-v1.4)) T)
 
 (defun current-save-version ()
-  (make-instance 'save-v1.5))
+  (make-instance 'save-v2))
 
 (define-encoder (world save-v0) (_b depot)
   (let ((region (region world)))
@@ -47,6 +46,34 @@
             (setf (storyline world) (make-instance 'storyline)))))
     (when env-data
       (decode (unit 'environment world) env-data))))
+
+(define-encoder (world save-v2) (_b depot)
+  (setf depot (depot:ensure-entry (id world) depot :type :directory))
+  (encode (storyline world))
+  (depot:with-open (tx (depot:ensure-entry "world.lisp" depot) :output 'character)
+    (let ((stream (depot:to-stream tx)))
+      (princ* (list :clock (clock world)
+                    :timestamp (timestamp world))
+              stream)
+      (princ* (encode (unit 'environment world)) stream)
+      (princ* (encode (region world)) stream))))
+
+(define-decoder (world save-v2) (_b depot)
+  (setf depot (depot:entry (id world) depot))
+  (destructuring-bind (world-data &optional env-data region-data) (parse-sexps (depot:read-from (depot:entry "world.lisp" depot) 'character))
+    (destructuring-bind (&key (clock 0.0) (timestamp (initial-timestamp)) &allow-other-keys) world-data
+      (setf (clock world) clock)
+      (setf (timestamp world) timestamp)
+      (setf (zoom (camera +world+)) 1.0)
+      (setf (intended-zoom (camera +world+)) 1.0)
+      (setf (time-scale +world+) 1.0)
+      (let* ((region (or (region world) (load-region T world))))
+        (when region-data (decode region region-data))
+        (if (depot:entry-exists-p "storyline.lisp" depot)
+            (setf (storyline world) (decode 'quest:storyline))
+            (setf (storyline world) (make-instance 'storyline))))
+      (when env-data
+        (decode (unit 'environment world) env-data)))))
 
 (define-encoder (quest:storyline save-v0) (_b depot)
   (depot:with-open (tx (depot:ensure-entry "storyline.lisp" depot) :output 'character)

@@ -1,5 +1,5 @@
-# Leaf Save State File Format
-This document describes the save state file format used in Leaf. The spec is formulated using both natural language descriptions and the ADL language, described in "adl"(link adl.mess).
+# Save State File Format
+This document describes the save state file format used in Kandria. The spec is formulated using both natural language descriptions and the ADL language, described in "adl"(link adl.mess).
 
 ## Container
 The save state file format is represented through a multitude of files in a hierarchical structure. This may be a directory, a zip archive, or anything similar that can store named binary blobs. In any case, the container must have a ``meta.lisp`` entry at its toplevel. If the ``meta.lisp`` entry is missing or malformed, the packet is considered invalid.
@@ -22,7 +22,7 @@ information: {
 }
 ::
 
-The ``identifier`` must always be the symbol ``leaf:save-state``. The ``version`` must be a symbol designating a subclass of ``leaf:version``.
+The ``identifier`` must always be the symbol ``save-state``. The ``version`` must be a symbol designating a subclass of ``version``.
 
 ## Payload
 The contents of the packet otherwise are version dependent. The following subsections define the format for each version.
@@ -71,3 +71,11 @@ addition: {
 ::
 
 The ``entity`` type is defined in the "Region File Format"(link region-format.mess) for ``v0``.
+
+## ``save-v2``
+This format follows the previous versions with the following differences:
+
+- All files except for ``meta.lisp`` and ``preview.png`` are moved to a subdirectory named after the world's ID for which the save data is specific.
+- There is no ``region`` directory or ``global.lisp`` file anymore. Instead their data is consolidated into the ``world.lisp`` file which lives within the world's directory.
+
+These changes allow a save file to carry completely indpendent save data for multiple worlds at once. The system knows which save data to load out based on the world's ID.

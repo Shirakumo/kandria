@@ -1,8 +1,8 @@
-# Leaf World File Format
+# World File Format
 This document specifies the file format used in Leaf to store a complete world. The format is defined by a combination of textual and ADL description. A more formal definition of ADL can be ound in the "adl"(link adl.mess) file.
 
 ## Container
-The world file format is represented through a multitude of files in a hierarchical structure. This may be a directory, a zip archive, or anything similar that can store named binary blobs. In any case, the container must have a ``meta.lisp`` entry at its toplevel. If the ``meta.lisp`` entry is missing or malformed, the packet is considered invalid.
+The world file format is represented through a multitude of files in a hierarchical structure. This may be a directory, a zip archive, or anything similar that can store named binary blobs. In any case, the container may have a ``meta.lisp`` entry at its toplevel.
 
 ## Metadata
 The ``meta.lisp`` entry must contain data as follows, encoded in standard s-expression format.
@@ -16,69 +16,22 @@ header: {
 }
 
 information: {
+  id: string,
+  title: string,
   author: string,
-  version: string
+  version: string,
+  description: string
 }
 ::
 
-The ``identifier`` must always be the symbol ``leaf:world``. The ``version`` must be a symbol designating a subclass of ``leaf:version``.
+The ``identifier`` must always be the symbol ``world``. The ``version`` must be a symbol designating a subclass of ``version``.
 
 ## Payload
 The contents of the packet otherwise are version dependent. The following subsections define the format for each version.
 
 ### ``v0``
-The packet must contain an entry named ``system.lisp``, the contents of which are encoded in standard s-expression format and follow this structure:
+The packet may contain an entry named ``setup.lisp``, the contents of which are raw Common Lisp source code. The file //should// contain a call to ``define-setup`` to define the setup entry function, which is called when the world is loaded. The ``setup.lisp`` file is primarily meant to load in quest data, but may contain other directives.
 
-:: ADL
-file: {
-  sources: [ pathname ],
-  initial-state: pathname
-}
-::
+The packet must contain an entry named ``init/``, the contents of which are a "save-state"(link save-state.mess) describing the initial state of the world.
 
-Each ``pathname`` must refer to an entry within the packet.
-
-The packet must contain an entry named ``storyline.lisp``, the contents of which are encoded in standard s-expression format and follow this structure:
-
-:: ADL
-file: ( { type: entry } )
-
-type: ( symbol )
-
-entry: ( quest | trigger | task )
-
-quest: {
-  name: symbol,
-  title: string,
-  description: string,
-  effects: [ symbol ]
-}
-
-task: {
-  name: symbol,
-  title: string,
-  description: string,
-  effects: [ symbol ],
-  triggers: [ symbol ],
-  invariant: source,
-  condition: source
-}
-
-trigger: ( interaction )
-
-interaction: {
-  name: symbol,
-  interactable: symbol,
-  dialogue: pathname
-}
-::
-
-The ``source`` type refers to a valid Common Lisp source form. Each ``pathname`` must refer to an entry within the packet.
-
-The system must recognise a pool with the name ``leaf:world``, the base of which is the prefix ``data/`` under the packet. This pool must exist and be properly based before the ``sources`` are loaded.
-
-Map data for regions may be stored under the prefix ``regions/`` in the packet. Every entry under that prefix must be added to the world's region index.
-
-Pathnames used for ``dialogue`` must be prefixed with ``dialogue/``.
-
-When the world is loaded, it must go through each path listed in ``sources`` and load the referenced entries in that order. During this loading, the dynamic variable ``leaf:*load-world*`` must be bound to the instance of the ``world`` currently being loaded.
+The packet must contain an entry named ``region/``, the contents of which are a "region"(link region-format.mess).

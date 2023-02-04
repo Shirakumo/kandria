@@ -38,6 +38,7 @@
    :halign :middle
    :valign :middle
    :pattern colors:white
+   :size 10
    :font "Icons"))
 
 (presentations:define-update (ui tool-button)
