@@ -30,7 +30,7 @@
   (let ((old-initial-state (initial-state world))
         (old-storyline (storyline world)))
     (reset world)
-    (apply #'reinitialize-instance world init)
+    (apply #'reinitialize-instance world (first init))
     (setup-world world depot)
     (setf (initial-state world) (minimal-load-state (depot:entry "init" depot)))
     (cond ((load-region (depot:entry "region" depot) world)

@@ -3,6 +3,9 @@
 (define-condition unsupported-save-file (error)
   ())
 
+(define-condition no-save-for-world (error)
+  ())
+
 (defun save-state-path (name)
   (ensure-directories-exist
    (make-pathname :name (format NIL "~(~a~)" name) :type "zip"
@@ -119,6 +122,9 @@
     (let ((tmp (make-pathname :type "zip" :name "temp" :defaults (file save-state))))
       (with-unwind-protection (uiop:delete-file-if-exists tmp)
         (uiop:delete-file-if-exists tmp)
+        ;; Copy original file to temp so we add new entries instead of clearing them out.
+        (when (uiop:file-exists-p (file save-state))
+          (uiop:copy-file (file save-state) tmp))
         (depot:with-depot (depot tmp :commit T)
           (depot:with-open (tx (depot:ensure-entry "meta.lisp" depot) :output 'character)
             (let ((stream (depot:to-stream tx)))

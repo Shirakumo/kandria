@@ -59,7 +59,9 @@
       (princ* (encode (region world)) stream))))
 
 (define-decoder (world save-v2) (_b depot)
-  (setf depot (depot:entry (id world) depot))
+  (setf depot (if (depot:entry-exists-p (id world) depot)
+                  (depot:entry (id world) depot)
+                  (error 'no-save-for-world)))
   (destructuring-bind (world-data &optional env-data region-data) (parse-sexps (depot:read-from (depot:entry "world.lisp" depot) 'character))
     (destructuring-bind (&key (clock 0.0) (timestamp (initial-timestamp)) &allow-other-keys) world-data
       (setf (clock world) clock)

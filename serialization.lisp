@@ -21,9 +21,11 @@
 
 (defun coerce-version (symbol)
   (flet ((bail () (error "No such version ~s." symbol)))
-    (let* ((class (or (find-class symbol NIL) (bail))))
-      (unless (subtypep class 'version) (bail))
-      (make-instance class))))
+    (if (typep symbol 'version)
+        symbol
+        (let* ((class (or (find-class symbol NIL) (bail))))
+          (unless (subtypep class 'version) (bail))
+          (make-instance class)))))
 
 (defun ensure-version (version &optional (default (current-version)))
   (etypecase version
