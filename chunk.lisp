@@ -52,29 +52,46 @@
     (unless (v= size (size layer))
       (setf (size layer) size))))
 
-(defmethod (setf size) :before (value (layer layer))
-  (let* ((nw (floor (vx2 value)))
-         (nh (floor (vy2 value)))
+(defmethod resize-layer ((layer layer) w h &optional xanchor yanchor)
+  (let* ((nw (floor w +tile-size+))
+         (nh (floor h +tile-size+))
          (ow (floor (vx2 (size layer))))
          (oh (floor (vy2 (size layer))))
-         (tilemap (pixel-data layer))
-         (new-tilemap (make-array (* 4 nw nh) :element-type '(unsigned-byte 8)
-                                              :initial-element 0)))
-    ;; Allocate resized and copy data over. Slow!
-    (ignore-errors
-     (dotimes (y (min nh oh))
-       (dotimes (x (min nw ow))
-         (let ((npos (* 2 (+ x (* y nw))))
-               (opos (* 2 (+ x (* y ow)))))
-           (dotimes (c 2)
-             (setf (aref new-tilemap (+ npos c)) (aref tilemap (+ opos c))))))))
-    (setf (pixel-data (tilemap layer)) new-tilemap)
-    ;; Resize the tilemap. Internal mechanisms should take care of re-mapping the pixel data.
-    (when (gl-name (tilemap layer))
-      (resize (tilemap layer) nw nh))))
+         (ox (ecase xanchor
+               (:left 0)
+               (:right (- nw ow))))
+         (oy (ecase yanchor
+               (:bottom 0)
+               (:top (- nh oh)))))
+    (when (or (/= nw ow) (/= nh oh))
+      (let ((tilemap (pixel-data layer))
+            (new-tilemap (make-array (* 2 nw nh) :element-type '(unsigned-byte 8)
+                                                 :initial-element 0)))
+        ;; KLUDGE: this is obviously really inefficient, lol
+        (let ((stencil (stencil-from-map tilemap ow oh 0 0 ow oh)))
+          (set-tile-stencil new-tilemap nw nh ox oy stencil))
+        (setf (pixel-data (tilemap layer)) new-tilemap)
+        (when (gl-name (tilemap layer))
+          (resize (tilemap layer) nw nh)))
+      (setf (vx (size layer)) nw)
+      (setf (vy (size layer)) nh)
+      (setf (vx (bsize layer)) (* nw +tile-size+ .5))
+      (setf (vy (bsize layer)) (* nh +tile-size+ .5)))))
 
-(defmethod (setf size) :after (value (layer layer))
-  (setf (bsize layer) (v* value +tile-size+ .5)))
+(defmethod commit-resize-data ((layer layer))
+  (list (vx (size layer)) (vy (size layer)) (copy-seq (pixel-data layer))))
+
+(defmethod restore-resize-data ((layer layer) data)
+  (destructuring-bind (nw nh data) data
+    (setf (vx (size layer)) nw)
+    (setf (vy (size layer)) nh)
+    (setf (vx (bsize layer)) (* nw +tile-size+ .5))
+    (setf (vy (bsize layer)) (* nh +tile-size+ .5))
+    (setf (pixel-data (tilemap layer)) (copy-seq data))
+    (resize (tilemap layer) nw nh)))
+
+(defmethod (setf size) (value (layer layer))
+  (resize-layer layer (vx2 value) (vy2 value) :left :bottom))
 
 (defmacro %with-layer-xy ((layer location) &body body)
   `(let ((x (floor (+ (- (vx ,location) (vx2 (location ,layer))) (vx2 (bsize ,layer))) +tile-size+))
@@ -334,12 +351,12 @@ void main(){
 
 (defmethod initialize-instance :after ((chunk chunk) &key (layers (make-list +layer-count+)) tile-data)
   (let* ((size (size chunk))
-         (layers (list* (make-instance 'bg-layer :size size :location (location chunk) :layer-index 0
+         (layers (list* (make-instance 'bg-layer :size (vcopy size) :location (location chunk) :layer-index 0
                                                  :tile-data tile-data :pixel-data (first layers)
                                                  :overlay (bg-overlay chunk))
                   (loop for i from 1
                         for data in (rest layers)
-                        collect (make-instance 'layer :size size :location (location chunk) :layer-index i
+                        collect (make-instance 'layer :size (vcopy size) :location (location chunk) :layer-index i
                                                       :tile-data tile-data :pixel-data data)))))
     (setf (layers chunk) (coerce layers 'vector))
     (register-generation-observer chunk tile-data)))
@@ -401,9 +418,21 @@ void main(){
                   :background (background chunk)
                   :gi (gi chunk)))))
 
-(defmethod (setf size) :after (size (chunk chunk))
+(defmethod resize-layer :after ((chunk chunk) w h &optional (xanchor :left) (yanchor :bottom))
   (loop for layer across (layers chunk)
-        do (setf (size layer) size)))
+        do (resize-layer layer w h xanchor yanchor)))
+
+(defmethod commit-resize-data ((chunk chunk))
+  (list* (call-next-method)
+         (loop for layer across (layers chunk)
+               collect (commit-resize-data layer))))
+
+(defmethod restore-resize-data ((chunk chunk) data)
+  (destructuring-bind (data . layers) data
+    (call-next-method chunk data)
+    (loop for layer across (layers chunk)
+          for data in layers
+          do (restore-resize-data layer data))))
 
 (defmethod (setf location) :around (location (chunk chunk))
   (let ((diff (v- location (location chunk))))
