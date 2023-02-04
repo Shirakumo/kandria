@@ -37,6 +37,7 @@
    (#:depot #:org.shirakumo.depot)
    (#:action-list #:org.shirakumo.fraf.action-list)
    (#:sequences #:org.shirakumo.trivial-extensible-sequences)
+   (#:filesystem-utils #:org.shirakumo.filesystem-utils)
    (#:promise #:org.shirakumo.promise))
   (:export
    #:launch))

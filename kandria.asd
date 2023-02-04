@@ -141,6 +141,7 @@
                :array-utils
                :lambda-fiddle
                :trivial-arguments
+               :filesystem-utils
                :trivial-indent
                :speechless
                :kandria-quest
