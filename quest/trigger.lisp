@@ -132,10 +132,11 @@
   (form-fiddle:with-body-options (body initargs interactable dialogue variables (class (class-for 'interaction))) initargs
     `(let* ((task (find-task ',task (find-quest ',quest (or (storyline ',storyline)
                                                             (error "No such storyline ~s" ',storyline)))))
+            (dialogue ,(or dialogue `(progn ,@body)))
             (action (or (find-trigger ',name task NIL)
-                        (setf (find-trigger ',name task) (make-instance ',class :name ',name :task task ,@initargs)))))
+                        (setf (find-trigger ',name task) (make-instance ',class :name ',name :task task :dialogue dialogue ,@initargs)))))
        (reinitialize-instance action
-                              :dialogue ,(or dialogue `(progn ,@body))
+                              :dialogue dialogue
                               :interactable ',interactable
                               :variables ',variables
                               ,@initargs)
