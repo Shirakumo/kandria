@@ -32,6 +32,6 @@
                    :windows "kandria:windows-64"))
   :steam (:branch "developer"
           :user "shirakumo_org")
-  :upload (:targets #(:steam :keygen :itch))
+  :upload (:targets #(:steam))
   :bundle (:targets #(:windows :linux))
   :system "kandria")
