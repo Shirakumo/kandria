@@ -106,9 +106,13 @@
          (let* ((task (or task (quest:task interaction)))
                 (name (or name (quest:name interaction)))
                 (source (list (quest:name (quest:quest task)) (format NIL "~(~a/~a~)" (quest:name task) name)))
-                (dialogue (apply #'find-mess source)))
-           (setf (source interaction) source)
-           (apply #'call-next-method interaction slots :dialogue dialogue args)))
+                (dialogue (handler-case (apply #'find-mess source)
+                            (sb-ext:file-does-not-exist ()))))
+           (cond (dialogue
+                  (setf (source interaction) source)
+                  (apply #'call-next-method interaction slots :dialogue dialogue args))
+                 (T
+                  (call-next-method)))))
         (T
          (call-next-method))))
 

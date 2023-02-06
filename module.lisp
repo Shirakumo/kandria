@@ -24,7 +24,7 @@
   (depot:with-depot (depot file)
     (destructuring-bind (header initargs)
         (parse-sexps (depot:read-from (depot:entry "meta.lisp" depot) 'character))
-      (assert (eq 'save-state (getf header :identifier)))
+      (assert (eq 'module (getf header :identifier)))
       (unless (supported-p (make-instance (getf header :version)))
         (cerror "Try it anyway." 'unsupported-save-file))
       (when (depot:entry-exists-p "preview.png" depot)
@@ -44,6 +44,11 @@
     modules))
 
 (defgeneric load-module (module))
+
+(defmethod load-module ((all (eql T)))
+  (dolist (module (list-modules :loaded-only NIL))
+    (with-simple-restart (continue "Ignore ~a" module)
+      (load-module module))))
 
 (defmethod load-module ((name string))
   (load-module (pathname-utils:subdirectory (module-directory) name)))
