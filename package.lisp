@@ -6,7 +6,7 @@
   (:use #:cl+trial)
   (:shadow #:main #:launch #:tile #:block
            #:located-entity #:sized-entity #:sprite-entity
-           #:camera #:light #:shadow-map-pass
+           #:camera #:light #:shadow-map-pass #:tile-data
            #:shadow-render-pass #:action #:editor-camera
            #:animatable #:sprite-data #:sprite-animation
            #:commit #:prompt #:in-view-p #:layer #:*modules*)
