@@ -101,13 +101,14 @@
                   ("Select" (edit 'select-entity editor))
                   ("Insert" (edit 'insert-entity editor))
                   ("Clone" (edit 'clone-entity editor))
-                  ("Delete" (edit 'delete-entity editor))
-                  :separator
-                  ("Set Lighting" (edit 'change-lighting editor)))
+                  ("Delete" (edit 'delete-entity editor)))
                  ("View"
                   ("Zoom In" (incf (alloy:value zoom) 0.1))
                   ("Zoom Out" (decf (alloy:value zoom) 0.1))
                   ("Center on Player" (setf (location (camera +world+)) (location (unit 'player T)))))
+                 ("Tools"
+                  ("Set Lighting" (edit 'change-lighting editor))
+                  ("Reload Language" (refresh-language T)))
                  ("Help"
                   ("About"))
                  zoom)))
