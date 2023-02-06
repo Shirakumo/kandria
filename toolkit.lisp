@@ -51,7 +51,8 @@
                              :camera-control NIL
                              :fps-counter NIL
                              :dont-save-screenshot NIL
-                             :dont-submit-reports NIL))))
+                             :dont-submit-reports NIL
+                             :dont-load-mods NIL))))
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (defun mktab (&rest entries)

@@ -203,6 +203,8 @@ Possible sub-commands:
      (load-settings))
     (save-settings)
     (manage-swank)
+    (unless (config :debugging :dont-load-mods)
+      (load-module :active))
     (apply #'trial:launch 'main
            (append (setting :debugging :initargs)
                    initargs

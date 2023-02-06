@@ -1,9 +1,24 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+(define-condition module-source-not-found (error)
+  ((name :initarg :name :accessor name))
+  (:report (lambda (c s) (format s "No source for module with name ~s found." (name c)))))
+
 (defvar *modules* (make-hash-table :test 'eql))
+
+(defmethod module-config-directory ((name string))
+  (pathname-utils:subdirectory (config-directory) "mods" name))
+
+(defmethod module-config-directory ((name symbol))
+  (module-config-directory (string-downcase name)))
 
 (defun module-directory ()
   (pathname-utils:subdirectory (data-root) "mods"))
+
+(defun find-module-file (name)
+  (or (probe-file (pathname-utils:subdirectory (module-directory) (string-downcase name)))
+      (first (directory (make-pathname :name (string-downcase name) :type :wild :defaults (module-directory))))
+      (error 'module-source-not-found :name name)))
 
 (defclass module ()
   ((name :initarg :name :initform (arg! :name) :accessor name)
@@ -12,7 +27,11 @@
    (author :initarg :author :initform (arg! :author) :accessor author)
    (description :initarg :description :initform "" :accessor description)
    (upstream :initarg :upstream :initform "" :accessor upstream)
-   (preview :initarg :preview :initform NIL :accessor preview)))
+   (preview :initarg :preview :initform NIL :accessor preview)
+   (active-p :initarg :active-p :initform NIL :accessor active-p)))
+
+(defmethod module-config-directory ((module module))
+  (module-config-directory (name module)))
 
 (defclass stub-module (module)
   ((file :initarg :file :accessor file)))
@@ -35,23 +54,56 @@
           (push :preview initargs)))
       (apply #'make-instance 'stub-module :file file initargs))))
 
-(defun list-modules (&key (loaded-only T))
+(defun list-modules (&optional (kind :loaded))
   (let ((modules (alexandria:hash-table-values *modules*)))
-    (unless loaded-only
-      (loop for file in (filesystem-utils:list-contents (module-directory))
-            for mod = (minimal-load-module file)
-            do (pushnew mod modules :key #'name)))
-    modules))
+    (flet ((try-minimal-load (file)
+             (handler-case (pushnew (minimal-load-module file) modules :key #'name)
+               (unsupported-save-file ()
+                 (v:warn :kandria.module "Module version ~s is too old, ignoring." file)
+                 NIL)
+               #+kandria-release
+               (error (e)
+                 (v:warn :kandria.module "Module ~s failed to load, ignoring." file)
+                 (v:debug :kandria.module e)
+                 NIL))))
+      (ecase kind
+        (:loaded)
+        (:available
+         (dolist (file (filesystem-utils:list-contents (module-directory)))
+           (try-minimal-load file)))
+        (:active
+         (setf modules (remove-if-not #'active-p modules))
+         (let ((path (make-pathname :name "modules" :type "lisp" :defaults (config-directory))))
+           (when (probe-file path)
+             (dolist (name (parse-sexps (alexandria:read-file-into-string path)))
+               (handler-case (try-minimal-load (find-module-file name))
+                 #+kandria-release
+                 (module-source-not-found (e)
+                   (v:warn :kandria.module "Module ~s failed to load, ignoring." name)
+                   (v:debug :kandria.module e)))))))))
+    (sort modules #'string< :key #'name)))
+
+(defun save-active-module-list ()
+  (with-open-file (stream (make-pathname :name "modules" :type "lisp" :defaults (config-directory))
+                          :if-exists :supersede)
+    (dolist (module (list-modules :active))
+      (princ* (name module) stream))))
 
 (defgeneric load-module (module))
 
-(defmethod load-module ((all (eql T)))
-  (dolist (module (list-modules :loaded-only NIL))
+(defmethod load-module ((modules cons))
+  (dolist (module modules)
     (with-simple-restart (continue "Ignore ~a" module)
       (load-module module))))
 
+(defmethod load-module ((modules (eql :available)))
+  (load-module (list-modules :available)))
+
+(defmethod load-module ((modules (eql :active)))
+  (load-module (list-modules :active)))
+
 (defmethod load-module ((name string))
-  (load-module (pathname-utils:subdirectory (module-directory) name)))
+  (load-module (find-module-file name)))
 
 (defmethod load-module ((pathname pathname))
   (depot:with-depot (depot pathname)
@@ -68,11 +120,13 @@
   module)
 
 (defmethod load-module :around ((module module))
+  (ensure-directories-exist (module-config-directory module))
   (call-next-method)
   module)
 
 (defmethod load-module :after ((module module))
-  (setf (gethash (name module) *modules*) module))
+  (setf (gethash (name module) *modules*) module)
+  (setf (active-p module) T))
 
 (defmethod load-module ((module stub-module))
   (load-module (file module)))
