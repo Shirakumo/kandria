@@ -17,7 +17,7 @@
   (cond ((probe-file (merge-pathnames "install/" root))
          (set-pool-paths-from-install (merge-pathnames "install/" root)))
         ((probe-file (merge-pathnames ".install" root))
-         (set-pool-paths-from-install (uiop:parse-native-namestring (uiop:read-file-string (merge-pathnames ".install" root)))))))
+         (set-pool-paths-from-install (pathname-utils:parse-native-namestring (uiop:read-file-string (merge-pathnames ".install" root)) :as :directory)))))
 
 (define-asset (kandria 1x) mesh
     (make-rectangle 1 1 :align :bottomleft))
