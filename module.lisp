@@ -20,7 +20,7 @@
       (first (directory (make-pathname :name (string-downcase name) :type :wild :defaults (module-directory))))
       (error 'module-source-not-found :name name)))
 
-(defclass module ()
+(defclass module (alloy:observable-object)
   ((name :initarg :name :initform (arg! :name) :accessor name)
    (title :initarg :title :initform (arg! :title) :accessor title)
    (version :initarg :version :initform (arg! :version) :accessor version)
