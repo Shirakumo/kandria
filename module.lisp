@@ -91,6 +91,8 @@
 
 (defgeneric load-module (module))
 
+(defmethod load-module ((module null)))
+
 (defmethod load-module ((modules cons))
   (dolist (module modules)
     (with-simple-restart (continue "Ignore ~a" module)
