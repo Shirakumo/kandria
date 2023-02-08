@@ -99,7 +99,8 @@
                              (:file "startup")
                              (:file "early-end")
                              (:file "gamepad")
-                             (:file "races")))
+                             (:file "races")
+                             (:file "module")))
                (:module "editor"
                 :components ((:file "history")
                              (:file "tool")

@@ -308,6 +308,7 @@
         (control send-diagnostics (:debugging :send-diagnostics) 'alloy:checkbox)
         (control send-error-reports (:debugging :dont-submit-reports) 'alloy:checkbox)
         #++(control allow-editor (:debugging :allow-editor) 'alloy:checkbox)
+        (control show-mod-menu-entry (:debugging :show-mod-menu-entry) 'alloy:checkbox)
         (control camera-control (:debugging :camera-control) 'alloy:checkbox)
         (control show-fps-counter (:debugging :fps-counter) 'alloy:checkbox)
         (control start-swank-server (:debugging :swank) 'alloy:checkbox)

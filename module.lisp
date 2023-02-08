@@ -33,11 +33,16 @@
 (defmethod module-config-directory ((module module))
   (module-config-directory (name module)))
 
+(defmethod print-object ((module module) stream)
+  (print-unreadable-object (module stream :type T)
+    (format stream "~a" (name module))))
+
 (defclass stub-module (module)
   ((file :initarg :file :accessor file)))
 
-(defmethod name ((module module))
-  (class-name (class-of module)))
+(defmethod (setf active-p) :before (value (module module))
+  (when value
+    (load-module module)))
 
 (defun minimal-load-module (file)
   (depot:with-depot (depot file)
@@ -128,7 +133,7 @@
 
 (defmethod load-module :after ((module module))
   (setf (gethash (name module) *modules*) module)
-  (setf (active-p module) T))
+  (setf (slot-value module 'active-p) T))
 
 (defmethod load-module ((module stub-module))
   (load-module (file module)))

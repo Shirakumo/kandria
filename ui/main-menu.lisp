@@ -89,7 +89,7 @@
   (let ((layout (make-instance 'eating-constraint-layout))
         (menu (make-instance 'alloy:vertical-linear-layout :cell-margins (alloy:margins 5) :min-size (alloy:size 120 30)))
         (focus (make-instance 'alloy:focus-list)))
-    (alloy:enter menu layout :constraints `((:center :w) (:bottom 20) (:height 300) (:width 300)))
+    (alloy:enter menu layout :constraints `((:center :w) (:bottom 20) (:height 400) (:width 300)))
     (macrolet ((with-button ((name &rest initargs) &body body)
                  `(let ((button (alloy:represent (@ ,name) 'main-menu-button :focus-parent focus :layout-parent menu ,@initargs)))
                     (alloy:on alloy:activate (button)
@@ -113,6 +113,9 @@
             (show-panel 'save-menu :intent :new)))
       (with-button (options-menu)
         (show-panel 'options-menu))
+      (when (setting :debugging :show-mod-menu-entry)
+        (with-button (mod-menu)
+          (show-panel 'module-menu)))
       (with-button (credits-menu)
         (show-credits :on-hide (lambda () (show-panel 'main-menu))))
       #++
