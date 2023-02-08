@@ -65,4 +65,8 @@
    #:load-module
    #:find-module
    #:define-module
-   #:register-worlds))
+   #:register-worlds)
+  ;; world.lisp
+  (:export
+   #:+world+
+   #:world-loaded))
