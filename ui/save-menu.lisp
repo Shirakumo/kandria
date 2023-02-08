@@ -85,9 +85,9 @@
   (trial:commit (texture button) (loader +main+) :unload NIL))
 
 (defmethod alloy:activate ((button save-button))
-  (harmony:play (// 'sound 'ui-start-game))
   (ecase (intent button)
     (:new
+     (harmony:play (// 'sound 'ui-start-game))
      (labels ((launch-new-game (name)
                 (setf (state +main+) (alloy:value button))
                 (setf (author (state +main+)) name)
@@ -104,6 +104,7 @@
                  :height (alloy:un 300)))))
     (:load
      (when (exists-p (alloy:value button))
+       (harmony:play (// 'sound 'ui-start-game))
        (handler-case
            (with-error-logging (:kandria.save)
              (resume-state (alloy:value button) +main+))
