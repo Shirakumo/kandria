@@ -58,7 +58,11 @@
    #:description
    #:upstream
    #:preview
+   #:module-root
+   #:module-package
+   #:list-worlds
    #:list-modules
    #:load-module
    #:find-module
-   #:define-module))
+   #:define-module
+   #:register-worlds))

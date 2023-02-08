@@ -37,6 +37,14 @@
 (defgeneric module-package (module))
 (defgeneric module-root (module))
 
+(defmethod module-root ((default (eql T)))
+  (module-root *package*))
+
+(defmethod module-root ((package package))
+  (let ((var (or (find-symbol (string '#:*module-root*) package)
+                 (error "This is not a module package:~% ~a" package))))
+    (symbol-value var)))
+
 (defmethod module-package (module-name)
   (module-package (or (find-module module-name)
                       (error "No module named ~s" module-name))))
@@ -214,11 +222,6 @@
 
        (defmethod module-package ((,class-name ,class-name))
          (find-package ',package-name)))))
-
-(defmethod module-root ((package package))
-  (let ((var (or (find-symbol (string '#:*module-root*) package)
-                 (error "This is not a module package:~% ~a" package))))
-    (symbol-value var)))
 
 (defun register-worlds (&optional (root-or-worlds *package*))
   (etypecase root-or-worlds

@@ -7,3 +7,5 @@ doc/*.html
 data/music/*.wav
 docs/news.html
 Thumbs.db
+trace.dat
+*.graph
