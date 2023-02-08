@@ -16,6 +16,8 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Noob
 - Fix target framerate not being applied when starting the game
   Reported by Th30n
+- Don't play the "begin game" sound effect when trying to load an empty file
+  Implemented by Duuqnd
 
 ## 1.0.5
 - Fix race achievement checks not properly considering gold timing
