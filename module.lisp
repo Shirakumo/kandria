@@ -24,7 +24,7 @@
 (defun list-worlds ()
   (sort (copy-list *worlds*) #'string< :key #'title))
 
-(defclass module (alloy:observable-object)
+(defclass module (listener alloy:observable-object)
   ((name :initarg :name :initform (arg! :name) :accessor name)
    (title :initarg :title :initform (arg! :title) :accessor title)
    (version :initarg :version :initform (arg! :version) :accessor version)

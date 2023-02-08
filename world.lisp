@@ -153,6 +153,9 @@
     (when +achievement-api+
       (handle event +achievement-api+)))
   (let ((handler (car (handler-stack world))))
+    (loop for module being the hash-values of *modules*
+          do (when (active-p module)
+               (handle event module)))
     (cond (handler
            (handle event (unit :controller world))
            (handle event (camera +world+))
