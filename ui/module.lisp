@@ -166,6 +166,7 @@
     (alloy:enter list clipper)
     (alloy:enter clipper layout :constraints `((:width 250) (:left 0) (:bottom 0) (:top 0)))
     (alloy:enter preview layout :constraints `((:right-of ,clipper 10) (:top 10) (:bottom 10) (:right 10)))
+    ;; TODO: make this refresh when world / mod list changes.
     (dolist (world (list-worlds))
       (let ((button (make-instance 'tab-button :data (make-instance 'alloy:value-data :value (title world)) :layout-parent list)))
         (alloy:on alloy:focus (value button)

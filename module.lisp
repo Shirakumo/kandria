@@ -240,3 +240,7 @@
             (register-worlds (merge-pathnames "*.zip" root-or-worlds)))
            (T
             (register-worlds (list root-or-worlds)))))))
+
+;; TODO: add unregister-world mechanism
+;; TODO: add unload-module mechanism
+;; TODO: auto-unregister worlds when unloading mod
