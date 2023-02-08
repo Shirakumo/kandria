@@ -129,7 +129,7 @@
   (+ (- (get-universal-time) (timestamp main))
      (play-time (state main)))
   ;; FIXME: This is /not/ correct either as it's influenced by time dilution and dilation.
-  (when (scene main)
+  (when (and main (scene main))
     (clock (scene main))))
 
 (defun main ()

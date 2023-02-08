@@ -225,8 +225,12 @@
     (list
      (dolist (file root-or-worlds)
        (let ((world (handler-case (minimal-load-world file)
-                      (error (e) (v:debug :kandria.module "Ignoring ~a" e)))))
-         (setf *worlds* (list* world (remove world *worlds* :key #'id :test #'string=))))))
+                      #+kandria-release
+                      (error (e)
+                        (v:warn :kandria.module "Ignoring ~a as a world: ~a" file e)
+                        (v:debug :kandria.module e)))))
+         (when world
+           (setf *worlds* (list* world (remove (id world) *worlds* :key #'id :test #'string=)))))))
     ((or module package)
      (register-worlds (module-root root-or-worlds)))
     (pathname
