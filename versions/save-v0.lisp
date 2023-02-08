@@ -62,7 +62,9 @@
   (setf depot (if (depot:entry-exists-p (id world) depot)
                   (depot:entry (id world) depot)
                   (error 'no-save-for-world)))
-  (destructuring-bind (world-data &optional env-data region-data) (parse-sexps (depot:read-from (depot:entry "world.lisp" depot) 'character))
+  (destructuring-bind (world-data &optional env-data region-data)
+      (with-lenient-reader (:kandria.save)
+        (parse-sexps (depot:read-from (depot:entry "world.lisp" depot) 'character)))
     (destructuring-bind (&key (clock 0.0) (timestamp (initial-timestamp)) &allow-other-keys) world-data
       (setf (clock world) clock)
       (setf (timestamp world) timestamp)
@@ -100,7 +102,9 @@
       storyline)))
 
 (define-decoder (quest:storyline save-v1.1) (_b depot)
-  (destructuring-bind ((storyline &key variables) . quests) (parse-sexps (depot:read-from (depot:entry "storyline.lisp" depot) 'character))
+  (destructuring-bind ((storyline &key variables) . quests)
+      (with-lenient-reader (:kandria.save)
+        (parse-sexps (depot:read-from (depot:entry "storyline.lisp" depot) 'character)))
     (let ((storyline (if (null storyline)
                          (make-instance 'quest:storyline)
                          (quest:find-named storyline T))))

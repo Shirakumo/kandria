@@ -746,3 +746,13 @@
        (depot:read-from file tempfile)
        ;; FIXME: *load-pathname* / *load-truename* make no sense here...
        (cl:load tempfile)))))
+
+(defmacro with-lenient-reader ((&optional (category :kandria) (format "Ignoring reader error ~a")) &body body)
+  `(handler-bind ((sb-int:simple-reader-package-error
+                    (lambda (e)
+                      (v:warn ,category ,format e)
+                      (v:debug ,category e)
+                      (if (find-restart 'unintern)
+                          (invoke-restart 'unintern)
+                          (invoke-restart 'continue)))))
+     ,@body))
