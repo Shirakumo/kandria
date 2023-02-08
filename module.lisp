@@ -42,7 +42,8 @@
 
 (defmethod (setf active-p) :before (value (module module))
   (when value
-    (load-module module)))
+    (load-module module)
+    (save-active-module-list)))
 
 (defun minimal-load-module (file)
   (depot:with-depot (depot file)
@@ -89,6 +90,7 @@
     (sort modules #'string< :key #'name)))
 
 (defun save-active-module-list ()
+  (v:info :kandria.module "Saving active module list")
   (with-open-file (stream (make-pathname :name "modules" :type "lisp" :defaults (config-directory))
                           :if-exists :supersede)
     (dolist (module (list-modules :active))
