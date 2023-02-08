@@ -4,7 +4,8 @@
   ((name :initarg :name :accessor name))
   (:report (lambda (c s) (format s "No source for module with name ~s found." (name c)))))
 
-(defvar *modules* (make-hash-table :test 'eql))
+(defvar *modules* (make-hash-table :test 'equal))
+(defvar *worlds* ())
 
 (defmethod module-config-directory ((name string))
   (pathname-utils:subdirectory (config-directory) "mods" name))
@@ -30,6 +31,13 @@
    (preview :initarg :preview :initform NIL :accessor preview)
    (active-p :initarg :active-p :initform NIL :accessor active-p)))
 
+(defgeneric module-package (module))
+(defgeneric module-root (module))
+
+(defmethod module-package (module-name)
+  (module-package (or (find-module module-name)
+                      (error "No module named ~s" module-name))))
+
 (defmethod module-config-directory ((module module))
   (module-config-directory (name module)))
 
@@ -42,8 +50,10 @@
 
 (defmethod (setf active-p) :before (value (module module))
   (when value
-    (load-module module)
-    (save-active-module-list)))
+    (load-module module)))
+
+(defmethod (setf active-p) :after (value (module module))
+  (save-active-module-list))
 
 (defun minimal-load-module (file)
   (depot:with-depot (depot file)
@@ -92,7 +102,7 @@
 (defun save-active-module-list ()
   (v:info :kandria.module "Saving active module list")
   (with-open-file (stream (make-pathname :name "modules" :type "lisp" :defaults (config-directory))
-                          :if-exists :supersede)
+                          :direction :output :if-exists :supersede)
     (dolist (module (list-modules :active))
       (princ* (name module) stream))))
 
@@ -123,7 +133,7 @@
       (parse-sexps (depot:read-from (depot:entry "meta.lisp" depot) 'character))
     (assert (eq 'module (getf header :identifier)))
     (let ((version (coerce-version (getf header :version))))
-      (decode-payload initargs 'module depot version))))
+      (decode-payload initargs (allocate-instance (find-class 'module)) depot version))))
 
 (defmethod load-module ((module module))
   module)
@@ -134,14 +144,16 @@
   module)
 
 (defmethod load-module :after ((module module))
-  (setf (gethash (name module) *modules*) module)
+  (register-worlds module)
+  (setf (gethash (string-downcase (name module)) *modules*) module)
   (setf (slot-value module 'active-p) T))
 
 (defmethod load-module ((module stub-module))
+  (setf (gethash (string-downcase (name module)) *modules*) module)
   (load-module (file module)))
 
 (defmethod find-module ((name symbol))
-  (gethash name *modules*))
+  (gethash (string-downcase name) *modules*))
 
 (defun ensure-mod-package ()
   (let ((package (or (find-package '#:org.shirakumo.fraf.kandria.mod)
@@ -183,8 +195,41 @@
           (#:sequences #:org.shirakumo.trivial-extensible-sequences)
           ,@local-nicknames)
          ,@(remove use (remove local-nicknames options)))
-       (in-package ,package-name)
-       
+       (,'in-package ,package-name)
+
+       (set (intern (string '#:*module-root*) ,package-name)
+            ,(make-pathname :name NIL :type NIL :defaults
+                            (or *compile-file-truename* *load-truename*
+                                (error "You must compile or load this file."))))
+
        (defclass ,class-name (,@superclasses module)
          ((name :initform ',name)
-          ,@slots)))))
+          ,@slots))
+
+       (defmethod module-root ((,class-name ,class-name))
+         (symbol-value (intern (string '#:*module-root*) ,package-name)))
+
+       (defmethod module-package ((,class-name ,class-name))
+         (find-package ',package-name)))))
+
+(defmethod module-root ((package package))
+  (let ((var (or (find-symbol (string '#:*module-root*) package)
+                 (error "This is not a module package:~% ~a" package))))
+    (symbol-value var)))
+
+(defun register-worlds (&optional (root-or-worlds *package*))
+  (etypecase root-or-worlds
+    (list
+     (dolist (file root-or-worlds)
+       (let ((world (handler-case (minimal-load-world file)
+                      (error (e) (v:debug :kandria.module "Ignoring ~a" e)))))
+         (setf *worlds* (list* world (remove world *worlds* :key #'id :test #'string=))))))
+    ((or module package)
+     (register-worlds (module-root root-or-worlds)))
+    (pathname
+     (cond ((wild-pathname-p root-or-worlds)
+            (register-worlds (directory root-or-worlds)))
+           ((pathname-utils:directory-p root-or-worlds)
+            (register-worlds (merge-pathnames "*.zip" root-or-worlds)))
+           (T
+            (register-worlds (list root-or-worlds)))))))
