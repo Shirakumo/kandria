@@ -36,6 +36,49 @@
    :image alloy:value
    :sizing :contain))
 
+(defclass module-title (alloy:label) ())
+
+(presentations:define-realization (ui module-title)
+  ((:label simple:text)
+   (alloy:margins)
+   alloy:text
+   :font (setting :display :font)
+   :wrap T
+   :size (alloy:un 30)
+   :halign :start
+   :valign :middle))
+
+(defclass module-label (alloy:label) ())
+
+(presentations:define-realization (ui module-label)
+  ((:label simple:text)
+   (alloy:margins)
+   alloy:text
+   :font (setting :display :font)
+   :wrap T
+   :size (alloy:un 14)
+   :halign :start
+   :valign :middle))
+
+(defclass module-description (alloy:label) ())
+
+(presentations:define-realization (ui module-description)
+  ((:background simple:rectangle)
+   (alloy:margins)
+   :pattern colors:black)
+  ((:label simple:text)
+   (alloy:margins 5)
+   alloy:text
+   :font (setting :display :font)
+   :wrap T
+   :size (alloy:un 14)
+   :halign :start
+   :valign :top))
+
+(presentations:define-update (ui module-description)
+  (:label
+   :pattern colors:white))
+
 (defclass module-preview (alloy:structure alloy:delegate-data)
   ())
 
@@ -43,22 +86,22 @@
   (let* ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
          (focus (make-instance 'alloy:focus-list))
          (icon (alloy:represent-with 'icon* preview :value-function 'preview))
-         (title (alloy:represent-with 'alloy:label preview :value-function 'title
-                                                           :style `((:label :halign :left :valign :middle
-                                                                            :size ,(alloy:un 30)))))
-         (description (alloy:represent-with 'alloy:label preview :value-function 'description
-                                                           :style `((:label :halign :left :valign :top
-                                                                            :wrap T))))
+         (title (alloy:represent-with 'module-title preview :value-function 'title))
+         (description (alloy:represent-with 'module-description preview :value-function 'description))
          (data (make-instance 'alloy:grid-layout :col-sizes '(100 T) :row-sizes '(30)))
-         (active-p (alloy:represent-with 'alloy:labelled-switch preview :value-function 'active-p :focus-parent focus :text "Active")))
+         (active-p (alloy:represent-with 'alloy:labelled-switch preview :value-function 'active-p :focus-parent focus :text (@ module-active-switch))))
     (alloy:on alloy:activate (active-p)
       (setf (active-p (alloy:object preview)) (alloy:value active-p)))
-    (alloy:enter "Name" data) (alloy:represent-with 'alloy:label preview :value-function 'name :layout-parent data)
-    (alloy:enter "Author" data) (alloy:represent-with 'alloy:label preview :value-function 'author :layout-parent data)
-    (alloy:enter "Version" data) (alloy:represent-with 'alloy:label preview :value-function 'version :layout-parent data)
-    (alloy:enter "Upstream" data) (alloy:represent-with 'alloy:label preview :value-function 'upstream :layout-parent data)
-    (alloy:enter icon layout :constraints `((:left 5) (:top 5) (:width 300) (:aspect-ratio 16/9)))
-    (alloy:enter description layout :constraints `((:top 5) (:bottom 5) (:right 5) (:right-of ,icon 5)))
+    (macrolet ((label (lang function)
+                 `(progn
+                    (alloy:represent (@ ,lang) 'module-label :layout-parent data)
+                    (alloy:represent-with 'module-label preview :value-function ',function :layout-parent data))))
+      (label module-name name)
+      (label module-author-list author)
+      (label module-version version)
+      (label module-upstream-url upstream))
+    (alloy:enter icon layout :constraints `((:left 5) (:top 0) (:width 300) (:aspect-ratio 16/9)))
+    (alloy:enter description layout :constraints `((:top 0) (:bottom 0) (:right 5) (:right-of ,icon 10)))
     (alloy:enter active-p layout :constraints `((:chain :down ,icon 5) (:height 30)))
     (alloy:enter title layout :constraints `((:chain :down ,active-p 5) (:height 50)))
     (alloy:enter data layout :constraints `((:chain :down ,title 5) (:height 500)))
@@ -87,7 +130,7 @@
                               :min-size (alloy:size 100 50))))
     (alloy:enter preview focus :layer 2)
     (alloy:enter list clipper)
-    (alloy:enter preview layout :constraints `((:left 50) (:right 430) (:bottom 100) (:top 20)))
+    (alloy:enter preview layout :constraints `((:left 50) (:right 370) (:bottom 100) (:top 20)))
     (alloy:enter clipper layout :constraints `((:width 300) (:right 70) (:bottom 100) (:top 20)))
     (alloy:enter scroll layout :constraints `((:width 20) (:right 50) (:bottom 100) (:top 20)))
     (dolist (module (list-modules :available))
