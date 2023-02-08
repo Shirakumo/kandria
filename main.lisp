@@ -29,6 +29,7 @@
     (when (depot:entry-exists-p "meta.lisp" depot)
       (setf initargs (second (parse-sexps (depot:read-from (depot:entry "meta.lisp" depot) 'character)))))
     (setf (scene main) (apply #'make-instance 'world :depot depot initargs)))
+  (pushnew (scene main) *worlds* :key #'id :test #'string=)
   (when (and world (null state))
     (setf state :new))
   (etypecase state

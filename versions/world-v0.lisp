@@ -4,6 +4,8 @@
 
 (defclass world-v0 (v0) ())
 
+(defmethod supported-p ((_ world-v0)) T)
+
 (defun current-world-version ()
   (make-instance 'world-v0))
 

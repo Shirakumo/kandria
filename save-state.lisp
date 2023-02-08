@@ -1,7 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (define-condition unsupported-save-file (error)
-  ())
+  ((version :initarg :version :accessor version)))
 
 (define-condition no-save-for-world (error)
   ())
@@ -174,8 +174,7 @@
         (hide-timer))
       (let ((bg (unit 'background T)))
         (when bg
-          (setf (background bg) (background 'black))
-          (update-background bg T)))
+          (setf (background bg) (background 'black))))
       (setf (action-lists world) ())
       (setf (area-states (unit 'environment world)) NIL)
       (let ((version (coerce-version (getf header :version))))

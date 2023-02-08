@@ -21,6 +21,9 @@
       (first (directory (make-pathname :name (string-downcase name) :type :wild :defaults (module-directory))))
       (error 'module-source-not-found :name name)))
 
+(defun list-worlds ()
+  (sort (copy-list *worlds*) #'string< :key #'title))
+
 (defclass module (alloy:observable-object)
   ((name :initarg :name :initform (arg! :name) :accessor name)
    (title :initarg :title :initform (arg! :title) :accessor title)
