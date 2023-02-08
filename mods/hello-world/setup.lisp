@@ -6,4 +6,5 @@
   (if *context*
       (show-panel 'info-panel :text "Hello world!")
       (v:info :kandria.mod.hello-world "Hello world!"))
-  (register-worlds (merge-pathnames "world/" *module-root*)))
+  (register-worlds (merge-pathnames "world/" (module-root T))))
+

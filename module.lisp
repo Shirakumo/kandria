@@ -235,14 +235,11 @@
          (when world
            (setf *worlds* (list* world (remove (id world) *worlds* :key #'id :test #'string=)))))))
     ((or module package)
-     (register-worlds (module-root root-or-worlds)))
+     (register-worlds (merge-pathnames "*.zip" (module-root root-or-worlds))))
     (pathname
-     (cond ((wild-pathname-p root-or-worlds)
-            (register-worlds (directory root-or-worlds)))
-           ((pathname-utils:directory-p root-or-worlds)
-            (register-worlds (merge-pathnames "*.zip" root-or-worlds)))
-           (T
-            (register-worlds (list root-or-worlds)))))))
+     (if (wild-pathname-p root-or-worlds)
+         (register-worlds (directory root-or-worlds))
+         (register-worlds (list root-or-worlds))))))
 
 ;; TODO: add unregister-world mechanism
 ;; TODO: add unload-module mechanism
