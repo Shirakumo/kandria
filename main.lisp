@@ -53,7 +53,7 @@
   (setf (mixed:max-distance harmony:*server*) (* +tile-size+ (vx +tiles-in-view+)))
   (setf (game-speed main) (setting :gameplay :game-speed))
   (load-achievement-data T)
-  (register-modules)
+  (register-module T)
   (unless (setting :debugging :dont-load-mods)
     (load-active-module-list)))
 

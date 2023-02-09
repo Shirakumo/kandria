@@ -103,17 +103,20 @@
                (when +world+ (issue +world+ 'module-registered :module module))))
         (setf (find-module T) module)))))
 
-(defun register-modules ()
+(defmethod register-module ((file pathname))
+  (handler-case (minimal-load-module file)
+    (unsupported-save-file ()
+      (v:warn :kandria.module "Module version ~s is too old, ignoring." file)
+      NIL)
+    #+kandria-release
+    (error (e)
+      (v:warn :kandria.module "Module ~s failed to register, ignoring." file)
+      (v:debug :kandria.module e)
+      NIL)))
+
+(defmethod register-module ((defaults (eql T)))
   (dolist (file (filesystem-utils:list-contents (module-directory)))
-    (handler-case (minimal-load-module file)
-      (unsupported-save-file ()
-        (v:warn :kandria.module "Module version ~s is too old, ignoring." file)
-        NIL)
-      #+kandria-release
-      (error (e)
-        (v:warn :kandria.module "Module ~s failed to register, ignoring." file)
-        (v:debug :kandria.module e)
-        NIL))))
+    (register-module file)))
 
 (defun list-modules (&optional (kind :active))
   (sort (ecase kind

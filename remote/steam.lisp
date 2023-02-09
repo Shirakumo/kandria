@@ -57,3 +57,10 @@
                                   :preview (preview module))))
     (setf (file remote) (file module))
     (upload-module client remote)))
+
+(steam:define-callback steam*::download-item (result app-id published-file-id result)
+  (when (eql app-id (steam:app-id (steam:interface 'steam:steamutils T)))
+    (destructuring-bind (&key directory &allow-other-keys) (steam:installation-info (make-intsance 'steam:workshop-file :iface (steam:interface 'steam:steamworkshop T)
+                                                                                                                        :handle published-file-id))
+      (when directory
+        (register-module directory)))))
