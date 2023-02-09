@@ -14,7 +14,10 @@
   (org.shirakumo.zippy:compress-zip
    (pathname-utils:subdirectory (data-root) "world")
    (make-pathname :name "world" :type "zip" :defaults directory)
-   :strip-root T :if-exists :supersede))
+   :strip-root T :if-exists :supersede)
+  (deploy:copy-directory-tree
+   (pathname-utils:subdirectory (data-root) "mods")
+   directory))
 
 #+linux
 (trial::dont-deploy

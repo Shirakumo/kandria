@@ -16,6 +16,11 @@
     "recursive" "1"
   }
   "FileMapping"{
+    "LocalPath" "mods/*"
+    "DepotPath" "mods/"
+    "recursive" "1"
+  }
+  "FileMapping"{
     "LocalPath" "world.zip"
     "DepotPath" "."
   }

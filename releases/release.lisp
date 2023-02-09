@@ -16,7 +16,7 @@
   :depots (:linux ("*.so" "kandria-linux.run")
            :windows ("*.dll" "kandria-windows.exe")
            :macos ("*.dylib" "kandria-macos.o")
-           :content ("pool/" "lang/" "world.zip" "CHANGES.mess" "README.mess" "keymap.lisp"))
+           :content ("pool/" "mods/" "lang/" "world.zip" "CHANGES.mess" "README.mess" "keymap.lisp"))
   :bundles (:linux (:depots (:linux :content))
             :windows (:depots (:windows :content))
             :macos (:depots (:macos :content))
