@@ -26,6 +26,11 @@
               append (worlds module))
         #'string< :key #'title))
 
+(define-event module-event () (module))
+(define-event module-loaded (module-event))
+(define-event module-unloaded (module-event))
+(define-event module-registered (module-event))
+
 (defclass module (listener alloy:observable-object)
   ((id :initarg :id :initform (make-uuid) :accessor id)
    (title :initarg :title :initform (arg! :title) :accessor title)
@@ -91,9 +96,11 @@
           (push temp initargs)
           (push :preview initargs)))
       (let ((module (find-module (getf initargs :id))))
-        (if module
-            (apply #'reinitialize-instance module :file file initargs)
-            (setf module (apply #'make-instance 'stub-module :file file initargs)))
+        (cond (module
+               (apply #'reinitialize-instance module :file file initargs))
+              (T
+               (setf module (apply #'make-instance 'stub-module :file file initargs))
+               (when +world+ (issue +world+ 'module-registered :module module))))
         (setf (find-module T) module)))))
 
 (defun register-modules ()
@@ -194,7 +201,8 @@
 (defmethod load-module :after ((module module))
   (register-worlds module)
   (setf (find-module T) module)
-  (setf (slot-value module 'active-p) T))
+  (setf (slot-value module 'active-p) T)
+  (when +world+ (issue +world+ 'module-loaded :module module)))
 
 (defmethod load-module ((module stub-module))
   (load-module (file module)))
@@ -205,7 +213,8 @@
 (defmethod unload-module :after ((module module))
   (setf (slot-value module 'active-p) NIL)
   (delete-package (module-package module))
-  (change-class module 'stub-module))
+  (change-class module 'stub-module)
+  (when +world+ (issue +world+ 'module-unloaded :module module)))
 
 (defun ensure-mod-package ()
   (let ((package (or (find-package '#:org.shirakumo.fraf.kandria.mod)
