@@ -6,6 +6,9 @@
     (modio:restore-user-properties modio:*client* (setting :modio)))
   modio:*client*)
 
+(defmethod modio::complete-authentication :after ((client modio:client) data)
+  (setf (setting :modio) (modio:extract-user-properties client)))
+
 (pushnew 'modio-remote *remote-funcs*)
 
 (defclass modio-module (modio:mod stub-module)
