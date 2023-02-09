@@ -12,6 +12,10 @@
                    :preview (steam:preview mod)
                    :upstream (steam:url mod)))
 
+(defmethod register-module ((client steam:steamworkshop))
+  (dolist (mod (steam:list-subscribed-files client))
+    (install-module client (ensure-steam-module mod))))
+
 (defmethod search-module ((client steam:steamworkshop) (id string))
   (let ((mods (steam:query client (steam:app (steam:interface 'steam:steamapps T))
                            :key-value-tags `(("id" . ,id)) :request '(:full-description :metadata))))
@@ -29,8 +33,20 @@
 (defmethod unsubscribe-module ((client steam:steamworkshop) (file steam:workshop-file))
   (steam:unsubscribe file))
 
-(defmethod install-module ((client steam:steamworkshop) (file steam-module))
-  (steam:download file))
+(defmethod install-module ((client steam:steamworkshop) (file steam:workshop-file))
+  (case (steam:state file)
+    (:installed
+     (destructuring-bind (&key directory &allow-other-keys) (steam:installation-info file)
+       (if directory
+           (register-module directory)
+           (v:warn :kandria.module.steam "No directory for mod ~a" file))))
+    ((:needs-update :downloading :download-pending :subscribed)
+     (steam:download file))
+    (:legacy-item
+     (error "Can't deal with legacy item ~a" file))
+    (:none
+     (steam:subscribe file)
+     (steam:download file))))
 
 (defmethod upload-module ((client steam:steamworkshop) (file steam-module))
   (let ((update (make-instance 'steam:workshop-update :interface client :workshop-file file)))
@@ -47,8 +63,6 @@
   (let ((remote (search-module client module)))
     (unless remote
       (setf remote (make-instance 'steam-module
-                                  :app (steam:app (steam:interface 'steam:steamapps T))
-                                  :kind :community
                                   :id (id module)
                                   :title (title module)
                                   :author (author module)
@@ -60,7 +74,7 @@
 
 (steam:define-callback steam*::download-item (result app-id published-file-id result)
   (when (eql app-id (steam:app-id (steam:interface 'steam:steamutils T)))
-    (destructuring-bind (&key directory &allow-other-keys) (steam:installation-info (make-intsance 'steam:workshop-file :iface (steam:interface 'steam:steamworkshop T)
-                                                                                                                        :handle published-file-id))
-      (when directory
-        (register-module directory)))))
+    (if (eql :ok result)
+        (let ((iface (steam:interface 'steam:steamworkshop T)))
+          (install-module iface (make-instance 'steam:workshop-file :interface iface :handle published-file-id)))
+        (v:warn :kandria.module.steam "Item download for ~a failed: ~a" published-file-id result))))

@@ -7,6 +7,10 @@
 (defclass modio-module (modio:mod stub-module)
   ())
 
+(defmethod register-module ((client modio:client))
+  (dolist (mod (modio:me/subscribed client :game (modio:default-game-id client)))
+    (install-module client (ensure-modio-module mod))))
+
 (defmethod search-module ((client modio:client) (module modio-module))
   module)
 
@@ -56,8 +60,12 @@
   (modio:games/mods/unsubscribe client (modio:default-game-id client) (modio:id module)))
 
 (defmethod install-module ((client modio:client) (module modio-module))
-  (modio:download-modfile (modio:modfile module) (make-pathname :name (id module) :type "zip" :defaults (module-directory))
-                          :if-exists :supersede))
+  (let ((file (make-pathname :name (id module) :type "zip" :defaults (module-directory))))
+    (when (or (null (probe-file file))
+              (< (file-write-date file) (modio:date-added (modio:modfile module))))
+      (v:info :kandria.module.modio "Downloading modfile for ~a..." module)
+      (modio:download-modfile (modio:modfile module) file :if-exists :supersede))
+    (register-module file)))
 
 (defmethod upload-module ((client modio:client) (module module))
   (let ((remote (search-module client module)))

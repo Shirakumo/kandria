@@ -100,6 +100,7 @@
                (apply #'reinitialize-instance module :file file initargs))
               (T
                (setf module (apply #'make-instance 'stub-module :file file initargs))
+               (v:info :kandria.module "Registered ~a at ~a" module file)
                (when +world+ (issue +world+ 'module-registered :module module))))
         (setf (find-module T) module)))))
 
