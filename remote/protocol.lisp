@@ -1,5 +1,8 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+(define-condition not-authenticated (error)
+  ((remote :initarg :remote)))
+
 (defvar *remotes* ())
 
 (defgeneric search-module (remote id))

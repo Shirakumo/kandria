@@ -8,8 +8,11 @@
   ())
 
 (defmethod register-module ((client modio:client))
-  (dolist (mod (modio:me/subscribed client :game (modio:default-game-id client)))
-    (install-module client (ensure-modio-module mod))))
+  (modio:restore-user-properties client (setting :modio))
+  (if (modio:authenticated-p client)
+      (dolist (mod (modio:me/subscribed client :game (modio:default-game-id client)))
+        (install-module client (ensure-modio-module mod)))
+      (v:info :kandria.module.modio "Skipping listing subscribed mods as the client is not authenticated")))
 
 (defmethod search-module ((client modio:client) (module modio-module))
   module)
@@ -54,9 +57,11 @@
           (setf (preview mod) target))))))
 
 (defmethod subscribe-module ((client modio:client) (module modio-module))
+  (unless (modio:authenticated-p client) (error 'not-authenticated :remote client))
   (modio:games/mods/subscribe client (modio:default-game-id client) (modio:id module)))
 
 (defmethod unsubscribe-module ((client modio:client) (module modio-module))
+  (unless (modio:authenticated-p client) (error 'not-authenticated :remote client))
   (modio:games/mods/unsubscribe client (modio:default-game-id client) (modio:id module)))
 
 (defmethod install-module ((client modio:client) (module modio-module))
@@ -68,6 +73,7 @@
     (register-module file)))
 
 (defmethod upload-module ((client modio:client) (module module))
+  (unless (modio:authenticated-p client) (error 'not-authenticated :remote client))
   (let ((remote (search-module client module)))
     (cond (remote
            (setf (file remote) (file module))
@@ -84,6 +90,7 @@
                                          (file module) :version (version module)))))))
 
 (defmethod upload-module ((client modio:client) (module modio-module))
+  (unless (modio:authenticated-p client) (error 'not-authenticated :remote client))
   (modio:games/mods/edit client (modio:default-game-id client) (modio:id module)
                          :name (title module) :description (description module)
                          :homepage-url (upstream module) :logo (preview module))

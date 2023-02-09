@@ -13,8 +13,10 @@
                    :upstream (steam:url mod)))
 
 (defmethod register-module ((client steam:steamworkshop))
-  (dolist (mod (steam:list-subscribed-files client))
-    (install-module client (ensure-steam-module mod))))
+  (if (steam:steamworks-available-p)
+      (dolist (mod (steam:list-subscribed-files client))
+        (install-module client (ensure-steam-module mod)))
+      (v:info :kandria.module.steam "Skipping listing subscribed mods as the client is not authenticated")))
 
 (defmethod search-module ((client steam:steamworkshop) (id string))
   (let ((mods (steam:query client (steam:app (steam:interface 'steam:steamapps T))

@@ -96,12 +96,16 @@
           (push temp initargs)
           (push :preview initargs)))
       (let ((module (find-module (getf initargs :id))))
-        (cond (module
-               (apply #'reinitialize-instance module :file file initargs))
-              (T
+        (cond ((null module)
                (setf module (apply #'make-instance 'stub-module :file file initargs))
                (v:info :kandria.module "Registered ~a at ~a" module file)
-               (when +world+ (issue +world+ 'module-registered :module module))))
+               (when +world+ (issue +world+ 'module-registered :module module)))
+              ((or (null (file module))
+                   (null (probe-file (file module)))
+                   (<= (file-write-date (file module)) (file-write-date file)))
+               (apply #'reinitialize-instance module :file file initargs))
+              (T
+               (v:info :kandria.module "Refusing to update location of ~a to ~a as the new location is older." module file)))
         (setf (find-module T) module)))))
 
 (defmethod register-module ((file pathname))
