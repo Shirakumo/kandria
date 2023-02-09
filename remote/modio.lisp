@@ -4,7 +4,7 @@
   (setf modio:*client* (make-instance 'modio:client :default-game-id 4561 :api-key "33d270c5b4b2ca4de8c8520c9708f80c"))
   (pushnew modio:*client* *remotes*))
 
-(defclass modio-module (stub-module modio:mod)
+(defclass modio-module (modio:mod stub-module)
   ())
 
 (defmethod search-module ((client modio:client) (module modio-module))
@@ -13,6 +13,18 @@
 (defmethod search-module ((client modio:client) (id string))
   (first (modio:games/mods client (modio:default-game-id client)
                            :metadata (format NIL "id:~a" id))))
+
+(defun ensure-modio-module (mod)
+  (ensure-instance mod 'modio-module
+                   :id (or (gethash "id" (modio:metadata mod))
+                           (modio:name-id mod)
+                           (princ-to-string (modio:id mod)))
+                   :title (modio:name mod)
+                   :author (list (modio:name (modio:submitted-by mod)))
+                   :version (modio:version (modio:modfile mod))
+                   :description (modio:description mod)
+                   :upstream (or (modio:homepage-url mod)
+                                 (modio:profile-url mod))))
 
 (defmethod search-modules ((client modio:client) query &key (page 0) (ignore-cache NIL))
   (let ((mods (modio:games/mods client (modio:default-game-id client)
@@ -23,16 +35,7 @@
                                 :sort :name
                                 :ignore-cache ignore-cache)))
     (dolist (mod mods mods)
-      (ensure-instance mod 'modio-module
-                       :id (or (gethash "id" (modio:metadata mod))
-                               (modio:name-id mod)
-                               (princ-to-string (modio:id mod)))
-                       :title (modio:name mod)
-                       :author (list (modio:name (modio:submitted-by mod)))
-                       :version (modio:version (modio:modfile mod))
-                       :description (modio:description mod)
-                       :upstream (or (modio:homepage-url mod)
-                                     (modio:profile-url mod)))
+      (ensure-modio-module mod)
       (when (and (modio:logo mod)
                  (null (preview mod)))
         (let ((target (tempfile :id (id mod) :type "png"))
@@ -54,3 +57,27 @@
 (defmethod install-module ((client modio:client) (module modio-module))
   (modio:download-modfile (modio:modfile module) (make-pathname :name (id module) :type "zip" :defaults (module-directory))
                           :if-exists :supersede))
+
+(defmethod upload-module ((client modio:client) (module module))
+  (let ((remote (search-module client module)))
+    (cond (remote
+           (let ((mod (ensure-modio-module remote)))
+             (setf (file mod) (file module))
+             (upload-module client mod)))
+          (T ;; Upload a new module
+           (let ((mod (ensure-modio-module
+                       (modio:games/mods/add
+                        client (modio:default-game-id client) (title module) (description module)
+                        (or (preview module))
+                        :homepage-url (upstream module)))))
+             (modio:games/mods/metadata/add client (modio:default-game-id client) (modio:id mod)
+                                            :metadata (mktab "id" (id module)))
+             (modio:games/mods/files/add client (modio:default-game-id client) (modio:id mod)
+                                         (file module) :version (version module)))))))
+
+(defmethod upload-module ((client modio:client) (module modio-module))
+  (modio:games/mods/edit client (modio:default-game-id client) (modio:id module)
+                         :name (title module) :description (description module)
+                         :homepage-url (upstream module) :logo (preview module))
+  (modio:games/mods/files/add client (modio:default-game-id client) (modio:id module)
+                              (file module) :version (version module)))

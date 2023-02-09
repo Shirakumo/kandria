@@ -7,6 +7,7 @@
 (defgeneric subscribe-module (remote module))
 (defgeneric unsubscribe-module (remote module))
 (defgeneric install-module (remote module))
+(defgeneric upload-module (remote module))
 
 (defmethod search-module (remote (module module))
   (search-module remote (id module)))
