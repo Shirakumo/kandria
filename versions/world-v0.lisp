@@ -52,7 +52,7 @@
                         ,@body))))))
     (let ((depot (depot:ensure-entry "init" depot :type :directory)))
       (with-maybe-entry "meta.lisp"
-        (princ* `(:identifier save-state :version ,(type-of (current-save-version))))
+        (princ* `(:identifier save-state :version ,(type-of world-v0)))
         (princ* `()))
       (with-maybe-entry "global.lisp"
         (princ* `(:region ,(name (region world))))

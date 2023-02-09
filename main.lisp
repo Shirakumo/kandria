@@ -29,7 +29,6 @@
     (when (depot:entry-exists-p "meta.lisp" depot)
       (setf initargs (second (parse-sexps (depot:read-from (depot:entry "meta.lisp" depot) 'character)))))
     (setf (scene main) (apply #'make-instance 'world :depot depot initargs)))
-  (pushnew (scene main) *worlds* :key #'id :test #'string=)
   (when (and world (null state))
     (setf state :new))
   (etypecase state
@@ -53,7 +52,10 @@
   (setf (mixed:min-distance harmony:*server*) (* +tile-size+ 5))
   (setf (mixed:max-distance harmony:*server*) (* +tile-size+ (vx +tiles-in-view+)))
   (setf (game-speed main) (setting :gameplay :game-speed))
-  (load-achievement-data T))
+  (load-achievement-data T)
+  (register-modules)
+  (unless (setting :debugging :dont-load-mods)
+    (load-active-module-list)))
 
 (defmethod update ((main main) tt dt fc)
   (promise:tick-all dt)
@@ -204,8 +206,6 @@ Possible sub-commands:
      (load-settings))
     (save-settings)
     (manage-swank)
-    (unless (setting :debugging :dont-load-mods)
-      (load-module :active))
     (apply #'trial:launch 'main
            (append (setting :debugging :initargs)
                    initargs

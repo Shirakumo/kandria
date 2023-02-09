@@ -5,7 +5,6 @@
   (:report (lambda (c s) (format s "No source for module with name ~s found." (name c)))))
 
 (defvar *modules* (make-hash-table :test 'equal))
-(defvar *worlds* ())
 
 (defmethod module-config-directory ((name string))
   (pathname-utils:subdirectory (config-directory) "mods" name))
@@ -22,20 +21,31 @@
       (error 'module-source-not-found :name name)))
 
 (defun list-worlds ()
-  (sort (copy-list *worlds*) #'string< :key #'title))
+  (sort (loop for module being the hash-values of *modules*
+              when (active-p module)
+              append (worlds module))
+        #'string< :key #'title))
 
 (defclass module (listener alloy:observable-object)
-  ((name :initarg :name :initform (arg! :name) :accessor name)
+  ((id :initarg :id :initform (make-uuid) :accessor id)
    (title :initarg :title :initform (arg! :title) :accessor title)
    (version :initarg :version :initform (arg! :version) :accessor version)
    (author :initarg :author :initform (arg! :author) :accessor author)
    (description :initarg :description :initform "" :accessor description)
    (upstream :initarg :upstream :initform "" :accessor upstream)
    (preview :initarg :preview :initform NIL :accessor preview)
-   (active-p :initarg :active-p :initform NIL :accessor active-p)))
+   (active-p :initarg :active-p :initform NIL :accessor active-p)
+   (worlds :initform () :accessor worlds)
+   (file :initarg :file :accessor file)))
+
+(defmethod print-object ((module module) stream)
+  (print-unreadable-object (module stream :type T)
+    (format stream "~a ~a" (id module) (title module))))
 
 (defgeneric module-package (module))
 (defgeneric module-root (module))
+(defgeneric load-module (module))
+(defgeneric unload-module (module))
 
 (defmethod module-root ((default (eql T)))
   (module-root *package*))
@@ -50,21 +60,22 @@
                       (error "No module named ~s" module-name))))
 
 (defmethod module-config-directory ((module module))
-  (module-config-directory (name module)))
-
-(defmethod print-object ((module module) stream)
-  (print-unreadable-object (module stream :type T)
-    (format stream "~a" (name module))))
-
-(defclass stub-module (module)
-  ((file :initarg :file :accessor file)))
+  (module-config-directory (id module)))
 
 (defmethod (setf active-p) :before (value (module module))
-  (when value
-    (load-module module)))
+  (if value
+      (load-module module)
+      (unload-module module)))
 
 (defmethod (setf active-p) :after (value (module module))
   (save-active-module-list))
+
+(defclass stub-module (module)
+  ())
+
+(defmethod update-instance-for-different-class ((module module) (stub stub-module) &key)
+  (setf (slot-value stub 'active-p) NIL)
+  (setf (slot-value stub 'worlds) ()))
 
 (defun minimal-load-module (file)
   (depot:with-depot (depot file)
@@ -79,45 +90,71 @@
           (depot:read-from (depot:entry "preview.png" depot) temp :if-exists :supersede)
           (push temp initargs)
           (push :preview initargs)))
-      (apply #'make-instance 'stub-module :file file initargs))))
+      (let ((module (find-module (getf initargs :id))))
+        (if module
+            (apply #'reinitialize-instance module :file file initargs)
+            (setf module (apply #'make-instance 'stub-module :file file initargs)))
+        (setf (find-module T) module)))))
 
-(defun list-modules (&optional (kind :loaded))
-  (let ((modules (alexandria:hash-table-values *modules*)))
-    (flet ((try-minimal-load (file)
-             (handler-case (pushnew (minimal-load-module file) modules :key #'name)
-               (unsupported-save-file ()
-                 (v:warn :kandria.module "Module version ~s is too old, ignoring." file)
-                 NIL)
-               #+kandria-release
-               (error (e)
-                 (v:warn :kandria.module "Module ~s failed to load, ignoring." file)
-                 (v:debug :kandria.module e)
-                 NIL))))
-      (ecase kind
-        (:loaded)
-        (:available
-         (dolist (file (filesystem-utils:list-contents (module-directory)))
-           (try-minimal-load file)))
-        (:active
-         (setf modules (remove-if-not #'active-p modules))
-         (let ((path (make-pathname :name "modules" :type "lisp" :defaults (config-directory))))
-           (when (probe-file path)
-             (dolist (name (parse-sexps (alexandria:read-file-into-string path)))
-               (handler-case (try-minimal-load (find-module-file name))
-                 #+kandria-release
-                 (module-source-not-found (e)
-                   (v:warn :kandria.module "Module ~s failed to load, ignoring." name)
-                   (v:debug :kandria.module e)))))))))
-    (sort modules #'string< :key #'name)))
+(defun register-modules ()
+  (dolist (file (filesystem-utils:list-contents (module-directory)))
+    (handler-case (minimal-load-module file)
+      (unsupported-save-file ()
+        (v:warn :kandria.module "Module version ~s is too old, ignoring." file)
+        NIL)
+      #+kandria-release
+      (error (e)
+        (v:warn :kandria.module "Module ~s failed to register, ignoring." file)
+        (v:debug :kandria.module e)
+        NIL))))
+
+(defun list-modules (&optional (kind :active))
+  (sort (ecase kind
+          (:active
+           (loop for module being the hash-values of *modules*
+                 when (active-p module) collect module))
+          (:inactive
+           (loop for module being the hash-values of *modules*
+                 unless (active-p module) collect module))
+          (:available
+           (loop for module being the hash-values of *modules*
+                 collect module)))
+        #'string< :key #'title))
+
+(defmethod find-module ((id string))
+  (gethash (string-downcase id) *modules*))
+
+(defmethod (setf find-module) ((module module) (id string))
+  (setf (gethash (string-downcase id) *modules*) module))
+
+(defmethod (setf find-module) ((module module) (default (eql T)))
+  (setf (gethash (string-downcase (id module)) *modules*) module))
 
 (defun save-active-module-list ()
   (v:info :kandria.module "Saving active module list")
   (with-open-file (stream (make-pathname :name "modules" :type "lisp" :defaults (config-directory))
                           :direction :output :if-exists :supersede)
     (dolist (module (list-modules :active))
-      (princ* (name module) stream))))
+      (princ* (list (id module) (version module) (title module)) stream))))
 
-(defgeneric load-module (module))
+(defun load-active-module-list ()
+  (v:info :kandria.module "Loading active module list")
+  (with-open-file (stream (make-pathname :name "modules" :type "lisp" :defaults (config-directory))
+                          :direction :input :if-does-not-exist NIL)
+    (when stream
+      (loop for read = (read stream NIL #1='#:eof)
+            until (eq read #1#)
+            do (destructuring-bind (&optional id version title) read
+                 (declare (ignore title))
+                 (let ((module (find-module id)))
+                   (cond ((null module)
+                          (v:warn :kandria.module "No module with id~%  ~a~%found. Ignoring." id))
+                         ((string/= version (version module))
+                          (v:info :kandria.module "Module version is~%  ~a~%which differs from the one saved~%  ~a~%for~%  ~a"
+                                  (version module) version module)
+                          (load-module module))
+                         (T
+                          (load-module module)))))))))
 
 (defmethod load-module ((module null)))
 
@@ -156,15 +193,19 @@
 
 (defmethod load-module :after ((module module))
   (register-worlds module)
-  (setf (gethash (string-downcase (name module)) *modules*) module)
+  (setf (find-module T) module)
   (setf (slot-value module 'active-p) T))
 
 (defmethod load-module ((module stub-module))
-  (setf (gethash (string-downcase (name module)) *modules*) module)
   (load-module (file module)))
 
-(defmethod find-module ((name symbol))
-  (gethash (string-downcase name) *modules*))
+(defmethod unload-module ((module module))
+  module)
+
+(defmethod unload-module :after ((module module))
+  (setf (slot-value module 'active-p) NIL)
+  (delete-package (module-package module))
+  (change-class module 'stub-module))
 
 (defun ensure-mod-package ()
   (let ((package (or (find-package '#:org.shirakumo.fraf.kandria.mod)
@@ -177,15 +218,16 @@
 
 (ensure-mod-package)
 
-(defmacro define-module (name &optional superclasses slots &rest options)
-  (let* ((package-name (format NIL "~a.~a" '#:org.shirakumo.fraf.kandria.mod name))
-         (class-name (intern (string name) '#:org.shirakumo.fraf.kandria.mod))
-         (local-nicknames (find :local-nicknames options :key #'car))
-         (use (find :use options :key #'car)))
+(defmacro define-module (id &optional superclasses slots &rest options)
+  (let* ((package-name (format NIL "~a.~a" '#:org.shirakumo.fraf.kandria.mod id))
+         (package (or (find-package package-name)
+                      (make-package package-name)))
+         (class-name (intern (string '#:module) package)))
+    (shadow class-name package)
     `(progn
        (defpackage ,package-name
-         (:use #:org.shirakumo.fraf.kandria.mod ,@(rest use))
-         (:import-from #:org.shirakumo.fraf.kandria.mod ,(string class-name))
+         (:use #:org.shirakumo.fraf.kandria.mod)
+         (:shadow #:module)
          (:local-nicknames
           (#:fish #:org.shirakumo.fraf.kandria.fish)
           (#:item #:org.shirakumo.fraf.kandria.item)
@@ -203,44 +245,41 @@
           (#:steam #:org.shirakumo.fraf.steamworks)
           (#:depot #:org.shirakumo.depot)
           (#:action-list #:org.shirakumo.fraf.action-list)
-          (#:sequences #:org.shirakumo.trivial-extensible-sequences)
-          ,@local-nicknames)
-         ,@(remove use (remove local-nicknames options)))
+          (#:sequences #:org.shirakumo.trivial-extensible-sequences))
+         (:export #:module)
+         ,@options)
        (,'in-package ,package-name)
 
-       (set (intern (string '#:*module-root*) ,package-name)
-            ,(make-pathname :name NIL :type NIL :defaults
-                            (or *compile-file-truename* *load-truename*
-                                (error "You must compile or load this file."))))
+       (defvar ,(intern (string '#:*module-root*) package)
+         ,(make-pathname :name NIL :type NIL :defaults
+                         (or *compile-file-truename* *load-truename*
+                             (error "You must compile or load this file."))))
+
+       (defvar ,(intern (string '#:*module-root*) package)
+         ,(make-pathname :name NIL :type NIL :defaults
+                         (or *compile-file-truename* *load-truename*
+                             (error "You must compile or load this file."))))
+
+       (when (boundp '*module-class-name*)
+         (setf *module-class-name* ',class-name))
 
        (defclass ,class-name (,@superclasses module)
-         ((name :initform ',name)
-          ,@slots))
+         ,slots)
 
        (defmethod module-root ((,class-name ,class-name))
-         (symbol-value (intern (string '#:*module-root*) ,package-name)))
+         ,(intern (string '#:*module-root*) package-name))
 
        (defmethod module-package ((,class-name ,class-name))
-         (find-package ',package-name)))))
+         (find-package ,package-name)))))
 
-(defun register-worlds (&optional (root-or-worlds *package*))
-  (etypecase root-or-worlds
-    (list
-     (dolist (file root-or-worlds)
-       (let ((world (handler-case (minimal-load-world file)
-                      #+kandria-release
-                      (error (e)
-                        (v:warn :kandria.module "Ignoring ~a as a world: ~a" file e)
-                        (v:debug :kandria.module e)))))
-         (when world
-           (setf *worlds* (list* world (remove (id world) *worlds* :key #'id :test #'string=)))))))
-    ((or module package)
-     (register-worlds (merge-pathnames "*.zip" (module-root root-or-worlds))))
-    (pathname
-     (if (wild-pathname-p root-or-worlds)
-         (register-worlds (directory root-or-worlds))
-         (register-worlds (list root-or-worlds))))))
-
-;; TODO: add unregister-world mechanism
-;; TODO: add unload-module mechanism
-;; TODO: auto-unregister worlds when unloading mod
+(defun register-worlds (module)
+  (flet ((register (file)
+           (let ((world (handler-case (minimal-load-world file)
+                          #+kandria-release
+                          (error (e)
+                            (v:warn :kandria.module "Ignoring ~a as a world: ~a" file e)
+                            (v:debug :kandria.module e)))))
+             (when world
+               (setf (worlds module) (list* world (remove (id world) (worlds module) :key #'id :test #'string=)))))))
+    (mapc #'register (directory (merge-pathnames "*.zip" (module-root module))))
+    (register (merge-pathnames "world/" (module-root module)))))

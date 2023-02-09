@@ -28,7 +28,7 @@
    alloy:text
    :font (setting :display :font)
    :wrap T
-   :size (alloy:un 14)
+   :size (alloy:un 12)
    :halign :start
    :valign :middle))
 
@@ -60,7 +60,7 @@
          (icon (alloy:represent-with 'icon* preview :value-function 'preview))
          (title (alloy:represent-with 'module-title preview :value-function 'title))
          (description (alloy:represent-with 'module-description preview :value-function 'description))
-         (data (make-instance 'alloy:grid-layout :col-sizes '(100 T) :row-sizes '(30)))
+         (data (make-instance 'alloy:grid-layout :col-sizes '(100 T) :row-sizes '(40)))
          (active-p (alloy:represent-with 'alloy:labelled-switch preview :value-function 'active-p :focus-parent focus :text (@ module-active-switch))))
     (alloy:on alloy:activate (active-p)
       (setf (active-p (alloy:object preview)) (alloy:value active-p)))
@@ -68,11 +68,11 @@
                  `(progn
                     (alloy:represent (@ ,lang) 'module-label :layout-parent data)
                     (alloy:represent-with 'module-label preview :value-function ',function :layout-parent data))))
-      (label module-name name)
+      (label module-id id)
       (label module-author-list author)
       (label module-version version)
       (label module-upstream-url upstream))
-    (alloy:enter icon layout :constraints `((:left 5) (:top 0) (:width 300) (:aspect-ratio 16/9)))
+    (alloy:enter icon layout :constraints `((:left 5) (:top 0) (:width 400) (:aspect-ratio 16/9)))
     (alloy:enter description layout :constraints `((:top 0) (:bottom 0) (:right 5) (:right-of ,icon 10)))
     (alloy:enter active-p layout :constraints `((:chain :down ,icon 5) (:height 30)))
     (alloy:enter title layout :constraints `((:chain :down ,active-p 5) (:height 50)))
@@ -94,7 +94,7 @@
   (let* ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
          (title (alloy:represent-with 'module-title preview :value-function 'title))
          (description (alloy:represent-with 'module-description preview :value-function 'description))
-         (data (make-instance 'alloy:grid-layout :col-sizes '(100 T 100 T) :row-sizes '(30)))
+         (data (make-instance 'alloy:grid-layout :col-sizes '(100 T 100 T) :row-sizes '(40)))
          (start (alloy:represent (@ module-load-world) 'button)))
     (alloy:on alloy:activate (start)
       (show-panel 'load-panel :loader (loader +main+))
@@ -113,9 +113,10 @@
                     (alloy:represent (@ ,lang) 'module-label :layout-parent data)
                     (alloy:represent-with 'module-label preview :value-function ',function :layout-parent data))))
       (label module-author-list author)
-      (label module-version version))
+      (label module-version version)
+      (label module-id id))
     (alloy:enter title layout :constraints `((:top 0) (:left 0) (:right 0) (:height 50)))
-    (alloy:enter data layout :constraints `((:chain :below ,title 5) (:height 50)))
+    (alloy:enter data layout :constraints `((:chain :below ,title 5) (:height 80)))
     (alloy:enter start layout :constraints `((:bottom 0) (:left 0) (:right 0) (:height 50)))
     (alloy:enter description layout :constraints `((:chain :below ,data 10) (:above ,start 10)))
     (alloy:finish-structure preview layout start)))
@@ -156,7 +157,7 @@
     (add-tab panel (make-instance 'trial-alloy::language-data :name 'module-manage-tab) layout focus))
   (let* ((layout (make-instance 'eating-constraint-layout))
          (clipper (make-instance 'alloy:clip-view :limit :x))
-         (preview (make-instance 'world-preview :object (first (list-worlds))))
+         (preview (make-instance 'world-preview :object +world+))
          (focus (make-instance 'alloy:focus-stack :orientation :horizontal))
          (list (make-instance 'alloy:vertical-linear-layout
                               :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:black))
