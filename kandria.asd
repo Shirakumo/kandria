@@ -65,6 +65,10 @@
                              (:file "world-v0")
                              (:file "save-v0")
                              (:file "module-v0")))
+               (:module "remote"
+                :components ((:file "protocol")
+                             (:file "modio")
+                             (:file "steam")))
                (:module "ui"
                 :components ((:file "general")
                              (:file "components")
@@ -151,6 +155,7 @@
                :file-select
                :cl-mixed-wav
                :cl-mixed-vorbis
+               :cl-modio
                :zpng
                :jsown
                :swank
