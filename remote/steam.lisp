@@ -1,5 +1,12 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+(defun steam-remote ()
+  (if (steam:steamworks-available-p)
+      (steam:interface 'steam:steamworkshop T)
+      (error 'not-authenticated :remote (type-prototype 'steam:steamworkshop))))
+
+(pushnew 'steam-remote *remote-funcs*)
+
 (defclass steam-module (steam:workshop-file stub-module)
   ())
 

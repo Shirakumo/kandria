@@ -1,14 +1,17 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(unless modio:*client*
-  (setf modio:*client* (make-instance 'modio:client :default-game-id 4561 :api-key "33d270c5b4b2ca4de8c8520c9708f80c"))
-  (pushnew modio:*client* *remotes*))
+(defun modio-remote ()
+  (unless modio:*client*
+    (setf modio:*client* (make-instance 'modio:client :default-game-id 4561 :api-key "33d270c5b4b2ca4de8c8520c9708f80c"))
+    (modio:restore-user-properties modio:*client* (setting :modio)))
+  modio:*client*)
+
+(pushnew 'modio-remote *remote-funcs*)
 
 (defclass modio-module (modio:mod stub-module)
   ())
 
 (defmethod register-module ((client modio:client))
-  (modio:restore-user-properties client (setting :modio))
   (if (modio:authenticated-p client)
       (dolist (mod (modio:me/subscribed client :game (modio:default-game-id client)))
         (install-module client (ensure-modio-module mod)))

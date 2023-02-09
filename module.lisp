@@ -157,19 +157,21 @@
   (with-open-file (stream (make-pathname :name "modules" :type "lisp" :defaults (config-directory))
                           :direction :input :if-does-not-exist NIL)
     (when stream
-      (loop for read = (read stream NIL #1='#:eof)
-            until (eq read #1#)
-            do (destructuring-bind (&optional id version title) read
-                 (declare (ignore title))
-                 (let ((module (find-module id)))
-                   (cond ((null module)
-                          (v:warn :kandria.module "No module with id~%  ~a~%found. Ignoring." id))
-                         ((string/= version (version module))
-                          (v:info :kandria.module "Module version is~%  ~a~%which differs from the one saved~%  ~a~%for~%  ~a"
-                                  (version module) version module)
-                          (load-module module))
-                         (T
-                          (load-module module)))))))))
+      (handler-bind (#+kandria-release (error #'continue))
+        (loop (with-simple-restart (continue "Ignore the module line.")
+                (let ((read (read stream NIL #1='#:eof)))
+                  (when (eq read #1#) (return))
+                  (destructuring-bind (&optional id version title) read
+                    (declare (ignore title))
+                    (let ((module (find-module id)))
+                      (cond ((null module)
+                             (v:warn :kandria.module "No module with id~%  ~a~%found. Ignoring." id))
+                            ((string/= version (version module))
+                             (v:info :kandria.module "Module version is~%  ~a~%which differs from the one saved~%  ~a~%for~%  ~a"
+                                     (version module) version module)
+                             (load-module module))
+                            (T
+                             (load-module module))))))))))))
 
 (defmethod load-module ((module null)))
 

@@ -3,7 +3,7 @@
 (define-condition not-authenticated (error)
   ((remote :initarg :remote)))
 
-(defvar *remotes* ())
+(defvar *remote-funcs* ())
 
 (defgeneric search-module (remote id))
 (defgeneric search-modules (remote query &key page))
@@ -23,3 +23,14 @@
 
 (defmethod install-module (remote (module module))
   (install-module module (search-module remote module)))
+
+(defun list-remotes ()
+  (loop for func in *remote-funcs*
+        for remote = (handler-case (funcall func)
+                       (not-authenticated ()))
+        when remote collect remote))
+
+(defmethod register-module ((remotes (eql :remote)))
+  (dolist (func *remote-funcs*)
+    (handler-case (register-module (funcall func))
+      (not-authenticated ()))))

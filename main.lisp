@@ -54,8 +54,10 @@
   (setf (game-speed main) (setting :gameplay :game-speed))
   (load-achievement-data T)
   (register-module T)
-  (unless (setting :debugging :dont-load-mods)
-    (load-active-module-list)))
+  (with-thread ("module-registration-thread")
+    (register-module :remote)
+    (unless (setting :debugging :dont-load-mods)
+      (load-active-module-list))))
 
 (defmethod update ((main main) tt dt fc)
   (promise:tick-all dt)
