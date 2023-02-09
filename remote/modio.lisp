@@ -11,8 +11,9 @@
   module)
 
 (defmethod search-module ((client modio:client) (id string))
-  (first (modio:games/mods client (modio:default-game-id client)
-                           :metadata (format NIL "id:~a" id))))
+  (let ((found (modio:games/mods client (modio:default-game-id client)
+                                 :metadata (format NIL "id:~a" id))))
+    (when found (ensure-modio-module (first found)))))
 
 (defun ensure-modio-module (mod)
   (ensure-instance mod 'modio-module
@@ -20,7 +21,7 @@
                            (modio:name-id mod)
                            (princ-to-string (modio:id mod)))
                    :title (modio:name mod)
-                   :author (list (modio:name (modio:submitted-by mod)))
+                   :author (modio:name (modio:submitted-by mod))
                    :version (modio:version (modio:modfile mod))
                    :description (modio:description mod)
                    :upstream (or (modio:homepage-url mod)
@@ -61,9 +62,8 @@
 (defmethod upload-module ((client modio:client) (module module))
   (let ((remote (search-module client module)))
     (cond (remote
-           (let ((mod (ensure-modio-module remote)))
-             (setf (file mod) (file module))
-             (upload-module client mod)))
+           (setf (file remote) (file module))
+           (upload-module client remote))
           (T ;; Upload a new module
            (let ((mod (ensure-modio-module
                        (modio:games/mods/add
