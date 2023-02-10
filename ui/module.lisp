@@ -1,6 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defun load-into-world (world)
+(defun load-into-world (world &key edit)
+  (when edit (! (issue +world+ 'toggle-editor)))
   (show-panel 'load-panel :loader (loader +main+))
   (render +main+ +main+)
   (let ((scene (scene +main+)))
@@ -34,8 +35,7 @@
     (case type
       (:world
        (load-module module)
-       (issue +world+ 'toggle-editor)
-       (load-into-world (first (worlds module))))
+       (load-into-world (first (worlds module)) :edit T))
       (T
        (open-in-file-manager file)
        (show (make-instance 'info-panel :text (@ module-create-new-info))
@@ -165,12 +165,16 @@
 
 (defmethod initialize-instance :after ((preview world-preview) &key)
   (let* ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
+         (focus (make-instance 'alloy:focus-list))
          (title (alloy:represent-with 'module-title preview :value-function 'title))
          (description (alloy:represent-with 'module-description preview :value-function 'description))
          (data (make-instance 'alloy:grid-layout :col-sizes '(100 T 100 T) :row-sizes '(40)))
-         (start (alloy:represent (@ module-load-world) 'button)))
+         (start (alloy:represent (@ module-load-world) 'button :focus-parent focus))
+         (edit (alloy:represent (@ module-edit-world) 'button :focus-parent focus)))
     (alloy:on alloy:activate (start)
       (load-into-world (alloy:object preview)))
+    (alloy:on alloy:activate (edit)
+      (load-into-world (alloy:object preview) :edit T))
     (macrolet ((label (lang function)
                  `(progn
                     (alloy:represent (@ ,lang) 'module-label :layout-parent data)
@@ -180,9 +184,10 @@
       (label module-id id))
     (alloy:enter title layout :constraints `((:top 0) (:left 0) (:right 0) (:height 50)))
     (alloy:enter data layout :constraints `((:chain :below ,title 5) (:height 80)))
-    (alloy:enter start layout :constraints `((:bottom 0) (:left 0) (:right 0) (:height 50)))
+    (alloy:enter edit layout :constraints `((:bottom 0) (:right 0) (:width 200) (:height 50)))
+    (alloy:enter start layout :constraints `((:bottom 0) (:left 0) (:height 50) (:left-of ,edit 5)))
     (alloy:enter description layout :constraints `((:chain :below ,data 10) (:above ,start 10)))
-    (alloy:finish-structure preview layout start)))
+    (alloy:finish-structure preview layout focus)))
 
 (defmethod alloy:observe ((none (eql NIL)) object (data world-preview) &optional (name data))
   )

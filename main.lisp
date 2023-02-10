@@ -273,7 +273,6 @@ Possible sub-commands:
     (setf (strength (unit 'distortion scene)) 0.0)
     (setf (storyline scene) (make-instance 'quest:storyline))
     (trial:commit scene (loader main))
-    (discard-events scene)
     (clear-retained)
     (show-panel 'main-menu)))
 
