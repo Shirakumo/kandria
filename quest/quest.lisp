@@ -47,7 +47,7 @@
 (defun sort-quests (quests)
   (sort quests (lambda (a b)
                  (if (eql (status a) (status b))
-                     (string< (title a) (title b))
+                     (sb-unicode:unicode< (title a) (title b))
                      (eql :active (status a))))))
 
 (defmethod active-p ((quest quest))

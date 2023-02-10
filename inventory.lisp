@@ -76,7 +76,7 @@
   (let ((a-order (item-order a))
         (b-order (item-order b)))
     (if (= a-order b-order)
-        (string< (title a) (title b))
+        (sb-unicode:unicode< (title a) (title b))
         (< a-order b-order))))
 
 (defmethod trade progn (source target (item symbol) count)

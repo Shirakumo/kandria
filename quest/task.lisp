@@ -44,7 +44,7 @@
       (find-quest name (storyline (quest task)) error)))
 
 (defun sort-tasks (tasks)
-  (sort tasks #'string< :key #'title))
+  (sort tasks #'sb-unicode:unicode< :key #'title))
 
 (defmethod active-p ((task task))
   (eql (status task) :unresolved))

@@ -24,7 +24,7 @@
   (sort (loop for module being the hash-values of *modules*
               when (active-p module)
               append (worlds module))
-        #'string< :key #'title))
+        #'sb-unicode:unicode< :key #'title))
 
 (define-event module-event () (module))
 (define-event module-loaded (module-event))
@@ -134,7 +134,7 @@
           (:available
            (loop for module being the hash-values of *modules*
                  collect module)))
-        #'string< :key #'title))
+        #'sb-unicode:unicode< :key #'title))
 
 (defmethod find-module ((id string))
   (gethash (string-downcase id) *modules*))
