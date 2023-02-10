@@ -120,7 +120,7 @@ void main(){
   (setf (spawn-location player) (vcopy (location player))))
 
 (defmethod register :after ((player player) (world scene))
-  (show-panel 'hud)
+  (show-panel 'hud :player player)
   (when (setting :gameplay :show-splits)
     (show-panel 'splits)))
 

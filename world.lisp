@@ -17,13 +17,12 @@
    (timestamp :initform (initial-timestamp) :accessor timestamp)
    (camera :initform (make-instance 'camera) :accessor camera)
    (action-lists :initform NIL :accessor action-lists)
-   (clock :initform 0.0 :accessor clock))
-  (:default-initargs
-   :depot (error "DEPOT required.")))
+   (clock :initform 0.0 :accessor clock)))
 
 (defmethod initialize-instance :after ((world world) &key depot)
   (enter (make-instance 'environment-controller) world)
-  (setf (initial-state world) (minimal-load-state (depot:entry "init" depot))))
+  (when depot
+    (setf (initial-state world) (minimal-load-state (depot:entry "init" depot)))))
 
 (defmethod reset ((world world))
   (setf (id world) (make-uuid))

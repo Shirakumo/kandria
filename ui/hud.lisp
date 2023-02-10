@@ -348,10 +348,10 @@
   (:label :pattern colors:white))
 
 (defclass hud-layout (org.shirakumo.alloy.layouts.constraint:layout)
-  ())
+  ((player :initarg :player :accessor player)))
 
 (defmethod alloy:render :after ((ui ui) (layout hud-layout))
-  (let ((wheel (stamina-wheel (unit 'player +world+))))
+  (let ((wheel (stamina-wheel (player layout))))
     (when (and (allocated-p (shader-program wheel))
                (< 0.0 (visibility wheel))
                (setting :gameplay :display-hud))
@@ -371,7 +371,7 @@
    (timer :initform NIL :accessor timer)))
 
 (defmethod initialize-instance :after ((hud hud) &key (player (unit 'player T)))
-  (let* ((layout (make-instance 'hud-layout))
+  (let* ((layout (make-instance 'hud-layout :player player))
          (bar (setf (health hud) (make-instance 'health-bar :value player)))
          (list (setf (lines hud) (make-instance 'alloy:vertical-linear-layout)))
          (loc (setf (location hud) (make-instance 'location-info)))
