@@ -635,4 +635,3 @@
                         :width (alloy:un 500) :height (alloy:un 300))))))))
     (alloy:finish-structure panel layout (alloy:focus-element tabs))))
 
-;; FIXME: when changing language or font, UI needs to update immediately

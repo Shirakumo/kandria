@@ -319,7 +319,7 @@
   ((clock :initform 30.0 :initarg :duration :accessor clock)))
 
 (defmethod use ((item active-effect-item) (animatable animatable))
-  (print (push (clone item) (active-effects animatable))))
+  (push (clone item) (active-effects animatable)))
 
 (define-item (damage-shield active-effect-item value-item) 48 0 8 8
   :price 200)

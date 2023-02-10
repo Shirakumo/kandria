@@ -199,6 +199,20 @@
           (alloy:widen (alloy:ideal-size shape)
                        (if (typep (simple:bounds shape) 'alloy:margins) (simple:bounds shape) (alloy:margins 2)))))))
 
+(defmethod alloy:activate :after ((input alloy:text-input-component))
+  (when (and (steam:steamworks-available-p)
+             (not (eql :keyboard +input-source+)))
+    (or (ignore-errors (steam:show-floating-text-input (steam:interface 'steam:steamutils T)))
+        (steam:show-text-input (steam:interface 'steam:steamutils T)
+                               :default (alloy:text input)
+                               :description (@ enter-name-prompt))
+        (v:warn :trial.steam "Failed to open gamepad text input panel..."))))
+
+(defmethod alloy:exit :after ((input alloy:text-input-component))
+  (when (and (steam:steamworks-available-p)
+             (not (eql :keyboard +input-source+)))
+    (ignore-errors (steam:show-floating-text-input (steam:interface 'steam:steamutils T)))))
+
 (defclass deferrer (alloy:renderable alloy:layout-element)
   ())
 

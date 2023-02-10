@@ -41,6 +41,40 @@
        (show (make-instance 'info-panel :text (@ module-create-new-info))
              :width (alloy:un 500) :height (alloy:un 300))))))
 
+(defclass filter-input (alloy:input-line)
+  ((alloy:placeholder :initform "Filter...")))
+
+(presentations:define-realization (ui filter-input)
+  ((background simple:rectangle)
+   (alloy:margins)
+   :pattern colors:black)
+  ((:border simple:rectangle)
+   (alloy:margins)
+   :pattern colors:white
+   :line-width (alloy:un 1))
+  ((:placeholder simple:text)
+   (alloy:margins 2)
+   (alloy:placeholder alloy:renderable)
+   :font (setting :display :font)
+   :size (alloy:un 14)
+   :halign :start
+   :valign :middle)
+  ((:label simple:text)
+   (alloy:margins 2)
+   alloy:text
+   :font (setting :display :font)
+   :wrap T
+   :size (alloy:un 14)
+   :halign :start
+   :valign :middle)
+  ((:cursor simple:cursor)
+   (presentations:find-shape :label alloy:renderable)
+   0
+   :pattern colors:white))
+
+(presentations:define-update (ui filter-input)
+  (:label :pattern colors:white))
+
 (defclass module-create-panel (popup-panel)
   ())
 
@@ -152,8 +186,22 @@
     (alloy:enter data layout :constraints `((:chain :down ,title 5) (:height 500)))
     (alloy:finish-structure preview layout focus)))
 
+(defmethod alloy:observe ((none (eql NIL)) object (data module-preview) &optional (name data))
+  (declare (ignore name))
+  (when object (call-next-method)))
+
+(defmethod alloy:observe ((none (eql T)) object (data module-preview) &optional (name data))
+  (declare (ignore name))
+  (when object (call-next-method)))
+
 (defmethod alloy:access ((preview module-preview) (field (eql 'preview)))
-  (or (preview (alloy:object preview)) (// 'kandria 'empty-save)))
+  (if (alloy:object preview)
+      (or (preview (alloy:object preview)) (// 'kandria 'empty-save))
+      (// 'kandria 'empty-save)))
+
+(defmethod alloy:access ((preview module-preview) field)
+  (when (alloy:object preview)
+    (call-next-method)))
 
 (defmethod alloy:refresh ((preview module-preview))
   (let ((object (alloy:object preview)))
@@ -193,7 +241,12 @@
   )
 
 (defmethod alloy:observe ((all (eql T)) object (data world-preview) &optional (name data))
-  (alloy:refresh data))
+  (when (alloy:object data)
+    (alloy:refresh data)))
+
+(defmethod alloy:access ((preview world-preview) field)
+  (when (alloy:object preview)
+    (call-next-method)))
 
 (defmethod alloy:refresh ((preview world-preview))
   (let ((object (alloy:object preview)))
@@ -206,31 +259,30 @@
    (world-list :accessor world-list)
    (world-preview :accessor world-preview)))
 
+(defun make-searchable-list (main)
+  (let* ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
+         (focus (make-instance 'alloy:focus-stack :orientation :horizontal))
+         (clipper (make-instance 'alloy:clip-view :limit :x))
+         (list (make-instance 'vertical-tab-bar :min-size (alloy:size 100 50)))
+         (filter "")
+         (input (alloy:represent filter 'filter-input)))
+    (alloy:enter list focus :layer 0)
+    (alloy:enter input focus :layer 1)
+    (alloy:enter main focus :layer 1)
+    (alloy:enter list clipper)
+    (alloy:enter input layout :constraints `((:size 250 30) (:left 0) (:top 0)))
+    (alloy:enter clipper layout :constraints `((:width 250) (:left 0) (:bottom 0) (:top 30)))
+    (alloy:enter main layout :constraints `((:right-of ,clipper 10) (:top 10) (:bottom 10) (:right 10)))
+    (values layout focus list)))
+
 (defmethod initialize-instance :after ((panel module-menu) &key)
   ;; Mods Browser
-  (let* ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
-         (focus (make-instance 'alloy:focus-stack :orientation :horizontal))
-         (clipper (make-instance 'alloy:clip-view :limit :x))
-         (preview (setf (module-preview panel) (make-instance 'module-preview :object (or (first (list-modules :available))
-                                                                                          (make-instance 'stub-module :title "" :author "" :version "" :id "")))))
-         (list (setf (module-list panel) (make-instance 'vertical-tab-bar :min-size (alloy:size 100 50)))))
-    (alloy:enter list focus :layer 0)
-    (alloy:enter preview focus :layer 1)
-    (alloy:enter list clipper)
-    (alloy:enter clipper layout :constraints `((:width 250) (:left 0) (:bottom 0) (:top 0)))
-    (alloy:enter preview layout :constraints `((:right-of ,clipper 10) (:top 10) (:bottom 10) (:right 10)))
+  (multiple-value-bind (layout focus list) (make-searchable-list (setf (module-preview panel) (make-instance 'module-preview :object NIL)))
+    (setf (module-list panel) list)
     (add-tab panel (make-instance 'trial-alloy::language-data :name 'module-manage-tab) layout focus))
   ;; Worlds Browser
-  (let* ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
-         (focus (make-instance 'alloy:focus-stack :orientation :horizontal))
-         (clipper (make-instance 'alloy:clip-view :limit :x))
-         (preview (setf (world-preview panel) (make-instance 'world-preview :object +world+)))
-         (list (setf (world-list panel) (make-instance 'vertical-tab-bar :min-size (alloy:size 100 50)))))
-    (alloy:enter list focus :layer 0)
-    (alloy:enter preview focus :layer 1)
-    (alloy:enter list clipper)
-    (alloy:enter clipper layout :constraints `((:width 250) (:left 0) (:bottom 0) (:top 0)))
-    (alloy:enter preview layout :constraints `((:right-of ,clipper 10) (:top 10) (:bottom 10) (:right 10)))
+  (multiple-value-bind (layout focus list) (make-searchable-list (setf (world-preview panel) (make-instance 'world-preview :object NIL)))
+    (setf (world-list panel) list)
     (add-tab panel (make-instance 'trial-alloy::language-data :name 'module-worlds-tab) layout focus))
   ;; Discovery Tab
   (let* ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
@@ -278,7 +330,7 @@
         (when value
           (setf (alloy:object (module-preview panel)) module)))))
   (alloy:clear (world-list panel))
-  (dolist (world (print (list-worlds)))
+  (dolist (world (list-worlds))
     (let ((button (make-instance 'tab-button :data (make-instance 'alloy:value-data :value (title world)) :layout-parent (world-list panel))))
       (alloy:on alloy:focus (value button)
         (when value
