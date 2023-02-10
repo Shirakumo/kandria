@@ -52,7 +52,7 @@
                         ,@body))))))
     (let ((depot (depot:ensure-entry "init" depot :type :directory)))
       (with-maybe-entry "meta.lisp"
-        (princ* `(:identifier save-state :version ,(type-of world-v0)))
+        (princ* `(:identifier save-state :version ,(type-of (current-save-version))))
         (princ* `()))
       (with-maybe-entry "global.lisp"
         (princ* `(:region ,(name (region world))))
@@ -99,7 +99,7 @@
 (define-encoder (region world-v0) (_b depot)
   (depot:with-open (tx (depot:ensure-entry "data.lisp" depot) :output 'character)
     (let ((stream (depot:to-stream tx))
-          (data (depot:ensure-depot (depot:ensure-entry "data" depot :directory T))))
+          (data (depot:ensure-depot (depot:ensure-entry "data" depot :type :directory))))
       (for:for ((entity over region))
                (handler-case
                    (when (and (not (spawned-p entity))
