@@ -39,7 +39,7 @@
    :pattern colors:black
    :size (alloy:un 15)))
 
-(defclass popup-panel (pausing-panel menuing-panel)
+(defclass popup-panel (menuing-panel)
   ((source :initform NIL :initarg :source :accessor source)))
 
 (defmethod initialize-instance :around ((panel popup-panel) &key)
