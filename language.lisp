@@ -14,6 +14,7 @@
 
 (defmethod extract-language ((storyline quest:storyline))
   (reduce #'append (sort (loop for quest being the hash-values of (quest:quests storyline)
+                               when (visible-p quest)
                                append (extract-language quest))
                          #'string< :key #'car)))
 
@@ -24,6 +25,7 @@
    (when (useful-language-string-p (quest:description quest))
      (list (%langname (quest:name quest) 'description) (quest:description quest)))
    (loop for task being the hash-values of (quest:tasks quest)
+         when (visible-p task)
          append (extract-language task))))
 
 (defmethod extract-language ((task quest:task))
