@@ -10,7 +10,7 @@
 
 (presentations:define-realization (ui news-display)
     ((version-warning simple:text)
-     (alloy:margins) #@update-game-notification
+     (alloy:margins) (@ update-game-notification)
      :size (alloy:un 15)
      :pattern colors:red
      :valign :top :halign :left

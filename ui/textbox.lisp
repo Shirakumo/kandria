@@ -339,11 +339,11 @@ void main(){
 
 (defun replace-swears (text)
   (let ((cycle 0)
-        (rep #@swear-replacement-characters))
-    (cl-ppcre:regex-replace-all #@swears text (lambda (string start end match-start match-end reg-starts reg-ends)
-                                                (declare (ignore string start end reg-starts reg-ends))
-                                                (map-into (make-string (- match-end match-start))
-                                                          (lambda () (char rep (mod (incf cycle) (length rep)))))))))
+        (rep (@ swear-replacement-characters)))
+    (cl-ppcre:regex-replace-all (@ swears) text (lambda (string start end match-start match-end reg-starts reg-ends)
+                                                  (declare (ignore string start end reg-starts reg-ends))
+                                                  (map-into (make-string (- match-end match-start))
+                                                            (lambda () (char rep (mod (incf cycle) (length rep)))))))))
 
 (defmethod handle :after ((rq dialogue:text-request) (textbox textbox))
   (let* ((new-text (if (setting :gameplay :display-swears)

@@ -7,7 +7,7 @@
   (let* ((stats (stats player))
          (layout (make-instance 'big-prompt-layout))
          (focus (make-instance 'alloy:focus-list))
-         (title (make-instance 'header :level 0 :value #@stats-screen-title))
+         (title (make-instance 'header :level 0 :value (@ stats-screen-title)))
          (grid (make-instance 'alloy:grid-layout :col-sizes '(T 250) :row-sizes '(30) :cell-margins (alloy:margins 10 -5))))
     (alloy:enter (make-instance 'alloy:component :data NIL :shapes (list (make-basic-background))) layout
                  :constraints `((:fill :h) (:center :w) (:width 680)))

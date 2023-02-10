@@ -6,7 +6,7 @@
 (defmethod initialize-instance :after ((panel race-results-screen) &key (storyline (storyline +world+)))
   (let* ((layout (make-instance 'big-prompt-layout))
          (focus (make-instance 'alloy:focus-list))
-         (title (make-instance 'header :level 0 :value #@stats-screen-title))
+         (title (make-instance 'header :level 0 :value (@ stats-screen-title)))
          (clipper (make-instance 'alloy:clip-view :limit :x))
          (scroll (alloy:represent-with 'alloy:y-scrollbar clipper))
          (grid (make-instance 'alloy:grid-layout :col-sizes '(T 250) :row-sizes '(30) :cell-margins (alloy:margins 10 -5))))

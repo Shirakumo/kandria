@@ -250,7 +250,7 @@ void main(){
   (start-animation 'phone player)
   (setf (animation save-point) 'call)
   (save-state +main+ T :show T)
-  (status #@game-save-complete))
+  (status (@ game-save-complete)))
 
 (defmethod enter :after ((player player) (water water))
   (setf (dash-exhausted player) NIL))

@@ -27,7 +27,7 @@
 
 (defmethod initialize-instance :after ((panel pause-screen) &key)
   (let* ((layout (make-instance 'load-screen-layout :style `((:bg :pattern ,(colored:color 0 0 0 0.5)))))
-         (header (make-instance 'header :level 0 :value #@game-paused-title))
+         (header (make-instance 'header :level 0 :value (@ game-paused-title)))
          (focus (make-instance 'alloy:focus-list)))
     (alloy:enter header layout :constraints `(:center (:size 1000 1000)))
     (alloy:on alloy:exit (focus)

@@ -21,7 +21,7 @@
   (let* ((layout (make-instance 'load-screen-layout :style `((:bg :pattern ,(colored:color 0.2 0.3 0.7 0.75)))))
          (focus (make-instance 'alloy:focus-list))
          (buttons (make-instance 'alloy:vertical-linear-layout :min-size (alloy:size 300 40)))
-         (header (make-instance 'header :value #@game-over-title :level 0)))
+         (header (make-instance 'header :value (@ game-over-title) :level 0)))
     (macrolet ((with-button (name &body body)
                  `(let ((button (alloy:represent (@ ,name) 'pause-button :focus-parent focus :layout-parent buttons)))
                     (alloy:on alloy:activate (button)

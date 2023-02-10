@@ -265,7 +265,7 @@
         ((null (or (find-panel 'menu)
                    (find-panel 'main-menu)
                    (find-panel 'quick-menu)))
-         (status #@game-pausing-not-allowed))))
+         (status (@ game-pausing-not-allowed)))))
 
 (defmethod handle :after ((ev tick) (world world))
   (let ((dt (dt ev)))

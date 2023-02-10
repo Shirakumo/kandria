@@ -238,7 +238,7 @@
     (with-tab audio-settings
       (typecase (harmony:segment :drain (harmony:segment :output T))
         (org.shirakumo.fraf.mixed.dummy:drain
-         (alloy:enter (make-instance 'label :value #@no-sound-backend-available-warning :style `((:label :pattern ,colors:red :offset ,(alloy:point 30 0))))
+         (alloy:enter (make-instance 'label :value (@ no-sound-backend-available-warning) :style `((:label :pattern ,colors:red :offset ,(alloy:point 30 0))))
                       layout-outer :place :north :size (alloy:un 40)))
         (org.shirakumo.fraf.mixed:device-drain
          (control audio-output-device (:audio :device) 'alloy:combo-set :value-set (list* :default (mixed:list-devices (harmony:segment :drain (harmony:segment :output T)))))))
@@ -289,7 +289,7 @@
       (control damage-output-multiplier (:gameplay :damage-output) 'alloy:ranged-slider :range '(0.0 . 5.0) :step 0.1)
       (control level-multiplier (:gameplay :level-multiplier) 'alloy:ranged-slider :range '(0.0 . 10.0) :step 0.1)
       (when (region +world+)
-        (alloy:enter (alloy:represent #@open-cheat-menu 'setting-label) layout)
+        (alloy:enter (alloy:represent (@ open-cheat-menu) 'setting-label) layout)
         (let ((button (alloy:represent (@ generic-proceed-button) 'button :layout-parent layout :focus-parent focus)))
           (alloy:on alloy:activate (button)
             (show-panel 'cheat-panel)))))
@@ -314,7 +314,7 @@
         (control start-swank-server (:debugging :swank) 'alloy:checkbox)
         (control swank-server-port (:debugging :swank-port) 'alloy:ranged-wheel :range '(1024 . 65535))
         #++(control "Don't take screenshots" (:debugging :dont-save-screenshot) 'alloy:checkbox)
-        (alloy:enter (alloy:represent #@open-config-dir 'setting-label) layout)
+        (alloy:enter (alloy:represent (@ open-config-dir) 'setting-label) layout)
         (let ((button (alloy:represent (@ generic-proceed-button) 'button :layout-parent layout :focus-parent focus)))
           (alloy:on alloy:activate (button)
             (open-in-file-manager (config-directory))))))
