@@ -40,13 +40,19 @@
                    :upstream (or (modio:homepage-url mod)
                                  (modio:profile-url mod))))
 
-(defmethod search-modules ((client modio:client) query &key (page 0) (ignore-cache NIL))
+(defmethod search-modules ((client modio:client) &key query (sort :title) (page 0) (ignore-cache NIL))
   (let ((mods (modio:games/mods client (modio:default-game-id client)
-                                :name (modio:f (search query))
+                                :name (when (or* query) (modio:f (search query)))
                                 :start (* (+ 0 page) 50)
                                 :end (* (+ 1 page) 50)
                                 :per-page 50
-                                :sort :name
+                                :sort (ecase sort
+                                        (:latest '(:date-added :desc))
+                                        (:updated '(:date-updated :desc))
+                                        (:title '(:name :asc))
+                                        (:rating '(:rating :desc))
+                                        (:popular '(:popular :desc))
+                                        (:subscribers '(:downloads :desc)))
                                 :ignore-cache ignore-cache)))
     (dolist (mod mods mods)
       (ensure-modio-module mod)

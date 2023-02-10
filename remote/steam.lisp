@@ -30,9 +30,18 @@
                            :key-value-tags `(("id" . ,id)) :request '(:full-description :metadata))))
     (when mods (ensure-steam-module (first mods)))))
 
-(defmethod search-modules ((client steam:steamworkshop) query &key (page 0))
+(defmethod search-modules ((client steam:steamworkshop) &key query (sort :title) (page 0))
   (let ((mods (steam:query client (steam:app (steam:interface 'steam:steamapps T))
-                           :search query :request '(:full-description :metadata) :page (1+ page))))
+                           :search (or* query)
+                           :request '(:full-description :metadata)
+                           :page (1+ page)
+                           :sort (ecase sort
+                                   (:latest :ranked-by-publication-date)
+                                   (:updated :ranked-by-last-updated-date)
+                                   (:title :ranked-by-text-search)
+                                   (:rating :ranked-by-vote)
+                                   (:popular :ranked-by-trend)
+                                   (:subscribers :ranked-by-total-unique-subscriptions)))))
     (dolist (mod mods mods)
       (ensure-steam-module mod))))
 

@@ -206,7 +206,8 @@
 (defmethod initialize-instance :after ((panel module-menu) &key)
   (let* ((layout (make-instance 'eating-constraint-layout))
          (clipper (make-instance 'alloy:clip-view :limit :x))
-         (preview (make-instance 'module-preview :object (first (list-modules :available))))
+         (preview (make-instance 'module-preview :object (or (first (list-modules :available))
+                                                             (make-instance 'stub-module :title "" :author "" :version "" :id ""))))
          (focus (make-instance 'alloy:focus-stack :orientation :horizontal))
          (list (make-instance 'alloy:vertical-linear-layout
                               :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:black))

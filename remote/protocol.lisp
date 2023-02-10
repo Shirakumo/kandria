@@ -6,7 +6,7 @@
 (defvar *remote-funcs* ())
 
 (defgeneric search-module (remote id))
-(defgeneric search-modules (remote query &key page))
+(defgeneric search-modules (remote &key query sort page))
 (defgeneric subscribe-module (remote module))
 (defgeneric unsubscribe-module (remote module))
 (defgeneric install-module (remote module))
