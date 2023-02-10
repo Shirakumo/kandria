@@ -41,6 +41,15 @@
        (show (make-instance 'info-panel :text (@ module-create-new-info))
              :width (alloy:un 500) :height (alloy:un 300))))))
 
+(defclass module-list (alloy:vertical-linear-layout alloy:vertical-focus-list alloy:observable alloy:renderable)
+  ((alloy:min-size :initform (alloy:size 150 50))
+   (alloy:cell-margins :initform (alloy:margins))))
+
+(presentations:define-realization (ui module-list)
+  ((:bg simple:rectangle)
+   (alloy:margins)
+   :pattern colors:black))
+
 (defclass filter-input (alloy:input-line)
   ((alloy:placeholder :initform "Filter...")))
 
@@ -266,6 +275,9 @@
          (list (make-instance 'vertical-tab-bar :min-size (alloy:size 100 50)))
          (filter "")
          (input (alloy:represent filter 'filter-input)))
+    (alloy:on alloy:value (value input)
+      ;; TODO: this
+      )
     (alloy:enter list focus :layer 0)
     (alloy:enter input focus :layer 1)
     (alloy:enter main focus :layer 1)
@@ -286,14 +298,21 @@
     (add-tab panel (make-instance 'trial-alloy::language-data :name 'module-worlds-tab) layout focus))
   ;; Discovery Tab
   (let* ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
-         (clipper (make-instance 'alloy:clip-view :limit :x))
          (focus (make-instance 'alloy:focus-stack :orientation :horizontal))
-         (list (make-instance 'alloy:vertical-linear-layout
-                              :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:black))
-                              :min-size (alloy:size 100 50)
-                              :cell-margins (alloy:margins))))
+         (clipper (make-instance 'alloy:clip-view :limit :x))
+         (list (make-instance 'module-list))
+         (query "") (sort :latest) (page 0)
+         (scroll (alloy:represent-with 'alloy:y-scrollbar clipper :focus-parent focus))
+         (query- (alloy:represent query 'filter-input :placeholder "Search..." :focus-parent focus))
+         (sort- (alloy:represent sort 'alloy:combo-set :value-set '(:latest :updated :title :rating :popular :subscribers) :focus-parent focus))
+         (page- (alloy:represent page 'alloy:ranged-wheel :focus-parent focus)))
     (alloy:enter list clipper)
-    (alloy:enter clipper layout :constraints `((:width 250) (:left 0) (:bottom 0) (:top 0)))
+    (alloy:enter list focus :layer 1)
+    (alloy:enter page- layout :constraints `((:right 10) (:top 10) (:height 50) (:width 50)))
+    (alloy:enter sort- layout :constraints `((:width 100) (:chain :left ,page- 5)))
+    (alloy:enter query- layout :constraints `((:left 10) (:chain :left ,sort- 5)))
+    (alloy:enter scroll layout :constraints `((:width 20) (:right 10) (:bottom 10) (:below ,query- 5)))
+    (alloy:enter clipper layout :constraints `((:left 10) (:chain :left ,scroll 0)))
     (add-tab panel (make-instance 'trial-alloy::language-data :name 'module-discover-tab) layout focus))
   (let ((button (alloy:represent (@ module-import-new) 'tab-button :layout-parent panel)))
     (alloy:on alloy:activate (button)
