@@ -48,20 +48,43 @@
   ((:background simple:rectangle)
    (alloy:margins)
    :pattern (colored:color 0.1 0.1 0.1))
+  ;; FIXME: The preview allocation leaks textures *bad*
+  ((icon simple:icon)
+   (alloy:extent 0 0 (alloy:ph 16/9) (alloy:ph 1))
+   (preview alloy:value)
+   :sizing :contain)
   ((title simple:text)
-   (alloy:margins 10) (title alloy:value)
+   (alloy:margins (alloy:ph 17/9) 10 10 10)
+   (title alloy:value)
    :pattern colors:white
    :font (setting :display :font)
    :size (alloy:un 20)
    :halign :start
    :valign :top)
+  ((version simple:text)
+   (alloy:margins 10)
+   (or (version alloy:value) "0.0.0")
+   :pattern colors:white
+   :font (setting :display :font)
+   :size (alloy:un 20)
+   :halign :end
+   :valign :top)
   ((author simple:text)
-   (alloy:margins 10) (author alloy:value)
+   (alloy:margins (alloy:ph 17/9) 40 10 0)
+   (or (author alloy:value) "Anonymous")
    :pattern colors:white
    :font (setting :display :font)
    :size (alloy:un 14)
-   :halign :end
-   :valign :middle))
+   :halign :start
+   :valign :top)
+  ((description simple:text)
+   (alloy:margins (alloy:ph 17/9) 70 10 10)
+   (shorten-text (description alloy:value) 64)
+   :pattern colors:white
+   :font (setting :display :font)
+   :size (alloy:un 14)
+   :halign :start
+   :valign :top))
 
 (presentations:define-update (ui module-button)
   (:background
@@ -82,7 +105,7 @@
    :pattern colors:black))
 
 (defmethod alloy:enter ((module module) (list module-list) &key)
-  (let ((button (make-instance 'module-button :data (make-instance 'alloy:value-data :value (title module)))))
+  (let ((button (make-instance 'module-button :data (make-instance 'alloy:value-data :value module))))
     (alloy:enter button list)
     (alloy:on alloy:activate (button)
       )))
@@ -476,13 +499,13 @@
   (v:info :kandria.module "Refreshing discovery panel...")
   (with-thread ("module-discover-thread")
     (setf (thread panel) (bt:current-thread))
+    (alloy:clear (module-list panel))
     (catch 'exit
       ;; TODO: Show errors
       (unwind-protect
            (let ((modules (search-modules T :query (query panel) :sort (sort-by panel) :page (page panel))))
              (v:info :kandria.module "Got ~d mod~:p matching query" (length modules))
-             (when (alloy:layout-tree (spinner panel))
-               (alloy:leave (spinner panel) (alloy:layout-element panel)))
              (dolist (module modules)
                (alloy:enter module (module-list panel))))
-        (alloy:clear (module-list panel))))))
+        (when (alloy:layout-tree (spinner panel))
+          (alloy:leave (spinner panel) (alloy:layout-element panel)))))))

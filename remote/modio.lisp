@@ -35,8 +35,8 @@
                            (princ-to-string (modio:id mod)))
                    :title (modio:name mod)
                    :author (modio:name (modio:submitted-by mod))
-                   :version (modio:version (modio:modfile mod))
-                   :description (modio:description mod)
+                   :version (or (modio:version (modio:modfile mod)) "0.0.0")
+                   :description (or (modio:description mod) "")
                    :upstream (or (modio:homepage-url mod)
                                  (modio:profile-url mod))))
 

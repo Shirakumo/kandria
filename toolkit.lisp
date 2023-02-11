@@ -757,3 +757,12 @@
                           (invoke-restart 'unintern)
                           (invoke-restart 'continue)))))
      ,@body))
+
+(defun shorten-text (string &optional (length 64))
+  (if (<= (length string) length)
+      string
+      (let ((sub (subseq string length)))
+        (setf (char sub (- length 1)) #\.)
+        (setf (char sub (- length 2)) #\.)
+        (setf (char sub (- length 3)) #\.)
+        sub)))
