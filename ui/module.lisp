@@ -41,6 +41,37 @@
        (show (make-instance 'info-panel :text (@ module-create-new-info))
              :width (alloy:un 500) :height (alloy:un 300))))))
 
+(defclass module-button (alloy:button)
+  ())
+
+(presentations:define-realization (ui module-button)
+  ((:background simple:rectangle)
+   (alloy:margins)
+   :pattern (colored:color 0.1 0.1 0.1))
+  ((title simple:text)
+   (alloy:margins 10) (title alloy:value)
+   :pattern colors:white
+   :font (setting :display :font)
+   :size (alloy:un 20)
+   :halign :start
+   :valign :top)
+  ((author simple:text)
+   (alloy:margins 10) (author alloy:value)
+   :pattern colors:white
+   :font (setting :display :font)
+   :size (alloy:un 14)
+   :halign :end
+   :valign :middle))
+
+(presentations:define-update (ui module-button)
+  (:background
+   :pattern (if alloy:focus
+                (colored:color 0.3 0.3 0.3)
+                (colored:color 0.1 0.1 0.1))))
+
+(presentations:define-animated-shapes module-button
+  (:background (simple:pattern :duration 0.2)))
+
 (defclass module-list (alloy:vertical-linear-layout alloy:vertical-focus-list alloy:observable alloy:renderable)
   ((alloy:min-size :initform (alloy:size 150 50))
    (alloy:cell-margins :initform (alloy:margins))))
@@ -49,6 +80,12 @@
   ((:bg simple:rectangle)
    (alloy:margins)
    :pattern colors:black))
+
+(defmethod alloy:enter ((module module) (list module-list) &key)
+  (let ((button (make-instance 'module-button :data (make-instance 'alloy:value-data :value (title module)))))
+    (alloy:enter button list)
+    (alloy:on alloy:activate (button)
+      )))
 
 (defclass filter-input (alloy:input-line)
   ((alloy:placeholder :initform (@ module-filter-placeholder))))
@@ -62,14 +99,14 @@
    :pattern colors:white
    :line-width (alloy:un 1))
   ((:placeholder simple:text)
-   (alloy:margins 2)
+   (alloy:margins 10 2)
    (alloy:placeholder alloy:renderable)
    :font (setting :display :font)
    :size (alloy:un 14)
    :halign :start
    :valign :middle)
   ((:label simple:text)
-   (alloy:margins 2)
+   (alloy:margins 10 2)
    alloy:text
    :font (setting :display :font)
    :wrap T
@@ -297,10 +334,12 @@
     (setf (world-list panel) list)
     (add-tab panel (make-instance 'trial-alloy::language-data :name 'module-worlds-tab) layout focus))
   ;; Discovery Tab
-  (let ((tab (make-instance 'module-discovery-panel)))
-    (add-tab panel (make-instance 'trial-alloy::language-data :name 'module-discover-tab)
-             (alloy:layout-element tab)
-             (alloy:focus-element tab)))
+  (let* ((tab (make-instance 'module-discovery-panel))
+         (button (add-tab panel (make-instance 'trial-alloy::language-data :name 'module-discover-tab)
+                          (alloy:layout-element tab)
+                          (alloy:focus-element tab))))
+    (alloy:on alloy:activate (button)
+      (reset tab)))
   ;; Extra buttons
   (let ((button (alloy:represent (@ module-import-new) 'tab-button :layout-parent panel)))
     (alloy:on alloy:activate (button)
@@ -394,7 +433,7 @@
    :pattern colors:white
    :line-width (alloy:un 1))
   ((:label simple:text)
-   (alloy:margins 1)
+   (alloy:margins 10 2)
    alloy:text
    :font (setting :display :font)
    :size (alloy:un 14)
@@ -405,13 +444,14 @@
    (page :initform 0 :accessor page)
    (sort-by :initform :latest :accessor sort-by)
    (module-list :accessor module-list)
+   (thread :initform NIL :accessor thread)
    (spinner :initform (make-instance 'save-icon) :accessor spinner)))
 
 (defmethod initialize-instance :after ((panel module-discovery-panel) &key)
   (let* ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
-         (focus (make-instance 'alloy:focus-stack :orientation :horizontal))
+         (focus (make-instance 'alloy:focus-stack :orientation :vertical))
          (clipper (make-instance 'alloy:clip-view :limit :x))
-         (list (setf (module-list panel) (make-instance 'module-list)))
+         (list (setf (module-list panel) (make-instance 'module-list :min-size (alloy:size 150 100))))
          (scroll (alloy:represent-with 'alloy:y-scrollbar clipper :focus-parent focus))
          (query (alloy:represent (slot-value panel 'query) 'filter-input :placeholder (@ module-search-placeholder) :focus-parent focus))
          (sort (alloy:represent (slot-value panel 'sort-by) 'module-sort :focus-parent focus))
@@ -424,21 +464,23 @@
     (alloy:enter scroll layout :constraints `((:width 20) (:right 10) (:bottom 10) (:below ,query 5)))
     (alloy:enter clipper layout :constraints `((:left 10) (:chain :left ,scroll 0)))
     (alloy:on alloy:activate (search) (reset panel))
-    (reset panel)
     (alloy:finish-structure panel layout focus)))
 
-(defmethod reset ((panel panel))
+(defmethod reset ((panel module-discovery-panel))
   (with-thread-exit ((thread panel))
     (bt:interrupt-thread (thread panel) (lambda () (throw 'exit NIL))))
   (unless (alloy:layout-tree (spinner panel))
     (alloy:enter (spinner panel) (alloy:layout-element panel)
                  :constraints `(:center (:size 6 6)))
     (animation:apply-animation 'spin (spinner panel)))
+  (v:info :kandria.module "Refreshing discovery panel...")
   (with-thread ("module-discover-thread")
+    (setf (thread panel) (bt:current-thread))
     (catch 'exit
       ;; TODO: Show errors
       (unwind-protect
            (let ((modules (search-modules T :query (query panel) :sort (sort-by panel) :page (page panel))))
+             (v:info :kandria.module "Got ~d mod~:p matching query" (length modules))
              (when (alloy:layout-tree (spinner panel))
                (alloy:leave (spinner panel) (alloy:layout-element panel)))
              (dolist (module modules)
