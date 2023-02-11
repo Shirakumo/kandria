@@ -51,7 +51,7 @@
   ;; FIXME: The preview allocation leaks textures *bad*
   ((icon simple:icon)
    (alloy:extent 0 0 (alloy:ph 16/9) (alloy:ph 1))
-   (preview alloy:value)
+   (or (preview alloy:value) (// 'kandria 'empty-save))
    :sizing :contain)
   ((title simple:text)
    (alloy:margins (alloy:ph 17/9) 10 10 10)
@@ -108,6 +108,7 @@
   (let ((button (make-instance 'module-button :data (make-instance 'alloy:value-data :value module))))
     (alloy:enter button list)
     (alloy:on alloy:activate (button)
+      ;; TODO: this
       )))
 
 (defclass filter-input (alloy:input-line)
@@ -237,9 +238,7 @@
          (title (alloy:represent-with 'module-title preview :value-function 'title))
          (description (alloy:represent-with 'module-description preview :value-function 'description))
          (data (make-instance 'alloy:grid-layout :col-sizes '(100 T) :row-sizes '(40)))
-         (active-p (alloy:represent-with 'alloy:labelled-switch preview :value-function 'active-p :focus-parent focus :text (@ module-active-switch))))
-    (alloy:on alloy:activate (active-p)
-      (setf (active-p (alloy:object preview)) (alloy:value active-p)))
+         (actions (make-instance 'alloy:vertical-linear-layout :cell-margins (alloy:margins 0 5))))
     (macrolet ((label (lang function)
                  `(progn
                     (alloy:represent (@ ,lang) 'module-label :layout-parent data)
@@ -248,11 +247,38 @@
       (label module-author author)
       (label module-version version)
       (label module-upstream-url upstream))
+    ;; FIXME: FUCK this doesn't work....
+    (symbol-macrolet ((module (alloy:object preview)))
+      (etypecase module
+        (null)
+        (remote-module
+         (when (authenticated-p module)
+           (let ((subscribe (alloy:represent-with 'alloy:labelled-switch preview
+                                                  :value-function 'active-p :text (@ module-subscribe-switch)
+                                                  :focus-parent focus :layout-parent actions)))
+             (alloy:on alloy:activate (subscribe)
+               (setf (subscribed-p (remote module) module) (alloy:value subscribe)))))
+         (let ((install (alloy:represent (@ module-install) 'button
+                                         :focus-parent focus :layout-parent actions)))
+           (alloy:on alloy:activate (install)
+             (unless (find-module (id module))
+               (install-module (remote module) module))))
+         (when (upstream module)
+           (let ((visit (alloy:represent (@ module-visit-official-page) 'button
+                                         :focus-parent focus :layout-parent actions)))
+             (alloy:on alloy:activate (visit)
+               (open-in-browser (upstream module))))))
+        (module
+         (let ((active-p (alloy:represent-with 'alloy:labelled-switch preview
+                                               :value-function 'active-p :text (@ module-active-switch)
+                                               :focus-parent focus :layout-parent actions)))
+           (alloy:on alloy:activate (active-p)
+             (setf (active-p module) (alloy:value active-p)))))))
     (alloy:enter icon layout :constraints `((:left 5) (:top 0) (:width 400) (:aspect-ratio 16/9)))
     (alloy:enter description layout :constraints `((:top 0) (:bottom 0) (:right 5) (:right-of ,icon 10)))
-    (alloy:enter active-p layout :constraints `((:chain :down ,icon 5) (:height 30)))
-    (alloy:enter title layout :constraints `((:chain :down ,active-p 5) (:height 50)))
-    (alloy:enter data layout :constraints `((:chain :down ,title 5) (:height 500)))
+    (alloy:enter actions layout :constraints `((:chain :down ,icon 5) (:height 30)))
+    (alloy:enter title layout :constraints `((:chain :down ,icon 40) (:bottom 0)))
+    (alloy:enter data actions)
     (alloy:finish-structure preview layout focus)))
 
 (defmethod alloy:observe ((none (eql NIL)) object (data module-preview) &optional (name data))

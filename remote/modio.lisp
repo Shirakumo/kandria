@@ -11,8 +11,17 @@
 
 (pushnew 'modio-remote *remote-funcs*)
 
-(defclass modio-module (modio:mod stub-module)
+(defclass modio-module (modio:mod remote-module)
   ())
+
+(defmethod authenticated-p ((client modio:client))
+  (modio:authenticated-p client))
+
+(defmethod remote ((module modio-module))
+  modio:*client*)
+
+(defmethod authenticated-p ((module modio-module))
+  (modio:authenticated-p modio:*client*))
 
 (defmethod register-module ((client modio:client))
   (if (modio:authenticated-p client)
@@ -67,6 +76,9 @@
               (with-open-file (output target :direction :output :element-type '(unsigned-byte 8))
                 (uiop:copy-stream-to-stream input output :element-type '(unsigned-byte 8)))))
           (setf (preview mod) target))))))
+
+(defmethod subscribed-p ((client modio:client) (module modio-module))
+  (modio:me/subscribed client :mod (modio:id module)))
 
 (defmethod subscribe-module ((client modio:client) (module modio-module))
   (unless (modio:authenticated-p client) (error 'not-authenticated :remote client))

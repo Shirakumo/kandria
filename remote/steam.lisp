@@ -7,7 +7,7 @@
 
 (pushnew 'steam-remote *remote-funcs*)
 
-(defclass steam-module (steam:workshop-file stub-module)
+(defclass steam-module (steam:workshop-file remote-module)
   ())
 
 (defun ensure-steam-module (mod)
@@ -18,6 +18,14 @@
                    :author (steam:display-name (steam:owner mod))
                    :preview (steam:preview mod)
                    :upstream (steam:url mod)))
+
+(defmethod authenticated-p ((client steam:steamworkshop))
+  (steam:steamworks-available-p))
+
+(defmethod remote ((module steam-module))
+  (steam:interface 'steam:steamworkshop T))
+
+(defmethod authenticated-p ((client steam-module)) T)
 
 (defmethod register-module ((client steam:steamworkshop))
   (if (steam:steamworks-available-p)
@@ -44,6 +52,10 @@
                                    (:subscribers :ranked-by-total-unique-subscriptions)))))
     (dolist (mod mods mods)
       (ensure-steam-module mod))))
+
+(defmethod subscribed-p ((client steam:steamworkshop) (file steam:workshop-file))
+  ;; FIXME: WHAT?
+  )
 
 (defmethod subscribe-module ((client steam:steamworkshop) (file steam:workshop-file))
   (steam:subscribe file))

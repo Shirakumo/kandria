@@ -5,8 +5,11 @@
 
 (defvar *remote-funcs* ())
 
+(defgeneric authenticated-p (remote))
+(defgeneric remote (module))
 (defgeneric search-module (remote id))
 (defgeneric search-modules (remote &key query sort page))
+(defgeneric subscribed-p (remote module))
 (defgeneric subscribe-module (remote module))
 (defgeneric unsubscribe-module (remote module))
 (defgeneric install-module (remote module))
@@ -40,3 +43,8 @@
   (dolist (func *remote-funcs*)
     (handler-case (register-module (funcall func))
       (not-authenticated ()))))
+
+(defmethod (setf subscribed-p) (value remote module)
+  (if value
+      (subscribe-module remote module)
+      (unsubscribe-module remote module)))

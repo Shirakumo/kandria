@@ -75,6 +75,12 @@
 (defmethod (setf active-p) :after (value (module module))
   (save-active-module-list))
 
+(defclass remote-module (module)
+  ())
+
+(defmethod active-p ((module remote-module))
+  NIL)
+
 (defclass stub-module (module)
   ())
 
