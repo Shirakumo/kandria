@@ -24,6 +24,12 @@
 (defmethod install-module (remote (module module))
   (install-module module (search-module remote module)))
 
+(defmethod search-modules ((all (eql T)) &rest args)
+  (delete-duplicates
+   (loop for remote in (list-remotes)
+         append (apply #'search-modules remote args))
+   :key #'id :test #'string=))
+
 (defun list-remotes ()
   (loop for func in *remote-funcs*
         for remote = (handler-case (funcall func)

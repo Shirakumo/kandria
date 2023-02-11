@@ -51,7 +51,7 @@
    :pattern colors:black))
 
 (defclass filter-input (alloy:input-line)
-  ((alloy:placeholder :initform "Filter...")))
+  ((alloy:placeholder :initform (@ module-filter-placeholder))))
 
 (presentations:define-realization (ui filter-input)
   ((background simple:rectangle)
@@ -297,23 +297,11 @@
     (setf (world-list panel) list)
     (add-tab panel (make-instance 'trial-alloy::language-data :name 'module-worlds-tab) layout focus))
   ;; Discovery Tab
-  (let* ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
-         (focus (make-instance 'alloy:focus-stack :orientation :horizontal))
-         (clipper (make-instance 'alloy:clip-view :limit :x))
-         (list (make-instance 'module-list))
-         (query "") (sort :latest) (page 0)
-         (scroll (alloy:represent-with 'alloy:y-scrollbar clipper :focus-parent focus))
-         (query- (alloy:represent query 'filter-input :placeholder "Search..." :focus-parent focus))
-         (sort- (alloy:represent sort 'alloy:combo-set :value-set '(:latest :updated :title :rating :popular :subscribers) :focus-parent focus))
-         (page- (alloy:represent page 'alloy:ranged-wheel :focus-parent focus)))
-    (alloy:enter list clipper)
-    (alloy:enter list focus :layer 1)
-    (alloy:enter page- layout :constraints `((:right 10) (:top 10) (:height 50) (:width 50)))
-    (alloy:enter sort- layout :constraints `((:width 100) (:chain :left ,page- 5)))
-    (alloy:enter query- layout :constraints `((:left 10) (:chain :left ,sort- 5)))
-    (alloy:enter scroll layout :constraints `((:width 20) (:right 10) (:bottom 10) (:below ,query- 5)))
-    (alloy:enter clipper layout :constraints `((:left 10) (:chain :left ,scroll 0)))
-    (add-tab panel (make-instance 'trial-alloy::language-data :name 'module-discover-tab) layout focus))
+  (let ((tab (make-instance 'module-discovery-panel)))
+    (add-tab panel (make-instance 'trial-alloy::language-data :name 'module-discover-tab)
+             (alloy:layout-element tab)
+             (alloy:focus-element tab)))
+  ;; Extra buttons
   (let ((button (alloy:represent (@ module-import-new) 'tab-button :layout-parent panel)))
     (alloy:on alloy:activate (button)
       (dolist (path (file-select:existing :title "Select Mod Files" :multiple T))
@@ -354,3 +342,105 @@
       (alloy:on alloy:focus (value button)
         (when value
           (setf (alloy:object (world-preview panel)) world))))))
+
+(defclass module-sort-combo-item (alloy:combo-item)
+  ())
+
+(defmethod alloy:text ((item module-sort-combo-item))
+  (ecase (alloy:value item)
+    (:latest (@ module-sort-latest-uploads-first))
+    (:updated (@ module-sort-most-recently-updated-first))
+    (:title (@ module-sort-title-alphabetically))
+    (:rating (@ module-sort-best-rated-first))
+    (:popular (@ module-sort-most-popular-first))
+    (:subscribers (@ module-sort-most-subscribers-first))))
+
+(presentations:define-realization (ui module-sort-combo-item)
+  ((background simple:rectangle)
+   (alloy:margins)
+   :pattern colors:black
+   :z-index 100)
+  ((:label simple:text)
+   (alloy:margins 2)
+   alloy:text
+   :font (setting :display :font)
+   :wrap NIL
+   :size (alloy:un 14)
+   :z-index 100
+   :halign :start
+   :valign :middle))
+
+(presentations:define-update (ui module-sort-combo-item)
+  (:background
+   :pattern (if (alloy:focus alloy:renderable)
+              (colored:color 0.2 0.2 0.2)
+              colors:black)))
+
+(defclass module-sort (alloy:combo)
+  ())
+
+(defmethod alloy:value-set ((combo module-sort))
+  '(:latest :updated :title :rating :popular :subscribers))
+
+(defmethod alloy:combo-item (item (combo module-sort))
+  (make-instance 'module-sort-combo-item :value item))
+
+(presentations:define-realization (ui module-sort)
+  ((background simple:rectangle)
+   (alloy:margins)
+   :pattern colors:black)
+  ((:border simple:rectangle)
+   (alloy:margins)
+   :pattern colors:white
+   :line-width (alloy:un 1))
+  ((:label simple:text)
+   (alloy:margins 1)
+   alloy:text
+   :font (setting :display :font)
+   :size (alloy:un 14)
+   :valign :middle))
+
+(defclass module-discovery-panel (alloy:structure alloy:observable-object)
+  ((query :initform "" :accessor query)
+   (page :initform 0 :accessor page)
+   (sort-by :initform :latest :accessor sort-by)
+   (module-list :accessor module-list)
+   (spinner :initform (make-instance 'save-icon) :accessor spinner)))
+
+(defmethod initialize-instance :after ((panel module-discovery-panel) &key)
+  (let* ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
+         (focus (make-instance 'alloy:focus-stack :orientation :horizontal))
+         (clipper (make-instance 'alloy:clip-view :limit :x))
+         (list (setf (module-list panel) (make-instance 'module-list)))
+         (scroll (alloy:represent-with 'alloy:y-scrollbar clipper :focus-parent focus))
+         (query (alloy:represent (slot-value panel 'query) 'filter-input :placeholder (@ module-search-placeholder) :focus-parent focus))
+         (sort (alloy:represent (slot-value panel 'sort-by) 'module-sort :focus-parent focus))
+         (search (alloy:represent (@ module-search-confirm) 'button :focus-parent focus)))
+    (alloy:enter list clipper)
+    (alloy:enter list focus :layer 1)
+    (alloy:enter search layout :constraints `((:top 10) (:right 10) (:size 100 50)))
+    (alloy:enter sort layout :constraints `((:width 150) (:chain :left ,search 5)))
+    (alloy:enter query layout :constraints `((:left 10) (:chain :left ,sort 5)))
+    (alloy:enter scroll layout :constraints `((:width 20) (:right 10) (:bottom 10) (:below ,query 5)))
+    (alloy:enter clipper layout :constraints `((:left 10) (:chain :left ,scroll 0)))
+    (alloy:on alloy:activate (search) (reset panel))
+    (reset panel)
+    (alloy:finish-structure panel layout focus)))
+
+(defmethod reset ((panel panel))
+  (with-thread-exit ((thread panel))
+    (bt:interrupt-thread (thread panel) (lambda () (throw 'exit NIL))))
+  (unless (alloy:layout-tree (spinner panel))
+    (alloy:enter (spinner panel) (alloy:layout-element panel)
+                 :constraints `(:center (:size 6 6)))
+    (animation:apply-animation 'spin (spinner panel)))
+  (with-thread ("module-discover-thread")
+    (catch 'exit
+      ;; TODO: Show errors
+      (unwind-protect
+           (let ((modules (search-modules T :query (query panel) :sort (sort-by panel) :page (page panel))))
+             (when (alloy:layout-tree (spinner panel))
+               (alloy:leave (spinner panel) (alloy:layout-element panel)))
+             (dolist (module modules)
+               (alloy:enter module (module-list panel))))
+        (alloy:clear (module-list panel))))))
