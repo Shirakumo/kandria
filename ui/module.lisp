@@ -95,6 +95,26 @@
 (presentations:define-animated-shapes module-button
   (:background (simple:pattern :duration 0.2)))
 
+(defmethod alloy:activate ((button module-button))
+  (show (make-instance 'module-popup :module (alloy:value button))
+        :width (alloy:vw 0.9)
+        :height (alloy:vh 0.9)))
+
+(defclass module-popup (popup-panel)
+  ())
+
+(defmethod initialize-instance :after ((panel module-popup) &key module)
+  (let* ((layout (make-instance 'alloy:grid-layout :col-sizes '(T) :row-sizes '(T 40)
+                                                   :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:white))))
+         (preview (make-instance 'module-preview :object module))
+         (button (alloy:represent (@ go-backwards-in-ui) 'popup-button)))
+    (alloy:on alloy:activate (button)
+      (hide panel))
+    (alloy:enter preview layout)
+    (alloy:enter button layout)
+    (alloy:enter button (alloy:focus-element preview))
+    (alloy:finish-structure panel layout (alloy:focus-element preview))))
+
 (defclass module-list (alloy:vertical-linear-layout alloy:vertical-focus-list alloy:observable alloy:renderable)
   ((alloy:min-size :initform (alloy:size 150 50))
    (alloy:cell-margins :initform (alloy:margins))))
@@ -106,10 +126,7 @@
 
 (defmethod alloy:enter ((module module) (list module-list) &key)
   (let ((button (make-instance 'module-button :data (make-instance 'alloy:value-data :value module))))
-    (alloy:enter button list)
-    (alloy:on alloy:activate (button)
-      ;; TODO: this
-      )))
+    (alloy:enter button list)))
 
 (defclass filter-input (alloy:input-line)
   ((alloy:placeholder :initform (@ module-filter-placeholder))))
@@ -182,7 +199,6 @@
 
 (presentations:define-update (ui icon*)
   (:icon
-   :image alloy:value
    :sizing :contain))
 
 (defclass module-title (alloy:label) ())
@@ -212,9 +228,9 @@
 (defclass module-description (alloy:label) ())
 
 (presentations:define-realization (ui module-description)
-  ((:bg simple:rectangle)
-   (alloy:margins 0)
-   :pattern (colored:color 1 1 1 0.2))
+  ((background simple:rectangle)
+   (alloy:margins)
+   :pattern colors:black)
   ((:label simple:text)
    (alloy:margins 15)
    alloy:text
@@ -229,16 +245,19 @@
    :pattern colors:white))
 
 (defclass module-preview (alloy:structure alloy:delegate-data)
-  ())
+  ((actions :initform NIl :accessor actions)))
 
 (defmethod initialize-instance :after ((preview module-preview) &key)
-  (let* ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
+  (let* ((layout (make-instance 'alloy:border-layout :padding (alloy:margins 5)))
          (focus (make-instance 'alloy:focus-list))
-         (icon (alloy:represent-with 'icon* preview :value-function 'preview))
-         (title (alloy:represent-with 'module-title preview :value-function 'title))
-         (description (alloy:represent-with 'module-description preview :value-function 'description))
-         (data (make-instance 'alloy:grid-layout :col-sizes '(100 T) :row-sizes '(40)))
-         (actions (make-instance 'alloy:vertical-linear-layout :cell-margins (alloy:margins 0 5))))
+         (info (make-instance 'alloy:vertical-linear-layout :cell-margins (alloy:margins 5)
+                              :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:black))))
+         (icon (alloy:represent-with 'icon* preview :value-function 'preview :layout-parent info :ideal-size (alloy:size 400 (/ 400 16/9))))
+         (title (alloy:represent-with 'module-title preview :value-function 'title :layout-parent info))
+         (actions (make-instance 'alloy:vertical-linear-layout :cell-margins (alloy:margins 0 5) :layout-parent info))
+         (data (make-instance 'alloy:grid-layout :col-sizes '(100 T) :row-sizes '(40) :layout-parent info))
+         (description (alloy:represent-with 'module-description preview :value-function 'description)))
+    (setf (actions preview) actions)
     (macrolet ((label (lang function)
                  `(progn
                     (alloy:represent (@ ,lang) 'module-label :layout-parent data)
@@ -247,39 +266,10 @@
       (label module-author author)
       (label module-version version)
       (label module-upstream-url upstream))
-    ;; FIXME: FUCK this doesn't work....
-    (symbol-macrolet ((module (alloy:object preview)))
-      (etypecase module
-        (null)
-        (remote-module
-         (when (authenticated-p module)
-           (let ((subscribe (alloy:represent-with 'alloy:labelled-switch preview
-                                                  :value-function 'active-p :text (@ module-subscribe-switch)
-                                                  :focus-parent focus :layout-parent actions)))
-             (alloy:on alloy:activate (subscribe)
-               (setf (subscribed-p (remote module) module) (alloy:value subscribe)))))
-         (let ((install (alloy:represent (@ module-install) 'button
-                                         :focus-parent focus :layout-parent actions)))
-           (alloy:on alloy:activate (install)
-             (unless (find-module (id module))
-               (install-module (remote module) module))))
-         (when (upstream module)
-           (let ((visit (alloy:represent (@ module-visit-official-page) 'button
-                                         :focus-parent focus :layout-parent actions)))
-             (alloy:on alloy:activate (visit)
-               (open-in-browser (upstream module))))))
-        (module
-         (let ((active-p (alloy:represent-with 'alloy:labelled-switch preview
-                                               :value-function 'active-p :text (@ module-active-switch)
-                                               :focus-parent focus :layout-parent actions)))
-           (alloy:on alloy:activate (active-p)
-             (setf (active-p module) (alloy:value active-p)))))))
-    (alloy:enter icon layout :constraints `((:left 5) (:top 0) (:width 400) (:aspect-ratio 16/9)))
-    (alloy:enter description layout :constraints `((:top 0) (:bottom 0) (:right 5) (:right-of ,icon 10)))
-    (alloy:enter actions layout :constraints `((:chain :down ,icon 5) (:height 30)))
-    (alloy:enter title layout :constraints `((:chain :down ,icon 40) (:bottom 0)))
-    (alloy:enter data actions)
-    (alloy:finish-structure preview layout focus)))
+    (alloy:enter info layout :place :west :size (alloy:un 400))
+    (alloy:enter description layout)
+    (alloy:finish-structure preview layout focus)
+    (alloy:refresh preview)))
 
 (defmethod alloy:observe ((none (eql NIL)) object (data module-preview) &optional (name data))
   (declare (ignore name))
@@ -299,9 +289,41 @@
     (call-next-method)))
 
 (defmethod alloy:refresh ((preview module-preview))
-  (let ((object (alloy:object preview)))
-    (dolist (function (alloy:observed preview))
-      (alloy:notify-observers function preview (slot-value object function) object))))
+  (when (and (slot-boundp preview 'alloy:layout-element)
+             (actions preview))
+    (let* ((object (alloy:object preview))
+           (focus (alloy:focus-element preview))
+           (actions (actions preview)))
+      (when object
+        (dolist (function (alloy:observed preview))
+          (alloy:notify-observers function preview (slot-value object function) object)))
+      (alloy:clear focus)
+      (alloy:clear actions)
+      (etypecase object
+        (null)
+        (remote-module
+         (when (authenticated-p object)
+           (let ((subscribe (alloy:represent-with 'alloy:labelled-switch preview
+                                                  :value-function 'active-p :text (@ module-subscribe-switch)
+                                                  :focus-parent focus :layout-parent actions)))
+             (alloy:on alloy:activate (subscribe)
+               (setf (subscribed-p (remote object) object) (alloy:value subscribe)))))
+         (let ((install (alloy:represent (@ module-install) 'button
+                                         :focus-parent focus :layout-parent actions)))
+           (alloy:on alloy:activate (install)
+             (unless (find-module (id object))
+               (install-module (remote object) object))))
+         (when (upstream object)
+           (let ((visit (alloy:represent (@ module-visit-official-page) 'button
+                                         :focus-parent focus :layout-parent actions)))
+             (alloy:on alloy:activate (visit)
+               (open-in-browser (upstream object))))))
+        (module
+         (let ((active-p (alloy:represent-with 'alloy:labelled-switch preview
+                                               :value-function 'active-p :text (@ module-active-switch)
+                                               :focus-parent focus :layout-parent actions)))
+           (alloy:on alloy:activate (active-p)
+             (setf (active-p object) (alloy:value active-p)))))))))
 
 (defclass world-preview (alloy:structure alloy:delegate-data)
   ())

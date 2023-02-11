@@ -12,6 +12,7 @@
   (restart-case
       (call-next-method)
     (alloy:decline ()
+      (setf (alloy:cursor (alloy:ui focus)) :arrow)
       T)))
 
 (defclass overview-focus-list (alloy:horizontal-focus-list)
@@ -85,6 +86,11 @@
 
 (defmethod alloy:active-p ((button tab-button))
   (not (null (alloy:focus button))))
+
+(defmethod alloy:handle ((event alloy:pointer-move) (button tab-button))
+  (when (alloy:contained-p (alloy:location event) button)
+    (setf (alloy:cursor (alloy:ui button)) :hand))
+  (call-next-method))
 
 (presentations:define-realization (ui tab-button)
   ((:border simple:rectangle)

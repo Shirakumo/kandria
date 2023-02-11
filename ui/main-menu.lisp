@@ -80,6 +80,7 @@
   (restart-case
       (call-next-method)
     (alloy:decline ()
+      (setf (alloy:cursor (alloy:ui focus)) :arrow)
       T)))
 
 (defclass main-menu (menuing-panel)
