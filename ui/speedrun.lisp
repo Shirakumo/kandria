@@ -44,7 +44,7 @@
         (b (quest b)))
     (if (eql (quest:active-p a) (quest:active-p b))
         (if (= (start-time a) (start-time b))
-            (sb-unicode:unicode< (quest:title a) (quest:title b))
+            (text< (quest:title a) (quest:title b))
             (< (start-time a) (start-time b)))
         (not (quest:active-p a)))))
 

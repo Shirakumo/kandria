@@ -766,3 +766,6 @@
         (setf (char sub (- length 2)) #\.)
         (setf (char sub (- length 3)) #\.)
         sub)))
+
+(defun text< (a b)
+  (sb-unicode:unicode< (string a) (string b)))

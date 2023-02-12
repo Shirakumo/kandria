@@ -271,7 +271,7 @@
       (dolist (action-set '(in-game in-menu in-map fishing))
         (make-instance 'label :value (language-string action-set) :layout-parent list)
         (dolist (action (sort (mapcar #'class-name (c2mop:class-direct-subclasses (find-class action-set)))
-                              #'sb-unicode:unicode< :key #'language-string))
+                              #'text< :key #'language-string))
           (make-instance 'input-action-button :value action :layout-parent list :focus-parent focus)))
       (add-tab panel (make-instance 'trial-alloy:language-data :name 'control-settings) layout focus))
     (with-tab gameplay-settings
