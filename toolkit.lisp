@@ -729,9 +729,8 @@
         (T NIL)))
 
 (defun language-string* (thing &rest subset)
-  (language-string (intern (format NIL "~a~{/~a~}" (string thing) subset)
-                           (symbol-package thing))
-                   NIL))
+  (when (symbol-package thing)
+    (language-string (intern (format NIL "~a~{/~a~}" (string thing) subset) (symbol-package thing)) NIL)))
 
 (defun u (name)
   (gethash name (name-map +world+)))
