@@ -1,5 +1,8 @@
 (in-package #:org.shirakumo.fraf.kandria.quest)
 
+(defun text< (a b)
+  (sb-unicode:unicode< (string a) (string b)))
+
 (defclass quest (describable scope)
   ((status :initarg :status :initform :inactive :accessor status)
    (author :initarg :author :accessor author)
