@@ -307,4 +307,4 @@
              (when world
                (setf (worlds module) (list* world (remove (id world) (worlds module) :key #'id :test #'string=)))))))
     (mapc #'register (directory (merge-pathnames "*.zip" (module-root module))))
-    (register (merge-pathnames "world/" (module-root module)))))
+    (mapc #'register (directory (merge-pathnames "world*/" (module-root module))))))
