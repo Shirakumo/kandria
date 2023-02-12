@@ -299,12 +299,13 @@
 
 (defun register-worlds (module)
   (flet ((register (file)
-           (let ((world (handler-case (minimal-load-world file)
-                          #+kandria-release
-                          (error (e)
-                            (v:warn :kandria.module "Ignoring ~a as a world: ~a" file e)
-                            (v:debug :kandria.module e)))))
-             (when world
-               (setf (worlds module) (list* world (remove (id world) (worlds module) :key #'id :test #'string=)))))))
+           (with-simple-restart (continue "Ignore the world.")
+             (let ((world (handler-case (minimal-load-world file)
+                            #+kandria-release
+                            (error (e)
+                              (v:warn :kandria.module "Ignoring ~a as a world: ~a" file e)
+                              (v:debug :kandria.module e)))))
+               (when world
+                 (setf (worlds module) (list* world (remove (id world) (worlds module) :key #'id :test #'string=))))))))
     (mapc #'register (directory (merge-pathnames "*.zip" (module-root module))))
     (mapc #'register (directory (merge-pathnames "world*/" (module-root module))))))
