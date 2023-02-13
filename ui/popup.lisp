@@ -45,7 +45,7 @@
 (presentations:define-realization (ui popup-line)
   ((background simple:rectangle)
    (alloy:margins)
-   :pattern colors:white)
+   :pattern (colored:color 0.9 0.9 0.9))
   ((border simple:rectangle)
    (alloy:margins)
    :pattern colors:gray
