@@ -99,6 +99,7 @@
   ((:background simple:rectangle)
    (alloy:margins)
    :pattern colors:transparent)
+  #-kandria-release
   ((icon simple:text)
    (alloy:margins 10 0 0 0) (or (icon alloy:renderable) "")
    :font "Icons"

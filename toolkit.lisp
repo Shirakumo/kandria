@@ -46,7 +46,7 @@
                  :debugging (:show-debug-settings #+kandria-release NIL #-kandria-release T
                              :send-diagnostics T
                              :allow-editor #+kandria-release NIL #-kandria-release T
-                             :show-mod-menu-entry T
+                             :show-mod-menu-entry #+kandria-release NIL #-kandria-release T
                              :swank NIL
                              :swank-port 4005
                              :camera-control NIL

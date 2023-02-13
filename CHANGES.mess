@@ -2,6 +2,14 @@
 These are changes to Kandria that were realised thanks to public feedback.
 A big thanks to everyone for trying it out and reporting problems!
 
+## 1.0.7
+- Fix rare crash related to BVH degradation
+  Reported by daddysnatched2202
+- Fix rare crash related to pausing as a sound effect finishes
+  Reported by jimbo8250
+- Fix crash on new games
+  Reported by F
+
 ## 1.0.6
 - Add a kiosk mode (no saves) to the debug options
 - Fix rare problem with resume saves not being used if there was a crash in the interim
