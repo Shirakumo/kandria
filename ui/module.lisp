@@ -549,11 +549,15 @@
     (setf (thread panel) (bt:current-thread))
     (alloy:clear (module-list panel))
     (catch 'exit
-      ;; TODO: Show errors
-      (unwind-protect
-           (let ((modules (search-modules T :query (query panel) :sort (sort-by panel) :page (page panel))))
-             (v:info :kandria.module "Got ~d mod~:p matching query" (length modules))
-             (dolist (module modules)
-               (alloy:enter module (module-list panel))))
-        (when (alloy:layout-tree (spinner panel))
-          (alloy:leave (spinner panel) (alloy:layout-element panel)))))))
+      (handler-case
+          (unwind-protect
+               (with-error-logging (:kandria.module "Error fetching module list:")
+                 (let ((modules (search-modules T :query (query panel) :sort (sort-by panel) :page (page panel))))
+                   (v:info :kandria.module "Got ~d mod~:p matching query" (length modules))
+                   (dolist (module modules)
+                     (alloy:enter module (module-list panel)))))
+            (when (alloy:layout-tree (spinner panel))
+              (alloy:leave (spinner panel) (alloy:layout-element panel))))
+        (error (e)
+          (show (make-instance 'info-panel :text (@formats 'module-search-failure-report e))
+                :width (alloy:vw 0.5) :height (alloy:vh 0.5)))))))

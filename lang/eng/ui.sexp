@@ -224,4 +224,5 @@ module-visit-official-page "View Page"
 module-install "Install"
 module-uninstall "Uninstall"
 module-upload-to-modio "Upload to Mod.io"
-module-upload-to-steam "Upload to Steam"
+module-upload-to-steam "Upload to Steam"%
+module-search-failure-report "An error occurred trying to fetch the mod list:~%~%~a"
