@@ -105,7 +105,12 @@
 (defmethod refresh-language ((all (eql T)))
   (clrhash *cached-dialogue-assemblies*)
   (refresh-language (quest:storyline T))
-  (load-default-interactions (quest:storyline T)))
+  (load-default-interactions (quest:storyline T))
+  (for:for ((entity over (region +world+)))
+    (when (typep entity 'profile)
+      (unless (equal (nametag entity) (@ unknown-nametag))
+        (setf (nametag entity) (or (language-string (intern (format NIL "~a-~a" (string (type-of entity)) 'nametag) (symbol-package (type-of entity))) NIL)
+                                   (nametag entity)))))))
 
 (define-language-change-hook refresh-quests (language)
   (declare (ignore language))
