@@ -71,8 +71,8 @@
       (apply #'add-tab view tab))
     (alloy:finish-structure view layout list)))
 
-(defun add-tab (view name layout-element focus-element)
-  (let ((tab (alloy:represent-with 'tab name)))
+(defun add-tab (view name layout-element focus-element &rest initargs)
+  (let ((tab (apply #'alloy:represent-with 'tab name initargs)))
     (alloy:enter focus-element tab)
     (alloy:enter layout-element tab)
     (alloy:enter tab view)
@@ -82,7 +82,7 @@
   (alloy:enter element (alloy:focus-element view)))
 
 (defclass tab-button (alloy:label)
-  ())
+  ((icon :initform NIL :initarg :icon :accessor icon)))
 
 (defmethod alloy:active-p ((button tab-button))
   (not (null (alloy:focus button))))
@@ -99,8 +99,16 @@
   ((:background simple:rectangle)
    (alloy:margins)
    :pattern colors:transparent)
+  ((icon simple:text)
+   (alloy:margins 10 0 0 0) (or (icon alloy:renderable) "")
+   :font "Icons"
+   :size (alloy:un 15)
+   :pattern colors:white
+   :halign :start
+   :valign :middle
+   :hidden-p (not (icon alloy:renderable)))
   ((:label simple:text)
-   (alloy:margins 10 0 0 0) alloy:text
+   (alloy:margins (if (icon alloy:renderable) 40 10) 0 0 0) alloy:text
    :font (setting :display :font)
    :size (alloy:un 20)
    :halign :start
@@ -118,6 +126,8 @@
                   (T (if (alloy:active-p alloy:renderable)
                          (colored:color 0.3 0.3 0.3)
                          colors:transparent))))
+  (icon
+   :text (or (icon alloy:renderable) ""))
   (:label
    :pattern (if (alloy:active-p alloy:renderable)
                 colors:white
@@ -494,7 +504,7 @@
     (alloy:on alloy:exit ((alloy:focus-element tabs))
       (hide panel))
     (alloy:enter tabs layout :place :center)
-    (macrolet ((with-tab ((name layout &optional (focus ''vertical-menu-focus-list)) &body body)
+    (macrolet ((with-tab ((name layout &optional (focus ''vertical-menu-focus-list) &rest initargs) &body body)
                  `(flet ((constructor (tab)
                            (let* ((layout (make-instance ,layout))
                                   (focus (make-instance ,focus)))
@@ -502,23 +512,23 @@
                              (alloy:enter layout tab)
                              (alloy:enter focus tab))))
                     (alloy:enter (alloy:represent-with 'tab (make-instance 'trial-alloy:language-data :name ,name)
-                                                       :constructor #'constructor)
+                                                       :constructor #'constructor ,@initargs)
                                  tabs)))
-               (with-tab-view (name &body body)
+               (with-tab-view ((name &rest initargs) &body body)
                  `(flet ((constructor (tab)
                            (let* ((view (make-instance 'tab-view))
                                   (tabs view))
                              ,@body
                              (alloy:enter (alloy:focus-element view) tab)
                              (alloy:enter (alloy:layout-element view) tab))))
-                    (alloy:enter (alloy:represent-with 'tab ,(alloy:expand-place-data name) :constructor #'constructor) tabs)))
+                    (alloy:enter (alloy:represent-with 'tab ,(alloy:expand-place-data name) :constructor #'constructor ,@initargs) tabs)))
                (with-button (name &body body)
                  `(let ((button (alloy:represent (@ ,name) 'button :focus-parent focus)))
                     (alloy:on alloy:activate (button)
                       ,@body)
                     button)))
       (with-tab ('overview-menu 'org.shirakumo.alloy.layouts.constraint:layout
-                                'overview-focus-list)
+                                'overview-focus-list :icon "")
         (setf (alloy:wrap-focus focus) NIL)
         (let ((resume (with-button resume-game (hide panel)))
               (map (with-button open-map (show-panel 'map-panel)))
@@ -553,7 +563,7 @@
                           (harmony:play (// 'sound 'ui-confirm) :reset T))))
               (alloy:enter save buttons)))))
 
-      (with-tab ('quest-menu 'alloy:border-layout)
+      (with-tab ('quest-menu 'alloy:border-layout 'vertical-menu-focus-list :icon "")
         (let* ((list (make-instance 'alloy:vertical-linear-layout :cell-margins (alloy:margins 2 10 2 2)))
                (clipper (make-instance 'alloy:clip-view :limit :x :layout-parent layout))
                (scroll (alloy:represent-with 'alloy:y-scrollbar clipper)))
@@ -576,7 +586,7 @@
                 (alloy:enter widget focus))))))
 
       (let ((inventory (unit 'player T)))
-        (with-tab-view (@ inventory-menu)
+        (with-tab-view ((@ inventory-menu) :icon "")
           (dolist (category '(consumable-item quest-item value-item special-item))
             (with-tab (category 'alloy:border-layout)
               (let* ((list (make-instance 'alloy:vertical-linear-layout :min-size (alloy:size 300 50)))
@@ -601,7 +611,7 @@
                     (alloy:enter button list)
                     (alloy:enter button focus)))))))
 
-        (with-tab-view (@ lore-menu)
+        (with-tab-view ((@ lore-menu) :icon "")
           (dolist (category '(fish lore-item))
             (let* ((layout (make-instance 'alloy:border-layout))
                    (focus (make-instance 'alloy:visual-focus-manager))
@@ -621,7 +631,7 @@
                (let ((view (make-instance 'options-menu)))
                  (alloy:enter (alloy:focus-element view) tab)
                  (alloy:enter (alloy:layout-element view) tab))))
-        (alloy:enter (alloy:represent (@ open-options-menu) 'tab :constructor #'constructor) tabs))
+        (alloy:enter (alloy:represent (@ open-options-menu) 'tab :constructor #'constructor :icon "") tabs))
 
       (labels ((save-and-quit ()
                  (save-state +world+ (clone (state +main+) :filename (format NIL "resume-~a" (pathname-name (file (state +main+))))
@@ -629,12 +639,12 @@
                  (return-to-main-menu)))
         (let ((mins (floor (- (get-universal-time) (save-time (state +main+))) 60)))
           (if (or (<= mins 1) (not (saving-possible-p)))
-              (let ((button (alloy:represent (@ return-to-main-menu) 'tab-button :focus-parent tabs)))
+              (let ((button (alloy:represent (@ return-to-main-menu) 'tab-button :focus-parent tabs :icon "")))
                 (alloy:on alloy:activate (button)
                   (show (make-instance 'prompt-panel :text (@formats 'game-quit-reminder mins)
                                                      :on-accept #'return-to-main-menu)
                         :width (alloy:un 500) :height (alloy:un 300))))
-              (let ((button (alloy:represent (@ return-to-main-menu-with-save) 'tab-button :focus-parent tabs)))
+              (let ((button (alloy:represent (@ return-to-main-menu-with-save) 'tab-button :focus-parent tabs :icon "")))
                 (alloy:on alloy:activate (button)
                   (show (make-instance 'prompt-panel :text (@ game-resume-reminder)
                                                      :on-accept #'save-and-quit)

@@ -228,14 +228,14 @@
                   (alloy:enter label layout)
                   (alloy:enter slider layout)
                   (alloy:enter slider focus)))
-             (with-tab (name &body body)
+             (with-tab ((name &rest tab-args) &body body)
                `(let* ((layout-outer (make-instance 'alloy:border-layout :padding (alloy:margins 30)))
                        (layout (make-instance 'alloy:grid-layout :col-sizes '(400 300) :row-sizes '(40)
                                                                  :layout-parent layout-outer))
                        (focus (make-instance 'vertical-menu-focus-list)))
                   ,@body
-                  (add-tab panel ,(alloy:expand-place-data `(@ ,name)) layout-outer focus))))
-    (with-tab audio-settings
+                  (add-tab panel ,(alloy:expand-place-data `(@ ,name)) layout-outer focus ,@tab-args))))
+    (with-tab (audio-settings :icon "")
       (typecase (harmony:segment :drain (harmony:segment :output T))
         (org.shirakumo.fraf.mixed.dummy:drain
          (alloy:enter (make-instance 'label :value (@ no-sound-backend-available-warning) :style `((:label :pattern ,colors:red :offset ,(alloy:point 30 0))))
@@ -245,7 +245,7 @@
       (control master-volume (:audio :volume :master) 'alloy:ranged-slider :range '(0 . 1) :step 0.1)
       (control effect-volume (:audio :volume :effect) 'alloy:ranged-slider :range '(0 . 1) :step 0.1)
       (control music-volume (:audio :volume :music) 'alloy:ranged-slider :range '(0 . 1) :step 0.1))
-    (with-tab video-settings
+    (with-tab (video-settings :icon "")
       (control screen-resolution (:display :resolution) 'org.shirakumo.fraf.trial.alloy:video-mode)
       (control should-application-fullscreen (:display :fullscreen) 'alloy:checkbox)
       (control activate-vsync (:display :vsync) 'alloy:checkbox)
@@ -273,8 +273,8 @@
         (dolist (action (sort (mapcar #'class-name (c2mop:class-direct-subclasses (find-class action-set)))
                               #'text< :key #'language-string))
           (make-instance 'input-action-button :value action :layout-parent list :focus-parent focus)))
-      (add-tab panel (make-instance 'trial-alloy:language-data :name 'control-settings) layout focus))
-    (with-tab gameplay-settings
+      (add-tab panel (make-instance 'trial-alloy:language-data :name 'control-settings) layout focus :icon ""))
+    (with-tab (gameplay-settings :icon "")
       (control rumble (:gameplay :rumble) 'alloy:ranged-slider :range '(0.0 . 1.0) :step 0.1 :grid 0.1)
       (control screen-shake-strength (:gameplay :screen-shake) 'alloy:ranged-slider :range '(0.0 . 16.0) :step 0.1 :grid 0.1)
       (control pause-on-focus-loss (:gameplay :pause-on-focus-loss) 'alloy:checkbox)
@@ -293,7 +293,7 @@
         (let ((button (alloy:represent (@ generic-proceed-button) 'button :layout-parent layout :focus-parent focus)))
           (alloy:on alloy:activate (button)
             (show-panel 'cheat-panel)))))
-    (with-tab language-settings
+    (with-tab (language-settings :icon "")
       (when (rest (languages))
         (control game-language (:language) 'trial-alloy:language))
       (control text-speed (:gameplay :text-speed) 'alloy:ranged-slider :range '(0.0 . 0.5) :step 0.01 :grid 0.01)
@@ -302,7 +302,7 @@
       (control display-text-effects (:gameplay :display-text-effects) 'alloy:checkbox)
       (control display-swears (:gameplay :display-swears) 'alloy:checkbox))
     (when (setting :debugging :show-debug-settings)
-      (with-tab development-settings
+      (with-tab (development-settings :icon "")
         (control show-debug-settings (:debugging :show-debug-settings) 'alloy:checkbox)
         (control kiosk-mode (:debugging :kiosk-mode) 'alloy:checkbox)
         (control send-diagnostics (:debugging :send-diagnostics) 'alloy:checkbox)
@@ -330,7 +330,7 @@
   (alloy:exit (alloy:focus-element (tab-view button))))
 
 (defmethod show :before ((panel options-menu) &key)
-  (alloy:enter (alloy:represent (@ go-backwards-in-ui) 'back-button) panel)
+  (alloy:enter (alloy:represent (@ go-backwards-in-ui) 'back-button :icon "") panel)
   (let ((layout (make-instance 'menu-layout)))
     (alloy:enter (alloy:layout-element panel) layout :place :center)
     (setf (slot-value panel 'alloy:layout-element) layout)))
