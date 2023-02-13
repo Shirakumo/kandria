@@ -40,7 +40,7 @@
    :size (alloy:un 15)))
 
 (defclass popup-line (alloy:input-line alloy:direct-value-component)
-  ())
+  ((alloy:value :initform "")))
 
 (presentations:define-realization (ui popup-line)
   ((background simple:rectangle)
@@ -49,7 +49,7 @@
   ((border simple:rectangle)
    (alloy:margins)
    :pattern colors:gray
-   :size (alloy:un 1))
+   :line-width (alloy:un 1))
   ((:label simple:text)
    (alloy:margins 1)
    alloy:text
@@ -163,7 +163,7 @@
 (defclass query-panel (popup-panel)
   ())
 
-(defmethod initialize-instance :after ((panel prompt-panel) &key text on-accept on-cancel)
+(defmethod initialize-instance :after ((panel query-panel) &key text on-accept on-cancel)
   (let* ((layout (make-instance 'alloy:grid-layout :col-sizes '(T) :row-sizes '(T 50 50)
                                                    :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:white))))
          (focus (make-instance 'alloy:focus-list))
