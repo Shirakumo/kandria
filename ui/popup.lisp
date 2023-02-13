@@ -39,6 +39,34 @@
    :pattern colors:black
    :size (alloy:un 15)))
 
+(defclass popup-line (alloy:input-line alloy:direct-value-component)
+  ())
+
+(presentations:define-realization (ui popup-line)
+  ((background simple:rectangle)
+   (alloy:margins)
+   :pattern colors:white)
+  ((border simple:rectangle)
+   (alloy:margins)
+   :pattern colors:gray
+   :size (alloy:un 1))
+  ((:label simple:text)
+   (alloy:margins 1)
+   alloy:text
+   :font (setting :display :font)
+   :size (alloy:un 20)
+   :halign :start
+   :valign :middle
+   :pattern colors:black)
+  ((:cursor simple:cursor)
+   (presentations:find-shape :label alloy:renderable)
+   0
+   :pattern colors:black))
+
+(presentations:define-update (ui popup-line)
+  (border
+   :pattern (if alloy:focus colors:black colors:gray)))
+
 (defclass popup-panel (menuing-panel)
   ((source :initform NIL :initarg :source :accessor source)))
 
@@ -85,15 +113,21 @@
 (defclass info-panel (popup-panel)
   ())
 
-(defmethod initialize-instance :after ((panel info-panel) &key text)
+(defmethod initialize-instance :after ((panel info-panel) &key text on-accept)
   (let* ((layout (make-instance 'alloy:grid-layout :col-sizes '(T) :row-sizes '(T 40)
                                                    :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:white))))
          (label (make-instance 'info-label :value text :layout-parent layout))
          (button (alloy:represent (@ dismiss-info-panel) 'popup-button :layout-parent layout)))
     (alloy:on alloy:activate (button)
-      (hide panel))
+      (hide panel)
+      (when on-accept (funcall on-accept)))
     ;; FIXME: scroll
     (alloy:finish-structure panel layout button)))
+
+(defmethod message ((string string))
+  (promise:with-promise (ok)
+    (show (make-instance 'info-panel :text string :on-accept #'ok)
+          :width (alloy:vw 0.5) :height (alloy:vh 0.5))))
 
 (defclass prompt-panel (popup-panel)
   ())
@@ -120,3 +154,40 @@
 
 (defmethod show :after ((panel prompt-panel) &key)
   (harmony:play (// 'sound 'ui-warning)))
+
+(defmethod prompt ((string string))
+  (promise:with-promise (ok fail)
+    (show (make-instance 'prompt-panel :text string :on-accept #'ok :on-cancel #'fail)
+          :width (alloy:vw 0.5) :height (alloy:vh 0.5))))
+
+(defclass query-panel (popup-panel)
+  ())
+
+(defmethod initialize-instance :after ((panel prompt-panel) &key text on-accept on-cancel)
+  (let* ((layout (make-instance 'alloy:grid-layout :col-sizes '(T) :row-sizes '(T 50 50)
+                                                   :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:white))))
+         (focus (make-instance 'alloy:focus-list))
+         (label (make-instance 'info-label :value text :layout-parent layout))
+         (input (make-instance 'popup-line :layout-parent layout))
+         (buttons (make-instance 'alloy:grid-layout :col-sizes '(T T) :row-sizes '(T) :layout-parent layout))
+         (cancel (alloy:represent (@ dismiss-prompt-panel) 'popup-button :layout-parent buttons :focus-parent focus))
+         (accept (alloy:represent (@ accept-prompt-panel) 'popup-button :layout-parent buttons :focus-parent focus)))
+    (alloy:on alloy:activate (cancel)
+      (hide panel)
+      (when on-cancel (funcall on-cancel)))
+    (alloy:on alloy:activate (accept)
+      (hide panel)
+      (funcall on-accept (alloy:value input)))
+    (alloy:on alloy:exit (focus)
+      (setf (alloy:focus focus) :strong)
+      (setf (alloy:focus cancel) :weak))
+    ;; FIXME: scroll
+    (alloy:finish-structure panel layout focus)))
+
+(defmethod show :after ((panel prompt-panel) &key)
+  (harmony:play (// 'sound 'ui-warning)))
+
+(defmethod query ((string string))
+  (promise:with-promise (ok fail)
+    (show (make-instance 'query-panel :text string :on-accept #'ok :on-cancel #'fail)
+          :width (alloy:vw 0.5) :height (alloy:vh 0.5))))

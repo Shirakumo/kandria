@@ -20,7 +20,7 @@
    (alloy:margins 1)
    alloy:text
    :font (setting :display :font)
-   :wrap T
+   :wrap NIL
    :size (alloy:un 20)
    :halign :start
    :valign :middle)

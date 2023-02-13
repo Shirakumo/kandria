@@ -14,6 +14,7 @@
 (defgeneric unsubscribe-module (remote module))
 (defgeneric install-module (remote module))
 (defgeneric upload-module (remote module))
+(defgeneric remote-id (module))
 
 (defmethod search-module (remote (module module))
   (search-module remote (id module)))
@@ -26,6 +27,10 @@
 
 (defmethod install-module (remote (module module))
   (install-module module (search-module remote module)))
+
+(defmethod search-module ((all (eql T)) module)
+  (loop for remote in (list-remotes)
+        thereis (search-module remote module)))
 
 (defmethod search-modules ((all (eql T)) &rest args)
   (delete-duplicates

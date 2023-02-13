@@ -113,7 +113,8 @@
              (modio:games/mods/metadata/add client (modio:default-game-id client) (modio:id mod)
                                             :metadata (mktab "id" (id module)))
              (modio:games/mods/files/add client (modio:default-game-id client) (modio:id mod)
-                                         (file module) :version (version module)))))))
+                                         (file module) :version (version module))
+             mod)))))
 
 (defmethod upload-module ((client modio:client) (module modio-module))
   (unless (modio:authenticated-p client) (error 'not-authenticated :remote client))
@@ -121,4 +122,8 @@
                          :name (title module) :description (description module)
                          :homepage-url (upstream module) :logo (preview module))
   (modio:games/mods/files/add client (modio:default-game-id client) (modio:id module)
-                              (file module) :version (version module)))
+                              (file module) :version (version module))
+  module)
+
+(defmethod remote-id ((module modio-module))
+  (modio:name-id module))

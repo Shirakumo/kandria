@@ -87,7 +87,8 @@
     (setf (steam:description update) (description file))
     (when (preview file)
       (setf (steam:preview update) (preview file)))
-    (steam:execute update)))
+    (steam:execute update)
+    file))
 
 (defmethod upload-module ((client steam:steamworkshop) (module module))
   (let ((remote (search-module client module)))
@@ -101,6 +102,9 @@
                                   :preview (preview module))))
     (setf (file remote) (file module))
     (upload-module client remote)))
+
+(defmethod remote-id ((file steam:workshop-file))
+  (steam:handle file))
 
 (steam:define-callback steam*::download-item (result app-id published-file-id result)
   (when (eql app-id (steam:app-id (steam:interface 'steam:steamutils T)))
