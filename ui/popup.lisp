@@ -168,7 +168,7 @@
                                                    :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:white))))
          (focus (make-instance 'alloy:focus-list))
          (label (make-instance 'info-label :value text :layout-parent layout))
-         (input (make-instance 'popup-line :layout-parent layout))
+         (input (make-instance 'popup-line :layout-parent layout :focus-parent focus))
          (buttons (make-instance 'alloy:grid-layout :col-sizes '(T T) :row-sizes '(T) :layout-parent layout))
          (cancel (alloy:represent (@ dismiss-prompt-panel) 'popup-button :layout-parent buttons :focus-parent focus))
          (accept (alloy:represent (@ accept-prompt-panel) 'popup-button :layout-parent buttons :focus-parent focus)))

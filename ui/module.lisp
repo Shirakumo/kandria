@@ -332,17 +332,14 @@
                         (begin-upload-flow remote object)
                         (promise:-> (begin-authentication-flow remote)
                           (:then () (begin-upload-flow remote object)))))))
-           (cond ((null (search-module T object))
-                  (dolist (remote (list-remotes))
-                    (when (search-module remote object))
-                    (etypecase remote
-                      (modio:client (b remote (alloy:represent (@ module-publish-to-modio) 'button)))
-                      (steam:steamworkshop (b remote (alloy:represent (@ module-publish-to-steam) 'button))))))
-                 ((locally-changed-p object)
-                  (dolist (remote (list-remotes))
-                    (etypecase remote
-                      (modio:client (b remote (alloy:represent (@ module-update-on-modio) 'button)))
-                      (steam:steamworkshop (b remote (alloy:represent (@ module-update-on-steam) 'button)))))))))))))
+           (dolist (remote (list-remotes))
+             (if (search-module remote object)
+                 (etypecase remote
+                   (modio:client (b remote (alloy:represent (@ module-update-on-modio) 'button)))
+                   (steam:steamworkshop (b remote (alloy:represent (@ module-update-on-steam) 'button))))
+                 (etypecase remote
+                   (modio:client (b remote (alloy:represent (@ module-publish-to-modio) 'button)))
+                   (steam:steamworkshop (b remote (alloy:represent (@ module-publish-to-steam) 'button))))))))))))
 
 (defclass world-preview (alloy:structure alloy:delegate-data)
   ())

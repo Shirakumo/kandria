@@ -93,6 +93,8 @@
    :valign :middle))
 
 (presentations:define-update (ui alloy:labelled-switch)
+  (:border
+   :z-index 0)
   (:label
    :text alloy:text
    :pattern colors:white))
