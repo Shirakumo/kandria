@@ -126,6 +126,8 @@
         (when (uiop:file-exists-p (file save-state))
           (uiop:copy-file (file save-state) tmp))
         (depot:with-depot (depot tmp :commit T)
+          ;; KLUDGE: Piece of shit windows file overwrite complaints
+          #+windows (org.shirakumo.zippy:move-in-memory depot)
           (depot:with-open (tx (depot:ensure-entry "meta.lisp" depot) :output 'character)
             (let ((stream (depot:to-stream tx)))
               (princ* (list :identifier 'save-state :version (type-of version)) stream)
