@@ -25,14 +25,13 @@
    (when (useful-language-string-p (quest:description quest))
      (list (%langname (quest:name quest) 'description) (quest:description quest)))
    (loop for task being the hash-values of (quest:tasks quest)
-         when (visible-p task)
          append (extract-language task))))
 
 (defmethod extract-language ((task quest:task))
   (list*
-   (when (useful-language-string-p (quest:title task))
+   (when (and (visible-p task) (useful-language-string-p (quest:title task)))
      (list (%langname (quest:name (quest:quest task)) (quest:name task) 'title) (quest:title task)))
-   (when (useful-language-string-p (quest:description task))
+   (when (and (visible-p task) (useful-language-string-p (quest:description task)))
      (list (%langname (quest:name (quest:quest task)) (quest:name task) 'description) (quest:description task)))
    (loop for task being the hash-values of (quest:triggers task)
          append (extract-language task))))
