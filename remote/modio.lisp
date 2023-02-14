@@ -2,7 +2,8 @@
 
 (defun modio-remote ()
   (unless modio:*client*
-    (setf modio:*client* (make-instance 'modio:client :default-game-id 4561 :api-key "33d270c5b4b2ca4de8c8520c9708f80c"))
+    (setf modio:*client* (make-instance 'modio:client :default-game-id 4561 :api-key "33d270c5b4b2ca4de8c8520c9708f80c"
+                                                      :language (language)))
     (modio:restore-user-properties modio:*client* (setting :modio)))
   modio:*client*)
 
@@ -130,3 +131,7 @@
 
 (defmethod remote-id ((module modio-module))
   (modio:name-id module))
+
+(define-language-change-hook modio (language)
+  (when modio:*client*
+    (setf (modio:language modio:*client*) language)))
