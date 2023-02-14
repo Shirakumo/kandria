@@ -65,7 +65,9 @@
 
 (presentations:define-update (ui popup-line)
   (border
-   :pattern (if alloy:focus colors:black colors:gray)))
+   :pattern (if alloy:focus colors:black colors:gray))
+  (:label
+   :pattern colors:black))
 
 (defclass popup-panel (menuing-panel)
   ((source :initform NIL :initarg :source :accessor source)))
@@ -163,12 +165,12 @@
 (defclass query-panel (popup-panel)
   ())
 
-(defmethod initialize-instance :after ((panel query-panel) &key text on-accept on-cancel)
+(defmethod initialize-instance :after ((panel query-panel) &key text on-accept on-cancel placeholder)
   (let* ((layout (make-instance 'alloy:grid-layout :col-sizes '(T) :row-sizes '(T 50 50)
                                                    :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:white))))
          (focus (make-instance 'alloy:focus-list))
          (label (make-instance 'info-label :value text :layout-parent layout))
-         (input (make-instance 'popup-line :layout-parent layout :focus-parent focus))
+         (input (make-instance 'popup-line :layout-parent layout :focus-parent focus :placeholder placeholder))
          (buttons (make-instance 'alloy:grid-layout :col-sizes '(T T) :row-sizes '(T) :layout-parent layout))
          (cancel (alloy:represent (@ dismiss-prompt-panel) 'popup-button :layout-parent buttons :focus-parent focus))
          (accept (alloy:represent (@ accept-prompt-panel) 'popup-button :layout-parent buttons :focus-parent focus)))
@@ -191,3 +193,8 @@
   (promise:with-promise (ok fail)
     (show (make-instance 'query-panel :text string :on-accept #'ok :on-cancel #'fail)
           :width (alloy:vw 0.5) :height (alloy:vh 0.5))))
+
+(defun query* (string &key placeholder (width (alloy:vw 0.5)) (height (alloy:vh 0.5)))
+  (promise:with-promise (ok fail)
+    (show (make-instance 'query-panel :text string :on-accept #'ok :on-cancel #'fail :placeholder placeholder)
+          :width width :height height)))
