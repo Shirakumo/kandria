@@ -95,6 +95,10 @@
   (modio:games/mods/unsubscribe client (modio:default-game-id client) (modio:id module)))
 
 (defmethod install-module ((client modio:client) (module modio-module))
+  ;; Install dependencies first.
+  (dolist (dependency (modio:games/mods/dependencies client (modio:id module)))
+    (install-module client (ensure-modio-module (modio:mod dependency))))
+  ;; Now actually download it.
   (let ((file (make-pathname :name (id module) :type "zip" :defaults (module-directory))))
     (when (or (null (probe-file file))
               (< (file-write-date file) (modio:date-added (modio:modfile module))))
