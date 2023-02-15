@@ -273,7 +273,7 @@
         (dolist (action (sort (mapcar #'class-name (c2mop:class-direct-subclasses (find-class action-set)))
                               #'text< :key #'language-string))
           (make-instance 'input-action-button :value action :layout-parent list :focus-parent focus)))
-      (add-tab panel (make-instance 'trial-alloy:language-data :name 'control-settings) layout focus :icon ""))
+      (add-tab panel (make-instance 'trial-alloy:language-data :name 'control-settings) layout focus :icon ""))
     (with-tab (gameplay-settings :icon "")
       (control rumble (:gameplay :rumble) 'alloy:ranged-slider :range '(0.0 . 1.0) :step 0.1 :grid 0.1)
       (control screen-shake-strength (:gameplay :screen-shake) 'alloy:ranged-slider :range '(0.0 . 16.0) :step 0.1 :grid 0.1)
@@ -330,7 +330,7 @@
   (alloy:exit (alloy:focus-element (tab-view button))))
 
 (defmethod show :before ((panel options-menu) &key)
-  (alloy:enter (alloy:represent (@ go-backwards-in-ui) 'back-button :icon "") panel)
+  (alloy:enter (alloy:represent (@ go-backwards-in-ui) 'back-button :icon "") panel)
   (let ((layout (make-instance 'menu-layout)))
     (alloy:enter (alloy:layout-element panel) layout :place :center)
     (setf (slot-value panel 'alloy:layout-element) layout)))

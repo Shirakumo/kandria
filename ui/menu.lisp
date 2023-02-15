@@ -100,11 +100,11 @@
    (alloy:margins)
    :pattern colors:transparent)
   ((icon simple:text)
-   (alloy:margins 10 0 0 0) (or (icon alloy:renderable) "")
+   (alloy:extent 5 0 30 (alloy:ph 1)) (or (icon alloy:renderable) "")
    :font "Icons"
    :size (alloy:un 15)
    :pattern colors:white
-   :halign :start
+   :halign :middle
    :valign :middle
    :hidden-p (not (icon alloy:renderable)))
   ((:label simple:text)
@@ -588,7 +588,8 @@
       (let ((inventory (unit 'player T)))
         (with-tab-view ((@ inventory-menu) :icon "")
           (dolist (category '(consumable-item quest-item value-item special-item))
-            (with-tab (category 'alloy:border-layout)
+            (with-tab (category 'alloy:border-layout 'vertical-menu-focus-list
+                                :icon (case category (consumable-item "") (quest-item "") (value-item "") (special-item "")))
               (let* ((list (make-instance 'alloy:vertical-linear-layout :min-size (alloy:size 300 50)))
                      (clipper (make-instance 'alloy:clip-view :limit :x :layout-parent layout))
                      (scroll (alloy:represent-with 'alloy:y-scrollbar clipper))
@@ -625,7 +626,8 @@
                 (let ((button (make-instance 'unlock-button :value item :inventory inventory)))
                   (alloy:enter button list)
                   (alloy:enter button focus)))
-              (add-tab tabs (make-instance 'trial-alloy:language-data :name category) layout focus)))))
+              (add-tab tabs (make-instance 'trial-alloy:language-data :name category) layout focus
+                       :icon (case category (fish "") (lore-item "")))))))
 
       (flet ((constructor (tab)
                (let ((view (make-instance 'options-menu)))

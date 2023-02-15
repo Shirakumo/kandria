@@ -468,7 +468,7 @@
   (stage (// 'kandria 'empty-save) area))
 
 (defmethod show :before ((panel module-menu) &key)
-  (alloy:enter (alloy:represent (@ go-backwards-in-ui) 'back-button :icon "") panel)
+  (alloy:enter (alloy:represent (@ go-backwards-in-ui) 'back-button :icon "") panel)
   (let ((layout (make-instance 'menu-layout)))
     (alloy:enter (alloy:layout-element panel) layout :place :center)
     (setf (slot-value panel 'alloy:layout-element) layout)))
