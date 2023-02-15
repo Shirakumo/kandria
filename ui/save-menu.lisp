@@ -84,7 +84,7 @@
                 (setf (author (state +main+)) name)
                 (load-game NIL +main+))
               (prompt-name ()
-                (let ((data (make-instance 'alloy:value-data :value (pathname-utils:directory-name (user-homedir-pathname)))))
+                (let ((data (make-instance 'alloy:value-data :value (username T))))
                   (show-panel 'name-input-panel :data data :on-complete #'launch-new-game))))
        (if (equal (@ empty-save-file) (author (alloy:value button)))
            (prompt-name)
