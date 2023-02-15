@@ -23,6 +23,12 @@
 (defmethod remote ((module modio-module))
   modio:*client*)
 
+(defmethod rating ((module modio-module))
+  (getf (modio:rating (modio:stats module)) :text))
+
+(defmethod download-count ((module modio-module))
+  (getf (modio:downloads (modio:stats module)) :total))
+
 (defmethod authenticated-p ((module modio-module))
   (modio:authenticated-p modio:*client*))
 

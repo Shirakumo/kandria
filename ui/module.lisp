@@ -19,6 +19,8 @@
          (file (pathname-utils:subdirectory (module-directory) (id module))))
     (ensure-directories-exist file)
     (setf (file module) file)
+    (uiop:copy-file (input* (asset 'kandria 'empty-save))
+                    (merge-pathnames "preview.png" file))
     (depot:with-depot (depot file :commit T)
       (encode-payload module NIL depot 'module-v0)
       (case type
@@ -61,14 +63,6 @@
    :size (alloy:un 20)
    :halign :start
    :valign :top)
-  ((version simple:text)
-   (alloy:margins 10)
-   (or (version alloy:value) "0.0.0")
-   :pattern colors:white
-   :font (setting :display :font)
-   :size (alloy:un 20)
-   :halign :end
-   :valign :top)
   ((author simple:text)
    (alloy:margins (alloy:ph 17/9) 40 10 0)
    (or (author alloy:value) "Anonymous")
@@ -84,6 +78,30 @@
    :font (setting :display :font)
    :size (alloy:un 14)
    :halign :start
+   :valign :top)
+  ((version simple:text)
+   (alloy:margins 10)
+   (or (version alloy:value) "0.0.0")
+   :pattern colors:white
+   :font (setting :display :font)
+   :size (alloy:un 20)
+   :halign :end
+   :valign :top)
+  ((rating simple:text)
+   (alloy:margins (alloy:ph 17/9) 40 10 0)
+   (rating alloy:value)
+   :pattern colors:white
+   :font (setting :display :font)
+   :size (alloy:un 14)
+   :halign :end
+   :valign :top)
+  ((download-count simple:text)
+   (alloy:margins (alloy:ph 17/9) 60 10 10)
+   (@formats 'module-download-counter (download-count alloy:value))
+   :pattern colors:white
+   :font (setting :display :font)
+   :size (alloy:un 14)
+   :halign :end
    :valign :top))
 
 (presentations:define-update (ui module-button)
@@ -308,11 +326,14 @@
                                                   :focus-parent focus :layout-parent actions)))
              (alloy:on alloy:activate (subscribe)
                (setf (subscribed-p (remote object) object) (alloy:value subscribe)))))
-         (let ((install (alloy:represent (@ module-install) 'button
-                                         :focus-parent focus :layout-parent actions)))
-           (alloy:on alloy:activate (install)
-             (unless (find-module (id object))
-               (install-module (remote object) object))))
+         (cond ((null (find-module (id object)))
+                (let ((install (alloy:represent (@ module-install) 'button
+                                                :focus-parent focus :layout-parent actions)))
+                  (alloy:on alloy:activate (install)
+                    (with-ui-task (install-module (remote object) object)))))
+               (T
+                (alloy:represent (@ module-already-installed) 'button
+                                 :focus-parent focus :layout-parent actions)))
          (when (upstream object)
            (let ((visit (alloy:represent (@ module-visit-official-page) 'button
                                          :focus-parent focus :layout-parent actions)))
@@ -530,9 +551,7 @@
   ((query :initform "" :accessor query)
    (page :initform 0 :accessor page)
    (sort-by :initform :latest :accessor sort-by)
-   (module-list :accessor module-list)
-   (thread :initform NIL :accessor thread)
-   (spinner :initform (make-instance 'save-icon) :accessor spinner)))
+   (module-list :accessor module-list)))
 
 (defmethod initialize-instance :after ((panel module-discovery-panel) &key)
   (let* ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
@@ -554,34 +573,17 @@
     (alloy:finish-structure panel layout focus)))
 
 (defmethod reset ((panel module-discovery-panel))
-  (with-thread-exit ((thread panel))
-    (bt:interrupt-thread (thread panel) (lambda () (throw 'exit NIL))))
-  (unless (alloy:layout-tree (spinner panel))
-    (alloy:enter (spinner panel) (alloy:layout-element panel)
-                 :constraints `(:center (:size 6 6)))
-    (animation:apply-animation 'spin (spinner panel)))
   (v:info :kandria.module "Refreshing discovery panel...")
-  (with-thread ("module-discover-thread")
-    (setf (thread panel) (bt:current-thread))
-    (alloy:clear (module-list panel))
-    (catch 'exit
-      (handler-case
-          (unwind-protect
-               (with-error-logging (:kandria.module "Error fetching module list:")
-                 (let ((modules (search-modules T :query (query panel) :sort (sort-by panel) :page (page panel))))
-                   (v:info :kandria.module "Got ~d mod~:p matching query" (length modules))
-                   (dolist (module modules)
-                     (alloy:enter module (module-list panel)))))
-            (when (alloy:layout-tree (spinner panel))
-              (alloy:leave (spinner panel) (alloy:layout-element panel))))
-        (error (e)
-          (show (make-instance 'info-panel :text (@formats 'module-search-failure-report e))
-                :width (alloy:vw 0.5) :height (alloy:vh 0.5)))))))
+  (alloy:clear (module-list panel))
+  (with-ui-task
+    (let ((modules (search-modules T :query (query panel) :sort (sort-by panel) :page (page panel))))
+      (v:info :kandria.module "Got ~d mod~:p matching query" (length modules))
+      (dolist (module modules)
+        (alloy:enter module (module-list panel))))))
 
 (defun begin-upload-flow (remote module)
-  ;; FIXME: Async, show spinner
-  (let ((remote-module (upload-module remote module)))
-    (message (@formats 'module-upload-successful (remote-id remote-module)))))
+  (promise:-> (with-ui-task (upload-module remote module))
+    (:then (remote-module) (message (@formats 'module-upload-successful (remote-id remote-module))))))
 
 (defmethod begin-authentication-flow ((client modio:client))
   (promise:with-promise (ok)

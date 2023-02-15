@@ -5,8 +5,16 @@
 
 (defvar *remote-funcs* ())
 
+(defclass remote-module (module)
+  ())
+
+(defmethod active-p ((module remote-module))
+  NIL)
+
 (defgeneric authenticated-p (remote))
 (defgeneric remote (module))
+(defgeneric rating (remote-module))
+(defgeneric download-count (remote-module))
 (defgeneric search-module (remote id))
 (defgeneric search-modules (remote &key query sort page))
 (defgeneric subscribed-p (remote module))

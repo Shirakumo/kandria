@@ -198,3 +198,15 @@
   (promise:with-promise (ok fail)
     (show (make-instance 'query-panel :text string :on-accept #'ok :on-cancel #'fail :placeholder placeholder)
           :width width :height height)))
+
+(defclass spinner-panel (menuing-panel)
+  ())
+
+(defmethod initialize-instance :after ((panel spinner-panel) &key)
+  (let ((layout (make-instance 'eating-constraint-layout
+                               :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins)
+                                                               :pattern (colored:color 0 0 0 0.5)))))
+        (icon (make-instance 'save-icon)))
+    (alloy:enter icon layout :constraints `(:center (:size 6 6)))
+    (animation:apply-animation 'spin icon)
+    (alloy:finish-structure panel layout NIL)))

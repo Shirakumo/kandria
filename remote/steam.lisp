@@ -25,6 +25,12 @@
 (defmethod remote ((module steam-module))
   (steam:interface 'steam:steamworkshop T))
 
+(defmethod rating ((module steam-module))
+  (steam:score module))
+
+(defmethod download-count ((module steam-module))
+  (getf (steam:statistics module) :num-subscriptions))
+
 (defmethod authenticated-p ((client steam-module)) T)
 
 (defmethod register-module ((client steam:steamworkshop))
