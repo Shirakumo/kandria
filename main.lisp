@@ -2,7 +2,8 @@
 
 (defclass main (org.shirakumo.fraf.trial.steam:main
                 #-kandria-release org.shirakumo.fraf.trial.notify:main
-                org.shirakumo.fraf.trial.harmony:settings-main)
+                org.shirakumo.fraf.trial.harmony:settings-main
+                org.shirakumo.fraf.trial:task-runner-main)
   ((scene :initform NIL)
    (state :initform NIL :accessor state)
    (timestamp :initform (get-universal-time) :accessor timestamp)
@@ -60,7 +61,6 @@
       (load-active-module-list))))
 
 (defmethod update ((main main) tt dt fc)
-  (promise:tick-all dt)
   (let* ((scene (scene main))
          (dt (* (time-scale scene) (game-speed main) (float dt 1.0)))
          (ev (load-time-value (allocate-instance (find-class 'tick)))))

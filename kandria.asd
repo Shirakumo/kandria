@@ -59,7 +59,6 @@
                (:file "displacement")
                (:file "achievements")
                (:file "module")
-               (:file "async")
                (:module "versions"
                 :components ((:file "v0")
                              (:file "binary-v0")

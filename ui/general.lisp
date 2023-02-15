@@ -500,3 +500,25 @@
 (define-language-change-hook ui ()
   (when (unit 'ui-pass T)
     (alloy:refresh (unit 'ui-pass T))))
+
+(defclass ui-task (promise-task)
+  ())
+
+(defmethod simple-tasks:run-task ((task ui-task))
+  (with-unwind-protection (! (hide-panel 'spinner-panel))
+    (handler-case
+        (with-error-logging (:kandria.async)
+          (! (show-panel 'spinner-panel))
+          (call-next-method))
+      (not-authenticated ()
+        (message (@ error-not-authenticated)))
+      (usocket:ns-error ()
+        (message (@ error-no-internet)))
+      (usocket:socket-error ()
+        (message (@ error-connection-failed-try-again)))
+      (error (e)
+        (message (@formats 'error-generic e))))))
+
+(defmacro with-ui-task (&body body)
+  `(with-eval-in-task-thread (:task-type 'ui-task)
+     ,@body))
