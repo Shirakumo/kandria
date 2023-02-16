@@ -248,4 +248,4 @@
                                                           ("from" . ,i)
                                                           ("to" . ,i)))))))))
       (with-open-file (output output-json :direction :output :if-exists :supersede)
-        (jsown::write-object-to-stream data output)))))
+        (com.inuoe.jzon:stringify data :stream output)))))

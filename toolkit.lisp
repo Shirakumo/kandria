@@ -624,11 +624,11 @@
        ,@body)))
 
 (defun re-encode-json (file)
-  (let* ((data (jsown:parse (alexandria:read-file-into-string file))))
+  (let* ((data (com.inuoe.jzon:parse file)))
     (let ((*print-pretty* nil))
       (with-open-file (output file :direction :output
                                    :if-exists :supersede)
-        (jsown::write-object-to-stream data output)))))
+        (com.inuoe.jzon:stringify data :stream output)))))
 
 (defun read-src (file)
   (with-trial-io-syntax ()

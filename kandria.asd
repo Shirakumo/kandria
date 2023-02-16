@@ -157,7 +157,7 @@
                :cl-mixed-vorbis
                :cl-modio
                :zpng
-               :jsown
+               :com.inuoe.jzon
                :swank
                :action-list
                :easing
