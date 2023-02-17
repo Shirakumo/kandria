@@ -13,8 +13,8 @@ exec sbcl --dynamic-space-size 4GB --noinform --no-sysinit --no-userinit --load 
 (cond ((probe-file (merge-pathnames "install/" *kandria-root*))
        (setf *kandria-install-root* (merge-pathnames "install/" *kandria-root*)))
       ((probe-file (merge-pathnames ".install" *kandria-root*))
-       (setf *kandria-install-root* (uiop:parse-native-namestring (uiop:read-file-string (merge-pathnames ".install" *kandria-root*))
-                                                                  :ensure-directory T)))
+       (let ((path (string-trim '(#\Linefeed #\Return #\Space) (uiop:read-file-string (merge-pathnames ".install" *kandria-root*)))))
+         (setf *kandria-install-root* (uiop:parse-native-namestring path :ensure-directory T))))
       (T
        (error #+win32 "Kandria install root is not configured.
 Please create a symbolic link called install within the source directory which points to your installation and then try again"
