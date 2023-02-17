@@ -222,10 +222,11 @@
               (null (ignore-errors (pngload:load-file path :decode NIL))))
       (message (@formats 'error-bad-file-format "PNG")))
     (let ((module (alloy:object (alloy:data icon))))
-      (v:info :kandria.module "Updating preview of ~a to ~a" module path)
-      (depot:with-depot (depot (file module) :commit T)
-        (depot:write-to (depot:ensure-entry "preview.png" depot) path))
-      (setf (alloy:value icon) path))))
+      (unless (typep module 'remote-module)
+        (v:info :kandria.module "Updating preview of ~a to ~a" module path)
+        (depot:with-depot (depot (file module) :commit T)
+          (depot:write-to (depot:ensure-entry "preview.png" depot) path))
+        (setf (alloy:value icon) path)))))
 
 (presentations:define-update (ui module-icon)
   (:icon
