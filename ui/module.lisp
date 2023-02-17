@@ -212,11 +212,24 @@
 (defmethod show :after ((panel prompt-panel) &key)
   (harmony:play (// 'sound 'ui-warning)))
 
-(defclass icon* (alloy:icon alloy:value-component)
+(defclass module-icon (alloy:icon alloy:value-component)
   ())
 
-(presentations:define-update (ui icon*)
+;; KLUDGE: since the icon is not part of any focus list, we handle the drop in an :around.
+(defmethod alloy:handle :around ((event alloy:drop-event) (icon module-icon))
+  (let ((path (first (alloy:paths event))))
+    (when (or (not (string-equal "png" (pathname-type path)))
+              (null (ignore-errors (pngload:load-file path :decode NIL))))
+      (message (@formats 'error-bad-file-format "PNG")))
+    (let ((module (alloy:object (alloy:data icon))))
+      (v:info :kandria.module "Updating preview of ~a to ~a" module path)
+      (depot:with-depot (depot (file module) :commit T)
+        (depot:write-to (depot:ensure-entry "preview.png" depot) path))
+      (setf (alloy:value icon) path))))
+
+(presentations:define-update (ui module-icon)
   (:icon
+   :image alloy:value
    :sizing :contain))
 
 (defclass module-title (alloy:label) ())
@@ -270,7 +283,7 @@
          (focus (make-instance 'alloy:focus-list))
          (info (make-instance 'alloy:vertical-linear-layout :cell-margins (alloy:margins 5)
                               :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:black))))
-         (icon (alloy:represent-with 'icon* preview :value-function 'preview :layout-parent info :ideal-size (alloy:size 400 (/ 400 16/9))))
+         (icon (alloy:represent-with 'module-icon preview :value-function 'preview :layout-parent info :ideal-size (alloy:size 400 (/ 400 16/9))))
          (title (alloy:represent-with 'module-title preview :value-function 'title :layout-parent info))
          (actions (make-instance 'alloy:vertical-linear-layout :cell-margins (alloy:margins 0 5) :layout-parent info))
          (data (make-instance 'alloy:grid-layout :col-sizes '(100 T) :row-sizes '(40) :layout-parent info))
