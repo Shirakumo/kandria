@@ -57,6 +57,8 @@
 
 (defmethod alloy:suggest-size (size (marker marker)) size)
 
+(define-global +editor-history+ (make-instance 'linear-history))
+
 (defclass editor (pausing-panel menuing-panel alloy:observable-object)
   ((name :initform :editor)
    (marker :initform (make-instance 'marker) :accessor marker)
@@ -65,7 +67,7 @@
    (tool :initform NIL :accessor tool)
    (alt-tool :accessor alt-tool)
    (toolbar :accessor toolbar)
-   (history :initform (make-instance 'linear-history) :accessor history)
+   (history :initform +editor-history+ :accessor history)
    (sidebar :initform NIL :accessor sidebar)
    (track-background-p :initform NIL :accessor track-background-p)
    (last-tick :initform 0 :accessor last-tick)
@@ -407,17 +409,9 @@
       (show-cursor *context*))))
 
 (defmethod edit ((action (eql 'load-world)) (editor editor))
-  (flet ((load (path)
-           (load-world path +world+)
-           (setf (background (unit 'background T)) (background 'editor))
-           (update-background (unit 'background T) T)
-           (clear (history editor))
-           (setf (entity editor) +world+)
-           (setf (state +main+) NIL)
-           (trial:commit +world+ +main+)))
-    (let ((path (file-select:existing :title "Select World File")))
-      (when path
-        (load path)))))
+  (let ((path (file-select:existing :title "Select World File")))
+    (when path
+      (load-into-world (minimal-load-world path) :edit T))))
 
 (defmethod edit ((action (eql 'save-world)) (editor editor))
   (save-world +world+ (depot:to-pathname (depot +world+))))

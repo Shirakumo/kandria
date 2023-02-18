@@ -100,6 +100,7 @@
 (defmethod load-state ((state null) (main main))
   (let ((state (or (state main) (make-instance 'save-state :filename "1"))))
     (clear-spawns)
+    (clear +editor-history+)
     (load-state (initial-state (scene main)) (scene main))
     (unwind-protect
          (trial:commit (scene main) (loader main) :show-screen T :cold T)
