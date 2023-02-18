@@ -460,9 +460,9 @@ void main(){
 
 (defmethod hide :after ((menu main-menu))
   (setf (override (unit 'environment +world+)) NIL)
-  (for:for ((entity over +world+))
-    (when (typep entity '(or star fullscreen-background logo wave))
-      (leave entity T))))
+  (for:for ((entity over +world+)
+            (garbage when (typep entity '(or star fullscreen-background logo wave)) collect entity))
+    (returning (dolist (entity garbage) (leave entity T)))))
 
 (defun return-to-main-menu ()
   (let ((state (state +main+))
