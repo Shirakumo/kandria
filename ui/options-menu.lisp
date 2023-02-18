@@ -304,6 +304,7 @@
     (when (setting :debugging :show-debug-settings)
       (with-tab (development-settings :icon "")
         (control show-debug-settings (:debugging :show-debug-settings) 'alloy:checkbox)
+        (control show-startup-logos (:debugging :show-startup-screen) 'alloy:checkbox)
         (control kiosk-mode (:debugging :kiosk-mode) 'alloy:checkbox)
         (control send-diagnostics (:debugging :send-diagnostics) 'alloy:checkbox)
         (control send-error-reports (:debugging :dont-submit-reports) 'alloy:checkbox)

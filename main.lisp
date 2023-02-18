@@ -281,7 +281,9 @@ Possible sub-commands:
   (etypecase (state main)
     (save-state (load-game (state main) main))
     ((eql :new) (setf (state main) (make-instance 'save-state :filename "new")) (load-game NIL main))
-    (null (show-panel 'startup-screen))))
+    (null (if (setting :debugging :show-startup-screen)
+              (show-panel 'startup-screen)
+              (show-panel 'main-menu)))))
 
 (define-setting-observer video-misc :display (value)
   (when *context*

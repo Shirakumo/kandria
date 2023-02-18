@@ -44,6 +44,7 @@
                             :show-hit-stings T)
                  :language :system
                  :debugging (:show-debug-settings #+kandria-release NIL #-kandria-release T
+                             :show-startup-screen T
                              :send-diagnostics T
                              :allow-editor T
                              :show-mod-menu-entry T
