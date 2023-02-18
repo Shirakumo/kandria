@@ -67,6 +67,7 @@
    (toolbar :accessor toolbar)
    (history :initform (make-instance 'linear-history) :accessor history)
    (sidebar :initform NIL :accessor sidebar)
+   (track-background-p :initform NIL :accessor track-background-p)
    (last-tick :initform 0 :accessor last-tick)))
 
 (alloy:define-observable (setf entity) (entity alloy:observable))
@@ -105,7 +106,8 @@
                  ("View"
                   ("Zoom In" (incf (alloy:value zoom) 0.1))
                   ("Zoom Out" (decf (alloy:value zoom) 0.1))
-                  ("Center on Player" (setf (location (camera +world+)) (location (unit 'player T)))))
+                  ("Center on Player" (setf (location (camera +world+)) (location (unit 'player T))))
+                  ("Toggle Background" (setf (track-background-p editor) (not (track-background-p editor)))))
                  ("Tools"
                   ("Set Lighting" (edit 'change-lighting editor))
                   ("Reload Language" (refresh-language T)))
@@ -166,6 +168,11 @@
 (defmethod default-tool ((editor editor))
   (or (default-tool (entity editor))
       'browser))
+
+(defmethod (setf track-background-p) :after (value (editor editor))
+  (unless value
+    (setf (background (unit 'background T)) (background 'editor))
+    (update-background (unit 'background T) T)))
 
 (defmethod undo ((editor editor) region)
   (undo (history editor) region))
@@ -290,7 +297,12 @@
 (defmethod handle :around ((ev event) (editor editor))
   (when (typep ev 'tick)
     (handle ev (unit 'render T))
-    (setf (last-tick editor) (fc ev)))
+    (setf (last-tick editor) (fc ev))
+    (when (track-background-p editor)
+      (let ((entity (entity-at-point (location (camera +world+)) +world+)))
+        (when (typep entity 'chunk)
+          (setf (background (unit 'background T)) (background entity))
+          (update-background (unit 'background T) T)))))
   (unless (call-next-method)
     (with-editor-error-handling
       (handle ev (cond ((retained :alt) (alt-tool editor))

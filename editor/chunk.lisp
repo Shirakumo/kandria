@@ -133,9 +133,6 @@
       (clear (aref (layers (entity chunk-widget)) +base-layer+))
       (alloy:with-confirmation ("Are you sure you want to clear the chunk?" :ui (unit 'ui-pass T))
         (clear (entity chunk-widget)))))
-(alloy::define-subbutton (chunk-widget background) ("Show Background")
-  (setf (background (unit 'background T)) (background (entity chunk-widget)))
-  (update-background (unit 'background T) T))
 (alloy::define-subbutton (chunk-widget compute) ("Compute Shadows")
   (if (retained :control)
       (for:for ((entity over (region +world+)))
@@ -172,15 +169,12 @@
     :row-sizes '(30)
     clear
     (typecase (entity chunk-widget)
-      (chunk background)
-      (T ""))
-    (typecase (entity chunk-widget)
       (chunk compute)
       (T "")))))
 
 (alloy:define-subcontainer (chunk-widget focus)
     (alloy:focus-list)
-  layer show-solids tile-set-list tile-history tiles place-width place-height clear background compute)
+  layer show-solids tile-set-list tile-history tiles place-width place-height clear compute)
 
 (defmethod (setf entity) :after ((layer layer) (editor editor))
   (setf (sidebar editor) (make-instance 'chunk-widget :editor editor :side :east)))
