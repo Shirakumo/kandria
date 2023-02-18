@@ -1,4 +1,19 @@
-<article><style>article{
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Save State File Format</title>
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Save State File Format">
+    <meta name="twitter:description" content="This document describes the save state file format used in Kandria. The spec is formulated using both natural language descriptions and the ADL language, described in adl.">
+    <meta name="twitter:image">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Save State File Format">
+    <meta property="og:description" content="This document describes the save state file format used in Kandria. The spec is formulated using both natural language descriptions and the ADL language, described in adl.">
+    <meta property="og:image">
+  </head>
+  <body>
+  <article><style>article{
     max-width: 800px;
     font-size: 12pt;
     font-family: sans-serif;
@@ -64,4 +79,5 @@ task: {
 addition: {
   container: symbol,
   init: { type: entity } 
-}</pre></code><p>The <code>entity</code> type is defined in the <a class="external-link" href="region-format.html">Region File Format</a> for <code>v0</code>.</p><h2 id="save-v2"><code>save-v2</code></h2><p>This format follows the previous versions with the following differences:</p><ul><li><p>All files except for <code>meta.lisp</code> and <code>preview.png</code> are moved to a subdirectory named after the world's ID for which the save data is specific.</p></li><li><p>There is no <code>region</code> directory or <code>global.lisp</code> file anymore. Instead their data is consolidated into the <code>world.lisp</code> file which lives within the world's directory.</p></li></ul><p>These changes allow a save file to carry completely indpendent save data for multiple worlds at once. The system knows which save data to load out based on the world's ID.</p></article>
+}</pre></code><p>The <code>entity</code> type is defined in the <a class="external-link" href="region-format.html">Region File Format</a> for <code>v0</code>.</p><h2 id="save-v2"><code>save-v2</code></h2><p>This format follows the previous versions with the following differences:</p><ul><li><p>All files except for <code>meta.lisp</code> and <code>preview.png</code> are moved to a subdirectory named after the world's ID for which the save data is specific.</p></li><li><p>There is no <code>region</code> directory or <code>global.lisp</code> file anymore. Instead their data is consolidated into the <code>world.lisp</code> file which lives within the world's directory.</p></li></ul><p>These changes allow a save file to carry completely indpendent save data for multiple worlds at once. The system knows which save data to load out based on the world's ID.</p></article></body>
+</html>

@@ -97,12 +97,16 @@ sbcl --noinform --load "$0" --eval '(kandria-docs:generate-all)' --quit && exit
     node))
 
 (defun generate-documentation (file)
-  (let ((dom (plump:make-root)))
-    (cl-markless:output (cl-markless:parse file (make-instance 'cl-markless:parser :embed-types (list* 'youtube cl-markless:*default-embed-types*)))
-                        :target dom
-                        :format (make-instance 'org.shirakumo.markless.plump:plump
-                                               :css (style)))
+  (let ((dom (plump:parse (file "doc-template" "html")))
+        (article (cl-markless:parse file (make-instance 'cl-markless:parser :embed-types (list* 'youtube cl-markless:*default-embed-types*)))))
+    (cl-markless:output article
+                        :target (lquery:$1 dom "body")
+                        :format (make-instance 'org.shirakumo.markless.plump:plump :css (style)))
     (lquery:$ dom "a[href]" (each #'fixup-href))
+    (lquery:$ dom "title" (text (lquery:$1 dom "h1" (text))))
+    (lquery:$ dom "meta[name=twitter:title],meta[property=og:title]" (attr :content (lquery:$1 dom "h1" (text))))
+    (lquery:$ dom "meta[name=twitter:description],meta[property=og:description]" (attr :content (lquery:$1 dom "p" (text))))
+    (lquery:$ dom "meta[name=twitter:image],meta[property=og:image]" (attr :content (lquery:$1 dom "img" (attr :src))))
     (with-open-file (stream (make-pathname :type "html" :defaults file)
                             :direction :output
                             :if-exists :supersede)

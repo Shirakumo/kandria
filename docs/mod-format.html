@@ -1,4 +1,19 @@
-<article><style>article{
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Kandria Mod Format</title>
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Kandria Mod Format">
+    <meta name="twitter:description" content="This document describes the mod file format used in Kandria. The spec is formulated using both natural language descriptions and the ADL language, described in adl.">
+    <meta name="twitter:image">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Kandria Mod Format">
+    <meta property="og:description" content="This document describes the mod file format used in Kandria. The spec is formulated using both natural language descriptions and the ADL language, described in adl.">
+    <meta property="og:image">
+  </head>
+  <body>
+  <article><style>article{
     max-width: 800px;
     font-size: 12pt;
     font-family: sans-serif;
@@ -47,4 +62,5 @@ information: {
   author: [string],
   description: _string,
   upstream: _string
-}</pre></code><p>The <code>identifier</code> must always be the symbol <code>module</code>. The <code>version</code> must be a symbol designating a subclass of <code>version</code>.</p><p>The packet <em>may</em> contain an entry called <code>preview.png</code> which should be a 192x108 large PNG file showing some kind of capsule for the mod.</p><h2 id="payload">Payload</h2><p>The contents of the packet otherwise are version dependent. The following subsections define the format for each version.</p><h3 id="module-v0"><code>module-v0</code></h3><p>The packet must contain an entry named <code>setup.lisp</code>, containing raw Common Lisp code that is evaluated when the mod is loaded.</p><p>After a successful load, the system proceeds as in <a class="cross-reference" href="#initialization">initialization</a></p><h3 id="module-v1"><code>module-v1</code></h3><p>The packet must contain an entry named <code>Blueprint</code>, which is a <a class="external-link" href="https://github.com/shirakumo/forge">Forge</a> blueprint format describing the mod's build. The blueprint must define a project of the same symbol name of the <code>name</code> as contained in the metadata. When the mod is loaded the project of that name is built.</p><p>After a successful BUILD, the system proceeds as in <a class="cross-reference" href="#initialization">initialization</a></p><h2 id="initialization">Initialization</h2><p>A subclass of <code>module</code> named by a symbol from the <code>org.shirakumo.fraf.kandria.mod</code> package with the same symbol-name as the <code>name</code> field of the metadata must exist. This class is instantiated, and globally registered via <code>load-module</code>. If the module has been previously loaded already, no new class is instantiated. Instead, <code>reinitialize-instance</code> and <code>load-module</code> are called on the old instance.</p></article>
+}</pre></code><p>The <code>identifier</code> must always be the symbol <code>module</code>. The <code>version</code> must be a symbol designating a subclass of <code>version</code>.</p><p>The packet <em>may</em> contain an entry called <code>preview.png</code> which should be a 192x108 large PNG file showing some kind of capsule for the mod.</p><h2 id="payload">Payload</h2><p>The contents of the packet otherwise are version dependent. The following subsections define the format for each version.</p><h3 id="module-v0"><code>module-v0</code></h3><p>The packet must contain an entry named <code>setup.lisp</code>, containing raw Common Lisp code that is evaluated when the mod is loaded.</p><p>After a successful load, the system proceeds as in <a class="cross-reference" href="#initialization">initialization</a></p><h3 id="module-v1"><code>module-v1</code></h3><p>The packet must contain an entry named <code>Blueprint</code>, which is a <a class="external-link" href="https://github.com/shirakumo/forge">Forge</a> blueprint format describing the mod's build. The blueprint must define a project of the same symbol name of the <code>name</code> as contained in the metadata. When the mod is loaded the project of that name is built.</p><p>After a successful BUILD, the system proceeds as in <a class="cross-reference" href="#initialization">initialization</a></p><h2 id="initialization">Initialization</h2><p>A subclass of <code>module</code> named by a symbol from the <code>org.shirakumo.fraf.kandria.mod</code> package with the same symbol-name as the <code>name</code> field of the metadata must exist. This class is instantiated, and globally registered via <code>load-module</code>. If the module has been previously loaded already, no new class is instantiated. Instead, <code>reinitialize-instance</code> and <code>load-module</code> are called on the old instance.</p></article></body>
+</html>
