@@ -1,6 +1,9 @@
 # Kandria Editor
 Kandria ships with a very capable level editor which allows you to modify existing worlds and create your own. This document describes how to use the editor, for information on how to distribute your worlds and manage those of others, please see the "mods documentation"(link mods.mess).
 
+; TODO: Crash course
+; TODO: Video
+
 ## Opening the Editor
 You can open the editor by loading into a world in edit mode directly from the mod manager, or by pressing the Section / Tilde / Grave Accent key (the one immediately below Escape) at any time during gameplay.
 
@@ -86,3 +89,69 @@ If you want to select more than a single tile, you can do so by clicking one cor
 [ image images/editor-stamps.png, caption Selecting and placing tile regions ]
 
 Below the tileset is information about the currently selected tile. You can see the size of the stamp in tiles, the albedo, absorption, and normal maps, and the index of the selected tile.
+
+## Inserting Entities
+If you need to add new elements to the world you can use the ``Insert`` button. It'll pop up an entity creator, with a list of all creatable types.
+
+[ image images/editor-insert.png, caption The editor creation tool ]
+
+After selecting a type, click OK, and it'll be inserted in the middle of the view and automatically selected. Here's a list of some particularly useful types:
+
+### World Construction
+- ``basic-door`` A simple door to pass through. When you create one, it'll also always create a matching target door. Just drag them where they need to be.
+- ``basic-light`` A simple geometrical light. Use the remesh tool to place the light vertices.
+- ``chunk`` A chunk. All gameplay needs to happen within chunks.
+- ``hider`` A tile layer that hides something else. Once the player touches it, it disappears.
+- ``stuffer`` A tile layer that lies outside chunks to smooth over camera pans.
+- ``textured-light`` A light that uses a texture instead of a polygon.
+
+### Triggers
+- ``checkpoint`` Saves the location for platforming respawns.
+- ``save-point`` A save point telephone for hard saves.
+- ``shutter-trigger`` When entering this trigger while enemies are present within it, will close the associated shutters. Increase its ``CHILD-COUNT`` to create shutters.
+- ``spawner`` Generic spawning trigger volume. Activates when the player enters a chunk adjacent to the one the spawner is in. ``JITTER-Y-P`` determines whether spawned entities are randomised in their height. The ``SPAWN-TYPE`` must be a symbol naming the type of entity to spawn, a list of types of entities to spawn, or the name of a "random draw probability distribution".
+- ``wind`` Causes wind to happen when the player enters the trigger.
+
+### Gameplay Elements
+- ``blocker`` A solid tile layer that can be cleared from one side.
+- ``chest`` Spawns an item when opened.
+- ``crumbling-platform`` A platform that starts to crumble when the player steps on it.
+- ``elevator`` An elevator that is manually activated to travel up or down.
+- ``elevator-recall`` An interactable that recalls the associated elevator to its location when activated. You must copy the elevator's exact name into the ``TARGET``.
+- ``falling-platform`` A tile layer that is solid and will start to fall once the player touches it. Can be made to "fall" in any direction, and with configurable speed.
+- ``fountain`` A timed fountain that acts as a strong spring every 4 seconds.
+- ``gate`` A tile layer that sits in one position until all its switches are activated, at which point it moves to another. Increase the ``CHILD-COUNT`` to spawn switches. To set the open gate position, switch its ``STATE`` to ``OPEN`` and move it.
+- ``lantern`` A lantern that recharges the player's dash.
+- ``magma`` Same as ``water`` but kills the player on contact.
+- ``rope`` A rope that the player can climb up. Can be made to be arbitrarily long. Can also be contracted, so that it is not extended until the player interacts with it.
+- ``spring`` Propels the player up on touch.
+- ``water`` A rectangular water area with different physics. If you need non-rectangular regions, you need to compose it out of multiple water volumes.
+
+## Shortcuts
+The editor has many keyboard shortcuts available:
+
+- ``Tab`` Select the world
+- ``F5`` Save to the current save state
+- ``F6`` Save the world
+- ``F7`` Load the current save state
+- ``F8`` Load the initial world state
+- ``Delete`` Delete the current entity
+- ``Insert`` Insert a new entity
+- ``Arrow Keys`` Move the editor
+- ``.`` Advance time by one tick (0.01s)
+- ``+`` Increase zoom by 0.1
+- ``-`` Decrease zoom by 0.1
+- ``B`` Select the ``Browse`` tool
+- ``C`` Clone the selected entity
+- ``F`` Select the ``Freeform`` tool
+- ``H`` Move the selected entity to the cursor position. If ``Ctrl`` is held, move the player
+- ``L`` Select the ``Line`` (solids) tool
+- ``P`` Select the ``Paint`` tool
+- ``R`` Select the ``Rectangle`` tool
+- ``T`` Toggle the lighting
+- ``U`` Select the player
+- ``Y`` Redo
+- ``Z`` Undo
+- ``Ctrl+O`` Open a world
+- ``Ctrl+S`` Save the world. If ``Alt`` is held, save the world as another file
+- ``Ctrl-_`` Undo
