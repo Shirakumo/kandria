@@ -110,7 +110,7 @@
                   ("Set Lighting" (edit 'change-lighting editor))
                   ("Reload Language" (refresh-language T)))
                  ("Help"
-                  ("About"))
+                  ("Documentation" (open-in-browser "https://kandria.com/editor")))
                  zoom)))
     (setf (alt-tool editor) 'browser)
     (setf (toolbar editor) toolbar)

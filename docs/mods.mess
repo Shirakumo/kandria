@@ -1,0 +1,65 @@
+# Kandria Mods
+Kandria allows you to create mods to add new levels, change existing game behaviour, add new gameplay elements, customise the appearance, and more.
+
+## Managing Mods
+The easiest way to manage your mods is to use the in-game mod manager, accessible from the main menu.
+
+[ image images/mod-manager.png, caption The in-game mod manager as it appears on first open. ]
+
+### Manage Mods
+This tab shows the locally installed mods and allows you to activate and deactivate them. When a mod is activated it loads in all of its content and potential modifications. Similarly, deactivating a mod should unload its content and undo modifications. In most circumstances you do not have to restart the game for the changes to take effect.
+
+### Worlds
+Here you can browse all the worlds that the mods have provided. A mod may provide any number of worlds at once, and with this menu you can load into any one of them, or even directly jump to editing them.
+
+"NOTE:"(red,bold) save data for mod worlds is always saved to the save state in slot #1.
+
+### Discover
+With the discover tab you can discover new mods that the community has uploaded. The top search field allows you to query mods by name, and with the sort box change the order in which the mods are displayed. Note that you need an active internet connection in order to browse mods.
+
+When you click on a mod you'll get a detail view with the description and preview, as well as a button to download and install the mod if it isn't available locally yet. Note that even after downloading a mod it won't be active right away, you have to go back to the Manage tab to activate it.
+
+### Import Mod
+This button allows you to pick mods that you manually downloaded or got from elsewhere and pull them into the game. Kandria will copy the mods to the ``mods/`` directory at the game root to do this.
+
+### Create Mod
+With this button you can quickly create a new mod. If the mod type is set to ``world``, it will also automatically create a new empty world for you and load you into its "editor"(link editor.mess). If the mod type is ``other``, it will instead open the mod source directory, so you can start editing the source files.
+
+## Creating Mods
+A mod can provide any number of worlds. Any ``zip`` files and directories beginning with ``world`` within the mod directory will be registered as worlds when the mod is activated. No other setup is necessary.
+
+"NOTE:"(red,bold) Creating mods that do more than provide new worlds is currently not officially supported. Many things will not be convenient or may break in the future. If you're not ready for some hacking, please wait for the official modding support release!
+
+If you need to do more, currently only the ``module-v0`` format is available, which gives you a ``setup.lisp`` file that you can edit. It is a plain Lisp source file that is ``load``ed when the mod is activated.
+
+## Sharing Mods
+Once you've created your mod you'll probably want to share it with friends or the community at large. Kandria offers three separate ways of doing this, all with their own advantages.
+
+"NOTE:"(red,bold) We do //not// tolerate any mods that promote hate speech, hate speech symbols, or include discriminatory or bigoted content such as racism, homophobia, transphobia, or xenophobia. If your mod should make others uncomfortable, we will ban it and you from our platforms.
+
+### Direct Transfer
+You can share mods with other people directly. This is best if you'd like your mod to stay private.
+
+1. Navigate to your mod source directory. It should be located within kandria's root folder under ``mods/``.
+2. Create a ZIP file of all the mod files in its directory.
+3. Share the ZIP file through whatever methods you choose.
+3. Your friends can simply use the ``Import Mod`` option in the mod manager and select the mod zip file after downloading it.
+
+### Mod.io
+Kandria has an official "mod.io"(link https://kandria.com/mods) directory where anyone can share, download, and rate mods regardless of how they purchased Kandria.
+
+1. Navigate to your mod entry in the mod manager.
+2. Click the ``Upload to mod.io`` button. If you have not previously logged in, it will now guide you through a login process with mod.io.
+3. Once login is successful, it will automatically upload your mod.
+4. That's it! Your mod should now appear in the ``Discover`` tab under the mod manager.
+
+Updating your mods works in the same way, if the manager notices that the mod exists on mod.io and that there's been a change to the local files, it will show an ``Update`` button instead. Simply pressing that will synchronise the data remotely.
+
+### Steam Workshop
+If you've purchased the game through Steam you can also make use of the Steam Workshop. Just like mod.io, Kandria's mod manager will automatically integrate with the workshop and allow you to browse and upload mods.
+
+1. Navigate to your mod entry in the mod manager.
+2. Click the ``Upload to Steam`` button. If you have not yet accepted the Steam Workshop agreement, this may fail. In that case, please visit the "Steam Workshop"(link https://kandria.com/workshop) and accept the contributor agreement.
+3. That's it! Your mod should now appear in the ``Discover`` tab under the mod manager for anyone with Steam access.
+
+Updating your mods works in the same way, if the manager notices that the mod exists on the workshop and that there's been a change to the local files, it will show an ``Update`` button instead.

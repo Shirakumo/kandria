@@ -345,8 +345,7 @@ void main(){
                 :type environment :documentation "The music environment to use.")
    (visible-on-map-p :initform T :initarg :visible-on-map-p :accessor visible-on-map-p
                      :type boolean)
-   (unlocked-p :initform NIL :initarg :unlocked-p :accessor unlocked-p
-               :type boolean))
+   (unlocked-p :initform NIL :initarg :unlocked-p :accessor unlocked-p))
   (:default-initargs :tile-data (asset 'kandria 'debug)))
 
 (defmethod initialize-instance :after ((chunk chunk) &key (layers (make-list +layer-count+)) tile-data)
