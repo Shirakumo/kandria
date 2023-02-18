@@ -108,9 +108,9 @@
                   ("Zoom In" (incf (alloy:value zoom) 0.1))
                   ("Zoom Out" (decf (alloy:value zoom) 0.1))
                   ("Center on Player" (setf (location (camera +world+)) (location (unit 'player T))))
-                  ("Toggle Background" (setf (track-background-p editor) (not (track-background-p editor)))))
+                  ("Toggle Background" (setf (track-background-p editor) (not (track-background-p editor))))
+                  ("Set Lighting" (edit 'change-lighting editor)))
                  ("Tools"
-                  ("Set Lighting" (edit 'change-lighting editor))
                   ("Reload Language" (refresh-language T)))
                  ("Help"
                   ("Documentation" (open-in-browser "https://kandria.com/editor")))

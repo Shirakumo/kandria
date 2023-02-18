@@ -155,3 +155,28 @@ The editor has many keyboard shortcuts available:
 - ``Ctrl+O`` Open a world
 - ``Ctrl+S`` Save the world. If ``Alt`` is held, save the world as another file
 - ``Ctrl-_`` Undo
+
+## Additional Tools
+The menu bar also gives access to a few more useful tools:
+
+- ``File``
+  - ``New World`` Create a new, empty world without creating a new mod
+  - ``Load World...`` Load a world without loading a mod
+  - ``Save World`` Save the current world state
+  - ``Sawe World As...`` Save the world under a new directory or ZIP file
+- ``State``
+  - ``Save State`` Save over the current save state
+  - ``Save State As...`` Save the current state to a new save file
+  - ``Load State`` Load the current save state restoring the previous state
+  - ``Load State...`` Load a different save file
+  - ``Save Initial State`` Save the current state as the initial, starting state for the world
+- ``Edit``
+  - ``Select`` Open up a dialogue to filter and select entities by name
+- ``View``
+  - ``Center on Player`` Does what it says on the tin
+  - ``Toggle Background`` Shows whatever parallax background the currently centered chunk shows
+  - ``Set Lighting`` Change the illumination model to specific parameters
+- ``Tools``
+  - ``Reload Language`` Reload all files for the current language from disk
+- ``Help``
+  - ``Documentation`` Open this documentation page in a browser
