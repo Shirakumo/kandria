@@ -68,7 +68,8 @@
    (history :initform (make-instance 'linear-history) :accessor history)
    (sidebar :initform NIL :accessor sidebar)
    (track-background-p :initform NIL :accessor track-background-p)
-   (last-tick :initform 0 :accessor last-tick)))
+   (last-tick :initform 0 :accessor last-tick)
+   (edited-entities :initform () :accessor edited-entities)))
 
 (alloy:define-observable (setf entity) (entity alloy:observable))
 
@@ -138,6 +139,9 @@
   (reset (unit 'lighting-pass T)))
 
 (defmethod hide :after ((editor editor))
+  (dolist (entity (edited-entities editor))
+    (recompute entity))
+  (setf (edited-entities editor) NIL)
   (hide (tool editor))
   (when (chunk (unit 'player T))
     (switch-chunk (chunk (unit 'player T))))
@@ -378,6 +382,7 @@
   (edit action (find-panel 'editor)))
 
 (defmethod commit ((action action) (editor editor))
+  (push (entity editor) (edited-entities editor))
   (redo action (unit 'region T))
   (commit action (history editor))
   (create-marker editor))

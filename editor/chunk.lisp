@@ -133,15 +133,6 @@
       (clear (aref (layers (entity chunk-widget)) +base-layer+))
       (alloy:with-confirmation ("Are you sure you want to clear the chunk?" :ui (unit 'ui-pass T))
         (clear (entity chunk-widget)))))
-(alloy::define-subbutton (chunk-widget compute) ("Compute Shadows")
-  (if (retained :control)
-      (for:for ((entity over (region +world+)))
-        (when (typep entity 'chunk)
-          (recompute entity)))
-      (recompute (entity chunk-widget)))
-  (setf (chunk-graph (region +world+)) (make-chunk-graph (region +world+)))
-  (when (typep (tool (editor chunk-widget)) 'move-to)
-    (setf (tool (editor chunk-widget)) (tool (editor chunk-widget)))))
 
 (alloy:define-subcontainer (chunk-widget layout)
     (alloy:grid-layout :col-sizes '(T) :row-sizes '(30 30 34 T 30 60))
@@ -165,16 +156,13 @@
     albedo absorption normal tile-info))
   (alloy:build-ui
    (alloy:grid-layout
-    :col-sizes '(T T T)
+    :col-sizes '(T)
     :row-sizes '(30)
-    clear
-    (typecase (entity chunk-widget)
-      (chunk compute)
-      (T "")))))
+    clear)))
 
 (alloy:define-subcontainer (chunk-widget focus)
     (alloy:focus-list)
-  layer show-solids tile-set-list tile-history tiles place-width place-height clear compute)
+  layer show-solids tile-set-list tile-history tiles place-width place-height clear)
 
 (defmethod (setf entity) :after ((layer layer) (editor editor))
   (setf (sidebar editor) (make-instance 'chunk-widget :editor editor :side :east)))

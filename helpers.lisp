@@ -29,6 +29,8 @@
 (define-asset (kandria placeholder) image
     #p"placeholder.png")
 
+(defmethod recompute ((entity entity)))
+
 (defclass collider () ())
 
 (defmethod (setf location) :after (loc (collider collider))
