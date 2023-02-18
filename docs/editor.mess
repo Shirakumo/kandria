@@ -22,7 +22,13 @@ After selecting an entity such as the player, you'll be presented with a new set
 
 Some entities have different sets of tools available, too. For instance, the ``Trace`` tool is only available for the player.
 
-All entities have the ``Freeform`` tool available, and will usually switch to that tool by default. This tool allows you to move the entity by dragging, and resize it (if allowed) by dragging its corners.
+The tools shown in the screenshot above do the following:
+
+- ``Browse`` Pan around the view without holding ``Alt``. If you hold ``Shift`` you can also control the zoom level.
+- ``Freeform`` Allows you to move any entity by dragging it. Entities that are resizable can also be resized by dragging their edges.
+- ``Animations`` Opens the animation editor for NPCs and so on. Unless you are making complicated mods with custom characters, you will not need this tool.
+- ``Movement AI`` Allows you to debug pathing issues with NPCs. If you click somewhere it'll invoke the movement AI to plan a route to where you clicked, if it can.
+- ``Movement Trace`` Only available for the player -- shows the movement trace like it does on the in-game map.
 
 ## Editing Chunks
 After selecting a "chunk" (a screen displaying tiles), the editor will also show you a new side panel. This is one of the most complex of the editor tools, so take your time to get familiar with it.
@@ -31,7 +37,7 @@ After selecting a "chunk" (a screen displaying tiles), the editor will also show
 
 In terms of tools there's now a few more available:
 
-- ``Paint`` Freely paint tiles onto a layer of the chunk.
+- ``Paint`` Freely paint tiles onto a layer of the chunk. Right click to erase, middle click to pick a tile from the chunk. Scrolling will scroll through the tileset horizontally, ``Shift``-scrolling will do the same vertically. ``Shift``-clicking will bucket-fill the area, ``Ctrl``-clicking will fill with "inside" solid tiles and auto-tile the chunk.
 - ``Repeat`` Paint tiles but repeat them nicely. Useful for stamping down bigger things that span more than one tile or painting rectangular regions. Hold ``Shift`` to only place down whole spans of tiles, rather than parts. Middle click to pick the tile at the cursor.
 - ``Drag`` Select a region of tiles and move it. Hold ``Shift`` during the move to copy it.
 - ``Solid Lines`` Drag a line of solid block outlines. This will automatically insert slopes as appropriate, as well, making it trivial to draw up the solid base of a map. Right click to erase. ``Ctrl``-click to bucket fill with "interior" tiles and do an auto-tile pass.
@@ -60,3 +66,23 @@ To the right of the layer slider is a toggle that shows or hides the layer of so
 
 Below this is the box to select the currently active auto-tile set. Some tilesets will have multiple auto-tiling sets available that you can mix between.
 
+Right below this is the recent tile history. When you select new tiles they will appear in this history and give you easy access to previously used ones.
+
+Below that is the actual tileset. Every tileset is split into two parts: the top part composes all visual tiles. These tiles do not have any interactivity and can be freely placed on layers 0-5. The bottom row is always reserved for solid tiles, which define interactivity and can only be placed on the solids layer. Picking a solid tile will automatically switch to the solids layer and vice-versa. The solid tiles have the following behaviours:
+
+[ image images/editor-solids.png, caption A usage example of the various types of solid tiles ]
+
+1. Solid block. This block is solid on all sides and defines the surface geometry.
+2. Platform. This block can be jumped up on and jumped down through, but can also be walked on.
+3. Death. This block will kill the player on contact.
+4. Slopes. The player can jump through these from below, though usually they're used together with solid ground.
+16. Stopper. This is a marker tile used to define elevator floors and prevent enemies or NPCs from escaping outside their intended areas.
+17. Spikes. These are directional spikes, and the player can pass through them when facing the same direction.
+21. Slip block. This block is solid but cannot be climbed.
+22. Inside. This tile marks the "inside" of a geometry and behaves the same as a solid block. It is used by the auto-tiler to determine which parts are inside or outside.
+
+If you want to select more than a single tile, you can do so by clicking one corner, then shift-clicking the other. This will select the whole region of tiles between the two clicks.
+
+[ image images/editor-stamps.png, caption Selecting and placing tile regions ]
+
+Below the tileset is information about the currently selected tile. You can see the size of the stamp in tiles, the albedo, absorption, and normal maps, and the index of the selected tile.
