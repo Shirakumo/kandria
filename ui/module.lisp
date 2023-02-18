@@ -32,7 +32,13 @@
            (enter (make-instance 'background) region)
            (enter (make-instance 'player) region)
            (enter region world)
-           (save-world world depot)))))
+           (save-world world depot)))
+        (:other
+         (depot:with-open (tx (depot:ensure-entry "setup.lisp" depot) :output 'character)
+           (let ((stream (depot:to-stream tx)))
+             (princ* `(define-module ,(id module)) stream)
+             (princ* `(in-package ,(format NIL "~a.~a" '#:org.shirakumo.fraf.kandria.mod (id module))) stream)
+             (terpri stream))))))
     (setf (find-module T) module)
     (case type
       (:world
