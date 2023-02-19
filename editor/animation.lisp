@@ -194,6 +194,7 @@
                      :maximizable NIL))
 
 (defmethod initialize-instance :after ((timeline timeline) &key entity tool)
+  (setf (animation timeline) (animation entity))
   (let* ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
          (focus (make-instance 'alloy:focus-list :focus-parent timeline))
          (animations (animations entity))
