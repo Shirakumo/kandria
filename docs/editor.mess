@@ -175,7 +175,7 @@ The menu bar also gives access to a few more useful tools:
 - ``View``
   - ``Center on Player`` Does what it says on the tin
   - ``Toggle Background`` Shows whatever parallax background the currently centered chunk shows
-  - ``Set Lighting`` Change the illumination model to specific parameters
+  - ``Toggle Lighting`` Toggle the illumination model on and off
 - ``Tools``
   - ``Reload Language`` Reload all files for the current language from disk
 - ``Help``
