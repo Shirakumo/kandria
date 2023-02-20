@@ -42,6 +42,8 @@
 (defmethod finalize :after ((world world))
   (close (depot world) :abort T))
 
+(defmethod recompute ((world world)))
+
 (defmethod hour ((world world))
   (mod (float (/ (nth-value 1 (truncate (+ (timestamp world) 432000) (* 60 60 24 7))) 60 60) 0d0) 24d0))
 
