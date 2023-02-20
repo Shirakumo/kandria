@@ -77,7 +77,7 @@
      (setf (state tool) NIL)
      (let ((entity (entity tool)))
        (destructuring-bind (tile . stroke) (nreverse (stroke tool))
-         (with-commit (tool)
+         (with-commit (tool "Paint tile ~a" tile)
              ((loop for (loc . _) in stroke
                     do (setf (tile loc entity) tile)))
              ((loop for (loc . tile) in (reverse stroke)
@@ -104,7 +104,7 @@
                   (solids (copy-seq (pixel-data entity))))
              (with-cleanup-on-failure (progn (setf (pixel-data base-layer) layer)
                                              (setf (pixel-data entity) solids))
-               (with-commit (tool)
+               (with-commit (tool "Auto tile")
                  ((auto-tile entity (vxy loc) (cdr (assoc (tile-set (sidebar (editor tool)))
                                                           (tile-types (tile-data entity))))))
                  ((setf (pixel-data base-layer) layer)
@@ -114,7 +114,7 @@
                                                         5
                                                         (floor (vz loc)))))
                   (original (copy-seq (pixel-data base-layer))))
-             (with-commit (tool)
+             (with-commit (tool "Bucket fill")
                ((flood-fill entity loc tile))
                ((setf (pixel-data base-layer) original)))))
           ((and (typep event 'mouse-press) (eql :middle (button event)))

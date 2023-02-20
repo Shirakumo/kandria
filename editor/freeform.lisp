@@ -33,7 +33,7 @@
     (cond ((retained :control)
            (let ((new (closest-acceptable-location (entity tool) (vcopy (mouse-world-pos (pos event)))))
                  (old (vcopy (location entity))))
-             (with-commit (tool)
+             (with-commit (tool "Move ~a" entity)
                ((setf (location entity) new))
                ((setf (location entity) old)))))
           (T
@@ -55,7 +55,7 @@
       (:moving
        (let ((new (vcopy (location entity)))
              (old (vcopy (original-loc tool))))
-         (with-commit (tool)
+         (with-commit (tool "Move ~a" entity)
              ((setf (location entity) new)
               (bvh:bvh-update (bvh (region +world+)) entity))
              ((setf (location entity) old)
@@ -70,7 +70,7 @@
              (original-data (original-data tool)))
          (typecase entity
            (layer
-            (with-commit (tool)
+            (with-commit (tool "Resize ~a" entity)
               ((resize-layer entity (* 2 (vx new-size)) (* 2 (vy new-size)) xanchor yanchor)
                (when (/= (vx (bsize entity)) (vx old-size))
                  (setf (vx (location entity)) (vx new-loc)))
@@ -81,7 +81,7 @@
                (v<- (location entity) old-loc)
                (bvh:bvh-update (bvh (region +world+)) entity))))
            (T
-            (with-commit (tool)
+            (with-commit (tool "Resize ~a" entity)
               ((resize entity (* 2 (vx new-size)) (* 2 (vy new-size)))
                (setf (location entity) new-loc)
                (bvh:bvh-update (bvh (region +world+)) entity))

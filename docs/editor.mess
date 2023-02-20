@@ -172,6 +172,7 @@ The menu bar also gives access to a few more useful tools:
   - ``Save Initial State`` Save the current state as the initial, starting state for the world
 - ``Edit``
   - ``Select`` Open up a dialogue to filter and select entities by name
+  - ``History`` View the editing history and undo or redo many actions at once
 - ``View``
   - ``Center on Player`` Does what it says on the tin
   - ``Toggle Background`` Shows whatever parallax background the currently centered chunk shows

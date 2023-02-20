@@ -80,6 +80,7 @@
   (setf +world+ scene))
 
 (defmethod finalize :after ((main main))
+  (clear +editor-history+)
   (setf +world+ NIL))
 
 (defmethod save-state ((main main) (state (eql T)) &rest args)

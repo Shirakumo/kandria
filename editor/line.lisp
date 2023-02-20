@@ -15,7 +15,7 @@
                 (solids (copy-seq (pixel-data entity))))
            (with-cleanup-on-failure (progn (setf (pixel-data base-layer) layer)
                                            (setf (pixel-data entity) solids))
-             (with-commit (tool)
+             (with-commit (tool "Draw solid line")
                  ((auto-tile entity (mouse-world-pos (pos event))
                              (cdr (assoc (tile-set (sidebar (editor tool)))
                                          (tile-types (tile-data entity))))))

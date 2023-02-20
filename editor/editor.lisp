@@ -105,7 +105,8 @@
                   ("Select" (edit 'select-entity editor))
                   ("Insert" (edit 'insert-entity editor))
                   ("Clone" (edit 'clone-entity editor))
-                  ("Delete" (edit 'delete-entity editor)))
+                  ("Delete" (edit 'delete-entity editor))
+                  ("History" (edit 'show-history editor)))
                  ("View"
                   ("Zoom In" (incf (alloy:value zoom) 0.1))
                   ("Zoom Out" (decf (alloy:value zoom) 0.1))
@@ -385,7 +386,7 @@
 
 (defmethod commit ((action action) (editor editor))
   (push (entity editor) (edited-entities editor))
-  (redo action (unit 'region T))
+  (redo action T)
   (commit action (history editor))
   (create-marker editor))
 
@@ -459,7 +460,7 @@
            ;; FIXME: Clean up stale data files from region packet
            ;;        Should probably do that as an explicit command to invoke at some point.
            ;;        Maybe at deploy time?
-           (with-commit (editor)
+           (with-commit (editor "Delete ~a" entity)
              ((leave entity container)
               (setf (entity editor) +world+))
              ((enter-and-load entity container +main+)
@@ -480,6 +481,9 @@
            (let ((loc (vcopy (closest-acceptable-location entity (location (camera +world+))))))
              (edit (make-instance 'insert-entity :entity (clone entity :location loc)) editor))))))
 
+(defmethod edit ((action (eql 'show-history)) (editor editor))
+  (make-instance 'history-dialog :ui (unit 'ui-pass T) :history (history editor)))
+
 (defmethod edit ((action (eql 'undo)) (editor editor))
   (undo editor (unit 'region T))
   (create-marker editor))
@@ -494,7 +498,7 @@
                      (entity editor)
                      (unit 'player T)))
          (oloc (vcopy (location entity))))
-    (with-commit (editor)
+    (with-commit (editor "Move ~a" entity)
       ((setf (location entity) (mouse-world-pos (cursor-position *context*)))
        (setf (state (unit 'player T)) :normal))
       ((setf (location entity) oloc)))))
@@ -514,7 +518,7 @@
     (enter-and-load entity (region +world+) +main+)
     (when (typep entity 'chunk)
       (setf (show-solids entity) T))
-    (with-commit (editor)
+    (with-commit (editor "Insert ~a" entity)
       ((setf (entity editor) entity)
        (create-marker editor))
       ((leave entity T)

@@ -88,7 +88,7 @@
               (replaced (copy-sentinel-to-stencil tool))
               (cleared (unless (retained :shift)
                          (cache tool))))
-         (with-commit (tool)
+         (with-commit (tool "Drag")
            ((when cleared
               (%with-layer-xy (layer (v- old-location bsize))
                 (let ((stencil-w (truncate (* 2 (vx2 bsize)) +tile-size+))
