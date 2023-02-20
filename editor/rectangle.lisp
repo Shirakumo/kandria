@@ -19,7 +19,7 @@
            (end (shiftf (end-pos tool) NIL))
            (whole (retained :shift)))
        (destructuring-bind (tile . cache) (cache tool)
-         (with-commit (tool "Move ~a" entity)
+         (with-commit (tool "Move ~a" (descriptor entity))
            ((repeat-tile-region entity start end tile whole))
            ((repeat-tile-region entity start end cache))))))))
 

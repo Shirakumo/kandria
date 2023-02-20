@@ -460,7 +460,7 @@
            ;; FIXME: Clean up stale data files from region packet
            ;;        Should probably do that as an explicit command to invoke at some point.
            ;;        Maybe at deploy time?
-           (with-commit (editor "Delete ~a" entity)
+           (with-commit (editor "Delete ~a" (descriptor entity))
              ((leave entity container)
               (setf (entity editor) +world+))
              ((enter-and-load entity container +main+)
@@ -498,7 +498,7 @@
                      (entity editor)
                      (unit 'player T)))
          (oloc (vcopy (location entity))))
-    (with-commit (editor "Move ~a" entity)
+    (with-commit (editor "Move ~a" (descriptor entity))
       ((setf (location entity) (mouse-world-pos (cursor-position *context*)))
        (setf (state (unit 'player T)) :normal))
       ((setf (location entity) oloc)))))
@@ -518,7 +518,7 @@
     (enter-and-load entity (region +world+) +main+)
     (when (typep entity 'chunk)
       (setf (show-solids entity) T))
-    (with-commit (editor "Insert ~a" entity)
+    (with-commit (editor "Insert ~a" (descriptor entity))
       ((setf (entity editor) entity)
        (create-marker editor))
       ((leave entity T)

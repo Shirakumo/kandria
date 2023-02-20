@@ -38,12 +38,14 @@
     (undo (aref (actions history) (history-pointer history)) region)))
 
 (defmethod undo ((action action) (history linear-history))
-  (loop until (<= (history-pointer history) (index action))
+  (loop until (or (= 0 (history-pointer history))
+                  (<= (history-pointer history) (index action)))
         do (decf (history-pointer history))
            (undo (aref (actions history) (history-pointer history)) T)))
 
 (defmethod redo ((action action) (history linear-history))
-  (loop until (< (index action) (history-pointer history))
+  (loop until (or (< (index action) (history-pointer history))
+                  (null (aref (actions history) (history-pointer history))))
         do (redo (aref (actions history) (history-pointer history)) T)
            (incf (history-pointer history))))
 
