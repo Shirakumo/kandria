@@ -31,7 +31,7 @@
    (cache :initform #() :accessor cache)))
 
 (defmethod label ((tool drag)) "")
-(defmethod title ((tool drag)) "Drag")
+(defmethod title ((tool drag)) "Drag (D)")
 
 (defmethod (setf tool) :after ((tool drag) (editor editor))
   (enter (sentinel tool) (region +world+)))

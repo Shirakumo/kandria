@@ -344,6 +344,7 @@
   (case (char-downcase (char (text event) 0))
     (#\b (setf (tool editor) 'browser))
     (#\c (edit 'clone-entity T))
+    (#\d (setf (tool editor) 'drag))
     (#\f (setf (tool editor) 'freeform))
     (#\h (edit 'move editor))
     (#\l (setf (tool editor) 'line))

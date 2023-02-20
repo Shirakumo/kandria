@@ -5,7 +5,7 @@
    (stroke :initform NIL :accessor stroke)))
 
 (defmethod label ((tool line)) "")
-(defmethod title ((tool line)) "Solid Lines")
+(defmethod title ((tool line)) "Solid Lines (L)")
 
 (defmethod handle ((event mouse-press) (tool line))
   (cond ((retained :control)
