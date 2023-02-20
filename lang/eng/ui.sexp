@@ -240,3 +240,4 @@ error-not-authenticated "Could not complete: you are not logged in or do not hav
 error-generic "An error occurred:~%~%~a"
 error-connection-failed-try-again "Internet connection failed. Try again later."
 error-bad-file-format "The file is not supported.~@[ Please pass a file of type ~a~]"
+error-unsaved-changes "There are unsaved changes. Do you want to quit anyway?"

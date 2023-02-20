@@ -388,10 +388,11 @@
   (push (entity editor) (edited-entities editor))
   (redo action T)
   (commit action (history editor))
-  (create-marker editor))
+  (create-marker editor)
+  (setf (changes-saved-p +main+) NIL))
 
 (defmethod edit ((action (eql 'new-world)) (editor editor))
-  (alloy:with-confirmation ("Are you sure you want to create a new world?" :ui (unit 'ui-pass T))
+  (with-saved-changes-prompt
     (let ((old (region +world+))
           (region (make-instance 'region))
           (chunk (make-instance 'chunk)))
@@ -408,20 +409,24 @@
       (reset (camera +world+))
       (setf (target (camera +world+)) (unit 'player region))
       (update-background (unit 'background region) T)
+      (setf (changes-saved-p +main+) T)
       (show-cursor *context*))))
 
 (defmethod edit ((action (eql 'load-world)) (editor editor))
-  (let ((path (file-select:existing :title "Select World File")))
-    (when path
-      (load-into-world (minimal-load-world path) :edit T))))
+  (with-saved-changes-prompt
+    (let ((path (file-select:existing :title "Select World File")))
+      (when path
+        (load-into-world (minimal-load-world path) :edit T)))))
 
 (defmethod edit ((action (eql 'save-world)) (editor editor))
-  (save-world +world+ (depot:to-pathname (depot +world+))))
+  (save-world +world+ (depot:to-pathname (depot +world+)))
+  (setf (changes-saved-p +main+) T))
 
 (defmethod edit ((action (eql 'save-world-as)) (editor editor))
   (let ((path (file-select:new :title "Select World File" :default (depot:to-pathname (depot +world+)) :filter '(("ZIP files" "zip")))))
     (when path
-      (setf (depot +world+) (save-world +world+ path)))))
+      (setf (depot +world+) (save-world +world+ path))
+      (setf (changes-saved-p +main+) T))))
 
 ;; FIXME: This information does not belong here. where else to put it? world-v0?
 (defmethod edit ((action (eql 'load-initial-state)) (editor editor))

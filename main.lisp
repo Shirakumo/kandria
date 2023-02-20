@@ -9,7 +9,8 @@
    (timestamp :initform (get-universal-time) :accessor timestamp)
    (loader :initform (make-instance 'load-screen))
    (org.shirakumo.fraf.trial.steam:use-steaminput :initform NIL)
-   (game-speed :initform 1.0 :accessor game-speed))
+   (game-speed :initform 1.0 :accessor game-speed)
+   (changes-saved-p :initform T :accessor changes-saved-p))
   (:default-initargs
    :clear-color (vec 2/17 2/17 2/17 0)
    :context '(:version (3 3) :profile :core :title "Kandria")
@@ -102,6 +103,7 @@
   (let ((state (or (state main) (make-instance 'save-state :filename "1"))))
     (clear-spawns)
     (clear +editor-history+)
+    (setf (changes-saved-p main) T)
     (load-state (initial-state (scene main)) (scene main))
     (unwind-protect
          (trial:commit (scene main) (loader main) :show-screen T :cold T)
@@ -274,9 +276,21 @@ Possible sub-commands:
     (setf (strength (unit 'sandstorm scene)) 0.0)
     (setf (strength (unit 'distortion scene)) 0.0)
     (setf (storyline scene) (make-instance 'quest:storyline))
+    (setf (changes-saved-p main) T)
     (trial:commit scene (loader main))
     (clear-retained)
     (show-panel 'main-menu)))
+
+(defmacro with-saved-changes-prompt (&body body)
+  `(flet ((thunk ()
+            ,@body))
+     (if (changes-saved-p +main+)
+         (thunk)
+         (promise:-> (prompt (@ error-unsaved-changes))
+           (:then () (thunk))))))
+
+(defmethod handle ((ev window-close) (main main))
+  (with-saved-changes-prompt (quit (context main))))
 
 (defmethod setup-rendering :after ((main main))
   (disable :cull-face :scissor-test :depth-test)
