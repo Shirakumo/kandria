@@ -316,8 +316,9 @@
            (when (and (primary entity) (eq chunk (find-chunk (location (target entity)) region)))
              (let ((a (closest-idx entity))
                    (b (closest-idx (target entity))))
-               (push (make-inter-door-node b) (svref grid a))
-               (push (make-inter-door-node a) (svref grid b))))))))))
+               (when (and a b)
+                 (push (make-inter-door-node b) (svref grid a))
+                 (push (make-inter-door-node a) (svref grid b)))))))))))
 
 (defun make-node-graph (chunk &optional (region (region +world+)))
   (trial::with-timing-report (:info :kandria.move-to "Computed node graph for ~a in ~fs run time, ~fs clock time." chunk)
