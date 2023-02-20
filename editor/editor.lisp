@@ -16,7 +16,7 @@
            (,thunk)))))
 
 (defclass zoom-slider (alloy:ranged-slider)
-  ()
+  ((alloy:tooltip :initform "Zoom"))
   (:default-initargs
    :range '(0.3 . 1.3)
    :step 0.05
