@@ -468,6 +468,7 @@ void main(){
   (let ((state (state +main+))
         (player (unit 'player +world+))
         (pauser (make-instance 'listener)))
+    (clear +editor-history+)
     (pause-game +world+ pauser)
     (reset (unit 'environment +world+))
     (transition

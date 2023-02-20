@@ -394,6 +394,7 @@
     (let ((old (region +world+))
           (region (make-instance 'region))
           (chunk (make-instance 'chunk)))
+      (clear +editor-history+)
       (enter (make-instance 'background) region)
       (enter chunk region)
       (enter (make-instance 'player :chunk chunk) region)
