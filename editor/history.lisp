@@ -129,6 +129,7 @@
    :extent (alloy:size 400 500)))
 
 (defmethod alloy:reject ((dialog history-dialog)))
+(defmethod alloy:accept ((dialog history-dialog)))
 
 (defmethod initialize-instance :after ((panel history-dialog) &key history)
   (let* ((layout (make-instance 'alloy:grid-layout :col-sizes '(T) :row-sizes '(T 30) :layout-parent panel))

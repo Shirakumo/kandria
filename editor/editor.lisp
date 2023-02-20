@@ -490,11 +490,11 @@
   (make-instance 'history-dialog :ui (unit 'ui-pass T) :history (history editor)))
 
 (defmethod edit ((action (eql 'undo)) (editor editor))
-  (undo editor (unit 'region T))
+  (undo editor T)
   (create-marker editor))
 
 (defmethod edit ((action (eql 'redo)) (editor editor))
-  (redo editor (unit 'region T))
+  (redo editor T)
   (create-marker editor))
 
 (defmethod edit ((action (eql 'move)) (editor editor))
