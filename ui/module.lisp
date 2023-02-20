@@ -605,8 +605,9 @@
         (alloy:enter module (module-list panel))))))
 
 (defun begin-upload-flow (remote module)
-  (promise:-> (with-ui-task (upload-module remote module))
-    (:then (remote-module) (message (@formats 'module-upload-successful (remote-id remote-module))))))
+  (promise:-> (trial::promise (with-ui-task (upload-module remote module)))
+    (:then (remote-module) (message (@formats 'module-upload-successful (remote-id remote-module))))
+    (:handle () (message (@ error-module-upload-failed)))))
 
 (defmethod begin-authentication-flow ((client modio:client))
   (promise:with-promise (ok)

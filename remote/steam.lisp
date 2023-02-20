@@ -101,6 +101,7 @@
   (let ((remote (search-module client module)))
     (unless remote
       (setf remote (make-instance 'steam-module
+                                  :interface client
                                   :id (id module)
                                   :title (title module)
                                   :author (author module)
