@@ -28,13 +28,25 @@
   (search-module remote (id module)))
 
 (defmethod subscribe-module (remote (module module))
-  (subscribe-module module (search-module remote module)))
+  (subscribe-module remote (search-module remote module)))
 
 (defmethod unsubscribe-module (remote (module module))
-  (unsubscribe-module module (search-module remote module)))
+  (unsubscribe-module remote (search-module remote module)))
 
 (defmethod install-module (remote (module module))
-  (install-module module (search-module remote module)))
+  (install-module remote (search-module remote module)))
+
+(defmethod subscribe-module ((all (eql T)) module)
+  (loop for remote in (list-remotes)
+        thereis (subscribe-module remote module)))
+
+(defmethod unsubscribe-module ((all (eql T)) module)
+  (loop for remote in (list-remotes)
+        thereis (unsubscribe-module remote module)))
+
+(defmethod install-module ((all (eql T)) module)
+  (loop for remote in (list-remotes)
+        thereis (install-module remote module)))
 
 (defmethod search-module ((all (eql T)) module)
   (loop for remote in (list-remotes)
@@ -61,3 +73,9 @@
   (if value
       (subscribe-module remote module)
       (unsubscribe-module remote module)))
+
+(defmethod install-module ((path pathname) (module module))
+  (let ((canonical (make-pathname :name (id module) :type "zip" :defaults (module-directory))))
+    (uiop:copy-file path canonical)
+    (setf (file module) canonical)
+    (register-module module)))
