@@ -63,10 +63,13 @@ sbcl --noinform --load "$0" --eval '(kandria-docs:generate-all)' --quit && exit
 (defun style ()
   (lass:compile-and-write
    '(article
-     :max-width 800px
+     :max-width 900px
      :font-size 12pt
      :font-family sans-serif
-     :margin 3em auto
+     :margin 0 auto
+     :padding 3em 1em 1em 1em
+     :background (hex FAFAFA)
+     :color (hex 050505)
      (h1
       :text-align center
       :font-size 2em)
