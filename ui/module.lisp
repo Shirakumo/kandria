@@ -609,6 +609,9 @@
     (:then (remote-module) (message (@formats 'module-upload-successful (remote-id remote-module))))
     (:handle () (message (@ error-module-upload-failed)))))
 
+;; TODO: on steam, open steam://url/CommunityFilePage/{id}
+;;       show http://steamcommunity.com/sharedfiles/workshoplegalagreement on first submit
+
 (defmethod begin-authentication-flow ((client modio:client))
   (promise:with-promise (ok)
     (if (steam:steamworks-available-p)
