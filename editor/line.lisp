@@ -5,6 +5,7 @@
    (stroke :initform NIL :accessor stroke)))
 
 (defmethod label ((tool line)) "")
+(defmethod title ((tool line)) "Solid Lines")
 
 (defmethod handle ((event mouse-press) (tool line))
   (cond ((retained :control)
@@ -15,11 +16,11 @@
            (with-cleanup-on-failure (progn (setf (pixel-data base-layer) layer)
                                            (setf (pixel-data entity) solids))
              (with-commit (tool)
-               ((auto-tile entity (mouse-world-pos (pos event))
-                           (cdr (assoc (tile-set (sidebar (editor tool)))
-                                       (tile-types (tile-data entity))))))
-               ((setf (pixel-data base-layer) layer)
-                (setf (pixel-data entity) solids))))))
+                 ((auto-tile entity (mouse-world-pos (pos event))
+                             (cdr (assoc (tile-set (sidebar (editor tool)))
+                                         (tile-types (tile-data entity))))))
+                 ((setf (pixel-data base-layer) layer)
+                   (setf (pixel-data entity) solids))))))
         (T
          (setf (state tool) (case (button event)
                               (:left :placing)

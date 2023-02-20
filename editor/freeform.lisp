@@ -7,6 +7,7 @@
    (original-data :initform NIL :accessor original-data)))
 
 (defmethod label ((tool freeform)) "")
+(defmethod title ((tool freeform)) "Freeform")
 
 (defmethod commit-resize-data ((entity sized-entity))
   (list (vcopy (bsize entity))

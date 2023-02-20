@@ -53,6 +53,8 @@
 (defun populate-toolbar (layout focus editor entity)
   (dolist (tool (applicable-tools entity))
     (let* ((tool (make-instance tool :editor editor))
-           (button (alloy:represent (tool editor) 'tool-button :active-value tool)))
+           (button (alloy:represent (tool editor) 'tool-button
+                                    :active-value tool
+                                    :tooltip (title tool))))
       (alloy:enter button layout)
       (alloy:enter button focus))))

@@ -6,6 +6,9 @@
 
 (defgeneric label (tool))
 
+(defmethod title ((tool tool))
+  NIL)
+
 (defmethod stage ((tool tool) (area staging-area)))
 
 (defmethod hide ((tool tool)))

@@ -4,6 +4,7 @@
   ())
 
 (defmethod label ((tool browser)) "")
+(defmethod title ((tool browser)) "Browse")
 
 (defmethod handle ((event mouse-press) (tool browser))
   (cond ((retained :shift)

@@ -65,6 +65,7 @@
   (alloy:leave (hurtbox tool) T))
 
 (defmethod label ((tool animation-editor)) "")
+(defmethod title ((tool animation-editor)) "Animations")
 
 (defmethod (setf tool) :after ((tool animation-editor) (editor editor))
   (setf (direction (entity editor)) +1)

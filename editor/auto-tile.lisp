@@ -5,6 +5,7 @@
    (end-pos :initform NIL :accessor end-pos)))
 
 (defmethod label ((tool auto-tile)) "")
+(defmethod title ((tool auto-tile)) "Auto-Tile")
 
 (defmethod handle ((ev lose-focus) (tool auto-tile))
   (handle (make-instance 'mouse-release :button :left :pos (or (end-pos tool) (vec 0 0))) tool))

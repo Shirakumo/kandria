@@ -75,6 +75,7 @@
    (selected :initform NIL :accessor selected)))
 
 (defmethod label ((tool move-to)) "")
+(defmethod title ((tool move-to)) "Movement AI")
 
 (defmethod (setf tool) :after ((tool move-to) (editor editor))
   (setf (node-graph (visualizer tool)) (entity tool))
@@ -103,6 +104,7 @@
   ((marker :initform (make-instance 'marker) :accessor marker)))
 
 (defmethod label ((tool movement-trace)) "")
+(defmethod title ((tool movement-trace)) "Movement Trace")
 
 (defmethod (setf tool) :after ((tool movement-trace) (editor editor))
   (let ((trace (movement-trace (entity tool))))
