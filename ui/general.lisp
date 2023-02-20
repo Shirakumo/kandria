@@ -327,7 +327,8 @@
 
 (defmethod alloy:notice-focus :before (thing (chain alloy:focus-chain))
   (when (and (eql :strong (alloy:focus chain))
-             (not (eq thing (alloy:focused chain))))
+             (not (eq thing (alloy:focused chain)))
+             (not (typep thing 'tile-button)))
     (harmony:play (// 'sound 'ui-focus-next) :reset T)))
 
 (defmethod stage ((pass ui-pass) (area staging-area))
