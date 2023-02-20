@@ -277,6 +277,18 @@
       (when (typep panel 'pausing-panel)
         (return)))))
 
+(defmethod handle ((ev file-drop-event) (pass ui-pass))
+  (or (call-next-method)
+      (dolist (path (print (paths ev)))
+        (cond ((ignore-errors (minimal-load-state path))
+               (load-state (minimal-load-state path) +main+))
+              ((ignore-errors (minimal-load-world path))
+               (load-into-world (minimal-load-world path)))
+              ((ignore-errors (minimal-load-module path))
+               (install-module path (minimal-load-module path)))
+              (T
+               (v:info :kandria "Don't know what to do with ~s, ignoring" path))))))
+
 (defmethod handle ((ev accept) (pass ui-pass))
   (alloy:handle (load-time-value (make-instance 'alloy:activate)) pass))
 

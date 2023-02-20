@@ -81,7 +81,9 @@
       (call-next-method)
     (alloy:decline ()
       (setf (alloy:cursor (alloy:ui focus)) :arrow)
-      T)))
+      T))
+  (when (typep ev 'alloy:drop-event)
+    (alloy:decline)))
 
 (defclass main-menu (menuing-panel)
   ())
