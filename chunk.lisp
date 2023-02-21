@@ -2,7 +2,8 @@
 
 (define-shader-entity layer (lit-entity sized-entity resizable ephemeral)
   ((vertex-array :initform (// 'trial 'fullscreen-square) :accessor vertex-array)
-   (tile-data :initarg :tile-data :accessor tile-data :type tile-data)
+   (tile-data :initarg :tile-data :accessor tile-data :type tile-data
+              :documentation "The tileset to render with")
    (tilemap :accessor tilemap)
    (layer-index :initarg :layer-index :initform 0 :accessor layer-index)
    (visibility :initform 1.0 :accessor visibility)
@@ -286,7 +287,8 @@ void main(){
 }")
 
 (define-shader-entity bg-layer (layer)
-  ((overlay :initarg :overlay :initform (// 'kandria 'placeholder) :accessor overlay :type texture))
+  ((overlay :initarg :overlay :initform (// 'kandria 'placeholder) :accessor overlay :type texture
+            :documentation "The overlay texture that replaces pink spots"))
   (:inhibit-shaders (layer :fragment-shader)))
 
 (defmethod stage :after ((layer bg-layer) (area staging-area))
@@ -338,19 +340,20 @@ void main(){
    (node-graph :initform NIL :initarg :node-graph :accessor node-graph)
    (show-solids :initform NIL :accessor show-solids)
    (tile-data :initarg :tile-data :accessor tile-data
-              :type tile-data :documentation "The tile data used to display the chunk.")
+              :type tile-data :documentation "The tile data used to display the chunk")
    (background :initform (background 'debug) :initarg :background :accessor background
-               :type background-info :documentation "The background to show in the chunk.")
+               :type background-info :documentation "The background to show in the chunk")
    (bg-overlay :initform (// 'kandria 'placeholder) :initarg :bg-overlay :accessor bg-overlay
-               :type texture)
+               :type texture :documentation "The texture to merge with pink pixels on layer 0")
    (gi :initform (gi 'none) :initarg :gi :accessor gi
-       :type gi-info :documentation "The lighting to show in the chunk.")
+       :type gi-info :documentation "The lighting to show in the chunk")
    (name :initform (generate-name "CHUNK"))
    (chunk-graph-id :initform NIL :accessor chunk-graph-id)
    (environment :initform NIL :initarg :environment :accessor environment
-                :type environment :documentation "The music environment to use.")
+                :type environment :documentation "The music environment to use")
    (visible-on-map-p :initform T :initarg :visible-on-map-p :accessor visible-on-map-p
-                     :type boolean)
+                     :type boolean :documentation "Whether the chunk is visible on the map or not
+Useful for interiors")
    (unlocked-p :initform NIL :initarg :unlocked-p :accessor unlocked-p))
   (:default-initargs :tile-data (asset 'kandria 'debug)))
 

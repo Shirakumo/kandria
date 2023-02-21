@@ -8,9 +8,9 @@
    (vertex-array :initform (// 'kandria 'rope-part))
    (chain :initform #() :accessor chain)
    (extended :initform T :initarg :extended :accessor extended
-             :type boolean)
+             :type boolean :documentation "Whether the rope is extended or not")
    (direction :initform +1 :initarg :direction :accessor direction
-              :type integer))
+              :type integer :documentation "Which way the rope is facing -1 or +1"))
   (:inhibit-shaders (shader-entity :fragment-shader)))
 
 (defmethod initialize-instance :after ((rope rope) &key (extended T))

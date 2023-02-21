@@ -2,10 +2,14 @@
 
 (defclass world (pipelined-scene)
   ((id :initform (make-uuid) :initarg :id :accessor id)
-   (title :initform "Untitled" :initarg :title :accessor title :type string)
-   (author :initform "Anonymous" :initarg :author :accessor author :type string)
-   (version :initform "0.0.0" :initarg :version :accessor version :type string)
-   (description :initform "" :initarg :description :accessor description :type string)
+   (title :initform "Untitled" :initarg :title :accessor title :type string
+          :documentation "The title of this world")
+   (author :initform "Anonymous" :initarg :author :accessor author :type string
+           :documentation "Who made the world. This should be you!")
+   (version :initform "0.0.0" :initarg :version :accessor version :type string
+            :documentation "A version identifier in case you're going to update it")
+   (description :initform "" :initarg :description :accessor description :type string
+                :documentation "A longer description of what the world is about")
    (depot :initarg :depot :accessor depot)
    (storyline :initarg :storyline :initform (make-instance 'storyline) :accessor storyline)
    (handler-stack :initform () :accessor handler-stack)

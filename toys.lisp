@@ -150,7 +150,7 @@
 (define-shader-entity lantern (lit-animated-sprite solid collider ephemeral creatable)
   ((size :initform (vec 32 32))
    (bsize :initform (vec 16 16))
-   (state :initform :active :accessor state :type symbol)
+   (state :initform :active :accessor state)
    (respawn-time :initform 0.0 :accessor respawn-time)
    (light :initform (make-instance 'lantern-light) :accessor light))
   (:default-initargs
@@ -211,7 +211,9 @@
   ((size :initform (vec 16 16))
    (bsize :initform (vec 8 8))
    (iframes :initform 0.0 :accessor iframes)
-   (strength :initform (vec 0 7) :initarg :strength :accessor strength :type vec2))
+   (strength :initform (vec 0 7) :initarg :strength :accessor strength :type vec2
+             :documentation "The strength of the spring acceleration
+Change this to set the spring's direction"))
   (:default-initargs
    :sprite-data (asset 'kandria 'spring)))
 
@@ -280,7 +282,9 @@
    (bsize :initform (vec 16 32))
    (timer :initform 0.0 :accessor timer)
    (iframes :initform 0 :accessor iframes)
-   (strength :initform (vec 0 7) :initarg :strength :accessor strength :type vec2))
+   (strength :initform (vec 0 7) :initarg :strength :accessor strength :type vec2
+             :documentation "The strength of the fountain's acceleration
+Change this to set the fountain's direction"))
   (:default-initargs :sprite-data (asset 'kandria 'fountain)))
 
 (defmethod initargs append ((fountain fountain))
@@ -444,7 +448,7 @@
 
 (define-shader-entity hider (layer trigger creatable)
   ((size :initform (vec 5 5))
-   (visibility :type single-float)
+   (visibility :type single-float :documentation "How visible the hider is right now")
    (name :initform (generate-name "HIDER"))))
 
 (defmethod velocity ((hider hider))
@@ -471,10 +475,11 @@
 
 (define-shader-entity blocker (layer solid ephemeral collider listener creatable)
   ((size :initform (vec 5 5))
-   (visibility :type single-float)
+   (visibility :type single-float :documentation "How visible the blocker is right now")
    (name :initform (generate-name "BLOCKER"))
    (weak-side :initarg :weak-side :initform :west :accessor weak-side
-              :type (member :north :east :south :west :any))))
+              :type (member :north :east :south :west :any)
+              :documentation "From which side the blocker can be cleared")))
 
 (defmethod velocity ((blocker blocker))
   #.(vec 0 0))
@@ -567,8 +572,10 @@ void main(){
 (define-shader-entity chest (interactable-animated-sprite ephemeral creatable)
   ((name :initform (generate-name "CHEST"))
    (bsize :initform (vec 8 8))
-   (item :initform NIL :initarg :item :accessor item :type symbol)
-   (state :initform :closed :initarg :state :accessor state :type (member :open :closed)))
+   (item :initform NIL :initarg :item :accessor item :type symbol
+         :documentation "The name of the item that the chest will spawn")
+   (state :initform :closed :initarg :state :accessor state :type (member :open :closed)
+          :documentation "Whether the chest is currently open or closed"))
   (:default-initargs
    :sprite-data (asset 'kandria 'chest)))
 
@@ -607,7 +614,8 @@ void main(){
 (define-shader-entity shutter (lit-animated-sprite collider solid ephemeral)
   ((name :initform NIL)
    (bsize :initform (vec 24 40))
-   (state :initform :open :initarg :state :accessor state :type (member :open :closed)))
+   (state :initform :open :initarg :state :accessor state :type (member :open :closed)
+          :documentation "Whether the shutter is currently open or closed"))
   (:default-initargs
    :sprite-data (asset 'kandria 'shutter)))
 
@@ -643,7 +651,8 @@ void main(){
 (define-shader-entity switch (lit-animated-sprite solid collider ephemeral creatable)
   ((name :initform NIL)
    (bsize :initform (vec 8 8))
-   (state :initform :off :initarg :state :accessor state :type (member :off :on)))
+   (state :initform :off :initarg :state :accessor state :type (member :off :on)
+          :documentation "Whether the switch is currently on or off"))
   (:default-initargs
    :sprite-data (asset 'kandria 'switch)))
 
@@ -681,9 +690,13 @@ void main(){
 (define-shader-entity gate (parent-entity tiled-platform creatable)
   ((name :initform (generate-name "GATE"))
    (size :initform (vec 1 5))
-   (state :initform :closed :type (member :closed :open :opening :closing))
-   (open-location :initform (vec 0 0) :initarg :open-location :accessor open-location :type vec2)
-   (closed-location :initform (vec 0 0) :initarg :closed-location :accessor closed-location :type vec2)))
+   (state :initform :closed :type (member :closed :open :opening :closing)
+          :documentation "Whether the gate is open or closed
+Use this to modify the start and end locations of the gate")
+   (open-location :initform (vec 0 0) :initarg :open-location :accessor open-location :type vec2
+                  :documentation "The location at which the gate is in open position")
+   (closed-location :initform (vec 0 0) :initarg :closed-location :accessor closed-location :type vec2
+                    :documentation "The location at which the gate is in closed position")))
 
 (defmethod initargs append ((gate gate))
   '(:size :child-count))
@@ -792,7 +805,8 @@ void main(){
    (bsize :initform (vec 32 64))
    (clock :initform (random 0.5))
    (trial:sprite-data :initform (asset 'kandria 'windmill))
-   (layer-index :initform (1- +base-layer+) :accessor layer-index :type integer)))
+   (layer-index :initform (1- +base-layer+) :accessor layer-index :type integer
+                :documentation "The layer on which the windwmill is rendered")))
 
 (defmethod handle ((ev switch-region) (windmill windmill))
   (bvh:do-fitting (entity (bvh (region +world+)) windmill)

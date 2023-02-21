@@ -1,7 +1,8 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (defclass trigger (sized-entity resizable ephemeral collider)
-  ((active-p :initarg :active-p :initform T :accessor active-p :accessor quest:active-p :type boolean)))
+  ((active-p :initarg :active-p :initform T :accessor active-p :accessor quest:active-p :type boolean
+             :documentation "Whether the trigger is currently active or not")))
 
 (defmethod is-collider-for ((moving moving) (trigger trigger)) NIL)
 
@@ -36,8 +37,10 @@
                      (vy (bsize entity))))))))
 
 (defclass story-trigger (one-time-trigger creatable)
-  ((story-item :initarg :story-item :initform NIL :accessor story-item :type symbol)
-   (target-status :initarg :target-status :initform :active :accessor target-status :type symbol)))
+  ((story-item :initarg :story-item :initform NIL :accessor story-item :type symbol
+               :documentation "The name of the story item to trigger")
+   (target-status :initarg :target-status :initform :active :accessor target-status :type (member :active :inactive :complete)
+                  :documentation "The status to change the story item to when triggered")))
 
 (defmethod initargs append ((trigger story-trigger)) '(:story-item :target-status))
 
@@ -62,7 +65,8 @@
               name (name trigger)))))
 
 (defclass interaction-trigger (one-time-trigger creatable)
-  ((interaction :initarg :interaction :initform NIL :accessor interaction :type symbol)))
+  ((interaction :initarg :interaction :initform NIL :accessor interaction :type symbol
+                :documentation "The interaction to trigger")))
 
 (defmethod initargs append ((trigger interaction-trigger)) '(:interaction))
 
@@ -74,8 +78,10 @@
       (error () (quest:deactivate trigger)))))
 
 (defclass walkntalk-trigger (one-time-trigger creatable)
-  ((interaction :initarg :interaction :initform NIL :accessor interaction :type symbol)
-   (target :initarg :target :initform T :accessor target :type symbol)))
+  ((interaction :initarg :interaction :initform NIL :accessor interaction :type symbol
+                :documentation "The walk-n-talk interaction to trigger")
+   (target :initarg :target :initform T :accessor target :type symbol
+           :documentation "The name of the entity that can trigger this")))
 
 (defmethod initargs append ((trigger walkntalk-trigger)) '(:interaction :target))
 
@@ -84,10 +90,14 @@
     (walk-n-talk (quest:find-trigger (interaction trigger) +world+))))
 
 (defclass tween-trigger (trigger)
-  ((left :initarg :left :accessor left :initform 0.0 :type single-float)
-   (right :initarg :right :accessor right :initform 1.0 :type single-float)
-   (horizontal :initarg :horizontal :accessor horizontal :initform T :type boolean)
-   (ease-fun :initarg :easing :accessor ease-fun :initform 'linear :type symbol)))
+  ((left :initarg :left :accessor left :initform 0.0 :type single-float
+         :documentation "The strength at the left edge")
+   (right :initarg :right :accessor right :initform 1.0 :type single-float
+          :documentation "The strength at the right edge")
+   (horizontal :initarg :horizontal :accessor horizontal :initform T :type boolean
+               :documentation "Whether the tween is horizontal (or vertical)")
+   (ease-fun :initarg :easing :accessor ease-fun :initform 'linear :type (member linear cubic-out cubic-in)
+             :documentation "The easing function to tween with")))
 
 (defmethod initargs append ((trigger tween-trigger)) '(:left :right :horizontal :ease-fun))
 
@@ -109,7 +119,8 @@
       (setf (value trigger) v))))
 
 (defclass sandstorm-trigger (tween-trigger creatable)
-  ((velocity :initform 1.0 :initarg :velocity :accessor velocity :type single-float)))
+  ((velocity :initform 1.0 :initarg :velocity :accessor velocity :type single-float
+             :documentation "The velocity of the sandstorm")))
 
 (defmethod stage :after ((trigger sandstorm-trigger) (area staging-area))
   (stage (// 'sound 'sandstorm) area))
@@ -193,7 +204,7 @@
 
 (defclass music-trigger (trigger creatable)
   ((track :initarg :track :initform (asset 'music 'scare) :accessor track
-          :type trial-harmony:sound)))
+          :type trial-harmony:sound :documentation "The music to play within this trigger volume")))
 
 (defmethod stage :after ((trigger music-trigger) (area staging-area))
   (stage (resource (track trigger) T) area))
@@ -211,7 +222,7 @@
 
 (defclass audio-trigger (trigger creatable)
   ((sound :initarg :sound :initform (asset 'sound 'ambience-pebbles-fall) :accessor sound
-          :type trial-harmony:sound)
+          :type trial-harmony:sound :documentation "The sound to play when entering this volume")
    (played-p :initform NIL :accessor played-p)))
 
 (defmethod stage :after ((trigger audio-trigger) (area staging-area))
@@ -247,9 +258,9 @@
 
 (defclass action-prompt (trigger listener creatable)
   ((action :initarg :action :initform NIL :accessor action
-           :type alloy::any)
+           :type alloy::any :documentation "The name or list of names of an action to show the prompt for")
    (interrupt :initarg :interrupt :initform NIL :accessor interrupt
-              :type boolean)
+              :type boolean :documentation "Whether it should interrupt gameplay to ensure players see the prompt")
    (prompt :initform (make-instance 'prompt) :reader prompt)
    (triggered :initform NIL :accessor triggered)))
 
@@ -310,9 +321,9 @@
 
 (defclass fullscreen-prompt-trigger (trigger creatable)
   ((action :initarg :action :initform NIL :accessor action
-           :type alloy::any)
+           :type alloy::any :documentation "The name or list of names of the action to display")
    (title :initarg :title :initform NIL :accessor title
-          :type alloy::any)))
+          :type alloy::any :documentation "The title to display for the prompt")))
 
 (defmethod interactable-p ((trigger fullscreen-prompt-trigger))
   (active-p trigger))
@@ -348,9 +359,12 @@
    (texture :initform (// 'kandria 'wind))
    (clock :initform 0.0 :accessor clock)
    (strength :initform (vec 0 0) :accessor strength)
-   (max-strength :initarg :strength :initform (vec 0 0) :accessor max-strength :type vec2)
-   (kind :initarg :kind :initform :constant :accessor kind :type (member :constant :periodic :oscillating))
-   (period :initarg :period :initform 2.0 :accessor period :type single-float)
+   (max-strength :initarg :strength :initform (vec 0 0) :accessor max-strength :type vec2
+                 :documentation "The maximal strength of the wind")
+   (kind :initarg :kind :initform :constant :accessor kind :type (member :constant :periodic :oscillating)
+         :documentation "How the wind behaves over time")
+   (period :initarg :period :initform 2.0 :accessor period :type single-float
+           :documentation "How long one full period of the wind takes")
    (active-time :initform 0.0 :accessor active-time)))
 
 (defmethod initialize-instance :after ((wind wind) &key)

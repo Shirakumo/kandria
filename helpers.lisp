@@ -43,7 +43,8 @@
 
 (defclass parent-entity (entity)
   ((children :initform () :initarg :children :accessor children)
-   (child-count :initform 0 :initarg :child-count :accessor child-count :type integer)))
+   (child-count :initform 0 :initarg :child-count :accessor child-count :type integer
+                :documentation "The number of child entities to spawn")))
 
 (defgeneric make-child-entity (parent))
 
@@ -129,8 +130,7 @@
       (rotate #.(vec 0 0 1) angle))))
 
 (defclass sized-entity (located-entity)
-  ((bsize :initarg :bsize :initform (nv/ (vec +tile-size+ +tile-size+) 2) :accessor bsize
-          :type vec2 :documentation "The bounding box half size.")))
+  ((bsize :initarg :bsize :initform (nv/ (vec +tile-size+ +tile-size+) 2) :accessor bsize)))
 
 (defmethod initargs append ((_ sized-entity))
   `(:bsize))
@@ -176,7 +176,7 @@
    (layer-index :initform (1- +base-layer+) :initarg :layer :accessor layer-index
                 :type integer :documentation "The layer the sprite should be on.")
    (fit-to-bsize :initform T :initarg :fit-to-bsize :accessor fit-to-bsize
-                 :type boolean)
+                 :type boolean :documentation "Whether to fit the sprite to its bounding box.")
    (color-mask :initform (vec 1 1 1 1) :accessor color-mask))
   (:inhibit-shaders (textured-entity :fragment-shader)))
 

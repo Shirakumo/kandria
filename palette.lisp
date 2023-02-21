@@ -2,9 +2,9 @@
 
 (define-shader-entity paletted-entity ()
   ((palette :initarg :palette :initform (// 'kandria 'placeholder) :accessor palette
-            :type resource)
+            :type resource :documentation "The texture to use for palette lookups")
    (palette-index :initarg :palette-index :initform 0 :accessor palette-index
-                  :type integer)))
+                  :type integer :documentation "Which palette to use")))
 
 ;; FIXME: auto-fill palette...
 #++

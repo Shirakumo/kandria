@@ -5,7 +5,8 @@
 (define-shader-entity enemy (ai-entity animatable)
   ((bsize :initform (vec 8.0 8.0))
    (cooldown :initform 0.0 :accessor cooldown)
-   (ai-state :initform :normal :accessor ai-state :type symbol)))
+   (ai-state :initform :normal :accessor ai-state :type symbol
+             :documentation "The current AI state-machine identifier")))
 
 (defmethod is-collider-for ((enemy enemy) (moving moving)) T)
 (defmethod is-collider-for ((enemy enemy) (other enemy)) NIL)

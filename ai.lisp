@@ -1,7 +1,8 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (defclass ai-entity (movable)
-  ((ai-state :initform :normal :accessor ai-state :type symbol)))
+  ((ai-state :initform :normal :accessor ai-state :type symbol
+             :documentation "The current AI state-machine identifier")))
 
 (defmethod is-collider-for ((platform moving-platform) (entity ai-entity)) NIL)
 

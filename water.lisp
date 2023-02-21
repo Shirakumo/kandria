@@ -3,7 +3,8 @@
 (define-shader-entity water (lit-entity vertex-entity sized-entity listener resizable ephemeral medium collider creatable)
   ((vertex-buffer :accessor vertex-buffer)
    (prev :accessor prev)
-   (fishing-spot :initarg :fishing-spot :initform NIL :accessor fishing-spot :type symbol))
+   (fishing-spot :initarg :fishing-spot :initform NIL :accessor fishing-spot :type symbol
+                 :documentation "Which fishing pool this draws fish from"))
   (:inhibit-shaders (vertex-entity :vertex-shader)))
 
 (defmethod initargs append ((water water)) '(:fishing-spot))

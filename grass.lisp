@@ -25,10 +25,15 @@
   ((texture :initform (// 'kandria 'grass) :accessor texture :accessor albedo)
    (vertex-buffer :accessor vertex-buffer)
    (vertex-array :accessor vertex-array)
-   (patches :initarg :patches :initform 16 :accessor patches :type integer)
-   (tile-size :initarg :tile-size :initform (vec 4 16) :accessor tile-size :type vec2)
-   (tile-start :initarg :tile-start :initform (vec 0 0) :accessor tile-start :type vec2)
-   (tile-count :initarg :tile-count :initform 8 :accessor tile-count :type integer)
+   (patches :initarg :patches :initform 16 :accessor patches :type integer
+            :documentation "The number of grass patches
+Auto-determined by the size")
+   (tile-size :initarg :tile-size :initform (vec 4 16) :accessor tile-size :type vec2
+              :documentation "The size of a single grass blade in the tile set")
+   (tile-start :initarg :tile-start :initform (vec 0 0) :accessor tile-start :type vec2
+               :documentation "The offset in pixels of the first grass blade in the tile set")
+   (tile-count :initarg :tile-count :initform 8 :accessor tile-count :type integer
+               :documentation "The number of grass blade tiles in the tile set")
    (cut-patches :initform (make-array 0 :element-type 'bit) :accessor cut-patches)))
 
 (defmethod initialize-instance :after ((patch grass-patch) &key)

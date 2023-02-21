@@ -39,7 +39,9 @@
    (iframe-idx :initform 0 :accessor iframe-idx)
    (knockback :initform (vec 0 0) :accessor knockback)
    (invincible :initform NIL :initarg :invincible :accessor invincible-p)
-   (level :initform 1 :initarg :level :accessor level :type integer)
+   (level :initform 1 :initarg :level :accessor level :type integer
+          :documentation "The RPG level of this entity
+Scales damage, defence, health")
    (experience :initform 0 :initarg :experience :accessor experience)
    (active-effects :initform () :initarg :active-effects :accessor active-effects)
    (active-effects-sprite :initform (make-instance 'lit-animated-sprite :sprite-data (asset 'kandria 'active-item)) :accessor active-effects-sprite)

@@ -45,14 +45,23 @@
 
 (defclass spawner (listener sized-entity ephemeral resizable creatable)
   ((name :initform (generate-name 'spawner))
-   (spawn-type :initarg :spawn-type :initform NIL :accessor spawn-type :type alloy::any)
-   (spawn-count :initarg :spawn-count :initform 2 :accessor spawn-count :type integer)
-   (spawn-args :initarg :spawn-args :initform NIL :accessor spawn-args :type alloy::any)
+   (spawn-type :initarg :spawn-type :initform NIL :accessor spawn-type :type alloy::any
+               :documentation "The thing to spawn
+Can be either a name of an object
+The name of a random distribution
+Or a list of names of objects to spawn")
+   (spawn-count :initarg :spawn-count :initform 2 :accessor spawn-count :type integer
+                :documentation "How many times to spawn the spawn type")
+   (spawn-args :initarg :spawn-args :initform NIL :accessor spawn-args :type alloy::any
+               :documentation "Initialization arguments to pass to the spawned entities")
    (reflist :initform () :accessor reflist)
    (adjacent :initform () :accessor adjacent)
-   (auto-deactivate :initarg :auto-deactivate :initform NIL :accessor auto-deactivate :type boolean)
-   (active-p :initarg :active-p :initform T :accessor active-p :type boolean)
-   (jitter-y-p :initarg :jitter-y-p :initform T :accessor jitter-y-p :type boolean)
+   (auto-deactivate :initarg :auto-deactivate :initform NIL :accessor auto-deactivate :type boolean
+                    :documentation "Whether to deactivate the spawner when all spawned entities have been removed")
+   (active-p :initarg :active-p :initform T :accessor active-p :type boolean
+             :documentation "Whether the spawner is currently active or not")
+   (jitter-y-p :initarg :jitter-y-p :initform T :accessor jitter-y-p :type boolean
+               :documentation "Whether to randomise the height of the spawned entities")
    (rng :initarg :rng :initform (random-state:make-generator :squirrel (random (1- (ash 1 32)))) :accessor rng)))
 
 (defmethod initargs append ((spawner spawner))

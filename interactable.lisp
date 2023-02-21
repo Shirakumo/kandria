@@ -50,9 +50,12 @@
 
 (define-shader-entity interactable-animated-sprite (ephemeral lit-animated-sprite dialog-entity resizable creatable)
   ((name :initform (generate-name "INTERACTABLE"))
-   (trial:sprite-data :initform (asset 'kandria 'dummy) :type asset)
-   (layer-index :initarg :layer-index :initform +base-layer+ :accessor layer-index :type integer)
-   (pending-animation :initarg :animation :initform NIL :accessor pending-animation :type symbol)))
+   (trial:sprite-data :initform (asset 'kandria 'dummy) :type asset
+                      :documentation "The sprite to display")
+   (layer-index :initarg :layer-index :initform +base-layer+ :accessor layer-index :type integer
+                :documentation "Which layer to render the sprite on")
+   (pending-animation :initarg :animation :initform NIL :accessor pending-animation :type symbol
+                      :documentation "Which animation to play back at the start")))
 
 (defmethod (setf animations) :after (value (sprite interactable-animated-sprite))
   (when (pending-animation sprite)
@@ -85,7 +88,9 @@
   ((target :initform NIL :initarg :target :accessor target)
    (bsize :initform (vec 11 20))
    (primary :initform T :initarg :primary :accessor primary)
-   (facing-towards-screen-p :initform T :initarg :facing-towards-screen-p :accessor facing-towards-screen-p :type boolean)))
+   (facing-towards-screen-p :initform T :initarg :facing-towards-screen-p :accessor facing-towards-screen-p :type boolean
+                            :documentation "Whether the door is facing the screen or facing away from the screen
+Determines the animation used when entering it")))
 
 (defmethod description ((door door))
   (cond ((or (not (visible-on-map-p (find-chunk door)))
@@ -140,8 +145,10 @@
 
 (define-shader-entity locked-door (door creatable)
   ((name :initform (generate-name "LOCKED-DOOR"))
-   (key :initarg :key :initform NIL :accessor key :type symbol)
-   (unlocked-p :initarg :unlocked-p :initform NIL :accessor unlocked-p :type boolean))
+   (key :initarg :key :initform NIL :accessor key :type symbol
+        :documentation "The name of the item required to unlock the door")
+   (unlocked-p :initarg :unlocked-p :initform NIL :accessor unlocked-p :type boolean
+               :documentation "Whether the door is locked or not"))
   (:default-initargs :sprite-data (asset 'kandria 'electronic-door)))
 
 (defmethod description ((door locked-door))
@@ -202,7 +209,7 @@
    (bsize :initform (vec 24 16))
    (train :initform (make-instance 'train) :accessor train)
    (unlocked-p :initform NIL :initarg :unlocked-p :accessor unlocked-p
-               :type boolean))
+               :type boolean :documentation "Whether the station has been unlocked or not"))
   (:default-initargs :sprite-data (asset 'kandria 'station)))
 
 (defmethod layer-index ((station station))
@@ -348,7 +355,8 @@ void main(){
   (setf (location entity) (location (unit name +world+))))
 
 (defclass audio-marker (sized-entity resizable ephemeral audible-entity creatable)
-  ((voice :initarg :voice :accessor voice :initform (asset 'sound 'ambience-fluorescent-light-1) :type trial-harmony:sound)))
+  ((voice :initarg :voice :accessor voice :initform (asset 'sound 'ambience-fluorescent-light-1) :type trial-harmony:sound
+          :documentation "The sound to play back")))
 
 (defclass bomb-marker (place-marker)
   ((active-p :initform T :accessor quest:active-p)))

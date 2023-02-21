@@ -24,8 +24,11 @@
   ((size :initform (vec 2 5))
    (fall-timer :initform 0.9 :accessor fall-timer)
    (initial-location :initform (vec 0 0) :initarg :initial-location :accessor initial-location)
-   (max-speed :initarg :max-speed :initform (vec 10.0 10.0) :accessor max-speed :type vec2)
-   (fall-direction :initarg :fall-direction :initform (vec 0 -1) :accessor fall-direction :type vec2)))
+   (max-speed :initarg :max-speed :initform (vec 10.0 10.0) :accessor max-speed :type vec2
+              :documentation "The maximum falling speed of the platform")
+   (fall-direction :initarg :fall-direction :initform (vec 0 -1) :accessor fall-direction :type vec2
+                   :documentation "The direction in which the platform falls
+Can also set fractions to control the acceleration")))
 
 (defmethod initargs append ((platform falling-platform))
   '(:fall-direction :max-speed))
@@ -269,7 +272,8 @@
      (harmony:play (// 'sound 'elevator-broken) :location (location elevator)))))
 
 (define-shader-entity elevator-recall (lit-sprite interactable ephemeral creatable)
-  ((target :initarg :target :initform NIL :accessor target :type symbol)
+  ((target :initarg :target :initform NIL :accessor target :type symbol
+           :documentation "The name of the elevator to recall")
    (texture :initform (// 'kandria 'elevator-recall))
    (counter :initform (cons 0 0) :accessor counter)
    (bsize :initform (vec 8 16))
