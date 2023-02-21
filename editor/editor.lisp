@@ -321,7 +321,7 @@
                           ((find :shift (modifiers ev)) 10)
                           (T 5)))
         (local (local-key-string *context* (key ev))))
-    (case (print (if local (char-downcase (char local 0)) (key ev)))
+    (case (if local (char-downcase (char local 0)) (key ev))
       (:tab (setf (entity editor) +world+) T)
       (:f5 (edit 'save-game T))
       (:f6 (edit 'save-region T))
