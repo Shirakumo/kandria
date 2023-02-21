@@ -235,6 +235,7 @@ module-modio-login-query-email-code "Please enter the code sent to your email ad
 module-login-completed-successfully "You are now logged in."
 module-upload-successful "Your mod has been successfully published with ID ~a"
 module-download-counter "~d Downloads"
+module-content-agreement "Please note: we do not tolerate any mods that promote hate speech, hate speech symbols, or include discriminatory or bigoted content such as racism, homophobia, transphobia, or xenophobia. If your mod should make others uncomfortable, we will ban it and you from our platforms."
 error-no-internet "The internet is unreachable at the moment."
 error-not-authenticated "Could not complete: you are not logged in or do not have the necessary permissions."
 error-generic "An error occurred:~%~%~a"
