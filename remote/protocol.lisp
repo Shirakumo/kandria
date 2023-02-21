@@ -14,6 +14,7 @@
 (defgeneric authenticated-p (remote))
 (defgeneric remote (module))
 (defgeneric rating (remote-module))
+(defgeneric (setf rating) (rating remote-module))
 (defgeneric download-count (remote-module))
 (defgeneric search-module (remote id))
 (defgeneric search-modules (remote &key query sort page))

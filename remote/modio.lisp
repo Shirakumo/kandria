@@ -142,6 +142,13 @@
 (defmethod remote-id ((module modio-module))
   (modio:name-id module))
 
+(defmethod (setf rating) (rating (module modio-module))
+  (modio:games/mods/ratings/add modio:*client* (modio:default-game-id modio:*client*) (modio:id module)
+                                (ecase rating
+                                  ((1 :up) +1)
+                                  ((0 NIL) 0)
+                                  ((-1 :down) -1))))
+
 (define-language-change-hook modio (language)
   (when modio:*client*
     (setf (modio:language modio:*client*) language)))
