@@ -476,7 +476,8 @@
                       (setf (ai-state npc) :normal)))))
         (case (ai-state npc)
           (:normal
-           (setf (vx vel) 0.0)
+           (when (svref (collisions npc) 2)
+             (setf (vx vel) 0.0))
            (when (<= time 0.0)
              (let ((level (crowding-level npc)))
                (cond ((<= 0.3 level)
