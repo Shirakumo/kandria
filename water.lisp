@@ -206,7 +206,10 @@ void main(){
   (setf (emitter magma) (make-instance 'bubbler :tiles (make-tile-uvs 8 8 128 128 32) :parent magma)))
 
 (defmethod stage :after ((magma magma) (area staging-area))
-  (stage (emitter magma) area))
+  (stage (emitter magma) area)
+  (stage (emitter magma) (unit 'lighting-pass +world+))
+  (stage (unit 'lighting-pass +world+) area)
+  (stage (// 'kandria 'region3 'albedo) area))
 
 (defmethod enter :after ((magma magma) (container container))
   (enter (emitter magma) container))
