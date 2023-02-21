@@ -110,7 +110,7 @@
                  ("View"
                   ("Zoom In" (incf (alloy:value zoom) 0.1))
                   ("Zoom Out" (decf (alloy:value zoom) 0.1))
-                  ("Center on Player" (setf (location (camera +world+)) (location (unit 'player T))))
+                  ("Center on Player" (v<- (location (camera +world+)) (location (unit 'player T))))
                   ("Toggle Background" (setf (track-background-p editor) (not (track-background-p editor))))
                   ("Toggle Lighting" (edit 'toggle-lighting editor)))
                  ("Tools"

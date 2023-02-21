@@ -180,7 +180,10 @@
       (setf (action-lists world) ())
       (setf (area-states (unit 'environment world)) NIL)
       (let ((version (coerce-version (getf header :version))))
-        (decode-payload NIL world depot version)
+        (restart-case (decode-payload NIL world depot version)
+          (continue ()
+            :report "Load the world's initial state instead."
+            (load-state (initial-state world) world)))
         (apply #'make-instance 'save-state initargs)))))
 
 (defun submit-trace (state &optional (player (unit 'player +world+)))

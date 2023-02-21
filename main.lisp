@@ -275,10 +275,12 @@ Possible sub-commands:
     (leave (region scene) scene)
     (setf (strength (unit 'sandstorm scene)) 0.0)
     (setf (strength (unit 'distortion scene)) 0.0)
-    (setf (storyline scene) (make-instance 'quest:storyline))
+    (setf (storyline scene) (make-instance 'storyline))
     (setf (changes-saved-p main) T)
     (trial:commit scene (loader main))
     (clear-retained)
+    (let ((depot (find-world)))
+      (setf (depot (scene main)) depot))
     (show-panel 'main-menu)))
 
 (defmacro with-saved-changes-prompt (&body body)

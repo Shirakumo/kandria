@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defun load-into-world (world &key edit)
+(defun load-into-world (world &key edit (state (first (sort (list-saves) #'> :key #'save-time))))
   (when edit (! (issue +world+ 'toggle-editor)))
   (show-panel 'load-panel :loader (loader +main+))
   (render +main+ +main+)
@@ -12,7 +12,8 @@
                   (hide panel)
                   (go retry))))
     (load-world (depot:to-pathname (depot world)) scene))
-  (load-state NIL +main+))
+  (handler-bind ((no-save-for-world #'continue))
+    (load-state state +main+)))
 
 (defun create-module (&key title author type)
   (let* ((module (make-instance 'stub-module :title title :version "0.0.0" :author author))
