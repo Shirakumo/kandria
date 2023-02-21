@@ -637,8 +637,10 @@
 
       (labels ((save-and-quit ()
                  (with-saved-changes-prompt
-                   (save-state +world+ (clone (state +main+) :filename (format NIL "resume-~a" (pathname-name (file (state +main+))))
-                                                             :save-time (get-universal-time)))
+                   (let ((resume (clone (state +main+) :filename (format NIL "resume-~a" (pathname-name (file (state +main+))))
+                                                       :save-time (get-universal-time))))
+                     (uiop:copy-file (file (state +main+)) (file resume))
+                     (save-state +world+ resume))
                    (return-to-main-menu))))
         (let ((mins (floor (- (get-universal-time) (save-time (state +main+))) 60)))
           (if (or (<= mins 1) (not (saving-possible-p)))
