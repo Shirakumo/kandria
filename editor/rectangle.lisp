@@ -31,8 +31,8 @@
 (defun repeat-tile-region (entity start end template &optional whole-chunks)
   (destructuring-bind (w h) (array-dimensions template)
     (when (and (< 0 w) (< 0 h))
-      (let ((rw (abs (ceiling (- (vx end) (vx start)) +tile-size+)))
-            (rh (abs (ceiling (- (vy end) (vy start)) +tile-size+)))
+      (let ((rw (1+ (abs (floor (- (vx end) (vx start)) +tile-size+))))
+            (rh (1+ (abs (floor (- (vy end) (vy start)) +tile-size+))))
             (start (vmin start end)))
         (when whole-chunks
           (setf rw (* (floor rw (max 1 w)) w))
@@ -43,8 +43,8 @@
                                 (aref template (mod x w) (mod y h)))))))))
 
 (defun cache-tile-region (entity start end)
-  (let* ((w (abs (ceiling (- (vx end) (vx start)) +tile-size+)))
-         (h (abs (ceiling (- (vy end) (vy start)) +tile-size+)))
+  (let* ((w (1+ (abs (floor (- (vx end) (vx start)) +tile-size+))))
+         (h (1+ (abs (floor (- (vy end) (vy start)) +tile-size+))))
          (template (make-array (list w h)))
          (start (vmin start end)))
     (loop for y from 0 below h
