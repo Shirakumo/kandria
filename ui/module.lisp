@@ -492,10 +492,9 @@
          (filter "")
          (input (alloy:represent filter 'filter-input)))
     (alloy:on alloy:value (value input)
-      (print value)
       (alloy:do-elements (element list)
         (if (search value (alloy:text element) :test #'char-equal)
-            (setf (alloy:ideal-size element) NIL)
+            (setf (alloy:ideal-size element) (alloy:size 100 50))
             (setf (alloy:ideal-size element) (alloy:size 0 0))))
       (alloy:refit list))
     (alloy:enter list focus :layer 0)
@@ -511,7 +510,7 @@
   ;; Mods Browser
   (multiple-value-bind (layout focus list) (make-searchable-list (setf (module-preview panel) (make-instance 'module-preview :object NIL)))
     (setf (module-list panel) list)
-    (add-tab panel (make-instance 'trial-alloy::language-data :name 'module-manage-tab) layout focus :icon ""))
+    (add-tab panel (make-instance 'trial-alloy::language-data :name 'module-installed-tab) layout focus :icon ""))
   ;; Worlds Browser
   (multiple-value-bind (layout focus list) (make-searchable-list (setf (world-preview panel) (make-instance 'world-preview :object NIL)))
     (setf (world-list panel) list)
@@ -554,13 +553,15 @@
 (defmethod reset ((panel module-menu))
   (alloy:clear (module-list panel))
   (dolist (module (list-modules :available))
-    (let ((button (make-instance 'tab-button :data (make-instance 'alloy:value-data :value (title module)) :layout-parent (module-list panel))))
+    (let ((button (make-instance 'tab-button :data (make-instance 'alloy:value-data :value (title module)) :layout-parent (module-list panel)
+                                             :ideal-size (alloy:size 100 50))))
       (alloy:on alloy:focus (value button)
         (when value
           (setf (alloy:object (module-preview panel)) module)))))
   (alloy:clear (world-list panel))
   (dolist (world (list-worlds))
-    (let ((button (make-instance 'tab-button :data (make-instance 'alloy:value-data :value (title world)) :layout-parent (world-list panel))))
+    (let ((button (make-instance 'tab-button :data (make-instance 'alloy:value-data :value (title world)) :layout-parent (world-list panel)
+                                             :ideal-size (alloy:size 100 50))))
       (alloy:on alloy:focus (value button)
         (when value
           (setf (alloy:object (world-preview panel)) world))))))
