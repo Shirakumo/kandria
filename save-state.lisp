@@ -123,7 +123,8 @@
       (with-unwind-protection (uiop:delete-file-if-exists tmp)
         (uiop:delete-file-if-exists tmp)
         ;; Copy original file to temp so we add new entries instead of clearing them out.
-        (when (uiop:file-exists-p (file save-state))
+        (when (and (uiop:file-exists-p (file save-state))
+                   (< 0 (file-length* (file save-state))))
           (uiop:copy-file (file save-state) tmp))
         (depot:with-depot (depot tmp :commit T)
           ;; KLUDGE: Piece of shit windows file overwrite complaints

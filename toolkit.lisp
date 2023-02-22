@@ -769,3 +769,10 @@
 
 (defun text< (a b)
   (sb-unicode:unicode< (string a) (string b)))
+
+(defun file-length* (thing)
+  (etypecase thing
+    (stream (file-length thing))
+    ((or string pathname)
+     (with-open-file (stream thing :element-type '(unsigned-byte 8))
+       (file-length stream)))))
