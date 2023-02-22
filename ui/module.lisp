@@ -69,14 +69,14 @@
    (alloy:margins)
    :pattern colors:black)
   ((label simple:text)
-   (alloy:margins 50 0 10 0)
+   (alloy:margins 50 0 20 0)
    alloy:text
-   :size (alloy:un 10)
+   :size (alloy:un 12)
    :pattern colors:white
    :font (setting :display :font)
    :halign :end :valign :middle)
   ((dot simple:ellipse)
-   (alloy:extent 20 (alloy:u- (alloy:ph 0.5) 5) 10 10)
+   (alloy:extent 20 10 10 10)
    :pattern (if (authenticated-p alloy:value) colors:green colors:red)))
 
 (presentations:define-update (ui module-login-status)
