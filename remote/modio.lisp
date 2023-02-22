@@ -89,6 +89,11 @@
                 (uiop:copy-stream-to-stream input output :element-type '(unsigned-byte 8)))))
           (setf (preview mod) target))))))
 
+(defmethod user-authored-p ((client modio:client) (module modio-module))
+  (and (modio:authenticated-p client)
+       (= (modio:id (modio:submitted-by module))
+          (modio:id (modio:me client)))))
+
 (defmethod subscribed-p ((client modio:client) (module modio-module))
   (modio:me/subscribed client :mod (modio:id module)))
 

@@ -347,6 +347,8 @@
     (alloy:enter info layout :place :west :size (alloy:un 400))
     (alloy:enter description layout)
     (alloy:finish-structure preview layout focus)
+    (alloy:refresh preview)
+    ;; KLUDGE: no god darn idea why we need to do this twice but otherwise it duplicates buttons???
     (alloy:refresh preview)))
 
 (defmethod alloy:observe ((none (eql NIL)) object (data module-preview) &optional (name data))
@@ -398,7 +400,11 @@
            (let ((visit (alloy:represent (@ module-visit-official-page) 'button
                                          :focus-parent focus :layout-parent actions)))
              (alloy:on alloy:activate (visit)
-               (open-in-browser (upstream object))))))
+               (open-in-browser (upstream object)))))
+         (when (find-module (id object))
+           (let ((vote (make-instance 'alloy:grid-layout :row-sizes '(T) :col-sizes '(T T) :layout-parent actions)))
+             (alloy:represent object 'module-rating-button :rating +1 :focus-parent focus :layout-parent vote)
+             (alloy:represent object 'module-rating-button :rating -1 :focus-parent focus :layout-parent vote))))
         (module
          (let ((active-p (alloy:represent-with 'alloy:labelled-switch preview
                                                :value-function 'active-p :text (@ module-active-switch)
@@ -414,13 +420,15 @@
                         (promise:-> (begin-authentication-flow remote)
                           (:then () (begin-upload-flow remote object)))))))
            (dolist (remote (list-remotes))
-             (if (search-module remote object)
-                 (etypecase remote
-                   (modio:client (b remote (alloy:represent (@ module-update-on-modio) 'button)))
-                   (steam:steamworkshop (b remote (alloy:represent (@ module-update-on-steam) 'button))))
-                 (etypecase remote
-                   (modio:client (b remote (alloy:represent (@ module-publish-to-modio) 'button)))
-                   (steam:steamworkshop (b remote (alloy:represent (@ module-publish-to-steam) 'button))))))))))))
+             (let ((remote-module (search-module remote object)))
+               (cond ((null remote-module)
+                      (etypecase remote
+                        (modio:client (b remote (alloy:represent (@ module-publish-to-modio) 'button)))
+                        (steam:steamworkshop (b remote (alloy:represent (@ module-publish-to-steam) 'button)))))
+                     ((user-authored-p remote remote-module)
+                      (etypecase remote
+                        (modio:client (b remote (alloy:represent (@ module-update-on-modio) 'button)))
+                        (steam:steamworkshop (b remote (alloy:represent (@ module-update-on-steam) 'button))))))))))))))
 
 (defclass world-preview (alloy:structure alloy:delegate-data)
   ())

@@ -11,6 +11,7 @@
 (defmethod active-p ((module remote-module))
   NIL)
 
+(defgeneric user-authored-p (remote module))
 (defgeneric authenticated-p (remote))
 (defgeneric remote (module))
 (defgeneric rating (remote-module))
@@ -24,6 +25,9 @@
 (defgeneric install-module (remote module))
 (defgeneric upload-module (remote module))
 (defgeneric remote-id (module))
+
+(defmethod user-authored-p (remote (module module))
+  (user-authored-p remote (search-module remote module)))
 
 (defmethod search-module (remote (module module))
   (search-module remote (id module)))
