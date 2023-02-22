@@ -165,12 +165,12 @@
         :width (alloy:vw 0.9)
         :height (alloy:vh 0.9)))
 
-(defclass module-popup (popup-panel)
+(defclass module-popup (fullscreen-panel)
   ())
 
 (defmethod initialize-instance :after ((panel module-popup) &key module)
   (let* ((layout (make-instance 'alloy:grid-layout :col-sizes '(T) :row-sizes '(T 40)
-                                                   :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:white))))
+                                                   :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:black))))
          (preview (make-instance 'module-preview :object module))
          (button (alloy:represent (@ go-backwards-in-ui) 'popup-button)))
     (alloy:on alloy:activate (button)
@@ -333,7 +333,8 @@
          (icon (alloy:represent-with 'module-icon preview :value-function 'preview :layout-parent info :ideal-size (alloy:size 400 (/ 400 16/9))))
          (title (alloy:represent-with 'module-title preview :value-function 'title :layout-parent info))
          (actions (make-instance 'alloy:vertical-linear-layout :cell-margins (alloy:margins 0 5) :layout-parent info))
-         (data (make-instance 'alloy:grid-layout :col-sizes '(100 T) :row-sizes '(40) :layout-parent info))
+         (data (make-instance 'alloy:grid-layout :col-sizes '(100 T) :row-sizes '(50) :layout-parent info
+                                                 :cell-margins (alloy:margins)))
          (description (alloy:represent-with 'module-description preview :value-function 'description)))
     (setf (actions preview) actions)
     (macrolet ((label (lang function)
@@ -382,6 +383,11 @@
       (etypecase object
         (null)
         (remote-module
+         (when (find-module (id object))
+           (let ((vote (make-instance 'alloy:grid-layout :row-sizes '(T) :col-sizes '(T T) :layout-parent actions
+                                                         :cell-margins (alloy:margins))))
+             (alloy:represent object 'module-rating-button :rating +1 :focus-parent focus :layout-parent vote)
+             (alloy:represent object 'module-rating-button :rating -1 :focus-parent focus :layout-parent vote)))
          (when (authenticated-p object)
            (let ((subscribe (alloy:represent-with 'alloy:labelled-switch preview
                                                   :value-function 'active-p :text (@ module-subscribe-switch)
@@ -400,11 +406,7 @@
            (let ((visit (alloy:represent (@ module-visit-official-page) 'button
                                          :focus-parent focus :layout-parent actions)))
              (alloy:on alloy:activate (visit)
-               (open-in-browser (upstream object)))))
-         (when (find-module (id object))
-           (let ((vote (make-instance 'alloy:grid-layout :row-sizes '(T) :col-sizes '(T T) :layout-parent actions)))
-             (alloy:represent object 'module-rating-button :rating +1 :focus-parent focus :layout-parent vote)
-             (alloy:represent object 'module-rating-button :rating -1 :focus-parent focus :layout-parent vote))))
+               (open-in-browser (upstream object))))))
         (module
          (let ((active-p (alloy:represent-with 'alloy:labelled-switch preview
                                                :value-function 'active-p :text (@ module-active-switch)
