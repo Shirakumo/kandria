@@ -1,8 +1,9 @@
 # Kandria Editor
 Kandria ships with a very capable level editor which allows you to modify existing worlds and create your own. This document describes how to use the editor, for information on how to distribute your worlds and manage those of others, please see the "mods documentation"(link mods.mess).
 
-; TODO: Crash course
 ; TODO: Video
+
+[ image images/editor-quickstart.webp, caption A crash course for making a new world ]
 
 ## Opening the Editor
 You can open the editor by loading into a world in edit mode directly from the mod manager, or by pressing the Section / Tilde / Grave Accent key (the one immediately below Escape) at any time during gameplay.
@@ -16,7 +17,7 @@ When the world is selected, clicking anything inside the view with a bounding bo
 
 To change the zoom level of the editor view, you can drag the slider to the right of the menu bar.
 
-If you want to change which entity is selected, you can hit the ``Tab`` key, which will select the world again.
+If you want to change which entity is selected, you can hit the ``Tab`` key, which will select the world again, or simply double-click on another entity.
 
 ## Editing Entities
 After selecting an entity such as the player, you'll be presented with a new set of properties on the left that you can edit, and a new set of tools. The editor will also automatically switch to whichever tool is the default tool for that entity.

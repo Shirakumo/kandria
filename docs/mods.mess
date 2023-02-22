@@ -33,7 +33,7 @@ A mod can provide any number of worlds. Any ``zip`` files and directories beginn
 If you need to do more, currently only the ``module-v0`` format is available, which gives you a ``setup.lisp`` file that you can edit. It is a plain Lisp source file that is ``load``ed when the mod is activated.
 
 ## Sharing Mods
-Once you've created your mod you'll probably want to share it with friends or the community at large. Kandria offers three separate ways of doing this, all with their own advantages.
+Once you've created your mod you'll probably want to share it with friends or the community at large. Kandria offers two ways of doing this.
 
 "NOTE:"(red,bold) We do //not// tolerate any mods that promote hate speech, hate speech symbols, or include discriminatory or bigoted content such as racism, homophobia, transphobia, or xenophobia. If your mod should make others uncomfortable, we will ban it and you from our platforms.
 
@@ -55,11 +55,11 @@ Kandria has an official "mod.io"(link https://kandria.com/mods) directory where 
 
 Updating your mods works in the same way, if the manager notices that the mod exists on mod.io and that there's been a change to the local files, it will show an ``Update`` button instead. Simply pressing that will synchronise the data remotely.
 
-### Steam Workshop
-If you've purchased the game through Steam you can also make use of the Steam Workshop. Just like mod.io, Kandria's mod manager will automatically integrate with the workshop and allow you to browse and upload mods.
-
-1. Navigate to your mod entry in the mod manager.
-2. Click the ``Upload to Steam`` button. If you have not yet accepted the Steam Workshop agreement, this may fail. In that case, please visit the "Steam Workshop"(link https://kandria.com/workshop) and accept the contributor agreement.
-3. That's it! Your mod should now appear in the ``Discover`` tab under the mod manager for anyone with Steam access.
-
-Updating your mods works in the same way, if the manager notices that the mod exists on the workshop and that there's been a change to the local files, it will show an ``Update`` button instead.
+; ### Steam Workshop
+; If you've purchased the game through Steam you can also make use of the Steam Workshop. Just like mod.io, Kandria's mod manager will automatically integrate with the workshop and allow you to browse and upload mods.
+; 
+; 1. Navigate to your mod entry in the mod manager.
+; 2. Click the ``Upload to Steam`` button. If you have not yet accepted the Steam Workshop agreement, this may fail. In that case, please visit the "Steam Workshop"(link https://kandria.com/workshop) and accept the contributor agreement.
+; 3. That's it! Your mod should now appear in the ``Discover`` tab under the mod manager for anyone with Steam access.
+; 
+; Updating your mods works in the same way, if the manager notices that the mod exists on the workshop and that there's been a change to the local files, it will show an ``Update`` button instead.
