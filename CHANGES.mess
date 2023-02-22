@@ -2,6 +2,38 @@
 These are changes to Kandria that were realised thanks to public feedback.
 A big thanks to everyone for trying it out and reporting problems!
 
+## 1.1.0
+- Fix issues with multiple worlds corrupting save files
+  Reported by Dieting Hippo
+- Fix issue with animation editor crashing the game
+  Reported by Jeremiah Fieldhaven
+- Fix issue with history dialog crashing the game
+  Reported by Dieting Hippo
+- Fix issue with placing lava in an empty world crashing the game
+  Reported by Hempuli
+- Fix issue with floating doors crashing the game on navmesh construction
+  Reported by Hempuli
+- Fix issue with world field edits leading to a crash on editor exit
+  Reported by Hempuli
+- Fix issue with text alignment on mixed fonts like Nicokaku
+  Reported by Pir
+- Add double-click tile selection
+  Reported by Hempuli
+- Make Ctrl+Z work, not just Z
+  Reported by Dieting Hippo
+- Select entities on mouse down rather than up
+  Reported by Hempuli
+- Fix rectangle tool being off by one at edges
+  Reported by Hempuli
+- Fix roaming NPCs hard-setting their velocity, preventing bounce and other velocity based mechanics
+  Reported by Hempuli
+- Hide the bsize field from edits as its duplicity with size is confusing
+  Reported by Hempuli
+- Don't overwrite the keymap.lisp if the shipped one is never, merge them instead.
+  Reported by Hempuli
+- Fix multi-tile picking being screwed when not selecting tiles from bottom left to top right
+  Reported by Hempuli, Dieting Hippo
+
 ## 1.0.7
 - Fix rare crash related to BVH degradation
   Reported by daddysnatched2202
