@@ -50,6 +50,46 @@
        (show (make-instance 'info-panel :text (@ module-create-new-info))
              :width (alloy:un 500) :height (alloy:un 300))))))
 
+(defclass module-rating-button (alloy:button)
+  ((rating :initarg :rating :accessor rating)))
+
+(defmethod alloy:activate ((button module-rating-button))
+  (setf (rating (alloy:value button)) (rating button))
+  (animation:apply-animation
+   (if (< 0 (rating button)) 'rate-positive-flash 'rate-negative-flash)
+   (presentations:find-shape 'background button)))
+
+(animation:define-animation rate-positive-flash
+  0.0 ((setf simple:pattern) colors:transparent)
+  0.1 ((setf simple:pattern) colors:green)
+  0.5 ((setf simple:pattern) colors:green)
+  2.0 ((setf simple:pattern) colors:transparent))
+
+(animation:define-animation rate-negative-flash
+  0.0 ((setf simple:pattern) colors:transparent)
+  0.1 ((setf simple:pattern) colors:red)
+  0.5 ((setf simple:pattern) colors:red)
+  2.0 ((setf simple:pattern) colors:transparent))
+
+(presentations:define-realization (ui module-rating-button)
+  ((background simple:rectangle)
+   (alloy:margins)
+   :pattern colors:transparent)
+  ((label simple:text)
+   (alloy:margins)
+   (if (< 0 (rating alloy:renderable)) (@ module-rate-positive) (@ module-rate-negative))
+   :pattern colors:white
+   :font (setting :display :font)
+   :size (alloy:un 20)
+   :halign :middle
+   :valign :middle))
+
+(presentations:define-update (ui module-rating-button)
+  (background
+   :pattern (if alloy:focus
+                (colored:color 1 1 1 0.2)
+                colors:transparent)))
+
 (defclass module-button (alloy:button)
   ())
 

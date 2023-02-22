@@ -535,6 +535,7 @@
               (buttons (make-instance 'alloy:horizontal-linear-layout :min-size (alloy:size 200 40)))
               (status (make-instance 'alloy:grid-layout :col-sizes '(300 T) :row-sizes '(40) :cell-margins (alloy:margins -10)))
               (player (unit 'player +world+))
+              (module (module +world+))
               (long-play-time-limit (* 60 60 4)))
           (flet ((add (label value &rest args)
                    (alloy:enter (make-instance 'label :value label) status)
@@ -561,7 +562,18 @@
             (let ((save (with-button save-game
                           (save-state +main+ T :show T)
                           (harmony:play (// 'sound 'ui-confirm) :reset T))))
-              (alloy:enter save buttons)))))
+              (alloy:enter save buttons)))
+          (when module
+            (let ((module-bar (make-instance 'alloy:grid-layout :col-sizes '(500 300 T 70 70) :row-sizes '(T)
+                                                                :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:black)))))
+              (make-instance 'label :value (title module) :layout-parent module-bar)
+              (make-instance 'label :value (author module) :layout-parent module-bar)
+              (when (search-module T module)
+                (let ((rate-up (alloy:represent module 'module-rating-button :rating +1 :focus-parent focus))
+                      (rate-down (alloy:represent module 'module-rating-button :rating -1 :focus-parent focus)))
+                  (alloy:enter rate-up module-bar :row 0 :col 3)
+                  (alloy:enter rate-down module-bar :row 0 :col 4)))
+              (alloy:enter module-bar layout :constraints `((:top 0) (:fill :w) (:height 50)))))))
 
       (with-tab ('quest-menu 'alloy:border-layout 'vertical-menu-focus-list :icon "")
         (let* ((list (make-instance 'alloy:vertical-linear-layout :cell-margins (alloy:margins 2 10 2 2)))

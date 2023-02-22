@@ -80,3 +80,9 @@
     (uiop:copy-file path canonical)
     (setf (file module) canonical)
     (register-module module)))
+
+(defmethod (setf rating) (rating (module module))
+  (let ((remote (search-module T module)))
+    (when remote
+      (setf (rating remote) rating))
+    rating))

@@ -143,11 +143,18 @@
   (modio:name-id module))
 
 (defmethod (setf rating) (rating (module modio-module))
-  (modio:games/mods/ratings/add modio:*client* (modio:default-game-id modio:*client*) (modio:id module)
-                                (ecase rating
-                                  ((1 :up) +1)
-                                  ((0 NIL) 0)
-                                  ((-1 :down) -1))))
+  (handler-case
+      (modio:games/mods/ratings/add modio:*client* (modio:default-game-id modio:*client*) (modio:id module)
+                                    (ecase rating
+                                      ((1 :up) +1)
+                                      ((0 NIL) 0)
+                                      ((-1 :down) -1)))
+    (modio:bad-request (e)
+      (case (modio:error-code e)
+        ;; Already rated, ignore.
+        (15028 rating)
+        (T (error e)))))
+  rating)
 
 (define-language-change-hook modio (language)
   (when modio:*client*

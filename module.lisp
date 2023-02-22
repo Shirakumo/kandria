@@ -81,6 +81,12 @@
 (defmethod (setf active-p) :after (value (module module))
   (save-active-module-list))
 
+(defmethod module ((world world))
+  (loop for module being the hash-values of *modules*
+        do (when (loop for other in (worlds module)
+                       thereis (string= (id world) (id other)))
+             (return module))))
+
 (defclass stub-module (module)
   ())
 
