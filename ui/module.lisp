@@ -51,7 +51,8 @@
              :width (alloy:un 500) :height (alloy:un 300))))))
 
 (defclass module-rating-button (alloy:button)
-  ((rating :initarg :rating :accessor rating)))
+  ((rating :initarg :rating :accessor rating)
+   (alloy:ideal-size :initform (alloy:size 50 50))))
 
 (defmethod alloy:activate ((button module-rating-button))
   (setf (rating (alloy:value button)) (rating button))
@@ -332,7 +333,7 @@
                               :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:black))))
          (icon (alloy:represent-with 'module-icon preview :value-function 'preview :layout-parent info :ideal-size (alloy:size 400 (/ 400 16/9))))
          (title (alloy:represent-with 'module-title preview :value-function 'title :layout-parent info))
-         (actions (make-instance 'alloy:vertical-linear-layout :cell-margins (alloy:margins 0 5) :layout-parent info))
+         (actions (make-instance 'alloy:vertical-linear-layout :cell-margins (alloy:margins 0 5) :min-size (alloy:size 100 30) :layout-parent info))
          (data (make-instance 'alloy:grid-layout :col-sizes '(100 T) :row-sizes '(50) :layout-parent info
                                                  :cell-margins (alloy:margins)))
          (description (alloy:represent-with 'module-description preview :value-function 'description)))
