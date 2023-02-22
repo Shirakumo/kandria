@@ -13,6 +13,7 @@
 
 (defgeneric user-authored-p (remote module))
 (defgeneric authenticated-p (remote))
+(defgeneric logout (remote))
 (defgeneric remote (module))
 (defgeneric rating (remote-module))
 (defgeneric (setf rating) (rating remote-module))

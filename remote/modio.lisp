@@ -46,13 +46,18 @@
                                  :metadata (format NIL "id:~a" id))))
     (when found (ensure-modio-module (first found)))))
 
+(defmethod logout ((client modio:client))
+  (when (modio:authenticated-p client)
+    (modio:authenticate/logout client)
+    (setf (setting :modio) (modio:extract-user-properties client))))
+
 (defun ensure-modio-module (mod)
   (let ((mod (ensure-instance mod 'modio-module)))
     (setf (slot-value mod 'id) (or (gethash "id" (modio:metadata mod))
                                    (modio:name-id mod)
                                    (princ-to-string (modio:id mod))))
     (setf (slot-value mod 'title) (modio:name mod))
-    (setf (slot-value mod 'author) (modio:name (modio:submitted-by mod)))
+    (setf (slot-value mod 'author) (username (modio:submitted-by mod)))
     (setf (slot-value mod 'version) (or (modio:version (modio:modfile mod)) "0.0.0"))
     (setf (slot-value mod 'description) (or (or* (modio:description mod)
                                                  (modio:summary mod))
@@ -93,6 +98,15 @@
   (and (modio:authenticated-p client)
        (= (modio:id (modio:submitted-by module))
           (modio:id (modio:me client)))))
+
+(defmethod username ((user modio:user))
+  (let ((name (modio:display-name user)))
+    (if (eql 'null name)
+        (modio:name user)
+        name)))
+
+(defmethod username ((client modio:client))
+  (username (modio:me client)))
 
 (defmethod subscribed-p ((client modio:client) (module modio-module))
   (modio:me/subscribed client :mod (modio:id module)))

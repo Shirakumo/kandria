@@ -34,6 +34,15 @@
 
 (defmethod authenticated-p ((client steam-module)) T)
 
+(defmethod user-authored-p ((client steam:steamworkshop) (module steam-module))
+  (= (steam:steam-id T)
+     (steam:steam-id (steam:owner module))))
+
+(defmethod username ((client steam:steamworkshop))
+  (steam:display-name T))
+
+(defmethod logout ((client steam:steamworkshop)))
+
 (defmethod register-module ((client steam:steamworkshop))
   (if (steam:steamworks-available-p)
       (dolist (mod (steam:list-subscribed-files client))
