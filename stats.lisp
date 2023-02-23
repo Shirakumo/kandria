@@ -27,6 +27,18 @@
 
 ;; FIXME: track longest-session
 
+(defmethod reset ((stats stats))
+  (setf (stats-distance stats) 0d0)
+  (setf (stats-play-time stats) 0d0)
+  (setf (stats-kills stats) 0)
+  (setf (stats-deaths stats) 0)
+  (setf (stats-longest-session stats) 0)
+  (setf (stats-secrets-found stats) 0)
+  (setf (stats-money-accrued stats) 0)
+  (setf (stats-chunks-uncovered stats) 0)
+  (setf (stats-secrets-total stats) 0)
+  (setf (stats-chunks-total stats) 0))
+
 (defmethod hurt :after ((animatable animatable) (attacker stats-entity))
   (when (<= (health animatable) 0)
     (incf (stats-kills (stats attacker)))))

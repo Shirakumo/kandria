@@ -436,6 +436,8 @@
     (decode-payload (first (parse-sexps (depot:read-from (depot:entry "init.lisp" depot) 'character))) (region +world+) depot 'save-v0)))
 
 (defmethod edit ((action (eql 'save-initial-state)) (editor editor))
+  (setf (clock +world+) 0.0)
+  (reset (stats (u 'player)))
   (let ((depot (depot:ensure-entry "region" (depot +world+) :type :directory)))
     (depot:with-open (tx (depot:ensure-entry "init.lisp" depot) :output 'character)
       (princ* (encode-payload (region +world+) NIL depot 'save-v0) (depot:to-stream tx)))))
