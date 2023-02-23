@@ -1,7 +1,8 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (defclass world (pipelined-scene)
-  ((id :initform (make-uuid) :initarg :id :accessor id)
+  ((id :initform (make-uuid) :initarg :id :accessor id :type string
+       :documentation "The unique ID of this world")
    (title :initform "Untitled" :initarg :title :accessor title :type string
           :documentation "The title of this world")
    (author :initform "Anonymous" :initarg :author :accessor author :type string
