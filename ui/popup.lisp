@@ -63,7 +63,7 @@
    :pattern colors:gray
    :line-width (alloy:un 1))
   ((:label simple:text)
-   (alloy:margins 1)
+   (alloy:margins 10 1 10 1)
    alloy:text
    :font (setting :display :font)
    :size (alloy:un 14)

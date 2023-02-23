@@ -885,3 +885,20 @@ Use this to modify the start and end locations of the gate")
       (nvclamp (v- (p! velocity-limit)) vel (p! velocity-limit)))
     (nv+ (frame-velocity door) vel)))
 
+(define-shader-entity flag (lit-animated-sprite creatable ephemeral half-solid)
+  ((trial:sprite-data :initform (asset 'kandria 'flag))
+   (next-world :initform "" :accessor next-world :type string
+               :documentation "The ID of the next world to load (if any)")
+   (bsize :initform (vec 12 16))))
+
+(defmethod is-collider-for (thing (flag flag)) NIL)
+(defmethod is-collider-for ((player player) (flag flag)) T)
+
+(defmethod collide ((player player) (flag flag) hit)
+  (issue +world+ 'game-over :ending :custom)
+  (let ((next (find (next-world flag) (list-worlds) :test #'string-equal :key #'id)))
+    (cond ((string= "" (next-world flag))
+           (setf next NIL))
+          ((null next)
+           (v:warn :kandria.module "Flag references next world with id ~s, but no such world was found!" (next-world flag))))
+    (show-panel 'end-screen :next next)))

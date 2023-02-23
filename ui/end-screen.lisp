@@ -46,3 +46,38 @@
 
 (defclass end-screen (pausing-panel menuing-panel)
   ())
+
+(defmethod initialize-instance :after ((prompt end-screen) &key next)
+  (let* ((layout (make-instance 'big-prompt-layout))
+         (focus (make-instance 'alloy:focus-list))
+         (title (make-instance 'header :level 0 :value (@ module-world-completed-title)))
+         (description (make-instance 'label :value (@formats 'module-world-completed-description (title +world+) (author +world+)) :style `((:label :size ,(alloy:un 18)
+                                                                                                                                                    :valign :top
+                                                                                                                                                    :halign :center))))
+         (module (module +world+)))
+    (alloy:enter title layout :constraints `((:fill :w) (:top 50) (:height 150)))
+    (alloy:enter description layout :constraints `((:center :w) (:below ,title 20) (:size 1000 100)))
+
+    (when (and module (search-module T module))
+      (let ((rate-up (alloy:represent module 'module-rating-button :rating +1 :focus-parent focus))
+            (rate-down (alloy:represent module 'module-rating-button :rating -1 :focus-parent focus)))
+        (alloy:enter rate-up layout :constraints `((:below ,description 10) (:size 100 50) (:off-center :w -60)))
+        (alloy:enter rate-down layout :constraints `((:below ,description 10) (:size 100 50) (:off-center :w +60)))))
+
+    (let* ((buttons (make-instance 'alloy:vertical-linear-layout)))
+      (macrolet ((with-button (label &body body)
+                   `(let ((button (alloy:represent (@ ,label) 'button :focus-parent focus :layout-parent buttons)))
+                      (alloy:on alloy:activate (button)
+                        ,@body))))
+        (when next
+          (with-button module-proceed-to-next-world
+            (load-into-world next)))
+        (with-button module-replay-current-world
+          (load-into-world +world+))
+        (with-button return-to-main-menu
+          (return-to-main-menu)))
+      (alloy:enter buttons layout :constraints `((:center :w) (:size 300 100) (:below ,description 200)))
+      (alloy:on alloy:exit (focus)
+        (setf (alloy:focus (alloy:index-element (1- (alloy:element-count focus)) focus)) :strong)))
+    (alloy:finish-structure prompt layout focus)))
+

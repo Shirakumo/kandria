@@ -91,3 +91,9 @@
     (when remote
       (setf (rating remote) rating))
     rating))
+
+(defmethod remote ((module module))
+  (loop for remote in (list-remotes)
+        when (search-module remote module)
+        do (return remote)
+        finally (no-applicable-method #'remote module)))

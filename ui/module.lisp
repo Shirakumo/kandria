@@ -89,10 +89,15 @@
    (alloy:ideal-size :initform (alloy:size 50 50))))
 
 (defmethod alloy:activate ((button module-rating-button))
-  (setf (rating (alloy:value button)) (rating button))
-  (animation:apply-animation
-   (if (< 0 (rating button)) 'rate-positive-flash 'rate-negative-flash)
-   (presentations:find-shape 'background button)))
+  (handler-case
+      (progn
+        (setf (rating (alloy:value button)) (rating button))
+        (animation:apply-animation
+         (if (< 0 (rating button)) 'rate-positive-flash 'rate-negative-flash)
+         (presentations:find-shape 'background button)))
+    (modio:invalid-access-key ()
+      (promise:-> (begin-authentication-flow (remote (alloy:value button)))
+        (:then () (alloy:activate button))))))
 
 (animation:define-animation rate-positive-flash
   0.0 ((setf simple:pattern) colors:transparent)
@@ -485,7 +490,7 @@
              (let* ((world (alloy:object preview))
                     (module (module world)))
                (if (and (module-usable-p module)
-                        (probe-file (depot:to-pathname (depot module))))
+                        (probe-file (depot:to-pathname (depot world))))
                    (handler-case
                        (apply #'load-into-world world args)
                      #+kandria-release
