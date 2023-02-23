@@ -87,6 +87,18 @@
                        thereis (string= (id world) (id other)))
              (return module))))
 
+(defmethod module-usable-p ((module module))
+  (cond ((probe-file (file module))
+         module)
+        (T
+         (v:warn :kandria.module "Module sources for ~a disappeared! Unloading and deregistering." module)
+         (when (active-p module)
+           (ignore-errors
+            (with-error-logging (:kandria.module "Error during unload: ~a")
+              (unload-module module))))
+         (setf (find-module module) NIL)
+         nil)))
+
 (defclass stub-module (module)
   ())
 
@@ -120,7 +132,7 @@
                (apply #'reinitialize-instance module :file file initargs))
               (T
                (v:info :kandria.module "Refusing to update location of ~a to ~a as the new location is older." module file)))
-        (setf (find-module T) module)))))
+        (setf (find-module module) T)))))
 
 (defmethod register-module ((file pathname))
   (handler-case (minimal-load-module file)
@@ -141,23 +153,35 @@
   (sort (ecase kind
           (:active
            (loop for module being the hash-values of *modules*
-                 when (active-p module) collect module))
+                 when (and (active-p module) (module-usable-p module))
+                 collect module))
           (:inactive
            (loop for module being the hash-values of *modules*
-                 unless (active-p module) collect module))
+                 when (and (not (active-p module)) (module-usable-p module))
+                 collect module))
           (:available
            (loop for module being the hash-values of *modules*
+                 when (module-usable-p module)
                  collect module)))
         #'text< :key #'title))
 
 (defmethod find-module ((id string))
-  (gethash (string-downcase id) *modules*))
+  (let ((module (gethash (string-downcase id) *modules*)))
+    (when (module-usable-p module)
+      module)))
 
 (defmethod (setf find-module) ((module module) (id string))
   (setf (gethash (string-downcase id) *modules*) module))
 
-(defmethod (setf find-module) ((module module) (default (eql T)))
-  (setf (gethash (string-downcase (id module)) *modules*) module))
+(defmethod (setf find-module) ((none null) (id string))
+  (remhash (string-downcase id) *modules*)
+  NIL)
+
+(defmethod (setf find-module) (value (module module))
+  (setf (find-module (id module)) value))
+
+(defmethod (setf find-module) ((default (eql T)) (module module))
+  (setf (find-module (id module)) module))
 
 (defun save-active-module-list ()
   (v:info :kandria.module "Saving active module list")
@@ -223,7 +247,7 @@
   module)
 
 (defmethod load-module :after ((module module))
-  (setf (find-module T) module)
+  (setf (find-module module) T)
   (setf (slot-value module 'active-p) T)
   (when +world+ (issue +world+ 'module-loaded :module module)))
 
