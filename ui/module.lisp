@@ -694,9 +694,11 @@
         (alloy:enter module (module-list panel))))))
 
 (defun begin-upload-flow (remote module)
-  (promise:-> (trial::promise (with-ui-task (upload-module remote module)))
-    (:then (remote-module) (message (@formats 'module-upload-successful (remote-id remote-module))))
-    (:handle () (message (@ error-module-upload-failed)))))
+  (if (module-usable-p module)
+      (promise:-> (trial::promise (with-ui-task (upload-module remote module)))
+        (:then (remote-module) (message (@formats 'module-upload-successful (remote-id remote-module))))
+        (:handle () (message (@ error-module-upload-failed))))
+      (message (@ error-module-source-disappeared))))
 
 ;; TODO: on steam, open steam://url/CommunityFilePage/{id}
 ;;       show http://steamcommunity.com/sharedfiles/workshoplegalagreement on first submit
