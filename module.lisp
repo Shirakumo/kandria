@@ -30,6 +30,7 @@
 (define-event module-loaded (module-event))
 (define-event module-unloaded (module-event))
 (define-event module-registered (module-event))
+(define-event module-unregistered (module-event))
 
 (defclass module (listener alloy:observable-object)
   ((id :initarg :id :initform (make-uuid) :accessor id)
@@ -124,8 +125,7 @@
                (setf module (apply #'make-instance 'stub-module :file file initargs))
                ;; FIXME: The issue with doing this is that it won't catch cross-restart checksums.
                (setf (checksum module) (checksum file))
-               (v:info :kandria.module "Registered ~a at ~a with checksum ~a" module file (checksum module))
-               (when +world+ (issue +world+ 'module-registered :module module)))
+               (v:info :kandria.module "Registered ~a at ~a with checksum ~a" module file (checksum module)))
               ((or (null (file module))
                    (null (probe-file (file module)))
                    (<= (file-write-date (file module)) (file-write-date file)))
@@ -171,10 +171,19 @@
       module)))
 
 (defmethod (setf find-module) ((module module) (id string))
-  (setf (gethash (string-downcase id) *modules*) module))
+  (let ((existing (gethash (string-downcase id) *modules*)))
+    (unless (eq module existing)
+      (when (and existing +world+)
+        (issue +world+ 'module-unregistered :module existing))
+      (setf (gethash (string-downcase id) *modules*) module)
+      (when +world+ (issue +world+ 'module-registered :module module))))
+  module)
 
 (defmethod (setf find-module) ((none null) (id string))
-  (remhash (string-downcase id) *modules*)
+  (let ((module (gethash (string-downcase id) *modules*)))
+    (when module
+      (remhash (string-downcase id) *modules*)
+      (when +world+ (issue +world+ 'module-unregistered :module module))))
   NIL)
 
 (defmethod (setf find-module) (value (module module))
