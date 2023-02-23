@@ -167,7 +167,7 @@
 
 (defmethod find-module ((id string))
   (let ((module (gethash (string-downcase id) *modules*)))
-    (when (module-usable-p module)
+    (when (and module (module-usable-p module))
       module)))
 
 (defmethod (setf find-module) ((module module) (id string))

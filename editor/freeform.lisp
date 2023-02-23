@@ -109,7 +109,6 @@
          (setf (location entity) new)
          (update-marker (editor tool)))))
     (:resizing
-     (setf (cursor *context*) :horizontal-resize)
      (let* ((entity (entity tool))
             (current (nvalign (mouse-world-pos (pos event)) +tile-size+))
             (starting (nvalign (start-pos tool) +tile-size+))
@@ -135,4 +134,10 @@
      (cond ((not (near-border-p (pos event) (entity tool)))
             (setf (cursor *context*) NIL))
            (T ;; FIXME: show proper resize direction
-            (setf (cursor *context*) :horizontal-resize))))))
+            (let ((pos (mouse-world-pos (pos event)))
+                  (loc (location (entity tool))))
+              (setf (cursor *context*) (cond ((and (< (vy pos) (vy loc)) (< (vx pos) (vx loc))) :bottomleft-topright-resize)
+                                             ((and (< (vy loc) (vy pos)) (< (vx pos) (vx loc))) :topleft-bottomright-resize)
+                                             ((and (< (vy pos) (vy loc)) (< (vx loc) (vx pos))) :topleft-bottomright-resize)
+                                             ((and (< (vy loc) (vy pos)) (< (vx loc) (vx pos))) :bottomleft-topright-resize)
+                                             (T :resize)))))))))
