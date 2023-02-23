@@ -249,4 +249,6 @@ error-bad-file-format "The file is not supported.~@[ Please pass a file of type 
 error-unsaved-changes "There are unsaved changes. Do you want to quit anyway?"
 error-module-upload-failed "Failed to upload the module~@[: ~a~]"
 error-module-source-disappeared "Cannot upload: the module sources are not accessible. Did you delete them?"
+error-module-load-failed "Cannot load module: an error occurred during loading. The module sources may be corrupted."
 error-world-source-disappeared "Cannot load: the world sources are not accessible. Did you delete them?"
+error-world-load-failed "Cannot load world: an error occurred during loading. The world sources may be corrupted."

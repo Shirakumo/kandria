@@ -446,7 +446,10 @@
                                                :value-function 'active-p :text (@ module-active-switch)
                                                :focus-parent focus :layout-parent actions)))
            (alloy:on alloy:activate (active-p)
-             (setf (active-p object) (alloy:value active-p))))
+             (handler-case (setf (active-p object) (alloy:value active-p))
+               #+kandria-release
+               (error ()
+                 (message (@ error-module-load-failed))))))
          (flet ((b (remote button)
                   (alloy:enter button focus)
                   (alloy:enter button actions)
@@ -482,7 +485,11 @@
                     (module (module world)))
                (if (and (module-usable-p module)
                         (probe-file (depot:to-pathname (depot module))))
-                   (apply #'load-into-world world args)
+                   (handler-case
+                       (apply #'load-into-world world args)
+                     #+kandria-release
+                     (error ()
+                       (message (@ error-world-load-failed))))
                    (message (@ error-world-source-disappeared))))))
       (alloy:on alloy:activate (start)
         (load-in))
