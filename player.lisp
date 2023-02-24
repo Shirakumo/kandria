@@ -144,6 +144,10 @@ void main(){
     (:climbing (p! climb-up))
     (T (p! walk-limit))))
 
+(defmethod reset ((player player))
+  (reset (stats player))
+  (setf (fill-pointer (movement-trace player)) 0))
+
 (defmethod stage :after ((player player) (area staging-area))
   (dolist (sound '(player-dash player-jump player-evade player-die player-die-platforming
                    player-low-health player-awaken player-damage enter-water
