@@ -66,7 +66,7 @@
                                          (modio:profile-url mod)))
     mod))
 
-(defmethod search-modules ((client modio:client) &key query (sort :title) (page 0) (ignore-cache NIL))
+(defmethod search-modules ((client modio:client) &key query (sort :title) (page 0) (ignore-cache T))
   (let ((mods (modio:games/mods client (modio:default-game-id client)
                                 :name (when (or* query) (modio:f (search query)))
                                 :start (* (+ 0 page) 50)
@@ -146,12 +146,16 @@
                (modio:games/mods/metadata/add client (modio:default-game-id client) (modio:id mod)
                                               (mktab "id" (id module)))
                (modio:games/mods/files/add client (modio:default-game-id client) (modio:id mod)
-                                           (file module) :version (version module)))
+                                           (file module) :version (version module))
+               ;; Search self to invalidate cache
+               (modio:games/mods client (modio:default-game-id client)
+                                 :metadata (format NIL "id:~a" (modio:id mod)) :ignore-cache T))
              mod)))))
 
 (defmethod upload-module ((client modio:client) (module modio-module))
   (unless (modio:authenticated-p client) (error 'not-authenticated :remote client))
   (modio:games/mods/edit client (modio:default-game-id client) (modio:id module)
+                         :summary (when (description module) (shorten-text (description module) 250))
                          :name (title module) :description (description module)
                          :homepage-url (upstream module) :logo (preview module))
   (modio:games/mods/files/add client (modio:default-game-id client) (modio:id module)

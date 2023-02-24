@@ -46,8 +46,8 @@
    (file :initarg :file :accessor file)))
 
 (defmethod print-object ((module module) stream)
-  (print-unreadable-object (module stream :type T)
-    (format stream "~a ~a" (id module) (title module))))
+  (print-unreadable-object (module stream :type NIL)
+    (format stream "~a ~a ~a" (type-of module) (id module) (title module))))
 
 (defgeneric module-package (module))
 (defgeneric module-root (module))
