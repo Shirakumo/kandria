@@ -1,4 +1,5 @@
 bin/
+mods/
 data
 world
 doc/*.html
