@@ -111,6 +111,8 @@
                   ("Zoom In" (incf (alloy:value zoom) 0.1))
                   ("Zoom Out" (decf (alloy:value zoom) 0.1))
                   ("Center on Player" (v<- (location (camera +world+)) (location (unit 'player T))))
+                  ("Fit Map Into View" (edit 'fit-into-view editor))
+                  :separator
                   ("Toggle Background" (setf (track-background-p editor) (not (track-background-p editor))))
                   ("Toggle Lighting" (edit 'toggle-lighting editor)))
                  ("Tools"
@@ -544,3 +546,14 @@
               (gi (chunk (camera +world+)))
               (gi 'none)))
     (force-lighting pass)))
+
+(defmethod edit ((action (eql 'fit-into-view)) (editor editor))
+  (with-vec (x- y- x+ y+) (nth-value 1 (bsize (region +world+)))
+    (let ((w (- x+ x-))
+          (h (- y+ y-))
+          (c (camera +world+))
+          (m (marker editor)))
+      (setf (zoom c) (/ (min (/ (alloy:pxw m) w) (/ (alloy:pxh m) h)) (view-scale c)))
+      (vsetf (location c)
+             (+ x- (/ w 2) (/ (- (/ (- (width *context*) (alloy:pxw m)) 2) (alloy:pxx m)) (zoom c) (view-scale c)))
+             (+ y- (/ h 2) (/ (- (/ (- (height *context*) (alloy:pxh m)) 2) (alloy:pxy m)) (zoom c) (view-scale c)))))))
