@@ -376,7 +376,11 @@
 (defmethod alloy:activate ((title module-title))
   (if (module-editable-p title)
       (promise:then (query* (@ module-enter-title) :value (alloy:value title) :placeholder (@ module-title))
-                    (lambda (value) (setf (alloy:value title) value)))
+                    (lambda (value)
+                      (setf (alloy:value title) value)
+                      (let ((module (module title)))
+                        (depot:with-depot (depot (file module) :commit T)
+                          (encode-payload module NIL depot 'module-v0)))))
       (harmony:play (// 'sound 'ui-error))))
 
 (defclass module-label (alloy:label module-component) ())
