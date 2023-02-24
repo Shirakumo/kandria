@@ -29,7 +29,7 @@
         (:world
          (let ((depot (depot:ensure-entry "world" depot :type :directory))
                (region (make-instance 'region))
-               (world (make-instance 'world :title title :author author)))
+               (world (make-instance 'world :id (id module) :title title :author author)))
            (enter (make-instance 'chunk) region)
            (enter (make-instance 'background) region)
            (enter (make-instance 'player) region)
@@ -41,7 +41,7 @@
              (princ* `(define-module ,(id module)) stream)
              (princ* `(in-package ,(format NIL "~a.~a" '#:org.shirakumo.fraf.kandria.mod (id module))) stream)
              (terpri stream))))))
-    (setf (find-module T) module)
+    (setf (find-module module) T)
     (case type
       (:world
        (load-module module)
@@ -722,7 +722,6 @@
 
 ;; TODO: on steam, open steam://url/CommunityFilePage/{id}
 ;;       show http://steamcommunity.com/sharedfiles/workshoplegalagreement on first submit
-
 (defmethod begin-authentication-flow ((client modio:client))
   (promise:with-promise (ok)
     (promise:-> (prompt (@ module-content-agreement))
