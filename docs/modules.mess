@@ -12,7 +12,7 @@ This tab shows the locally installed mods and allows you to activate and deactiv
 ### Worlds
 Here you can browse all the worlds that the mods have provided. A mod may provide any number of worlds at once, and with this menu you can load into any one of them, or even directly jump to editing them.
 
-"NOTE:"(red,bold) save data for mod worlds is always saved to the save state in slot #1.
+"NOTE:"(red,bold) save data for mod worlds is always saved to your most recent save file.
 
 ### Discover
 With the discover tab you can discover new mods that the community has uploaded. The top search field allows you to query mods by name, and with the sort box change the order in which the mods are displayed. Note that you need an active internet connection in order to browse mods.
@@ -20,7 +20,7 @@ With the discover tab you can discover new mods that the community has uploaded.
 When you click on a mod you'll get a detail view with the description and preview, as well as a button to download and install the mod if it isn't available locally yet. Note that even after downloading a mod it won't be active right away, you have to go back to the Manage tab to activate it.
 
 ### Import Mod
-This button allows you to pick mods that you manually downloaded or got from elsewhere and pull them into the game. Kandria will copy the mods to the ``mods/`` directory at the game root to do this.
+This button allows you to pick mods that you manually downloaded or got from elsewhere and pull them into the game. Kandria will copy the mods to the ``mods/`` directory at the game root to do this. You can also drag a mod file into the game window to do the same.
 
 ### Create Mod
 With this button you can quickly create a new mod. If the mod type is set to ``world``, it will also automatically create a new empty world for you and load you into its "editor"(link editor.mess). If the mod type is ``other``, it will instead open the mod source directory, so you can start editing the source files.
