@@ -97,3 +97,9 @@
         when (search-module remote module)
         do (return remote)
         finally (no-applicable-method #'remote module)))
+
+(defmethod module-editable-p ((module module))
+  (unless (typep module 'remote-module)
+    (loop for remote in (list-remotes)
+          for remote-module = (search-module remote module)
+          thereis (or (null remote-module) (user-authored-p remote remote-module)))))

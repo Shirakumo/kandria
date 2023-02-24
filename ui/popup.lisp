@@ -178,13 +178,13 @@
 (defclass query-panel (popup-panel)
   ())
 
-(defmethod initialize-instance :after ((panel query-panel) &key text on-accept on-cancel placeholder)
+(defmethod initialize-instance :after ((panel query-panel) &key text (value "") on-accept on-cancel placeholder)
   (let* ((layout (make-instance 'alloy:grid-layout :col-sizes '(T) :row-sizes '(T 50 50)
                                                    :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:white))))
          (focus (make-instance 'alloy:focus-list))
          (label (make-instance 'info-label :value text :layout-parent layout))
          (input (make-instance 'popup-line :layout-parent layout :focus-parent focus :placeholder placeholder
-                                           :data (make-instance 'alloy:value-data :value "")))
+                                           :data (make-instance 'alloy:value-data :value value)))
          (buttons (make-instance 'alloy:grid-layout :col-sizes '(T T) :row-sizes '(T) :layout-parent layout))
          (cancel (alloy:represent (@ dismiss-prompt-panel) 'popup-button :layout-parent buttons :focus-parent focus))
          (accept (alloy:represent (@ accept-prompt-panel) 'popup-button :layout-parent buttons :focus-parent focus)))
@@ -208,9 +208,9 @@
     (show (make-instance 'query-panel :text string :on-accept #'ok :on-cancel #'fail)
           :width (alloy:vw 0.5) :height (alloy:vh 0.5))))
 
-(defun query* (string &key placeholder (width (alloy:vw 0.5)) (height (alloy:vh 0.5)))
+(defun query* (string &key placeholder (value "") (width (alloy:vw 0.5)) (height (alloy:vh 0.5)))
   (promise:with-promise (ok fail)
-    (show (make-instance 'query-panel :text string :on-accept #'ok :on-cancel #'fail :placeholder placeholder)
+    (show (make-instance 'query-panel :text string :value value :on-accept #'ok :on-cancel #'fail :placeholder placeholder)
           :width width :height height)))
 
 (defclass spinner-panel (menuing-panel)

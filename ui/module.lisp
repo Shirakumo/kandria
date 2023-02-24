@@ -298,7 +298,15 @@
 (defmethod show :after ((panel prompt-panel) &key)
   (harmony:play (// 'sound 'ui-warning)))
 
-(defclass module-icon (alloy:icon alloy:value-component)
+(defclass module-component (alloy:value-component) ())
+
+(defmethod module ((component module-component))
+  (alloy:object (alloy:data component)))
+
+(defmethod module-editable-p ((component module-component))
+  (module-editable-p (module component)))
+
+(defclass module-icon (alloy:icon module-component)
   ())
 
 ;; KLUDGE: since the icon is not part of any focus list, we handle the drop in an :around.
@@ -307,21 +315,49 @@
     (when (or (not (string-equal "png" (pathname-type path)))
               (null (ignore-errors (pngload:load-file path :decode NIL))))
       (message (@formats 'error-bad-file-format "PNG")))
-    (let ((module (alloy:object (alloy:data icon))))
+    (let ((module (module icon)))
       (unless (typep module 'remote-module)
         (v:info :kandria.module "Updating preview of ~a to ~a" module path)
         (depot:with-depot (depot (file module) :commit T)
           (depot:write-to (depot:ensure-entry "preview.png" depot) path))
         (setf (alloy:value icon) path)))))
 
+(defmethod alloy:activate ((icon module-icon))
+  (let ((module (module icon)))
+    (if (module-editable-p module)
+        (let ((path (org.shirakumo.file-select:existing :title (@ module-select-preview-image)
+                                                        :default (preview module)
+                                                        :filter '(("PNG files" "png")))))
+          (when path
+            (v:info :kandria.module "Updating preview of ~a to ~a" module path)
+            (depot:with-depot (depot (file module) :commit T)
+              (depot:write-to (depot:ensure-entry "preview.png" depot) path))
+            (setf (alloy:value icon) path)))
+        (harmony:play (// 'sound 'ui-error)))))
+
+(presentations:define-realization (ui module-icon)
+  ((:icon simple:icon)
+   (alloy:margins)
+   alloy:value
+   :sizing :contain)
+  ((:border simple:rectangle)
+   (alloy:margins)
+   :pattern colors:transparent
+   :line-width (alloy:un 2)))
+
 (presentations:define-update (ui module-icon)
   (:icon
-   :image alloy:value
-   :sizing :contain))
+   :image alloy:value)
+  (:border
+   :pattern (if alloy:focus colors:white colors:transparent)))
 
-(defclass module-title (alloy:label) ())
+(defclass module-title (alloy:label module-component) ())
 
 (presentations:define-realization (ui module-title)
+  ((:border simple:rectangle)
+   (alloy:margins)
+   :pattern colors:transparent
+   :line-width (alloy:un 2))
   ((:label simple:text)
    (alloy:margins)
    alloy:text
@@ -331,7 +367,19 @@
    :halign :start
    :valign :middle))
 
-(defclass module-label (alloy:label) ())
+(presentations:define-update (ui module-title)
+  (:border
+   :pattern (if alloy:focus colors:white colors:transparent))
+  (:label
+   :pattern colors:white))
+
+(defmethod alloy:activate ((title module-title))
+  (if (module-editable-p title)
+      (promise:then (query* (@ module-enter-title) :value (alloy:value title) :placeholder (@ module-title))
+                    (lambda (value) (setf (alloy:value title) value)))
+      (harmony:play (// 'sound 'ui-error))))
+
+(defclass module-label (alloy:label module-component) ())
 
 (presentations:define-realization (ui module-label)
   ((:label simple:text)
@@ -343,7 +391,7 @@
    :halign :start
    :valign :middle))
 
-(defclass module-description (alloy:label) ())
+(defclass module-description (alloy:label module-component) ())
 
 (presentations:define-realization (ui module-description)
   ((background simple:rectangle)
@@ -370,8 +418,8 @@
          (focus (make-instance 'alloy:focus-list))
          (info (make-instance 'alloy:vertical-linear-layout :cell-margins (alloy:margins 5)
                               :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:black))))
-         (icon (alloy:represent-with 'module-icon preview :value-function 'preview :layout-parent info :ideal-size (alloy:size 400 (/ 400 16/9))))
-         (title (alloy:represent-with 'module-title preview :value-function 'title :layout-parent info))
+         (icon (alloy:represent-with 'module-icon preview :value-function 'preview :layout-parent info :ideal-size (alloy:size 400 (/ 400 16/9)) :focus-parent focus))
+         (title (alloy:represent-with 'module-title preview :value-function 'title :layout-parent info :focus-parent focus))
          (actions (make-instance 'alloy:vertical-linear-layout :cell-margins (alloy:margins 0 5) :min-size (alloy:size 100 30) :layout-parent info))
          (data (make-instance 'alloy:grid-layout :col-sizes '(100 T) :row-sizes '(50) :layout-parent info
                                                  :cell-margins (alloy:margins)))
@@ -418,7 +466,9 @@
       (when object
         (dolist (function (alloy:observed preview))
           (alloy:notify-observers function preview (slot-value object function) object)))
-      (alloy:clear focus)
+      (alloy:do-elements (element focus)
+        (unless (typep element 'module-component)
+          (alloy:leave element focus)))
       (alloy:clear actions)
       (etypecase object
         (null)
