@@ -456,6 +456,10 @@
                #+kandria-release
                (error ()
                  (message (@ error-module-load-failed))))))
+         (let ((sources (alloy:represent (@ module-open-source-directory) 'button
+                                         :focus-parent focus :layout-parent actions)))
+           (alloy:on alloy:activate (sources)
+             (open-in-file-manager (file object))))
          (flet ((b (remote button)
                   (alloy:enter button focus)
                   (alloy:enter button actions)
