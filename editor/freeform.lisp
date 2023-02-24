@@ -136,8 +136,8 @@
            (T ;; FIXME: show proper resize direction
             (let ((pos (mouse-world-pos (pos event)))
                   (loc (location (entity tool))))
-              (setf (cursor *context*) (cond ((and (< (vy pos) (vy loc)) (< (vx pos) (vx loc))) :bottomleft-topright-resize)
-                                             ((and (< (vy loc) (vy pos)) (< (vx pos) (vx loc))) :topleft-bottomright-resize)
-                                             ((and (< (vy pos) (vy loc)) (< (vx loc) (vx pos))) :topleft-bottomright-resize)
-                                             ((and (< (vy loc) (vy pos)) (< (vx loc) (vx pos))) :bottomleft-topright-resize)
+              (setf (cursor *context*) (cond ((and (< (vy pos) (vy loc)) (< (vx pos) (vx loc))) :nesw-resize)
+                                             ((and (< (vy loc) (vy pos)) (< (vx pos) (vx loc))) :nwse-resize)
+                                             ((and (< (vy pos) (vy loc)) (< (vx loc) (vx pos))) :nwse-resize)
+                                             ((and (< (vy loc) (vy pos)) (< (vx loc) (vx pos))) :nesw-resize)
                                              (T :resize)))))))))
