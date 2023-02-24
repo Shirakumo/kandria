@@ -59,14 +59,14 @@
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (defun mktab (&rest entries)
     (let ((table (make-hash-table :size (length entries))))
-      (loop for (key val) in entries
+      (loop for (key val) on entries by #'cddr
             do (setf (gethash key table) val))
       table)))
 
 (define-global +player-movement-data+
     (macrolet ((mktab* (&rest entries)
                  `(mktab ,@(loop for (k v) in entries
-                                 collect `(list ',k ,v)))))
+                                 collect `',k collect v))))
       (mktab* (coyote-time     0.08)
               (velocity-limit  (vec 10 20))
               (slowfall-limit  5.0)

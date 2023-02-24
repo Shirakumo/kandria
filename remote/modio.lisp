@@ -138,15 +138,15 @@
            (setf (file remote) (file module))
            (upload-module client remote))
           (T ;; Upload a new module
-           (let ((mod (ensure-modio-module
-                       (modio:games/mods/add
-                        client (modio:default-game-id client) (title module) (description module)
-                        (or (preview module))
-                        :homepage-url (upstream module)))))
-             (modio:games/mods/metadata/add client (modio:default-game-id client) (modio:id mod)
-                                            :metadata (mktab "id" (id module)))
-             (modio:games/mods/files/add client (modio:default-game-id client) (modio:id mod)
-                                         (file module) :version (version module))
+           (let ((mod (modio:games/mods/add
+                       client (modio:default-game-id client) (title module) (shorten-text (or* (description module) "No description provided.") 250)
+                       (or (preview module)) :homepage-url (upstream module) :description (or* (description module)))))
+             (with-cleanup-on-failure (modio:games/mods/delete client (modio:default-game-id client) (modio:id mod))
+               (ensure-modio-module mod)
+               (modio:games/mods/metadata/add client (modio:default-game-id client) (modio:id mod)
+                                              (mktab "id" (id module)))
+               (modio:games/mods/files/add client (modio:default-game-id client) (modio:id mod)
+                                           (file module) :version (version module)))
              mod)))))
 
 (defmethod upload-module ((client modio:client) (module modio-module))
