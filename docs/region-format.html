@@ -13,45 +13,7 @@
     <meta property="og:image">
   </head>
   <body>
-  <article><style>article{
-    max-width: 900px;
-    font-size: 12pt;
-    font-family: sans-serif;
-    margin: 0 auto;
-    padding: 3em 1em 1em 1em;
-    background: #FAFAFA;
-    color: #050505;
-}
-
-article h1{
-    text-align: center;
-    font-size: 2em;
-}
-
-article img{
-    margin: 0 auto;
-    max-width: 100%;
-}
-
-article blockquote{
-    border-left: 0.2em solid gray;
-    margin-left: 1em;
-    padding-left: 1em;
-}
-
-article figcaption{
-    padding: 0.2em 1em;
-    background: #E0E0E0;
-}
-
-article code{
-    background: #F0F0F0;
-    padding: 0 0.1em;
-}
-
-article .code-block{
-    padding: 0.1em 0.5em;
-}</style><h1 id="region file format">Region File Format</h1><p>This document is the specification for Leaf's region file format. The format is defined by a combination of textual and ADL descriptions. A more formal definition of ADL can be found in the <a class="external-link" href="adl.html">adl</a> file.</p><h2 id="container">Container</h2><p>The region file format is represented through a multitude of files or entries in a hierarchical structure. This may be a directory, a zip archive, or anything similar that can store named binary blobs. In any case, the container must have a <code>meta.lisp</code> entry at its toplevel. If the <code>meta.lisp</code> entry is missing or malformed, the packet is considered invalid.</p><h2 id="metadata">Metadata</h2><p>The <code>meta.lisp</code> entry must contain data as follows, encoded in standard s-expression format.</p><code style="display:block" class="code-block" data-language="ADL"><pre>file: [ header, information ]
+  <article><style>article{max-width:900px;font-size:12pt;font-family:sans-serif;margin:0 auto;padding:3em 1em 1em 1em;background:#FAFAFA;color:#050505;}article h1{text-align:center;font-size:2em;}article img{margin:0 auto;max-width:100%;}article blockquote{border-left:0.2em solid gray;margin-left:1em;padding-left:1em;}article figcaption{padding:0.2em 1em;background:#E0E0E0;}article code{background:#F0F0F0;padding:0 0.1em;}article .code-block{padding:0.1em 0.5em;}</style><h1 id="region file format">Region File Format</h1><p>This document is the specification for Leaf's region file format. The format is defined by a combination of textual and ADL descriptions. A more formal definition of ADL can be found in the <a class="external-link" href="adl.html">adl</a> file.</p><h2 id="container">Container</h2><p>The region file format is represented through a multitude of files or entries in a hierarchical structure. This may be a directory, a zip archive, or anything similar that can store named binary blobs. In any case, the container must have a <code>meta.lisp</code> entry at its toplevel. If the <code>meta.lisp</code> entry is missing or malformed, the packet is considered invalid.</p><h2 id="metadata">Metadata</h2><p>The <code>meta.lisp</code> entry must contain data as follows, encoded in standard s-expression format.</p><code style="display:block" class="code-block" data-language="ADL"><pre>file: [ header, information ]
 
 header: {
   identifier: symbol,

@@ -32,6 +32,13 @@ A mod can provide any number of worlds. Any ``zip`` files and directories beginn
 
 If you need to do more, currently only the ``module-v0`` format is available, which gives you a ``setup.lisp`` file that you can edit. It is a plain Lisp source file that is ``load``ed when the mod is activated.
 
+## Updating Mods
+Once a mod has been created, you can update its title, the preview image, and the description from the mod manager. Just click on / activate the relevant part. Note that i you are not the owner of the mod, it may deny you from changing it.
+
+Alternatively, you can also edit the mod files directly. Use the ``Open Source Directory`` button to visit the contents, and see "Mod Structure"(link #mod structure) for details on the contents. If you edit the files, the mod data won't automatically update in-game unless you deactivate and reactivate the mod first.
+
+After updating the mod data, you might want to update it on the remote if you've uploaded it to Mod.io. Simply using the ``Update on mod.io`` button should synchronise the data for you.
+
 ## Sharing Mods
 Once you've created your mod you'll probably want to share it with friends or the community at large. Kandria offers two ways of doing this.
 
@@ -81,15 +88,22 @@ Beyond the first line, the contents of both ``meta.lisp`` and the rest of the di
 ### module-v0
 After the identifier line, the ``meta.lisp`` must contain a list of module metadata, with the following keys:
 
-- ``id`` A UUID that uniquely identifies your mod. You should never create a UUID that clashes with that of an existing mod. When you create a new mod from the mod manager, a randomised UUID is created for you, which should be safe to use as collisions are insanely unlikely.
-- ``title`` The title for your mod. This is completely arbitrary, but please keep the length short enough.
-- ``author`` Some identifier for who made the mod. Again, this is arbitrary, and does not necessarily have to match the username of your account on mod.io.
-- ``version`` A version identifier. You are encouraged to use the ``major.minor.patch`` format, but are not forced to do so.
-- ``description`` A long, free-form description field. You can use the "Markless"(https://shirakumo.github.io/markless) document standard for extra formatting.
+- ``id``
+  A UUID that uniquely identifies your mod. You should never create a UUID that clashes with that of an existing mod. When you create a new mod from the mod manager, a randomised UUID is created for you, which should be safe to use as collisions are insanely unlikely.
+- ``title``
+  The title for your mod. This is completely arbitrary, but please keep the length short enough.
+- ``author``
+  Some identifier for who made the mod. Again, this is arbitrary, and does not necessarily have to match the username of your account on mod.io.
+- ``version``
+  A version identifier. You are encouraged to use the ``major.minor.patch`` format, but are not forced to do so.
+- ``description``
+  A long, free-form description field. You can use the "Markless"(https://shirakumo.github.io/markless) document standard for extra formatting.
 
 Aside from the ``meta.lisp`` file, the directory may contain any number of ``.zip`` files and directories that begin with ``world``. All of those will be registered as worlds that the mod supplies, and will show up in the mod manager's world list if the mod is loaded. You don't need to write any code for this, the system will discover and register them on its own.
 
-Finally, the directory //may// contain a ``setup.lisp`` file. This file, if present, is simply loaded via the Common Lisp ``load`` function. The file //should// start with something like this:
+The directory //may// contain a ``preview.png`` which should be a 16:9 image that is used as the preview icon in the mod manager and the discovery browser.
+
+Finally, the directory //must// contain a ``setup.lisp`` file. This file is simply loaded via the Common Lisp ``load`` function. The file //must// start with something like this:
 
 :: common lisp
 (define-module 6632CE56-9F1B-6EB3-712D-CC0ED9083E62)

@@ -61,33 +61,35 @@ sbcl --noinform --load "$0" --eval '(kandria-docs:generate-all)' --quit && exit
 
 ;;;; Compiling documentation pages
 (defun style ()
-  (lass:compile-and-write
-   '(article
-     :max-width 900px
-     :font-size 12pt
-     :font-family sans-serif
-     :margin 0 auto
-     :padding 3em 1em 1em 1em
-     :background (hex FAFAFA)
-     :color (hex 050505)
-     (h1
-      :text-align center
-      :font-size 2em)
-     (img
+  (lass:write-sheet
+   (lass:compile-sheet
+    '(article
+      :max-width 900px
+      :font-size 12pt
+      :font-family sans-serif
       :margin 0 auto
-      :max-width 100%)
-     (blockquote
-      :border-left 0.2em solid gray
-      :margin-left 1em
-      :padding-left 1em)
-     (figcaption
-      :padding 0.2em 1em
-      :background (hex E0E0E0))
-     (code
-      :background (hex F0F0F0)
-      :padding 0 0.1em)
-     (.code-block
-      :padding 0.1em 0.5em))))
+      :padding 3em 1em 1em 1em
+      :background (hex FAFAFA)
+      :color (hex 050505)
+      (h1
+       :text-align center
+       :font-size 2em)
+      (img
+       :margin 0 auto
+       :max-width 100%)
+      (blockquote
+       :border-left 0.2em solid gray
+       :margin-left 1em
+       :padding-left 1em)
+      (figcaption
+       :padding 0.2em 1em
+       :background (hex E0E0E0))
+      (code
+       :background (hex F0F0F0)
+       :padding 0 0.1em)
+      (.code-block
+       :padding 0.1em 0.5em)))
+   :pretty NIL))
 
 (defun suffix-p (suffix string)
   (and (<= (length suffix) (length string))
