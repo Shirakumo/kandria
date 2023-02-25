@@ -176,9 +176,11 @@ The menu bar also gives access to a few more useful tools:
   - ``History`` View the editing history and undo or redo many actions at once
 - ``View``
   - ``Center on Player`` Does what it says on the tin
+  - ``Fit Map Into View`` Make the entire map fit into the editor view
   - ``Toggle Background`` Shows whatever parallax background the currently centered chunk shows
   - ``Toggle Lighting`` Toggle the illumination model on and off
 - ``Tools``
+  - ``Render Module Preview`` Use the current view as a preview image for the world's mod
   - ``Reload Language`` Reload all files for the current language from disk
 - ``Help``
   - ``Documentation`` Open this documentation page in a browser
