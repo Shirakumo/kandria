@@ -193,6 +193,8 @@
          (buttons (make-instance 'alloy:grid-layout :col-sizes '(T T) :row-sizes '(T) :layout-parent layout))
          (cancel (alloy:represent cancel 'popup-button :layout-parent buttons :focus-parent focus))
          (accept (alloy:represent accept 'popup-button :layout-parent buttons :focus-parent focus)))
+    (alloy:on alloy:accept (input)
+      (alloy:activate accept))
     (alloy:on alloy:activate (cancel)
       (hide panel)
       (when on-cancel (funcall on-cancel)))

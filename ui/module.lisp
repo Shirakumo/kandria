@@ -239,7 +239,7 @@
 (presentations:define-realization (ui filter-input)
   ((background simple:rectangle)
    (alloy:margins)
-   :pattern colors:black)
+   :pattern (colored:color 0.1 0.1 0.1))
   ((:border simple:rectangle)
    (alloy:margins)
    :pattern colors:white
@@ -440,8 +440,6 @@
     (alloy:enter info layout :place :west :size (alloy:un 400))
     (alloy:enter description layout)
     (alloy:finish-structure preview layout focus)
-    (alloy:refresh preview)
-    ;; KLUDGE: no god darn idea why we need to do this twice but otherwise it duplicates buttons???
     (alloy:refresh preview)))
 
 (defmethod alloy:observe ((none (eql NIL)) object (data module-preview) &optional (name data))
@@ -458,8 +456,9 @@
       (// 'kandria 'empty-save)))
 
 (defmethod alloy:access ((preview module-preview) field)
-  (when (alloy:object preview)
-    (call-next-method)))
+  (if (alloy:object preview)
+      (call-next-method)
+      ""))
 
 (defmethod alloy:refresh ((preview module-preview))
   (when (and (slot-boundp preview 'alloy:layout-element)
@@ -523,15 +522,16 @@
                         (promise:-> (begin-authentication-flow remote)
                           (:then () (begin-upload-flow remote object)))))))
            (dolist (remote (list-remotes))
-             (let ((remote-module (search-module remote object)))
-               (cond ((null remote-module)
-                      (etypecase remote
-                        (modio:client (b remote (alloy:represent (@ module-publish-to-modio) 'button)))
-                        (steam:steamworkshop (b remote (alloy:represent (@ module-publish-to-steam) 'button)))))
-                     ((user-authored-p remote remote-module)
-                      (etypecase remote
-                        (modio:client (b remote (alloy:represent (@ module-update-on-modio) 'button)))
-                        (steam:steamworkshop (b remote (alloy:represent (@ module-update-on-steam) 'button))))))))))))))
+             (ignore-errors
+              (let ((remote-module (search-module remote object)))
+                (cond ((null remote-module)
+                       (etypecase remote
+                         (modio:client (b remote (alloy:represent (@ module-publish-to-modio) 'button)))
+                         (steam:steamworkshop (b remote (alloy:represent (@ module-publish-to-steam) 'button)))))
+                      ((user-authored-p remote remote-module)
+                       (etypecase remote
+                         (modio:client (b remote (alloy:represent (@ module-update-on-modio) 'button)))
+                         (steam:steamworkshop (b remote (alloy:represent (@ module-update-on-steam) 'button)))))))))))))))
 
 (defclass world-preview (alloy:structure alloy:delegate-data)
   ())
@@ -581,8 +581,9 @@
     (alloy:refresh data)))
 
 (defmethod alloy:access ((preview world-preview) field)
-  (when (alloy:object preview)
-    (call-next-method)))
+  (if (alloy:object preview)
+      (call-next-method)
+      ""))
 
 (defmethod alloy:refresh ((preview world-preview))
   (let ((object (alloy:object preview)))
@@ -669,16 +670,14 @@
   (dolist (module (list-modules :available))
     (let ((button (make-instance 'tab-button :data (make-instance 'alloy:value-data :value (title module)) :layout-parent (module-list panel)
                                              :ideal-size (alloy:size 100 50))))
-      (alloy:on alloy:focus (value button)
-        (when value
-          (setf (alloy:object (module-preview panel)) module)))))
+      (alloy:on alloy:activate (button)
+        (setf (alloy:object (module-preview panel)) module))))
   (alloy:clear (world-list panel))
   (dolist (world (list-worlds))
     (let ((button (make-instance 'tab-button :data (make-instance 'alloy:value-data :value (title world)) :layout-parent (world-list panel)
                                              :ideal-size (alloy:size 100 50))))
-      (alloy:on alloy:focus (value button)
-        (when value
-          (setf (alloy:object (world-preview panel)) world))))))
+      (alloy:on alloy:activate (button)
+        (setf (alloy:object (world-preview panel)) world)))))
 
 (defclass module-sort-combo-item (alloy:combo-item)
   ())
@@ -753,6 +752,8 @@
          (sort (alloy:represent (slot-value panel 'sort-by) 'module-sort :focus-parent focus))
          (search (alloy:represent (@ module-search-confirm) 'button :focus-parent focus))
          (status (make-instance 'module-login-status :value (first (list-remotes)))))
+    (alloy:on alloy:accept (query)
+      (alloy:activate search))
     (alloy:enter list clipper)
     (alloy:enter list focus :layer 1)
     (alloy:enter status focus :layer 2)
