@@ -20,7 +20,7 @@
 *.indd filter=lfs diff=lfs merge=lfs -text
 *.mp4 filter=lfs diff=lfs merge=lfs -text
 *.webm filter=lfs diff=lfs merge=lfs -text
+*.webp filter=lfs diff=lfs merge=lfs -text
 * -crlf
 *.json eol=lf
 *.lisp eol=lf
-docs/pitch/poster.svg filter=lfs diff=lfs merge=lfs -text
