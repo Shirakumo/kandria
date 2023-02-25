@@ -19,6 +19,8 @@ With the discover tab you can discover new mods that the community has uploaded.
 
 When you click on a mod you'll get a detail view with the description and preview, as well as a button to download and install the mod if it isn't available locally yet. Note that even after downloading a mod it won't be active right away, you have to go back to the Manage tab to activate it.
 
+[ image images/mod-discover.png, caption The discovery tab where you can find new mods. ]
+
 ### Import Mod
 This button allows you to pick mods that you manually downloaded or got from elsewhere and pull them into the game. Kandria will copy the mods to the ``mods/`` directory at the game root to do this. You can also drag a mod file into the game window to do the same.
 
