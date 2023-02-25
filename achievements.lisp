@@ -23,8 +23,9 @@
 
 (define-achievement full-map switch-chunk
   :icon (// 'kandria 'ach-map)
-  (multiple-value-bind (total found) (chunk-find-rate (unit 'player +world+))
-    (<= total found)))
+  (and (string= "00000000-0000-0000-0000-000000000000" (id +world+))
+       (multiple-value-bind (total found) (chunk-find-rate (unit 'player +world+))
+         (<= total found))))
 
 (define-achievement all-fish item-unlocked
   :icon (// 'kandria 'ach-fish)
