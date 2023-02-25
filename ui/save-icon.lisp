@@ -66,7 +66,7 @@
   (:2)
   (:3))
 
-(animation:define-animation spin
+(animation:define-animation (spin :loop T)
   0.0 ((setf presentations:rotation) 0.0)
   2.0 ((setf presentations:rotation) (float (* PI 6) 0f0) :easing :cubic-in-out))
 
