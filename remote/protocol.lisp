@@ -101,5 +101,5 @@
 (defmethod module-editable-p ((module module))
   (unless (typep module 'remote-module)
     (loop for remote in (list-remotes)
-          for remote-module = (search-module remote module)
+          for remote-module = (ignore-errors (search-module remote module))
           thereis (or (null remote-module) (user-authored-p remote remote-module)))))

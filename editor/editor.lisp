@@ -116,6 +116,7 @@
                   ("Toggle Background" (setf (track-background-p editor) (not (track-background-p editor))))
                   ("Toggle Lighting" (edit 'toggle-lighting editor)))
                  ("Tools"
+                  ("Render Module Preview" (edit 'render-preview editor))
                   ("Reload Language" (refresh-language T)))
                  ("Help"
                   ("Documentation" (open-in-browser "https://kandria.com/editor")))
@@ -557,3 +558,14 @@
       (vsetf (location c)
              (+ x- (/ w 2) (/ (- (/ (- (width *context*) (alloy:pxw m)) 2) (alloy:pxx m)) (zoom c) (view-scale c)))
              (+ y- (/ h 2) (/ (- (/ (- (height *context*) (alloy:pxh m)) 2) (alloy:pxy m)) (zoom c) (view-scale c)))))))
+
+(defmethod edit ((action (eql 'render-preview)) (editor editor))
+  (let ((module (module +world+)))
+    (cond (module
+           (with-tempfile (file :type "png")
+             (capture (u 'render) :file file :target-width 384 :target-height 216)
+             ;; Finally, copy the file into the module
+             (setf (preview module) file))
+           (alloy:message "The module preview has been updated." :title "Success" :ui (unit 'ui-pass T)))
+          (T
+           (alloy:message "This world isn't tied to any module!" :title "Error" :ui (unit 'ui-pass T))))))

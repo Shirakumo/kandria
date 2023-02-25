@@ -317,10 +317,7 @@
       (message (@formats 'error-bad-file-format "PNG")))
     (let ((module (module icon)))
       (unless (typep module 'remote-module)
-        (v:info :kandria.module "Updating preview of ~a to ~a" module path)
-        (depot:with-depot (depot (file module) :commit T)
-          (depot:write-to (depot:ensure-entry "preview.png" depot) path))
-        (setf (alloy:value icon) path)))))
+        (setf (preview module) path)))))
 
 (defmethod alloy:activate ((icon module-icon))
   (let ((module (module icon)))
@@ -329,10 +326,7 @@
                                                         :default (preview module)
                                                         :filter '(("PNG files" "png")))))
           (when path
-            (v:info :kandria.module "Updating preview of ~a to ~a" module path)
-            (depot:with-depot (depot (file module) :commit T)
-              (depot:write-to (depot:ensure-entry "preview.png" depot) path))
-            (setf (alloy:value icon) path)))
+            (setf (preview module) path)))
         (harmony:play (// 'sound 'ui-error)))))
 
 (presentations:define-realization (ui module-icon)
@@ -542,7 +536,7 @@
          (title (alloy:represent-with 'module-title preview :value-function 'title))
          (description (alloy:represent-with 'module-description preview :value-function 'description))
          (data (make-instance 'alloy:grid-layout :col-sizes '(100 T 100 T) :row-sizes '(40)))
-         (start (alloy:represent (@ module-load-world) 'button :focus-parent focus))
+         (start (alloy:represent (@ module-start-playing-world) 'button :focus-parent focus))
          (edit (alloy:represent (@ module-edit-world) 'button :focus-parent focus)))
     (flet ((load-in (&rest args)
              (let* ((world (alloy:object preview))

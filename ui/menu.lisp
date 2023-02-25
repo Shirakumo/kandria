@@ -568,7 +568,7 @@
                                                                 :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:black)))))
               (make-instance 'label :value (title module) :layout-parent module-bar)
               (make-instance 'label :value (author module) :layout-parent module-bar)
-              (when (search-module T module)
+              (when (ignore-errors (search-module T module))
                 (let ((rate-up (alloy:represent module 'module-rating-button :rating +1 :focus-parent focus))
                       (rate-down (alloy:represent module 'module-rating-button :rating -1 :focus-parent focus)))
                   (alloy:enter rate-up module-bar :row 0 :col 3)

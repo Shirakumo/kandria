@@ -74,6 +74,21 @@
 (defmethod module-config-directory ((module module))
   (module-config-directory (id module)))
 
+(defmethod (setf preview) ((path pathname) (module module))
+  (cond ((pathname-utils:relative-p path)
+         (setf (slot-value module 'preview) path))
+        ((pathname-utils:subpath-p path (file module))
+         (setf (slot-value module 'preview) (pathname-utils:enough-pathname path (file module))))
+        (T
+         (v:info :kandria.module "Updating preview of ~a to ~a" module path)
+         (depot:with-depot (depot (file module) :commit T)
+           (depot:write-to (depot:ensure-entry "preview.png" depot) path))
+         (unless (preview module)
+           (setf (slot-value module 'preview) (tempfile :type "png" :id (format NIL "kandria-mod-~a" (id module)))))
+         (uiop:copy-file path (preview module))
+         ;; KLUDGE: clear cache.
+         (trial-alloy::deallocate-image-cache (preview module) (u 'ui-pass)))))
+
 (defmethod (setf active-p) :before (value (module module))
   (if value
       (load-module module)
