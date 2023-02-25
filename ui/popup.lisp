@@ -24,7 +24,7 @@
         (setf (alloy:bounds element)
               (alloy:px-extent (/ (- (alloy:pxw extent) (alloy:pxw size)) 2)
                                (/ (- (alloy:pxh extent) (alloy:pxh size)) 2)
-                               (alloy:pxw size) (alloy:pxh size)))))))
+                               (alloy:pxw size) (+ 20 (alloy:pxh size))))))))
 
 (defclass popup-button (button)
   ())

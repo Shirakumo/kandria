@@ -786,7 +786,7 @@
         (promise:-> (if (setting :modules :modio-agreement-accepted)
                         (promise:pend :success T)
                         (multiple-value-bind (terms data) (modio:authenticate/terms client)
-                          (loop for link across (gethash "links" data)
+                          (loop for link being the hash-values of (gethash "links" data)
                                 do (when (gethash "required" link)
                                      (open-in-browser (gethash "url" link))))
                           (prompt* terms :accept (gethash "text" (gethash "agree" (gethash "buttons" data)))

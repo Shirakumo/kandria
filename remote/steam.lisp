@@ -5,8 +5,7 @@
       (steam:interface 'steam:steamworkshop T)
       (error 'not-authenticated :remote (type-prototype 'steam:steamworkshop))))
 
-#-kandria-release
-(pushnew 'steam-remote *remote-funcs*)
+#++(pushnew 'steam-remote *remote-funcs*)
 
 (defclass steam-module (steam:workshop-file remote-module)
   ())

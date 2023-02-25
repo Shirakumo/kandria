@@ -49,7 +49,7 @@
 (defmethod logout ((client modio:client))
   (when (modio:authenticated-p client)
     (modio:authenticate/logout client)
-    (setf (setting :modio) (modio:extract-user-properties client))))
+    (setf (setting :modules :modio) (modio:extract-user-properties client))))
 
 (defun ensure-modio-module (mod)
   (let ((mod (ensure-instance mod 'modio-module)))
@@ -92,7 +92,7 @@
             (with-open-stream (input (drakma:http-request source :want-stream T))
               (with-open-file (output target :direction :output :element-type '(unsigned-byte 8))
                 (uiop:copy-stream-to-stream input output :element-type '(unsigned-byte 8)))))
-          (setf (preview mod) target))))))
+          (setf (slot-value mod 'preview) target))))))
 
 (defmethod user-authored-p ((client modio:client) (module modio-module))
   (and (modio:authenticated-p client)
