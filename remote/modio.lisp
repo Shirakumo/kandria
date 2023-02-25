@@ -4,11 +4,11 @@
   (unless modio:*client*
     (setf modio:*client* (make-instance 'modio:client :default-game-id 4561 :api-key "33d270c5b4b2ca4de8c8520c9708f80c"
                                                       :language (language)))
-    (modio:restore-user-properties modio:*client* (setting :modio)))
+    (modio:restore-user-properties modio:*client* (setting :modules :modio)))
   modio:*client*)
 
 (defmethod modio::complete-authentication :after ((client modio:client) data)
-  (setf (setting :modio) (modio:extract-user-properties client)))
+  (setf (setting :modules :modio) (modio:extract-user-properties client)))
 
 (pushnew 'modio-remote *remote-funcs*)
 
