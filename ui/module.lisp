@@ -444,6 +444,9 @@
   (declare (ignore name))
   (when object (call-next-method)))
 
+(defmethod (setf alloy:observed) :around (value (data module-preview))
+  (setf (slot-value data 'alloy:observed) value))
+
 (defmethod alloy:access ((preview module-preview) (field (eql 'preview)))
   (if (alloy:object preview)
       (or (preview (alloy:object preview)) (// 'kandria 'empty-save))
@@ -452,7 +455,7 @@
 (defmethod alloy:access ((preview module-preview) field)
   (if (alloy:object preview)
       (call-next-method)
-      ""))
+      "_"))
 
 (defmethod alloy:refresh ((preview module-preview))
   (when (and (slot-boundp preview 'alloy:layout-element)
