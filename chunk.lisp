@@ -455,7 +455,8 @@ Useful for interiors")
 
 (defmethod (setf location) :after (location (chunk chunk))
   (loop for layer across (layers chunk)
-        do (setf (location layer) location)))
+        do (setf (location layer) location)
+           (bvh:bvh-update (bvh (region +world+)) layer)))
 
 (defmethod clear :after ((chunk chunk))
   (loop for layer across (layers chunk)
