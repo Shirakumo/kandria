@@ -563,7 +563,7 @@
   (let ((module (module +world+)))
     (cond (module
            (with-tempfile (file :type "png")
-             (capture (u 'render) :file file :target-width 384 :target-height 216)
+             (capture (u 'render) :file file :target-width 512 :target-height 288)
              ;; Finally, copy the file into the module
              (setf (preview module) file))
            (alloy:message "The module preview has been updated." :title "Success" :ui (unit 'ui-pass T)))
