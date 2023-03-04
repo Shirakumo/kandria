@@ -410,11 +410,18 @@
   (:label
    :pattern colors:white))
 
+(defclass module-preview-layout (alloy:border-layout)
+  ((alloy:data :initarg :data :accessor alloy:data)))
+
+(defmethod alloy:render ((ui ui) (layout module-preview-layout))
+  (when (alloy:object (alloy:data layout))
+    (call-next-method)))
+
 (defclass module-preview (alloy:structure alloy:delegate-data)
   ((actions :initform NIl :accessor actions)))
 
 (defmethod initialize-instance :after ((preview module-preview) &key)
-  (let* ((layout (make-instance 'alloy:border-layout :padding (alloy:margins 5)))
+  (let* ((layout (make-instance 'module-preview-layout :data preview :padding (alloy:margins 5)))
          (focus (make-instance 'alloy:focus-list))
          (info (make-instance 'alloy:vertical-linear-layout :cell-margins (alloy:margins 5)
                               :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:black))))
@@ -532,11 +539,18 @@
                          (modio:client (b remote (alloy:represent (@ module-update-on-modio) 'button)))
                          (steam:steamworkshop (b remote (alloy:represent (@ module-update-on-steam) 'button)))))))))))))))
 
+(defclass world-preview-layout (org.shirakumo.alloy.layouts.constraint:layout)
+  ((alloy:data :initarg :data :accessor alloy:data)))
+
+(defmethod alloy:render ((ui ui) (layout world-preview-layout))
+  (when (alloy:object (alloy:data layout))
+    (call-next-method)))
+
 (defclass world-preview (alloy:structure alloy:delegate-data)
   ())
 
 (defmethod initialize-instance :after ((preview world-preview) &key)
-  (let* ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
+  (let* ((layout (make-instance 'world-preview-layout :data preview))
          (focus (make-instance 'alloy:focus-list))
          (title (alloy:represent-with 'module-title preview :value-function 'title))
          (description (alloy:represent-with 'module-description preview :value-function 'description))
@@ -544,15 +558,16 @@
          (start (alloy:represent (@ module-start-playing-world) 'button :focus-parent focus))
          (edit (alloy:represent (@ module-edit-world) 'button :focus-parent focus)))
     (flet ((load-in (&rest args)
-             (let* ((world (alloy:object preview))
-                    (module (module world)))
-               (if (module-usable-p module)
-                   (handler-case
-                       (apply #'load-into-world world args)
-                     #+kandria-release
-                     (error ()
-                       (message (@ error-world-load-failed))))
-                   (message (@ error-world-source-disappeared))))))
+             (when (alloy:object preview)
+               (let* ((world (alloy:object preview))
+                      (module (module world)))
+                 (if (module-usable-p module)
+                     (handler-case
+                         (apply #'load-into-world world args)
+                       #+kandria-release
+                       (error ()
+                         (message (@ error-world-load-failed))))
+                     (message (@ error-world-source-disappeared)))))))
       (alloy:on alloy:activate (start)
         (load-in))
       (alloy:on alloy:activate (edit)
