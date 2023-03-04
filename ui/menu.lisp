@@ -647,13 +647,12 @@
                  (alloy:enter (alloy:layout-element view) tab))))
         (alloy:enter (alloy:represent (@ open-options-menu) 'tab :constructor #'constructor :icon "") tabs))
 
-      (when (setting :debugging :show-mod-menu-entry)
-        (flet ((constructor (tab)
-                 (let ((view (make-instance 'module-menu)))
-                   (trial:commit view (loader +main+) :unload NIL)
-                   (alloy:enter (alloy:focus-element view) tab)
-                   (alloy:enter (alloy:layout-element view) tab))))
-          (alloy:enter (alloy:represent (@ mod-menu) 'tab :constructor #'constructor :icon "") tabs)))
+      (flet ((constructor (tab)
+               (let ((view (make-instance 'module-menu)))
+                 (trial:commit view (loader +main+) :unload NIL)
+                 (alloy:enter (alloy:focus-element view) tab)
+                 (alloy:enter (alloy:layout-element view) tab))))
+        (alloy:enter (alloy:represent (@ mod-menu) 'tab :constructor #'constructor :icon "") tabs))
 
       (labels ((save-and-quit ()
                  (with-saved-changes-prompt

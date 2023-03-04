@@ -116,9 +116,8 @@
             (show-panel 'save-menu :intent :new)))
       (with-button (options-menu)
         (show-panel 'options-menu))
-      (when (setting :debugging :show-mod-menu-entry)
-        (with-button (mod-menu)
-          (show-panel 'module-menu)))
+      (with-button (mod-menu)
+        (show-panel 'module-menu))
       (with-button (credits-menu)
         (show-credits :on-hide (lambda () (show-panel 'main-menu))))
       #++
