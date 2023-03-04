@@ -99,7 +99,7 @@
 (define-encoder (region world-v0) (_b depot)
   (depot:with-open (tx (depot:ensure-entry "data.lisp" depot) :output 'character)
     (let ((stream (depot:to-stream tx))
-          (data (depot:ensure-depot (depot:ensure-entry "data" depot :type :directory))))
+          (data (depot:ensure-entry "data" depot :type :directory)))
       (for:for ((entity over region))
                (handler-case
                    (when (and (not (spawned-p entity))

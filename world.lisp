@@ -45,15 +45,16 @@
   (setf (clock world) 0.0))
 
 (defmethod (setf depot) :before ((depot depot:depot) (world world))
-  (when (typep depot 'org.shirakumo.depot.zip:zip-archive)
-    (org.shirakumo.zippy:move-in-memory depot))
-  ;; BAD: duplicating format information here
-  (destructuring-bind (header . data) (parse-sexps (depot:read-from (depot:entry "meta.lisp" depot) 'character))
-    (assert (eq 'world (getf header :identifier)))
-    (unless (supported-p (make-instance (getf header :version)))
-      (cerror "Try it anyway." 'unsupported-save-file :version (make-instance (getf header :version))))
-    (setf (initial-state world) (minimal-load-state (depot:entry "init" depot)))
-    (apply #'reinitialize-instance world (first data))))
+  (depot:with-depot (depot depot)
+    (when (typep depot 'org.shirakumo.depot.zip:zip-archive)
+      (org.shirakumo.zippy:move-in-memory depot))
+    ;; BAD: duplicating format information here
+    (destructuring-bind (header . data) (parse-sexps (depot:read-from (depot:entry "meta.lisp" depot) 'character))
+      (assert (eq 'world (getf header :identifier)))
+      (unless (supported-p (make-instance (getf header :version)))
+        (cerror "Try it anyway." 'unsupported-save-file :version (make-instance (getf header :version))))
+      (setf (initial-state world) (minimal-load-state (depot:entry "init" depot)))
+      (apply #'reinitialize-instance world (first data)))))
 
 (defmethod finalize :after ((world world))
   (close (depot world) :abort T))

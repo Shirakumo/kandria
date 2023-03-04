@@ -424,7 +424,8 @@
         (load-into-world (minimal-load-world path) :edit T)))))
 
 (defmethod edit ((action (eql 'save-world)) (editor editor))
-  (save-world +world+ (depot:to-pathname (depot +world+)))
+  (depot:with-depot (depot (depot +world+) :commit T)
+    (save-world +world+ depot))
   (setf (changes-saved-p +main+) T))
 
 (defmethod edit ((action (eql 'save-world-as)) (editor editor))
