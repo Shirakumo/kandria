@@ -37,7 +37,7 @@
             (subseq version-line 2))))
 
 (defun fetch-news (target &optional (url "https://kandria.com/news.mess"))
-  (with-thread ("news-fetcher")
+  (with-eval-in-task-thread ()
     (v:info :kandria.news "Fetching news...")
     (handler-case
         (multiple-value-bind (text markup version) (parse-news (drakma:http-request url :want-stream T))

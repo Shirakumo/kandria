@@ -56,7 +56,7 @@
   (setf (game-speed main) (setting :gameplay :game-speed))
   (load-achievement-data T)
   (register-module T)
-  (with-thread ("module-registration-thread")
+  (with-eval-in-task-thread ()
     (register-module :remote)
     (unless (setting :debugging :dont-load-mods)
       (load-active-module-list))))
