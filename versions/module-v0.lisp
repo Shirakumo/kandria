@@ -20,7 +20,7 @@
                  (setf (worlds module) (list* world (remove (id world) (worlds module) :key #'id :test #'string=))))))))
     (dolist (entry (depot:list-entries (module-root module)))
       (when (or (string-equal "zip" (depot:attribute :type entry))
-                (alexandria:starts-with "world" (depot:attribute :name entry)))
+                (alexandria:starts-with-subseq "world" (depot:attribute :name entry)))
         (register entry)))))
 
 (define-decoder (module module-v0) (initargs depot)

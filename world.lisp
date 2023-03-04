@@ -45,7 +45,7 @@
   (setf (clock world) 0.0))
 
 (defmethod (setf depot) :before ((depot depot:depot) (world world))
-  (when (typep depot 'org.shirakumo.zippy:zip-file)
+  (when (typep depot 'org.shirakumo.depot.zip:zip-archive)
     (org.shirakumo.zippy:move-in-memory depot))
   ;; BAD: duplicating format information here
   (destructuring-bind (header . data) (parse-sexps (depot:read-from (depot:entry "meta.lisp" depot) 'character))
@@ -375,7 +375,7 @@ remove any partial world directory in the game folder."))))
 
 (defmethod load-world ((depot depot:depot) (world world))
   (v:info :kandria.world "Loading world from ~a" depot)
-  (when (typep depot 'org.shirakumo.depot.zip:zip-entry)
+  (when (typep depot 'org.shirakumo.depot.zip:zip-archive)
     (org.shirakumo.zippy:move-in-memory depot))
   (destructuring-bind (header . data) (if (depot:entry-exists-p "meta.lisp" depot)
                                           (parse-sexps (depot:read-from (depot:entry "meta.lisp" depot) 'character))

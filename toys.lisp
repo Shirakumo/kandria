@@ -893,6 +893,7 @@ Use this to modify the start and end locations of the gate")
 
 (defmethod is-collider-for (thing (flag flag)) NIL)
 (defmethod is-collider-for ((player player) (flag flag)) T)
+(defmethod layer-index ((flag flag)) +base-layer+)
 
 (defmethod collide ((player player) (flag flag) hit)
   (issue +world+ 'game-over :ending :custom)

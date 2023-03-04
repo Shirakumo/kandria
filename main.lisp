@@ -25,7 +25,7 @@
                    (depot:ensure-depot world)
                    (find-world)))
         (initargs ()))
-    (when (typep depot 'org.shirakumo.zippy:zip-file)
+    (when (typep depot 'org.shirakumo.depot.zip:zip-archive)
       (org.shirakumo.zippy:move-in-memory depot))
     ;; KLUDGE: this sucks. Spillage from version protocol to prefetch...
     (when (depot:entry-exists-p "meta.lisp" depot)

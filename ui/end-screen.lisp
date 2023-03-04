@@ -58,7 +58,7 @@
     (alloy:enter title layout :constraints `((:fill :w) (:top 50) (:height 150)))
     (alloy:enter description layout :constraints `((:center :w) (:below ,title 20) (:size 1000 100)))
 
-    (when (and module (search-module T module))
+    (when (and module (ignore-errors (search-module T module)))
       (let ((rate-up (alloy:represent module 'module-rating-button :rating +1 :focus-parent focus))
             (rate-down (alloy:represent module 'module-rating-button :rating -1 :focus-parent focus)))
         (alloy:enter rate-up layout :constraints `((:below ,description 10) (:size 100 50) (:off-center :w -60)))

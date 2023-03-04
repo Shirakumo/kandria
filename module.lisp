@@ -124,6 +124,9 @@
 
 (defun minimal-load-module (file)
   (depot:with-depot (depot file)
+    (when (and (not (depot:entry-exists-p "meta.lisp" depot))
+               (depot:query-entries depot :type :directory))
+      (setf depot (first (depot:query-entries depot :type :directory))))
     (destructuring-bind (header initargs)
         (parse-sexps (depot:read-from (depot:entry "meta.lisp" depot) 'character))
       (assert (eq 'module (getf header :identifier)))
@@ -256,6 +259,9 @@
     (load-module depot)))
 
 (defmethod load-module ((depot depot:depot))
+  (when (and (not (depot:entry-exists-p "meta.lisp" depot))
+             (depot:query-entries depot :type :directory))
+    (setf depot (first (depot:query-entries depot :type :directory))))
   (destructuring-bind (header initargs)
       (parse-sexps (depot:read-from (depot:entry "meta.lisp" depot) 'character))
     (assert (eq 'module (getf header :identifier)))

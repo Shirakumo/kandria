@@ -11,7 +11,8 @@
              do (unless (typep panel '(or prerelease-notice load-panel hud))
                   (hide panel)
                   (go retry))))
-    (load-world (depot:to-pathname (depot world)) scene))
+    (depot:with-depot (depot (depot world))
+      (load-world depot scene)))
   (handler-bind ((no-save-for-world #'continue))
     (let ((state (or state (state +main+) (first (sort (list-saves) #'> :key #'save-time)))))
       (load-state state +main+))))
@@ -56,7 +57,8 @@
 
 (defmethod alloy:text ((status module-login-status))
   (if (authenticated-p (alloy:value status))
-      (@formats 'module-logged-in-status (username (alloy:value status)))
+      (handler-case (@formats 'module-logged-in-status (username (alloy:value status)))
+        (error () (@ module-offline-status)))
       (@ module-logged-out-status)))
 
 (defmethod alloy:activate ((status module-login-status))
@@ -544,8 +546,7 @@
     (flet ((load-in (&rest args)
              (let* ((world (alloy:object preview))
                     (module (module world)))
-               (if (and (module-usable-p module)
-                        (probe-file (depot:to-pathname (depot world))))
+               (if (module-usable-p module)
                    (handler-case
                        (apply #'load-into-world world args)
                      #+kandria-release

@@ -34,8 +34,9 @@
 
 (defmethod register-module ((client modio:client))
   (if (modio:authenticated-p client)
-      (dolist (mod (modio:me/subscribed client :game (modio:default-game-id client)))
-        (install-module client (ensure-modio-module mod)))
+      (with-ignored-errors-on-release (:kandria.module.modio "Failed to register subscribed mods.")
+        (dolist (mod (modio:me/subscribed client :game (modio:default-game-id client)))
+          (install-module client (ensure-modio-module mod))))
       (v:info :kandria.module.modio "Skipping listing subscribed mods as the client is not authenticated")))
 
 (defmethod search-module ((client modio:client) (module modio-module))
