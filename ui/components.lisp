@@ -31,6 +31,8 @@
 
 (defclass gi-chooser (alloy:combo) ())
 
+(defmethod (setf alloy:value) ((null null) (chooser gi-chooser)))
+
 (defmethod alloy:text ((gi gi-chooser))
   (string (name (alloy:value gi))))
 
