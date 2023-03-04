@@ -33,7 +33,7 @@
               (let* ((base-layer (aref (layers entity) 0))
                      (extra-layer (aref (layers entity) 1))
                      (layer (copy-seq (pixel-data base-layer)))
-                     (layer2 (copy-seq (pixel-data base-layer))))
+                     (layer2 (copy-seq (pixel-data extra-layer))))
                 (with-cleanup-on-failure (progn (setf (pixel-data base-layer) layer)
                                                 (setf (pixel-data extra-layer) layer2))
                   (with-commit (tool "Auto-tile background")
