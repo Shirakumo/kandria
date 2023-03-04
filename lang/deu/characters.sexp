@@ -50,4 +50,4 @@ villager-male-nametags ("Ajrion" "Arthur" "Avedon" "Blake Ashwell" "Brian" "Chri
                                  "Sean" "Simon" "Sina" "Tagg" "Till" "Tom" "Tom H. Cavalry" "Velho" "Vic"
                                  "Vincent" "Ajrion" "Alva" "Maglord" "Mark Carls" "Will Halliburton"
                                  "Yamamoto" "Jfred" "Cypress" "Jaz Hands" "José Carlos Mariátegui" "Remedan"
-                                 "Tecumseh")
+                                 "Tecumseh" "Andy")
