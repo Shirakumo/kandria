@@ -331,14 +331,11 @@
        (,'in-package ,package-name)
 
        (defvar ,(intern (string '#:*module-root*) package)
-         ,(make-pathname :name NIL :type NIL :defaults
-                         (or *compile-file-truename* *load-truename*
-                             (error "You must compile or load this file."))))
-
-       (defvar ,(intern (string '#:*module-root*) package)
-         ,(make-pathname :name NIL :type NIL :defaults
-                         (or *compile-file-truename* *load-truename*
-                             (error "You must compile or load this file."))))
+         ,(or *module-root*
+              (depot:from-pathname
+               (make-pathname :name NIL :type NIL :defaults
+                              (or *compile-file-truename* *load-truename*
+                                  (error "You must compile or load this file."))))))
 
        (when (boundp '*module-class-name*)
          (setf *module-class-name* ',class-name))

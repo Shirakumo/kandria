@@ -6,6 +6,7 @@
 (defmethod supported-p ((_ module-v0)) T)
 
 (defvar *module-class-name*)
+(defvar *module-root* NIL)
 
 (defun register-worlds (module)
   (flet ((register (file)
@@ -17,11 +18,14 @@
                               (v:debug :kandria.module e)))))
                (when world
                  (setf (worlds module) (list* world (remove (id world) (worlds module) :key #'id :test #'string=))))))))
-    (mapc #'register (directory (merge-pathnames "*.zip" (module-root module))))
-    (mapc #'register (directory (merge-pathnames "world*/" (module-root module))))))
+    (dolist (entry (depot:list-entries (module-root module)))
+      (when (or (string-equal "zip" (depot:attribute :type entry))
+                (alexandria:starts-with "world" (depot:attribute :name entry)))
+        (register entry)))))
 
 (define-decoder (module module-v0) (initargs depot)
-  (let ((*module-class-name* NIL))
+  (let ((*module-class-name* NIL)
+        (*module-root* depot))
     (load-source-file (depot:entry "setup.lisp" depot))
     (let* ((id (getf initargs :id))
            (class (find-class *module-class-name* NIL))
