@@ -43,6 +43,7 @@
              (princ* `(in-package ,(format NIL "~a.~a" '#:org.shirakumo.fraf.kandria.mod (id module))) stream)
              (terpri stream))))))
     (setf (find-module module) T)
+    (setf (active-p module) T)
     (case type
       (:world
        (load-module module)
