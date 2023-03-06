@@ -149,6 +149,10 @@
     (recompute entity))
   (setf (edited-entities editor) NIL)
   (hide (tool editor))
+  (for:for ((entity over (region +world+)))
+    (when (and (typep entity 'chunk)
+               (null (show-solids entity)))
+      (setf (visibility entity) 0.0)))
   (when (chunk (unit 'player T))
     (switch-chunk (chunk (unit 'player T))))
   (snap-to-target (camera +world+) (unit 'player T))
@@ -296,6 +300,10 @@
       (update-buffer-data buffer array))))
 
 (defmethod (setf entity) :before (value (editor editor))
+  (when (typep (entity editor) 'chunk)
+    (setf (show-solids (entity editor)) NIL)
+    (loop for layer across (layers (entity editor))
+          do (setf (visibility layer) 1.0)))
   (setf (sidebar editor) NIL))
 
 (defmethod (setf entity) :after (value (editor editor))
@@ -563,6 +571,11 @@
 (defmethod edit ((action (eql 'render-preview)) (editor editor))
   (let ((module (module +world+)))
     (cond (module
+           (for:for ((entity over (region +world+)))
+             (when (and (typep entity 'chunk)
+                        (null (show-solids entity)))
+               (setf (visibility entity) 0.0)))
+           (render +main+ +main+)
            (with-tempfile (file :type "png")
              (capture (u 'render) :file file :target-width 512 :target-height 288)
              ;; Finally, copy the file into the module

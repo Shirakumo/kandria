@@ -95,7 +95,7 @@
    (tile :initform (list 1 0 1 1) :accessor tile-to-place)
    (tile-set :accessor tile-set)
    (place-width :initform 1 :accessor place-width :representation (alloy:ranged-wheel :grid 1 :range '(1) :tooltip "Stamp Width"))
-   (place-height :initform 1 :accessor place-height :representation (alloy:ranged-wheel :grid 1 :range '(1) :tooltip "Stamp Heightaa"))))
+   (place-height :initform 1 :accessor place-height :representation (alloy:ranged-wheel :grid 1 :range '(1) :tooltip "Stamp Height"))))
 
 (defmethod initialize-instance :before ((widget chunk-widget) &key editor)
   (setf (tile-set widget) (caar (tile-types (tile-data (entity editor))))))
