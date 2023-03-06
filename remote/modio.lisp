@@ -102,7 +102,7 @@
 
 (defmethod username ((user modio:user))
   (let ((name (modio:display-name user)))
-    (if (eql 'null name)
+    (if (or (null name) (eql 'null name))
         (modio:name user)
         name)))
 
@@ -121,16 +121,21 @@
   (modio:games/mods/unsubscribe client (modio:default-game-id client) (modio:id module)))
 
 (defmethod install-module ((client modio:client) (module modio-module))
-  ;; Install dependencies first.
-  (dolist (dependency (modio:games/mods/dependencies client (modio:id module)))
-    (install-module client (ensure-modio-module (modio:mod dependency))))
-  ;; Now actually download it.
-  (let ((file (make-pathname :name (id module) :type "zip" :defaults (module-directory))))
-    (when (or (null (probe-file file))
-              (< (file-write-date file) (modio:date-added (modio:modfile module))))
-      (v:info :kandria.module.modio "Downloading modfile for ~a..." module)
-      (modio:download-modfile (modio:modfile module) file :if-exists :supersede))
-    (register-module file)))
+  (handler-bind (((and error (not unsupported-save-file) (not module-registration-failed))
+                   (lambda (e)
+                     (v:error :kandria.module.modio "Install failed: ~a" e)
+                     (v:debug :kandria.module.modio e)
+                     (error 'module-installation-failed :module module :error e))))
+    ;; Install dependencies first.
+    (dolist (dependency (modio:games/mods/dependencies client (modio:default-game-id client) (modio:id module)))
+      (install-module client (ensure-modio-module (modio:mod dependency))))
+    ;; Now actually download it.
+    (let ((file (make-pathname :name (id module) :type "zip" :defaults (module-directory))))
+      (when (or (null (probe-file file))
+                (< (file-write-date file) (modio:date-added (modio:modfile module))))
+        (v:info :kandria.module.modio "Downloading modfile for ~a..." module)
+        (modio:download-modfile (modio:modfile module) file :if-exists :supersede))
+      (register-module file))))
 
 (defmethod upload-module ((client modio:client) (module module))
   (unless (modio:authenticated-p client) (error 'not-authenticated :remote client))
@@ -141,13 +146,14 @@
           (T ;; Upload a new module
            (let ((mod (modio:games/mods/add
                        client (modio:default-game-id client) (title module) (shorten-text (or* (description module) "No description provided.") 250)
-                       (or (preview module)) :homepage-url (upstream module) :description (or* (description module)))))
+                       (or (preview module)) :homepage-url (upstream module) :description (or* (description module))
+                       :metadata-blob (prin1-to-string (id module)))))
              (with-cleanup-on-failure (modio:games/mods/delete client (modio:default-game-id client) (modio:id mod))
                (ensure-modio-module mod)
-               (modio:games/mods/metadata/add client (modio:default-game-id client) (modio:id mod)
-                                              (mktab "id" (id module)))
                (modio:games/mods/files/add client (modio:default-game-id client) (modio:id mod)
                                            (file module) :version (version module))
+               (modio:games/mods/metadata/add client (modio:default-game-id client) (modio:id mod)
+                                              (mktab "id" (id module)))
                ;; Search self to invalidate cache
                (modio:games/mods client (modio:default-game-id client)
                                  :metadata (format NIL "id:~a" (modio:id mod)) :ignore-cache T))

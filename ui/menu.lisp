@@ -142,7 +142,8 @@
   ((tab-view :initarg :tab-view :accessor tab-view)
    (alloy:focus-element :initform NIL :accessor alloy:focus-element)
    (alloy:layout-element :initform NIL :accessor alloy:layout-element)
-   (constructor :initarg :constructor :initform NIL :accessor constructor)))
+   (constructor :initarg :constructor :initform NIL :accessor constructor)
+   (alloy:structure :initarg :structure :initform NIL :accessor alloy:structure)))
 
 (defmethod alloy:enter ((tab tab) (view tab-view) &key)
   (setf (tab-view tab) view)
@@ -643,6 +644,7 @@
 
       (flet ((constructor (tab)
                (let ((view (make-instance 'options-menu)))
+                 (setf (alloy:structure tab) view)
                  (alloy:enter (alloy:focus-element view) tab)
                  (alloy:enter (alloy:layout-element view) tab))))
         (alloy:enter (alloy:represent (@ open-options-menu) 'tab :constructor #'constructor :icon "") tabs))
@@ -650,6 +652,7 @@
       (flet ((constructor (tab)
                (let ((view (make-instance 'module-menu)))
                  (trial:commit view (loader +main+) :unload NIL)
+                 (setf (alloy:structure tab) view)
                  (alloy:enter (alloy:focus-element view) tab)
                  (alloy:enter (alloy:layout-element view) tab))))
         (alloy:enter (alloy:represent (@ mod-menu) 'tab :constructor #'constructor :icon "") tabs))

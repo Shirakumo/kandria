@@ -498,10 +498,23 @@
                 (let ((install (alloy:represent (@ module-install) 'button
                                                 :focus-parent focus :layout-parent actions)))
                   (alloy:on alloy:activate (install)
-                    (with-ui-task (install-module (remote object) object)))))
+                    (promise:-> (trial::promise (with-ui-task (install-module (remote object) object)))
+                      (:then () (show (find-module (id object))))
+                      (:handle (e)
+                        (typecase e
+                          (unsupported-save-file
+                           (message (@ error-version-not-supported)))
+                          (module-installation-failed
+                           (message (@formats 'error-module-install-failed (original-error e))))
+                          (module-registration-failed
+                           (message (@formats 'error-module-register-failed (original-error e))))
+                          (error
+                           (message (@formats 'error-module-install-failed e)))))))))
                (T
-                (alloy:represent (@ module-already-installed) 'button
-                                 :focus-parent focus :layout-parent actions)))
+                (let ((button (alloy:represent (@ module-already-installed) 'button
+                                               :focus-parent focus :layout-parent actions)))
+                  (alloy:on alloy:activate (button)
+                    (show (find-module (id object)))))))
          (when (upstream object)
            (let ((visit (alloy:represent (@ module-visit-official-page) 'button
                                          :focus-parent focus :layout-parent actions)))
@@ -604,6 +617,12 @@
     (dolist (function (alloy:observed preview))
       (alloy:notify-observers function preview (slot-value object function) object))))
 
+(defclass module-tab-button (tab-button alloy:direct-value-component)
+  ())
+
+(defmethod alloy:text ((button module-tab-button))
+  (title (alloy:value button)))
+
 (defclass module-menu (tab-view menuing-panel)
   ((module-list :accessor module-list)
    (module-preview :accessor module-preview)
@@ -682,8 +701,7 @@
 (defmethod reset ((panel module-menu))
   (alloy:clear (module-list panel))
   (dolist (module (list-modules :available))
-    (let ((button (make-instance 'tab-button :data (make-instance 'alloy:value-data :value (title module)) :layout-parent (module-list panel)
-                                             :ideal-size (alloy:size 100 50))))
+    (let ((button (make-instance 'module-tab-button :value module :layout-parent (module-list panel) :ideal-size (alloy:size 100 50))))
       (alloy:on alloy:activate (button)
         (setf (alloy:object (module-preview panel)) module))))
   (alloy:clear (world-list panel))
@@ -826,3 +844,26 @@
                  (modio:authenticate/email-exchange client code)
                  (message (@ module-login-completed-successfully)))
           (:then () (funcall ok))))))
+
+(defmethod show ((module module) &key)
+  (let ((panel (cond ((find-panel 'module-menu)
+                      (find-panel 'module-menu))
+                     ((find-panel 'menu)
+                      ;; KLUDGE: this sucks, lol
+                      (alloy:do-elements (tab (alloy:focus-element (find-panel 'menu)))
+                        (when (string= (alloy:text tab) (@ mod-menu))
+                          (alloy:activate tab)
+                          (return (alloy:structure tab)))))
+                     (T
+                      (show-panel 'module-menu)))))
+    (hide-panel 'module-popup)
+    (alloy:activate (alloy:index-element 0 (alloy:focus-element panel)))
+    (alloy:do-elements (tab (module-list panel))
+      (when (eql module (alloy:value tab))
+        (return (alloy:activate tab))))))
+
+(defmethod show ((module remote-module) &key)
+  (hide-panel 'module-popup)
+  (show (make-instance 'module-popup :module module)
+        :width (alloy:vw 0.9)
+        :height (alloy:vh 0.9)))

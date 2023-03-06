@@ -3,6 +3,10 @@
 (define-condition not-authenticated (error)
   ((remote :initarg :remote)))
 
+(define-condition module-installation-failed (error)
+  ((module :initarg :module)
+   (error :initarg :error :reader original-error)))
+
 (defvar *remote-funcs* ())
 
 (defclass remote-module (module)

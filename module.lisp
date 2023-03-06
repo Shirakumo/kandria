@@ -4,6 +4,10 @@
   ((name :initarg :name :accessor name))
   (:report (lambda (c s) (format s "No source for module with name ~s found." (name c)))))
 
+(define-condition module-registration-failed (error)
+  ((file :initarg :file :accessor file)
+   (error :initarg :error :reader original-error)))
+
 (defvar *modules* (make-hash-table :test 'equal))
 
 (defmethod module-config-directory ((name string))
@@ -153,19 +157,21 @@
         (setf (find-module module) T)))))
 
 (defmethod register-module ((file pathname))
-  (handler-case (minimal-load-module file)
-    (unsupported-save-file ()
-      (v:warn :kandria.module "Module version ~s is too old, ignoring." file)
-      NIL)
-    #+kandria-release
-    (error (e)
-      (v:warn :kandria.module "Module ~s failed to register, ignoring." file)
-      (v:debug :kandria.module e)
-      NIL)))
+  (handler-bind (((and error (not unsupported-save-file))
+                   (lambda (e)
+                     (v:warn :kandria.module "Module ~s failed to register." file)
+                     (v:debug :kandria.module e)
+                     (error 'module-registration-failed :file file :error e))))
+    (minimal-load-module file)))
 
 (defmethod register-module ((defaults (eql T)))
   (dolist (file (filesystem-utils:list-contents (module-directory)))
-    (register-module file)))
+    (handler-case (register-module file)
+      (unsupported-save-file ()
+        (v:warn :kandria.module "Module version ~s is too old, ignoring." file))
+      (error (e)
+        (v:warn :kandria.module "Module ~s failed to register, ignoring." file)
+        (v:debug :kandria.module e)))))
 
 (defun list-modules (&optional (kind :active))
   (sort (ecase kind

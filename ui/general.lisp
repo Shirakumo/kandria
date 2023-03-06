@@ -279,7 +279,7 @@
 
 (defmethod handle ((ev file-drop-event) (pass ui-pass))
   (or (call-next-method)
-      (dolist (path (print (paths ev)))
+      (dolist (path (paths ev))
         (cond ((ignore-errors (minimal-load-state path))
                (load-state (minimal-load-state path) +main+))
               ((ignore-errors (minimal-load-world path))
