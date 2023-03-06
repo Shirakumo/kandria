@@ -782,9 +782,10 @@ Use this to modify the start and end locations of the gate")
   ())
 
 (defmethod interact ((trigger gate-reset-trigger) (player player))
-  (bvh:do-fitting (entity (bvh (region +world+)) (chunk player))
-    (when (typep entity 'gate)
-      (setf (state entity) :closed))))
+  (when (chunk player)
+    (bvh:do-fitting (entity (bvh (container trigger)) (chunk player))
+      (when (typep entity 'gate)
+        (setf (state entity) :closed)))))
 
 (define-shader-entity demo-blocker (lit-animated-sprite solid ephemeral collider creatable)
   ((bsize :initform (vec 40 64))
