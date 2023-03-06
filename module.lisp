@@ -164,6 +164,10 @@
                      (error 'module-registration-failed :file file :error e))))
     (minimal-load-module file)))
 
+(defmethod register-module ((defaults (eql 'null)))
+  (mapcar #'unload-module (list-modules))
+  (clrhash *modules*))
+
 (defmethod register-module ((defaults (eql T)))
   (dolist (file (filesystem-utils:list-contents (module-directory)))
     (handler-case (register-module file)

@@ -499,7 +499,7 @@
                                                 :focus-parent focus :layout-parent actions)))
                   (alloy:on alloy:activate (install)
                     (promise:-> (trial::promise (with-ui-task (install-module (remote object) object)))
-                      (:then () (show (find-module (id object))))
+                      (:then () (hide-panel 'module-preview))
                       (:handle (e)
                         (typecase e
                           (unsupported-save-file
