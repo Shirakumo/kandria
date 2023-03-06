@@ -804,7 +804,7 @@
   (with-ui-task
     (let ((modules (search-modules T :query (query panel) :sort (sort-by panel) :page (page panel))))
       (v:info :kandria.module "Got ~d mod~:p matching query" (length modules))
-      (dolist (module modules)
+      (dolist (module (reverse modules))
         (alloy:enter module (module-list panel))))))
 
 (defun begin-upload-flow (remote module)
