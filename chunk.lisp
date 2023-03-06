@@ -448,7 +448,7 @@ Useful for interiors")
                  (not (eql 'bg-layer (type-of entity)))
                  (not (eql 'chunk (type-of entity)))
                  (contained-p entity chunk))
-        (nv+ (location entity) diff)))
+        (setf (location entity) (v+ (location entity) diff))))
     (call-next-method)))
 
 (defmethod (setf location) :after (location (chunk chunk))
