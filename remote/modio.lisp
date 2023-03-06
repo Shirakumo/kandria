@@ -43,8 +43,10 @@
   module)
 
 (defmethod search-module ((client modio:client) (id string))
-  (let ((found (modio:games/mods client (modio:default-game-id client)
-                                 :metadata (format NIL "id:~a" id))))
+  (let ((found (or (modio:games/mods client (modio:default-game-id client)
+                                     :metadata-blob (prin1-to-string id))
+                   (modio:games/mods client (modio:default-game-id client)
+                                     :metadata (format NIL "id:~a" id)))))
     (when found (ensure-modio-module (first found)))))
 
 (defmethod logout ((client modio:client))
@@ -55,6 +57,8 @@
 (defun ensure-modio-module (mod)
   (let ((mod (ensure-instance mod 'modio-module)))
     (setf (slot-value mod 'id) (or (gethash "id" (modio:metadata mod))
+                                   (when (and (modio:metadata-blob mod) (string/= "" (modio:metadata-blob mod)))
+                                     (read-from-string (modio:metadata-blob mod)))
                                    (modio:name-id mod)
                                    (princ-to-string (modio:id mod))))
     (setf (slot-value mod 'title) (modio:name mod))
@@ -152,11 +156,14 @@
                (ensure-modio-module mod)
                (modio:games/mods/files/add client (modio:default-game-id client) (modio:id mod)
                                            (file module) :version (version module))
-               (modio:games/mods/metadata/add client (modio:default-game-id client) (modio:id mod)
-                                              (mktab "id" (id module)))
+               (ignore-errors
+                (modio:games/mods/metadata/add client (modio:default-game-id client) (modio:id mod)
+                                               (mktab "id" (id module))))
                ;; Search self to invalidate cache
                (modio:games/mods client (modio:default-game-id client)
-                                 :metadata (format NIL "id:~a" (modio:id mod)) :ignore-cache T))
+                                 :metadata-blob (princ-to-string (id module)) :ignore-cache T)
+               (modio:games/mods client (modio:default-game-id client)
+                                 :metadata (format NIL "id:~a" (id module)) :ignore-cache T))
              mod)))))
 
 (defmethod upload-module ((client modio:client) (module modio-module))
