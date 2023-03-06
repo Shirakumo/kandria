@@ -7,6 +7,8 @@
                   "pool/kandria/sound/"
                   "pool/kandria/*/*.ase"
                   "pool/music/*.wav"
+                  "mods/*/"
+                  "mods/*.zip"
                   "pool/**/*.*~"
                   "pool/**/*.kra"
                   "pool/**/#*#")
