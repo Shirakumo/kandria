@@ -337,6 +337,7 @@ void main(){
 (define-shader-entity chunk (shadow-caster layer solid ephemeral collider creatable)
   ((layer-index :initform (1- +layer-count+))
    (layers :accessor layers)
+   (visibility :initform 0.0)
    (node-graph :initform NIL :initarg :node-graph :accessor node-graph)
    (show-solids :initform NIL :accessor show-solids)
    (tile-data :initarg :tile-data :accessor tile-data
