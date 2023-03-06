@@ -150,7 +150,7 @@
           (T ;; Upload a new module
            (let ((mod (modio:games/mods/add
                        client (modio:default-game-id client) (title module) (shorten-text (or* (description module) "No description provided.") 250)
-                       (or (preview module)) :homepage-url (upstream module) :description (or* (description module))
+                       (or (preview module) (input* (asset 'kandria 'empty-save))) :homepage-url (upstream module) :description (or* (description module))
                        :metadata-blob (prin1-to-string (id module)))))
              (with-cleanup-on-failure (modio:games/mods/delete client (modio:default-game-id client) (modio:id mod))
                (ensure-modio-module mod)
@@ -168,12 +168,13 @@
 
 (defmethod upload-module ((client modio:client) (module modio-module))
   (unless (modio:authenticated-p client) (error 'not-authenticated :remote client))
-  (modio:games/mods/edit client (modio:default-game-id client) (modio:id module)
-                         :summary (when (description module) (shorten-text (description module) 250))
-                         :name (title module) :description (description module)
-                         :homepage-url (upstream module) :logo (preview module))
-  (modio:games/mods/files/add client (modio:default-game-id client) (modio:id module)
-                              (file module) :version (version module))
+  (let ((local (or (find-module (id module)) module)))
+    (modio:games/mods/edit client (modio:default-game-id client) (modio:id module)
+                           :summary (when (description local) (shorten-text (description local) 250))
+                           :name (title local) :description (description local)
+                           :homepage-url (upstream local) :logo (or (preview local) (input* (asset 'kandria 'empty-save))))
+    (modio:games/mods/files/add client (modio:default-game-id client) (modio:id module)
+                                (file local) :version (version local)))
   module)
 
 (defmethod remote-id ((module modio-module))
