@@ -711,6 +711,8 @@ Use this to modify the start and end locations of the gate")
   (make-instance 'switch :location (vcopy (location gate))))
 
 (defmethod stage :after ((gate gate) (area staging-area))
+  (stage (make-instance 'switch) (u 'render))
+  (stage (make-instance 'switch) area)
   (stage (// 'sound 'gate-lift) area)
   (stage (// 'sound 'key-complete) area))
 
@@ -775,6 +777,14 @@ Use this to modify the start and end locations of the gate")
 
 (defmethod handle ((ev switch-chunk) (gate gate))
   (setf (state gate) (state gate)))
+
+(defclass gate-reset-trigger (trigger creatable)
+  ())
+
+(defmethod interact ((trigger gate-reset-trigger) (player player))
+  (bvh:do-fitting (entity (bvh (region +world+)) (chunk player))
+    (when (typep entity 'gate)
+      (setf (state entity) :closed))))
 
 (define-shader-entity demo-blocker (lit-animated-sprite solid ephemeral collider creatable)
   ((bsize :initform (vec 40 64))

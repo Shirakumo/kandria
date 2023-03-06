@@ -195,8 +195,13 @@
 
 (defmethod find-module ((id string))
   (let ((module (gethash (string-downcase id) *modules*)))
-    (when (and module (module-usable-p module))
-      module)))
+    (cond ((and module (module-usable-p module))
+           module)
+          (T
+           (loop for module being the hash-values of *modules*
+                 do (when (and (string-equal id (title module))
+                               (module-usable-p module))
+                      (return module)))))))
 
 (defmethod (setf find-module) ((module module) (id string))
   (let ((existing (gethash (string-downcase id) *modules*)))

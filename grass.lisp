@@ -158,7 +158,7 @@ Auto-determined by the size")
   (%gl:draw-arrays-instanced :triangle-fan 0 4 (patches patch)))
 
 (defmethod stage ((patch grass-patch) (area staging-area))
-  (stage (c2mop:ensure-finalized (find-class 'grass-patch)) (u 'render))
+  (stage (c2mop:ensure-finalized (find-class 'grass-part)) (u 'render))
   (stage (texture patch) area)
   (stage (vertex-array patch) area))
 

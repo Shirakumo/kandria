@@ -301,7 +301,6 @@
 
 (defmethod (setf entity) :before (value (editor editor))
   (when (typep (entity editor) 'chunk)
-    (setf (show-solids (entity editor)) NIL)
     (loop for layer across (layers (entity editor))
           do (setf (visibility layer) 1.0)))
   (setf (sidebar editor) NIL))
