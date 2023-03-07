@@ -58,8 +58,8 @@
      (if (vec3-p loc)
          (aref (layers chunk) (floor (vz loc)))
          chunk)
-     (vxy loc) (vec (+ (vx loc) (* +tile-size+ w))
-                    (+ (vy loc) (* +tile-size+ h)))
+     (vxy loc) (vec (+ (vx loc) (* +tile-size+ (1- w)))
+                    (+ (vy loc) (* +tile-size+ (1- h))))
      template)))
 
 (defclass paint (painter-tool)
