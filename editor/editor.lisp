@@ -448,15 +448,21 @@
         (load-into-world (minimal-load-world path) :edit T)))))
 
 (defmethod edit ((action (eql 'save-world)) (editor editor))
-  (depot:with-depot (depot (depot +world+) :commit T)
-    (save-world +world+ depot))
-  (setf (changes-saved-p +main+) T))
+  (promise:-> (trial::promise (with-ui-task ()
+                                (depot:with-depot (depot (depot +world+) :commit T)
+                                  (save-world +world+ depot))
+                                (setf (changes-saved-p +main+) T)))
+    (:then () (toast (@ generic-success-notice)))
+    (:handle (e) (message (@formats 'error-world-save-failed e)))))
 
 (defmethod edit ((action (eql 'save-world-as)) (editor editor))
   (let ((path (file-select:new :title "Select World File" :default (depot:to-pathname (depot +world+)) :filter '(("ZIP files" "zip")))))
     (when path
-      (setf (depot +world+) (save-world +world+ path))
-      (setf (changes-saved-p +main+) T))))
+      (promise:-> (trial::promise (with-ui-task ()
+                                    (setf (depot +world+) (save-world +world+ path))
+                                    (setf (changes-saved-p +main+) T)))
+        (:then () (toast (@ generic-success-notice)))
+        (:handle (e) (message (@formats 'error-world-save-failed e)))))))
 
 ;; FIXME: This information does not belong here. where else to put it? world-v0?
 (defmethod edit ((action (eql 'load-initial-state)) (editor editor))
