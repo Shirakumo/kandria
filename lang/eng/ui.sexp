@@ -269,5 +269,5 @@ error-module-load-failed "Cannot load module: an error occurred during loading. 
 error-module-register-failed "Cannot register module: an error occurred. The module sources may be corrupted~@[: ~a~]"
 error-version-not-supported "Failed to load: the version of the module is not supported"
 error-world-source-disappeared "Cannot load: the world sources are not accessible. Did you delete them?"
-error-world-load-failed "Cannot load world: an error occurred during loading. The world sources may be corrupted"
+error-world-load-failed "Cannot load world: an error occurred during loading. The world sources may be corrupted~@[: ~a~]"
 error-world-save-failed "Failed to save world: an error occurred during saving~@[: ~a~]"

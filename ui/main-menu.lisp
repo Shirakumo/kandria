@@ -472,11 +472,13 @@ void main(){
     (clear +editor-history+)
     (pause-game +world+ pauser)
     (reset (unit 'environment +world+))
-    (transition
-      :kind :black
-      #+kandria-release
-      (when (and state player (setting :debugging :send-diagnostics))
-        (submit-trace state player)
-        (setf state NIL player NIL))
-      (unpause-game +world+ pauser)
-      (reset +main+))))
+    (promise:with-promise (succeed)
+      (transition
+        :kind :black
+        #+kandria-release
+        (when (and state player (setting :debugging :send-diagnostics))
+          (submit-trace state player)
+          (setf state NIL player NIL))
+        (unpause-game +world+ pauser)
+        (reset +main+)
+        (funcall succeed)))))

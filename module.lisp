@@ -160,7 +160,8 @@
         (setf (find-module module) T)))))
 
 (defmethod register-module ((file pathname))
-  (handler-bind (((and error (not unsupported-save-file))
+  (handler-bind (#+kandria-release
+                 ((and error (not unsupported-save-file))
                    (lambda (e)
                      (v:warn :kandria.module "Module ~s failed to register." file)
                      (v:debug :kandria.module e)
@@ -177,7 +178,6 @@
       (unsupported-save-file ()
         (v:warn :kandria.module "Module version ~s is too old, ignoring." file))
       (error (e)
-        (v:warn :kandria.module "Module ~s failed to register, ignoring." file)
         (v:debug :kandria.module e)))))
 
 (defun list-modules (&optional (kind :active))
