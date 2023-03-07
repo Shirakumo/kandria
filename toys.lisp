@@ -572,7 +572,7 @@ void main(){
 (define-shader-entity chest (interactable-animated-sprite ephemeral creatable)
   ((name :initform (generate-name "CHEST"))
    (bsize :initform (vec 8 8))
-   (item :initform NIL :initarg :item :accessor item :type symbol
+   (item :initform NIL :initarg :item :accessor item :type alloy::any
          :documentation "The name of the item that the chest will spawn")
    (state :initform :closed :initarg :state :accessor state :type (member :open :closed)
           :documentation "Whether the chest is currently open or closed"))
