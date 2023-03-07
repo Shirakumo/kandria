@@ -15,7 +15,9 @@
       (load-world depot scene)))
   (handler-bind ((no-save-for-world #'continue))
     (let ((state (or state (state +main+) (first (sort (list-saves) #'> :key #'save-time)))))
-      (load-state state +main+))))
+      (if (and state (probe-file (file state)))
+          (load-state state +main+)
+          (load-state NIL +main+)))))
 
 (defun create-module (&key title author type)
   (let* ((module (make-instance 'stub-module :title title :version "0.0.0" :author author))
