@@ -149,8 +149,11 @@
   (reset (unit 'lighting-pass T)))
 
 (defmethod hide :after ((editor editor))
-  (dolist (entity (edited-entities editor))
-    (recompute entity))
+  (when (edited-entities editor)
+    (with-eval-in-task-thread ()
+      (dolist (entity (edited-entities editor))
+        (recompute entity))
+      (toast "Graph recomputed")))
   (setf (edited-entities editor) NIL)
   (hide (tool editor))
   (for:for ((entity over (region +world+)))
