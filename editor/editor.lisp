@@ -600,6 +600,6 @@
                (setf (title module) (title +world+))
                (setf (version module) (version +world+))
                (setf (description module) (description +world+))))
-           (alloy:message "The module preview has been updated." :title "Success" :ui (unit 'ui-pass T)))
+           (toast "The module preview has been updated."))
           (T
-           (alloy:message "This world isn't tied to any module!" :title "Error" :ui (unit 'ui-pass T))))))
+           (toast "This world isn't tied to any module!")))))

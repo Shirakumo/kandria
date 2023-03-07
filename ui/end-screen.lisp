@@ -74,6 +74,9 @@
             (load-into-world next)))
         (with-button module-replay-current-world
           (load-into-world +world+))
+        (with-button module-edit-world
+          (hide prompt)
+          (show-panel 'editor))
         (with-button return-to-main-menu
           (return-to-main-menu)))
       (alloy:enter buttons layout :constraints `((:center :w) (:size 300 100) (:below ,description 200)))
