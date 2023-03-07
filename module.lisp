@@ -17,7 +17,10 @@
   (module-config-directory (string-downcase name)))
 
 (defun module-directory ()
-  (pathname-utils:subdirectory (data-root) "mods"))
+  (let ((setting (setting :modules :directory)))
+    (if setting
+        (pathname-utils:parse-native-namestring setting :as :directory)
+        (pathname-utils:subdirectory (data-root) "mods"))))
 
 (defun find-module-file (name)
   (or (probe-file (pathname-utils:subdirectory (module-directory) (string-downcase name)))

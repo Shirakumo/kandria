@@ -17,7 +17,7 @@
                  alloy:component
                  alloy:popup
                  alloy:renderable)
-  ((timer :initform 3.0 :accessor timer)))
+  ((timer :initform 5.0 :accessor timer)))
 
 (defmethod initialize-instance :after ((toast toast) &key (valign :top) (halign :right))
   (let ((label (alloy:represent-with 'toast-label (alloy:data toast)))
