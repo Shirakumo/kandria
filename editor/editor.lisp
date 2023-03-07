@@ -578,7 +578,12 @@
            (with-tempfile (file :type "png")
              (capture (u 'render) :file file :target-width 512 :target-height 288)
              ;; Finally, copy the file into the module
-             (setf (preview module) file))
+             (setf (preview module) file)
+             ;; Also copy meta
+             (when (= 1 (length (worlds module)))
+               (setf (title module) (title +world+))
+               (setf (version module) (version +world+))
+               (setf (description module) (description +world+))))
            (alloy:message "The module preview has been updated." :title "Success" :ui (unit 'ui-pass T)))
           (T
            (alloy:message "This world isn't tied to any module!" :title "Error" :ui (unit 'ui-pass T))))))
