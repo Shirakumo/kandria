@@ -565,10 +565,11 @@
            (alloy:on alloy:activate (uninstall)
              (promise:-> (prompt (@ module-uninstall-confirm))
                (:then ()
+                      (filesystem-utils:ensure-deleted (file object))
                       (setf (active-p object) NIL)
                       (setf (find-module object) NIL)
-                      (filesystem-utils:ensure-deleted (file object))
-                      (toast (@ generic-success-notice)))))))))))
+                      (toast (@ generic-success-notice)))
+               (:handle () (toast (@ generic-failure-notice)))))))))))
 
 (defclass world-preview-layout (org.shirakumo.alloy.layouts.constraint:layout)
   ((alloy:data :initarg :data :accessor alloy:data)))

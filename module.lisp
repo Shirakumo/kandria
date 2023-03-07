@@ -307,9 +307,10 @@
 
 (defmethod unload-module :after ((module module))
   (setf (slot-value module 'active-p) NIL)
-  (delete-package (module-package module))
-  (change-class module 'stub-module)
-  (when +world+ (issue +world+ 'module-unloaded :module module)))
+  (unless (typep module 'stub-module)
+    (delete-package (module-package module))
+    (change-class module 'stub-module)
+    (when +world+ (issue +world+ 'module-unloaded :module module))))
 
 (defun ensure-mod-package ()
   (let ((package (or (find-package '#:org.shirakumo.fraf.kandria.mod)

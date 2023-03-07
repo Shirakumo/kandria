@@ -111,7 +111,9 @@
 
 (defmethod load-state ((state save-state) (main main))
   (restart-case
-      (handler-bind ((error (lambda (e)
+      (handler-bind ((save-file-outdated (lambda (e)
+                                           (invoke-restart 'migrate (version e))))
+                     (error (lambda (e)
                               (when (deploy:deployed-p)
                                 (v:severe :kandria.save "Failed to load save state ~a: ~a" state e)
                                 (v:debug :kandria.save e)

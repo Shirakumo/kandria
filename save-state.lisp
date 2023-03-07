@@ -154,14 +154,12 @@
   save-state)
 
 (defmethod load-state ((save-state save-state) world)
-  (handler-bind ((save-file-outdated (lambda (e)
-                                       (invoke-restart 'migrate (version e)))))
-    (restart-case
-        (load-state (file save-state) world)
-      (migrate (version)
-        :report "Migrate the save file and try again."
-        (migrate save-state version (current-save-version))
-        (load-state (file save-state) world)))))
+  (restart-case
+      (load-state (file save-state) world)
+    (migrate (version)
+      :report "Migrate the save file and try again."
+      (migrate save-state version (current-save-version))
+      (load-state (file save-state) world))))
 
 (defmethod load-state (state (world (eql T)))
   (load-state state +world+))
@@ -197,7 +195,8 @@
           (restart-case (decode-payload NIL world depot version)
             (continue ()
               :report "Load the world's initial state instead."
-              (load-state (initial-state world) world)))
+              (handler-bind ((save-file-outdated #'continue))
+                (load-state (initial-state world) world))))
           (apply #'make-instance 'save-state initargs))))))
 
 (defun submit-trace (state &optional (player (unit 'player +world+)))
