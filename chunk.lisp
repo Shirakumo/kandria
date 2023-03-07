@@ -407,6 +407,7 @@ Useful for interiors")
         do (leave layer container)))
 
 (defmethod stage :after ((chunk chunk) (area staging-area))
+  (stage (c2mop:class-prototype (c2mop:ensure-finalized (find-class 'bg-layer))) (u 'render))
   (loop for layer across (layers chunk)
         do (stage layer area))
   (when (environment chunk)

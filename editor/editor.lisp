@@ -142,6 +142,10 @@
   (setf (background (unit 'background T)) (background 'editor))
   (update-background (unit 'background T) T)
   (setf (zoom (camera +world+)) (expt 0.8 5))
+  (for:for ((entity over (region +world+)))
+    (when (and (typep entity 'chunk)
+               (null (show-solids entity)))
+      (setf (visibility entity) 0.3)))
   (reset (unit 'lighting-pass T)))
 
 (defmethod hide :after ((editor editor))

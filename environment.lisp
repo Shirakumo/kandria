@@ -125,9 +125,9 @@
 (defmethod harmony:transition ((nothing (eql 'null)) to &key in)
   (declare (ignore nothing to in)))
 
-#+kandria-release
-(defmethod harmony:transition ((nothing placeholder-resource) to &key in)
-  (declare (ignore nothing to in)))
+(defmethod harmony:transition ((thing placeholder-resource) to &rest args &key &allow-other-keys)
+  (trial:commit thing (loader +main+) :unload NIL)
+  (apply #'harmony:transition thing to args))
 
 (defun override-music (track)
   (setf (override (unit 'environment +world+)) (when track (// 'music track))))
