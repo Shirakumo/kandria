@@ -72,6 +72,9 @@
                (declare (ignorable #'encode))
                ,@body)))))))
 
+(defmethod encode-payload :before ((type entity) buffer depot version)
+  (v:trace :kandria.serializer "Encoding ~a" type))
+
 (trivial-indent:define-indentation define-encoder (4 4 &body))
 
 (defmacro define-decoder ((type version) &rest args)
