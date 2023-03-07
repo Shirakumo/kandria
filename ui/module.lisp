@@ -499,7 +499,9 @@
                                                 :focus-parent focus :layout-parent actions)))
                   (alloy:on alloy:activate (install)
                     (promise:-> (trial::promise (with-ui-task (install-module (remote object) object)))
-                      (:then () (hide-panel 'module-preview))
+                      (:then () (hide-panel 'module-popup)
+                             (let ((text (@formats 'module-install-completed (title object))))
+                               (alloy:represent text 'toast :halign :right :valign :top)))
                       (:handle (e)
                         (typecase e
                           (unsupported-save-file

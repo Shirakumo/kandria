@@ -104,7 +104,8 @@
                              (:file "early-end")
                              (:file "gamepad")
                              (:file "races")
-                             (:file "module")))
+                             (:file "module")
+                             (:file "toast")))
                (:module "editor"
                 :components ((:file "history")
                              (:file "tool")
