@@ -23,7 +23,7 @@
         (unless (funcall on-hit hit) hit)))))
 
 (defclass drag (tool)
-  ((sentinel :initform (make-instance 'drag-sentinel) :accessor sentinel)
+  ((sentinel :initform (make-instance 'drag-sentinel :bsize (vec 0 0)) :accessor sentinel)
    (start-pos :initform (vec 0 0) :accessor start-pos)
    (offset :initform (vec 0 0) :accessor offset)
    (layer :initform NIL :accessor layer)
@@ -34,7 +34,8 @@
 (defmethod title ((tool drag)) "Drag (D)")
 
 (defmethod (setf tool) :after ((tool drag) (editor editor))
-  (enter (sentinel tool) (region +world+)))
+  (unless (container (sentinel tool))
+    (enter (sentinel tool) (region +world+))))
 
 (defmethod stage ((tool drag) (area staging-area))
   (stage (sentinel tool) area))
