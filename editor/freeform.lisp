@@ -31,11 +31,11 @@
 (defmethod handle ((event mouse-press) (tool freeform))
   (let ((entity (entity tool)))
     (cond ((retained :control)
-           (let ((new (closest-acceptable-location (entity tool) (vcopy (mouse-world-pos (pos event)))))
+           (let ((new (closest-acceptable-location entity (vcopy (mouse-world-pos (pos event)))))
                  (old (vcopy (location entity))))
              (with-commit (tool "Move ~a" (descriptor entity))
-               ((setf (location entity) new))
-               ((setf (location entity) old)))))
+                 ((setf (location entity) new) (bvh:bvh-update (bvh (region +world+)) entity))
+                 ((setf (location entity) old) (bvh:bvh-update (bvh (region +world+)) entity)))))
           (T
            (etypecase entity
              (resizable
