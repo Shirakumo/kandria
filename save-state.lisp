@@ -3,6 +3,9 @@
 (define-condition unsupported-save-file (error)
   ((version :initarg :version :accessor version)))
 
+(define-condition save-file-outdated (error)
+  ((version :initarg :version :accessor version)))
+
 (define-condition no-save-for-world (error)
   ())
 
@@ -151,7 +154,14 @@
   save-state)
 
 (defmethod load-state ((save-state save-state) world)
-  (load-state (file save-state) world))
+  (handler-bind ((save-file-outdated (lambda (e)
+                                       (invoke-restart 'migrate (version e)))))
+    (restart-case
+        (load-state (file save-state) world)
+      (migrate (version)
+        :report "Migrate the save file and try again."
+        (migrate save-state version (current-save-version))
+        (load-state (file save-state) world)))))
 
 (defmethod load-state (state (world (eql T)))
   (load-state state +world+))
@@ -182,6 +192,8 @@
         (setf (action-lists world) ())
         (setf (area-states (unit 'environment world)) NIL)
         (let ((version (coerce-version (getf header :version))))
+          (unless (typep version (type-of (current-save-version)))
+            (cerror "Try to load anyway" 'save-file-outdated :version version))
           (restart-case (decode-payload NIL world depot version)
             (continue ()
               :report "Load the world's initial state instead."

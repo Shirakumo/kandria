@@ -47,6 +47,21 @@
     (when env-data
       (decode (unit 'environment world) env-data))))
 
+(defmethod migrate :before (save (old version) (new version))
+  (v:info :kandria.save "Migrating old save file ~a from ~a to ~a" save old new))
+
+(defmethod migrate (save (old save-v1) (new save-v1.5))
+  new)
+
+(defmethod migrate ((state save-state) (old save-v1) (new save-v2))
+  (let ((world (make-instance 'world)))
+    (setf (depot world) (find-world))
+    (depot:with-depot (depot (file state))
+      (v:with-muffled-logging (:kandria.quest)
+        (decode-payload NIL world depot old)))
+    (save-state world state :version new)
+    new))
+
 (define-encoder (world save-v2) (_b depot)
   (setf depot (depot:ensure-entry (id world) depot :type :directory))
   (flet ((encode (object &optional (_b _b))
@@ -484,7 +499,8 @@
   (setf (unlocked-p locked-door) (getf initargs :unlocked-p)))
 
 (define-encoder (interactable-animated-sprite save-v0) (_b _p)
-  `(:animation ,(name (animation interactable-animated-sprite))))
+  `(:animation ,(when (animation interactable-animated-sprite)
+                  (name (animation interactable-animated-sprite)))))
 
 (define-decoder (interactable-animated-sprite save-v0) (initargs _p)
   (if (< 0 (length (animations interactable-animated-sprite)))
