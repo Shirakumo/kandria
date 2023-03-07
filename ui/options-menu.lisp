@@ -307,7 +307,7 @@
         (control show-startup-logos (:debugging :show-startup-screen) 'alloy:checkbox)
         (control kiosk-mode (:debugging :kiosk-mode) 'alloy:checkbox)
         (control send-diagnostics (:debugging :send-diagnostics) 'alloy:checkbox)
-        (control send-error-reports (:debugging :dont-submit-reports) 'alloy:checkbox)
+        (control dont-send-error-reports (:debugging :dont-submit-reports) 'alloy:checkbox)
         #++(control allow-editor (:debugging :allow-editor) 'alloy:checkbox)
         (control show-mod-menu-entry (:debugging :show-mod-menu-entry) 'alloy:checkbox)
         (control camera-control (:debugging :camera-control) 'alloy:checkbox)
