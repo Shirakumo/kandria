@@ -71,6 +71,8 @@
                                                     :tileset tileset :layout-parent layout :focus-parent focus
                                                     :tile-size tile-size)))
           (alloy:on alloy:activate (element)
+            (unless (typep (tool (editor widget)) 'painter-tool)
+              (setf (tool (editor widget)) 'paint))
             (if (retained :shift)
                 (let* ((x1 (first (tile-to-place widget)))
                        (y1 (second (tile-to-place widget)))
