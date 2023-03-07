@@ -157,11 +157,14 @@ Or a list of names of objects to spawn")
                                       (vec2 (vec (- (funcall rng (vx jitter)) (* 0.5 (vx jitter)))
                                                  (- (funcall rng (vy jitter)) (* 0.5 (vy jitter)))))))
                       initargs)))
-      (if collect
-          (loop repeat count
-                collect (spawn region (create)))
-          (loop repeat count
-                do (spawn region (create)))))))
+      (handler-case
+          (with-error-logging (:kandria.spawn "Failed to spawn ~a" type)
+            (if collect
+                (loop repeat count
+                      collect (spawn region (create)))
+                (loop repeat count
+                      do (spawn region (create)))))
+        #+kandria-release (error ())))))
 
 (defmethod spawn ((container container) (entity entity) &key)
   (cond ((gethash (class-of entity) +spawn-cache+)
