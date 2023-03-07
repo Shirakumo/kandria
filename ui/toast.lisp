@@ -36,8 +36,7 @@
                     :y (alloy:px (ecase valign
                                    ((:bottom :south :down) 10)
                                    ((:top :north :up) (- (alloy:pxh (u 'ui-pass)) h 10))))
-                    :w (alloy:px w) :h (alloy:px h))))
-  (print toast))
+                    :w (alloy:px w) :h (alloy:px h)))))
 
 (defmethod alloy:activate ((toast toast))
   (alloy:close toast))

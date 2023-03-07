@@ -554,7 +554,21 @@
                       ((user-authored-p remote remote-module)
                        (etypecase remote
                          (modio:client (b remote (alloy:represent (@ module-update-on-modio) 'button)))
-                         (steam:steamworkshop (b remote (alloy:represent (@ module-update-on-steam) 'button)))))))))))))))
+                         (steam:steamworkshop (b remote (alloy:represent (@ module-update-on-steam) 'button))))))
+                (when (and remote-module (upstream remote-module))
+                  (let ((visit (alloy:represent (@ module-visit-official-page) 'button
+                                                :focus-parent focus :layout-parent actions)))
+                    (alloy:on alloy:activate (visit)
+                      (open-in-browser (upstream remote-module)))))))))
+         (let ((uninstall (alloy:represent (@ module-uninstall) 'button
+                                           :focus-parent focus :layout-parent actions)))
+           (alloy:on alloy:activate (uninstall)
+             (promise:-> (prompt (@ module-uninstall-confirm))
+               (:then ()
+                      (setf (active-p object) NIL)
+                      (setf (find-module object) NIL)
+                      (filesystem-utils:ensure-deleted (file object))
+                      (toast (@ generic-success-notice)))))))))))
 
 (defclass world-preview-layout (org.shirakumo.alloy.layouts.constraint:layout)
   ((alloy:data :initarg :data :accessor alloy:data)))
