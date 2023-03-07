@@ -395,7 +395,8 @@
   (when (and (eq (entity editor) +world+)
              (eq :left (button event)))
     (let ((pos (mouse-world-pos (pos event))))
-      (setf (entity editor) (or (entity-at-point pos +world+) +world+)))))
+      (setf (entity editor) (or (entity-at-point pos +world+) +world+))))
+  NIL)
 
 (defmethod handle ((event mouse-double-click) (editor editor))
   (when (eq :left (button event))
