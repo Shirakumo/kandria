@@ -303,6 +303,11 @@
     (when (gl-name buffer)
       (update-buffer-data buffer array))))
 
+(defmethod (setf entity) :around (value (editor editor))
+  (unless (eq value (entity editor))
+    (call-next-method))
+  value)
+
 (defmethod (setf entity) :before (value (editor editor))
   (when (typep (entity editor) 'chunk)
     (loop for layer across (layers (entity editor))
@@ -312,7 +317,9 @@
 (defmethod (setf entity) :after (value (editor editor))
   (update-marker editor)
   (reinitialize-instance (toolbar editor) :editor editor :entity (entity editor))
-  (setf (tool editor) (default-tool editor))
+  (when (or (typep (tool editor) 'browser)
+            (not (find (type-of (tool editor)) (applicable-tools (entity editor)))))
+    (setf (tool editor) (default-tool editor)))
   (v:info :kandria.editor "Switched entity to ~a (~a)" value (type-of editor)))
 
 (defmethod handle :around ((ev event) (editor editor))
