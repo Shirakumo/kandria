@@ -300,7 +300,8 @@
                    (incf (clock quest) dt))))
       (when (<= (decf (update-timer world) dt) 0)
         (setf (update-timer world) 0.2)
-        (quest:try (storyline world))))))
+        (with-ignored-errors-on-release (:kandria.quest "Failure during storyline run")
+          (quest:try (storyline world)))))))
 
 (defun start-action-list (name &optional (scene +world+))
   (push (make-instance (action-list:action-list name)) (action-lists scene)))
