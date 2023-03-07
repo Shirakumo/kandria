@@ -64,9 +64,13 @@
    #:list-worlds
    #:list-modules
    #:load-module
+   #:unload-module
    #:find-module
    #:define-module
    #:register-worlds)
+  ;; quest.lisp
+  (:export
+   #:define-sequence-quest)
   ;; world.lisp
   (:export
    #:+world+

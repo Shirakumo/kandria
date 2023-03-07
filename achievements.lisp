@@ -1,8 +1,8 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (defun race-achieved-p (race)
-  (let ((quest (quest:find-quest race (storyline +world+))))
-    (and (quest:var 'pb quest)
+  (let ((quest (quest:find-quest race (storyline +world+) NIL)))
+    (and quest (quest:var 'pb quest)
          (<= (quest:var 'pb quest) (quest:var 'gold quest)))))
 
 (define-achievement catherine-races task-completed
