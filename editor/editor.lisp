@@ -599,7 +599,9 @@
              (when (= 1 (length (worlds module)))
                (setf (title module) (title +world+))
                (setf (version module) (version +world+))
-               (setf (description module) (description +world+))))
+               (setf (description module) (description +world+))
+               (depot:with-depot (depot (file module) :commit T)
+                 (encode-payload module NIL depot 'module-v0))))
            (toast "The module preview has been updated."))
           (T
            (toast "This world isn't tied to any module!")))))
