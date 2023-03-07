@@ -139,13 +139,15 @@
                             :visible-on-map-p visible-on-map-p))))
 
 (define-encoder (chunk world-v0) (_b depot)
+  (v:trace :kandria.serializer "Saving node graph")
   (depot:with-open (tx (depot:ensure-entry (format NIL "~a.graph" (name chunk)) depot) :output '(unsigned-byte 8))
     (encode-payload (node-graph chunk) (depot:to-stream tx) depot 'binary-v0))
   (let ((layers (loop for i from 0
                       for layer across (layers chunk)
                       ;; KLUDGE: no png saving lib handy. Hope ZIP compression is Good Enough
                       for path = (format NIL "~a-~d.raw" (name chunk) i)
-                      do (depot:write-to (depot:ensure-entry path depot) (pixel-data layer))
+                      do (v:trace :kandria.serializer "Saving layer ~a-~d" (name chunk) i)
+                         (depot:write-to (depot:ensure-entry path depot) (pixel-data layer))
                       collect path))
         (pixel-data (format NIL "~a.raw" (name chunk))))
     (depot:write-to (depot:ensure-entry pixel-data depot) (pixel-data chunk))
