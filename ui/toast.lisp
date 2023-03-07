@@ -19,7 +19,7 @@
                  alloy:renderable)
   ((timer :initform 3.0 :accessor timer)))
 
-(defmethod initialize-instance :after ((toast toast) &key (valign :bottom) (halign :left))
+(defmethod initialize-instance :after ((toast toast) &key (valign :top) (halign :right))
   (let ((label (alloy:represent-with 'toast-label (alloy:data toast)))
         (close (alloy:represent "" 'alloy:label :style `((:label :valign :middle)))))
     (alloy:enter close toast :constraints `((:left 10) (:center :h) (:size 20 20)))
@@ -48,6 +48,9 @@
 (defmethod animation:update :before ((toast toast) dt)
   (when (<= (decf (timer toast) dt) 0.0)
     (alloy:close toast)))
+
+(defun toast (text &rest initargs)
+  (apply #'alloy:represent-with 'toast (make-instance 'alloy:value-data :value text) initargs))
 
 (presentations:define-realization (ui toast)
   ((background simple:rectangle)

@@ -500,8 +500,7 @@
                   (alloy:on alloy:activate (install)
                     (promise:-> (trial::promise (with-ui-task (install-module (remote object) object)))
                       (:then () (hide-panel 'module-popup)
-                             (let ((text (@formats 'module-install-completed (title object))))
-                               (alloy:represent text 'toast :halign :right :valign :top)))
+                             (toast (@formats 'module-install-completed (title object))))
                       (:handle (e)
                         (typecase e
                           (unsupported-save-file
@@ -816,7 +815,7 @@
                       (prompt (@ module-content-agreement)))
         (:then () (setf (setting :modules :content-agreement-accepted) T)
                (trial::promise (with-ui-task (upload-module remote module))))
-        (:then (remote-module) (message (@formats 'module-upload-successful (remote-id remote-module))))
+        (:then (remote-module) (toast (@formats 'module-upload-successful (remote-id remote-module))))
         (:handle () (message (@ error-module-upload-failed))))
       (message (@ error-module-source-disappeared))))
 
