@@ -310,12 +310,14 @@
 
 (defun ensure-mod-package ()
   (let ((package (or (find-package '#:org.shirakumo.fraf.kandria.mod)
-                     (make-package '#:org.shirakumo.fraf.kandria.mod :use (list '#:cl+trial)))))
+                     (make-package '#:org.shirakumo.fraf.kandria.mod))))
+    (use-package '#:cl+trial package)
     (do-external-symbols (symbol '#:org.shirakumo.fraf.kandria)
-      (shadowing-import symbol package))
+      (shadowing-import (list symbol) package))
     (import 'define-module '#:cl-user)
-    (do-symbols (symbol package)
-      (export symbol package))))
+    (let ((symbols ()))
+      (do-symbols (symbol package) (push symbol symbols))
+      (export symbols package))))
 
 (ensure-mod-package)
 
