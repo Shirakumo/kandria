@@ -7,6 +7,8 @@
 (defvar *install-root* NIL)
 
 (defun set-pool-paths-from-install (install)
+  (unless (probe-file install)
+    (error "Install path ~a does not exist." install))
   (setf *install-root* install)
   (pushnew *install-root* cffi:*foreign-library-directories* :test #'equalp)
   (setf (base (find-pool 'kandria)) (pathname-utils:subdirectory install "pool" "kandria"))
@@ -14,11 +16,13 @@
   (setf (base (find-pool 'sound)) (pathname-utils:subdirectory install "pool" "sound")))
 
 (let ((root #.(make-pathname :name NIL :type NIL :defaults (or *compile-file-pathname* *load-pathname*))))
-  (cond ((probe-file (merge-pathnames "install/" root))
-         (set-pool-paths-from-install (merge-pathnames "install/" root)))
-        ((probe-file (merge-pathnames ".install" root))
-         (let ((path (string-trim '(#\Linefeed #\Return #\Space) (uiop:read-file-string (merge-pathnames ".install" root)))))
-           (set-pool-paths-from-install (pathname-utils:parse-native-namestring path :as :directory))))))
+  (handler-case (cond ((probe-file (merge-pathnames "install/" root))
+                       (set-pool-paths-from-install (merge-pathnames "install/" root)))
+                      ((probe-file (merge-pathnames ".install" root))
+                       (let ((path (string-trim '(#\Linefeed #\Return #\Space) (uiop:read-file-string (merge-pathnames ".install" root)))))
+                         (set-pool-paths-from-install (pathname-utils:parse-native-namestring path :as :directory)))))
+    (error (e)
+      (v:warn :kandria "Failed to set pool path: ~a" e))))
 
 (define-asset (kandria 1x) mesh
     (make-rectangle 1 1 :align :bottomleft))
