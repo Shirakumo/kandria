@@ -72,6 +72,7 @@
                (declare (ignorable #'encode))
                ,@body)))))))
 
+#++
 (defmethod encode-payload :before ((type entity) buffer depot version)
   (v:trace :kandria.serializer "Encoding ~a" type))
 
