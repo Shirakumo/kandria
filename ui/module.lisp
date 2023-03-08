@@ -506,7 +506,7 @@
                 (let ((install (alloy:represent (@ module-install) 'button
                                                 :focus-parent focus :layout-parent actions)))
                   (alloy:on alloy:activate (install)
-                    (promise:-> (trial::promise (with-ui-task (install-module (remote object) object)))
+                    (promise:-> (trial::promise (with-ui-task (load-module (install-module (remote object) object))))
                       (:then () (hide-panel 'module-popup)
                              (toast (@formats 'module-install-completed (title object))))
                       (:handle (e)
