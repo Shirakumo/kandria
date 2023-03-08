@@ -131,26 +131,27 @@
 (defun update-background (background &optional force)
   (let ((info (background background)))
     ;; When there's a new target to set and it's not already our target, update
-    (with-buffer-tx (backgrounds (// 'kandria 'backgrounds))
-      (let ((a (a backgrounds))
-            (b (b backgrounds)))
-        (cond ((and info (not (eq (texture info) (texture-b background))) (not force))
-               (setf (mix backgrounds) (- 1.0 (min 1.0 (mix backgrounds))))
-               ;; First move the target to be the source
-               (setf (texture-a background) (or (texture-b background) (texture info)))
-               (setf (parallax a) (parallax b))
-               (setf (scaling a) (scaling b))
-               (setf (offset a) (offset b))
-               (setf (lighting-strength a) (lighting-strength b)))
-              (T
-               (setf (texture-a background) (or (texture-b background) (texture info)))
-               (setf (mix backgrounds) 1.0)))
-        ;; Then set new source parameters
-        (setf (texture-b background) (texture info))
-        (setf (parallax b) (parallax info))
-        (setf (scaling b) (scaling info))
-        (setf (offset b) (offset info))
-        (setf (lighting-strength b) (lighting-strength info))))))
+    (when (allocated-p (// 'kandria 'backgrounds))
+      (with-buffer-tx (backgrounds (// 'kandria 'backgrounds))
+        (let ((a (a backgrounds))
+              (b (b backgrounds)))
+          (cond ((and info (not (eq (texture info) (texture-b background))) (not force))
+                 (setf (mix backgrounds) (- 1.0 (min 1.0 (mix backgrounds))))
+                 ;; First move the target to be the source
+                 (setf (texture-a background) (or (texture-b background) (texture info)))
+                 (setf (parallax a) (parallax b))
+                 (setf (scaling a) (scaling b))
+                 (setf (offset a) (offset b))
+                 (setf (lighting-strength a) (lighting-strength b)))
+                (T
+                 (setf (texture-a background) (or (texture-b background) (texture info)))
+                 (setf (mix backgrounds) 1.0)))
+          ;; Then set new source parameters
+          (setf (texture-b background) (texture info))
+          (setf (parallax b) (parallax info))
+          (setf (scaling b) (scaling info))
+          (setf (offset b) (offset info))
+          (setf (lighting-strength b) (lighting-strength info)))))))
 
 (defmethod stage :after ((background background) (area staging-area))
   (when (background background)
