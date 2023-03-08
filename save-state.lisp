@@ -216,14 +216,21 @@
           (id state) (play-time state) (session-time) :trace file))))))
 
 (defun resume-state (resume &optional (main +main+))
-  (unwind-protect (load-game resume main)
-    (let ((state (find (id resume) (list-saves) :key #'id :test #'equalp)))
-      (cond ((equalp (file state) (file resume)))
-            (state
-             (v:info :kandria.save "Resuming state ~a."
-                     (id resume) (file resume))
-             (setf (state main) state))
-            (T
-             (v:severe :kandria.save "Failed to find original save file with id ~a that this resume file is branched from! Replacing save 4."
-                       (id resume))
-             (setf (file resume) (rename-file (file resume) (make-pathname :name "4" :defaults (file resume)))))))))
+  (let ((original (find (id resume) (list-saves) :key #'id :test #'equalp)))
+    (handler-case
+        (unwind-protect (handler-bind ((no-save-for-world (lambda (e)
+                                                            (when (or (null original) (equalp resume original))
+                                                              (continue e)))))
+                          (load-game resume main))
+          (cond ((null original)
+                 (v:severe :kandria.save "Failed to find original save file with id ~a that this resume file is branched from! Replacing save 4."
+                           (id resume))
+                 (setf (file resume) (rename-file (file resume) (make-pathname :name "4" :defaults (file resume)))))
+                ((equalp (file original) (file resume)))
+                (original
+                 (v:info :kandria.save "Resuming state ~a."
+                         (id resume) (file resume))
+                 (setf (state main) original))))
+      (no-save-for-world ()
+        (v:warn :kandria.save "Resume does not contain info for original game world, retrying with non-resume save")
+        (load-game original main)))))
