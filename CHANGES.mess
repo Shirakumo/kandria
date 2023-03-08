@@ -50,6 +50,8 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Jeremiah Fieldhaven
 - Fix issue related to empty GI
   Reported by Goldberg
+- Fix issue with premature deallocation of shaders
+  Reported by Dudue Dude
 
 ## 1.0.7
 - Fix rare crash related to BVH degradation
