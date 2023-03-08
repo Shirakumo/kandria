@@ -33,6 +33,23 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Hempuli
 - Fix multi-tile picking being screwed when not selecting tiles from bottom left to top right
   Reported by Hempuli, Dieting Hippo
+- Fix moving platforms moving faster when climbing them
+- Fix default mod preview image size
+  Reported by Jeremiah Fieldhaven
+- Fix various minor usability issues
+  Reported by Jeremiah Fieldhaven
+- Fix issue related to spawning of child entities in new worlds
+  Reported by Tim White
+- Fix input field for spawner types
+  Reported by Dieting Hippo
+- Fix mod dependency management
+  Reported by Jeremiah Fieldhaven
+- Fix issues with the history dialog
+  Reported by Dieting Hippo
+- Fix issues with the animation editor
+  Reported by Jeremiah Fieldhaven
+- Fix issue related to empty GI
+  Reported by Goldberg
 
 ## 1.0.7
 - Fix rare crash related to BVH degradation
