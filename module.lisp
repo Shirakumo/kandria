@@ -11,7 +11,7 @@
 (defvar *modules* (make-hash-table :test 'equal))
 
 (defmethod module-config-directory ((name string))
-  (pathname-utils:subdirectory (config-directory) "mods" name))
+  (pathname-utils:subdirectory (config-directory) "mods/config/" name))
 
 (defmethod module-config-directory ((name symbol))
   (module-config-directory (string-downcase name)))
@@ -20,7 +20,7 @@
   (let ((setting (setting :modules :directory)))
     (if setting
         (pathname-utils:parse-native-namestring setting :as :directory)
-        (pathname-utils:subdirectory (data-root) "mods"))))
+        (pathname-utils:subdirectory (config-directory) "mods/"))))
 
 (defun find-module-file (name)
   (or (probe-file (pathname-utils:subdirectory (module-directory) (string-downcase name)))
