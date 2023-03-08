@@ -3,7 +3,7 @@
 (define-condition unsupported-save-file (error)
   ((version :initarg :version :accessor version)))
 
-(define-condition save-file-outdated (error)
+(define-condition save-file-outdated (warning)
   ((version :initarg :version :accessor version)))
 
 (define-condition no-save-for-world (error)
@@ -191,7 +191,8 @@
         (setf (area-states (unit 'environment world)) NIL)
         (let ((version (coerce-version (getf header :version))))
           (unless (typep version (type-of (current-save-version)))
-            (cerror "Try to load anyway" 'save-file-outdated :version version))
+            (with-simple-restart (continue "Load it anyway.")
+              (warn 'save-file-outdated :version version)))
           (restart-case (decode-payload NIL world depot version)
             (continue ()
               :report "Load the world's initial state instead."

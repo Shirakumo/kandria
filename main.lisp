@@ -104,8 +104,7 @@
     (clear-spawns)
     (clear +editor-history+)
     (setf (changes-saved-p main) T)
-    (handler-bind ((save-file-outdated #'continue))
-      (load-state (initial-state (scene main)) (scene main)))
+    (load-state (initial-state (scene main)) (scene main))
     (unwind-protect
          (trial:commit (scene main) (loader main) :show-screen T :cold T)
       (setf (state main) state))))
