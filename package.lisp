@@ -75,3 +75,21 @@
   (:export
    #:+world+
    #:world-loaded))
+
+;;; Consistency checks.
+#-sbcl (error "You must run SBCL.")
+#-x86-64 (error "Platforms other than AMD64 are not supported.")
+
+(when (<= (floor (sb-ext:dynamic-space-size) (* 1024 1024 1024)) 1)
+  (error "You must run SBCL with at least 2GB of heap.
+Either run the setup.lisp file directly, or start SBCL with
+  sbcl --dynamic-space-size 4GB"))
+
+(let ((v (lisp-implementation-version))
+      (p 0))
+  (flet ((next ()
+           (let ((dot (position #\. v :start p)))
+             (prog1 (parse-integer v :start p :end dot)
+               (setf p (1+ dot))))))
+    (when (or (< (next) 2) (< (next) 2))
+      (error "Your SBCL version is too old. Please update."))))
