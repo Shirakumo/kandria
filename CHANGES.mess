@@ -7,6 +7,8 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Subsume
 - Fix soft lock caused by inventory invariant mismatch after a crash
   Reported by Subsume
+- Fix issue with key button mapping configuration
+  Reported by Cirrusscales
 
 ## 1.1.0
 - Fix issues with multiple worlds corrupting save files
