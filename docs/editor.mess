@@ -1,5 +1,5 @@
 # Kandria Editor
-Kandria ships with a very capable level editor which allows you to modify existing worlds and create your own. This document describes how to use the editor, for information on how to distribute your worlds and manage those of others, please see the "mods documentation"(link mods.mess).
+Kandria ships with a very capable level editor which allows you to modify existing worlds and create your own. This document describes how to use the editor, for information on how to distribute your worlds and manage those of others, please see the "mods documentation"(link modules.mess).
 
 ; TODO: Video
 
@@ -56,7 +56,7 @@ The useful properties shown on the left are as follows:
 - ``ENVIRONMENT`` Controls the music and soundscape that plays when entering this chunk.
 - ``VISIBLE-ON-MAP-P`` Controls whether the chunk will show up on the map or not. Useful for handling interior chunks.
 
-"NOTE:"(red,bold) Unfortunately you cannot add new tilesets, backgrounds, etc. without involving code. For that, please see "modding"(link mods.mess).
+"NOTE:"(red,bold) Unfortunately you cannot add new tilesets, backgrounds, etc. without involving code. For that, please see "modding"(link modules.mess).
 
 On the right is the tile control panel. This controls how you paint and interact. At the top is the layer slider, which controls which layer to paint on:
 
