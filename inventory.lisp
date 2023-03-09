@@ -1,5 +1,12 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+(define-condition not-enough-in-inventory (error)
+  ((item :initarg :item :reader item)
+   (amount :initarg :amount :reader amount)
+   (inventory :initarg :inventory :reader inventory))
+  (:report (lambda (c s) (format s "Can't remove ~d x ~a from ~a: not enough stocked."
+                                 (amount c) (item c) (inventory c)))))
+
 (define-event item-unlocked (event) item)
 
 (defgeneric item-order (item))
@@ -49,7 +56,8 @@
           ((= count have)
            (remhash item (storage inventory)))
           (T
-           (error "Can't remove ~s, don't have enough in inventory." item)))))
+           (cerror "Remove as much as there is, instead." 'not-enough-in-inventory :item item :amount count :inventory inventory)
+           (remhash item (storage inventory))))))
 
 (defmethod clear ((inventory inventory))
   (clrhash (storage inventory)))
@@ -93,7 +101,8 @@
 
 (defmethod trade progn ((source inventory) (target player) (item item) (count integer))
   (when (< (item-count item source) count)
-    (error "Can't remove ~s, don't have enough in inventory." item))
+    (cerror "Remove as much as there is, instead." 'not-enough-in-inventory :item item :amount count :inventory source)
+    (setf count (item-count item source)))
   (let ((price (* count (price-for-buy item source))))
     (retrieve 'item::parts target price)))
 

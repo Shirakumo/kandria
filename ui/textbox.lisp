@@ -176,7 +176,8 @@ void main(){
 
 (defmethod advance ((textbox textbox))
   (restart-case
-      (handle (dialogue:resume (vm textbox) (ip textbox)) textbox)
+      (handler-bind (#+kandria-release (not-enough-in-inventory #'continue))
+        (handle (dialogue:resume (vm textbox) (ip textbox)) textbox))
     (continue ()
       :report "Abort the interaction textbox."
       (hide textbox))))
