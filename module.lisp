@@ -16,6 +16,9 @@
 (defmethod module-config-directory ((name symbol))
   (module-config-directory (string-downcase name)))
 
+(defmethod module-config-file (file module)
+  (merge-pathnames file (module-config-directory module)))
+
 (defun module-directory ()
   (let ((setting (setting :modules :directory)))
     (if setting
@@ -65,6 +68,15 @@
 (defmethod locally-changed-p ((module module))
   (or (null (checksum module))
       (string/= (checksum module) (checksum (file module)))))
+
+(defmethod (setf locally-changed-p) (value (module module))
+  (cond (value
+         (setf (checksum module) NIL)
+         (filesystem-utils:ensure-deleted (module-config-file ".checksum" module)))
+        (T
+         (setf (checksum module) (checksum (file module)))
+         (alexandria:write-string-into-file (checksum module) (module-config-file ".checksum" module)
+                                            :if-exists :supersede))))
 
 (defmethod module-root ((default (eql T)))
   (module-root *package*))
@@ -148,9 +160,7 @@
       (let ((module (find-module (getf initargs :id))))
         (cond ((null module)
                (setf module (apply #'make-instance 'stub-module :file file initargs))
-               ;; FIXME: The issue with doing this is that it won't catch cross-restart checksums.
-               (setf (checksum module) (checksum file))
-               (v:info :kandria.module "Registered ~a at ~a with checksum ~a" module file (checksum module)))
+               (v:info :kandria.module "Registered ~a at ~a" module file))
               ((or (null (file module))
                    (null (probe-file (file module)))
                    (<= (file-write-date (file module)) (file-write-date file)))
@@ -295,6 +305,8 @@
   module)
 
 (defmethod load-module :after ((module module))
+  (when (probe-file (module-config-file ".checksum" module))
+    (setf (checksum module) (alexandria:read-file-into-string (module-config-file ".checksum" module))))
   (setf (find-module module) T)
   (setf (slot-value module 'active-p) T)
   (when +world+ (issue +world+ 'module-loaded :module module)))

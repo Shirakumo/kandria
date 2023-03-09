@@ -68,6 +68,9 @@
          append (apply #'search-modules remote args))
    :key #'id :test #'string=))
 
+(defmethod upload-module :after (remote (module module))
+  (setf (locally-changed-p module) NIL))
+
 (defun list-remotes ()
   (loop for func in *remote-funcs*
         for remote = (handler-case (funcall func)
