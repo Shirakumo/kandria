@@ -197,7 +197,7 @@ void main(){
 
 (defmethod handle ((ev interact) (player player))
   (let ((interactable (interactable player)))
-    (when interactable
+    (when (and interactable (null (path player)))
       (setf (buffer player) NIL)
       (interact interactable player))))
 

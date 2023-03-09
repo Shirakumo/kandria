@@ -9,6 +9,8 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Subsume
 - Fix issue with key button mapping configuration
   Reported by Cirrusscales
+- Fix issue with interacting with fast travel while still in animation
+  Reported by Dudude Dude
 
 ## 1.1.0
 - Fix issues with multiple worlds corrupting save files
