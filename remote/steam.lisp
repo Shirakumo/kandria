@@ -122,6 +122,7 @@
 (defmethod remote-id ((file steam:workshop-file))
   (steam:handle file))
 
+#++
 (steam:define-callback steam*::download-item (result app-id published-file-id result)
   (when (eql app-id (steam:app-id (steam:interface 'steam:steamutils T)))
     (if (eql :ok result)
