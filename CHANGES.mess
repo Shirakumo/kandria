@@ -13,6 +13,8 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Dudude Dude
 - Fix rare crash resulting from in-progress workshop downloads for other games
   Reported by HoloRaptor
+- Fix resume saves being interpreted as "corrupted" when reloading a save in the same session
+  Reported by Pir
 
 ## 1.1.0
 - Fix issues with multiple worlds corrupting save files
