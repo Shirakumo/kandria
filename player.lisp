@@ -1401,10 +1401,13 @@ void main(){
   (snap-to-target (camera +world+) player))
 
 (defmethod damage-output ((player player))
-  (ceiling
-   (* (+ (call-next-method)
-         (* 50 (sword-level player)))
-      (setting :gameplay :damage-output))))
+  (let ((base (damage (frame player))))
+    (ceiling
+     (* (+ (* (max base (* base 5 (expt 1.06 (* (level player)
+                                                (setting :gameplay :level-multiplier)))))
+              (damage-output-scale player))
+           (* 50 (sword-level player)))
+        (setting :gameplay :damage-output)))))
 
 (defmethod hurt ((player player) (damage integer))
   (let ((real-damage (floor (* damage (setting :gameplay :damage-input)))))
