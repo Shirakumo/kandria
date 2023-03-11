@@ -1,5 +1,5 @@
 (trigger toggle-editor
- (key :one-of (:section)))
+ (key :one-of (:section :f2)))
 
 (trigger toggle-diagnostics
  (key :one-of (:f10)))

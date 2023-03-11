@@ -6,7 +6,7 @@ Kandria ships with a very capable level editor which allows you to modify existi
 [ image images/editor-quickstart.webp, caption A crash course for making a new world ]
 
 ## Opening the Editor
-You can open the editor by loading into a world in edit mode directly from the mod manager, or by pressing the Section / Tilde / Grave Accent key (the one immediately below Escape) at any time during gameplay.
+You can open the editor by loading into a world in edit mode directly from the mod manager, or by pressing the Section / Tilde / Grave Accent key (the one immediately below Escape), or the F2 key at any time during gameplay.
 
 [ image images/editor-start.png, caption The editor as it should appear on start ]
 
