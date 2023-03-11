@@ -362,9 +362,10 @@ remove any partial world directory in the game folder."))))
   (flet ((try-depot (path)
            (when (probe-file path)
              (let ((depot (depot:ensure-depot path)))
-               (when (and (depot:entry-exists-p "init" depot)
+               (if (and (depot:entry-exists-p "init" depot)
                           (depot:entry-exists-p "global.lisp" (depot:entry "init" depot)))
-                 depot)))))
+                   depot
+                   (progn (close depot :abort T) NIL))))))
     (or (try-depot (merge-pathnames "world/" (data-root)))
         (try-depot (merge-pathnames "world.zip" (data-root)))
         (when *install-root*
