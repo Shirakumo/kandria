@@ -35,8 +35,6 @@
   (let ((new (load-region thing NIL)))
     (when (unit 'region scene)
       (leave (unit 'region scene) scene))
-    ;; KLUDGE: This is fucking shitty, but we have to ensure that
-    ;;         the fader always comes after the region...
     (enter new scene)
     new))
 
