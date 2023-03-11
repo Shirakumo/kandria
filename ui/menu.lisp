@@ -667,7 +667,7 @@
                      (save-state +world+ resume))
                    (return-to-main-menu))))
         (let ((mins (floor (- (get-universal-time) (save-time (state +main+))) 60)))
-          (if (or (<= mins 1) (not (saving-possible-p)))
+          (if (or (< mins 1) (not (saving-possible-p)))
               (let ((button (alloy:represent (@ return-to-main-menu) 'tab-button :focus-parent tabs :icon "")))
                 (alloy:on alloy:activate (button)
                   (show (make-instance 'prompt-panel :text (@formats 'game-quit-reminder mins)
