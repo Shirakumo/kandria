@@ -321,7 +321,8 @@
   (apply #'save-region (unit 'region world) world args))
 
 (defmethod load-region ((region (eql T)) (world world))
-  (load-region (depot:entry "region" (depot world)) world))
+  (depot:with-depot (depot (depot world) :close :if-closed)
+    (load-region (depot:entry "region" depot) world)))
 
 (defmethod load-region (region (world (eql T)))
   (load-region region +world+))
