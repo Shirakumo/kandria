@@ -124,14 +124,14 @@
   (error 'gl:opengl-error :error-code :invalid-operation))
 
 (define-cheat blingee
-  (dolist (class (list-leaf-classes 'value-item))
+  (dolist (class (list-leaf-classes 'value-item) T)
     (store (class-name class) (unit 'player T))))
 
 (define-cheat motherlode
   (store 'item:parts (unit 'player T) 10000))
 
 (define-cheat (unlock-palettes |clothes make the woman|)
-  (dolist (class (list-leaf-classes 'palette-unlock))
+  (dolist (class (list-leaf-classes 'palette-unlock) T)
     (store (class-name class) (unit 'player T))))
 
 #-kandria-release
@@ -161,7 +161,7 @@
   (mapc #'award (list-achievements)))
 
 (define-cheat (relock-achievements |underachiever|)
-  (dolist (achievement (list-achievements))
+  (dolist (achievement (list-achievements) T)
     (setf (active-p achievement) NIL)))
 
 (define-cheat (show-solids |show solid tiles|)
@@ -184,7 +184,7 @@
   (toggle-panel 'splits))
 
 (define-cheat (complete-quests |i implore you to reconsider|)
-  (dolist (quest (remove-if-not #'quest:active-p (quest:known-quests (storyline +world+))))
+  (dolist (quest (remove-if-not #'quest:active-p (quest:known-quests (storyline +world+))) T)
     (quest:complete quest)))
 
 (define-cheat (race-panel |how fast am i|)
