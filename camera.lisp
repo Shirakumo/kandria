@@ -28,6 +28,8 @@
   (setf (slot-value camera 'zoom) (max 0.0001 value)))
 
 (defmethod reset ((camera camera))
+  (dolist (gamepad (gamepad:list-devices))
+    (gamepad:rumble gamepad 0.0))
   (setf (target camera) NIL)
   (setf (chunk camera) NIL)
   (setf (location camera) (vec 0 0))

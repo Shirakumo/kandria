@@ -9,6 +9,8 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Charlie
 - Fix rare save issue where catherine will lose her companion, leading to a crash
   Reported by Ari
+- Fix controller rumble stuck state
+  Reported by Ghost_Hunter_2000
 
 ## 1.1.1
 - Fix rare crash caused by entities going missing
