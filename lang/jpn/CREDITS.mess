@@ -2,35 +2,37 @@
 
 # Shirakumo Games
 ## Shinmera (Nicolas Hafner)
-director, programmer, designer, artist, writer, producer
+ディレクター/プログラマー/デザイナー/アーティスト/シナリオ/プロデューサー
 
 ## Tim White
-writer, designer
+シナリオ/デザイナー
 
 ## Brobbeh
-artist, designer
+アーティスト/デザイナー
 
 ## Mikel Dale
-composer
+コンポーザー
 
 ## Cai Jones
-sound designer
+サウンドデザイナー
 
-# Marketing
-Andrew Pappas - Ad management
-Chris Zukowski - Consultancy
-Janek Krasoczko - Outreach
-Andri Weidmann - Metaroot Social Media Management
-Flurin Weidmann - Metaroot Social Media Management
-Marchsreiter Communications - Launch Marketing
+# マーケティング
+Andrew Pappas - アドマネージャー
+Chris Zukowski - コンサルタント
+Janek Krasoczko - アウトリーチ
+Andri Weidmann - Metarootソーシャルメディアマネージャー
+Flurin Weidmann - Metarootソーシャルメディアマネージャー
+Marchsreiter Communications - ローンチマーケティング
 
-# Localisation
-## German
+# ローカライズ
+## ドイツ語
 Nicolas Hafner
 Arne Babenhauserheide
+## 日本語
+Yuji Adachi @mioda833
 
-# Community
-## Core Testers
+# コミュニティ
+## コアテスター
 Christopher Hurley
 Florian Hanke
 Hampus Frink
@@ -39,7 +41,7 @@ Monroth
 PincerAttack
 Selwyn Simsek
 
-## Public Feedback
+## パブリックフィードバック
 A Flamingo
 AOAB!
 A_M4n
@@ -119,7 +121,7 @@ Wobbly Python
 Yoha Quiryn
 ZETA
 
-## Kickstarter Backers
+## Kickstarter支援者の方々
 -=[ BME ]=- Joey
 .smi.ka.
 3b
@@ -511,18 +513,18 @@ Janne Pakarinen
 Joram Shrijver
 Selwyn Simsek
 
-## Contributors
+## コントリビューター
 |3b|
 Michael Fiano
 Adrian Fullmer
 
-## Libraries
-Thanks to the various authors, maintainers, and contributors of the following libraries that Kandria makes use of:
+## ライブラリー
+Kandriaの制作にあたり使用した以下のライブラリーの作者、メンテナー、コントリビューターに感謝します。
 
 3b-bmfont 3bz 3d-matrices 3d-vectors alexandria alloy alloy-animation alloy-constraint alloy-opengl alloy-opengl-msdf alloy-simple alloy-simple-presentations array-utils atomics babel binpack/2 bordeaux-threads cffi cffi-grovel cffi-toolchain chipz chunga cl+ssl cl-aa cl-aa-misc cl-base64 cl-fad cl-gamepad cl-glfw3 cl-jpeg cl-markless cl-mixed cl-mixed-alsa cl-mixed-pulse cl-mixed-vorbis cl-mixed-wav cl-opengl cl-paths cl-paths-ttf cl-ppcre cl-steamworks cl-tga cl-vectors cl-vorbis classowary closer-mop clss clx colored crypto-shortcuts damn-fast-updatable-priority-queue deflate deploy depot depot-zip dissect dns-client documentation-utils drakma fast-io file-attributes file-notify file-select flare flexi-streams float-features flow font-discovery for form-fiddle glsl-toolkit harmony ieee-floats jsown lambda-fiddle local-time lquery messagebox mmap nibbles north-core north-drakma opticl opticl-core parse-float parse-number pathname-utils piping plump pngload puri random-state retrospectiff salza2 sdf sdf/base sdf/bmfont sdf/ttf simple-tasks skippy speechless split-sequence static-vectors stealth-mixin swap-bytes trial trial-alloy trial-feedback trial-glfw trial-harmony trial-notify trial-steam trivial-arguments trivial-features trivial-garbage trivial-gray-streams trivial-indent trivial-main-thread trivial-utf-8 uax-14 uiop usocket uuid verbose yason zip zippy zpb-exif zpb-ttf zpng
 
-## Fonts
-Thanks to the authors of the following fonts which are used in Kandria:
+## フォント
+Kandriaの制作にあたり使用した以下のフォントの作者に感謝します。
 
 Comic Sans MS
 Font Awesome
@@ -533,21 +535,21 @@ Open Dyslexic
 PromptFont
 Xolonium
 
-## Ending Credits Song "Shevalin"
-Composed by Mikel Dale
-Performed by Julie Elven
+## エンディングソング "Shevalin"
+作曲 Mikel Dale
+歌唱 Julie Elven
 
-# Support
-Kandria was supported by the Pro Helvetia grant for Interactive Media and the KPT Poland Prize Digital Dragons Accelerator.
+# サポート
+KandriaはPro Helvetiaのインタラクティブメディア向け助成金と、KPT Poland Prize Digital Dragons Acceleratorの支援を受けています。
 
 [ image texture/prohelvetia-logo.png ]
 [ image texture/dda-logo.png ]
 
-# Special Thanks
-The Steel Bank Common Lisp compiler team and all its contributors without which this would never have happened.
-Stray Fawn Studio and everyone at the Swiss Game Hub for their advice and support.
-Everyone at Zurindies for many enjoyable Saturday afternoons.
-The staff at St. Jakob Beck & Kafi, Viadukt, Zürich for tolerating us loitering there every Saturday.
-Hempuli for the Baba likeness.
-Vinny Vinesauce for his likeness and many enjoyable streams.
-Our families and pets for their unending support and love.
+# スペシャルサンクス
+Steel Bank Common Lispコンパイラチームとコントリビューターの方々なしでは、このゲームは制作出来ませんでした。
+Stray Fawn StudioとSwiss Game Hubの皆さんには、アドバイスとサポートをして頂きました。
+Zurindiesの皆さんのおかげで土曜日の午後を楽しく過ごせました。
+チューリッヒ、ヴィアドゥクトのSt. Jakob Beck & Kafiのスタッフには、毎週土曜日に私たちが周辺をブラつくのを大目に見て頂きました。
+HempuliにはBabaのようなものの使用許可を頂きました。
+Vinny Vinesauceには彼がモデルのキャラクターの使用許可と、多くの配信を楽しませて頂きました。
+私の家族とペットたちからは惜しみない支援と愛を注いで頂きました。
