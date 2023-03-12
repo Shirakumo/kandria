@@ -186,9 +186,7 @@
   (dolist (file (filesystem-utils:list-contents (module-directory)))
     (handler-case (register-module file)
       (unsupported-save-file ()
-        (v:warn :kandria.module "Module version ~s is too old, ignoring." file))
-      (error (e)
-        (v:debug :kandria.module e)))))
+        (v:warn :kandria.module "Module version ~s is too old, ignoring." file)))))
 
 (defun list-modules (&optional (kind :active))
   (sort (ecase kind
