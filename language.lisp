@@ -115,3 +115,14 @@
   (declare (ignore language))
   (when (and +world+ (storyline +world+))
     (refresh-language T)))
+
+(defun count-all-words (dir &optional (method :whitespace))
+  (let ((count 0))
+    (dolist (file (directory (merge-pathnames "**/*.spess" dir)))
+      (incf count (cl-markless:count-words (dialogue:parse file) method)))
+    (dolist (file (directory (merge-pathnames "**/*.sexp" dir)) count)
+      (with-open-file (stream file)
+        (loop for token = (read stream NIL NIL)
+              while token
+              do (when (typep token 'string)
+                   (incf count (cl-markless:count-words-by method token))))))))
