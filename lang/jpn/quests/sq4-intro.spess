@@ -1,0 +1,66 @@
+; Semi Sisters robotics engineer, female, strong empathy for machines, talky scientist
+# intro/intro-chat
+~ semi-roboticist
+| や、アンドロイド!
+| ロボット工学の手伝いをしてみたくない? 重要な仕事よ。 "サーボロボットの知恵に関する調査なの。 それと感性についても調べてほしいのよ"(orange)。
+! eval (setf (nametag (unit 'semi-roboticist)) (@ semi-roboticist-nametag))
+~ player
+- 興味をそそられる話じゃないか。
+  ~ semi-roboticist
+  | そうこなくちゃね。 私の研究の背景をざっくり説明するわ。
+- 私は奴らがオートマトンだと思っていたが。
+  ~ semi-roboticist
+  | "元"オートマトンね。 でも、まぁそうね、間違っちゃいないか、大体は。
+  | だけどね、見た目以上の機能を持つサーボがわんさか居るのよ。 旧世界の玩具のトランスフォー... ナントカみたいに車やヘリコプターに変形するって言ってんじゃなくってね。
+  ~ player
+  - もっと聞かせてくれ。
+  - また後でな。
+    < leave
+- また後でな。
+  < leave
+~ semi-roboticist
+| 大災害以前は、サーボはただの... そう、お手伝いロボットだったの。
+| アパートの部屋の掃除機がけをしたり、レストランの配膳をしたり、何でもやってたわ。
+| アンドロイドたちも同じような仕事をしていた、だよね? 実は、サーボはアンドロイドの残骸じゃないかって噂してる人も居るのよ。
+| 確かに表面的には似てても、実際は違うんだけどね。
+| 悪いわね、話が逸れちゃった。 つまり私が言ってるのは個性、感情、感性について。 サーボは私たちが考えている以上に高い知性を持ってるのよ。
+| 私自身、そして何人かの同僚もそんな様子を目撃しててさ。 だけど、もっとデータが必要なの。
+| もし私が近づくと頭を切り落とされるだろうけど... 今まで人間が奴らをどう扱っていたかを考えると誰も奴らを責められないよね。
+| だけどあなたなら近づける。 "奴らを研究"(orange)出来る。 少なくともお互いに共通する唯一の言語... "暴力"(orange)でね。
+! label questions
+~ player
+- 奴らを殺すことで研究しろと?
+  ~ semi-roboticist
+  | 殺らなきゃ、殺られるだけよ。 そのうえ、必要なデータを取るにはその方法しかないわ。
+  < questions
+- 既にサーボとは交戦したが、それは役に立たないのか?
+  ~ semi-roboticist
+  | そういうわけでもないわよ。 私は特定の時間に特定のグループを研究してる。 それらの結果を比較し、どう変化したかを調べる必要があるわ。
+  < questions
+- 私は奴らを破壊しすぎた...
+  ~ semi-roboticist
+  | あなたが言い淀んでるのは"殺した"って言葉でしょ。
+  | だけどさ、気に病まないで。 それは正当防衛だった、でしょう?
+  < questions
+- 遠隔で研究出来ないのか?
+  ~ semi-roboticist
+  | 時々はね、だけどそのエリアにはカメラが無いのよ。 奴らを引き付けるためのちょっとした... エサの問題もあってさ。
+  < questions
+- 悪いが降りさせてもらう。
+  < leave
+- ターゲットはどこに?
+~ semi-roboticist
+| "今研究してるグループ"(orange)は"私たちのテリトリーから遠く東"(orange)に居るわ。 そこまでたどり着くのは少々骨が折れるけど、まぁあなたなら平気なはずよ。
+| もちろん、"あなたの働きに対して報酬は支払うわ"(orange)。 "400パーツ"(orange)でどうかしら。 {#@islay-nametag}はこの類の研究には多額の出資をしてくれるのよ。
+| "それじゃ帰りを待ってるわ"(orange)。
+| くれぐれも殺されないでね。
+! eval (activate 'sq4-analyse-robots 'sq4-boss)
+! eval (complete task)
+! eval (reset interaction)
+# leave
+~ semi-roboticist
+| あっそ。 でもあなたは勘違いしてるわ。 それにただスクラップの話をしてるわけじゃないのよ。
+| "気が変わったらいつでも話しかけて"(orange)。
+
+; "more to those Servos than meets the eye", "And I don't mean they turn into cars and helicopters" - referring to a popular old-world toy line ;)
+; I'm not normally one for pop culture references, but hey the game has robots, and I did work on transformers once so I couldn't resist this

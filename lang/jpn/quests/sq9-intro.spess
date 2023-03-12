@@ -1,0 +1,38 @@
+; Semi Sisters spy, female, deep in Cerebat territory, and organising races for the player to help themselves blend in undercover
+; formal speaker
+# intro/intro-chat
+~ semi-spy
+| あぁ、{(nametag player)}。 いいところに来ましたね。
+~ player
+| "何故彼女は小声で話しているんだ? 辺りをキョロキョロ見回しているし、まるで小さな穴から外の様子を窺うネズミのようだ。"(light-gray, italic)
+~ semi-spy
+| 私はセミ・シスターズのハンターです。 今、内偵中なのですが、何者かに見張られている気がするんです。
+! eval (setf (nametag (unit 'semi-spy)) (@ semi-spy-nametag))
+~ semi-spy
+| 力を貸していただけませんか? 私は、ここで"人気の"タイムトライアル"(orange)を開催している賭博師のように"、忙しそうなフリをしなければならないんです。
+~ player
+- 協力しよう。
+  ~ semi-spy
+  | いいんですか? __ありがとうございます!__
+  | ... あ、えっと、"ありがとうございます"(small)...
+- タイムトライアルは好きだ。
+  ~ semi-spy
+  | そうなんですか? __いいですね!__
+  | ... あ、えっと、"いいですね"(small)...
+- そんな暇は無い。
+  < leave
+~ semi-spy
+| 実は、この辺りのマッピングを行いながら、いくつかのスキットルを置いてきたんです。
+| "あなたがそのスキットルを回収して戻ってきたら、私がタイムを計測します。"(orange)
+| それと、よりリアリティを出すために適当にタイム区分を設定しています。 私を見張る者に、信憑性を示さなければいけませんからね。
+| {#@innis-nametag}が出資してくれた大量のスクラップがありますから、"参加してくれたら報酬をお渡しします"(orange)。
+| 一旦、セミに連絡するので"少し待ってくださいね"(orange)。 その後でならいつでも"始められますから"(orange)。
+! eval (activate 'sq9-race)
+! eval (complete task)
+! eval (reset interaction)
+
+# leave
+~ semi-spy
+| そうですか。 もし気が変わったら、また声をかけてください。
+
+; "make a call" - communicating with Semi HQ perhaps, via modified FFCS

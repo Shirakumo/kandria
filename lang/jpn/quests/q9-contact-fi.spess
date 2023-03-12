@@ -1,0 +1,65 @@
+# contact-fi/fi-ffcs-cerebat
+~ player
+| "この辺りでいいか。"(light-gray, italic)
+| (:normal){#@fi-nametag}、居るか? 聞こえているか?
+~ fi
+| あぁ、クリアに聞こえている。 今どこに居るんだ?
+~ player
+| セレバットのマーケットだ。 評議会の者は死んだらしい。 彼らはワローの水の供給を止め、ワローは彼らを殺したらしい。
+~ fi
+| ...
+| 何があった? 大丈夫か?
+~ player
+- あぁ、問題ない。
+  ~ fi
+  | (:happy)良かった。
+  | (:normal)そちらの状況はどうなっている?
+- 私は誤ってワローに助力したらしい。
+  ~ fi
+  | 何を言っている?
+- もう、そちらへ帰りたい。
+  ~ fi
+  | まずは報告を完了してからだ。
+~ player
+| 情報屋を兼ねているトレーダーと会った。
+| 情報と引き換えにスクラップを払ったんだが、彼はワローと手を組んでいる。
+~ fi
+| (:annoyed)...
+| 気にするな、君は知り得なかったことだ。
+| だが、そいつは私たちの敵になった。
+| (:normal)少なくとも、"それがワローの侵略の理由にはなるな。 彼らが水を止めたことで、確実に{#@zelah-nametag}の怒りを買っただろう"(orange)。
+| ワローは飲料水として飲むためだけでなく、発電所に利用するためにも水を必要としているからな。
+| {#@innis-nametag}がセミ・シスターズへの侵略に過剰反応していたことは知っている。
+| (:unsure)だが、それでも私たちは"ワローがいつ、どこで私たちを捕らえようとしているのか"(orange)探る必要がある。
+| (:normal)"そんなところまで君を送り込んですまなかった。 だが、私たちは{#@zelah-nametag}の計画を知らなければならない"(orange)。
+| "ワロー・テリトリーに行ってくれるか"(orange)?
+~ player
+- それが私の仕事だ。
+  ~ fi
+  | (:happy)そして、君なら上手くやってくれる。
+- 楽しそうじゃないか。
+  ~ fi
+  | (:happy)君が楽しんでやってくれているならそれで良いが、危険な場所だ。 十分に気をつけてくれ。
+- 私がしなければいけない事なのか?
+  ~ fi
+  | それは君次第だ。 だが私は君に任せたい。
+- それがあなたのためなら。
+  ~ fi
+  | (:happy)...
+- 厳密には、既にワロー・テリトリーに居ると言える。
+  ~ fi
+  | (:unsure)あぁ、そうかもしれない。 だが私が言っているのは"より深く、中心地へ"(orange)ということだ。
+~ fi
+| (:unsure)奴らの"主な活動区画である、テリトリーの西側"(orange)から探ってみるのが良いだろう。
+| (:normal)君の"FFCSはそこでは機能しないかもしれない"(orange)。 だが、何かあれば"出来る限り早く連絡してほしい"(orange)。
+| どうか気を付けて。
+~ player
+| "調査すべき可能性のあるロケーションをマップにマークしておくか。"(orange, italic)
+! eval (deactivate (unit 'fi-ffcs-cerebat-1))
+! eval (deactivate (unit 'fi-ffcs-cerebat-2))
+
+; Cannot give a reward here, as the player isn't in proximity to Fi. However, can sell stuff to the trader for parts.
+
+; Fi's parting words about a bad feeling here, is a clue that most if not all sidequests will get invalidated once q10 is complete, as the plot escalates
+
+; "if I paid him in scrap parts" - could inflect this base on number of parts given/haggled. But I think it automatically inflects based on how many you know you paid

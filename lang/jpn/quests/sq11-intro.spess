@@ -1,0 +1,92 @@
+; sent here by Fi before starting q8 in earnest (a medium priority errand), or catching up with Jack later on when high priority things are happening (like the Wraw need investigating, or their invasion is confirmed, or needing to recruit Semis and build bomb)
+; Jack could be: milling around in 作業場 at this point; on the surface with Fi and Catherine awaiting q10 wraw invasion hand in; calling people back to camp (from 作業場) after Wraw invasion reported in q10a; on the surface next to Innis and co once the Semis have arrived (q11a)
+# intro/intro-chat
+~ jack
+| よし、来やがったな。
+~ player
+- {#@fi-nametag}はあなたが私に会いたがっていると言っていたが。
+- 用があるなら急いでくれるか?
+  ~ jack
+  | あぁそうだな。 俺にとってもテメェの優先順位は低いしな。
+- 重要な事なんだろうな。
+  ~ jack
+  | 当たり前だろ。 そうじゃなければテメェと話す時間さえ惜しいんだからな。
+~ player
+| "{#@jack-nametag}はバツが悪そうにしている。 全く彼らしくないな。"(light-gray, italic)
+~ jack
+| ノカに忠誠を誓い、ワローに報復したいよな? マニュアルに無いやり方を提案してやるよ。
+~ player
+- 何を考えている?
+- 興味無いな。
+  < leave
+~ jack
+| 奴らは俺らを妨害した、だから俺たちも奴らを妨害する。 シンプルだろ。
+| 奴らはポンプに細工をして、俺たちの命を危険に晒すことを楽しんでやがる。 そうだ、俺たちは奴らの発電所のパイプに細工してやればいいんだよ。
+| (:annoyed)水無しで蒸気が作れるか見せてもらおうじゃねぇか!
+| (:normal)"奴らのテリトリーから遠く東、道の外れ"(orange)にパイプはある。 ワローに居た頃は俺がメンテナンスを担当していたんだ。
+| "パイプを破壊"(orange)すれば、奴らに"致命的な損害"(orange)を与えてやれるだろうな!
+| 俺たちゃ武器や爆弾の類は持ってねぇがよ... テメェは天下のアンドロイド様なんだから何とか出来るだろ。
+| もちろん、{#@fi-nametag}はこの事を知っちゃいねぇし、このまま隠し通しておきてぇ。
+| やってくれるよな?
+! label questions
+~ player
+- "何とか出来る"だろうか?
+  ~ jack
+  | (:shocked)アンドロイドがビビんなよ。 大層な剣も持ってる。 世界をぶっ壊すためにした事と同じ事をやりゃいいんだよ。
+  ~ player
+  | "..."(light-gray, italic)
+  < questions
+- 私を信用しているのか?
+  ~ jack
+  | (:annoyed)いいや、全く。 だが、もしテメェがこれを実行するなら、テメェがワローの側についてない事を証明出来る//かもしれねぇ//な。
+  < questions
+- あなたにとって何の得になるんだ?
+  ~ jack
+  | さぁな? 俺はこれ以上、ワローに振り回されたくねぇだけだ。
+  | 嘘をつく気はねぇ、個人的な理由もあるぜ。 奴らの"労働倫理"のおかげで俺は足を失う事が出来たしな。
+  | ベティナ... 俺の妻がこの義足を作ってくれた。 俺が働けなくなった時、奴らは俺の代わりにアイツを身を粉にして一生懸命に働かせた。 ワローが俺の妻を殺したんだ。
+  ~ player
+  - すまない。
+  - クズどもめ。
+    ~ jack
+    | (:annoyed)それは裏切り者が言うセリフだぜ...
+  - その義足がその人の思い出なのか...
+  ~ jack
+  | キャシーは俺にもっと良い義足を作ってくれるって言うがよ。 だが、この世界中どこを探したってこれに代わるものはねぇよ。
+  < questions
+- ワローの事を色々知ってるんだな...
+  ~ jack
+  | (:annoyed)おい! 俺はノカの裏切り者じゃねぇからな、覚えとけ。
+  | (:normal)まぁ、俺たちは元ワローだ。 俺、{#@fi-nametag}、{#@alex-nametag}、その他大勢。 キャシーは違うがよ。
+  | あそこでの生活は大変だった、それは認めるが、だからと言って離れたいとは思わなかった。 地上で暮らすなんて、頭のおかしい奴がすることだったからな。
+  | (:shocked){#@fi-nametag}がアイディアを出したと聞いた時は驚愕させられたな。 (:normal){#@alex-nametag}があの種を見つけた時... アイツの心に離反の意志が芽生えたんだろうな。
+  | チーフエンジニアを必要としていたアイツは俺に強要したんだ。 俺はあそこで生きていくだけの理由を失っていた。 大災害後に俺が知っている事の全てはワローが知っている事だったしな。
+  < questions
+- 奴らの発電所を不安定にするのは危険かもしれない。
+  ~ jack
+  | (:annoyed)言われなくても分かってんだよ。
+  | (:normal)だが、それ以上に最悪なケースが起きた場合どうなる? 爆発して奴らが生き埋めになる? 最高のケースじゃねぇか。
+  | テメェは早く走って逃げられるんだろ? なら何の問題もねぇな!
+  | 俺の指示通りにやれば爆発なんて起きねぇよ。 ただ機能停止するだけだ。 俺を信じな。
+  < questions
+- 私は降りる。
+  < leave
+- やってみるか。
+~ jack
+| それでいい。 何をすりゃいいか分かってるな? "ワロー・テリトリーの東で、地熱発電所の配水パイプを見つけ出して、破壊する"(orange)んだ。
+| "いちいち報告の通信はいらねぇし、ましてや終わった後に戻ってくる必要もねぇ"(orange)。
+| ただ遂行してくれりゃそれだけでいい。 全てはノカのために。 いいな?
+| そして俺たちがこの事を話した事を忘れろ。
+! eval (activate 'sq11-sabotage-station)
+! eval (complete task)
+! eval (reset interaction)
+# leave
+~ jack
+| 俺が間違っている事を証明したくない? それでいい。
+| 俺はここに居るからよ。 "お前が理性を取り戻したらまた会いに来いよ"(orange)。
+
+; Wraw's "work ethic" could also refer to the "potion", explained more in Synthesis quest
+
+; Jack's (opt-in) explanation about the Wraw may be the first time you learn the Noka came from the Wraw; or you may have learned this from Fi (q2-intro) or during early Sahil chats. If the latter, then at least you have some privy knowledge Jack doesn't know about, and he doesn't labour the point. Why would your character still prompt this if they have this knowledge already? - because Jack seems to have some VERY specific knowledge about the Wraw, so it's a chance to throw some sus his way
+
+; quest could run concurrent to the Semi's bomb parts acquisition - so Jack's comment about burying the Wraw if the station explodes, even though he's pretty much out of the loop when it comes to the bomb plans (even when the Semis arrive on the surface), is thematically relevant

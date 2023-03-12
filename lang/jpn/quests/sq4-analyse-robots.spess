@@ -1,0 +1,121 @@
+; Semi Sisters robotics engineer, female, strong empathy for machines, talky scientist
+# boss-reminder/reminder
+~ semi-roboticist
+| アンドロイドの記憶装置って私が思ってたほど性能が良くないの? それともクラックでもされたのかな。
+| あなたがやるべき事は、"遠い東でサーボロボットを探す"(orange)、そして"奴らと戦う"(orange)、でもって"奴らの行動分析結果を持ち帰る"(orange)。 いい?
+
+# task-return/servo-return
+~ semi-roboticist
+| おかえりなさい。 研究は捗った? 結果の解析に役立つ、"4つの質問"(orange)を用意したわ。
+| 慎重に考えて答えてね。
+| "質問その1"(orange): あなたに攻撃するのを躊躇う素振りを見せる個体は居た?
+~ player
+- 冗談のつもりか?
+  ~ semi-roboticist
+  | 私は科学者よ。
+  ~ player
+  - 奴らが躊躇いなどするものか。
+  - 分からない。
+- 居なかった。
+- 分からない。
+- 何体かはそうだったかもしれない。
+  ~ semi-roboticist
+  | 興味深いわね。
+~ semi-roboticist
+| "質問その2"(orange): 例えば波状攻撃のように、何らかの戦術を用いていた?
+~ player
+- 全員入り乱れての大乱闘だった。
+  ~ semi-roboticist
+  | ふむ、そうだろうね、想像出来る。 いや待て、実のところ想像は出来ないが。
+- ご丁寧に一人ずつかかってきたな。 まるで古い映画のように。
+  ~ semi-roboticist
+  | 私そういうの好きだったなぁ! 興味深い...
+- 奴らはお互いに戦っていたわけじゃないから、恐らく...?
+  ~ semi-roboticist
+  | 気になるねぇ。
+- 奴らは唸り声を上げていた。 それで連携を取っていた可能性があるな?
+  ~ semi-roboticist
+  | 想像の域を出ない仮説だね。 しかし、証明はされていない。
+| "質問その3"(orange): 仲間のサーボを気遣うような素振りを見せる個体は居た?
+~ player
+- 居なかった。
+- 奴らは私に夢中だったぞ。 私を殺すことしか気にかけていなかった。
+- 別の個体の前に立つことがそれにカウントされるのか?
+  ~ semi-roboticist
+  | ここみたいに狭い場所で戦ったなら、それはカウントしないね。
+- 逃げ出す個体は居なかったから... 結束力はあるかもな?
+  ~ semi-roboticist
+  | ... 無いね。
+~ semi-roboticist
+| さて最後よ、"質問その4"(orange): 他にもマシンが一緒だったか、それともサーボだけだった?
+~ player
+- フライングドローンが一緒だった。
+  ~ semi-roboticist
+  | そう。 何機だった?
+  ~ player
+  - 何機かだと? 覚えてないな。
+    ~ semi-roboticist
+    | まぁいいわ。
+  - 8機だ。
+    ~ semi-roboticist
+    | ワオ、乱戦の最中でも冷静に数えてたの? 流石ね。
+  - 分からない。
+    ~ semi-roboticist
+    | 大丈夫、気にしないで。 戦いながら記録するのは大変でしょうしね。
+- 奴らだけだった。 (ウソ)
+  ~ semi-roboticist
+  | たまーに奴らがドローンと一緒なのを見かけるけど、今回はそうじゃなかったのね。
+~ semi-roboticist
+| よし、質問は終わりよ。 とても役に立ってくれたわね、ありがとう。
+| それじゃ"報酬を支払うわね"(orange)。
+~ player
+- どうも。
+  < reward
+- これで本当に実験になったのか?
+  ~ semi-roboticist
+  | えっ? あっ、いやぁ...
+  | あー、ごめんなさいね。 バレバレだった?
+  | ほら、私はサーボを研究してるんだけどね。 でも"アンドロイドも研究"(orange)出来るチャンスをみすみす逃すわけにはいかないでしょ!
+  ~ player
+  - まぁ構わないが。
+    ~ semi-roboticist
+    | そうはいかないわ、でもその気遣いに感謝するわ。
+    | はい、騙して悪かったし"500パーツ"(orange)に"報酬を上乗せ"(orange)するわ。
+    < big-reward
+  - 次はちゃんと言ってくれ。
+    ~ semi-roboticist
+    | そうする。 もちろんね。
+    | それと、騙して悪かったし"500パーツ"(orange)に"報酬を上乗せ"(orange)するわ。
+    < big-reward
+  - もっと多く報酬を受け取ってもいいはずだな。
+    ~ semi-roboticist
+    | おっしゃる通りね。 はい、騙して悪かったし"500パーツ"(orange)に"報酬を上乗せ"(orange)するわ。
+    < big-reward
+- その必要はない。 この仕事は重要なことだ。
+  ~ semi-roboticist
+  | 興味深い意見ね... えぇと... もちろんその通りよ。 でもセミの科学部門は資金が潤沢にあるのよ。
+  | それに、支払うのは私じゃなくて、{#@islay-nametag}だしね!
+  | はい、持ってってね!
+  < reward
+
+# reward
+! eval (store 'item:parts 400)
+! eval (status "400パーツを手に入れた")
+< end
+
+# big-reward
+! eval (store 'item:parts 500)
+! eval (status "500パーツを手に入れた")
+< end
+
+# end
+~ semi-roboticist
+| さーて、今まで取ったサーボのデータと比較して、どんな結論が出せるか調べなきゃ。
+| それを元にして次の研究計画を立てるわよ。
+| ありがとうね。 さようなら、{(nametag player)}。
+! eval (activate (unit 'spawner-5032))
+
+; reactivate world spawner again, now you're away from it
+; the ability to lie here is to skew the results, when you might sense that the roboticist is also discreetly psycho-analysing you (the frequency of questions, and esp the last one)
+; don't have so many questions that the player would want to skip the experiment - need to keep them small in number, but potent (hence no skip choice, which would void the purpose of the quest anyway)
+; no conclusive (lie) answers from the player, which would go against the actual AI behaviour of the Servos - only "maybes"

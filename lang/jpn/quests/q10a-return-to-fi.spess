@@ -1,0 +1,129 @@
+# wraw-objective-return/objective
+
+# wraw-fi-ffcs/wraw-border
+~ player
+| "セレバットの境界を越えたぞ。 ここなら{#@fi-nametag}に通信出来るだろう。"(light-gray, italic)
+| {#@fi-nametag}...
+| {#@fi-nametag}...?
+| (:thinking)"... チッ。 "FFCSの電波が届かない"(orange)。 "ワローが動き出した"(orange)と考えるのが妥当か。"(light-gray, italic)
+| (:normal)""地上へ戻らなければならない"(orange)ようだな。"(light-gray, italic)
+
+# wraw-fi-ffcs/station-trigger
+~ player
+| "ワロー・テリトリーを出たぞ。 ここなら{#@fi-nametag}に通信出来るだろう。"(light-gray, italic)
+| {#@fi-nametag}...
+| {#@fi-nametag}...?
+| (:thinking)"... チッ。 "FFCSの電波が届かない"(orange)。 "ワローが動き出した"(orange)と考えるのが妥当か。"(light-gray, italic)
+| (:normal)""地上へ戻らなければならない"(orange)ようだな。"(light-gray, italic)
+
+# wraw-fi-ffcs/station-surface-trigger
+~ player
+| "愛しの我がキャンプだ。"(light-gray, italic)
+| "急いで"{#@fi-nametag}にワローの侵略が迫っていること"(orange)を伝えなければな。"(light-gray, italic)
+
+# return-fi/talk-fi
+~ fi
+| (:unsure){(nametag player)}、心配していたぞ。
+~ player
+- ワローが迫ってきているぞ。
+  ~ jack
+  | (:annoyed)あのな... んなこと知ってんだよ。 ここを襲いに来るってんだろ。
+- ワローは侵略軍を結成しているぞ。
+  ~ fi
+  | (:unsure)...
+  ~ catherine
+  | (:concerned)... マジなの...
+- ワローはこの荒野全域を狙っている。
+  ~ fi
+  | (:unsure)詳しく聞かせてくれるか?
+~ player
+| 奴らはメカを所持している... パワースーツを装着した兵士だ。 奴らはあの力をもって、この砂漠だけでなく海まで支配するのに十分な量のメカを製造したと推測する。
+| 奴らは既に進軍を開始しただろう。
+~ fi
+| (:unsure)...
+| ... メカだと? 奴らはメカなど持っていないはずだ。 それに、何故だ? {#@zelah-nametag}は水を止められた報復としてセレバットを攻めただけじゃないのか。 奴らは野蛮であっても戦争屋ではない。
+~ jack
+| (:annoyed)今はそうなんだよ! 奴らは俺らを奴隷にするか、従わない者は殺すつもりだろうよ。
+~ fi
+| (:unsure)私は...
+~ jack
+| {#@fi-nametag}...?
+| (:annoyed)おい、{#@fi-nametag}? 俺たちゃどうするんだ?
+| (:shocked)... クソが! ここから離れなきゃなんねぇだろうが!
+~ catherine
+| (:concerned)でも、どこに行けばいいの?
+| ここにはお年寄りも、子供だって居るんだよ。
+~ player
+- どこかに避難出来る場所があるかもしれない。
+  ~ fi
+  | どこにあると言うんだ?
+- 奴らのメカと接続したんだが...
+  ~ jack
+  | (:annoyed)アンドロイドのセックスなんかにゃ興味ねぇよ。
+  ~ fi
+  | (:annoyed)<-ジャック!-> 真剣な話をしているんだ!
+  | (:normal)続けてくれ。
+- アンドロイドは山に住んでいるのか?
+  ~ jack
+  | (:annoyed)おいおい...
+  ~ fi
+  | (:unsure)何故そんなことを聞く?
+~ player
+| "ジェネラ"という、アンドロイドの生き残りに関する記録を発見したのだが、それによれば西の山に住んでいるらしい。
+| 奴らはそれの捜索をメカに指示したのだと考えるが。
+~ jack
+| (:annoyed)呆れたもんだぜ、ワローってのは存在しないものを探すほど暇なのかよ。
+~ catherine
+| (:concerned)存在しないとは言い切れないじゃない。 だって{(nametag player)}はここに居る、でしょ?
+~ fi
+| アンドロイドは山に住む... 古い噂だ。
+| しかし、砂漠は激しい砂嵐に阻まれ通貨することは出来ないし、山岳地帯などもってのほかだ。 その噂に私たちの未来を賭けることは出来ない。
+~ jack
+| (:annoyed)これ以上アレコレ考える必要なんてねぇな。 俺たちはもう終わりなんだよ。
+~ catherine
+| (:concerned)...
+~ fi
+| まだだ。 私たちがまだ戦える限り、希望は残されている。
+~ jack
+| (:shocked)... 戦うだと?! ハッ! ワローのメカ、兵士、ハンターの集団相手に戦うだと?
+| 自殺行為だな。 ズタズタに切り裂かれて、食い散らかされるのがオチだぜ。
+~ catherine
+| それは違うよ。 私たちにはアンドロイドがついてる。
+~ player
+- 戦う覚悟は出来ている。
+  ~ fi
+  | ありがとう、{(nametag player)}。 今や君は私たちになくてはならない存在だ。
+- 奴ら全員を殺してやろう!
+  ~ catherine
+  | (:concerned)...
+- 軍隊と戦えるわけないだろう。
+  ~ jack
+  | (:annoyed)じゃあテメェにゃ何が出来るってんだ?
+  ~ catherine
+  | (:concerned)ジャックに比べたら何だって出来るよ!
+  ~ jack
+  | (:shocked)...
+  | キャシー...
+  ! eval (setf (var 'fight-army) T)
+~ fi
+| 何にせよ、準備が必要だ。
+| {#@jack-nametag}、トランシーバーで皆をキャンプに呼び戻してくれ。
+~ jack
+| (:annoyed)マジだってんだな... あぁ、クソが...
+~ fi
+| {#@catherine-nametag}、"倉庫"(red)へ行ってありったけの武器をかき集めてきてくれ。
+~ catherine
+| (:excited)任せて!
+~ fi
+| 私は{#@trader-nametag}がどこへ行ったか探そう。
+! eval (move-to 'check-supplies 'catherine)
+! eval (move-to 'eng-jack 'jack)
+! eval (setf (walk 'jack) T)
+! eval (setf (location 'trader) (location 'trader-semi-loc))
+! eval (setf (direction 'trader) 1)
+? (not (complete-p 'trader-arrive))
+| ! eval (activate 'trader-chat)
+| ! eval (activate 'trader-shop)
+; no reward - it's battle stations. If player needs more currency here, they need to get it from sidequests and selling to traders.
+
+; moving Sahil back to his start location in the Semis base. Yes it's arguably closer to the frontline, but he wants strength in numbers, or to hide in a familiar corner maybe

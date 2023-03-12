@@ -1,0 +1,147 @@
+; character voice: London cockney, male
+# talk-trader/talk-to-trader
+~ cerebat-trader-quest
+| おや、取引希望のお客さんかい?
+~ player
+| セレバット評議会はどこだ?
+~ cerebat-trader-quest
+| ...
+| 声がでけぇよ!
+| 何のために会いたがってんだ?
+~ player
+- 個人的な用事だ。
+  ~ cerebat-trader-quest
+  | そうかい。 ならどうでもいいがよ。
+- 彼らに聞きたいことがある。
+  ~ cerebat-trader-quest
+  | アンタのためを思って助言するがな、今は時期が悪いぜ。
+- 私はノカから来た。
+  ~ cerebat-trader-quest
+  | ノカだと? 地上で生きようとしてる新しい派閥だったか?
+  | 俺に言わせりゃ頭のおかしい連中だよ。 失礼だがな。
+~ cerebat-trader-quest
+| とにかくアンタは評議会には会えねぇよ。 
+| だがアンタはツイてるぜ。 俺は確かな情報屋で、たった今それをアンタに示した。
+| 評議会について、もっと教えてやれることがあるぜ。
+| タダでとはいかねぇけどな。 このご時世、トレーダーが生き抜くにはモノだけじゃなく情報で金を稼ぐのも必要だからな。
+~ player
+- どんなご時世なんだ?
+  ~ cerebat-trader-quest
+  | ...
+  | あぁ、いい質問だな! うっかり答えそうになっちまったよ!
+  | だが、俺から情報を聞き出したいならまず対価を支払いな。
+- 何が望みだ?
+  ~ cerebat-trader-quest
+  | 何でもいい。 実際、何でもいいんだ。 ただな...
+- それもそうだ。
+  ~ cerebat-trader-quest
+  | 分かってくれるか。 経済を回すための単純なことさ、だろ?
+~ cerebat-trader-quest
+| 俺は命がけで集めた情報を得るためには、アンタも命をかける必要がある。
+| 見ろよ、普通のキャラバンはこんなとこまで来ねぇから、やりくりしてくのも大変なんだ。
+| そうだな... "{(var 'trader-bribe)}パーツ"(orange)でどうだ?
+~ player
+- つまり、賄賂か?
+  ~ cerebat-trader-quest
+  | 違う違う、これは取引さ。
+  ~ player
+  - 高すぎだ。
+    < haggle
+  - 分かった、支払おう。
+    ~ cerebat-trader-quest
+    | 物わかりが良くて助かるぜ。 だが急ぐことはねぇ。
+- もう少し安くならないか?
+  < haggle
+- あなたがそれを欲するのなら。
+  ~ cerebat-trader-quest
+  | 決まりだな。 だが急ぐことはねぇ。
+! label patient
+~ cerebat-trader-quest
+| "考えておいてくれ。 俺はここに居るからよ。"(orange)
+! label goodbye
+| また来いよ!
+~ player
+| "確かに。"(light-gray, italic)
+? (<= (var 'trader-bribe) (item-count 'item:parts))
+| ~ player
+| | (:giggle)"ふむ、"彼に支払う十分なパーツを持ち合わせていないな"(orange)..."(light-gray, italic)
+| | (:normal)""ガラクタを拾ったり魚を釣って、{#@trader-nametag}や、{#@islay-nametag}のようなトレーダーに売りつける"(orange)のがよさそうだな。"(light-gray, italic)
+|?
+| ~ player
+| | ""まだ彼の要求を満たせる量のパーツを持っていない。 まずは、どこかで稼いで来なければな"(orange)。"(light-gray, italic)
+| | "それでもダメなら、ガラクタを拾ったり魚を釣って、{#@trader-nametag}や、{#@islay-nametag}のようなトレーダーに売りつけるとしよう。"(orange, italic)
+? (active-p (find-task 'q8-meet-council 'task-search))
+| ! eval (deactivate (find-task 'q8-meet-council 'task-search))
+| ! eval (activate (find-task 'q8-meet-council 'task-search-hold))
+
+; "If all else fails" / "like by" - hinting at sidequests without banging over the head with it, since they've already been tutorialised and hinted at in dialogue several times
+; both paths also nice reminder that traders exist in case you've not traded with either yet, or even forgotten about Sahil's arrival quest
+; ofc, this guy isn't prepared to trade just yet, and it would be silly to generate the money to pay him, from him
+
+# haggle
+~ cerebat-trader-quest
+| ...
+| アンタみたいな正直な奴は嫌いじゃないぜ。 値段交渉を受け付けてやるよ。
+| いいぜ、希望額を言ってみな!
+! label haggle-reset
+~ player
+- 100。
+  ~ cerebat-trader-quest
+  | ハハハ! 面白い冗談だ。
+  | ... おい、マジで言ってんのか...
+  | もう1回交渉してみな。
+  < haggle-reset
+- 300。
+  ~ cerebat-trader-quest
+  | ...?
+  | 大胆な奴だな。
+  | 600。
+  ~ player
+  - 450。
+    ~ cerebat-trader-quest
+    | ...
+    | なかなか交渉が上手じゃねぇか。 分かった、それでいいぜ。
+    ! eval (setf (var 'trader-bribe) 450)
+  - 成立だな。
+    ~ cerebat-trader-quest
+    | あぁ! これにて取引成立だ。
+    ! eval (setf (var 'trader-bribe) 600)
+- 500。
+  ~ cerebat-trader-quest
+  | ...?
+  | 600。
+  ~ player
+  - 550。
+    ~ cerebat-trader-quest
+    | ...
+    | なかなか交渉が上手じゃねぇか。 分かった、それでいいぜ。
+    ! eval (setf (var 'trader-bribe) 550)
+  - 成立だな。
+    ~ cerebat-trader-quest
+    | あぁ! これにて取引成立だ。
+    ! eval (setf (var 'trader-bribe) 600)
+- 700。
+  ~ cerebat-trader-quest
+  | ...
+  | 800。
+  ~ player
+  - 750。
+    ~ cerebat-trader-quest
+    | ...
+    | 分かった、それでいいぜ。
+    ! eval (setf (var 'trader-bribe) 750)
+  - 成立だな。
+    ~ cerebat-trader-quest
+    | あぁ! これにて取引成立だ。
+    ! eval (setf (var 'trader-bribe) 800)
+- 900。
+  ~ cerebat-trader-quest
+  | ...?
+  | __取引成立だ!__
+  ! eval (setf (var 'trader-bribe) 900)
+~ cerebat-trader-quest
+| しっかり"{(var 'trader-bribe)}パーツ"(orange)、いただくぜ!
+| だが"急ぐ必要はねぇ。 もう少しのんびりして来いよ! 俺はここに居るからよ"(orange)。
+< goodbye
+
+; technically against style to start sentences with numbers, but they need to be figures here for ease of comprehension, and it's better than styling the choices as "(Offer 100)" for example, since instead we capture the back and forth blurting of numbers that haggling involves

@@ -1,0 +1,211 @@
+# task-reminder/interact-reminder
+~ fi
+| "セミ・シスターズに行って彼女たちの説得を頼む。"(orange)
+
+# task-destination/interact-innis
+~ innis
+| (:angry){#@catherine-nametag}がまだ戻って来ないようだが? それとも何か? ノカは水より砂を飲む方が好きなのか?
+~ player
+- それより別に心配するべき事があるのではないか。
+  ~ innis
+  | ワローの事か? 既に手段を講じている。
+  | (:angry)分かったら消えろ。 お前と話す事は無い。
+- 彼女は来ないぞ。
+  ~ innis
+  | (:angry)なんだと?
+- 話し合いに来た。
+  ~ innis
+  | (:angry){#@catherine-nametag}が今ここに居ない理由を説明出来ないのであれば、私はお前と話す事など無い。
+~ islay
+| (:nervous)姉さん! {(nametag player)}もノカも、私たちの敵じゃないのよ。
+~ innis
+| (:angry)黙れ、{#@islay-nametag}。 セミ・シスターズのリーダーが誰か忘れたか!
+| (:normal)とにかく、お前がここに居る理由は無い、アンドロイド。
+~ player
+- 私にはあなたの助けが必要なんだ。
+  ~ innis
+  | (:sly)今何と言った? 最強の存在であるアンドロイド様が私たちの助けが必要だと?
+  | (:normal)そんなわけない。 私たちの助けが必要なのは{#@fi-nametag}だろう。
+- 私たちにはあなたの助けが必要なんだ。
+  ~ innis
+  | (:sly)と言うよりも、{#@fi-nametag}が助けを求めているのだろう。
+  | (:normal)お前には助けは必要無いよな? 何と言っても最強の存在のアンドロイド様だからな。
+- あなたたちを助けたい。
+  ~ innis
+  | (:angry)ノカごときが? 私たちを助ける? あまり笑わせてくれるなよ。
+~ innis
+| (:sly)... ちょっと待て、まさかノカの今後を心配しているわけじゃないだろうな。
+| 何故アンドロイドなんかに感情を持たせたのか未だに理解出来ないよ。 邪魔でしかないというのに。
+~ islay
+| (:nervous)どうかお願いだから彼女の話を聞いてあげて、{#@innis-nametag}!
+~ innis
+| (:angry)...
+~ islay
+| (:nervous)ワローがここを襲撃するのはもはや時間の問題なのよ。 手段は分からないけれど、奴らは私たちのネットワークに干渉しているわ。
+| 今の私たちは監視も盗聴も出来ないのよ。
+~ innis
+| (:angry)お前が決める事じゃない。
+~ islay
+| (:nervous)では、私たちの姉妹にも意見を伺ってみるのはどうかしら? 彼女たちだってカメラが次々にシャットダウンしてる事も、倉庫に銃が眠ってる事も知ってるわよ。
+| 姉さんこそ、具体的なプランはあるの?
+~ innis
+| (:angry)お前なら私より上手く指揮が執れると言いたいのか?
+~ islay
+| (:nervous)私たちにも助けが必要だと言ってるのよ。 私たちにはノカ、そして{(nametag player)}が必要よ。
+~ innis
+| (:angry)...
+| いいだろう。 ノカと同盟を組んだとする。 それからどうするんだ?
+~ islay
+| 武器や人材、リソースを共有し合うのよ。
+| ワローの軍隊の正確な人数や能力は分からないわ。 けど、姉さんが送り込んだハンターの情報や、帰って来なかった者の数からアタリをつける事は出来るわ。
+~ player
+| 私も奴らのメカや補給品を見たことがあるが、かなりの量だったぞ。
+~ islay
+| でしょうね。 だけど、私たちは協力しさえすれば奴らと渡り合える可能性はあるわ。
+| ... そして、私たちのホームを放棄すれば。
+~ innis
+| (:angry)無いな。 それだけは絶対に無い。
+~ islay
+| この場所だって永遠に残り続けるものじゃないわ。 ワローは既に近くまで来ていて、私たちだけじゃ戦えないのよ。
+| 出来るだけ多くの荷物を列車に積み込んで、地上に出るの。
+| ワローが私たちへの攻撃に使える物は極力減らして置いて行くわ。
+~ innis
+| 爆弾はどうする?
+~ player
+- 爆弾?
+- そんな楽しそうな武器があるのか。
+- 奴らを爆殺してやろう!
+~ islay
+| 奴らの進行を食い止められるような爆発物を作ってみたの。 メトロも含めて、トンネルを完全に崩落させるほどのね。
+| ... 使う覚悟は出来ているわ。
+| だけど、"重要な部品が欠けているの"(orange)。 生きて帰ってきたハンターは自分の命を守ることに精一杯で、必要な物資を持ち帰れなかったのよ。
+~ innis
+| (:sly)私たちがここから退避している間に、そのアンドロイドに取りに行かせればいいだろう。
+~ islay
+| (:normal)えぇ、そうするのが良いでしょうね。 また敵陣深くまで潜り込んでもらわなくちゃいけなくなるけれど。
+| "ワローはこの手の物資は大量に蓄えているはずよ"(orange)。 それこそ、目的地まで行けばそこら中に転がっているほどに。
+| (:normal)必要なのは起爆装置用の"ブラスティングキャップ"(orange)、それと爆薬用の"チャージパック"(orange)よ。
+| "それぞれ10個ずつ"(orange)あれば十分でしょうけど、余裕があればもう少し多く持ち帰ってくれればもっと良いわね。
+| 念の為、"チャージパックは20個"(orange)あれば, 爆発の威力をさらに強めることが出来ると思うわ。
+| もちろん、"働きに応じて報酬は支払うわ"(orange)。 私もトレーダーだからね。
+! eval (setf (var 'bomb-fee) 25)
+~ player
+- ありがとう。
+  ~ islay
+  | あなたの働きには相応の価値があると思っているから当然のことよ。 持ち帰った"部品1つにつき25パーツ"(orange)支払うわ。
+  | でも、危険な任務よ。 無事帰ってくるまで私に感謝する必要は無いわ。
+- 必要ない。
+  ~ islay
+  | いいえ、意地でも受け取ってもらうわよ。 あなたの働きには相応の価値があるし、危険な任務だもの。
+  | 持ち帰った"部品1つにつき25パーツ"(orange)支払うわ。
+  ~ innis
+  | ...
+- いくら貰えるんだ?
+  ~ innis
+  | (:angry)...
+  ~ islay
+  | 持ち帰った"部品1つにつき25パーツ"(orange)支払うわ。
+  ~ player
+  - 十分だ。
+    ~ islay
+    | それで良いわね。 あなたの働きは評価しているし、危険な任務だもの。 それくらいは支払うわ。
+  - 少ない。 50だ。
+    ~ innis
+    | (:angry)ふざけるなよ! ワローがここを蹂躙しきった後、どこでそのパーツを使うつもりだ?
+    ~ islay
+    | 奴らを止める事が出来れば、元の生活に戻れるのよ。
+    | だけど、私たちにもパーツは必要だから50は無理よ。 "35で手を打ってくれないかしら?"(orange) あなたの働きは評価しているし、危険な任務だもの。 それくらいは支払うわ。
+    ~ player
+    - 交渉成立だ。
+      ~ islay
+      | 良いわ。それでは"35パーツ"(orange)支払うわね。
+      ! eval (setf (var 'bomb-fee) 35)
+      ~ innis
+      | (:angry)...
+    - 25で十分だ。
+      ~ innis
+      | (:angry)...
+      ~ islay
+      | ありがとう。 それでは"25パーツ"(orange)支払うわね。
+    - 気が変わった。 25もいらない。
+      ~ islay
+      | いいえ、意地でも受け取ってもらうわよ。 簡単なことじゃないし、"25パーツはそれに見合っているわ"(orange)。
+      ~ innis
+      | (:angry)...
+  - もう少し少なくても良い。
+    ~ islay
+    | いいえ、意地でも受け取ってもらうわよ。 あなたの働きは評価しているし、危険な任務だもの。 "25パーツはそれに見合っているわ"(orange)。
+    ~ innis
+    | ...
+~ islay
+| だけど、急いでね。
+| あなたのために"メトロは走らせたままにしておく"(orange)けれど、"ワローは兵を移動させるためにトンネルを利用するかもしれないわ"(orange)。
+~ innis
+| (:angry)それとも列車を脱線させるかもな。
+~ islay
+| (:nervous)そうならないことを願うわ。
+~ player
+| {#@fi-nametag}に状況の更新を連絡してから、行くとするか。
+~ innis
+| (:sly)あぁそうしろ、忠犬アンドロイド。
+~ islay
+| (:nervous)<-{#@innis-nametag}!->
+| (:normal)... "{#@fi-nametag}と話す事は出来ないわ"(orange)。 "ワローは私たちのネットワークを撹乱していて、それはあなたのFFCSにも影響しているはずよ"(orange)。
+~ player
+- (FFCSを確認する)
+  ~ player
+  | "FFCSを確認中..."(light-gray, italic)
+  | (:embarassed)""ブロックされている"(orange)。 やるな。"(light-gray, italic)
+  ~ innis
+  | (:sly)見たか、アイツはFFCSをチェックしたぞ。
+  | (:angry)私たちを信じないアンドロイドを信じろと言うのか?
+- ({#@islay-nametag}を信じる)
+- 以前のようにあなたたちが干渉しているのではないのだな?
+  ~ innis
+  | (:angry)よくもそんな口がきけたものだな!
+  ~ islay
+  | (:nervous)... ねぇ、私たちがお互いを信じ合えるとしたら、今この瞬間が始まりよ。
+~ islay
+| 地上に出たら私たちが{#@fi-nametag}に全てを説明するわ。 "あなたが部品を持ち帰ったら、地上で落ち合いましょう"(orange)。
+| 把握出来たかしら? とても重要なことよ。
+~ player
+- もう一度説明してくれ。
+  ~ islay
+  | いいわ。 私たちが爆弾を完成させるために必要なのは"ブラスティングキャップを10個"(orange)と、"チャージパックを20個"(orange)。
+  | "ワロー・テリトリーの深層"(orange)を探せば見つかるはずよ。 集め終わったら"地上のノカのキャンプでまた会いましょう"(orange)。
+- 把握した。
+~ islay
+| どうか無事に帰ってね、{(nametag player)}。
+~ player
+| (:thinking)""部品がありそうな場所は大体目星がつくな"(orange)。 以前ワロー・テリトリーを探索した経験が活きているぞ。"(light-gray, italic)
+| (:normal)""工場や倉庫を調べてみる"(orange)のが良さそうだな。 "マップをアップデート"(orange)しておこう。"(light-gray, italic)
+| "取り返しがつかなくなる前に"人々から頼まれた仕事があれば、それを先に終わらせておくべきだな"(orange)。"(light-gray, italic)
+? (or (or (active-p 'sq3-race) (complete-p 'sq3-race)) (or (active-p 'sq5-race) (complete-p 'sq5-race)) (or (active-p 'sq9-race) (complete-p 'sq9-race)) (or (active-p 'sq10-race) (complete-p 'sq10-race)))
+| ~ player
+| | ""タイムトライアルをしている場合でもないし、リタイアしておくか"(orange)。 しばらく自慢のスピードブーツは靴箱にしまっておこう。"(light-gray, italic)
+  
+! eval (deactivate 'task-reminder)
+! eval (activate 'q12-help-alex)
+! eval (setf (location 'alex) 'alex-wraw-loc)
+! setf (direction 'alex) 1
+! eval (complete 'trader-semi-chat)
+! eval (complete 'trader-semi-alex)
+! eval (activate (unit 'bomb-cap-1))
+! eval (activate (unit 'bomb-cap-2))
+! eval (activate (unit 'bomb-cap-3))
+! eval (activate (unit 'bomb-cap-4))
+! eval (activate (unit 'bomb-cap-5))
+! eval (activate (unit 'bomb-cap-6))
+! eval (activate (unit 'bomb-charge-1))
+! eval (activate (unit 'bomb-charge-2))
+! eval (activate (unit 'bomb-charge-3))
+! eval (activate (unit 'bomb-charge-4))
+! eval (activate (unit 'bomb-charge-5))
+
+; dinnae = don't / do not (Scottish)
+
+; "finish any existing jobs for people as well" - simpler than doing a conditional to check many sidequest statuses, and implies the character themselves will need to check their log to see what's done and not done - they aren't infallible in their memory after all (also makes no reference to starting new sidequests, since starting them is now curtailed - but had Fi warning in q11-intro)
+
+; also now has a conditional to explain why races void here, using the core log quest for each race type to check if active or complete (and thus whether unlocked actual races themselves). "Speed boots" is a non-licence infringing reference to Sonic's Power Sneakers :)
+
+; "shit hits the proverbial wind turbine" - a post-Calamity riff on the old-world phrase, "when the shit hits the fan"; player has likely seen cerebat wind turbines in the tunnels to make the joke, if not necessarily talked to Catherine about them (sq7), heard world NPCs talking about them, or found the lore interacts

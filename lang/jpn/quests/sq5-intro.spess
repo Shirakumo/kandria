@@ -1,0 +1,82 @@
+; Semi Sisters barkeep, non-binary, French code switching from time to time
+; semi-patron-1 - sober, female
+; semi-patron-2 - drunk, female
+; ambiguous whether this is an alcoholic drink or not, as in q5-intro player can choose that they don't drink alcohol if they prefer
+# intro/intro-chat
+! eval (setf (nametag (unit 'semi-barkeep)) (@ semi-barkeep-nametag))
+! eval (setf (nametag (unit 'semi-patron-1)) (@ semi-patron-1-nametag))
+! eval (setf (nametag (unit 'semi-patron-2)) (@ semi-patron-2-nametag))
+~ semi-barkeep
+| はぁい、{(nametag player)}。
+| 立ち止まってくれることを期待していたわ。 見ての通り、ここの連中は暇を持て余してるのよ。
+| この施設にキラメキとトキメキをもたらしたいと思わない? つまり"タイムトライアル"(orange)のことね。
+~ player
+- 詳しく聞かせてみろ。
+- もう行かなければ。
+  < leave
+~ semi-barkeep
+| まずは一杯どうかしら? もちろん、おごりよ。
+! label choice
+~ player
+- もらおうか。
+  ~ semi-patron-1
+  | ほら、アンドロイドも//飲む//んだよ。 これで私に50の貸しだから。
+  ~ semi-patron-2
+  | くそったれ、あんろろいろめぇ。 れも、あんたはのま、//のまない//、れしょお?
+  ~ semi-patron-1
+  | 難しいことは考えなくていいだって、相棒。 もしアンドロイドが飲めばカウントされる、それだけ。
+  ~ player
+  | (:embarassed)"彼女たちは私がどうするか待っている。 私は液体を飲めるように設計されてはいるが。"(light-gray, italic)
+  | "しかし皆が私に注目する中で、どうする?"(light-gray, italic)
+  - (缶に注がれた飲料を飲む)
+    ~ semi-patron-1
+    | ブーン! 50パーツ、どうもごちそうさま。
+    ~ semi-patron-2
+    | あぁ～、くそぉっ。 もってきやられぇ。
+    ~ player
+    | そうだ、ディーゼルと海藻が混ざったような味だった。
+    ! eval (setf (var 'lost-bet-2) T)
+  - (缶を置く)
+    ~ semi-patron-2
+    | みたかぁ、あーしにかしがれきたなあいぼう～。
+    ~ semi-patron-1
+    | くたばれ、アンドロイド。
+    ! eval (setf (var 'lost-bet-1) T)
+- 遠慮する。
+  ~ semi-barkeep
+  | あらそう。
+- 口が達者だな。
+  ~ semi-barkeep
+  | メルシーボークー。 この手の仕事では重宝するのよ。
+  | それで、お飲み物は? 飲みやすさは保証出来ないけど。
+  < choice
+- もう行かなければ。
+  < leave
+~ semi-barkeep
+| さっきも言ったように、ここでの生活は少し... //退屈//なの。 少なくとも、我らが偉大なる指導者様から好まれていない私たちにとってはね。
+| 見ての通り、私たちは//良い//生活をさせてもらってるよ。 もちろん、大災害後の基準でだけどね。 でも、この辺りじゃなーんにも起きないのよ。
+| だからアンドロイドが来たとあっちゃ、みんな注目するのよね。
+~ semi-patron-2
+| ようてんをいえよぉ、なぁ? あんろろいろらっていそがしいんらぞ。
+? (var 'lost-bet-2)
+| | そんれ、かけにかってぱーつをとりもろさせろよぉ。
+|? (var 'lost-bet-1)
+| ~ semi-patron-1
+| | 私も早くパーツを取り戻したいし。
+  
+~ semi-barkeep
+| まぁ待ちなさいって! 物事には順序ってものがあるでしょ。
+| つまりこういう事ね。 私たちは私たちの優秀なハンターを鍛えて"ユニークなアイテムを回収する"(orange)ために送り出す。 で、私たちはその"タイムを計測する"(orange)。
+| 私たちはあなたが彼らのタイムを上回れるか... いえ、むしろ"//いつ上回るか//"(orange)見てみたいのよ。
+| 私たちは賭博を実施して、"その賞金の一部をあなたに渡すわ。 あなたが早ければ早いほどより多くね"(orange)。
+| そうねぇ... この辺りに"壊れたジェネラ・コア"(orange)がいくつか転がってたはずよ。 丁度いいわね。
+| ハンターは"それらを広範囲に配置するわ"(orange)。 私たちのテリトリーの周り、そして恐らくその先にまで。
+| "やってみたくなったら教えてね"(orange)。 ひとまず、この辺の飲んだくれを集めて適当に賭けさせてみようかしら。
+! eval (activate 'sq5-race)
+! eval (complete task)
+! eval (reset interaction)
+! label leave
+~ semi-barkeep
+| それじゃ、さようなら。 用が無ければこんな場所にあまり長居しない方がいいわよ。
+
+; mate/matey = friend, in this context

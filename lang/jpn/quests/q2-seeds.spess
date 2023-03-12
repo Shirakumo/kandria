@@ -1,0 +1,53 @@
+# find-seeds/q2-reminder
+~ fi
+| "地上を東へ向かったところ"(orange)にある"廃墟で残存している種を貯蔵庫から回収"(orange)してきてほしい。
+| 気を付けろよ、{(nametag player)}。
+
+# find-seeds/seeds-arrive
+~ player
+| "旧世界のバンカーか。 ここが貯蔵庫で間違いなさそうだな。"(light-gray, italic)
+| "見た目通りの古くカビくさい嫌な匂いがする。 種の入ったコンテナや小袋が散乱しているのは何者かがここに来たことがある証拠だな。"(light-gray, italic)
+| "大半が使い物にならなくなっているが、いくつかの引き出しの中に格納されている種はまだ使えるかもしれない。 どれどれ..."(light-gray, italic)
+! eval (store 'item:seeds 24)
+! eval (status "種袋x24を手に入れた")
+| ""24袋"(orange)、残っていたのはこれで全てか。 入っている種は小さく、砂粒のように硬い。"(light-gray, italic)
+| (:thinking)"本当にこれがまだ育つのか? そのうち分かることか。"(light-gray, italic)
+| (:normal)""{#@fi-nametag}の元へ戻るとするか"(orange)。"(light-gray, italic)
+! eval (deactivate 'q2-reminder)
+
+# return-seeds/seeds-return-fi
+~ fi
+| おかえり。 種は見つかったか?
+~ player
+- この通り、持ってきたぞ。
+- あなたにサプライズがあるんだ。
+- (種を手渡す)
+~ fi
+! eval (retrieve 'item:seeds T)
+! eval (status "種袋x24を失った")
+| (:happy)感謝する。 それならば... 種の小袋が20袋あるはずだ。 それだけあれば十分なのだが。 これが貯蔵されていた全てか?
+~ player
+- そうだ。
+- 実は24袋ある。
+- 隅々まで探したぞ。
+~ fi
+| (:happy)よくやってくれた。 十分すぎるほどにな。 さっそく種を撒くとしよう。
+| おかげで思いがけない希望が芽生えたよ。
+| (:normal)言わずもがな、君は私の信頼を得ているよ{(nametag player)}。 もしかしたら君も"ノカ"(red)の一員になるかもしれないな。
+| しかし、ひとまず私からの感謝の証として"このパーツを受け取ってほしい"(orange)。
+! eval (store 'item:parts 200)
+! eval (status "200パーツを手に入れた")
+~ fi
+? (complete-p 'q3-new-home)
+| | "{#@catherine-nametag}に報告"(orange)するといいかもな。 彼女も君に会いたがっているはずだ。
+| | (:happy)実は次に君にやってもらいたいことも決まっているんだ。 準備が出来たら"声をかけてくれ"(orange)。
+| ! eval (activate 'sq-act1-intro)
+| ! eval (activate 'q4-intro)
+|?
+| ? (not (active-p 'q3-new-home))
+| | | そうそう、"{#@jack-nametag}に特別な仕事"(orange)を任せているんだった。 君にぴったりな仕事だと思うから、手伝ってやってくれるかい。
+| | | 彼は"作業場"(orange)に居るはずだから。
+|   
+| | どうやら"協力関係の{#@trader-nametag}が来ている"(orange)そうだな。 彼のキャラバンは、ミッドウェストマーケットを下った先の"ゼニスハブ"(red)にある。
+| | 次の仕事に備えて、そこで十分に装備を整えると良いだろう。
+| ! eval (activate 'trader-arrive)

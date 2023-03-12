@@ -1,0 +1,48 @@
+# chat-semi-alex/chat-semi-alex
+? (not (complete-p 'q7-my-name))
+| ? (and (complete-p 'q5a-rescue-engineers) (complete-p 'q5b-investigate-cctv) (not (var 'alex-done)))
+| | ~ alex
+| | | (:angry)なんだコラァ? おいアンドロイド、俺と話すのが怖ぇってのか? <-ヒック->
+| | ~ islay
+| | | バーキープはアレックスを見放して、酒を注ぐのを止めてくれたわ。
+| | ~ alex
+| | | (:angry)なぁ、アンドロイド! <-ヒック-> お前はここでの俺の仕事さえも奪ったらしいなぁ。
+| | ~ islay
+| | | あなたはノカのために{(nametag player)}と協力できるはずよ、{#@alex-nametag}。 彼女と共に{#@fi-nametag}の元へ戻って、かつてのあなたを取り戻してくれないかしら。
+| | ~ alex
+| | | "{(nametag player)}"だとさ、ハッ。 笑わせんなよな。 <-ヒック-> よそ者は俺だっての。 仲間にとってよそ者。 自分自身にとってもよそ者だ。
+| | | 消えな、テメェら。
+| | ~ islay
+| | | "しばらくそっとしておきましょう"(orange)。 酔いが覚めれば考えを改めてくれるかもしれないわ。
+| | | あなたは私たちのために多くのことをしてくれたのに、それに見合うお返しが出来ないわね。
+| | | "報酬としてこのパーツを受け取ってちょうだい"(orange)。 早く{#@alex-nametag}が協力してくれるようになればいいのだけど。
+| | ! eval (store 'item:parts 600)
+| | ! eval (status "600パーツを手に入れた")
+| | ! eval (setf (var 'alex-fee) T)
+| | | [(not (complete-p 'q6-return-to-fi)) "一旦戻って{#@fi-nametag}に報告してきて"(orange)。 {#@alex-nametag}の様子は私が見守っているわ。 | 心配ないわ、私がアレックスの傍についているから。]
+| | | また話しましょうね。
+| | ! eval (setf (var 'alex-done) T)
+| | ! eval (clear-pending-interactions)
+| |? (var 'alex-done)
+| | ~ islay
+| | | ご覧の通りよ。 バーキープには酒のおかわりをさせないよう言っておいたわ。
+| | | 私は司令室に戻らなきゃいけないけど、隠しカメラで常にアレックスを見張っているわ。 放屁の瞬間すら見逃すことはないから安心して。
+| |?
+| | ~ islay
+| | | 残念ながら説得は難航しているわ。 (:normal)話し合うことで考えを変えてくれればいいのだけど。
+| | | もし私がアレックスをこのバーから出せたら、そこがスタート地点ね。
+|? (and (complete-p 'q7-my-name) (not (complete-p 'q11-recruit-semis)))
+| ~ islay
+| | (:nervous)"やられたわ。 黙ってどこかへ行ってしまったみたい"(orange)。 カメラの包囲網の死角をつかれるとは想定外だったわ。
+| | (:normal)もしノカに戻っていないのであれば、私には行き先が分からないわ。
+| | 無事であれば良いのだけど。 そして酔いも覚めているともっと良いわ。
+| | 本当にごめんなさい、もっとしっかり見張っておくべきだったわ。 言い訳をするつもりは無いけれど、近頃いろんなことが起きすぎているのよ。
+| ? (not (var 'alex-fee))
+| | | あなたは私たちのために多くのことをしてくれたのに、それに見合うお返しが出来ないわね。
+| | | "報酬としてこのパーツを受け取ってちょうだい"(orange)。
+| | ! eval (store 'item:parts 600)
+| | ! eval (status "600パーツを手に入れた")
+| | ! eval (setf (var 'alex-fee) T)
+|  
+| ~ islay
+| | 気を付けてね、{(nametag player)}。

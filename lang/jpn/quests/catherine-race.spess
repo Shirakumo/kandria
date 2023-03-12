@@ -1,0 +1,75 @@
+# hub
+~ catherine
+| "タイムトライアル"(orange)の説明をするね。 私たちが配置した"空き缶を探してもらいたいんだ"(orange)。
+| (:excited)"それを持って、ここまで帰ってきたらタイマーストップ"(orange)してタイムを計測するよ。 "タイムが早ければ早いほど報酬を進呈する"(orange)から頑張ってね!
+| (:normal)"ルートは5種類"(orange)用意してるよ。 "一つのルートを完了するたびに、次のルートを教えてあげる"(orange)。 で、ルールなんだけど。
+| それぞれのルートには何回でも挑戦出来るんだけど、報酬が貰えるのは"ベストタイムを更新した時だけね"(orange)。
+| 缶がある場所のヒントになるような、"なぞなぞ"(orange)も用意してあるよ。 最初はそれを解くためにタイムを犠牲にしなきゃならないかもね。
+| でも、一回解いて缶の場所を把握しちゃえば、(:excited)もっと早いタイムが出せるようになるはずだよ。
+| (:normal)まずは簡単な"ルート1から始めよっか"(orange)。 (:excited)"準備が出来たら声をかけてね"(orange)。 今からすっごい楽しみだよ!
+! eval (clear-pending-interactions)
+
+# start
+? (timer-quest)
+| ~ catherine
+| | (:concerned)今"タイム計測中"(orange)だよ。 先にそれを"終わらせるか、中断するかしてね"(orange).
+| < quit
+
+~ catherine
+| (:cheer)よーっし、タイムトライアルの時間だぁ!
+| (:excited)"{(quest:title (quest:find-named 'race task))}."(orange)
+| (:normal)目標タイムは... "ゴールド:"(orange) {(format-relative-time gold)} - "シルバー:"(orange) {(format-relative-time silver)} - "ブロンズ:"(orange) {(format-relative-time bronze)} だよ。
+? (var 'pb)
+| | このルートのあなたの"自己ベスト"(orange)は"{(format-relative-time pb)}"(orange)だよ。
+~ catherine
+| (:excited)[? タイム計測... 始め! | 位置についてぇ... よーい... ドン! | スリー... ツー... ワン... GO {(nametag player)}! | 内蔵時計と同期よし... GO!]
+! eval (complete task)
+! eval (clear-pending-interactions)
+
+# cancel
+~ catherine
+| "トライアルを中断したいの"(orange)? 途中でやめちゃうと報酬もあげられないし、このタイムも破棄されちゃうよ。
+~ player
+- いや、継続する。
+  ~ catherine
+  | 引き続き頑張ってね、(:excited)タイムは待ってくれないよ!
+- あぁ、中断する。
+  ~ catherine
+  | 大丈夫。 (:excited)また再挑戦してね。
+  ! eval (activate 'cancel-it)
+
+# return
+~ catherine
+| (:cheer)そこまで!
+| (:excited)確かに缶を持ってきてくれたね、おつかれ。
+| (:normal)タイムは"{(format-relative-time (clock quest))}"(orange)だよ。
+? (and pb (< pb (clock quest)))
+| | (:concerned)ドンマイ、残念だけど"{(format-relative-time pb)}"(orange)のレコードは"更新出来なかったね"(orange)。
+|?
+| ? (not (null pb))
+| | | (:cheer)"自己ベスト更新"(orange)だぁ!
+| ! eval (setf pb (clock quest))
+| ? (< pb gold)
+| | | (:cheer)ちょっと早すぎじゃない? タイム区分は"ゴールド"(orange)だよ。
+| | | 最高報酬の"パーツ250個"(orange)を進呈しまーす!
+| | ! eval (store 'item:parts 250)
+| | ! eval (status "250パーツを手に入れた")
+| |? (< pb silver)
+| | | (:excited)かなり早いね! タイム区分は"シルバー"(orange)だよ。
+| | | はい、"パーツ150個"(orange)をどうぞ。
+| | ! eval (store 'item:parts 150)
+| | ! eval (status "150パーツを手に入れた")
+| |? (< pb bronze)
+| | | (:excited)悪くないタイムだよ。 タイム区分は"ブロンズ"(orange)だよ。
+| | | はい、"パーツ100個"(orange)をどうぞ。
+| | ! eval (store 'item:parts 100)
+| | ! eval (status "100パーツを手に入れた")
+| |?
+| | | (:concerned)でもタイムは"ブロンズにも達してないね"(orange)。 人工筋肉も筋肉痛を起こすのかな。
+| | | (:normal)気にしないで、いつでも再挑戦は受け付けてるからね。 (:concerned)でも、"このタイムじゃ報酬は進呈出来ないや、"(orange)ごめんね。
+  
+~ catherine
+| (:excited)是非また挑戦してね!
+! eval (activate 'complete-it)
+
+# quit

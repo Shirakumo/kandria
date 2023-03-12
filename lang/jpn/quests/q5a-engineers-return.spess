@@ -1,0 +1,15 @@
+# 2-interact-/interaction
+~ player
+| "これで"トンネルは開通した"(orange)。 セミとエンジニアたちが連絡を取り合えるようになったぞ。"(light-gray, italic)
+| ""セミの司令室で待っている{#@innis-nametag}に報告に戻る"(orange)とするか。"(light-gray, italic)
+? (not (complete-p (find-task 'q5a-rescue-engineers 'task-engineers)))
+| | "まぁ、エンジニアたちの無事はまだ確認出来ていないがな"(orange)。 "この周辺を探してやるか、無事であることを願って放っておくか"(orange)。 さて、どうするかな。"(light-gray, italic)
+  
+! eval (move-to 'engineer-home-1 'semi-engineer-1)
+! eval (move-to 'engineer-home-2 'semi-engineer-2)
+! eval (move-to 'engineer-home-3 'semi-engineer-3)
+! eval (activate (find-task 'q5a-rescue-engineers 'task-return-engineers))
+! eval (deactivate (find-task 'q5a-rescue-engineers 'task-reminder))
+? (active-p (find-task 'q5a-rescue-engineers 'task-wall-location))
+| ! eval (complete (find-task 'q5a-rescue-engineers 'task-wall-location))
+

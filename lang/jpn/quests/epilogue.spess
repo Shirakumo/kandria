@@ -1,0 +1,49 @@
+# 4-interact-catherine/interaction
+~ catherine
+| (:concerned)... あぁ良かったぁ、心配したんだから。 あなたを再起動させようとしてたところだよ。
+| 大丈夫?
+~ player
+- 何が起きた?
+  ~ catherine
+  | (:concerned)分かんない...
+  | 私がどれくらい気を失ってたか分からないけど、"目が覚めてから大体15分くらいかな"(orange)。 瓦礫の中からあなたを引っ張り出してたんだよ。
+- ここは?
+  ~ catherine
+  | (:concerned)多分... 私たちが出会った場所の近くだと思う。
+  | 私がどれくらい気を失ってたか分からないけど、"目が覚めてから大体15分くらいかな"(orange)。 瓦礫の中からあなたを引っ張り出してたんだよ。
+- 今回は何十年機能停止してたんだ?
+  ~ catherine
+  | 幸運なことに、"たった約15分くらいだよ"(orange)。 まぁ、"私の目が覚めてからの計測だけど"(orange)。 瓦礫の中からあなたを引っ張り出してたんだよ。
+  | (:concerned)あなたは私が受けた以上のダメージを頭に受けてると思う。
+~ catherine
+| (:concerned)爆弾が"私たちの目の前で起爆したみたい"(orange)。 "多分、全部"(orange)。
+| (:excited)それって"私たちが勝った"(orange)ってコトかな?!
+| (:concerned)でも、"爆発の衝撃は予想よりも大きかった"(orange)...
+| 辺りを見回してみたんだけど、"このエリア全体が崩落しちゃった"(orange)んじゃないかな。
+| {#@islay-nametag}は無事かな...
+~ player
+- 彼女なら大丈夫だ。
+  ~ catherine
+  | (:concerned)だといいんだけど。
+- あなたこそ大丈夫なのか?
+  ~ catherine
+  | (:concerned)頭が痛いかな。 脳震盪を起こしたのかも、だけど平気だよ。
+- 彼女は爆弾のすぐ近くに居た、つまり...
+  ~ catherine
+  | (:concerned)...
+  | 私たちもそうだったけど、無事でしょ。
+~ catherine
+| (:concerned)ここは危険だし、"ホーム"(orange)へ帰ろう。 "歩ける"(orange)?
+~ player
+- 問題無いと思う。
+  ~ catherine
+  | (:excited)良かった、それじゃ頑張ろ。
+- 確認する方法はただ一つ。
+  ~ catherine
+  | ゆっくりでいいよ。
+- 無理だとしても、あなたでは私を運べないだろう。
+  ~ catherine
+  | あなたって見た目より重いのね。
+; place is unsafe, so even with concussion, it's better for Catherine to leave. You lead the way though
+
+; on waking up, is no longer immediately obvious to the character that they're in the grave (see level design change Sep 22) - however, we can assume this becomes clear to them, AND the player, once they've explored a bit on the way out

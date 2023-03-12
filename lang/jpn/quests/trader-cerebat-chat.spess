@@ -1,0 +1,65 @@
+; character voice: London cockney
+; short and sweet questions and answers here, as this guy isn't really your friend. Also no need to conditional the questions, as he'll be gone before long
+# chat-trader/chat-with-trader
+? (not (complete-p 'q10a-return-to-fi))
+| ~ cerebat-trader-quest
+| | よぉ。
+| ! label questions
+| ~ player
+| - 何故ワローに加担する?
+|   ~ cerebat-trader-quest
+|   | 怪しまれるのは分かるぜ。
+|   | だが奴らは物資を潤沢に持ってるし、俺にとっちゃ重要なのはそれだけだ。 これが俺の生きる術なんだよ。
+|   < questions
+| - 評議会はどこへ行った?
+|   ~ cerebat-trader-quest
+|   | 言ったろ、死んだって。
+|   | もしかしたら、生きてる奴もいるかもしれないが、だとしても今頃ワローの牢獄で腐ってんじゃねぇかな。
+|   < questions
+| - あなたの名前は?
+|   ? (not (var 'name-known))
+|   | ~ cerebat-trader-quest
+|   | | 俺が自分の名前を他人に教えると思うか?
+|   | | 俺を名前で呼びたいなら... //{#@cerebat-trader-nametag}//とでも呼びな。
+|   | ! eval (setf (nametag (unit 'cerebat-trader-quest)) (@ cerebat-trader-nametag))
+|   | ~ player
+|   | - 本当の名前じゃないな?
+|   |   ~ cerebat-trader-quest
+|   |   | 気に食わないか?
+|   | - 分かった、{#@cerebat-trader-nametag}。
+|   | - 何故その名を?
+|   |   ~ cerebat-trader-quest
+|   |   | 気に食わないか? ただのでっち上げさ。
+|   | ~ cerebat-trader-quest
+|   | | で、アンタの名前は?
+|   | ~ player
+|   | - ...良い質問だ。
+|   |   ~ cerebat-trader-quest
+|   |   | だろ。
+|   | - [(string= (@ player-name-1) (nametag player)) {#@player-name-1}ではない。 (ウソ)|]
+|   |   ~ cerebat-trader-quest
+|   |   | 本当か? もしそうだったら、ちょっとしたサプライズだったんだがな。
+|   | - [(not (string= (@ player-name-1) (nametag player))) {#@player-name-1}ではない。|]
+|   |   ~ cerebat-trader-quest
+|   |   | もしそうだったら、ちょっとしたサプライズだったんだがな。
+|   | - 自分の名前を覚えていないんだ。
+|   |   ~ cerebat-trader-quest
+|   |   | そうかい、じゃ俺と同じだな。
+|   | ! eval (setf (var 'name-known) T)
+|   | < questions
+|   |?
+|   | ~ cerebat-trader-quest
+|   | | 俺の名は{#@cerebat-trader-nametag}だ。 もっと注意を払った方がいいぜ、お客さん。 で、アンタの名前は?
+|   | | 落ち着けよ、ただの冗談だ。
+|   | < questions
+| - もういい。
+| ~ cerebat-trader-quest
+| | またな。
+|? (and (complete-p 'q10a-return-to-fi) (not (complete-p 'q11a-bomb-recipe)))
+| ~ cerebat-trader-quest
+| | 今アンタと喋ってる暇はねぇんだ。 悪いな、お客さん。 だが取引くらいならしてやれるぜ。
+|? (complete-p 'q11a-bomb-recipe)
+| ~ cerebat-trader-quest
+| | 残念だが俺は何もしてやれねぇ。 今のうちに俺はここから退散するぜ。
+| | アンタも気を付けてな。
+

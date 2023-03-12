@@ -1,0 +1,34 @@
+# bomb-explode/islay-reminder
+~ islay
+| (:nervous)この爆弾に集中させてくれるかしら。
+| (:normal)あなたは"ブラザーオフィスの爆弾の方へ行って"(orange)ちょうだい。 {#@catherine-nametag}、あなたなら"配線し直せる"(orange)わよね。
+| (:nervous)急いで!
+
+# bomb-explode/call-explode
+! eval (ensure-nearby 'player 'catherine)
+~ islay
+| {(nametag player)}、{#@catherine-nametag}... "病棟の爆弾の再配線は終わったわ"(orange)。
+| (:normal)そっちのメックはどうだった? オーバー。
+~ player
+- 大した脅威ではなかった。 オーバー。
+  ~ islay
+  | それは良かったわ。
+- ぶちのめしてやったぞ。 オーバー。
+  ~ islay
+  | 素晴らしいわ。
+- メック一機を廃材にした。 これ以上いなければいいのだが。 オーバー。
+  ~ islay
+  | 私はそれ以外には見ていないわね。
+~ islay
+| あなたは"ブラザーオフィスの爆弾の方へ向かって"(orange)。 私は－－－
+~ player
+| "彼女の言葉を遮っている、この音は何だ?"(light-gray, italic)
+~ player
+- {#@islay-nametag}?
+- 地震か?
+- 伏せろ!
+! eval (deactivate (unit 'bomb-explode-1))
+! eval (deactivate (unit 'bomb-explode-2))
+! eval (activate 'explosion)
+! eval (move :freeze player)
+; lock player controls early in this case, before epilogue script

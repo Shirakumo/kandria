@@ -1,0 +1,69 @@
+; Synthesis, shady character, unknown gender, Swiss-German accent and dialect, plural first person pronouns
+# return-supplies/supplies-return
+~ synthesis
+| ポーションは持ってきたか?
+? (> 4 (item-count 'item:mushroom-bad-1))
+| ~ synthesis
+| | 早くしろ! "ヒトヨタケを4つだ、忘れるな"(orange)。
+| | "セレバットの周辺や、洞窟を探せばあるだろう"(orange)。
+| ~ player
+| | "今持ってるのは"{(item-count 'item:mushroom-bad-1)}個か"(orange)。"(light-gray, italic)
+|?
+| ~ synthesis
+| | (:grin)それだ。 渡してもらおうか。
+| | ! eval (retrieve 'item:mushroom-bad-1 4)
+| | ! eval (status "ブラックキャップx4を失った")
+| < result
+
+; they only take the minimum amount they need, as they don't want to rely on you too much; once they're recovered, they can source their own black caps
+
+# result
+~ synthesis
+| (:grin)感謝する。 それで全てだ。
+| (:normal)少し待ってくれ。 すぐに終わる。
+~ player
+| (:embarassed)"奴らが何をしているのかよく見えないが、注射針のようなものは確実に見えた。"(light-gray, italic)
+~ synthesis
+| ...
+| (:grin)あぁ... もう大丈夫だ。
+| "{#@synthesis-nametag}"(yellow)の妨害をする者どもに報いを受けさせたい気分だ。
+~ player
+- それでは旧世界について聞かせてもらおうか。
+  ~ synthesis
+  | (:grin)全ての安全を確保してから、自分の目で確認すればいい。
+- それがあなたの名前なのか?
+  | (:grin)私たちの名前であり目的だ。 今のところはな...
+- 誰のことだ?
+  ~ synthesis
+  | 盗賊、"ローグ"(orange)、首無しの追い剥ぎ... 私たちの前に立ち塞がる全てだ。
+  < task
+! eval (setf (nametag (unit 'synthesis)) (@ synthesis-nametag))
+~ synthesis
+| 私たちの敵は、盗賊に"ローグ"(orange)、首無しの追い剥ぎ... 私たちの前に立ち塞がる全てだ。
+! label task
+! eval (setf (nametag (unit 'synthesis)) (@ synthesis-nametag))
+~ synthesis
+| 奴らもこの情報を欲しがっており、もうすぐそばまで迫って来ている。
+| (:grin)しかし、私たちは先手を打ってセミの境界にある奴らのキャンプを襲撃した。 大半は壊滅させたが、何人かには逃げられてしまった。
+| 奴らが新設したキャンプは"この階層の東部低層にある"(orange)。
+| 奴らは私たちを殺すつもりだ。 しかし、私たちが死ねば私たちの持つ情報も死ぬ。
+| "私たちのために奴らを殺してくれるな"(orange)?
+~ player
+- 私が?
+  ~ synthesis
+  | (:grin)もし真実を知りたいのであればな。
+- 彼らが悪で、あなたたちがそうでない証明は?
+  ~ synthesis
+  | (:grin)そんな事はお前には関係ない。
+- これ以上付き合ってられないな。
+  ~ synthesis
+  | (:grin)お前の好きにしろ。
+  | しかし"私たちの提案はまだ有効だ"(orange)。 私たちやお前のような外道の者は結託するべきだと思うがな。
+  < end
+~ synthesis
+| (:grin)"私たちの指示に従うなら、お前はより真実に近づけるだろう"(orange)。
+< end
+
+# end
+! eval (complete task)
+! eval (reset interaction)

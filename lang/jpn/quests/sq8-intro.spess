@@ -1,0 +1,74 @@
+; Cerebat "good" market trader, concerned about the missing Cerebat Council
+# intro/intro-chat
+~ cerebat-good-trader
+| あなたに迷惑をかけるつもりはありませんが、他にどうすればいいのか分からないんです。
+~ player
+- 何だ、言ってみろ。
+- 構ってる暇は無い。
+  < leave
+~ cerebat-good-trader
+| "セレバット評議会が消えたんです"(orange)。
+| "ワローが来てから、全てが狂い始めました"(orange)。 私たちセレバットの生活様式が永遠に失われる前に、秩序を取り戻さなければなりません。
+| ですが、私はただのトレーダーで、どうしたらいいのか分からないんです。
+! eval (setf (nametag (unit 'cerebat-good-trader)) (@ cerebat-good-trader-nametag))
+~ cerebat-good-trader
+| もしあなたが"評議会を見つけ出し、彼らを連れ戻してくれたら"(orange)...
+| 確実にワローの怒りを買うでしょうが、少なくともレジスタンス活動を開始出来るでしょう。
+~ player
+- やってみよう。
+- 評議会は死んだのではないのか?
+  ~ cerebat-good-trader
+  | そのように吹聴する者も居ますが、彼らの死体を見るまで私は信じません。
+- そうか、頑張ってくれ。
+  < leave
+~ cerebat-good-trader
+| これをどうぞ。 私が見つけた"評議員のヘッドドレス"(orange)です...
+! eval (store 'item:headdress 1)
+! eval (status "ヘッドドレスを手に入れた")
+~ player
+| "大量の真珠で装飾されているな。"(light-gray, italic) (:embarassed)"でも、湿っていて磯臭いにおいがする。"(light-gray, italic)
+~ cerebat-good-trader
+| "ワロー・テリトリーでこれと同じようなものを探して来てください"(orange)。 きっと評議会は彼らに連れて行かれたんだと思います。
+! label questions
+~ player
+- これをどこで見つけた?
+  ~ cerebat-good-trader
+  | 近くの湖に落ちていました。
+  ~ player
+  - 彼らがそこで溺れ死んだ可能性は?
+    ~ cerebat-good-trader
+    | 無いです。 絶対にありえません! ... 死体はありませんでしたから。
+  - 良い兆候とは言えないな。
+    ~ cerebat-good-trader
+    | そうかもしれません。 ですが、私は希望に満ちています。
+  < questions
+- もし評議会が既に死んでいたら?
+  ~ cerebat-good-trader
+  | だとしたら、私たちセレバット、いえ、この荒野に住む他の派閥も含めて、皆が未来を失います。
+  | 彼らは何者にも代えられない存在です。 私たちはワローと戦うために、彼らの経験と結束が必要なのです。
+  | 所詮、私たちセレバットは自身の事しか考えていないトレーダーの集まりに過ぎません。
+  ~ player
+  - あなたはそうでもなさそうだが。
+    ~ cerebat-good-trader
+    | だといいのですが。
+    | だとしても、私はただの一人の人間です。
+  - そういう事なら彼らの生存を信じてみるか。
+    ~ cerebat-good-trader
+    | えぇ、私も。
+  < questions
+- 評議員は何人居る?
+  ~ cerebat-good-trader
+  | "8"(orange)人の評議員と、"ダシャド"(yellow)という"高等議員"(orange)で構成されています。
+  | 私があなたにお渡ししたヘッドドレスは"アントニオ"(yellow)のものだと思います。
+  < questions
+- では、行ってこよう。
+~ cerebat-good-trader
+| 私はここであなたをお待ちしております。 いや、徐々に人々が失踪していることを考えると...
+| "マーケットの下の路地裏で会いましょう"(orange)。
+| 十分に気をつけてください。
+~ player
+| "FFCSが、評議員が捕らえられている可能性がある場所を"ワロー・テリトリー内に3箇所"(orange)特定した。  あくまで彼らが生きている前提だが。"(light-gray, italic)
+! eval (complete task)
+! eval (reset interaction)
+! eval (activate (unit 'sq8-spawner))
+# leave

@@ -1,0 +1,13 @@
+# 7-interact-/interaction
+~ player
+? (not (complete-p 'q11a-bomb-recipe))
+| | "... 特にサーボから異常は感じられなかったが?"(light-gray, italic)
+| | "とりあえず"ロボティシストに調査報告に戻る"(orange)とするか。"(light-gray, italic)
+|?
+| | "ロボティシストが研究していたのはこのサーボだったのか。"(light-gray, italic)
+| | "しかし今となっては"報告するには遅すぎるな"(orange)。 何も見なかったことにしよう。"(light-gray, italic)
+| ! eval (activate (unit 'spawner-5032))
+
+; ^ invariant check
+
+; spawner will reactivate while player on screen, but is an edge case

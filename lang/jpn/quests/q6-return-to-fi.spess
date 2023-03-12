@@ -1,0 +1,119 @@
+# leave-semis/fi-ffcs
+~ player
+| "ここから{#@fi-nametag}に連絡しても問題ないだろう。 結局、どこで通信しようとセミの目と耳から逃れることは出来ないのだしな。"(light-gray, italic)
+| (:normal)こんにちは、{#@fi-nametag}、私だ。
+| ... {#@fi-nametag}?
+| (:thinking)"何者かが"FFCSのシグナルを妨害しているな"(orange)。"(light-gray, italic)
+| (:normal)"恐らく{#@innis-nametag}の仕業だな。 公衆電話さえも使えるかどうか疑わしいな。"(light-gray, italic)
+| "いいだろう、通信させたくないなら"歩いて帰るだけだ"(orange)。"(light-gray, italic)
+? (unlocked-p (unit 'station-surface))
+| | (:giggle)"それか、"鉄道を利用するという手もあるな"(orange)!"(light-gray, italic)
+! eval (activate 'return-fi)
+! eval (deactivate (unit 'fi-ffcs-1))
+! eval (deactivate (unit 'fi-ffcs-2))
+! eval (deactivate (unit 'fi-ffcs-3))
+; (unlocked-p (unit 'station-surface)) - should be force unlocked now by this point, so the check is redundant; but a good safeguard to keep
+
+# return-fi/talk-fi
+~ fi
+| (:annoyed)心配していたところだ。 何故連絡してこなかった? {#@alex-nametag}はどこだ?
+~ player
+- 面倒事に巻き込まれていたんだ。
+  ~ fi
+  | (:annoyed)面倒事? それは{#@alex-nametag}を連れ戻すより重要な事だったと言うのか?
+- {#@alex-nametag}はまだ帰ってこない。
+  ~ fi
+  | (:unsure)無事なのか? 何があった?
+- FFCSが通じなかったんだ。
+  ~ fi
+  | (:annoyed)... 何故だ?
+  ~ player
+  | セミから何らかの妨害を受けて、そのせいでシグナルが遮断されていた。
+  ~ fi
+  | (:unsure)セミ・シスターズが? セレバットで{#@alex-nametag}を探していたんじゃないのか。
+~ player
+| セミ・シスターズのバーで、ベロンベロンに酔っていたぞ。 もうノカに協力する気は無いんだと。
+| 私がノカのハンターになったことが気に食わないそうだ。 私に仕事を奪われたとな。
+~ fi
+| (:unsure)はぁ...
+~ player
+| セミ・シスターズの下層までマッピングしたと言っていたので、ワローについて何か知っているだろう。
+| しかし明確には言及しなかったし、詳しいことは何も教えてくれなかった。 説得は{#@islay-nametag}に任せて、その間お使いを頼まれていたんだ。
+~ fi
+| (:annoyed)チッ... こんな事で時間を取られている場合ではないのに。
+| {#@alex-nametag}は以前もこのような揉め事を起こしたことがあるんだ。
+| (:normal)今の私たちにはどうすることも出来ないので、{#@islay-nametag}が何とかしてくれる事を願おう。
+| それで、{#@islay-nametag}に会ったということはだな... (:unsure){#@innis-nametag}にも会ったのか?
+~ player
+- 会ったぞ。
+- 彼女は{#@jack-nametag}と同じくらい感じが悪かった。
+- 彼女との出会いを忘れられるわけがない。
+~ fi
+| そうか... (:happy)君がまだ分解されていないのは不幸中の幸いだ。
+~ player
+| {#@innis-nametag}はワローがセレバットを侵略したと... そして次はセミ・シスターズが狙われるとも考えている。
+~ fi
+| (:annoyed)いかにも彼女らしいな。 そう考えられる根拠はあるのか?
+~ player
+| ローグの集団がセミとセレバットの境界を越えて彼女たちのCCTVを使えなくしていた。
+| 奴らは私が処理した。
+~ fi
+| 君なら楽勝だろうな。
+| 他にも何か言っていたか?
+~ player
+- {#@catherine-nametag}をセミへ返すか、水の供給を止めるか選べと。
+- あなたは気に食わない事だろうが。
+  ~ fi
+  | (:annoyed){#@innis-nametag}の発言全てが気に食わないよ。 だが、聞かないわけにはいかない。
+  ~ player
+  | {#@catherine-nametag}がセミへ戻ってこなければ、彼女はノカへの水の供給を止めるつもりだ。
+- 万事丸く収まって特に何も無かったが。
+  ~ fi
+  | (:annoyed)それを判断するのは私だ。
+  ~ player
+  | {#@catherine-nametag}がセミへ戻ってこなければ、彼女はノカへの水の供給を止めるつもりだ。
+~ fi
+| (:unsure)...
+| 本気で言っていると思うか?
+~ player
+- 私よりあなたの方が彼女のことを知っているだろう。
+  ~ fi
+  | (:unsure)私ならそこまでしないが、彼女ならあり得るな...
+- そう考えるのが妥当だろう。
+- {#@innis-nametag}の性格を知ってしまった以上、イエスとしか言えないな。
+~ fi
+| (:annoyed)チッ。
+| {#@catherine-nametag}はセミ・シスターズに育てられたんだ。 彼女の技術力を見た君なら得心がいくだろう。
+| しかし、私たちがワローを離反した時に一緒についてきたんだ。
+| 彼女はセミに戻りたがらないんだ、それが私たちのためになると分かっていても。
+~ player
+- 本当なのか?
+  ~ fi
+  | (:annoyed)セミでの彼女に扱いは酷いものだったんだ。 君もそうされたように。
+- 彼女がそう言っていたのか?
+  ~ fi
+  | 聞くまでもないさ。 (:annoyed)セミでの彼女に扱いは酷いものだったんだ。 君もそうされたように。
+- キャサリンが戻りたがらないだと? あなたが引き止めたいんじゃないのか?
+  ~ fi
+  | 確かに、{#@catherine-nametag}はノカに欠かせない優秀な人材だ。 しかし、それ以前に彼女は私たちの友人だ。
+  | (:annoyed)セミでの彼女に扱いは酷いものだったんだ。 君もそうされたように。
+~ fi
+| (:annoyed){#@innis-nametag}はハッタリをかましているだけだ。 彼女はスパイで、技術者で... クレーマーだ! (:normal)しかし、冷酷な殺人者ではない。 水を止めはしないだろう。
+| (:normal)セレバットがワローに侵略されたという件についてもだが... 君がローグと戦ったとしても、それが証拠にはならない。
+| (:happy)セレバット・テリトリーにはローグや盗賊は多くいる。 商業地区だからな!
+| (:normal)ワローはセレバットの法に抵触はするだろうが、侵略者ではない。
+| 奴らの真の狙いは私たちだ。 セレバットでも、ましてやセミ・シスターズでも確実にない。
+| ワローのリーダー、"{#@zelah-nametag}"(yellow)はリスクを避ける選択をする。 奴は戦わずして、弱者を狩るんだ。
+~ fi
+| (:happy)何にせよ、君が無事戻ってきてくれただけでも嬉しいよ。
+~ player
+- 帰ってこられて良かった。
+- 私もあなたとまた会えて嬉しい。
+- あなたの傍へ戻ると安心するよ。
+  ~ fi
+  | (:happy)私もだ。
+~ fi
+| (:happy)それでは、"またな"(orange)。 {(nametag player)}。
+! eval (setf (music-state 'underground-camp) :ambient)
+
+; there are fewer player choices here about the events in Semis territory, as narratively at this stage the PC wants to inform Fi efficiently, and the player already knows what's happened, so there's no fun in jumping through choice hoops in how to report it a second time. However, there are fresh choices about fresh news e.g. Semis wanting Catherine back

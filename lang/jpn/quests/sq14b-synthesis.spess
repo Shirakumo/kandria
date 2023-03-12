@@ -1,0 +1,30 @@
+; Synthesis, shady character, unknown gender, Swiss-German accent and dialect, plural first person pronouns
+# boss-reminder/reminder
+~ synthesis
+| "セレバット・テリトリーの東部低層のローグどもを駆逐してくるんだ。"(orange)
+| (:grin)"情報"(italic)の安全を確保するためにな。
+
+# task-return/boss-return
+~ synthesis
+| (:grin)やったか。
+~ player
+- なぜ知っている?
+  ~ synthesis
+  | (:grin)私たちは知っている。
+- 勘で言ってるのか?
+  ~ synthesis
+  | ...
+- あぁ。
+  ~ synthesis
+  | 私たちは知っている。
+~ synthesis
+| (:grin)これでお前は"旧世界の情報を受け取ることが出来る"(orange)。
+| "遠い東、廃墟の駅近くのラボ"(orange)... 答えはそこにある。
+| お前にも、私たちにも重要なことだ。 "遺された稼働中の端末"(orange)にアクセス出来るのはアンドロイドだけだ。
+| "端末は3台だ"(orange)。 "\"ヒトヨタケ\"のデータベースを調べてみろ"(orange)。
+! eval (activate (unit 'spawner-5703))
+! eval (activate (unit 'spawner-5705))
+! eval (activate (unit 'spawner-5704))
+
+; reactivate world spawner again
+; "You need them" - the recipe could help the player's allies, the Noka, survive in the desert, on the surface; or further hinting at the Calamity cause, to either confirm android (your?) involvement, or deny it

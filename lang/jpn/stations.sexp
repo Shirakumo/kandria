@@ -1,0 +1,5 @@
+station-surface "ゼニス中央駅"
+station-east-lab "ルートレス・ラボ Z05C"
+station-semi-sisters "ガイディングライトアパート3055"
+station-cerebats "スイフトデリバリーポイント 23-605-A"
+station-wraw "トリクルパワーステーション 52M"

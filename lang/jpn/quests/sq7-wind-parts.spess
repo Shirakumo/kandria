@@ -1,0 +1,28 @@
+# return-supplies/supplies-return
+~ catherine
+| (:excited)風車の部品を集めてきてくれた? 見せて見せて!
+? (or (> 5 (item-count 'item:anemometer)) (> 5 (item-count 'item:disc-brake)) (> 5 (item-count 'item:transformer)))
+| ~ catherine
+| | あっ、まだ足りなかったか。 大丈夫だよ。 "セミの倉庫とか、セレバットの風洞"(orange)で見つかると思う。
+| | もう一度言うね。 "風速計、ディスクブレーキ、変圧器を5つずつ"(orange)、ね。
+| ~ player
+| | "今持ってるのは... "風速計が{(item-count 'item:anemometer)}個"(orange)、"ディスクブレーキが{(item-count 'item:disc-brake)}個"(orange)、"変圧器が{(item-count 'item:transformer)}個"(orange)か。"(light-gray, italic)
+|?
+| ~ catherine
+| | (:cheer)完璧じゃーん、ありがとう!
+| ! eval (retrieve 'item:anemometer 5)
+| ! eval (status "風速計x5を失った")
+| ! eval (retrieve 'item:disc-brake 5)
+| ! eval (status "ディスクブレーキx5を失った")
+| ! eval (retrieve 'item:transformer 5)
+| ! eval (status "変圧器x5を失った")
+| | (:excited)あ～っ、楽しみだなぁ。 想像してみてよ、この地上に風車がある光景を...
+| | まるでファンタジーの王国が現実になったみたいじゃない!
+| | (:normal)エネルギーが生み出せるのは言うまでもなく楽しみだね。
+| | ほんっ、と～にありがとね、{(nametag player)}。
+| | これだけ集めるの大変だったでしょ。 (:excited)これは"お礼"(orange)だよ。
+| ! eval (store 'item:parts 450)
+| ! eval (status "450パーツを手に入れた")
+| | (:normal)またね!
+| ! eval (complete task)
+| ! eval (reset interaction)

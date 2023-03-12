@@ -1,0 +1,320 @@
+# find-alex-reminder/q4-reminder
+~ fi
+? (not (complete-p 'find-alex-cerebats))
+| | 状況報告のため、"地下深くのセレバット自治区へ行って、{#@alex-nametag}を探し出して連れ帰ってほしい"(orange)。
+| | 道中ではセミ・シスターズに気を付けるんだ。 彼女たちと私たちは敵対関係ではないが、予測不可能だからな。
+| | "ポンプルームの床を下りて進めば"(orange)たどり着けるはずだ。
+|?
+| | (:unsure){#@alex-nametag}はセレバットに居なかったのか? それは気にかかるな。
+| | (:normal)ともかく、アレックスはまだ戻ってきていない。 "セミの廃墟とセレバットの間のトンネルの辺りを捜索"(orange)してみてくれないか。
+| | 無事でいるといいのだが。
+
+; this version might not play any more, as I think the triggers mean you will always get the "remote" version instead (see below)
+# find-alex/innis-stop-local
+~ innis
+| (:angry)<-止まれ->!
+| 私たちの許可なくここを通過出来ると思ったのか?
+| (:sly)私たちはお前を監視していたぞ、アンドロイド。 お前と{#@catherine-nametag}の小旅行をな。
+| そして今私たちの元を訪れた。 なんと気が利くアンドロイドだ。
+~ player
+- あなたは誰だ?
+  ~ innis
+  | 悲しいかな、もっとスマートだと思っていたよ...
+- 何が望みだ?
+  ~ innis
+  | (:sly)先に質問するのはこちらだ、いいな?
+- あなたがセミ・シスターズか?
+  ~ innis
+  | (:sly)先に質問するのはこちらだ、いいな?
+~ innis
+| (:sly)お前をどう//処分するべき//だろうな? お前のジェネラ・コアを使えば私たちの計画も遂行出来るだろうな。
+| "{#@islay-nametag}"(yellow)、どう思う?
+! eval (setf (nametag (unit 'islay)) (@ islay-nametag))
+~ islay
+| (:nervous)彼女に手を出すべきでは無いわ。
+~ innis
+| (:angry)...
+| (:normal)おいおい、妹よ... 人類の技術の最高峰を目の前にして言うことがそれか?
+| (:sly)ところで、今のは褒め言葉ではないからな、アンドロイド。 (:normal)勘違いするなよ。
+~ player
+- 私の名前は{(nametag player)}だ。
+  ~ innis
+  | そんな事は知っている、アンドロイド。 (:sly)答えろ、何故ここに居る?
+- ...
+  ~ innis
+  | (:sly)何故ここに居る? 私はお前について多くのことを知っているが、もっと知りたいのだ。
+~ innis
+| (:sly){#@fi-nametag}はこの忠犬ロボットに//何をさせる//ために送り込んだのだ?
+| こいつに忠誠心を証明させようとした、と言ったところか。
+~ player
+- 私の仕事にあんたは関係ない。
+  ~ innis
+  | そんなことが言える権利がお前にあるものか。
+  | だが、ここに"{#@alex-nametag}がここに居る"(orange)としたらどうだ。
+- {#@alex-nametag}という人を探しているんだが、見かけていないか?
+  ~ innis
+  | (:sly)どうだ妹よ、直接アプローチすることでまたしても結果を出したぞ。 そして私が正しかったことが確認出来たな。
+  | (:normal)ここに"{#@alex-nametag}がここに居る"(orange)としたらどうだ。
+- クソくらえ。
+  ~ islay
+  | ...
+  ~ innis
+  | (:angry)...
+  | お前のお仲間を思い出したぞ! お前たちは、私たち人間の真似事が出来るからといって自分たちが上等な存在だと思っているんだろう。
+  | お前は機械で、もし私がその気になればお前の四肢をバラバラに引き千切ってこの荒野の四方にバラ撒いてやる事も可能なのだぞ。
+  | (:normal)さて、もう一度だ。
+  | お前が探している"{#@alex-nametag}がここに居る"(orange)としたらどうだ。
+~ innis
+| 私を楽しませてくれないか? お前がどれだけ有能か見てみたい。
+| お前が自分自身で"アレックスを見つけ出せるか"(orange)試させてもらおうか。
+! eval (deactivate 'innis-stop-remote)
+! eval (deactivate (unit 'innis-stop-2))
+! eval (deactivate (unit 'innis-stop-3))
+! eval (deactivate (unit 'innis-stop-4))
+! eval (deactivate (unit 'innis-stop-5))
+! eval (deactivate (unit 'innis-stop-6))
+! eval (deactivate (unit 'innis-stop-7))
+! eval (deactivate (unit 'innis-stop-8))
+! eval (deactivate (unit 'innis-stop-semi-station))
+! eval (activate 'find-alex-semis)
+? (active-p 'find-alex-cerebats)
+| ! eval (deactivate 'find-alex-cerebats)
+| ! eval (deactivate (unit 'player-stop-cerebats))
+? (active-p 'find-alex-semis-route)
+| ! eval (deactivate 'find-alex-semis-route)
+; dinnae = don't (Scots)
+; ken = know (Scots)
+
+; Similar to the "local" version above, but tweaked to suit Innis being remote.
+; The body is the same in local and remote, but remote has different start and ending dialogue (hence why can't jump to a label, as don't know wヒックh one jump back to - could set a variable to branch, but could get finicky if wanted more differences between the two; hence copy-paste-edit)
+# find-alex/innis-stop-remote
+~ innis
+| (:angry)<-止まれ->!
+| 許可なくここを通過出来ると思ったのか?
+| (:sly)私たちはお前を監視していたぞ、アンドロイド。 お前と{#@catherine-nametag}の小旅行をな。
+| そして今、私たちの元を訪れた。 なんと気が利くアンドロイドだ。
+! label questions
+~ player
+- あなたは誰だ?
+  ~ innis
+  | (:sly)すぐに分かるさ。
+- どこに居るんだ?
+  ~ innis
+  | (:sly)すぐ近くに居るぞ。
+- 何が望みだ?
+  ~ innis
+  | (:sly)先に質問するのはこちらだ、いいな?
+- あなたがセミ・シスターズか?
+  ~ innis
+  | (:sly)先に質問するのはこちらだ、いいな?
+~ innis
+| (:sly)お前をどう//処分するべき//だろうな? お前のジェネラ・コアを使えば私たちの計画も遂行出来るだろうな。
+| "{#@islay-nametag}"(yellow)、どう思う?
+! eval (setf (nametag (unit 'islay)) (@ islay-nametag))
+~ islay
+| (:nervous)彼女に手を出すべきでは無いわ。
+~ innis
+| (:angry)...
+| (:normal)おいおい、妹よ... 人類の技術の最高峰と話しているというのに、言うことがそれか?
+| (:sly)ところで、今のは褒め言葉ではないからな、アンドロイド。 (:normal)勘違いするなよ。
+~ player
+- 私の名前は{(nametag player)}だ。
+  ~ innis
+  | そんな事は知っている、アンドロイド。 (:sly)答えろ、何故ここに居る?
+- ...
+  ~ innis
+  | (:sly)何故ここに居る? 私はお前について多くのことを知っているが、もっと知りたいのだ。
+~ innis
+| (:sly){#@fi-nametag}はこの忠犬ロボットに//何をさせる//ために送り込んだのだ?
+| こいつに忠誠心を証明させようとした、と言ったところか。
+~ player
+- 私の仕事にあんたは関係ない。
+  ~ innis
+  | そんなことが言える権利がお前にあるものか。
+  | だが、ここに"{#@alex-nametag}がここに居る"(orange)としたらどうだ。
+- {#@alex-nametag}という人を探しているんだが、見かけていないか?
+  ~ innis
+  | (:sly)どうだ妹よ、直接アプローチすることでまたしても結果を出したぞ。 そして私が正しかったことが確認出来たな。
+  | (:normal)ここに"{#@alex-nametag}がここに居る"(orange)としたらどうだ。
+- クソくらえ。
+  ~ islay
+  | ...
+  ~ innis
+  | (:angry)...
+  | お前のお仲間を思い出したぞ! お前たちは、私たち人間の真似事が出来るからといって自分たちが上等な存在だと思っているんだろう。
+  | お前は機械で、もし私がその気になればお前の四肢をバラバラに引き千切ってこの荒野の四方にバラ撒いてやる事も可能なのだぞ。
+  | (:normal)さぁ、もう一度だ。
+  | お前が探している"{#@alex-nametag}がここに居る"(orange)としたらどうだ。
+~ innis
+| 私を楽しませてくれよ? お前がどれだけ有能か見てみたい。
+| 自分自身で"アレックスを見つけ出せるか"(orange)試させてもらおうか。
+~ player
+| "切られたか。 この付近のどこかからの、FFCSによる通信だったな。"(light-gray, italic)
+| "つまり、"{#@alex-nametag}は近くに居る"(orange)ということだ。 罠でなければ、だが。"(light-gray, italic)
+! eval (deactivate 'innis-stop-local)
+! eval (deactivate (unit 'innis-stop-1))
+! eval (deactivate (unit 'innis-stop-2))
+! eval (deactivate (unit 'innis-stop-3))
+! eval (deactivate (unit 'innis-stop-4))
+! eval (deactivate (unit 'innis-stop-5))
+! eval (deactivate (unit 'innis-stop-6))
+! eval (deactivate (unit 'innis-stop-7))
+! eval (deactivate (unit 'innis-stop-8))
+! eval (deactivate (unit 'innis-stop-semi-station))
+! eval (activate 'find-alex-semis)
+? (active-p 'find-alex-cerebats)
+| ! eval (deactivate 'find-alex-cerebats)
+| ! eval (deactivate (unit 'player-stop-cerebats))
+? (active-p 'find-alex-semis-route)
+| ! eval (deactivate 'find-alex-semis-route)
+; dinnae = don't (Scots)
+; ken = know (Scots)
+
+# find-alex-cerebats/player-stop-cerebats
+~ player
+| "ふむ... この辺りに{#@alex-nametag}は居なさそうだな。"(orange, italic)
+| (:thinking)"恐らく道中で見逃してしまったのかもしれないな。 "セミ・シスターズの方へ道を戻ってみる"(orange)とするか。"(light-gray, italic)
+
+# find-alex-semis/islay-hint
+~ islay
+| こんにちは、{(nametag player)}。 あなたと会えて嬉しいわ。
+| (:nervous)姉さんのことは... ごめんなさいね。
+| (:normal)あなたが"{#@alex-nametag}を探しているなら、バーに行ってみて"(orange)。 "ここの上の階層にあるわ"(orange)。
+| 私があなたに話したことは"{#@innis-nametag}"(yellow)には内緒にしていてね。 アンドロイドに対して甘くなったと思われてしまうから。
+! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
+! eval (setf (var 'android-soft) T)
+
+; Alex speaks London multicultural English
+; the barkeep in this scene is female
+# find-alex-semis/alex-meet
+~ player
+| "この人間の吐く息はディーゼルに海藻を混ぜたような匂いがする。"(light-gray, italic)
+~ alex
+| (:angry)何見てやがんだぁ? <-ヒック->
+~ player
+- {#@alex-nametag}?
+- あなたを見ていたんじゃない。 (ウソ)
+  ~ alex
+  | (:angry)そんじゃ、どっか行けよ。
+  ~ player
+  | あなたが{#@alex-nametag}か?
+- ただの酔っ払いだ。
+  ~ alex
+  | (:angry)誤魔化すんじゃねえ。
+  ~ player
+  | あなたが{#@alex-nametag}?
+~ alex
+| 俺はアリスなんて名前じゃねえ。
+~ player
+| "アリス"ではなく"{#@alex-nametag}"と言ったのだが。
+~ alex
+| <-ヒック-> だからよぉアリスじゃねえっつってんだろうがぁ。
+~ player
+| やれやれ。
+| あなたはノカの{#@alex-nametag}か? {#@fi-nametag}を知っているか?
+~ alex
+| ...
+| あぁ、俺がアレックスだ。 <-ヒック->
+! eval (setf (nametag (unit 'alex)) (@ alex-nametag))
+~ player
+- 私の名前は{(nametag player)}だ。
+  ~ alex
+  | <-ヒック-> 知ってるよ。 新しいハンターなんだってな。
+  | アンドロイドさんよぉ。
+- あなたを探すために{#@fi-nametag}に送り込まれた。
+  ~ alex
+  | <-ヒック->。 知ってるよ。 新しいハンターなんだってな。
+  | アンドロイドさんよぉ。
+- 私はアンドロイドだ。
+  ~ alex
+  | オ、オイルが飲みてぇなら他所に行きな? <-ヒック-> お前が誰かなんて知ってんだよ。 新しいハンターなんだってな。
+~ alex
+| 質問の手間を省いてやるよ。 "俺ぁ戻るつもりはねぇ"(orange)。
+~ player
+- 何故だ?
+  ~ alex
+  | (:angry)本気で聞いてんのか?
+  | ...
+  | まぁいいや、聞いたのはお前だ... <-ヒック-> それはな、"お前が居るからだ"(orange)。
+- 重要な事なんだ。
+  ~ alex
+  | 違うな。 むしろ反対だ。
+~ alex
+| (:angry)聞いたぜ、お前が俺の仕事をしてるってなぁ。 <-ヒック->
+| "{#@innis-nametag}"(yellow)がシ、シ、CCTVを見せてくれてな。 セミ・シスターズは俺に良くしてくれたんだぁ。
+! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
+| "もう{#@fi-nametag}がこんなチッポケな俺を必要とする理由はねぇだろぉ?"(orange)
+~ player
+- 私たちはハンターとして手を組めないのか?
+  ~ alex
+  | (:angry)死んでも嫌だね!
+- しかしそれが私の得意分野でもある。
+  ~ alex
+  | 狩りがかぁ? そのオッパイがありゃ何でも出来そうだな。
+- 申し訳ない。
+  ~ alex
+  | あ、謝ってももう遅いっての。
+~ alex
+| もう行けよ親愛なる相棒。 <-ヒック-> そんでもってよ、{#@fi-nametag}に考えを改めるように言ってやるんだよぉ、いいな?
+~ player
+| ワローがノカへの襲撃計画を立てているのは知っているか?
+~ alex
+| そんなもんな、奴らはいつだって計画してんだよ。 <-ヒック-> これでまた{#@fi-nametag}はご機嫌を損ねるだろうな。
+| (:angry)<-ヒック-> ところでよぉ、マヌケにゃ客の缶に酒を注ぐことも出来ねぇのか? __バーテン!__
+~ player
+| "そんな態度では誰もあなたのことを気に留めようとはしない。"(light-gray, italic) (:embarassed)"おっと、バーメイドたちは私まで睨みつけているぞ、照れるじゃないか。"(light-gray, italic)
+~ player
+- (40パーツか... {#@alex-nametag}に一杯おごってやるか。)
+  ? (<= 40 (item-count 'item:parts))
+  | ! eval (retrieve 'item:parts 40)
+  | ! eval (status "40パーツを失った")
+  | ~ alex
+  | | うぃ～っ、こいつはどうも。 <-ヒック->
+  | ~ player
+  | | "バーメイドが酒を注いでいる間、私を一瞥すらしないのも当然だな。"(light-gray, italic)
+  | | "代わりに、彼女は濁った生気のない液体がバシャバシャとアレックスの缶に流れ込むのをジッと見続けていた。"(light-gray, italic)
+  | ~ player
+  | | "すごいな... 一気に飲み干してしまった。"(light-gray, italic)
+  | | (:embarassed)"まさか吐くんじゃないだろうな...?! 少し離れるべきか。"(light-gray, italic)
+  | | (:normal)"おぉ、飲み込んで耐えたか。 愛らしい奴め。"(light-gray, italic)
+  | | "アンドロイドに嘔吐機能が無くて本当に良かったよ。"(light-gray, italic)
+  |?
+  | ~ player
+  | | (:embarassed)"...と思ったが持ち合わせが無いな。 ただでさえこれ以上なく額にシワを寄せているバーメイドが、更に顔をしかめてしまった。"(light-gray, italic)
+- (20パーツか... {#@alex-nametag}にソフトドリンクをおごってやるか。)
+  ? (<= 20 (item-count 'item:parts))
+  | ! eval (retrieve 'item:parts 20)
+  | ! eval (status "20パーツを失った")
+  | ~ player
+  | | "バーメイドがドリンクを注いでいる間、私を一瞥すらしないのも当然だな。"(light-gray, italic)
+  | | "代わりに、彼女は赤い炭酸飲料がバシャバシャとアレックスの缶に流れ込むのをジッと見続けていた。 ビーツのような香りがする。"(light-gray, italic)
+  | ~ alex
+  | | (:angry)さ、さ、酒を持って来いってんだよぉ! こんなもんどうしろってんだ? <-ヒック->
+  | ~ player
+  | | "やれやれ、そう言いながらも飲んでいるじゃないか。"(light-gray, italic)
+  |?
+  | ~ player
+  | | (:embarassed)"...と思ったが持ち合わせが無いな。 ただでさえこれ以上なく額にシワを寄せているバーメイドが、更に顔をしかめてしまった。"(light-gray, italic)
+- (何も飲み物を注文しない)
+~ player
+| "おや、{#@alex-nametag}の足元がふらついている。 視線もブレているようだ。 何とか必死で私を見据えようとしているな。"(light-gray, italic)
+~ alex
+| おぉ、お、お前もよぉ、しぶてぇ野郎だなぁ? <-ヒック->
+~ player
+- セレバットで何を知った?
+  ~ alex
+  | す... 全てのトンネルがどこに続いているかだよ。 <-ヒック-> こ、この辺のエリア全体とその下までマッピングしたんだぞ。
+- 今までどこに居たんだ?
+  ~ alex
+  | ほとんど、ここに居たよ。
+  | あぁ、それとなぁ、この辺のエリア全体とその下までマッピングしたんだぞ～。
+~ player
+| このマップはかなり役に立ちそうだ。
+~ alex
+| (:angry)どっかで頭のネジを落としておかしくなっちまったかぁ? お前にこれをやったら俺は本当に全てを失っちまうだろうが。 <-ヒック->
+| とっとと消えて、道にでも迷えよ。
+| (:normal)... 実はなぁ、お前が目覚める前... 俺がお前を見つけたって知ってたかよ? <-ヒック-> 俺が{#@catherine-nametag}にお前の居場所を教えてやったんだぞ。
+| 洞穴に沿って走ってたらよぉ、そこにお前が居たんだ。 それまで埋まってたのが地震のせいで露出したんだろうな。 <-ヒック-> 俺がお前を瓦礫の中から引きずり出してやったのさ。
+| (:angry)今になって思うぜ、あの時黙ってお前をぶっ壊していれば良かったってな。
+! eval (deactivate 'islay-hint)
+

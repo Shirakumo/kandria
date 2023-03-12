@@ -1,0 +1,174 @@
+# q5b-task-reminder/q5b-reminder
+~ innis
+? (complete-p 'q5b-task-cctv-1 'q5b-task-cctv-2 'q5b-task-cctv-3 'q5b-task-cctv-4)
+| | (:angry)全てのCCTVを調査したようだな。 ついでに、"東下層で破壊工作員を見つけ出し連行するんだ"(orange)。
+|?
+| ? (complete-p 'q5b-boss)
+| | | セレバット境界沿いの"東下層"(orange)へ行き、"残りの機能停止しているCCTVを調査してこい"(orange)。
+| | | それが済んだら"戻ってこい"(orange)。 (:sly)もう他の工作員と遭遇しなければいいんだがな。
+| |? (active-p 'q5b-boss)
+| | | セレバット境界沿いの"東下層"(orange)へ行き、"残りの機能停止しているCCTVを調査してこい"(orange)。
+| | | (:angry)そして"工作員どもを連行するのを忘れるなよ"(orange)。
+| |?
+| | | セレバット境界沿いの"東下層"(orange)へ行き、"調子が悪い4機のCCTVを調査してこい"(orange)。
+| | | それが済んだら"戻ってこい"(orange)。
+; dinnae = don't (Scottish)
+
+; NARRATIVE: the saboteur has been destroying the cameras in ways to avoid arousing suspicion, so they seem like electrical fires, poor maintenance, etc. However, by the fourth one, once the sabotage is clearly known, it recasts these descriptions of damage as likely sabotage.
+# q5b-task-cctv-1/cctv-1
+~ player
+| "これが"1機目のCCTVカメラ"(red)か。"(light-gray, italic)
+| "レンズは割れ、ケースは焦げ付いていることから、何らかの原因によって燃えたようだな。"(light-gray, italic)
+? (complete-p 'q5b-task-cctv-2 'q5b-task-cctv-3 'q5b-task-cctv-4)
+| ? (complete-p 'q5b-boss)
+| | | "これが機能停止していた最後のカメラだ。 "{#@innis-nametag}の元へ戻り"(orange)、破壊工作についても報告した方が良さそうだな。"(light-gray, italic)
+| | | (:thinking)"と思ったが、せっかくここまで来たのだから、"この辺の地形をマッピングしておく"(orange)のもいいな。"(light-gray, italic)
+| | ! eval (deactivate 'q5b-task-reminder)
+| | ! eval (activate 'q5b-task-return-cctv)
+| |?
+| | | "これが機能停止していた最後のカメラだ。 だが、"{#@innis-nametag}の元へ戻る前に周辺の破壊工作も調査するか"(orange)。"(light-gray, italic)
+|? (not (var 'first-cctv))
+| | ""次のCCTVを探すか"(orange)。"(light-gray, italic)
+| ! eval (setf (var 'first-cctv) T)
+
+# q5b-task-cctv-2/cctv-2
+~ player
+| "これが"2機目のCCTVカメラ"(red)か。"(light-gray, italic)
+| "ほぼ粉々に破壊された部品が床に散らばって、岩や石に囲まれているな。"(light-gray, italic)
+? (complete-p 'q5b-task-cctv-1 'q5b-task-cctv-3 'q5b-task-cctv-4)
+| ? (complete-p 'q5b-boss)
+| | | "これが機能停止していた最後のカメラだ。 "{#@innis-nametag}の元へ戻り"(orange)、破壊工作についても報告した方が良さそうだな。"(light-gray, italic)
+| | | (:thinking)"と思ったが、せっかくここまで来たのだから、"この辺の地形をマッピングしておく"(orange)のもいいな。"(light-gray, italic)
+| | ! eval (deactivate 'q5b-task-reminder)
+| | ! eval (activate 'q5b-task-return-cctv)
+| |?
+| | | "これが機能停止していた最後のカメラだ。 だが、"{#@innis-nametag}の元へ戻る前に周辺の破壊工作も調査するか"(orange)。"(light-gray, italic)
+|? (not (var 'first-cctv))
+| | ""次のCCTVを探すか"(orange)。"(light-gray, italic)
+| ! eval (setf (var 'first-cctv) T)
+
+# q5b-task-cctv-3/cctv-3
+~ player
+| "これが"3機目のCCTVカメラ"(red)か。"(light-gray, italic)
+| "外装が取り外されて... カメラの下に落ちている。 水分が回路基板をショートさせたようだな。"(light-gray, italic)
+? (complete-p 'q5b-task-cctv-1 'q5b-task-cctv-2 'q5b-task-cctv-4)
+| ? (complete-p 'q5b-boss)
+| | | "これが機能停止していた最後のカメラだ。 "{#@innis-nametag}の元へ戻り"(orange)、破壊工作についても報告した方が良さそうだな。"(light-gray, italic)
+| | | (:thinking)"と思ったが、せっかくここまで来たのだから、"この辺の地形をマッピングしておく"(orange)のもいいな。"(light-gray, italic)
+| | ! eval (deactivate 'q5b-task-reminder)
+| | ! eval (activate 'q5b-task-return-cctv)
+| |?
+| | | "これが機能停止していた最後のカメラだ。 だが、"{#@innis-nametag}の元へ戻る前に周辺の破壊工作も調査するか"(orange)。"(light-gray, italic)
+|? (not (var 'first-cctv))
+| | ""次のCCTVを探すか"(orange)。"(light-gray, italic)
+| ! eval (setf (var 'first-cctv) T)
+
+# q5b-task-cctv-4/cctv-4
+~ player
+| "これが"4機目のCCTVカメラ"(red)か... 配線が切断されているな。"(light-gray, italic)
+| "至急{#@innis-nametag}に報告する必要があるな。 FFCSプロトコルアクセス..."(light-gray, italic)
+| やぁ、{#@innis-nametag}。
+~ innis
+| (:angry)お前か! どうやって通信してきた...?
+| (:sly)これはFFCS通信だな。 なんとお利口なアンドロイドだこと。
+| (:angry)今はお前と話している暇は無いのだがな。 何の用だ?
+~ player
+- 重要な連絡事項だ。
+  ~ innis
+  | (:angry)でなければお前が戻り次第解体していただろうな。 さっさと用件を言え。
+- 邪魔をしてすまない。
+  ~ innis
+  | (:angry)意味のある報告をするつもりならば、その謝罪を受け入れてやろう。
+- 何故FFCSを知っている?
+  ~ innis
+  | (:sly)それを知らなければ昔の仕事が出来なかったからな。
+  | (:angry)さっさと用件を言え。
+~ player
+| カメラの電源コードが何者かによって故意に切断されている。
+~ innis
+| (:angry)... "破壊工作"(orange)を受けているな。 (:sly)もしかしたら今もタチの悪いセレバットのスパイがお前を監視しているかもな。
+? (complete-p (unit 'q5b-boss-fight))
+| ~ player
+| - 私は既に奴らを殺したようだ。
+|   ~ innis
+|   | 詳しく話せ。
+| - 彼らは"破壊工作をしていた"ぞ。 複数人でな。
+|   ~ innis
+|   | 何だと?
+| - 私が一歩先を行っていたようだな。
+|   ~ innis
+|   | ちゃんと説明しろ。
+| ~ player
+| | 以前ここを通った時に暴漢に襲われたことがあったんだ。 難なく処分してやったがな。
+| ~ innis
+| | (:sly)そうなのか?
+| | (:angry)だったら、直接報告しに来るのを待っているよ。
+| | ... 分かっているな。
+| ! eval (complete 'q5b-boss)
+|?
+| ~ innis
+| | (:angry)"奴らを見つけ出し私の元へ連行しろ"(orange)。
+| ! eval (activate 'q5b-boss)
+  
+~ player
+? (complete-p 'q5b-task-cctv-1 'q5b-task-cctv-2 'q5b-task-cctv-3)
+| ? (not (complete-p 'q5b-boss))
+| | | "これが機能停止していた最後のカメラだ。 "{#@innis-nametag}の元へ戻る前に周辺の破壊工作も調査するか"(orange)。"(light-gray, italic)
+| |?
+| | | "これが機能停止していた最後のカメラだ。 急いで"{#@innis-nametag}の元へ報告に戻った方が良さそうだな"(orange)。"(light-gray, italic)
+| | | (:thinking)"と思ったが、せっかくここまで来たのだから、"この辺の地形をマッピングしておく"(orange)のもいいな。"(light-gray, italic)
+| | ! eval (deactivate 'q5b-task-reminder)
+| | ! eval (activate 'q5b-task-return-cctv)
+|? (not (var 'first-cctv))
+| | ""別のCCTVも探さければな"(orange)。"(light-gray, italic)
+| ! eval (setf (var 'first-cctv) T)
+|? (complete-p 'q5b-boss)
+| | ""最後のCCTVを調査"(orange)して、急いで"{#@innis-nametag}の元へ戻った方が良さそうだな"(orange)。"(light-gray, italic)
+; wouldnae = wouldn't (Scottish)
+; didnae = didn't (Scottish)
+; ken = know (Scottish)
+
+; sense: Cerebats wouldn't typically take down CCTV (despite what Innis said in cctv-4 - it was logical though), nor employ Rogues... The Wraw would do both though. And nor would Rogues attack CCTV alone
+# q5b-task-return-cctv/q5b-return-cctv
+~ innis
+| (:sly)よく無事に帰って来れたな。
+| (:normal)で、私たちは何を相手にしているんだ?
+~ player
+- ローグの集団のようだった。
+  ~ innis
+  | ... ローグだと? セレバットが雇うような連中じゃないな。
+- サムライ志望者とそのペットだった。
+  ~ innis
+  | ただのローグが狼と群れてるだけだ。 セレバットが雇うような連中じゃないな。
+- セレバットはK-9部隊を有しているのか?
+  ~ innis
+  | (:angry)...
+  | (:normal)ただのローグが狼と群れてるだけだ。 セレバットが雇うような連中じゃないな。
+~ innis
+| 奴らは境界を越えてくることはないはずだ。
+| ...
+| (:angry)どうやら問題が発生しているようだな。 お互いにとっての問題が...
+| "ワロー"(orange)だよ。
+| "ワローがセレバットに侵略した"(orange)痕跡が他にもあるそうだ。 {#@islay-nametag}が警告していたな。
+| "次はセミが狙われる"(orange)だろう。
+| ゴミどもめ。
+| (:normal)妹と話し合う必要があるな。
+? (complete-p 'q5a-rescue-engineers)
+| ~ innis
+| | お前は自分自身の価値を証明してみせた。 また頼み事をするかもしれん。
+| | だが今はまず"{#@fi-nametag}に報告"(orange)してこい。
+| | {#@alex-nametag}を説得して連れ戻せなくて残念だったな。 (:sly)お前が報告する時にアイツがどんな顔をするか見たかったよ。
+| | アンドロイドだからといって何でも出来るというわけでは無さそうだ。
+| | (:angry)そして、"私たちは{#@catherine-nametag}がここに戻ってくるよう要求している"(orange)ことも伝えておけ。 私たちは今まで以上にあの子を必要としているからな。
+| | (:sly)もし要求を断ったら、"ノカへの水の供給を止める"(orange)からな。
+| ! eval (activate 'q6-return-to-fi)
+| ! eval (activate (unit 'fi-ffcs-1))
+| ! eval (activate (unit 'fi-ffcs-2))
+| ! eval (activate (unit 'fi-ffcs-3))
+| ! eval (activate 'sq14-intro)
+| ! eval (setf (location 'synthesis) 'synthesis-cerebat)
+| ! setf (direction 'synthesis) 1
+; couldnae = couldn't (Scots)
+; dinnae = don't / do not (Scottish)
+; doesnae = does not / doesn't (Scottish)
+; canna = cannot (Scottish)

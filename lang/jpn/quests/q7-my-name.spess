@@ -1,0 +1,134 @@
+# 1-interact-fi/interaction
+~ fi
+| (:happy)君を"正式にノカの一員として迎え入れる"(orange)時が来たようだ。
+| 君は私たちのために十二分に働いてくれた。
+~ player
+- ありがとう。
+  ~ fi
+  | (:happy)いや、礼を言うのはこちらだ。 今までの君の働きに感謝する。
+- その通りだ。
+  ~ fi
+  | (:happy)...
+- 待ちかねたぞ。
+  ~ fi
+  | 全くだ、すまない。 常に立て込んでいるから何事も対応が遅くなりがちでな。
+~ fi
+| 君の名前についても考えていたんだ。 まだ思い出せそうにないのか?
+~ player
+| (:thinking)ダメだな。 少なくとも私の記憶はまだ不完全だ。
+| 私のマトリックスに破損した文字列データがある。 その中のひとつは私の名前の可能性があるが、正確性は低く推測でしかない。
+~ fi
+| そうか。 {#@catherine-nametag}が君を{(nametag player)}と名付けたのは彼女なりの優しさだろう。 しかし、それは本当に君が望んだ名前なのか。
+| 君はもうよそ者では無い。
+| 名前を変えたいとは思わないか?
+! label name
+~ player
+- (これからも{#@player-name-1}を名乗る)
+  ~ fi
+  | それでいいのか? 私たちはこれからも君を"{#@player-name-1}"(yellow)と呼ぶぞ?
+  ~ player
+  - (いや、違うな)
+    < name
+  - (あぁ、私は"{#@player-name-1}"だ)
+    ~ fi
+    | (:happy)君がその名を気に入ってるのなら、私もそれが好きだ。
+    < continue
+- (新しい名前を考える)
+  ~ player
+  | "レジストリ内の破損した文字列から、推測される私の名前の候補は..."(light-gray, italic)
+  ! label old-names
+  ~ player
+  - {#@player-name-2}だ。
+    ~ fi
+    | それでいいのか? 私たちはこれから君を"{#@player-name-2}"(yellow)と呼ぶぞ?
+    ~ player
+    - (いや、違うな)
+      < old-names
+    - (あぁ、私はこれから"{#@player-name-2}"だ)
+      ! eval (setf (nametag player) (@ player-name-2))
+      < old-name-chosen
+  - {#@player-name-3}だ。
+    ~ fi
+    | それでいいのか? 私たちはこれから君を"{#@player-name-3}"(yellow)と呼ぶぞ?
+    ~ player
+    - (いや、違うな)
+      < old-names
+    - (あぁ、私はこれから"{#@player-name-3}"だ)
+      ! eval (setf (nametag player) (@ player-name-3))
+      < old-name-chosen
+  - {#@player-name-4}だ。
+    ~ fi
+    | それでいいのか? 私たちはこれから君を"{#@player-name-4}"(yellow)と呼ぶぞ?
+    ~ player
+    - (いや、違うな)
+      < old-names
+    - (あぁ、私はこれから"{#@player-name-4}"だ)
+      ! eval (setf (nametag player) (@ player-name-4))
+      < old-name-chosen
+  - {#@player-name-5}だ。
+    ~ fi
+    | それでいいのか? 私たちはこれから君を"{#@player-name-5}"(yellow)と呼ぶぞ?
+    ~ player
+    - (いや、違うな)
+      < old-names
+    - (あぁ、私はこれから"{#@player-name-5}"だ)
+      ! eval (setf (nametag player) (@ player-name-5))
+      < old-name-chosen
+  - (過去の名前に拘る必要も無いな)
+    < name
+- ({#@fi-nametag}に名付けてもらいたいな)
+  ~ fi
+  | (:unsure)わ、私に? 君自身の意思で名前を選ぶと思っていたが...
+  ~ player
+  - 考え直すか...
+    < name
+  - あなたに決めてもらいたくなった。
+    ~ fi
+    | (:unsure)分かった、責任重大だな...
+    | (:normal)君に合う名前... "{#@player-name-fi}"(yellow)。 ど、どうだろうか?
+    ~ player
+    - (いや、違うな)
+      < name
+    - (あぁ、私はこれから"{#@player-name-fi}だ")
+      ! eval (setf (nametag player) (@ player-name-fi))
+      ~ player
+      | (:giggle)気に入った。
+      ~ fi
+      | (:happy)ありがとう。 君がその名前を受け入れてくれたのは、私にとってとても大きな意味があるよ。
+      < continue
+
+# old-name-chosen
+~ fi
+| (:happy)私は好きだよ。 特に、君の昔の名前の可能性があるかもしれないからな。
+< continue
+
+# continue
+~ fi
+| (:happy)では決まりだな、"{(nametag player)}"(yellow)。 ノカは君を歓迎する!
+| (:normal)君ともっと話していたいんだが、次の任務に就いてもらわなければならない。
+| (:happy)まさしく、"正式な"初任務だ。
+| (:unsure)... {#@innis-nametag}が言っていた事が頭から離れなくてな。 セレバットと話がしたい。
+| (:normal)"セミ・シスターズの直下"(orange)にある、彼らのテリトリーの中心部で"セレバット評議会に会いに行ってほしい"(orange)。 
+| "そこで何が起こっているか調べてくるんだ"(orange)。 もし彼らがワローに攻め込まれていたとしたら、すぐに分かるだろう。
+~ player
+- 任せてくれ。
+- 何も心配することは無いと思うが。
+  ~ fi
+  | そうであればいいんだが。
+- 私を危険な場所へ送り込むのか?
+  ~ fi
+  | そうでないことを願う。
+~ fi
+| くれぐれも捕獲されないように気を付けるんだ... ワロー//だけじゃなく//セミ・シスターズにも。
+| そして"連絡は絶やさないように"(orange)。
+| おっと、忘れるところだった。 君がここを発つ前に"{#@jack-nametag}が話があると言っていた。 彼は作業場に居るよ"(orange)。
+| では、くれぐれも気を付けてな、{(nametag player)}。
+! eval (setf (location 'alex) 'alex-cerebat-loc)
+! setf (direction 'alex) 1
+! eval (setf (location 'islay) 'islay-main-loc)
+! setf (direction 'islay) 1
+! eval (activate (unit 'player-council-chamber))
+
+; this could be a ceremony with Jack and Catherine in attendance, but it feels more personal with just you and Fi. Also, the others will acknowledge your new name later, the next time you speak to them, to suggest that word has travelled
+
+; "Do you still not remember it?" - in q1-water, the player may not have gone down a branch where Catherine tells Fi that the android can't remember her name. However, we can assume that word has gotten around to Fi by this point.

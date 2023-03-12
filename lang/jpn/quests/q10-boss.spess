@@ -1,0 +1,35 @@
+# 6-interact-/interaction
+~ player
+| (:embarassed)"奴らはこの完成度のメカを所持している... やるじゃないか。"(light-gray, italic)
+| (:thinking)"ドリルとタービンからこれを作り上げたのだとしたら、まだまだ他にもありそうだな。"(light-gray, italic)
+| "このメカが何を目的としていたのか確認出来そうだな... 私を殺す以外に。"(light-gray, italic)
+| (:normal)"残骸にインターフェースポートがあるな。"(light-gray, italic) (:giggle)"失礼、この穴に指を突っ込んで、と..."(light-gray, italic)
+| (:normal)"ちょっと待て、これは何だ?"(light-gray, italic)
+| "「"西の山のジェネラ"(red) さらなるアンドロイド獲得の可能性について調査」..."
+| (:thinking)"... 山にアンドロイドの派閥でもあるというのか?"(light-gray, italic)
+| "私は一人ではなかったのか?"(light-gray, italic)
+? (complete-p (find-task 'q10-wraw 'wraw-warehouse))
+| | (:embarassed)"そんな事を考えている場合ではないか。 倉庫で確認できた素材の量を考慮すると、奴らの製造目標はとてつもなく__大きい__。"(light-gray, italic)
+| | (:normal)"遠くの山脈から反対側の海岸までも、"この荒野全体を支配出来る"(orange)ほどの規模だ。"(light-gray, italic)
+| | ""{#@fi-nametag}に連絡"(orange)するか。"(light-gray, italic)
+| | "... "FFCSの電波が届かない"(orange)。 マグマの磁気干渉によるものか、"ワローが動き出したか"(orange)..."(light-gray, italic)
+| | ""急いでここを出て、何としても報告しなければならないな"(orange)。"(light-gray, italic)
+| ! eval (complete (find-task 'q10-wraw 'wraw-objective))
+| ! eval (activate 'q10a-return-to-fi)
+| ! eval (setf (music-state 'region3) :normal)
+| ! eval (setf (music-state 'camp) :ambient)
+| ! eval (setf (music-state 'desert) :ambient)
+| ! eval (activate (unit 'wraw-border-1))
+| ! eval (activate (unit 'wraw-border-2))
+| ! eval (activate (unit 'wraw-border-3))
+| ! eval (activate (unit 'station-east-lab-trigger))
+| ! eval (activate (unit 'station-cerebat-trigger))
+| ! eval (activate (unit 'station-semi-trigger))
+| ! eval (activate (unit 'station-surface-trigger))
+|?
+| ~ player
+| | ""最後のチェックするべき場所をさっさと調べて、この地域の探索を終えるとするか。"(orange) これ以上、何もサプライズが無ければいいのだが。"(light-gray, italic)
+
+; the mech explodes on death, but we can assume part of it remains for the player to "examine"
+; "working mechs" - chances are you saw only wrecked mechs / parts in the Wraw area, even if only in the boss room
+; "android acquisitions" - this hints that Zelah may have previously "acquired" you (q14-envoy relevant); or it could just mean he's trying to acquire you

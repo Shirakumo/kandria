@@ -1,0 +1,69 @@
+; male Semi Sister, speaks informal
+# intro/intro-chat
+~ semi-partner
+| あの、助けてくれませんか? 他に頼れる人が居ないんです。
+| "僕のパートナー"(orange)のことなんですが...
+~ player
+- 何があった?
+- 私は忙しいんだ、すまないな。
+  < leave
+~ semi-partner
+| 僕には"{#@cerebat-partner-nametag}"(yellow)というガールフレンドが居て、彼女がトラブルに巻き込まれているようなんです。
+| 彼女は"セミではなくセレバット"(orange)に属しています。 僕たちはいつも無線で遠距離の会話を楽しんでいたんですが、彼女の通信が途絶えてしまったんです。
+| 申し遅れましたが、私は"{#@semi-partner-nametag}"(yellow)といいます。
+! eval (setf (nametag (unit 'semi-partner)) (@ semi-partner-nametag))
+~ player
+- {(nametag player)}だ。
+- それは心配だな。 彼女はきっと無事だ。
+- あまり心配しすぎるな。
+~ semi-partner
+| "セレバットまで下りて彼女を探して、手紙を渡してくれませんか?"(orange)
+~ player
+- 引き受けよう。
+- その女はどんな容姿をしている?
+  ~ semi-partner
+  | えーっと... 良い質問ですね。 僕たちは実際に会ったことは無いんです。
+  | だけど"聞き込みをすれば"(orange)、きっと彼女が見つかるはずです。
+  | 彼女はとても素敵な声をしているんです、それが手がかりになると思います。
+- そんなことに構っている暇は無い、すまないな。
+  < leave
+~ semi-partner
+| 感謝します、{(nametag player)}さん。 誰かが気にかけてくれるような事でもありませんし、セミとセレバットの状況を鑑みれば鉄道に乗って自分で行くことも出来ませんから助かります。
+| こちらがその"手紙です。 彼女に渡すまで大切に保管してください。"(orange)
+! eval (store 'item:love-letter 1)
+! eval (status "トビアスの手紙を手に入れた")
+! eval (activate (unit 'sq6-check-note))
+! eval (activate 'check-note)
+! eval (activate 'sq6-deliver-letter)
+! eval (complete task)
+! eval (reset interaction)
+# leave
+~ semi-partner
+| お願いします、どうか"もう一度考えてみてくれませんか"(orange)。
+
+# check-note/check-note-self
+~ player
+| "好奇心は猫をも殺すかもしれないが、私はアンドロイドだ。 9つの命を持っている"(light-gray, italic)。
+~ player
+- (手紙を読む)
+  < read
+- (手紙を読まない)
+# read
+| "上質皮紙にインクで書かれた手紙か。 これは新たな暗黒時代の幕開けだな。"(light-gray, italic)
+| "この走り書きの手書き文字を解読してみるか。"(light-gray, italic)
+| ""やぁ、{#@cerebat-partner-nametag}、{#@semi-partner-nametag}だよ。 そばに居てあげられなくてすまない、けどこのメッセージを送るよ。"(light-gray, italic)"
+| ""君が元気でいることを願っているよ。 今すぐ会いたいよ。 無線で通信しようとしたんだけど... 僕が作った遠距離用の改造が壊れてないだろうか。"(light-gray, italic)"
+| ""もしそうだとしたら修理することが出来ないから困るな。"(light-gray, italic)"
+| ""本題に入ろう。(気分を変えて) こっちではいろんな事が起きているよ。 良くない事がね。"(light-gray, italic)"
+| ""こちらの指導者たちが何をしているのかよく分からないけど、彼女たちはセレバットを侮蔑するようなことを言ってている。"(light-gray, italic)"
+| ""僕たちはブレーキをかけるべきではないかと思う。 僕たちの関係に。"(light-gray, italic)"
+| ""これは君が待っていた言葉じゃないかもしれない。 だけど、お互いの安全のためにもそうする方がいいだろう。"(light-gray, italic)"
+| ""事態が元通りになったら、その時僕たちは本当に会えるのではないだろうか? 今はただ静観していよう。"(light-gray, italic)"
+| ""それでも可能な時で構わないから僕に通信してほしい。 君が無事で居ることを知りたい。"(light-gray, italic)"
+| ""心より愛を込めて、{#@semi-partner-nametag} x x x"(light-gray, italic)"
+| (:embarassed)""彼女との関係を断とうというのか"(orange)... あの畜生め。"(light-gray, italic)
+| "まぁどうなろうが知ったことではないがな。"(light-gray, italic)
+! eval (activate (find-task 'sq6-deliver-letter 'read-letter))
+! eval (setf (var 'read-letter) T)
+
+; he can't make the journey on foot as it's too dangerous - and even via train now, due to the Semi-Cerebat situation, it's too dangerous for him

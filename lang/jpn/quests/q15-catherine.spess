@@ -1,0 +1,70 @@
+# 2-interact-catherine/interaction
+~ catherine
+| あぁ、{(nametag player)}。
+~ player
+- {#@islay-nametag}があなたに急ぎの話があるようだ。
+  ~ catherine
+  | (:concerned)あー、了解。
+- また冒険に出る準備はいいか?
+  ~ catherine
+  | (:excited)あなたと? いつでも行けるよ!
+- 伝説のチームが再結成する時が来たぞ。
+  ~ catherine
+  | えっ、あなたと私の事?
+  | (:excited)何を計画してるの?
+~ player
+| "{#@catherine-nametag}だけに声が聞こえる程度にスピーカーのボリュームを下げた方が良さそうだな。"(light-gray, italic)
+| (:embarassed)爆弾が起爆しなかったんだ。
+~ catherine
+| (:concerned)<-うそぉっ?!->
+~ player
+| 私と一緒に"作業場"(orange)へ来てくれ。
+
+# 6-interact-fi/interaction
+~ fi
+| (:annoyed){#@islay-nametag}は私の制止も聞かず行ってしまった。
+| 自分の目で確認するのが唯一の確実な方法だと。
+~ player
+- 何だと?!
+- 一人であそこまで行くには彼女は年をとりすぎている。
+  ~ fi
+  | 君が彼女に驚かされるとはな。
+- 死んでしまうぞ。
+  ~ fi
+  | 君が彼女に驚かされるとはな。
+~ catherine
+| (:concerned){#@islay-nametag}...
+~ fi
+| 誰かが爆弾を修復しなければならないなら、爆弾の設計をした彼女はうってつけではあるんだが。
+~ player
+- 私たちは彼女の後を追うべきだ。
+  ~ fi
+  | 心苦しいが、私もそう思う。 君の助力がある方が良いはずだ。
+  | 例え彼女が追ってくるなと言っていたとしても。
+- 他になにか言っていたか?
+  ~ fi
+  | 追ってくるなと。
+  | だが、君の助力がある方が良いはずだ。
+- で、どうすれば?
+  ~ fi
+  | 心苦しいが、彼女の後を追ってほしい。 例え彼女が追ってくるなと言っていたとしても。
+  | 君の助力がある方が良いはずだ。
+~ catherine
+| (:excited)それじゃ、行こっか!
+~ fi
+| FFCSは動作しているか?
+~ player
+| "FFCS確認中..."(light-gray, italic)
+| 駄目だな。 "ワローの妨害を受けている"(orange)。
+~ fi
+| (:unsure)奴らの進行がすぐ近くまで迫っている証明か...
+| (:normal)分かった、この"トランシーバー"(orange)を持って行ってくれ。 彼女からの反応は無いが、"もし彼女が助けを求めるならコールがあるはずだ"(orange)。
+! eval (store 'item:walkie-talkie-2 1)
+! eval (status "トランシーバーを手に入れた")
+| 彼女はまず、恐らく最も境界に近い"ポンプルームの爆弾の所に向かった"(orange)と思う。
+| (:annoyed)彼女は"起爆装置も持って行ったが"(orange)...
+! eval (follow 'player 'catherine)
+
+; implication here that the walkie, though shorter range than FFCS (and Semis' FFCS devices) can at least cut through the interference
+
+; it's possible (though unlikely on a crit path first playthrough) that the player will go and see Islay at the pump room bomb (via train), before triggering this convo above with Fi. However, since Islay's trade options will still be on at this point (they are neatly removed when sequence quest q15-catherine is completed, since then she's focused on the bombs) she will trade, but nothing more. And what the player can then say (or not say) above to Fi, still makes sense if they've seen Islay down there (on the map, or in person).

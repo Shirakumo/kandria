@@ -1,0 +1,25 @@
+# 2-interact-catherine/interaction
+~ catherine
+| (:cheer)__じゃじゃ～ん!__ ようやく着いたよ。
+| どうかな...?
+~ player
+- 崩壊した街か。
+  ~ catherine
+  | (:excited)やったね、発声機構もバッチリだ。
+  | そうだよ。 ここが私たちのホームなんだ。
+- 良い場所だな。
+  ~ catherine
+  | (:excited)やったね、発声機構もバッチリだ。
+  | あなたもきっと、ここが気に入るよ。
+- 良い場所だな。 (ウソ)
+  ~ catherine
+  | (:excited)やったね、発声機構もバッチリだ。
+  | ホント? こういうの好き? なら、あなたもきっと、ここが気に入るよ。
+- こんな場所に住んでるのか?
+  ~ catherine
+  | (:excited)やったね、発声機構もバッチリだ。
+  | そうだよ。 ふふーん、なかなか素敵でしょ？
+~ catherine
+| そうそう、"見て欲しいもの"(orange)があるんだ - あんなの絶対見たこと無いはずだよ。
+! eval (complete 'tutorial)
+! eval (activate 'q0-settlement-arrive)

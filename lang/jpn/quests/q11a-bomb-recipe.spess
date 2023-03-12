@@ -1,0 +1,124 @@
+# task-reminder/interact-reminder-innis
+~ innis
+| (:angry)さっさと行け。 {#@islay-nametag}が爆弾を完成させるために必要なのは"ブラスティングキャップ10個"(orange)と、"チャージパック20個"(orange)だ。
+| (:sly)"ワロー・テリトリー"(orange)を楽しんで来な。
+~ player
+| ""ワローの工場と倉庫"(orange)を調べてみるか。 今持っているのは... "ブラスティングキャップが{(item-count 'item:blasting-cap)}個"(orange)に、"チャージパックが{(item-count 'item:charge-pack)}個"(orange)だな。"(light-gray, italic)
+
+; optional dialogue - symbolic that Fi is kinda sidelined now, as Islay takes charge with the bomb.
+# task-return-fi/fi-return-recruit
+~ fi
+| (:happy)よくセミ・シスターズを説得してくれたな。 ご苦労さま。
+~ player
+- ありがとう。
+  ~ fi
+  | (:happy)君が無事に帰ってきてくれて安心したよ。
+- ほとんど{#@islay-nametag}が口を利いてくれたようなものだ。
+  ~ fi
+  | ふふ、{#@innis-nametag}の事は彼女が最も理解しているだろうからな。
+  | だが、これも君が彼女たちに話をもちかけてくれたからだ。
+  ~ player
+  - 私は自分の役割を果たせたと思う。
+    ~ fi
+    | (:happy)あぁ、重要な役割だ。 それも危険な場所で。
+  - 私は自分の仕事をするだけだ。
+    ~ fi
+    | (:happy)それ以上に君はよく働いてくれているよ。 特に、危険な場所で。
+  - あなたのアイディアあってのことだ。
+    ~ fi
+    | それはそうだが、実際に彼女たちを説得し、危険な場所に行ってくれたのは君だ。
+- あなたのアイディアだ。
+  ~ fi
+  | それはそうだが、実際に彼女たちを説得し、危険な場所に行ってくれたのは君だ。
+~ fi
+| 君からの通信が無かった件については、{#@islay-nametag}から全て聞いたよ。
+| 今の情勢を鑑みると、この辺りは不思議なほど落ち着いている。
+| (:unsure)皆も渋々ではあろうが、私たちがワローを食い止められるという{#@islay-nametag}の話を信じてくれている。 爆弾が説得力のあるメッセージになっているようだ。
+| (:normal)それの完成させるために、{#@catherine-nametag}もかかりっきりだよ。 (:happy)少なくとも、私たちの武器の準備は出来ている。
+! label questions
+~ player
+- 私たちが負けると思っているのか?
+  ~ fi
+  | {#@islay-nametag}曰く、私たちは十分な数の人員を擁している。 (:unsure)だが彼女は、ワローの正確な戦力がどれほどか分からないとも言っている。
+  | 爆弾があろうがなかろうが、絶対の自信と確信は持てないよ。
+  < questions
+- どんな武器があるんだ?
+  ~ fi
+  | 年季が入ったものだが、{#@catherine-nametag}と{#@jack-nametag}が修理した大災害以前の銃をいくつか。 セミ・シスターズも所持しているようだが、私たちのものより状態は良く、数も多い。
+  | ワローはこのような武器は持っていなかったと思う... 奴らは剣や槍を好むから、アップの君を見ながら死にゆくことになる。
+  | (:unsure)他には鎌、大ばさみ、切れ味鋭い農具もある。
+  | (:happy)そして、君がいる。
+  ~ player
+  - 全力を尽くそう。
+    ~ fi
+    | (:happy)そうしてくれると信じているよ。
+  - よく分かっているな。
+    ~ fi
+    | (:happy)他の誰よりも、私が一番君を頼りにしている。
+  - [(var 'fight-army) 私はまだ奴らとは戦えない。| 私は奴らと戦えない。]
+    ~ fi
+    | その必要は無いかもしれない。 (:unsure)君には{#@islay-nametag}が特別な計画を用意しているそうだ。
+  < questions
+- 爆弾についてどう思う?
+  ~ fi
+  | 大胆なアイディアだ。 きっと上手くいく。
+  | (:unsure)とは言え、このエリア全体に壊滅的な被害を与えないかが気がかりだ。 その後の私たちの生活様式にも影響が及ぶ可能性がある。
+  | だが、ワローに蹂躙されるよりはマシだろう。
+  | (:normal)そしてもうひとつ。 私たちのキャンプのド真ん中で巨大な爆発物を組み上げるのは... あまり良い気分ではないな。
+  < questions
+- 今この場における指揮者は誰なんだ?
+  ~ fi
+  | {#@islay-nametag}は計画を立ててくれるが、かなり外交的で助かる。 (:happy)パートナーシップを感じるよ。
+  | (:annoyed){#@innis-nametag}も同じ様に感じているかは定かではないがな。
+  < questions
+- そろそろ行くよ。
+  ~ fi
+  | もし"爆弾の全ての部品を揃えたのなら、{#@islay-nametag}に持って行ってやってくれ"(orange)。
+  | また後でな。
+
+# task-return/components-return
+~ islay
+| 爆弾の部品は集められたかしら?
+? (or (> 10 (item-count 'item:blasting-cap)) (> 20 (item-count 'item:charge-pack)))
+| ~ islay
+| | 急いでね、{(nametag player)}。 "ブラスティングキャップを10個"(orange)と、"チャージパックを20個"(orange)。 忘れないで。
+| | "ワロー・テリトリーを探してみて"(orange)。
+| ~ player
+| | ""ワローの工場と倉庫"(orange)を調べてみるか。 今持っているのは... "ブラスティングキャップが{(item-count 'item:blasting-cap)}個"(orange)に、"チャージパックが{(item-count 'item:charge-pack)}個"(orange)だな。"(light-gray, italic)
+|?
+| ~ islay
+| | [(< 30 (+ (item-count 'item:blasting-cap) (item-count 'item:charge-pack))) えぇ、それで全部ね! | それで全部ね、完璧よ!]
+| | ありがとう、{(nametag player)}。 "これが約束の報酬よ"(orange)。
+| ! eval (store 'item:parts (* (+ (item-count 'item:blasting-cap) (item-count 'item:charge-pack)) (var 'bomb-fee)))
+| ! eval (status (concatenate 'string "Received " (write-to-string (* (+ (item-count 'item:blasting-cap) (item-count 'item:charge-pack)) (var 'bomb-fee))) " Scrap Part"))
+| ! eval (status (concatenate 'string "ブラスティングキャップx" (write-to-string (item-count 'item:blasting-cap)) "を失った"))
+| ! eval (retrieve 'item:blasting-cap T)
+| ! eval (status (concatenate 'string "チャージパックx" (write-to-string (item-count 'item:charge-pack)) "を失った"))
+| ! eval (retrieve 'item:charge-pack T)
+| < result
+
+# result
+~ islay
+| 早速これを{#@catherine-nametag}のところへ持っていって完成させるわ。
+| {#@fi-nametag}、"一緒に作業場に来てくれるかしら"(orange)?
+~ fi
+| いいだろう。
+| {(nametag player)}はどうする? 私たちが結束するきっかけになったのも、部品を用意したのも彼女だ。
+~ islay
+| "{(nametag player)}、あなたも一緒に来ない"(orange)?と付け加えようと思っていたのよ... これはあなたにも関わる事なの。
+| 悪いけど"他の仕事は後回しにしてね"(orange)。
+| {#@innis-nametag}、ここで見張りをお願いね。
+~ innis
+| (:angry)あぁ、分かったよ。
+! eval (complete task)
+! eval (reset interaction)
+! eval (activate 'q13-intro)
+? (complete-p 'sq14c-synthesis)
+| ! eval (setf (location 'synthesis) 'synthesis-lab)
+| ! setf (direction 'synthesis) -1
+  
+! eval (clear-pending-interactions)
+
+; "your other jobs will have to wait" hints that sidequests will come back in a bit - a small smoothing concession when many sidequests have potentially just been invalidated. But of course, surprise, they don't come back - but hopefully the story makes clear why that is (bombs, Wraw attack, etc.)
+
+; only move synthesis to the lab if completed the final part of the quest, to avoid spoilering their association with the lab on subsequent playthroughs (they're in the lab to either follow up on the info you gave them in sq14c, or to try and obtain it themself if you denied them the info)

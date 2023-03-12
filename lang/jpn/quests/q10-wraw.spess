@@ -1,0 +1,35 @@
+# wraw-objective/reminder
+~ fi
+| (:unsure)戻ったか... 引き続き、"ワロー・テリトリーの奥地に行って、{#@zelah-nametag}の計画を探ってほしい"(orange)。
+| (:normal)"奴らのテリトリーの西側の主な活動区画"(orange)を調査してくれるか。
+| くれぐれも気を付けて、"何かあれば出来る限り早急に私に報告"(orange)するようにな。
+~ player
+| "調査すべき可能性のあるロケーションはマップにマークした。"(orange, italic)
+
+; a new spawn item in this area too is refined oil, which matches this description
+# wraw-warehouse/warehouse
+~ player
+| "この倉庫には潤沢な物資が保管されているな。"(light-gray, italic)
+| (:thinking)"石炭と油のタンクから察するに、"大量生産"(orange)されているようだ。 さらに、地熱資源の埋蔵量も相当のものだな。"(light-gray, italic)
+? (complete-p 'q10-boss)
+| ~ player
+| | (:embarassed)"遠くの山脈から反対側の海岸までも、"この荒野全域を支配出来る"(orange)ほどの機械や武器を製造出来る規模と言えるな..."(light-gray, italic)
+| | (:normal)""{#@fi-nametag}に連絡"(orange)するか。"(light-gray, italic)
+| | "... "FFCSの電波が届かない"(orange)。 マグマの磁気干渉によるものか、"ワローが動き出したか"(orange)..."(light-gray, italic)
+| | ""急いでここを出て、何としても報告しなければならないな"(orange)。"(light-gray, italic)
+| ! eval (complete 'wraw-objective)
+| ! eval (activate 'q10a-return-to-fi)
+| ! eval (setf (music-state 'region3) :normal)
+| ! eval (setf (music-state 'camp) :ambient)
+| ! eval (setf (music-state 'desert) :ambient)
+| ! eval (activate (unit 'wraw-border-1))
+| ! eval (activate (unit 'wraw-border-2))
+| ! eval (activate (unit 'wraw-border-3))
+| ! eval (activate (unit 'station-east-lab-trigger))
+| ! eval (activate (unit 'station-cerebat-trigger))
+| ! eval (activate (unit 'station-semi-trigger))
+| ! eval (activate (unit 'station-surface-trigger))
+|?
+| ~ player
+| | "まだ調べる場所が残っているな... 奴らの活動の痕跡を探らなければ"(orange)。
+

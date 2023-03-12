@@ -1,0 +1,22 @@
+# task-reminder/reminder
+~ jack
+| (:annoyed)忘れろって言っただろうが!
+| (:normal)いいか、簡単なことだ。 "ワロー・テリトリーの東で、地熱発電所の配水パイプを見つけ出して、ぶっ壊す"(orange)。
+| 分かったな? さぁ行け。
+
+# task-station/station-pipe
+~ player
+| "これが"{#@jack-nametag}が言っていた発電所のパイプ"(orange)だが..."(light-gray, italic)
+| (:embarassed)""既に何者かがやった"(orange)ようだな。"(light-gray, italic)
+| (:thinking)"もしくは、"最近重大な事故があったか"(orange)... ワローは過剰に稼働させていたようだしな。"(light-gray, italic)
+| "一応水は辛うじて流すことがが、供給は不安定になっている。"(light-gray, italic) (:giggle)"水漏れに関しては私も多少の知見があるからな。"(light-gray, italic)
+| (:thinking)"パイプの中は完全に乾燥している。 内部からの音も聞こえないし、"タービンは機能停止しているな"(orange)。"(light-gray, italic)
+| (:normal)"{#@jack-nametag}の言う通りだったな。 これで"奴らの発電は困難になる"(orange)。"(light-gray, italic)
+| "何かが変わるきっかけになればいいんだがな。"(light-gray, italic)
+| "さて、これで"ミッション完了"(orange)だな。 ある意味では。"(light-gray, italic)
+
+; the Wraw could be "pushing too hard" right now due to any of these, depending where the player is on the main quest line. Because: they're after the Noka; because they seem to have invaded the Cerebats; because they have invaded the Cerebats; because they are planning to invade the entire valley.
+
+; "somebody already did" - if done q8a by this point, then there's a strong implication here, without needing a conditional, that this could have been how the Cerebats turned the Wraw's water off - destroyed the pipe (happened before the game began or in the early game, as did the Wraw invasion of Cerebats in retaliation)
+
+; "I'd like to think I know a little about water leaks" - the player has defo done the 3 leaks in q1 by this point, possibly the sq1 leaks too (or may do these afterwards)

@@ -1,0 +1,142 @@
+# task-reminder/reminder
+~ innis
+| (:angry)もう忘れたのか? (:normal)崩落した鉄道トンネルで"エンジニアを探し"(orange)、お前に出来る限りのことをして、報告に戻ってこい。
+| トンネルの場所は"テリトリーから遠く西上層"(orange)だ。
+
+# task-engineers/engineers
+? (not (var 'engineers-intro))
+| ~ player
+| | {#@innis-nametag}の指示で来たぞ。 あなたたちが生き埋めになっているセミのエンジニアか?
+| ! eval (setf (var 'engineers-intro) T)
+? (active-p (unit 'blocker-engineers))
+| ? (not (var 'engineers-first-talk))
+| | ~ semi-engineer-chief
+| | | 一体全体どうやってここまで来たんだ?
+| | ~ player
+| | | このシャフトの上部にトンネルがあるじゃないか。 人間には通れるようなものでは無かったがな。
+| | ~ semi-engineer-chief
+| | | ... //人間//には? ということは君は...
+| | ~ player
+| | - 人間ではない、ということになるな。
+| |   ~ semi-engineer-chief
+| |   | ... アンドロイドかぁ、コイツは驚いたよ。
+| | - アンドロイドだ。
+| |   ~ semi-engineer-chief
+| |   | ... コイツは驚いたよ。
+| | - ここで何をしている?
+| | ~ semi-engineer-chief
+| | | "そうだ、私たちがそのエンジニアだ"(orange)。 {#@innis-nametag}さんに感謝しなければな。
+| | | 私たちはトンネルが崩落した時にチーフと仲間の半分を失ってしまったんだ。
+| | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
+| | ~ semi-engineer-chief
+| | | "崩落したトンネルに閉じ込められている"(orange)んだが、君が何とかしてくれるのかい? アンドロイドなら可能なのか?
+| | | "崩落地点はこの先にある"(orange)。
+| | ! eval (setf (var 'engineers-first-talk) T)
+| | ! eval (activate 'task-wall-location)
+| |?
+| | ~ semi-engineer-chief
+| | | "道を塞いでいた岩"(orange)はどうにかなったかい?
+| | ! eval (activate 'task-wall-location)
+|?
+| ? (not (var 'engineers-first-talk))
+| | ~ semi-engineer-chief
+| | | 君は誰だ? どうやって崩落したトンネルを突破したんだ?
+| | ~ player
+| | - 私は... 人間ではない。
+| |   ~ semi-engineer-chief
+| |   | ... アンドロイドかぁ、コイツは驚いたよ。
+| | - 私はアンドロイドだ。
+| |   ~ semi-engineer-chief
+| |   | ... コイツは驚いたよ。
+| | - ここで何をしている?
+| | ~ semi-engineer-chief
+| | | "そうだ、私たちがそのエンジニアだ"(orange)。 {#@innis-nametag}さんに感謝しなければな。
+| | | 私たちはトンネルが崩落した時にチーフと仲間の半分を失ってしまったんだ。
+| | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
+| | ~ semi-engineer-chief
+| | | しかし、ルートが開通したおかげで状況は好転するだろう。
+| | | 感謝するよ。
+| | ! eval (setf (var 'engineers-first-talk) T)
+| |?
+| | ~ semi-engineer-chief
+| | | 君があれを突破するとはな... これで食料や医療品も流通させられる。 感謝するよ。
+| | | 私たちは掘削を再開するよ。 どれだけ遅くとも、必ずやり遂げるさ。
+  
+! eval (reset (find-task 'world 'task-world-engineers))
+! eval (activate (find-task 'world 'task-world-engineers))
+! eval (complete task)
+
+# task-return-engineers/return-engineers
+~ innis
+| 傷ついたエンジニアたちは既に帰還させている。 ハンターを送って連れ戻させたのだ。
+? (complete-p 'task-engineers)
+| | 彼らはお前が来てくれたことに感謝していたぞ... 私もな。
+|?
+| | (:angry)だがお前が彼らと話すことすらしなかったのは期待外れだったな。 彼らは誰かに状況を話して、何が起こったのか確認する必要があったはずだ。
+  
+~ innis
+| 大切な姉妹を失ったことは悔やまれるが、時として進歩に代償はつきものだ。 彼らの家族には{#@islay-nametag}から連絡させるように言っておこう。
+| それよりも... どうやって大量の瓦礫を除去した? まだ私の知らないアンドロイドの秘密があるのか?
+~ player
+- 脆くなっている部分を見つけて、そこから崩したんだ。
+  ~ innis
+  | もっともらしいことを言うな。 (:sly)お前の核融合炉なら十分な力を生み出し、ナノチューブの筋肉はどんな衝撃にも耐えられるだろうにな。
+- 剣で切り開いたんだ。
+  ~ innis
+  | そうだろうな。 お前の核融合炉なら十分な力を生み出し、ナノチューブの筋肉はどんな衝撃にも耐えられるだろうからな。
+  | (:sly)お前の持つアルテミスブレードの本来の強度については言うまでもないしな。
+- 隠されたレバーを引いて"開けゴマ!"と呪文を唱えたのさ。 (ウソ)
+  ~ innis
+  | (:angry)...
+  | 面白いじゃないか。 (:sly)お前の核融合炉とナノチューブの筋肉の最強の組み合わせによるものだと思っているんだがな。
+- 知りたいか。
+  ~ innis
+  | (:sly)あぁ知りたいね。 心配するな、ここでは個人の秘密などそう長く隠し通せはしない。
+  | 私はお前の核融合炉とナノチューブの筋肉の組み合わせが驚異的な力を発揮すると思うのだがな。
+~ innis
+| ともかく、鉄道工事が再びレールに乗ったというわけだ。 どうだ、面白いギャグだろう。 というわけでな...
+| お前も知っての通り無限の英知を有する我が妹は、もし私たちが... (:angry)いや、//私が//お前に正式に"地下鉄へのアクセス"(orange)を許可したら、それが良い意思表示になると考えたのだろうな。
+| ... 私たちセミ・シスターズとお前の友好関係のためにな。
+| (:normal)"他の駅を見つけたらより早くお前の用を済ませられる"(orange)ようになるだろう。
+? (or (unlocked-p (unit 'station-surface)) (unlocked-p (unit 'station-east-lab)) (unlocked-p (unit 'station-semi-sisters)) (unlocked-p (unit 'station-cerebats)) (unlocked-p (unit 'station-wraw)))
+| | (:sly)...っと、既に地下鉄を使いこなしているようだな。 しかし正式に許可するのは今からだ。 皆に通達しておいてやるよ、お前が... 逮捕されないようにな。
+| | (:normal)"駅は谷中の至るところにある"(orange)。 私たちが鉄道網を拡張している間は"その全てが稼働しているわけではないがな"(orange)。
+|?
+| | (:normal)"駅は谷中の至るところにある"(orange)。 私たちが鉄道網を拡張している間は"その全てが稼働しているわけではないがな"(orange)。
+| | "路線図から目的地を選択"(orange)して列車に乗るだけだ。
+? (not (unlocked-p (unit 'station-surface)))
+| ! eval (activate (unit 'station-surface))
+? (not (unlocked-p (unit 'station-semi-sisters)))
+| | (:normal)"セミの駅は中央ブロックの下にある"(orange)。
+| ! eval (activate 'semi-station-marker)
+|?
+| ! eval (complete 'semi-station-marker)
+? (complete-p 'q5b-investigate-cctv)
+| ~ innis
+| | お前は自分自身の価値を証明してみせた。 また頼み事をするかもしれん。
+| | だが今はまず"{#@fi-nametag}に報告"(orange)してこい。
+| | {#@alex-nametag}を説得して連れ戻せなくて残念だったな。 (:sly)お前が報告する時にアイツがどんな顔をするか見たかったよ。
+| | アンドロイドだからといって何でも出来るというわけでは無さそうだ。
+| | (:angry)そして、"私たちは{#@catherine-nametag}がここに戻ってくるよう要求している"(orange)ことも伝えておけ。 ワローの侵略によって、私たちは今まで以上にあの子を必要としているからな。
+| | (:sly)もし要求を断ったら、"ノカへの水の供給を止める"(orange)からな。
+| ! eval (activate 'q6-return-to-fi)
+| ! eval (activate (unit 'fi-ffcs-1))
+| ! eval (activate (unit 'fi-ffcs-2))
+| ! eval (activate (unit 'fi-ffcs-3))
+| ! eval (activate 'sq14-intro)
+| ! eval (setf (location 'synthesis) 'synthesis-cerebat)
+| ! setf (direction 'synthesis) 1
+|?
+| ~ innis
+| | では、またな。
+? (not (active-p (find-task 'world 'task-world-engineers)))
+| ! eval (activate (find-task 'world 'task-world-engineers))
+  
+! eval (complete task)
+! eval (reset interaction)
+
+; dinnae = don't (Scots)
+; didnae = didn't (Scottish)
+; ken = know (Scots)
+; couldnae = couldn't (Scots)
+; canna = cannot (Scottish)

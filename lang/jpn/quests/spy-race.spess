@@ -1,0 +1,81 @@
+# hub
+~ semi-spy
+| よし、準備は出来ています。
+| もう一度言いますね。 "スキットルを見つけて、持ち帰ってください。 そこで私がタイムを計測します"(orange)。
+| 私を見張っている者に、これがただの茶番だと気付かれなければいいのですが... 私がセレバットの賭博師だと思い込ませられるように頑張りましょう!
+| さしあたって"5つのルート"(orange)をご用意したのですが、一度に挑戦出来るのはひとつのルートだけです。
+| さて、"早速初めてのレースと参りますか"(orange)?
+! eval (clear-pending-interactions)
+
+# start
+? (timer-quest)
+| ~ semi-spy
+| | "既にタイムトライアルをご経験されているんですね"(orange)! 流石です。
+| < quit
+
+~ semi-spy
+| 寄ってらっしゃい、見てらっしゃい! タイムトライアルのお時間ですよー!
+| "大げさすぎますかね? もう少し控えめにしないとおかしいでしょうか。"(small)
+| "{(quest:title (quest:find-named 'race task))}。"(orange)
+| このルートのタイム区分は... "ゴールド:"(orange) {(format-relative-time gold)} - "シルバー:"(orange) {(format-relative-time silver)} - "ブロンズ:"(orange) {(format-relative-time bronze)}となっております。
+? (var 'pb)
+| | このルートのあなたの"自己ベストは"(orange)"{(format-relative-time pb)}"(orange)です。
+~ semi-spy
+| 準備はいいですね。 よーい... ドン!
+! eval (complete task)
+! eval (clear-pending-interactions)
+
+# cancel
+~ semi-spy
+| "レースを中断しますか?"(orange) 不審がられる事も無いでしょうし、構いませんよ。 むしろリアリティがあるかもしれませんね。
+| ですが、報酬はお渡し出来ませんよ。
+~ player
+- いや、継続する。
+  ~ semi-spy
+  | 了解です。 でも、時間は刻一刻と過ぎていきますよ!
+- あぁ、中断する。
+  ~ semi-spy
+  | では、ここでレースは終了したという事で。 でも、どうか私を見捨てないで... 早く戻って来てくださいね。
+  ! eval (activate 'cancel-it)
+
+# return
+~ semi-spy
+| そこまでです!
+| はい、確かに私のスキットルですね!
+~ player
+| (:embarassed)"中に入ってる飲料をグビグビと飲んでいる... 待つしかなさそうだな。"(light-gray, italic)
+~ semi-spy
+| __あぁぁぁぁ__... たまんないですねぇ。 さて、今回のあなたのタイムは..."{(format-relative-time (clock quest))}"(orange)ですね。
+? (and pb (< pb (clock quest)))
+| | 残念ですが、以前の"{(format-relative-time pb)}"(orange)の"記録更新とはいきませんでした"(orange)。
+| | "私たちがこの芝居をする以上、公平性は保たなければならないので、ご理解ください。"(small)
+|?
+| ? (not (null pb))
+| | | なんと、"新記録樹立です"(orange)!
+| ! eval (setf pb (clock quest))
+| ? (< pb gold)
+| | | しかも"ゴールド"(orange)タイムです!
+| | | {#@innis-nametag}からの最高の褒章として、"750パーツ"(orange)を進呈します。
+| | ! eval (store 'item:parts 750)
+| | ! eval (status "750パーツを手に入れた")
+| |? (< pb silver)
+| | | しかも"シルバー"(orange)タイムです。
+| | | {#@innis-nametag}のご厚意により、"450パーツ"(orange)を進呈します。
+| | ! eval (store 'item:parts 450)
+| | ! eval (status "450パーツを手に入れた")
+| |? (< pb bronze)
+| | | しかも"ブロンズ"(orange)タイムです!
+| | | {#@innis-nametag}の親切心により、"300パーツ"(orange)を進呈します。
+| | ! eval (store 'item:parts 300)
+| | ! eval (status "300パーツを手に入れた")
+| |?
+| | | 言いづらいのですが、"ブロンズ"(orange)以下のタイムですね...
+| | | "公平を期すために、これでは報酬は差し上げられません。 あぁ、そんなに動揺なさらないでください。"(small)
+| | ~ player
+| | | (:embarassed)"私は自分がどんな表情をしているのか分からないのだが、動揺しているのか?"(light-gray, italic)
+  
+~ semi-spy
+| またチャレンジしていただけますか? 私を見捨てないでくださいね。
+! eval (activate 'complete-it)
+
+# quit

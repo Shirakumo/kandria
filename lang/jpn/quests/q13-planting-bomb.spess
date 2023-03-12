@@ -1,0 +1,166 @@
+# task-reminder/interact-islay
+~ islay
+| (:normal)"爆弾の設置場所"(orange)を再確認するわね。
+| "ゼニスハブ西のブラザーオフィス"(orange)
+| "ポンプルーム隣の水没した部屋"(orange)
+| "東のルートレス病棟"(orange)の3箇所よ。
+| 気をつけて。
+
+# task-reminder/interact-fi
+~ fi
+| 爆弾を設置する場所を忘れたなら、{#@islay-nametag}が教えてくれる。
+| (:unsure)すまないな、少し動揺してしまってよく聞いてなかったんだ。
+| (:normal)1つはポンプルームのそばの沈んだ部屋... それは確かなんだが。
+| (:happy)くれぐれも気をつけて無事に帰ってきてくれ、{(nametag player)}。
+
+# task-reminder/interact-catherine
+~ catherine
+| {(nametag player)}! まだ行く準備が出来てないの? もし何かあれば{#@islay-nametag}に相談してみると良いかも。
+| (:excited)この戦いに勝利するのが待ち遠しいよね。 そしたら、あなたは私たちのヒーローになるんだよ。
+| (:normal)爆弾を作るのに協力出来て良かったよ。 なんだか、私がワローをぶちのめしてやれるような気分って感じ。
+| でも注意は怠っちゃ駄目だよ、オーケー?
+
+# task-reminder/interact-innis
+~ innis
+| お前がやるべき事は{#@islay-nametag}から指示されているはずだ。 必要な事は全てアイツが説明するなら、私から言うことは何も無い。
+| (:sly)今までお前を誤解していたことを願うよ、アンドロイド。
+
+# task-reminder/interact-jack
+~ jack
+| 俺に何かを求めんじゃねぇぞ。 今の俺は完全に蚊帳の外、爆弾作りにも必要とされてねぇ。
+| 今俺に出来るのは、他の奴らがパニックを起こさねぇ様に目を離さずいるだけだ。
+| (:annoyed)テメェが事を済ませるのが早ければ早いほど、皆は動揺せずに済む。 早く行けよ。
+
+# task-bomb-1/interact-bomb
+~ player
+! eval (retrieve 'item:explosive 1)
+! eval (status "爆弾を失った")
+| "ここが"ブラザーオフィスの爆弾設置場所"(red)だな。"(light-gray, italic)
+| "おっ、巨大なキノコのすぐ近くだな! 奴らがここを通る時にキノコで覆われるのは面白そうだな。"(light-gray, italic)
+! eval (retrieve 'item:receiver 2)
+! eval (status "RFデトネーターx2を失った")
+| "起爆装置も取り付けたし、これで準備完了だ。"(light-gray, italic)
+? (not (var 'first-bomb-done))
+| | ""FFCS確認... 信号無し、か。 やはりワローが妨害しているな"(orange)。"(light-gray, italic)
+| | "よし、"爆弾設置は後2箇所だ"(orange)。"(light-gray, italic)
+| ! eval (setf (var 'first-bomb-done) T)
+| ! eval (activate 'task-part-move-wraw)
+|? (complete-p 'task-bomb-2 'task-bomb-3)
+| | ""FFCS確認... 妨害がさらに酷くなってるな"(orange)。"(light-gray, italic)
+| | "ここが最後の設置場所だったな。"(light-gray, italic)
+| | "さっさと"ゼニスハブ"(orange)まで戻って、爆破を要請するとしよう。"(light-gray, italic)
+| ! eval (deactivate 'task-reminder)
+| ! eval (activate 'task-return-bombs)
+| ! eval (activate 'task-return-bombs-station)
+| ! eval (activate (unit 'ffcs-bomb-1))
+| ! eval (activate (unit 'ffcs-bomb-2))
+| ! eval (activate (unit 'ffcs-bomb-3))
+| ! eval (activate (unit 'ffcs-bomb-4))
+| ! eval (activate (unit 'station-surface-trigger))
+|?
+| | ""FFCS確認... ここでも通信出来ないのか"(orange)。"(light-gray, italic)
+| | "まぁいい、後は"最後の爆弾を設置"(orange)するだけだ。"(light-gray, italic)
+
+# task-bomb-2/interact-bomb
+~ player
+! eval (retrieve 'item:explosive 1)
+! eval (status "爆弾を失った")
+! eval (retrieve 'item:receiver 2)
+! eval (status "RFデトネーターx2を失った")
+| "ここが"ポンプルーム横の爆弾設置場所"(red)だな。"(light-gray, italic)
+| "水の中でも、爆弾はコンクリートに取り付けられるはずだ。"(light-gray, italic)
+| "ありがたいことに起爆装置も防水仕様じゃないか。"(light-gray, italic)
+| "設置完了...と。"(light-gray, italic)
+? (not (var 'first-bomb-done))
+| | ""FFCS確認... 信号無し、か。 やはりワローが妨害しているな"(orange)。"(light-gray, italic)
+| | "よし、"爆弾設置は後2箇所だ"(orange)。"(light-gray, italic)
+| ! eval (setf (var 'first-bomb-done) T)
+| ! eval (activate 'task-part-move-wraw)
+|? (complete-p 'task-bomb-1 'task-bomb-3)
+| | ""FFCS確認... 妨害がさらに酷くなってるな"(orange)。"(light-gray, italic)
+| | "ここが最後の設置場所だったな。"(light-gray, italic)
+| | "さっさと"ゼニスハブ"(orange)まで戻って、爆破を要請するとしよう。"(light-gray, italic)
+| ! eval (deactivate 'task-reminder)
+| ! eval (activate 'task-return-bombs)
+| ! eval (activate 'task-return-bombs-station)
+| ! eval (activate (unit 'ffcs-bomb-1))
+| ! eval (activate (unit 'ffcs-bomb-2))
+| ! eval (activate (unit 'ffcs-bomb-3))
+| ! eval (activate (unit 'ffcs-bomb-4))
+| ! eval (activate (unit 'station-surface-trigger))
+|?
+| | ""FFCS確認... ここでも通信出来ないのか"(orange)。"(light-gray, italic)
+| | "まぁいい、後は"最後の爆弾を設置"(orange)するだけだ。"(light-gray, italic)
+
+# task-bomb-3/interact-bomb
+~ player
+! eval (retrieve 'item:explosive 1)
+! eval (status "爆弾を失った")
+| "ここが"病棟奥の爆弾設置場所"(red)だな。"(light-gray, italic)
+| "タイルの形に合わせればピッタリ設置出来そうだな。"(light-gray, italic)
+| "あとは起爆装置を組み込んで...と。"(light-gray, italic)
+! eval (retrieve 'item:receiver 2)
+! eval (status "RFデトネーターx2を失った")
+| "これでよし。"(light-gray, italic)
+? (not (var 'first-bomb-done))
+| | ""FFCS確認... 信号無し、か。 やはりワローが妨害しているな"(orange)。"(light-gray, italic)
+| | "よし、"爆弾設置は後2箇所だ"(orange)。"(light-gray, italic)
+| ! eval (setf (var 'first-bomb-done) T)
+| ! eval (activate 'task-part-move-wraw)
+|? (complete-p 'task-bomb-1 'task-bomb-2)
+| | ""FFCS確認... 妨害がさらに酷くなってるな"(orange)。"(light-gray, italic)
+| | "ここが最後の設置場所だったな。"(light-gray, italic)
+| | "さっさと"ゼニスハブ"(orange)まで戻って、爆破を要請するとしよう。"(light-gray, italic)
+| ! eval (deactivate 'task-reminder)
+| ! eval (activate 'task-return-bombs)
+| ! eval (activate 'task-return-bombs-station)
+| ! eval (activate (unit 'ffcs-bomb-1))
+| ! eval (activate (unit 'ffcs-bomb-2))
+| ! eval (activate (unit 'ffcs-bomb-3))
+| ! eval (activate (unit 'ffcs-bomb-4))
+| ! eval (activate (unit 'station-surface-trigger))
+|?
+| | ""FFCS確認... ここでも通信出来ないのか"(orange)。"(light-gray, italic)
+| | "まぁいい、後は"最後の爆弾を設置"(orange)するだけだ。"(light-gray, italic)
+
+# task-return-bombs/call-bomb
+~ player
+| "ここまで来ればもう十分だろう。"(light-gray, italic)
+| ""FFCS確認中... オーケー、シグナルを受信した"(orange)。"(light-gray, italic)
+| {#@islay-nametag}、聞こえているか? 指定された位置に爆弾を設置したぞ。
+| ... {#@islay-nametag}? どうした?
+| あー、もしもし? 誰か居るか?
+| (:thinking)"... 通信は問題無く出来ているはずだが。"(light-gray, italic)
+~ islay
+| (:nervous){(nametag player)}、聞こえているわ。 問題発生よ、"急いで地上へ戻ってきて"(orange)。
+~ player
+- 爆弾はどうするんだ?
+- 何があった?
+- {#@fi-nametag}に替わってもらえるか?
+~ player
+| "... 切られてしまった。"(light-gray, italic)
+| <-チッ->
+| ""キャンプに戻る"(orange)しかないか。"(light-gray, italic)
+! eval (complete 'task-return-bombs-station)
+
+; alternate return of the quest, if go via Noka train station - slightly different wording to suit different context
+# task-return-bombs-station/station-surface-trigger
+~ player
+| "早く連絡した方が良さそうだな。"(light-gray, italic)
+| ""FFCS確認中... オーケー、シグナルを受信した"(orange)。"(light-gray, italic)
+| {#@islay-nametag}、聞こえているか? 指定された位置に爆弾を設置したぞ。
+| ... {#@islay-nametag}? どうした?
+| あー、もしもし? 誰か居るか?
+| (:thinking)"... 通信に問題は無いはずだ。 もう歩いて伝えに行った方が早いな。"(light-gray, italic)
+~ islay
+| (:nervous){(nametag player)}、聞こえているわ。 問題発生よ、"急いで地上へ戻ってきて"(orange)。
+~ player
+- 爆弾はどうするんだ?
+- 何があった?
+- もう戻ってはいるんだが。
+~ player
+| "... 切られてしまった。"(light-gray, italic)
+| <-チッ->
+| ""キャンプに戻る"(orange)しかないか。"(light-gray, italic)
+! eval (complete 'task-return-bombs)
+

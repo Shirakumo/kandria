@@ -1,0 +1,106 @@
+# talk-trader/talk-to-trader
+~ trader
+| (:jolly)おやおや... アンタが噂の人か?
+~ player
+- 私を誰だと思っている?
+- 恐らくな。
+~ trader
+| (:jolly)アンタは{#@player-name-1}!... (:normal)ひょっとして本当に{#@player-name-1}なのか?
+? (not (complete-p 'q7-my-name))
+| ~ player
+| - 厳密に{(nametag player)}だ。
+|   ~ trader
+|   | (:jolly)承知した、{(nametag player)}!
+| - 好きなように呼べ。
+|   ~ trader
+|   | (:jolly)そうは言うが__アンタの__名前だろう。 あぁ、そうだそうだ、アンタは{(nametag player)}だ。
+| - かつては別の名前を持っていた。
+|   ~ trader
+|   | だけど思い出せない、ってことかい?
+|   | あまり気にしすぎるなよ。 あぁ、そうだそうだ、アンタは{(nametag player)}だ。
+|?
+| ? (string= (@ player-name-1) (nametag player))
+| | ~ player
+| | - 私は{(nametag player)}だ。
+| |   ~ trader
+| |   | (:jolly)承知した、{(nametag player)}!
+| | - 私は{(nametag player)}だが、かつては別の名前を持っていた。
+| |   ~ trader
+| |   | だけど思い出せない、ってことかい?
+| |   | (:jolly)初めまして、{(nametag player)}!
+| | - 私は{(nametag player)}だ。 決して{(nametag player)}ではない。
+| |   ~ trader
+| |   | おっと、そりゃすまなかったな、ネェちゃん。
+| |   | (:jolly)初めまして、{(nametag player)}!
+| |?
+| | ~ player
+| | - 実は今は{(nametag player)}と名乗っている。
+| |   ~ trader
+| |   | {#@trader-nametag}おじさんは古い情報をつかんでた、ってことね? そりゃすまなかったな、ネェちゃん。
+| |   ! eval (setf (nametag (unit 'trader)) (@ trader-nametag))
+| |   ~ trader
+| |   | (:jolly)初めまして、{(nametag player)}!
+| | - かつては{#@player-name-1}と名乗っていた。
+| |   ~ trader
+| |   | かつては? {#@trader-nametag}おじさんは古い情報をつかんでた、ってことね?
+| |   ! eval (setf (nametag (unit 'trader)) (@ trader-nametag))
+| |   ~ trader
+| |   | そりゃすまなかったな、ネェちゃん。 今は何と？
+| |   ~ player
+| |   | {(nametag player)}だ。
+| |   ~ trader
+| |   | (:jolly)初めまして、{(nametag player)}!
+| | - 今の私は{(nametag player)}だ。 それが私の本当の名前かもしれない。
+| |   ~ trader
+| |   | なるほど... 記憶があやふやなんだったな。
+| |   | (:jolly)初めまして、{(nametag player)}!
+~ trader
+| (:jolly)この辺りは噂の拡散は超早ぇんだ。 しかも{#@catherine-nametag}はアンタの話をし始めると止まらなくてな。
+| アイツはホントすげぇよな? エンジニアとして優秀だ。 そう言やさぁ...
+| (:normal)あー... や、なんでもねぇ。
+| で、アンタは{#@trader-nametag}おじさんと取引するためにここに来た、だよな?
+! eval (setf (nametag (unit 'trader)) (@ trader-nametag))
+~ player
+- 何を売ってくれるんだ?
+  ~ trader
+  | {#@trader-nametag}おじさんに売れない物は無いさ!
+  | {#@catherine-nametag}が言ってたぜ、ここでアンタに色々世話になったって。 なんでも、サーボのケツを蹴っ飛ばしてやったんだってな。
+- 何が必要だろうか?
+  ~ trader
+  | 知らねぇよ。 アンタはどんな事をしてるんだ?
+  | {#@catherine-nametag}が言ってたぜ、ここでアンタに色々世話になったって。 なんでも、サーボのケツを蹴っ飛ばしてやったんだってな。
+- 自分のことは自分でなんとかする。
+  ~ trader
+  | 分かってねぇなぁ! アンタは{#@catherine-nametag}の手助けをした。 サーボのケツを蹴っ飛ばしてやったんだってな。
+~ trader
+| 俺がアンタにしてやれるのはアンタのベストコンディションを保つくらいの事さ。
+| アンドロイドについては色々聞いちゃいるよ... アンタはその辺のサーボとは違う。 より多くのアレコレが体に詰まってる、それは確かだ。
+~ player
+| "彼は指でこめかみをトントンと小突いている。 そうだ、クリスタル・マトリックスはとても洗練されている。"(light-gray, italic) (:embarassed)"記憶さえブッ飛んでいなければな。"(light-gray, italic)
+~ trader
+| でも頭ン中は似たようなもんだろ。 悪気があって言うわけじゃないぞ。
+| さて、俺はその辺のガラクタやちょっとしたモンから携行リペアキットとかを作ってやれるぜ。
+~ player
+| "何故彼は辺りの棚を物色しているんだ? 床に散乱しているゴミクズを見れば、価値のある物など無さそうだが。"(light-gray, italic)
+| "っと、早とちりだったかもしれないな。 古い回路基板、千切れた銅線、ロール状のハンダをそれぞれサイズの違う空き缶に詰め込んでいる。"(light-gray, italic)
+| "その針と糸をどうするつもりだ。"(light-gray, italic)
+~ trader
+| (:jolly)ジャッジャーン! こんなのだって作ってやれるんだぜ。 "アンドロイド用ヘルスパック"(orange)だ! アンタのためのカスタムメイドだ。
+~ player
+| "作りは粗いが、かつて私が使っていたものに酷似しているな。"(light-gray, italic)
+| "完璧とは言えなくとも、役には立ちそうだ。"(light-gray, italic)
+~ player
+- 感謝する!
+  ~ trader
+  | (:jolly)いいってことよ!
+- そんな物どこで手に入れたんだ?
+  ~ trader
+  | 旅をしていると色んなヤツに会うんだ。 そんで、時にはその辺に使えそうな物が転がってる事もあってな。
+- タダで貰っていいのか?
+  ~ trader
+  | (:jolly)ハハハ、残念ながらそうはいかねぇ。 俺も生活が懸かってるからな。
+  | でも俺のブツは適正価格、それは約束するぜ!
+~ trader
+| とにかく、"取引がしたい時は声をかけてくれ"(orange)。 オーケー?
+| (:jolly)またいつでも来てくれよ、ネェちゃん。
+; habibti = dear, my love, buddy (Arabic) (female form)

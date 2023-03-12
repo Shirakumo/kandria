@@ -1,0 +1,81 @@
+; Synthesis, shady character, unknown gender, Swiss-German accent and dialect, plural first person pronouns
+# intro/intro-chat
+~ synthesis
+| (:grin)時は来た。
+~ player
+- ...
+- もっとミステリアスに振る舞えるか?
+  ~ synthesis
+  | (:grin)どうだかな。
+- 来てないぞ。
+  < leave
+~ synthesis
+| (:grin)もしお前が私たちに協力するのであれば、"旧世界の真実"(orange)を教えてやろう。
+~ player
+- 私「たち」だと? 仲間が居るのか?
+  ~ synthesis
+  | (:grin)私はあくまで一人の"私たち"(italic)だ。
+- 尊厳の複数というやつか... お前は"王族"なのか?
+  ~ synthesis
+  | 私がそんな立派な人物に見えるか?
+- 分かった...
+~ synthesis
+| (:grin)お前は真実を欲するか?
+~ player
+- 真実とはどのようなものだ?
+  ~ synthesis
+  | お前にとって価値あるものだろう。
+- 何が望みだ?
+- 力ずくで聞き出す事も出来るだろうな。
+  ~ synthesis
+  | (:grin)やってみろ。 無駄だろうがな。
+- 興味ないな。
+  < leave
+~ synthesis
+| ぐあぁ...
+~ player
+| "... 奴の表情はほとんど見えないが、奴らはとんでもない頭痛に苦しんでいるようだ。"(light-gray, italic)
+~ synthesis
+| はぁっ... <-あぁ...->
+~ player
+- 大丈夫化?
+- 具合が悪そうだな。
+- なんだか知らないが私に伝染させるなよ。
+~ synthesis
+| 私たちには"ポーション"(orange)が必要だ。 そのために採ってきて欲しいものがある。
+| "ヒトヨタケ"(orange)を知っているか? 毒キノコだ。
+~ player
+- いくつ欲しいんだ?
+- 採ってきてやろう。
+- [(<= 1 (item-count 'item:mushroom-bad-1)) 悪いが持っていない (ウソ)]
+  ~ synthesis
+  | そうか、それは残念だ。
+~ synthesis
+| "ヒトヨタケを4つだ。"(orange)
+| "セレバットの周辺や、洞窟を探せばあるだろう"(orange)。
+| 早くしろ。
+? (= 4 (item-count 'item:mushroom-bad-1))
+| ~ player
+| | "それなら"ちょうど奴らが欲している分だけ持っているな"(orange)。"(light-gray, italic)
+|? (< 4 (item-count 'item:mushroom-bad-1))
+| ~ player
+| | "それなら"奴らが欲している以上に持っているぞ"(orange)。"(light-gray, italic)
+|? (< 1 (item-count 'item:mushroom-bad-1))
+| ~ player
+| | "それなら"{(item-count 'item:mushroom-bad-1)}本持っている"(orange)。"(light-gray, italic)
+|? (= 1 (item-count 'item:mushroom-bad-1))
+| ~ player
+| | "ふふん、"1本しか持っていない"(orange)。"(light-gray, italic)
+|?
+| ~ player
+| | ""1本も持ってないな"(orange)。 あんな汚らしい物を拾う必要も無かったしな。"(light-gray, italic)
+  
+! eval (activate 'sq14a-synthesis)
+! eval (complete task)
+! eval (reset interaction)
+
+# leave
+~ synthesis
+| (:grin)真実を知る覚悟が出来たら、"ここに来い"(orange)。 だが忘れるな、時は有限だ。
+
+; too ill to collect them themselves

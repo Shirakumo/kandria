@@ -1,0 +1,105 @@
+; Semi Sisters barkeep, non-binary, French code switching from time to time
+; semi-patron-1 - sober, female
+; semi-patron-2 - drunk, female
+# hub
+~ semi-barkeep
+| やっぱり我慢出来なかったのね。 分かるわ、それじゃ改めて説明するわね。
+| "ジェネラ・コアを見つけて、それを持ち帰ったら、私がそのタイムを計測する"(orange)。
+| "タイムが早いほど、あなたが獲得するパーツは増える"(orange)。
+| 私たちはあなたに"6種類のルート"(orange)を作ってあげられるわ。 "一つのルートを完了すると、次のルートを作ってあげる"(orange)。 分かった?
+| 私がそれぞれのレースごとに無線で連絡し、セミのハンターがジェネラ・コアを配置するわ。
+| "準備ができたら話しかけてね"(orange)、そしたらショーの始まりだ!
+! eval (clear-pending-interactions)
+; uses walkie-talkie when talking to hunters, since these poorer Semis don't have access to the FFCS tech. Though they are more powerful walkie-talkies, able to cover larger distances than the Noka's
+
+# start
+? (timer-quest)
+| ~ semi-barkeep
+| | ダメね。 あなたは"既にレースの最中よ"(orange)。 "先にそれを終わらせるか中断するかしてね"(orange)。
+| < quit
+
+~ semi-barkeep
+| ショータイム! 賭け金はどんどん膨らんでいってるわよ!
+| "{(quest:title (quest:find-named 'race task))}。"(orange)
+? (eq (quest:name quest) 'sq5-race-2)
+| ? (active-p (unit 'blocker-engineers))
+| | | エンジニアがいくつかコアを持ってるのも事実で... 生き埋めになってるのよね。 もし時間があれば、"彼らを助けてあげた方がいいかも"(orange)。
+| |?
+| | | トンネルが開通したわね、ごくろうさま。 これで、ハンターも自由に行き来してコアを配置出来るわ。
+  
+| このルートのハンターのタイムは... "ゴールド:"(orange) {(format-relative-time gold)} - "シルバー:"(orange) {(format-relative-time silver)} - "ブロンズ:"(orange) {(format-relative-time bronze)}よ。
+? (eq (quest:name quest) 'sq5-race-2)
+| ? (active-p (unit 'blocker-engineers))
+| | | お察しの通り、これはトンネルが開通した時にセットしたタイムだけどね。
+? (var 'pb)
+| | このルートのあなたの"ベストタイム"(orange)は"{(format-relative-time pb)}"(orange)ね。
+~ semi-barkeep
+| コマンセ!
+! eval (complete task)
+! eval (clear-pending-interactions)
+
+; the barkeep knows about the trapped engineers, more so than Innis (they have radio contact) - hence what they say, and the mention of rescue; they're still more interested in the races though
+; this is also how they know the tunnel got cleared soon after you clear it
+; they speak using "our" a lot, despite being disparaging towards Innis and Islay, because they still view themselves as part of the Semi Sisters - just a different faction within them
+
+
+# cancel
+~ semi-barkeep
+| "レースを中断するつもり?"(orange) 賞金は受け取れなくなっちゃうし... 賭けてる皆がガッカリしちゃうわよ。
+~ player
+- いや、継続する。
+  ~ semi-barkeep
+  | いいわ。 ほら行った行った。 時は金なりよ。
+- あぁ、中断する。
+  ~ semi-barkeep
+  | あなたがそう言うなら。 でもあなたはすぐ戻ってくる、分かってるわよ。
+  ! eval (activate 'cancel-it)
+
+# return
+~ semi-barkeep
+| そこまで!
+| ジェネラ・コアのシリアルナンバーを確認させてね。 ウィ、間違いないわね。 それじゃ...
+| タイムは"{(format-relative-time (clock quest))}"(orange)よ。
+? (and pb (< pb (clock quest)))
+| | 残念だけどあなたの"{(format-relative-time pb)}"(orange)の記録は"更新ならず"(orange)、よ。
+|?
+| ? (not (null pb))
+| | | "自己ベスト更新"(orange)よ。
+| ! eval (setf pb (clock quest))
+| ? (< pb gold)
+| | | "ゴールド"(orange)ハンターより早いじゃない。
+| | ~ semi-patron-1
+| | | おいおいマジか...
+| | ~ semi-barkeep
+| | | もしかしたらとは思ってたけど、感動したわ。 これがあなたの賞金ね。 "パーツ500個"(orange)よ。
+| | ! eval (store 'item:parts 500)
+| | ! eval (status "500パーツを手に入れた")
+| | | 聞きたいんだけど、酔ってる状態でその走りなの?
+| |? (< pb silver)
+| | | "シルバー"(orange)ハンターより早いわ。 やるわね。 でも、あなたはもっと早く走れるはずよ。
+| | ~ semi-patron-2
+| | | みんながおまえにむちゅうらぜぇ?
+| | ~ semi-barkeep
+| | | これがあなたの賞金ね。 "パーツ300個"(orange)よ。
+| | ! eval (store 'item:parts 300)
+| | ! eval (status "300パーツを手に入れた")
+| |? (< pb bronze)
+| | | "ブロンズ"(orange)ハンターより早いわ。 やるわね。
+| | ~ semi-patron-1
+| | | まだまだ良いタイムとは言えないな、特にアンドロイドならな!
+| | ~ semi-barkeep
+| | | 約束通り、これがあなたの賞金ね。 "パーツ200個"(orange)よ。
+| | ! eval (store 'item:parts 200)
+| | ! eval (status "200パーツを手に入れた")
+| |?
+| | | "ブロンズハンターより遅い"(orange)わ、残念ね。
+| | ~ semi-patron-2
+| | | なさけねぇとはこのことらよ。 な、さ、け、ね、ぇ。
+| | ~ semi-barkeep
+| | | "このタイムじゃ賞金は無しね"(orange)。 でも、次はもっと早い走りを見せてくれるでしょ?
+  
+~ semi-barkeep
+| それではまた次回のショータイムをお楽しみに!
+! eval (activate 'complete-it)
+
+# quit

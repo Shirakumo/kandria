@@ -1,0 +1,222 @@
+# task-sq1-reminder/sq1-reminder
+~ catherine
+| 前と同じように"赤いパイプラインに沿って"(orange)下りると、水漏れしてる箇所が見つかると思うよ。
+~ player
+| "FFCSは地表近くで"3箇所の損傷"(orange)を示している。"(light-gray, italic)
+
+# leak-first/leak-1
+~ player
+| "ここが"一つ目の破損箇所"(red)か。"(light-gray, italic)
+| "パイプに穴が開いているな。 恐らく、この角で曲がることによって強い圧力がかかっているのが原因なのだろう。"(light-gray, italic)
+? (not (var 'first-leak))
+| | "今こそ指先の即席溶接トーチの見せ場だ。"(light-gray, italic)
+| | [(var 'q1-weld-burn) (:embarassed)"This time I'll enable the UV filters on my cameras."(light-gray, italic) | (:normal)"UVフィルターを再起動して、と。"(light-gray, italic)]
+| | (:normal)"溶接完了だ。"(light-gray, italic)
+| ! eval (setf (animation (unit 'leak-1)) 'normal)
+| ? (have 'item:walkie-talkie)
+| | | "さて、無線で報告するか。"(light-gray, italic) (:thinking)"...これで繋がったか?"(light-gray, italic)
+|  
+| | {#@catherine-nametag}、破損箇所を修復したぞ。 [(have 'item:walkie-talkie) オーバー。|]
+| ~ catherine
+| | いいね。 早くも水の出が良くなってきてるよ。
+| | "その調子でお願いね。"(orange) もしトラブルが発生したら言ってね。 [(have 'item:walkie-talkie) 通信終了。|]
+| ~ player
+| | "よし、残りは"2箇所"(orange)だな。"(light-gray, italic)
+| ! eval (setf (var 'first-leak) T)
+|? (complete-p 'leak-second 'leak-third)
+| ~ player
+| | "溶接完了だ。"(light-gray, italic)
+| ! eval (setf (animation (unit 'leak-1)) 'normal)
+| | {#@catherine-nametag}、最後の破損箇所の修復を終えたぞ。 [(have 'item:walkie-talkie) オーバー。|]
+| ~ catherine
+| | (:cheer)水圧は完璧に戻ったよ、グッジョブ! お疲れ様。
+| | (:normal)破壊工作の痕跡はあった? [(have 'item:walkie-talkie) オーバー。|]
+| ~ player
+| - いや、異常は見当たらない。
+|   ~ catherine
+|   | それが聞けて一安心だよ。
+| - 沈下の影響か、経年劣化だったのだろう。
+|   ~ catherine
+|   | たまに落盤が... って今更説明の必要は無かったね!
+| - 一つはあなたが原因だったのだが。
+|   ~ catherine
+|   | (:concerned)私が? 前の修理で? それはごめんなさい。
+|   | 私の腕も鈍ったかな。 {#@jack-nametag}には内緒にしててね。 (:normal)さてと...
+| ~ catherine
+| | (:excited)"急いで帰ってきてね"(orange)、ちょっとした贈り物があるんだ。 [(have 'item:walkie-talkie) 通信終了。|]
+| ! eval (deactivate 'task-sq1-reminder)
+| ! eval (activate 'return-leaks)
+|?
+| ~ player
+| | "溶接完了だ。"(light-gray, italic)
+| ! eval (setf (animation (unit 'leak-1)) 'normal)
+| | "後は"1箇所"(orange)だけか。"(light-gray, italic)
+; how does FFCS communicate with Catherine? Catherine still needs to use walkie and "over"? Yes, but FFCS removes need for "over" as it can control things dynamically remotely
+
+# leak-second/leak-2
+~ player
+| "ここが"二つ目の破損箇所"(red)か。"(light-gray, italic)
+| "パイプが裂けているな。 沈下の形跡は無いが、以前{#@catherine-nametag}が修理した場所に近い... あの時彼女が誤って傷付けてしまったのだろう。"(light-gray, italic)
+? (not (var 'first-leak))
+| | "今こそ指先の即席溶接トーチの見せ場だ。"(light-gray, italic)
+| | [(var 'q1-weld-burn) (:embarassed)"This time I'll enable the UV filters on my cameras."(light-gray, italic) | (:normal)"UVフィルターをまた起動して、と。"(light-gray, italic)]
+| | (:normal)"溶接完了だ。"(light-gray, italic)
+| ! eval (setf (animation (unit 'leak-2)) 'normal)
+| ? (have 'item:walkie-talkie)
+| | | "さて、無線で報告するか。"(light-gray, italic) (:thinking)"...これで繋がったか?"(light-gray, italic)
+|  
+| | {#@catherine-nametag}、破損箇所を修復したぞ。 [(have 'item:walkie-talkie) オーバー。|]
+| ~ catherine
+| | いいね。 早くも水の出が良くなってきてるよ。
+| | "その調子でお願いね。"(orange) もしトラブルが発生したら言ってね。 [(have 'item:walkie-talkie) 通信終了。|]
+| ~ player
+| | "よし、残りは"2箇所"(orange)だな。"(light-gray, italic)
+| ! eval (setf (var 'first-leak) T)
+|? (complete-p 'leak-first 'leak-third)
+| ~ player
+| | "溶接完了だ。"(light-gray, italic)
+| ! eval (setf (animation (unit 'leak-2)) 'normal)
+| | {#@catherine-nametag}、最後の破損箇所の修復を終えたぞ。 [(have 'item:walkie-talkie) オーバー。|]
+| ~ catherine
+| | (:cheer)水圧は完璧に戻ったよ、グッジョブ! お疲れ様。
+| | (:normal)破壊工作の痕跡はあった? [(have 'item:walkie-talkie) オーバー。|]
+| ~ player
+| - いや、異常は見当たらない。
+|   ~ catherine
+|   | それが聞けて一安心だよ。
+| - 沈下の影響か、経年劣化だったのだろう。
+|   ~ catherine
+|   | たまに落盤が... って今更説明の必要は無かったね!
+| - 一つはあなたが原因だったのだが。
+|   ~ catherine
+|   | (:concerned)私が? 前の修理で? それはごめんなさい。
+|   | 私の腕も鈍ったかな。 {#@jack-nametag}には内緒にしててね。 (:normal)さてと...
+| ~ catherine
+| | (:excited)"急いで帰ってきてね"(orange)、ちょっとした贈り物があるんだ。 [(have 'item:walkie-talkie) 通信終了。|]
+| ! eval (deactivate 'task-sq1-reminder)
+| ! eval (activate 'return-leaks)
+|?
+| ~ player
+| | "溶接完了だ。"(light-gray, italic)
+| ! eval (setf (animation (unit 'leak-2)) 'normal)
+| | "後は"1箇所"(orange)だけか。"(light-gray, italic)
+
+# leak-third/leak-3
+~ player
+| "ここが"三つ目の破損箇所"(red)か。"(light-gray, italic)
+| "パイプが破裂して、まるで血がにじみ出る動脈のようだ。"(light-gray, italic)
+? (not (var 'first-leak))
+| | "今こそ指先の即席溶接トーチの見せ場だ。"(light-gray, italic)
+| | [(var 'q1-weld-burn) (:embarassed)"This time I'll enable the UV filters on my cameras."(light-gray, italic) | (:normal)"UVフィルターをまた起動して、と。"(light-gray, italic)]
+| | (:normal)"溶接完了だ。"(light-gray, italic)
+| ! eval (setf (animation (unit 'leak-3)) 'normal)
+| ? (have 'item:walkie-talkie)
+| | | "さて、無線で報告するか。"(light-gray, italic) (:thinking)"...これで繋がったか?"(light-gray, italic)
+|  
+| | {#@catherine-nametag}、破損箇所を修復したぞ。 [(have 'item:walkie-talkie) オーバー。|]
+| ~ catherine
+| | いいね。 早くも水の出が良くなってきてるよ。
+| | "その調子でお願いね。"(orange) もしトラブルが発生したら言ってね。 [(have 'item:walkie-talkie) 通信終了。|]
+| ~ player
+| | "よし、残りは"2箇所"(orange)だな。"(light-gray, italic)
+| ! eval (setf (var 'first-leak) T)
+|? (complete-p 'leak-first 'leak-second)
+| ~ player
+| | "溶接完了だ。"(light-gray, italic)
+| ! eval (setf (animation (unit 'leak-3)) 'normal)
+| | {#@catherine-nametag}、最後の破損箇所の修復を終えたぞ。 [(have 'item:walkie-talkie) オーバー。|]
+| ~ catherine
+| | (:cheer)水圧は完璧に戻ったよ、グッジョブ! お疲れ様。
+| | (:normal)破壊工作の痕跡はあった? [(have 'item:walkie-talkie) オーバー。|]
+| ~ player
+| - いや、異常は見当たらない。
+|   ~ catherine
+|   | それが聞けて一安心だよ。
+| - 沈下の影響か、経年劣化だったのだろう。
+|   ~ catherine
+|   | (:concerned)たまに落盤が... って今更説明の必要は無かったね!
+| - 一つはあなたが原因だったのだが。
+|   ~ catherine
+|   | (:concerned)私が? 前の修理で? それはごめんなさい。
+|   | 私の腕も鈍ったかな。 {#@jack-nametag}には内緒にしててね。 (:normal)さてと...
+| ~ catherine
+| | (:excited)"急いで帰ってきてね"(orange)、ちょっとした贈り物があるんだ。 [(have 'item:walkie-talkie) 通信終了。|]
+| ! eval (deactivate 'task-sq1-reminder)
+| ! eval (activate 'return-leaks)
+|?
+| ~ player
+| | "溶接完了だ。"(light-gray, italic)
+| ! eval (setf (animation (unit 'leak-3)) 'normal)
+| | "後は"1箇所"(orange)だけか。"(light-gray, italic)
+
+# return-leaks/leaks-return
+~ catherine
+| (:cheer)水圧が元通りになったよ! あなたなら出来ると信じてたよ。
+| (:normal)はい、"このパーツをどうぞ"(orange)。 あなたの努力のたまものだよ。
+! eval (store 'item:parts 150)
+! eval (status "150パーツを手に入れた")
+? (and (var 'take-walkie) (have 'item:walkie-talkie))
+| | 誰かが使うかもしれないからトランシーバーはケースに戻しとくね。
+| ! eval (retrieve 'item:walkie-talkie 1)
+| ! eval (status "トランシーバーを失った")
+| | こんな時代遅れのテクノロジーに頼るなんて、あなたからしたら変な感じでしょ。
+| ~ player
+| - 気に入った。
+| - 二度と使う気は無い。
+|   ~ catherine
+|   | えっ、そんなにダメかなぁ?
+| - 十分な機能性だ。
+|? (and (var 'take-walkie) (not (have 'item:walkie-talkie)))
+| ~ catherine
+| | ん、トランシーバーはどこ?
+| ~ player
+| - 売った。
+|   ~ catherine
+|   | (:concerned)あー、そうなんだ。
+|   | (:normal)それもアンドロイドの知恵のひとつ、ってところかな。
+|   | (:concerned)まぁ、スペアはあるから... 使うだけじゃなくパーツとしても貴重なものなんだけど。
+|   < payback
+| - 失くした。 (ウソ)
+|   ~ catherine
+|   | そっか、心配いらないよ。 そういう事もあるよね。 スペアがふたつあるから、気にしないで。
+| - なに、返さないといけなかったのか?
+|   ~ catherine
+|   | あぁ、もし売っちゃったなら構わないよ。 スペアは2つあるし。
+|   < payback
+  
+! label end
+~ catherine
+| さて、これでやっとあなたのやるべき事リストから水漏れ修理の項目が削除できるね?
+| お疲れ様、{(nametag player)}!
+
+; player always has 150 parts to give here, since they just recieved that as a reward
+; during quest, if not using walkie, she just assumes you decided not to use it after all, and use your FFCS instead
+
+# payback
+~ player
+- その分は必ず返そう。
+  ~ catherine
+  | 気にしないでいいよ。 やっぱり何としてもパーツは多く欲しいもんね。
+  ~ player
+  - 分かった、ありがとう。
+  - 返さないと気が済まない。
+    ~ catherine
+    | 分かったよ、それであなたの気が済むなら。
+    | あなたがいくらで売ったか知らないし、そんな事はどうでもいいんだけど。 じゃあ、"さっきあげたパーツと同じの150個分もらっていいかな"(orange)。
+    ~ player
+    - 承知した。
+      ~ catherine
+      | うんうん。 ありがとね。
+      ! eval (retrieve 'item:parts 150)
+      ! eval (status "150パーツを失った")
+    - 思っていたより図々しいんだな。
+      ~ catherine
+      | (:concerned)えぇっ。 そう思うんなら、やっぱり忘れてくれて構わないよ。
+- 買い戻してこよう。
+  ~ catherine
+  | 気にしないでいいよ。 やっぱり何としてもパーツは多く欲しいもんね。
+- 本当にすまない。
+  ~ catherine
+  | 気にしないでいいよ。
+< end
+

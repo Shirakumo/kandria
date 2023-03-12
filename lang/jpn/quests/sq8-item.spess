@@ -1,0 +1,24 @@
+# 3-interact-/interaction
+~ player
+| (:thinking)"これは"チュニックの切れ端"(orange)か... "評議員のヘッドドレスと同じ生地"(orange)で、"こちらも真珠で飾られている"(orange)。"(light-gray, italic)
+| (:embarassed)"そして... "血にまみれている"(orange)。"(light-gray, italic)
+? (not (complete-p 'q11a-bomb-recipe))
+| ~ player
+| | ""評議員はここには居ない"(orange)が、"3箇所目"(red)を候補地から外せそうだな。"(light-gray, italic)
+| ? (not (complete-p (find-task 'sq8-find-council 'move-npc)))
+| | ~ player
+| | | ""他の2箇所も調べてみるか"(orange)。"(light-gray, italic)
+| | ! eval (activate (find-task 'sq8-find-council 'move-npc))
+| |? (complete-p (find-task 'sq8-find-council 'site-1) (find-task 'sq8-find-council 'site-2))
+| | ~ player
+| | | "ここで最後だ。 もし評議員たちがまだ生きているとしても、ここには居ない。 "セレバットのトレーダーの元へ戻るか"(orange)。"(light-gray, italic)
+| | ! eval (activate (find-task 'sq8-find-council 'task-return))
+| |?
+| | ~ player
+| | | "調べるべき場所はまだ"1箇所"(orange)残っている。"(light-gray, italic)
+|?
+| ~ player
+| | "これは不吉な兆候だが、"セレバットのトレーダーに報告するには遅すぎるな"(orange)。"(light-gray, italic)
+| | "ここから離れたほうが良さそうだ。"(light-gray, italic)
+
+; ^ invariant check included

@@ -1,0 +1,64 @@
+# 3-interact-islay/interaction
+~ fi
+| (:unsure)どうした? 今爆弾を爆破させるべきなのか?
+~ islay
+| {#@zelah-nametag}はまだ近くに居るわ。 もし奴が爆弾に気付いたらどうなると思う? 軍隊を後退させるかしら?
+~ fi
+| (:annoyed)奴は爆弾のことを知らない。
+~ islay
+| ...
+| いいわ。
+| 爆破させましょう。 トンネルを崩落させ、生き残った者は捕虜にするわ。 もし死を厭わず抵抗を選ぶのが彼らのやり方なら、話は別だけど。
+~ fi
+| 本当にそれで良いんだな。
+~ islay
+| えぇ。
+| それでは、やるわよ。 シグナルを送るわ...
+| ...
+~ fi
+| ...
+~ islay
+| (:nervous)"起爆しないわね"(orange)。
+~ fi
+| (:annoyed)何...? 何故だ?
+~ islay
+| (:nervous)分からないわ。
+| (:normal)"シグナルは正常に届いているのよ"(orange)。 そして奴らの電波妨害はまだ作動していない... {#@zelah-nametag}はその為の部隊を組織しているはずだけど。
+| 仮に妨害されたとしても問題は無いはずよ... そう設計したもの。
+~ fi
+| (:unsure)奴らに爆弾を発見されたのか?
+~ islay
+| ... そうでなければいいのだけど。
+| (:nervous)クソッ。
+| 誰かが確認しに行くしかないわね。
+~ player
+- 私が行こう。
+  ~ fi
+  | (:happy)...
+- その為に私はここに居る。
+  ~ fi
+  | (:happy)...
+- 私に行けと言いたいのだろう。
+~ islay
+| いいえ、あなたは爆弾についての知識は持ち合わせていないでしょう。 "{#@catherine-nametag}でなければならないわ"(orange)。
+~ fi
+| (:annoyed)彼女を信用していないのか?
+~ islay
+| そうじゃないわ。
+~ player
+- 爆弾をチェックする方法を教えてくれないか。
+  ~ islay
+  | (:nervous)そんな時間は無いわ。 それに、十分な知識が無ければリスクが高すぎるわ。
+- {#@catherine-nametag}が怪我をするかもしれない。
+  ~ fi
+  | (:annoyed)彼女はまだ子供だぞ、{#@islay-nametag}。
+  ~ islay
+  | そんな事ないわ。 それにあの子だって自分が何をしているか十分に理解しているわよ。
+~ islay
+| {(nametag player)}は{#@catherine-nametag}に同行して、あの子を守ってあげて。
+~ islay
+| "あの子を呼んできて"(orange)くれるかしら。
+| それと、"もし取引がしたいなら声をかけてちょうだい"(orange)。 きっと、"これが最後のチャンスよ"(orange)。
+
+; hint that Islay is about to lose her trader abilities due to the focus of the final mission; can see it as a hint from her she's about to leave too
+

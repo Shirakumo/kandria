@@ -1,0 +1,412 @@
+# 2-interact-catherine/interaction
+~ catherine
+| よし、ここが水漏れしてるんだね。
+| 変だなぁ、パイプがヒビ割れちゃってる。
+~ player
+- 直せるのか?
+  ~ catherine
+  | これくらいの事が出来なきゃ、エンジニア失格だよ。
+- どうしてこうなったんだ?
+  ~ catherine
+  | 沈下の影響かなぁ。 でも落盤した様子は無いんだけどなぁ。
+- 何が変なんだ?
+  ~ catherine
+  | ヒビ割れは普通、沈下が原因なんだ。 でも落盤した様子が無いんだよ。
+~ catherine
+| まぁいいや、それより始めるよ。 溶接するから、目をそらしておいてね。 あなたのカメラが焼けちゃうかもしれないし。
+~ player
+| "{#@catherine-nametag} は注意深くゴーグルを装着し、溶接トーチをしっかりと握りしめている。"(light-gray, italic)
+~ player
+- (UVフィルターを有効化する)
+  ~ player
+  | "動作良好、フィルター越しに見える火花が薄暗くなった。 バチバチと弾ける火花が完全に見えなくなるというほどではないが。"(light-gray, italic)
+- (UVフィルターを有効化しない)
+  ~ player
+  | "まるで太陽を見つめているようだ。 天変地異の如く燃え盛る炎の中心を。"(light-gray, italic)
+  ! eval (setf (var 'q1-weld-burn) T)
+  | (:embarassed)"おっと。 レンズが傷んでしまったかな。"(light-gray, italic)
+! eval (start-animation 'repair2 'catherine)
+! eval (setf (animation (unit 'main-leak-1)) 'normal)
+~ catherine
+| これでヨシ。
+~ catherine
+| {#@jack-nametag}、水漏れを直したよ。 パイプが割れてたんだ。 水はちゃんと出てる? オーバー。
+~ jack
+| 全然ダメだ。 そこ以外にも水漏れしてる場所があるはずだ。 オーバー。
+~ catherine
+| 了解。 引き続き探してみるね。 通信終了。
+| 行こっか... (:concerned)えーっと、あなたにも名前が無いと不便だね。
+| アンドロイドにもそれぞれ名前があるの?
+~ player
+- 自分の名前を思い出せないんだ。
+  ~ catherine
+  | (:concerned)えぇっ、本当? ごめんなさい。
+  ~ player
+  | (:thinking)何もかも、よく思い出せないんだ。
+  ~ catherine
+  | 大丈夫、大丈夫。 ちょっとした記憶データの消失みたいなものだよ。
+- 私たちだって名前を持ってるさ!
+  ~ catherine
+  | (:concerned)そりゃそうだよね、ごめん。 あなたの名前を教えてよ?
+  ~ player
+  | (:thinking)問題はそこなんだが... 自分の名前を思い出せないんだ。 それ以外にも多くの事が思い出せない。
+  ~ catherine
+  | 大丈夫... 心配いらないよ。 ちょっとした記憶データの消失みたいなものだよ。
+- 今する話か？
+  ~ catherine
+  | (:concerned)その通りだね。 ごめん。
+  ~ player
+  | (:thinking)だが、言われてみれば... 自分の名前を思い出せないな。
+  ~ catherine
+  | (:concerned)えぇっ、本当? ごめんなさい。
+  ~ player
+  | (:thinking)何もかも、よく思い出せないんだ。
+  ~ catherine
+  | 大丈夫、大丈夫。 ちょっとした記憶データの消失みたいなものだよ。
+~ catherine
+| そうだなぁ、あなたの記憶が戻るまで、それかあなたがどう呼ばれたいか決まるまで(:excited)"__{#@player-name-1}__"(yellow)って呼ぶね。
+! eval (setf (nametag player) (@ player-name-1))
+| (:excited)我ながらなかなか良い命名しちゃった、でしょ?
+| (:normal)よし、"パイプラインに沿ってもっと深く潜らなきゃ"(orange)。
+| (:excited)行こっか、{(nametag player)}!
+  
+# 4-interact-catherine/interaction
+~ catherine
+| (:concerned)見て。 さっきのパイプと同じ割れ方してる。 何かおかしいよ。
+| {#@jack-nametag}、どうやら問題が発生したみたい。 オーバー。
+~ jack
+| 何があった?
+~ catherine
+| (:concerned)今"ミッドウェストマーケット"(red)に居るよ。 さっきのパイプと同じようにヒビ割れてるけど、どちらも落盤が原因のようには見えないんだ。 オーバー。
+~ jack
+| ...
+| (:annoyed)何者かによる破壊工作だな。 思った通りだ。
+| (:normal)よし、キャシー、そこで待ってろ。 今すぐに行く。 オーバー。
+~ catherine
+| ダメ! 大丈夫だよ。 私が修理するから。 オーバー。
+~ jack
+| 分かった、だが気をつけろよ。 俺は皆に状況を説明してくる。
+| 水漏れがないか確認するために、"ポンプまでパイプを伝って行く"(orange)といいだろう。
+| そこから先は無線が使えねぇ。 終わったらポンプの近くの公衆電話からかけてきてくれ。
+| そして決して気を抜くなよ。 通信終了。
+~ catherine
+| よし、さっそくこれを塞がなきゃ。
+! eval (start-animation 'repair2 'catherine)
+! eval (setf (animation (unit 'main-leak-2)) 'normal)
+| (:concerned)待って... そこに居るのは誰?
+  
+# 11-interact-catherine/interaction
+~ catherine
+| ビックリしたぁ、やっぱりあなたと一緒に来て良かったよ。
+| 溶接完了、新品みたいになったよ。
+| "さぁ、ポンプルームまで降りようか。"(orange)
+
+# 15-interact-catherine/interaction
+? (not (complete-p (unit 'q1-fight2)))
+| ~ catherine
+| | (:concerned)ウソでしょ?! "サーボ"(red)? なんでここに?
+| ~ player
+| - 犯人が見つかったようだな。
+|   ~ catherine
+|   | (:excited)"彼らを止めて!"(orange)
+| - サーボ機構を搭載したロボットか?
+|   ~ catherine
+|   | (:excited)説明してる時間は無いよ! "彼らを止めて!"(orange)
+| - (やるか)
+| ! eval (setf (var 'servos-cath-know) T)
+|?
+| ~ catherine
+| | (:concerned)ウソでしょ?!- "ちょっとポンプを確認するね"(orange)。
+| ~ player
+| - どうかしたのか?
+|   ~ catherine
+|   | (:concerned)クソーッ、"サーボ"(red)がやったんだ!
+| - 何が見える?
+|   ~ catherine
+|   | (:concerned)クソーッ、"サーボ"(red)がやったんだ!
+| - ここにロボットが居たようだが。
+|   ~ catherine
+|   | (:concerned)"サーボ"(red)? 彼らはどこ?
+| ! eval (setf (var 'servos-early) T)
+
+
+# 21-interact-catherine/interaction
+~ catherine
+| (:concerned)何をしてたんだろう...?
+| 良かったぁ、ギリギリで間に合ったね。 タービンを分解しようとしてたみたい。
+? (var 'servos-early)
+| ~ catherine
+| | 何かあったのかな? 床一面に部品が散らばってるけど。
+| ~ player
+| - オホン。
+|   ~ catherine
+|   | あなたがやったの?
+|   | (:excited)すごいじゃない。 あなたが一緒に来てくれて//ホントに//良かったぁ。
+|   ! eval (setf (var 'servos-cath-know) T)
+| - 彼らに何があったか見てごらん。
+|   ~ catherine
+|   | ...
+|   | (:excited)うひゃあ。 あなたの機嫌を損ねないように気を付けなきゃね!
+|   ! eval (setf (var 'servos-cath-know) T)
+| - さぁね。 (ウソ)
+  
+~ catherine
+| 私はこれを修理しなきゃ。 "公衆電話が後ろにあるから、{#@jack-nametag}に電話して何があったか伝えて"(orange)。
+~ player
+- 分かった。
+- 私があの男と話さなければならないのか?
+  ~ catherine
+  | (:concerned)大事なことなの。 お願い。
+- 面倒だからFFCSを使っていいか?
+  ~ catherine
+  | それがあなたに搭載された通信システム? それでも通じるだろうけど、確実に{#@jack-nametag}は苛立つだろうね。
+  | とりあえず電話を使ってよ。
+
+# 23-interact-jack/interaction
+~ jack
+| 感謝するぜ。 よくやった、キャシー。 水が出るようになったぞ。
+~ player
+- どうも。
+  ~ jack
+  | (:shocked)... テメェ! キャシーはどこだ?
+- {#@catherine-nametag}ではないんだが。
+  ~ jack
+  | (:shocked)... テメェ! キャシーはどこだ?
+- {(nametag player)}だ。
+  ~ jack
+  | (:annoyed){(nametag player)}だと?
+  | (:shocked)... テメェ、あのアンドロイドだな。 キャシーはどこだ?!
+~ player
+| 彼女はポンプを修理中だ。 サーボロボットによって破壊されていた。
+~ jack
+| (:shocked)<-サーボ->?!... それで奴らは今どこに?
+~ player
+- 私が全て始末した。
+- 床の上でバラバラの破片になっているぞ。
+- もう居ない。
+~ jack
+| (:annoyed)...
+| 正直に言ったほうがいいぜ。
+| (:normal)サーボ、だと...? そりゃあ納得だ。 もし奴らが居なけりゃ今頃"ローグ"(red)どもに囲まれてるはずだがな。
+~ jack
+| オラ、大至急で"さっさと戻ってこいとキャシーに伝えろ"(orange)。
+| それと"テメェもだ"(orange)、//アンドロイド//。 "{#@fi-nametag}"(yellow)がご立腹だ。
+~ player
+| "切られてしまった。"(light-gray, italic)
+
+; using frequent repetition of Catherine speaker tag initially here, in case she's far away at first (radio effect), but then comes closer - to refresh it
+# 26-interact-catherine/interaction
+~ catherine
+| ポンプの応急処置はしたよ。 しばらくはこれで平気なはず。 だけど後でちゃんとした修理をしなきゃ。
+~ catherine
+| {#@jack-nametag}は何て言ってた?
+~ player
+- 戻ってこい、{#@fi-nametag}とやらがご立腹だ、と。
+- よくやったと言われたが...
+  ~ catherine
+  | が、何?
+  ~ player
+  | 2人とも急いで戻ってこいと。 {#@fi-nametag}とやらがご立腹なんだと。
+- 私の話を聞いて不満そうにしていた。
+  ~ catherine
+  | (:concerned)だろうね。 (:normal)他には何か言ってた?
+  ~ player
+  | 2人とも急いで戻ってこいと。 {#@fi-nametag}とやらがご立腹なんだと。
+~ catherine
+| (:concerned)うーん、参ったなぁ。
+~ catherine
+| (:normal)私たちが歓迎されるにはもう少し時間がかかりそうだね。
+~ catherine
+| そうだ、"あなたがリード"(orange)してみない? そろそろここにも慣れてきたか確認したいな。
+~ player
+- いいだろう。
+  ~ catherine
+  | (:excited)やったね!
+- まだ慣れていない。
+  ~ catherine
+  | あらら... あなたなら平気だと思ったんだけどな。 挑戦してみることが大事だよ。
+- {#@fi-nametag}とは誰だ?
+  ~ catherine
+  | 彼女は私たちのリーダーなんだ。 彼女はあなたに会うときっと喜ぶはずだよ。
+~ catherine
+| さぁ、"キャンプへ戻ろう"(orange)、あっちでも何かあったみたいだし。
+! eval (setf (location 'fi) (location 'shutter-2))
+! setf (direction 'fi) -1
+! eval (setf (location 'jack) (location 'shutter-3))
+! setf (direction 'jack) -1
+
+# 29-interact-catherine/interaction
+! eval (stop-following 'catherine)
+! eval (ensure-nearby 'shutter-1 'catherine)
+! eval (setf (nametag (unit 'fi)) (@ fi-nametag))
+~ catherine
+| (:cheer)ただいま! 寂しかった?
+~ jack
+| (:annoyed)ほぉ～、こいつは驚いた。
+~ catherine
+| どうしたの? 無事に帰ってくると思ってなかった?
+~ jack
+| (:annoyed)そんなとこだな。
+~ fi
+| よくやってくれたな、{#@catherine-nametag}。 アンドロイドは私たちにとって重要な存在になるはずだ。
+| "それが信頼できるのであればな"(orange)。
+~ catherine
+| (:concerned)どういうことよ。
+~ fi
+| 私たちのパイプが破壊されのと同じタイミングでそれを発見したのは、本当に偶然なのか? そいつはワローかもしれない。
+? (not (var 'servos-early))
+| ~ catherine
+| | でも、私たちはサーボがポンプを解体しようとしているところを見たよ。 彼女は奴らを壊して止めてくれたんだから、彼女は関係ないよ!
+|? (var 'servos-cath-know)
+| ~ catherine
+| | でも、私たちはサーボがポンプを傷付けて、解体しようとしているところを見たよ。
+| | それに彼女は奴らを壊して止めたって言ってるし!
+| ~ jack
+| | それでソイツを信じるってか?!
+| | あのなぁ...
+|?
+| | ~ catherine
+| | でも、私たちはサーボがポンプを傷付けて、解体しようとしているところを見たよ。 彼女は悪くないよ!
+| ~ jack
+| | 何故それを知ってんだ?
+| | 他にも何か知ってんのか...?
+  
+~ jack
+| こいつが奴らを操作している可能性は? 無いと言い切れるか?
+~ catherine
+| (:concerned)...
+| (:concerned)アンドロイドはFFCS... えっと、遠方界通信システムを搭載してるよね。
+| 確かに私たちが使ってる無線よりずっと地中深くまで届くと思うよ。
+| (:normal)でも違うの、そうじゃないの。 彼女は何十年も機能停止してたんだから、それは確かだよ。
+| それに彼女を目覚めさせてから、ずっと私と一緒に居たんだから! 彼女にそんな事出来るはずないよ。
+~ jack
+| なぁキャシー、俺たちにアンドロイドの何が分かるってんだ? 知らねぇことだからじゃねぇか。
+~ catherine
+| じゃあ、彼女に聞いてみようよ。 "{(nametag player)}、あなたは私たちを裏切ったの?"(orange)
+~ player
+- 裏切っていない。
+  ~ catherine
+  | ほら、ね。 彼女の記憶は混濁してるけど、これだけは事実だよ。
+  ~ fi
+  | いいだろう。 それが真実であることを願おう。 (:annoyed)そうでないなら、ワローは私たちの居場所を知っていて、既に集団で私たちを狩りに向かってきているだろうからな。
+- 裏切っていないと思う。
+  ~ catherine
+  | 彼女の記憶は私が彼女を目覚めさせる前から混濁してるんだよ。 私を信じてよ、彼女はやってない。
+  ~ fi
+  | いいだろう。 それが真実であることを願おう。 (:annoyed)そうでないなら、ワローは私たちの居場所を知っていて、既に集団で私たちを狩りに向かってきているだろうからな。
+- 裏切ることも出来ただろうな。
+  ~ catherine
+  | (:concerned)彼女は自分が何を言っているか分かってないの。 私が目覚めさせるまで、彼女の記憶はめちゃくちゃになってたんだから。 彼女は自分の名前さえ覚えてないんだよ!
+  ~ fi
+  | いいだろう。 決定的な証拠にはならないが、今は{#@catherine-nametag}が間違っていないことを願おう。
+  | (:annoyed)そうでないなら、ワローは私たちの居場所を知っていて、既に集団で私たちを狩りに向かってきているだろうからな。
+- そうだ。
+  ~ catherine
+  | (:concerned)...
+  | (:excited)あぁ、確かに彼女がやったよ。 彼女はワローの内通者だよ。
+  | (:concerned)ちょっと、2人とも!? 私が騙されやすいのは分かってるけどさ、私が彼女を信じてなかったら彼女と一緒に居たがると本当に思う?
+  | とにかく、私が目覚めさせるまで、彼女の記憶はめちゃくちゃになってたんだから。 彼女は自分の名前さえ覚えてないんだよ!
+  ~ fi
+  | いいだろう。 決定的な証拠にはならないが、今は{#@catherine-nametag}が間違っていないことを願おう。
+  | (:annoyed)そうでないなら、ワローは私たちの居場所を知っていて、既に集団で私たちを狩りに向かってきているだろうからな。
+~ jack
+| (:shocked)おいおい、{#@fi-nametag}... 本当にそれだけで信じるつもりか?
+~ fi
+| 他にどうしろと?
+~ jack
+| そいつを検査しねぇことには、確信は得られねぇ。
+~ fi
+| (:unsure){#@catherine-nametag}、アンドロイドにはブラックボックスが組み込まれているな? FFCS... だったか、それは最近稼働していたか? それを確認すれば何か分かるかもしれない。
+~ catherine
+| ... インターフェースポートを見つけなきゃね。
+| (:concerned)あぁ、それと私が生まれる前から誰も持っていない、動作するコンピューターも必要だね。
+| でも、例え条件が整ったとしても、彼女を分解してもいいか彼女に許可を取るべきだじゃない?
+~ fi
+| その通りだな、{#@catherine-nametag}。
+| すまないな... {(nametag player)}、だったな?
+~ jack
+| (:annoyed)...
+~ fi
+| もしよければ、"{#@catherine-nametag}が君を検査することを許可してくれるか"(orange)?
+~ player
+- 出来ればしないでほしい。
+  ~ fi
+  | もちろん、君の意志を尊重しよう。
+  ~ jack
+  | (:annoyed)本気なのか? こんなやつに主導権を握らせるつもりか?
+  ~ fi
+  | "こんなやつ"でも一人の存在だ。 彼女を人間として扱うんだ。
+  | 私は{#@catherine-nametag}の判断を信じよう。 今のところは、{(nametag player)}は私たちのゲストだ。
+  | とは言え{#@jack-nametag}、"{#@trader-nametag}"(yellow)が到着したら、彼がアンドロイドについて何か知っていないか確認してくれ。
+  | もし{(nametag player)}が記憶障害を起こしているのであれば、せめて私たちに出来る協力をしよう。
+  ~ jack
+  | (:annoyed)しょうがねぇな。
+- もちろん、構わない。
+  ~ fi
+  | ありがとう。 {#@jack-nametag}、"{#@trader-nametag}"(yellow)が到着したら、彼がアンドロイドについて何か知っていないか確認してくれ。
+  ~ jack
+  | (:annoyed)しょうがねぇな。
+- その後も私のオンラインが保証されるのであれば。
+  ~ catherine
+  | 心配は無用だ、私は君のスイッチをオフにはしない。
+  ~ fi
+  | 決まりだな。 {#@jack-nametag}、"{#@trader-nametag}"(yellow)が到着したら、彼がアンドロイドについて何か知っていないか確認してくれ。
+  ~ jack
+  | (:annoyed)しょうがねぇな。
+~ fi
+| (:annoyed)それはともかく、いずれにせよ"ワローは私たちと対立している"(orange)というのは確かだ。
+| 奴らは私たちの居場所を探って近づいてきている。
+| (:normal)"次に私たちが取るべき行動を検討しなければならない"(orange)。
+~ catherine
+| あのさ、他に何も用事が無いなら、この辺でお開きってことで。
+| ねぇ{(nametag player)}、ここで待っててね。 "話したいことがあるの"(orange)。
+~ fi
+| それでは失礼するよ、{#@catherine-nametag}、{(nametag player)}。
+~ jack
+| 用心しろよ、キャシー。
+! eval (move-to 'fi-farm 'fi)
+! eval (setf (walk 'fi) T)
+! eval (move-to 'eng-jack 'jack)
+! eval (setf (walk 'jack) T)
+~ catherine
+| (:concerned)あーっ、大人ってやだやだ。 いやまぁ、正確には私も大人だけど、あんな分からず屋たちとは違うよ。
+| (:normal)あっ! 忘れるところだった。 助けてくれた人には何かお返しをするのが私たちの流儀なの。
+| あの2人は私ほど気前がよくないから、私がこの"スペアパーツをあげるね"(orange)。
+! eval (store 'item:parts 200)
+! eval (status "200パーツを手に入れた")
+| 少ないけど、欲しい物があれば"トレード"(orange)に使ってみて。 "{#@trader-nametag}が来たら"(orange)出来るようになるよ。
+| (:concerned)彼がこんなに遅れるなんて、らしくないなぁ。 サーボにビビってるのかな。
+| (:normal)とにかく、{#@jack-nametag}と{#@fi-nametag}については心配いらないよ。 みんなすぐに分かってくれるはず。(:excited)あなたが私たちを守ってくれる__とーっても____フレンドリーで____素敵な人__ってことをね!
+| (:normal)さてと、私は仕事しなきゃ。
+| "{#@fi-nametag}と話してみる"(orange)といいかもね。 彼女から信頼を得るために、何か手伝えることがあるかもしれないよ。
+| "{#@jack-nametag}も何か用事があるはず"(orange)... (:concerned)全力の罵倒を吐かれるだけじゃなければいいんだけど。
+| (:normal)でも、今のあなたは自由の身だよ。 それもそう長続きしないだろうから、この時間を無駄にしないようにね。
+| (:excited)"周囲を見回して探索"(orange)してみるといいかも! (:normal)でも、あまりキャンプからは離れすぎないように気を付けること。
+| またね、{(nametag player)}!
+
+; "And since I brought her online she's been with me the whole time" - might not be totally true at this point, but Catherine is more than happy to "white lie" for you. It also contradicts an earlier argument she made on the branch where she says you told her you'd killed the Servos - clearly she wasn't with you the whole time then. But Jack is too stupid (or angry) to pick up on that contradiction, and clearly Fi doesn't believe you were at fault too much, otherwise she'd not and let that go nor welcome you into the fold.
+; The line can't really say "been with me most of the time" either, as critical path players will have been with her the whole time
+; Catherine is perhaps then aware that you could be guilty, but she's too much your biggest fan to believe it, so it never comes up again with her
+
+; when the NPCs here talk about figuring out if the FFCS was active lately, it's to see if it was active with a view to communing with Servos, not just that it was active in itself - which of course it is active all the time during the game, which most of these NPCs come to know about. We can put this slightly clunky wording on their part down to being lay with respect to FFCS
+
+; reading between the lines here as well, and something that ties into q14-envoy, is that if the suspect you being involved with the Servos, AND that the Wraw are the attackers, then they are implying that you work for the Wraw... The player of course is none the wiser at this point, so with the inducting into the gang, the player may feel these people are dangerously letting their guard down
+
+# main-leak-2/walkntalk
+~ catherine
+| (:excited)ほらほら、捕まえてごらん!
+
+# q1-fight1/walkntalk
+~ catherine
+| (:concerned)気を付けて!
+
+# q1-fight2/walkntalk
+~ catherine
+| (:concerned)注意してね、周りにもっと潜んでるかも...
+; needs to work whether the player is fighting the Servos now, or if Catherine is running to the sabotaged pump dismayed
+
+# shutter-1/walkntalk
+~ catherine
+| (:excited)"ホームへ帰ろう、"(orange){(nametag player)}!
+
+; ^ might not play in the edge case the player jumps into water before talking to Catherine, as it will be replaced by the "This doesn't look safe..." walkntalk

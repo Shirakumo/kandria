@@ -1,0 +1,57 @@
+# task-reminder/interact-fi
+~ fi
+| 急いでくれ。 "ポンプルームで{#@islay-nametag}を探して、全ての爆弾を修復"(orange)するんだ。
+
+# check-bomb-3/interact-bomb
+
+# islay-person/islay-talk-bomb
+! eval (ensure-nearby 'player 'catherine)
+~ catherine
+| (:concerned){#@islay-nametag}、ずぶ濡れじゃない。
+~ islay
+| (:nervous)はぁ... あなたたちは来るべきじゃなかったわ。 これは私がなんとかする。
+~ player
+- 手伝わせてくれ。
+  ~ catherine
+  | うん、一緒にやろう。 (:excited)その方が早いよ。
+- 一人より複数人の方が効率的だ。
+  ~ catherine
+  | (:excited)そうそう。 彼女の言う通り。
+- 出来るわけないだろう。
+  ~ catherine
+  | (:concerned){(nametag player)}の言う通り。 私たちにも手伝わせてよ。
+~ islay
+| (:nervous)...
+| "レシーバーが解除されているわ"(orange)...
+| (:normal)だけど、これ以上奴らに細工されないように"再配線"(orange)出来そうよ。
+| 奴らは"爆弾処理用メック"(orange)を所有していて、その"一体がポンプルームへ向かうのを見たわ"(orange)。
+| ここまで来てしまったなら、"そのメックを破壊"(orange)してくれるかしら。
+| "その後、ブラザーオフィスの爆弾へ向かってちょうだい。 {#@catherine-nametag}、あなたなら配線し直せるわよね"(orange)。
+~ catherine
+| (:excited)分かったよ。
+~ islay
+| こっちが済んだら、"病棟先の爆弾へ向かうわ"(orange)。
+| そして{(nametag player)}、今こんな事を言うのもなんだけど... 私はあなたが裏切り者だなんて思っていないわ。
+| さぁ、行って。 私は私のすべき事をするわ。
+~ catherine
+| あなたがメックの方へ行ってる間に、私は先にブラザーのオフィスへ向かっておくね。
+~ player
+- 同行するべきだ。
+- あなたが死んだら困る。
+- 兵士やメックに遭遇するかもしれないぞ。
+~ catherine
+| (:concerned)... でも、私にだってやれるよ。
+~ player
+| それは分かるが、あなたが爆弾にたどり着けなかったとしたら元も子もない。
+~ catherine
+| (:concerned)...
+~ catherine
+| (:excited)オーケー、一緒に行こ。 "メックを追うよ"(orange)。
+! eval (complete 'check-bomb-3)
+! eval (deactivate 'task-reminder)
+! eval (clear-pending-interactions)
+
+; is easier for Islay/Catherine to rewire an existing receiver to make it tamper proof, than use one of the seven vanilla receivers the player is still carrying
+
+; Islay is working on the "receiver" here, not the bomb itself, because of course the bomb sprite is still there in the flooded room!
+

@@ -1,0 +1,5 @@
+# zelah-gone/zelah-gone-prompt
+~ player
+| "ひとまず、{#@zelah-nametag}は去った。"(light-gray, italic)
+| ""作業場で待つ、{#@islay-nametag}と{#@fi-nametag}の元へ行かなければ"(orange)。"(light-gray, italic)
+

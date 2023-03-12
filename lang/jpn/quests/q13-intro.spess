@@ -1,0 +1,153 @@
+# 3-interact-islay/interaction
+~ islay
+| これが最後の部品よ。
+~ catherine
+| オッケー! って、{(nametag player)}も来たんだね。 (:excited)あなたならやってくれるって信じてたよ。
+| (:normal)ほら、爆弾の量産はほぼ完了してるよ。
+~ fi
+| (:unsure)量産? 爆弾はひとつじゃなかったのか。
+~ islay
+| 巨大な爆弾をひとつ作るより、小さくても数が多い方が有効だわ。
+~ fi
+| (:annoyed)そんなこと聞いてないぞ?
+~ islay
+| 今言ったでしょう?
+| 奴らが進軍に利用するトンネルを複数崩落させることで、インフラへのダメージを最小限に抑えられるわ。
+~ fi
+| そうか... 分かった、いいだろう。
+~ catherine
+| それに最後の部品もたった今届いたし、この方法だとこれ以上部品を用意する必要も無いんだ。
+~ islay
+| そういうことだ。 では、出来るだけ速やかに完成させてくれ。
+| ... 問題は、どうやって設置するかだが...
+~ player
+| "{#@islay-nametag}が{#@fi-nametag}を見つめている。 2人の間には確かに信頼関係が生まれたようだ。"(light-gray, italic)
+~ islay
+| 頼めるのは{(nametag player)}しか居ないだろうな。
+~ player
+- そうだろうな。
+  < brave
+- 他に方法が無いなら。
+  < brave
+- 私に自殺行為をしろと。
+  ~ fi
+  | (:unsure)...
+  | 無事に済めばいいのだが。
+  ~ catherine
+  | (:concerned)そうだね... ごめん、私は仕事に戻るね。
+  ~ fi
+  | だがアイラの言う通り、これが出来るのは君しか居ないんだ。
+  < continue
+
+# brave
+~ fi
+| (:unsure)...
+| (:normal)アイラの言う通り、これが出来るのは君しか居ないんだ。
+! eval (setf (var 'brave) T)
+< continue
+
+# continue
+~ islay
+| 確かに危険が伴うわ。 だけど敵の兵士に対して自衛出来るのもあなただけなのよ。
+| 設置するまでに爆弾が暴発することも無いわ。
+~ player
+- [(var 'brave) 任せてくれと言っているんだ。|]
+  ~ islay
+  | 感謝するわ。 爆弾の準備は出来たかしら?
+- [(not (var 'brave)) 私に選択権は無いことは分かっている。|]
+  ~ fi
+  | (:happy)君はいつものように期待に応えてくれるんだろう。
+  ~ islay
+  | 感謝するわ。 爆弾の準備は出来たかしら?
+- 信じていいんだな?
+  ~ islay
+  | 約束するわ。
+  | {#@catherine-nametag}、爆弾の準備は出来たかしら?
+- {#@catherine-nametag}の技術は信用している。
+  ~ catherine
+  | ありがと。 私はただ{#@islay-nametag}の指示に従ってただけなんだけどね。
+  ~ islay
+  | あなたは立派なエンジニアよ、{#@catherine-nametag}。 ノカにとって... いえ、//私たち//にとって、あなたが味方に居てくれるのは本当に幸運ね。
+  | さて、爆弾の準備は出来たかしら?
+~ catherine
+| 準備出来てるよ。 はい、{(nametag player)}。
+! eval (store 'item:explosive 3)
+! eval (status "爆弾x3を手に入れた")
+~ player
+| "受け取った"3個の爆弾"(orange)は、それぞれが大きなレンガほどのサイズだ。"(light-gray, italic)
+| "こんなプラチック爆弾を爆発物処理チームが取り扱っているのを見た記憶があるな。"(light-gray, italic)
+~ catherine
+| 耐衝撃性はバッチリだから、心配いらないよ。 私たちが信号を送った時しか爆発しないからね。
+! eval (store 'item:receiver 13)
+! eval (status "RFデトネーターx13を手に入れた")
+~ player
+| "起爆装置のブラスティングキャップに取り付けられたRFレシーバーもいくつかあるな。"(light-gray, italic)
+~ catherine
+| 爆弾を設置したら、"レシーバーをセット"(orange)するだけだよ。 "確実に起動させるために、2個ずつお願いね"(orange)。
+| これでチャージパックが起動してレシーバーが作動するんだ。
+| 必要量より多く余分に渡したのは念の為ね。
+~ islay
+| レシーバーは独立した周波数にセットしているから、私たち以外には起動出来ないわ。 ワローの妨害は避けられるはずよ。
+~ fi
+| 具体的にどのポイントを爆破させるんだ?
+~ islay
+| ...
+~ fi
+| (:unsure)どうした?
+~ islay
+| "ゼニスハブ西のブラザーのオフィス"(orange)
+| "ノカ東低層の境界、ルートレスの病棟の先"(orange)
+| "ポンプルーム付近の水没した部屋"(orange)... の3箇所よ。
+~ fi
+| (:annoyed)冗談だろう?
+~ islay
+| ノカの下に設置している私たちの監視装置は既にオフラインになっているわ。
+| 私たちは、今、ここでワローを止めなければならないのよ。
+~ fi
+| それで、そのために私たちの配水ポンプを爆破するのか?
+~ islay
+| あれは私たちセミのポンプだわ。 あなたたちに使わせてあげていただけよ。
+~ fi
+| (:annoyed)...
+~ islay
+| それに、爆破するのはポンプじゃなくて、隣の部屋よ。 トンネルを崩落させて奴らのアクセスを防ぐにはそれで十分。
+| そのために沈没した部屋の水が役に立つの。
+| ポンプが損傷を受けたとしても後で修理出来るし、最小限に抑えるわ。
+~ fi
+| (:annoyed)そうするしかなさそうだな...
+~ islay
+| 心配いらないわ。
+~ islay
+| 確認するわよ、{(nametag player)}。 "3個の爆弾を設置して、安全な場所まで距離を取るのよ"(orange)。  少なくとも"ゼニスハブ"(orange)の辺りまでは退いた方がいいわね。
+| 爆弾の設置場所は境界が近いから、"FFCSの通信は出来ないと思うわ"(orange)。
+| もし出来たとしたら、"爆弾を設置した後に連絡してくれるかしら"(orange)。 無理だったなら、"ゼニスハブからの通信を待っているわね"(orange)。
+| そうすれば私たちが順番に"起爆"(orange)するから、それでワローを一網打尽に出来るはずよ。
+~ catherine
+| (:excited)ひとつ爆発したら、全部爆発させるからね!
+~ islay
+| (:normal)"爆弾の設置場所"(orange)をもう一度言うわね。
+| "ゼニスハブ西のブラザーオフィス"(orange)
+| "ポンプルーム隣の水没した部屋"(orange)
+| "東のルートレス病棟"(orange)の3箇所ね。
+~ player
+- 分かった。
+  ~ islay
+  | 道中気をつけて。
+  ~ catherine
+  | 頑張ってね、{(nametag player)}。
+- 私の無事を祈っていてくれ。
+  ~ islay
+  | 気をつけて。
+  ~ catherine
+  | 気をつけてね、{(nametag player)}!
+  ~ fi
+  | 君の無事を信じているよ。
+- また会おう。
+  ~ fi
+  | 待っているよ。
+  ~ islay
+  | 道中気をつけて。
+  ~ catherine
+  | またね、{(nametag player)}。
+
+; the bombs assembly is finished quickly here by Catherine, but it's only 3 bombs. The process was also begun back in Semis territory before they moved to the surface, and Catherine has been finishing it off while she waited for these final components. So it didn't take much to finish them here

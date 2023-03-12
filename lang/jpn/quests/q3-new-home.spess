@@ -1,0 +1,125 @@
+# task-q3-reminder/q3-reminder
+~ jack
+| (:annoyed)ホームはこっちから探しに行かなきゃ見つかるわけねぇんだ。 さっさと行ってきな。
+~ player
+| "{#@jack-nametag}が言うには"地上東部の廃墟を調べろ"(orange)とのことだ。 FFCSは"4箇所の候補地"(orange)の候補地を示している。"(light-gray, italic)
+
+# find-home-first/new-home-site-1
+~ player
+| ""新しいホームの1つ目の候補地だ"(red)。"(light-gray, italic)
+| (:thinking)"中にシェルターがあるかもしれない。 覗いてみるか..."(light-gray, italic)
+| (:normal)"ほぼ全ての亀裂からホコリや砂が入り込んでいる。"(light-gray, italic)
+| "流砂の落とし穴じゃないか。"(light-gray, italic)
+? (complete-p 'find-home-second 'find-home-third 'find-home-fourth)
+| | (:normal)"調査するポイントはここが最後だな。 悪いニュースを報告しに"{#@jack-nametag}の元へ戻る"(orange)とするか。"(light-gray, italic)
+| ! eval (activate 'return-new-home)
+| ! eval (deactivate 'task-q3-reminder)
+|? (not (var 'first-home))
+| | (:normal)""ログファイル"(orange)と"マップ"(orange)"< {(prompt-string 'open-map)} >"(gold)を照らし合わせながら、残りの候補地を"引き続き調査"(orange)するとするか。"(light-gray, italic)
+| ! eval (setf (var 'first-home) T)
+
+# find-home-second/new-home-site-2
+~ player
+| ""新しいホームの2つ目の候補地だ"(red)。"(light-gray, italic)
+| (:thinking)"建物の高層部にあり、秘匿性が高く、見晴らしが良く侵入者を発見しやすい場所だ。"(light-gray, italic)
+| (:giggle)"(不動産屋になった気分だ)"(light-gray, italic)
+| (:thinking)"建物の基礎自体は堅強なようだが、それ以外はスカスカだな。"(light-gray, italic)
+| "これではダメだな。"(light-gray, italic)
+? (complete-p 'find-home-first 'find-home-third 'find-home-fourth)
+| | (:normal)"調査するポイントはここが最後だな。 悪いニュースを報告しに"{#@jack-nametag}の元へ戻る"(orange)とするか。"(light-gray, italic)
+| ! eval (activate 'return-new-home)
+| ! eval (deactivate 'task-q3-reminder)
+|? (not (var 'first-home))
+| | (:normal)""ログファイル"(orange)と"マップ"(orange)"< {(prompt-string 'open-map)} >"(gold)を照らし合わせながら、残りの候補地を"引き続き調査"(orange)するとするか。"(light-gray, italic)
+| ! eval (setf (var 'first-home) T)
+
+# find-home-third/new-home-site-3
+~ player
+| ""新しいホームの3つ目の候補地だ"(red)。"(light-gray, italic)
+| (:thinking)"天候の影響を受けず、安全性と秘匿性も兼ね備えている。"(light-gray, italic)
+| (:normal)"しかし、地震が頻発するエリアで岸壁の下を選ぶのは賢明な判断とは言えないな。"(light-gray, italic)
+? (complete-p 'find-home-first 'find-home-second 'find-home-fourth)
+| | (:normal)"調査するポイントはここが最後だな。 悪いニュースを報告しに"{#@jack-nametag}の元へ戻る"(orange)とするか。"(light-gray, italic)
+| ! eval (activate 'return-new-home)
+| ! eval (deactivate 'task-q3-reminder)
+|? (not (var 'first-home))
+| | (:normal)""ログファイル"(orange)と"マップ"(orange)"< {(prompt-string 'open-map)} >"(gold)を照らし合わせながら、残りの候補地を"引き続き調査"(orange)するとするか。"(light-gray, italic)
+| ! eval (setf (var 'first-home) T)
+
+# find-home-fourth/new-home-site-4
+~ player
+| ""新しいホームの4つ目の候補地だ"(red)。"(light-gray, italic)
+| (:thinking)"この工場の個人スペースは優れた倉庫になるし、エンジニアたちの作業拠点としても使えそうだ。"(light-gray, italic)
+| "私は子供や老人、体の弱い人間が道を通りやすくするために障害物を排除することが出来る。"(light-gray, italic)
+? (or (complete-p 'q2-seeds) (have 'item:seeds))
+| | (:thinking)"しかし、砂まみれの種の貯蔵庫に近いのは問題だな。 地震による影響の考慮すらしていない。"(light-gray, italic)
+|?
+| | (:thinking)"この工場は十分な耐震構造を備えていないというのに、人体を傷付ける方法だけは豊富に備わっている。"(light-gray, italic)
+? (complete-p 'find-home-first 'find-home-second 'find-home-third)
+| | (:normal)"調査するポイントはここが最後だな。 悪いニュースを報告しに"{#@jack-nametag}の元へ戻る"(orange)とするか。"(light-gray, italic)
+| ! eval (activate 'return-new-home)
+| ! eval (deactivate 'task-q3-reminder)
+|? (not (var 'first-home))
+| | (:normal)""ログファイル"(orange)と"マップ"(orange)"< {(prompt-string 'open-map)} >"(gold)を照らし合わせながら、残りの候補地を"引き続き調査"(orange)するとするか。"(light-gray, italic)
+| ! eval (setf (var 'first-home) T)
+
+# return-new-home/new-home-return
+~ jack
+| 戻ったか。 どうだった?
+~ player
+- どう思う?
+  ~ jack
+  | 割に合わねぇ依頼だったことは認めるがよ、どこかしら良さそうな場所があると思ったんだがな。
+- 残念ながら、良い報告は出来ない。
+  ~ jack
+  | (:annoyed)クソッたれが。
+- ここよりホームに適した場所は無さそうだ。
+  ~ jack
+  | (:annoyed)クソッたれが。
+~ jack
+| {#@fi-nametag}は落ち込むだろうな。 (:annoyed)血の通わねぇ冷酷アンドロイド様より、俺からアイツに伝えた方が良いだろう。
+| (:normal)わざわざご協力感謝致しますよ、だが後は俺の問題だ。
+| 労働に対する報酬が欲しいか?
+~ player
+- あぁ、もらおうか。
+  ~ jack
+  | そう言うと思ったぜ。 "ほらよ"(orange)。
+  < reward
+- それが礼儀というものだ、違うか?
+  ~ jack
+  | だろうな。 "ほらよ"(orange)。
+  < reward
+- あなたからはいらない。
+  ~ jack
+  | 勝手にしやがれ。
+  < continue
+- 不要だ。
+  ~ jack
+  | 勝手にしやがれ。
+  < continue
+
+# reward
+! eval (store 'item:parts 100)
+! eval (status "100パーツを手に入れた")
+< continue
+
+# continue
+? (complete-p 'q2-seeds)
+| ~ jack
+| | (:normal)そういや、"キャシーもテメェと話したがってたぜ"(orange)。
+| | (:annoyed)アイツに指一本でも触れやがったらタダじゃおかねぇからな。
+| | (:normal)それと、"{#@fi-nametag}がテメェでも出来る仕事を用意してるみてぇだぞ"(orange)。 聞くところによれば、今後しばらくの間俺たちと関わることは無いらしいぞ。 楽しみだよな。
+| ! eval (activate 'sq-act1-intro)
+| ! eval (activate 'q4-intro)
+|?
+| ? (not (active-p 'q2-seeds))
+| | ~ jack
+| | | (:normal)そういや、"{#@fi-nametag}がテメェと話したがってたぜ"(orange)。 ホーム探しがうまくいかなかった事は絶対に話すなよ、いいな?
+|   
+| ~ jack
+| | (:normal)テメェに助言するつもりはねぇが、"{#@trader-nametag}が戻ったらしいぜ"(orange)。
+| | アイツのキャラバンはミッドウェストマーケットを下った先の、"ゼニスハブ"(red)だ。
+| | 偵察中、テメェがどんな敵と遭遇して物資を手に入れたか知らねぇが、買いだめしといた方がいいぜ。
+| | (:annoyed)アンドロイドも不死身ってわけじゃねぇらしいからな。
+| ! eval (activate 'trader-arrive)
+

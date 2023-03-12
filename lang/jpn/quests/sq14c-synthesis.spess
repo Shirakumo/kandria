@@ -1,0 +1,554 @@
+; Synthesis, shady character, unknown gender, Swiss-German accent and dialect, plural first person pronouns
+# task-reminder/reminder
+~ synthesis
+| (:grin)"この階層の遠い東、廃墟の駅近くのラボで3台の端末にアクセスして得た情報を持ち帰って来い"(orange)。
+| "\"ヒトヨタケ\"のデータベースを調べるんだ"(orange)。
+| お前が求めるものがそこにある。
+
+; terminal system messages written in US English spellings, common for online world
+; including for the Zenith newspaper articles, so assuming Zenith is in US/Canada/NA (maybe eastern seaboard, given ocean is to the east?)
+; (though android's inner clock was set to UTC according to the loading screen - maybe just the interior system clock though?)
+; shorthand dates in US style due to most software being US e.g. 3.19.2368
+; "I hope it's clean" - physically, and no viruses, sticking finger in random terminals no
+; no options to delete info - need to piece it all together first. And don't want to delete history?
+
+; Network terminal
+; drug immune system main clue
+; another op to see Calamity date specific, but more overt than loading screen (and more specific than semi world interact)
+; Oxford Dictionaries synthesis definition altered from source to avoid using verbatim, as not permitted for commercial use
+# terminal-1/terminal
+~ player
+| "これが"1台目の端末"(red)だな。"(light-gray, italic)
+? (not (var 'first-one))
+| | "これは"{#@synthesis-nametag}が私に調べるように言っていた端末の一つ"(orange)か。"(light-gray, italic)
+| | "ふむ... 古いインターネットサーバーで、省電力モードで動作しているようだな。"(light-gray, italic)
+| | (:giggle)"まだ生きているコンピューターを発見出来たのは僥倖だが..."(light-gray, italic) (:normal)"私のブラックボックスを解析するには原始的すぎるな。"(light-gray, italic)
+| | (:embarassed)"ユーザーインターフェースが無いのか... 直接、指を突っ込んでコネクタに接続するしかなさそうだな。 穴は清潔にしていてくれよ。"(light-gray, italic)
+  
+| "アクセス開始..."(light-gray, italic)
+| "\[警告\] クラウドサービスは停止中です。 ローカルデータベースを閲覧しますか?"
+! label terminal-1-query
+~ player
+- ("ヒトヨタケ"を調べる)
+  ~ player
+  | "アーカイブを取得:"
+  | "トリコロマヒヲービザは"ヒトヨタケ"(orange)にでつはりが知られている。"
+  | "ずらさぜぁとぞごじぁぬは無く、信頼出来るビタミンDの摂取源として認められていた。"
+  | "しかし、近年ではざぃごもぃえゐとれぜよ継続的な摂取がごゐぐがで"免疫系を弱める"(orange)事が証明されている。"
+  | "その結果、えゐじゐごやぃが原因で死に至る事もある46"
+  | "じぁへぃにぞやぃぜぁぐがによって、24世紀でえねにじぁへぃにぞやぃぜぁぐがによって生物学的抑止力としてごぎゐされた。"
+  | "当然のことながらデータは破損しているな。 だが、"これから得られる必要な情報は得られた"(orange)。"(light-gray, italic)
+  ? (not (var 'first-one))
+  | | "閲覧したデータは記録したし、"ディスクはフォーマットする"(orange)か。 データは壊れかけてはいるが、念の為にな。"(light-gray, italic)
+  | | "私以外にアクセス出来る者が居るとも思えないが..."(light-gray, italic)
+  | | "だが、"今のうちに他の情報も探れそうだな"(orange)。"(light-gray, italic)
+  |?
+  | | ""ディスクはフォーマットする"(orange)が、"今のうちに他の情報も探れそうだな"(orange)。"(light-gray, italic)
+    
+  ! eval (setf (var 'terminal-1-clue) T)
+  < terminal-1-query
+- ("クラウドサービス"を調べる)
+  ~ player
+  | "リモートサーバーオフライン: FMンテラザわごもづが出来ません"
+  | "ツーゼジヰゼーの管理者に連絡するか、admin64tfnj45tfswfst46dpnにメールしてください"
+  | (:giggle)"あぁ、そうだそうだ。 インターネットに接続していない相手に電子メールを送る。 懐かしさを感じるな。"(light-gray, italic)
+  < terminal-1-query
+- ("省電力モード"を調べる)
+  ~ player
+  | "主電源オフ: グンシステム制限"
+  | "バックアップ電源は495337をオーピしています"
+  | "全電源オフはツーゼ破損する場合があります"
+  < terminal-1-query
+- ("シンセシス"を調べる)
+  ~ player
+  | "ンーエァビのキャッシュを取得:"
+  | "名詞 ひがざぃぎぁ: シンセシス"
+  | "複数の定義を発見: 最もづぁんれじの多い項目58"
+  | "えぉが反応によって生成されたひがけぃびち。"
+  | ""シンセシス"46 参照:SemiTuvefouMbc.dpn (アクセス日 Nbsdi 17, 2368)46"
+  < terminal-1-query
+- ("ヘルプ"を調べる)
+  ~ player
+  | "ヘルプ機能は停電のためっぁご中: 援助やつゐくゐひだおもぃのため44ぇぞえがにザゼダヒと声をかけてください"
+  < terminal-1-query
+- [(var 'terminal-1-clue) (ディスクをフォーマットする)]
+  ~ player
+  | "ディスクをフォーマットしますか? 実行すると全てのデータが失われます。"
+  ~ player
+  - (フォーマットしない)
+    < terminal-1-query
+  - (フォーマットする)
+? (not (var 'first-one))
+| ~ player
+| | "よし、調べる"端末は残り2台"(orange)だ。"(light-gray, italic)
+| ! eval (setf (var 'first-one) T)
+|? (complete-p 'terminal-2 'terminal-3)
+| < summary
+|?
+| ~ player
+| | "これで調べる"端末はあと1台"(orange)だな。"(light-gray, italic)
+; Corrupted strings have been shifted forwards one letter, with punctuation/numbers occasionally replaced with alt code
+; common alt code: , = 44; space = 32; . = 46; – (en dash) = 0150; — (em dash) = 0151; - = 45; ? = 63; ! = 33; @ = 64; % = 37; & = 38; # = 35; : = 58; / = 47; ... = 133; ( = 40; ) = 41;
+; use https://www.dcode.fr/shift-cipher (cipher)
+; use https://www.rapidtables.com/code/text/ascii-table.html (alt code ascii table)
+; Easy to write, plausible corruption, easy and simple fun for players to figure out - similar to Talos Principle's hex corruptions
+; Ambiguous whether android character herself can read it all - either way she has enough info to report to Synthesis
+; different kind of corruption to the android's own memories and remembering name issues
+
+; black caps cipher words
+; "furvus,", "commonly", "as"
+; "not fatal in themselves",
+; "over several weeks", "severely",
+; "of infection"
+; "Trialed", "Western superpowers", "mid"
+; cloud services cipher words
+; "reach IP address",
+; "data center", "@semi-servers.com"
+; low power cipher words
+; "core"
+; "Backup power at 15% and holding" - solar power / oil generators (Synthesis maintaining?)
+; "15%", "holding"
+; "data"
+; synthesis cipher words
+; using an actual Oxford Dictionaries definition, example, and citation format, 1) so properly cited, and 2) to work with the Calamity fiction
+; "archive"
+; "Plural"
+; "queried:"
+; "compounds", "chemical"
+; "StudentLab.com", "March"
+; help cipher words
+; "withheld", "a member of staff", "restore power"
+
+
+; Library terminal
+; on image corruption here, only text corruption
+; drug painkiller main clue
+# terminal-2/terminal
+~ player
+| "これが"2台目の端末"(red)だな。"(light-gray, italic)
+? (not (var 'first-one))
+| | "これは"{#@synthesis-nametag}が私に調べるように言っていた端末の一つ"(orange)か。"(light-gray, italic)
+| | "ふむ... 古いインターネットサーバーで、省電力モードで動作しているようだな。"(light-gray, italic)
+| | (:giggle)"まだ生きているコンピューターを発見出来たのは僥倖だが..."(light-gray, italic) (:normal)"私のブラックボックスを解析するには原始的すぎるな。"(light-gray, italic)
+| | (:embarassed)"ユーザーインターフェースが無いのか... 直接、指を突っ込んでコネクタに接続するしかなさそうだな。 穴は清潔にしていてくれよ。"(light-gray, italic)
+  
+| "アクセス開始..."(light-gray, italic)
+| "\[深刻なエラー\] 複数のコアにアクセス出来ません。 ハードウェアが故障している可能性があります。 ローカルデータベースを閲覧しますか?"
+! label terminal-2-query
+~ player
+- ("ヒトヨタケ"を調べる)
+  ~ player
+  | "はぁ、やはりデータが破損しているな。 何一つ読めるデータが無い。 だが、この新聞の一面のスキャンなら読めそうだ。"(light-gray, italic)
+  | "ZENITH ZONAL ZODIAC - Friday, July 21, 2367"
+  | "麻酔薬試験の成功が経済の次なる一歩に"
+  | "労働部門主任記者 チェイス・ヤシリ"
+  | "巨大なガラス張りのビルの階段の前に立ち、手をつないで空を指さしている男女は、キャプションによればモリー・ヤコブソン教授とデヴァン・カー医師というらしい。"(light-gray, italic)
+  | "さて、記事の内容を詳しく読んで見るか。 ゾディアックに秀逸な記事が書かれているとも思えないが。"(light-gray, italic)
+  | "長期間に渡る麻酔薬の試験は、痛みに対する耐性の向上において超人的な成功を収めた。"
+  | "ルートレス社は"労働者向けの新薬"(orange)を、"エクスペディエート"(orange)というブランド名で間もなく市場に投入する予定だ。"
+  | "トリクル、アルテミス、クロスセクション、イージス、そしてセミなど、地下の主要な企業では10月上旬には導入される見込みだ。"
+  | "ブリッジとスイフトは、スムーズで効率的な流通を確保するために、あらゆる手段を講じているという。"
+  | ""近頃の熱波が生産性に悪影響を与えたことを考えると、すぐに全ての需要を満たすことは出来ない"(orange)。"
+  | "従業員との労働契約は改定され、労働日は薬の服用を義務化されるだろう。"
+  | ""毒キノコであるヒトヨタケから開発された"(orange)にも関わらず、臨床試験では副作用はほとんど無いことが確認されている。"
+  | "代わりに、"痛み、特に熱に対する反応を抑制する"(orange)効果がある。"
+  | ""労働時間が長くなり、減少し続ける食料や水の消費量が低下する"(orange)ことから、経済への恩恵は明らかだ。"
+  | "ルートレスの広報責任者であるタムジン・シュルツ氏は「次の世代の人たちにエクスペディエートの利点への理解を深めてもらうため、ガイディングライト教育プログラムは既に進行中です」と述べた。"
+  | "記事の続きは5面にて"
+  | "このスキャンには続きが無いようだ。 まぁ、このくだらない新聞をこれ以上読みたいとも思わないが。"(light-gray, italic)
+  | (:embarassed)"人々がこの新聞をスリーZと呼んでいたのも納得だ。 これほど読んでて眠たくなるものもあるまい。"(light-gray, italic)
+  | (:normal)"だが... 私のタスクが"この端末から必要な情報は得た"(orange)と判断したのはショックだな。"(light-gray, italic)
+  ? (not (var 'first-one))
+  | | "閲覧したデータは記録したし、"ディスクはフォーマットする"(orange)か。 データは壊れかけてはいるが、念の為にな。"(light-gray, italic)
+  | | "私以外にアクセス出来る者が居るとも思えないが..."(light-gray, italic)
+  | | "だが、"今のうちに他の情報も探れそうだな"(orange)。"(light-gray, italic)
+  |?
+  | | ""ディスクはフォーマットする"(orange)が、"今のうちに他の情報も探れそうだな"(orange)。"(light-gray, italic)
+    
+  ! eval (setf (var 'terminal-2-clue) T)
+  < terminal-2-query
+- ("ハードウェアの故障"を調べる)
+  ~ player
+  | "システムログにアクセス中..."
+  | "3.9.235456 - 3.14.505168 の期間に不具合が発生しました:"
+  | "ンヰゾゴヤダガヒラーポの応力耐性... 限界超過!"
+  | "えゐおシステムで火災を検知しました。 スプリンクラーの動作チェック中... てぃげひにぃ!"
+  | "CPU38マザーボードへのダメージ... らぁおむがシステムをチェック33"
+  < terminal-2-query
+- ("省電力モード"を調べる)
+  ~ player
+  | "リクエストに対するマシンパワーの不足"
+  < terminal-2-query
+- ("シンセシス"を調べる)
+  ~ player
+  | "アーカイブを取得:"
+  | "シンセシスコーポレーションはテキサス州ソユザに本社を構えるぜぐがじおにぃかやぃ企業である。"
+  | "2361年に正式にぬげゐ宣告を受け、地下のギゴ農園に関するそちすぁを巡って、財務省との長期にわたる裁判に破れた。"
+  | "じぁげゐとゐが売却した同社の資産の多くは、ヨーヅラザが取得したとされている46"
+  < terminal-2-query
+- ("ヘルプ"を調べる)
+  ~ player
+  | "FAQを開いています..."
+  ! label terminal-2-help
+  - (1. これは何ですか?)
+    ~ player
+    | "インターネットの接続が切れた等、ぐほだぜづおに役立つ情報をアーカイブしたリポジトリです。"
+    < terminal-2-help
+  - (2. インターネットにアクセス出来ません)
+    ~ player
+    | "それはくゐぼちとぬごちみゐではありませんが、まぁ良いでしょう! 残念なことに、インターネットの接続に関する問題はくゐそぁにじぁえちにおいて、頻繁に発生します。"
+    | "幸いにも、ぎゐぐぃつじぁげゐっおでじぁえちわぇがよために必要な情報は、このヌーテツヴザガに入っているのであなた自身でご確認ください。"
+    | "あなたがサーバーのケースを開けたと推測します。 ごゐさっがそげぁ46"
+    < terminal-2-help
+  - (3. 助けが必要です)
+    | ~ player
+    | "またしても質問ではありませんし、私たちが解析するには少しぞもぃごやぃっおです。"
+    | "もしシステムの使用に関して助けが必要であれば、より具体的な40みごがぬさだげぁと40質問を選択するか、お近くの親切なスタッフにお尋ねください。"
+    | "もし、あなたがぁょやぃっおでぜざぎを求めているのであれば、かかりつけのヨーヅラザずぃけぃ医師に予約をしてください。"
+    < terminal-2-help
+  - (5246 ごゅぃょやぃぉぬだじぁごほざえ?)
+    ~ player
+    | "このゲーバザぬ自動的にモニターされ、プレミアム料金であなたのIDカードに請求されます46 けょゅぃんょぉづぃけこぁほざ33"
+    < terminal-2-help
+  - (メインメニューへ戻る)
+    < terminal-2-query
+- [(var 'terminal-2-clue) (ディスクをフォーマットする)]
+  ~ player
+  | "ディスクをフォーマットしますか? 実行すると全てのデータが失われます。"
+  ~ player
+  - (フォーマットしない)
+    < terminal-2-query
+  - (フォーマットする)
+? (not (var 'first-one))
+| ~ player
+| | "よし、調べる"端末は残り2台"(orange)だ。"(light-gray, italic)
+| ! eval (setf (var 'first-one) T)
+|? (complete-p 'terminal-1 'terminal-3)
+| < summary
+|?
+| ~ player
+| | "これで調べる"端末はあと1台"(orange)だな。"(light-gray, italic)
+; since Semi had the drug, but the Semi Sisters don't seem to use it, it suggests they've weaned themselves off of it, or these survivors were never exposed
+; hardware damage cipher words
+; "3.9.2368", "3.14.2368"
+; "anti-shock frame",
+; "ventilation", "INOPERATIVE"
+; "COOLANT"
+; synthesis cipher words
+; "farming multinational", "Dallas",
+; "bankrupt", "tax evasion", "opium poppy farms"
+; "Rootless", "liquidators"
+; help cipher words
+; "pesky times"
+; "technically a question", "modern living"
+; "lead a healthy and productive life", "hard disks", "Trust us."
+; "abstract"
+; "(or an actual)"
+; "medical help", "Rootless general"
+; "4. How much does this cost?"
+; "Services are", "and", "Thank you!"
+; "Expediate" not technically a word ("expedite" is the one), but it's gaining acceptance, and we can imagine it could be a future buzzword
+
+; UX terminal
+; TalkToFrank.com used as inspiration here, but text changed
+; drug recipe and side effects main clue
+# terminal-3/terminal
+~ player
+| "これが"3台目の端末"(red)だな。"(light-gray, italic)
+? (not (var 'first-one))
+| | "これは"{#@synthesis-nametag}が私に調べるように言っていた端末の一つ"(orange)か。"(light-gray, italic)
+| | "ふむ... 古いインターネットサーバーで、省電力モードで動作しているようだな。"(light-gray, italic)
+| | (:giggle)"まだ生きているコンピューターを発見出来たのは僥倖だが..."(light-gray, italic) (:normal)"私のブラックボックスを解析するには原始的すぎるな。"(light-gray, italic)
+| | (:embarassed)"ユーザーインターフェースが無いのか... 直接、指を突っ込んでコネクタに接続するしかなさそうだな。 穴は清潔にしていてくれよ。"(light-gray, italic)
+  
+| "アクセス開始..."(light-gray, italic)
+| "\[深刻なエラー\] サポートモジュールの応答がありません。 サイバーアタックの可能性があります。 ローカルデータベースを閲覧しますか?"
+! label terminal-3-query
+~ player
+- ("ヒトヨタケ"を調べる)
+  ~ player
+  | "DRUG BUST - 薬物に関する正当な情報"
+  | "E 45 最もゅほらぜ記事: "エクスペディエート"(orange)"
+  | "エクスペディエート、別名「ペーゴヤヰ」。 ルートレス社によって製造され、「#BumbafqbVlroIfcb」というスローガンを掲げ販売されている。"
+  | "見た目、味、匂いは? ゼビラダヅめエピジヨが一般的ですが、シロップや溶液のものもあります。"
+  | "通常は無味無臭ですが、んほぁとぇぁめんさがする場合があります。"
+  | "効果の持続性は63 摂取量、体格、及びぜぁでぁにめがびちの有無によって異なります。"
+  | "雇用主の指示によって投与される場合、持続時間はんでぜぉぬぜゆぁっぁよかやぃえぁによっても異なります。 詳細は雇用ぎぁめがごやを参照してください。"
+  | "ョザガを知る58 適切に処方された少量であれば、プァヰオユーとしての役割を果たします。 しかし、ぐゅぃぎぁめがとおっぁされる推奨用量の多くは、これを超過しています46"
+  | ""主な症状: 吐き気、ぽおょやが44めまい、片頭痛、依存症"(orange)4632そして、さらなる研究が活発に行われています。"
+  | "どのようにして作られる? この薬は"アヘンとヅョグリホファーブス(ヒトヨタケ)から抽出された抗生物質を科学合成"(orange)して作られます。"
+  | "ごやがねぁとして、"酵素も必要です"(orange)。"
+  | "詳細は"Expediate.txtをダウンロード"(orange)してご確認ください。"
+  | "...そうしてみるか。 ここで閲覧出来るデータの半分は破損しているしな。 それに、"{#@synthesis-nametag}がこの情報を利用して何かするつもりなら正確な用量を知る必要がある"(orange)。"(light-gray, italic)
+  | ""Expediate.txtをダウンロード中..."(orange)"
+  ! eval (store 'item:synthesis-file 1)
+  ! eval (status "Expediate.txtを手に入れた")
+  | (:giggle)"おぉ、速いな、もうダウンロードが終わった... って、たった34KBしかないのか... 流石古いファイルだな! だが破損はしていない、いいぞ。"(light-gray, italic)
+  | (:normal)"ともかく、"この端末から必要な情報は得た"(orange)。"(light-gray, italic)
+  ? (not (var 'first-one))
+  | | "閲覧したデータは記録したし、"ディスクはフォーマットする"(orange)か。 データは壊れかけてはいるが、念の為にな。"(light-gray, italic)
+  | | "私以外にアクセス出来る者が居るとも思えないが..."(light-gray, italic)
+  | | "だが、"今のうちに他の情報も探れそうだな"(orange)。"(light-gray, italic)
+  |?
+  | | ""ディスクはフォーマットする"(orange)が、"今のうちに他の情報も探れそうだな"(orange)。"(light-gray, italic)
+    
+  ! eval (setf (var 'terminal-3-clue) T)
+  < terminal-3-query
+- ("サイバーアタック"を調べる)
+  ~ player
+  | "524852プーサが見つかりません"
+  | "ネットワーク容量を超過しました... EEPTンゼダガの疑いあり"
+  < terminal-3-query
+- ("省電力モード"を調べる)
+  ~ player
+  | "ネダッョーが枯渇しました"
+  | "バックアップジェネレーターは 3.4957.2368 より稼働中... マヰッデヰザぉはちゅぃつざ"
+  | "ファンをチェック中133 てぃげひにぃ"
+  | "ホコーベーテの温度は 494848D を超えています... 火災の危険があります33"
+  < terminal-3-query
+- ("シンセシス"を調べる)
+  ~ player
+  | "ネァェキユヒヴエヨデータを取得:"
+  | "とさもぃと世紀後半に活動したヌダエーキヨーピの別名として知られている。"
+  | "世界中で広くぐぃごもぃぅぁじぁ団体がえぁぜぁされた事に対する、政治的かつ企業的な活動で有名である。"
+  | "このグループのメンバーはエヅョダガにごもぃてぃごのエィヨに似た、ヒーテちおリービを着用していたことでも知られている46"
+  < terminal-3-query
+- ("ヘルプ"を調べる)
+  ~ player
+  | "ヘルプシステムエラー。"
+  | "はて、これは何だ? チャットログのような物がダンプされている:"(light-gray, italic)
+  | "Welcome guest332456833 ヨーヅラザ ンユデがぜぁぇぃ致します"
+  | "アラナ: こんにちは、私はアラナと申します。 どういったご用件でしょうか?"
+  | "ンユデ58 総合医師のアポイントメントをご希望でしょうか?"
+  | "アラナ: ほそずぐに居られますか63"
+  | "guest3324568: は、は、は、始まった 45 ずづわぼり"
+  | "drbpq332456858 おまえも行くんだ"
+  | "アラナ58 ぁえぉでげらほごぜえ?"
+  | "guest3324568 がセッションを閉じました"
+  | "セッションをごもぃょやぃごほごぜ。 チャットログは保存されます。"
+  < terminal-3-query
+- [(var 'terminal-3-clue) (ディスクをフォーマットする)]
+  ~ player
+  | "ディスクをフォーマットしますか? 実行すると全てのデータが失われます。"
+  ~ player
+  - (フォーマットしない)
+    < terminal-3-query
+  - (フォーマットする)
+? (not (var 'first-one))
+| ~ player
+| | "よし、調べる"端末は残り2台"(orange)だ。"(light-gray, italic)
+| ! eval (setf (var 'first-one) T)
+|? (complete-p 'terminal-1 'terminal-2)
+| < summary
+|?
+| ~ player
+| | "これで調べる"端末はあと1台"(orange)だな。"(light-gray, italic)
+; black caps cipher words
+; "read",
+; "the potion", "#ExpediteYourLife",
+; "tablets and capsules", "sweet smell or taste"
+; "drugs might be in your"
+; "the industry you are working in", "contract"
+; "risks", "painkiller", "stipulated in employment"
+; "lethargy",
+; "Tricholoma",
+; "catalyst"
+; cyber attack cipher words
+; "404 Page"
+; "DDOS ATTACK"
+; low power cipher words
+; "Battery power"
+; "3.19.2368", "MAINTENANCE REQUIRED"
+; "..."
+; "Motherboard", "100C"
+; synthesis cipher words
+; "Biographical"
+; "a hacker collective,", "twenty-second",
+; "dissolution", "public health"
+; "hooded robes", "cowls", "Catholic monks"
+; help cipher words
+; "Rootless Rep Alana",
+; "Alana:"
+; "still there?"
+; "look outside"
+; "guest3324568:"
+; "terminated"
+
+# summary
+~ player
+| "これが全ての端末を調べたな。"(light-gray, italic)
+| (:thinking)"... 要するに、これは"ヒトヨタケとアヘンを使ったドラッグのレシピ"(orange)か。"(light-gray, italic)
+| "恐らく鎮痛剤として、"人体の痛みに対する耐性を高める"(orange)のだろう。"(light-gray, italic)
+| "理論的には、"食べ物や水(あるいは睡眠も)なしでも働ける時間を延ばし、より高く過酷な温度の中でも働けるようになる"(orange)のか。"(light-gray, italic)
+| (:embarassed)"さらに、片頭痛、依存症... それに免疫反応の低下などの楽しげな"副作用"(orange)もあるようだ..."(light-gray, italic)
+| (:giggle)"おっと、ビタミンDも摂れるんだったな!"(light-gray, italic)
+| (:normal)"で、これが奴らが求めていた情報なのだろうか?"(light-gray, italic)
+| (:thinking)"果たしてこれを"{#@synthesis-nametag}に渡して良いのだろうか"(orange)? この荒野に生きる人々にとって有益な情報であるかもしれんが... 本当にこの方法が正しいのか?"(light-gray, italic)
+| "奴らの元へ戻る必要は無いかもしれない。"(light-gray, italic)
+! eval (activate 'task-return)
+
+# task-return/return
+~ synthesis
+| (:grin)来たか、{(nametag player)}。 私に報告する事があるだろう。
+~ player
+- 何も見つからなかった。 (ウソ)
+  ~ synthesis
+  | (:grin)嘘をつくな。 あまり私たちをみくびるなよ。
+- データは何も読めないほど壊れていた。 (ウソ)
+  ~ synthesis
+  | (:grin)全てではないだろう。
+  | サーバーはまだ稼働している。
+- エクスペディエートのレシピを知っている。
+  ~ synthesis
+  | (:grin)それだ。 それがお互いの利益になる。
+~ synthesis
+| (:grin)分かるだろう、私たちは"生き永らえるため"(italic)に、ポーションが必要なのだ。
+| (:normal)お前は時間をかけすぎだ。 もうポーションの効果が切れかかっている。
+~ player
+- あなたたちのためにやっているんだが。
+  ~ synthesis
+  | どうだかな。
+- ヒトヨタケで代用出来ないのか?
+  ~ synthesis
+  | (:grin)純度の高いヒトヨタケは最悪の症状を抑える。
+  | (:normal)だが、それは所詮効能の一部でしかなく、毒性が免疫系をボロボロにする。
+- 誰のせいだ?
+  ~ synthesis
+  | 哀れな中毒症患者を責めるつもりか?
+~ synthesis
+| さぁ、情報をよこせ。 さもなくば、私たちはお前の頭蓋から無理やり引き出さなければならなくなるぞ。
+| (:grin)セミ・シスターズなら、お前のジェネラ・コアを分離し、切断した手をラボの端末に接続することも容易いだろうな。
+| 私たちにも考えがある。 私たちは目的のためなら手段は選ばない。
+| お前と私たちは共同体だ... 何と言っても、この情報はお前にとっても役立つものだからな。
+~ player
+- このドラッグは悪質だ。
+  ~ synthesis
+  | (:grin)お前にとっては副作用など問題ではないだろう?
+- こんなものが私の役に立つだと?
+  ~ synthesis
+  | (:grin)やれやれ、それも分からないほど頭の悪いアンドロイドなのか?
+- こんなものが無くても人々は上手く生きていけるのでは?
+  ~ synthesis
+  | (:grin)戯言を抜かすな。 この荒野に住む人間はどう見える?
+  | (:normal)確かに極僅かな生き残りどもはドラッグ無しでも生きる術を学び、そう在ろうとしているかもしれない。 だが、その他の多くの者はそうではない。
+  | この地はこれ無しに良い方向へ向かうことは無いのだ。
+~ synthesis
+| (:grin)私たちが"人々の生活を良くしてやれる"(orange)んだ。 地下での生活は辛く、苦しいものだ。 とりわけ、この暑さには誰もが苛まれ、逃れる方法は無い。 もちろん、"地上で生きるお前のお仲間は地下で生きる者以上に苦しんでいる"(orange)だろう。
+| ポーションが全てを解決する。 もし、"ワローがこのドラッグのレシピを学んだらどうなるだろうな"(orange)。 "お前が懸念しているであろう副作用は、投与量を調節することで抑制出来るんだぞ"(orange)。
+| それに、いずれにしてもドラッグを必要とするのであれば依存症を気にする必要も無いだろう?
+| もし誰もがこれを手にするようになれば、ワローの如く強靭な力を得るだろう。 "そうすればワローによる支配計画も頓挫する"(orange)。
+~ player
+- その先で軍拡競争を起こすのがお前の狙いか?
+  ~ synthesis
+  | (:grin)それは既に起きているのではないか? だが、少なくとも"今以上には公平になるだろうな。 あるいは、戦争自体が無くなるか"(orange)。
+- あなたたちが他人を気にする必要はあるのか?
+  ~ synthesis
+  | (:grin)私たちもこの地に住む一人だからな。 今後の戦争は、"今以上には公平になるだろうな。 あるいは、戦争自体が無くなるか"(orange)。
+- あなたたちはワローに与しているのか?
+  ~ synthesis
+  | (:grin)私たちはワローを軽蔑している。 奴らは支配による統制の信奉者だ。 これがあれば、"戦場に流れる血は平等になり、平和を維持する事さえ出来るかもしれない"(orange)。
+- このドラッグで財産を築くつもりなのか?
+  ~ synthesis
+  | (:grin)それは副次的な効果の一つに過ぎない。 "私たちは金よりも団結を求めている。 これがあれば、戦場に流れる血は平等になり、平和を維持する事さえ出来るかもしれない"(orange)。
+~ synthesis
+| (:grin)"抑止力"(orange)の必要性はお前にも分かるだろう。
+| "さて、情報を渡してくれるな?"(orange)
+~ player
+- (Expediate.txtを共有する)
+  ~ player
+  | "ファイルを転送する方法は無いし、読み上げるしか無いか..."(light-gray, italic)
+  | "なんと、彼らはペンと紙を用意していたのか。 抜け目が無いな。"(light-gray, italic)
+  | (:embarassed)"レシピの化学式を読んでるだけでウンザリするな。 ログを解放して、テキスト読み上げエンジンに喋らせるとしよう。"(light-gray, italic)
+  | (:normal)"..."(light-gray, italic)
+  | "む、もう終わったのか? 早かったな。"(light-gray, italic)
+  ~ synthesis
+  | (:grin)遂に手に入ったぞ。 このレシピは... "魅力的"(italic)だ。
+  < good-end
+- (ファイルを書き換えて共有する)
+  ~ player
+  | "ファイルを転送する方法は無いし、読み上げるしか無いか..."(light-gray, italic)
+  | "だがその前に、アンドロイドが誇る超技術「コピペ」を駆使して微妙に変更を加えてやるか... 私は化学者ではないが、化合物の量をイジれば化学反応を滅茶苦茶にしてやれる。"(light-gray, italic)
+  | (:giggle)"彼らに一泡吹かせてやれるかもしれないな!"(light-gray, italic)
+  ! eval (store 'item:synthesis-file-1 1)
+  ! eval (status "Expediate.txt (改竄)を手に入れた")
+  | (:normal)"なんと、彼らはペンと紙を用意していたのか。 レシピを覚えきれずに忘れてくれるかもと思っていたが、それは期待出来そうに無いな。"(light-gray, italic)
+  | (:embarassed)"レシピの化学式を読んでるだけでウンザリするな。 ログを解放して、テキスト読み上げエンジンに喋らせるとしよう。"(light-gray, italic)
+  | (:normal)"..."(light-gray, italic)
+  | "む、もう終わったのか? 早かったな。"(light-gray, italic)
+  ~ synthesis
+  | 遂に手に入ったぞ。 このレシピは... "予想外"(italic)だ。
+  < good-end
+- (ファイルを破損させて共有する)
+  ~ player
+  | "ファイルを転送する方法は無いし、読み上げるしか無いか..."(light-gray, italic)
+  | "だがその前に、幾つかの単語と用量をイジって、端末で閲覧したデータベースのように破損させてみるか。"(light-gray, italic)
+  | (:giggle)"アンドロイドが誇る超技術「コピペ」の出番だ... よし。 これでどんな化学反応が起こるか見ものだぞ!"(light-gray, italic)
+  ! eval (store 'item:synthesis-file-2 1)
+  ! eval (status "Expediate.txt (破損)を手に入れた")
+  | (:normal)"なんと、彼らはペンと紙を用意していたのか。 レシピを覚えきれずに忘れてくれるかもと思っていたが、それは期待出来そうに無いな。"(light-gray, italic)
+  | (:embarassed)"製法の化学式は、私が手を加える前から読んでるだけでウンザリするほどだった。 ログを解放して、テキスト読み上げエンジンに喋らせるとしよう。"(light-gray, italic)
+  | "今、耳にしたくないセリフ第1位は、エンジンが私の口で発する「ごやがねぁとぬ、ごっぁにけぃじぁぐぃずわごっぁにょやぃそぎごゅぃごっがそげぁ58」だ。"(light-gray, italic)
+  | (:normal)"..."(light-gray, italic)
+  | "む、もう終わったのか? 早かったな。"(light-gray, italic)
+  ~ synthesis
+  | 私たちの話を聞いていなかったのか? お前は何やら意味の分からない事をモゴモゴと呟いていただけだ!
+  | (:grin)ファイルが破損していたのか? 私たちを馬鹿にしているんじゃないだろうな?
+  ~ player
+  - 破損していた。
+  - これがファイルの内容の全てだ。 暗号だろうか。
+  ~ synthesis
+  | ...
+  | 残りの部分を読み解くのに十分な情報が含まれているかもしれないが、確信は無い。
+  | (:grin)それでも、何も無いよりはマシだ。 恐らく、ラボにはまだ情報が残されている。
+  < end-end
+- (ファイルを共有しない)
+  ~ synthesis
+  | ...
+  | お前が本当にそう望むなら、そうするがいい。
+  < bad-end
+- (ファイルを削除する)
+  ~ player
+  | "ファイルを転送する方法は無いし、読み上げるしか無いか..."(light-gray, italic)
+  | "だが、ファイルを削除してしまえば、そんな事する必要も無い。"(light-gray, italic)
+  | (:giggle)"ワオ、彼らはわざわざペンと紙を用意してくれていたのか。 期待を裏切れて嬉しいよ。"(light-gray, italic)
+  ! eval (retrieve 'item:synthesis-file 1)
+  ! eval (status "Expediate.txtを失った")
+  | (:normal)"ファイル削除完了。"(light-gray, italic)
+  ~ player
+  - ファイルはもう持っていない。
+  - ファイルは削除した。
+  ~ synthesis
+  | ... 私たちが我慢強いと思っているのか、アンドロイド。
+  < bad-end
+
+# bad-end
+~ synthesis
+| 良いぞ、最高だ。 私たちはお遊びをする気分ではない。
+| (:grin)必要なものは"他の手段で手に入れるだけだ"(orange)。
+| (:normal)しばらくはヒトヨタケで凌がなければならなくなったがな。
+| (:grin)私たちの"協力関係"(orange)は終わったと思え。 くれぐれも背後に気を付けろよ、{(nametag player)}。
+
+# good-end
+~ synthesis
+| 十分な量のアヘンを採取するためのケシを育てるのは困難だが、私たちはそのための場所を知っている。
+| 触媒の酵素についてはラボのサンプルがキーになるな。
+< end-end
+
+# end-end
+| (:grin)"苦痛からの解放、新たな始まりは見えている"(orange)。 やらなければならない事が多いな。
+| だが、これはお前がもたらしたものだ。 もし成功すれば、"お前にも共有してやろう"(orange)。
+| 成功"すれば"(italic)、な。
+
+; cipher for corrupted thought/speech: "for a catalyst use the specified synthetic enzyme in the specified quantity:"
+
+; some endings suggest they will go and investigate the lab themselves, but ofc the player has formatted the termainls; but they couldn't access them themselves anyway. They mean they will look for other clues in the lab
+
+; Watch your back: Semis too busy to help him get you though (Wraw-Cerebat concern) / you've helped them already - and if this is after the official Semi alliance, well, they wouldn't (or maybe Innis would...); hollow threat anyway, as goes to lab themself and tries to brute force it; gets buried underground with Wraw at end?
+
+; presumably they could try and get the recipe from the Wraw - but they're clearly opposed to the Wraw, and it would be too difficult
+
+; good-end: in theory, could stop the Wraw invasion? But I think the implication here is that The Synthesis needs time, which the invasion doesn't have
+
+; "Growing sufficient opium poppies will be challenging" - sufficient quantities for them and everyone in the valley, irrespecitve of the contents of the recipe shared
+
+; although the player does not get information about what caused the Calamity, as they might have expected, perhaps they did after all...

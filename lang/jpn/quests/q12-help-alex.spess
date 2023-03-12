@@ -1,0 +1,79 @@
+# alex-task/alex-interact
+? (complete-p 'q8-alex-cerebat)
+| ~ player
+| | 何故ここに?
+| ~ alex
+| | (:angry)居ちゃいけねぇってのかよ?
+|?
+| ~ player
+| - {#@alex-nametag}?
+|   ~ alex
+|   | (:angry)俺が短気なのは知らなかったか?
+| - ここで何をしている?
+|   ~ alex
+|   | (:angry)時が来るのを待ってんだよ。
+| - 大丈夫なのか?
+|   ~ alex
+|   | (:normal)この上なく絶好調だぜ。
+| - シラフなのか?
+|   ~ alex
+|   | (:angry)最後の審判の日を迎えた神の如く、な。
+  
+~ alex
+| (:angry)お前が{#@fi-nametag}にこの話をしたら、アイツどんな顔するんだろうな。 それに、ワローどもが地中からワラワラ這い出すのも楽しみだぜ。
+~ player
+- 何を話すって?
+- どういう意味だ?
+- 一体何をしたんだ?
+~ alex
+| "アイツらにノカのキャンプの正確な位置を教えてやったんだよ"(orange)。
+| (:angry)それが、お前と{#@fi-nametag}のために出来る俺からのせめてもの忠義ってやつだ。
+| (:normal)さ、もういいだろ。 俺にも戦いがあるんでね。
+| (:angry)せいぜいぶっ壊されねぇように用心しろや、{(nametag player)}。
+! eval (setf (location 'fi) (location 'shutter-3))
+! eval (setf (direction 'fi) -1)
+! eval (setf (location 'jack) (location 'shutter-4))
+! eval (setf (direction 'jack) -1)
+! eval (activate 'fi-task)
+
+; optional dialogue
+; could occur with either Jack and Fi alone outside shutters (set above), or with Islay if Semis are on surface now (set during q11a) (can never happen when Fi is on surface but Jack still in engineering calling people back to base, after q10a return); or with Fi and Islay alone in 作業場. Either way, Islay doesn't weigh in on this Noka business, and we can assume Fi will tell her later
+# fi-task/fi-interact
+~ fi
+| (:unsure){#@alex-nametag}が... 私たちを裏切っただと? 何を言っている?
+~ player
+| ワロー・テリトリーで会ったんだ。 ワローにこの場所を教えたと言っていた。
+~ fi
+| (:unsure)...
+? (not (complete-p 'q11a-bomb-recipe))
+| ~ jack
+| | (:annoyed)だってのに、何故その場でアレックスをぶっ殺してやらなかったんだ?! 他にどんな情報を漏らしやがったか分かんねぇぞ。
+| ~ player
+| - 血も涙もなく殺せば良かったと?
+|   ~ jack
+|   | アンドロイドにゃ血も涙も流れてねぇだろ。
+|   ~ fi
+|   | (:annoyed)それは違うぞ、{#@jack-nametag}。
+| - 私は殺人鬼ではない。
+|   ~ jack
+|   | 今なんつった? テメェが目覚めてからこれまでに一体何人殺した?
+|   | 数え切れねぇだろ。
+|   | 大災害以前に殺した数も含めたらどれほどの量になるだろうな。
+|   ~ fi
+|   | {(nametag player)}が人を殺したとしても、私たちを助け、守るためだ。 (:annoyed)お前の盲信から来る暴言に付き合っている暇は無いんだ!
+|   ~ jack
+|   | (:annoyed)...
+| - そうだな、あなたの言う通りだ。
+|   ~ jack
+|   | (:shocked)...
+|   ~ fi
+|   | (:annoyed)いや、私はそうは思わないよ。
+| ~ fi
+| | {#@alex-nametag}の事が今のうちに知れて良かったと考えよう。 少なくとも私たちがどんな敵と対峙しているかが分かった。
+| | ありがとう、{(nametag player)}。
+|?
+| ~ fi
+| | (:unsure)こういう時何と言えばいいのか分からない...
+| | (:normal)少なくとも、{#@alex-nametag}と私たちがどんな敵と対峙しているかが分かった。
+| | 話してくれてありがとう、{(nametag player)}。
+

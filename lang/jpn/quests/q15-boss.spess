@@ -1,0 +1,29 @@
+# 8-interact-catherine/interaction
+~ catherine
+| (:concerned)大丈夫? (:excited)すっご～い!
+~ player
+- 楽勝だ。
+  ~ catherine
+  | (:excited)だと思ってた。
+- 思ってたよりは骨が折れたな。
+  ~ catherine
+  | でもメックはあれだけだよ。 (:concerned)流石にもう無いと思うけど。
+- 休暇が必要だ。
+  ~ catherine
+  | (:excited)あなたも、私もね。 砂も兵隊も無い場所がいいよね、ビーチなら歓迎だけど!
+~ catherine
+| "{#@islay-nametag}が起爆装置を配線し直して、浸水した部屋の爆弾に取り付け直した"(orange)って。
+| 今、"病棟の方へ向かってる"(orange)ところみたい。
+| (:excited)私たちは"ブラザーのオフィスへ行って、最後の爆弾の様子を見に行かなきゃね"(orange)。
+| {#@islay-nametag}が私たちを頼りにしてるんだよ。
+! eval (follow 'player 'catherine)
+! eval (activate 'q15-target-bomb)
+! eval (activate (unit 'bomb-explode-1))
+! eval (activate (unit 'bomb-explode-2))
+! eval (deactivate (unit 'spawner-7817))
+
+# q15-boss-fight/walkntalk
+~ player
+| 下がっているんだ、{#@catherine-nametag}。
+~ catherine
+| (:cheer)あぁもう、やっちゃって!

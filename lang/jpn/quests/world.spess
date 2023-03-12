@@ -1,0 +1,551 @@
+; Lore interacts that can be accessed throughout the entire game at ANY time if the player explores far enough.
+; Some are conditional to determine which line is shown; however, most are written in a way that works no matter what point in the story the player discovers them.
+; They are written as the thoughts or inner monologue of the player character.
+
+; REGION 1 UPPER
+; Storage interior area
+# task-world-all/storage-shelves
+~ player
+| "彼らの物置小屋か。 保管されている物資は少なく、ネズミが交尾している時のような匂いがする。"(light-gray, italic)
+
+; a half-ruined train from the old-world
+# task-world-all/noka-train
+~ player
+| "列車か。 と言うより、列車のようなものか。"(light-gray, italic)
+| "災厄の時、人々はこの駅から地下へ逃げ込んだのだろうか。"(light-gray, italic)
+
+; Large stone rock/gate
+# task-world-all/stone-gate-large
+~ player
+| "彼らはこのスラブに出入り口を作ったのか、それともこのまま落ちたのか?"(light-gray, italic)
+
+; Trashed apartment from the old world, with a broken window
+# task-world-all/housing-apartment
+~ player
+| "足元で割れたのはガラスか、人の骨か? 確認はしたくないな。"(light-gray, italic)
+
+; a sandstorm blocks the player from crossing further into the desert to the east
+# task-world-all/storm-east-view
+~ player
+| "怒り狂う狼の咆哮の如く吹き荒ぶ風と砂塵に阻まれ、ここから先へは進めそうにない。"(light-gray, italic)
+
+; the remains of an apartment stairwell, with the rest of the skyscraper missing ("used to be much taller" - sarcastic joke)
+# task-world-all/housing-stairs
+~ player
+| "かつての高級高層アパートメントの階段吹き抜け部分だな。 今となっては低級低層とは皮肉なものだ。"(light-gray, italic)
+
+; a dirty kitchen the survivors use to cook
+; they have some electricity, but while they're still getting set up on the surface, they haven't got it in the kitchen yet - prioritised comms
+# task-world-all/housing-kitchen
+~ player
+| "ガスも電気も通っていないな。 難破した石油タンカーのような匂いがする。"(light-gray, italic)
+| (:thinking)"だがイモのデンプン質のようなものを検知した。 そして、これは... ビーツか?"(light-gray, italic)
+
+; a ruined cafe from the old world called Café Alpha according to its sign. Joke about there being no waiters or waitresses any more
+# task-world-all/housing-cafe
+~ player
+| (:thinking)""カフェ・アルファ"(red)、か。 私はかつてここに来たことがあったか?"(light-gray, italic)
+| (:giggle)"店員が注文を取りに来ないような店は潰れて当然だ"(light-gray, italic)。
+
+; a shelf of books and figurines (visually obvious/implied) in one of the old apartment rooms - someone's assembled them neatly
+# task-world-all/housing-shelf
+~ player
+| "多くの人が死んだというのに、これらの収集品はどうやって生き残っているんだ? これらを保存出来るように、常に誰かが気にかけていたのだろうか。"(light-gray, italic)
+
+; vista of the ruined city in the background, collapsed skyscrapers, etc.
+# task-world-all/ruins-view
+~ player
+| "街はめちゃくちゃに崩壊している。 何があったのだろう?"(light-gray, italic)
+
+; Jack's workbench in the engineering workshop; "work out" = exercise/gym
+; "who come to think of it looks like he wants to kill me." - this is before the player has met Jack, so we can imagine he's glaring at them
+# task-world-all/engineering-bench
+~ player
+? (complete-p 'q0-find-jack)
+| | "{#@jack-nametag}の作業台か。 酷い汗の匂いがする。 彼はここで作業ではなく、トレーニングでもしてるのではないか?"(light-gray, italic)
+|?
+| | "作業台か。 恐らくあの... 今にも殺しにかかって来そうなほど私を睨みつけている男のものだろう"(light-gray, italic)。
+
+; a sandstorm blocks the player from crossing further into the desert to the west
+; does this say androids are bulletproof? Perhaps, though could just be a turn of phrase. Guns don't feature in the game, except when people are massing arms at the end;
+; which could suggest the android would be formidable on the battlefield, if bulletproof, and thus why Zelah wants them out of the way.
+# task-world-all/sandstorm-view
+~ player
+| "弾丸の雨のような砂の粒が私の体を弾いている。"(light-gray, italic)
+| "激しい砂嵐の向こうには辛うじて、山がそびえ立っているのが見える。"(light-gray, italic)
+
+; Zenith was the name of the city in the old world. The city's logo is presented front and centre on the wall, a star glowing over a valley, which the player's character notices resembles an explosion levelling a city... Is that what happened?
+  ; central station = railway station
+# task-world-all/zenith-hub
+~ player
+| ""ゼニス"(red)... それがこの街の名前で、ここが中央駅だった。"(light-gray, italic)
+| (:thinking)"あの、荒野の上空で光る星のエンブレムが、街を破壊する大爆発に見えるのは私だけだろうか?"(light-gray, italic)
+
+; Rootless was the name of a hospital organisation in the old world
+# task-world-all/east-apartments
+~ player
+| "ここは"ルートレス医師団の病院"(red)か。 ここに収容されていた人々は病床で死ねたのだろうか?"(light-gray, italic)
+
+; a market area; behind dark glass windows stand the shadows of clothing mannequins from the old world
+# task-world-all/market
+~ player
+| ""ミッドウェストマーケット"(red)か。 ガラス越しに見えるマネキンは本物の人間そっくりに着飾っているな。"(light-gray, italic)
+| (:embarassed)"ここは思っていたより賑やかで楽しげな区画じゃないか。"(light-gray, italic)
+
+; ruined luxury apartments from the old world, now buried in the ground
+# task-world-all/west-apartments
+~ player
+| ""ドリームスケープ西棟"(red)... かつての贅沢の極みも今や地の底、か。"(light-gray, italic)
+
+; a flooded room near the water pump
+# task-world-all/water-cave
+~ player
+| (:thinking)"この水に沈んだ部屋はポンプが水を汲み上げる貯水池の一部のようだな。"(light-gray, italic)
+
+; large mushrooms which the player can climb up and stand on
+# task-world-all/mush-cave-1
+~ player
+| (:thinking)"このキノコはどうしてこんなに大きく成長したんだ?"(light-gray, italic)
+? (or (active-p 'sq2-mushrooms) (complete-p 'sq2-mushrooms))
+| | (:normal)"察するに、これは食用では無いのだろう。 そうでなければ食糧問題は解決しているはずだしな。"(light-gray, italic)
+
+; the sarcastic player character laments there are no truffles, only these huge giant mushrooms everywhere
+# task-world-all/mush-cave-1a
+~ player
+| "トリュフが欲しいというのは無理な相談かな。"(light-gray, italic)
+
+; when the player is stood on top of a giant mushroom
+# task-world-all/mush-cave-2
+~ player
+| "まるでゼリーの上を歩いているようだ。"(light-gray, italic)
+
+; ruined offices of two companies from the old world, Brother and North Star
+; a joke about their surveillance not helping them predict the end of the world
+# task-world-all/offices
+~ player
+| (:thinking)""ブラザー"(red)と"ノーススター"(red)のオフィスか。 ガイダンス、衛星、監視システムを製造していた。"(light-gray, italic)
+| (:normal)"どれだけ見る事に特化したシステムを作っても、こうなる未来を見通すことは出来なかったか。"(light-gray, italic)
+
+; Semi were a company in the old world, which made androids and parts for androids. It's where the Semi Sisters faction take their name from, as well as an ironic reference to the old-world surveillance company, Brother.
+# task-world-all/factory
+~ player
+| ""セミ"(red)はアンドロイドをはじめとする電子部品のメーカーだった。"(light-gray, italic)
+| "工場がこんなに静かなのは物寂しさを感じるな。"(light-gray, italic)
+
+; view from the top of a ruined skyscraper if the player manages to climb up there (the player can't actually see these things due to the camera, but we describe them anyway)
+# task-world-all/skyscraper
+~ player
+| "なかなか良い眺めだ。"(light-gray, italic)
+| "砂漠は四方を山々に縁取られている。"(light-gray, italic)
+| "あの雲の形から判断するに東の山の向こうには海がありそうだ。"(light-gray, italic)
+
+; the settlement's farmland on the surface; the first line shows if the player has done the quest to restore the water supply; otherwise the other one shows
+# task-world-all/farm-view
+~ player
+? (complete-p 'q1-water)
+| | "スプリンクラーは正常に稼働しているな。 作物はもうダメかもしれないが。"(light-gray, italic)
+|?
+| | "これはイモか。 ほとんど萎れているようだな。"(light-gray, italic)
+
+; the area of rubble where the player character is first awakened; they're reflecting on what happened in their previous life that led to their stranding here (which they can't fully remember, and the player themselves is not privy too). A bit of humour about their bad back due to lying on rocks for thirty years.
+; needs to work whether they encounter this at the beginning of the game, or at any point later
+; The first "examine" encountered by the player in the game!
+# task-world-all/grave
+~ player
+| (:thinking)"かつての私はここで終わった。 そして今、ここから始まった。"(light-gray, italic)
+| (:giggle)"... 何十年もの間、私はこんな場所で寝ていたのか。 道理で背中が痛いわけだ。"(light-gray, italic)
+
+; above the rubble area where the player character is first awakened, there's a huge, collapsed gasworks building visible
+; perhaps the old gasworks was being converted into something more modern, when an accident happened, perhaps involving the android. Like this explosion in Sheffield when an old gasworks was being converted in the 1970s: https://www.bbc.co.uk/news/uk-england-south-yorkshire-45097740
+# task-world-all/grave-cliff
+~ player
+| "爆発した古いガス工場か。 その時、私も何かに関わっていたのだろうか?"(light-gray, italic)
+? (complete-p 'q0-find-jack)
+| | "残念だな。 ガスタンクは穀物のサイロとして再利用出来たかもしれないのに。"(light-gray, italic)
+
+; REGION 1 LOWER
+
+; the character reflects while navigating deep and complex tunnels through the ground
+# task-world-all/semi-cave-east-1
+~ player
+| "私の記憶はデータをロストする前から錆びついていたのか。 ここは居住地域とするために掘られたのか、あるいは元々坑道だったのか?"(light-gray, italic)
+
+; another old Semi factory space
+# task-world-all/semi-cave-east-3
+~ player
+| "かつてはこの生産ラインでアンドロイドが組み立てられていたのだろう。"(light-gray, italic)
+| "恐らく私も。"(light-gray, italic)
+
+; a scenic picture on the wall from pre-Calamity times - now it seems as ancient as a cave painting once did
+; And technically it is now a painting, in a cave...
+# task-world-all/semi-cave-east-4
+~ player
+| "大災害以前に描かれた風景画か。 今ではこれが洞窟壁画と言えるのだろうな。"(light-gray, italic)
+
+; the player character reflects on their artificial method of swimming
+# task-world-all/semi-cave-east-5
+~ player
+| "泳ぐことが出来てラッキーだ。"(light-gray, italic)
+| (:giggle)"私にとって泳ぐという事は水中ウォータージェットを作動させることだが。"(light-gray, italic)
+
+; examining one of the old-world trains refitted by the Semi Sisters
+; It was a maglev train, which has now had traditional rail wheels welded onto it, to work with the Semis' electrical railway
+# task-world-all/semi-train
+~ player
+| "磁気浮上式の高速鉄道か。 シャーシに車輪が溶接されているじゃないか!"(light-gray, italic)
+
+; while examining the Semi Sisters' storage area
+# task-world-all/semi-hub-1
+~ player
+| "禁制品の取引でもしているのか? この時代において違法や合法の概念など無いだろうに。"(light-gray, italic)
+
+; a bar in the Semi Sisters hub area
+; conditional for when the base is empty later on
+# task-world-all/semi-hub-2
+~ player
+? (not (complete-p (find-task 'q11a-bomb-recipe 'task-move-semis)))
+| | "人というものは技術の進歩や衰退に関わらず、水分の摂取が欠かせないのだな。"(light-gray, italic)
+| | "ここは私が記憶している限りのどこよりも人々の喋り声がうるさい。 が、グラスの代わりにブリキの缶で乾杯をしているようだ。"(light-gray, italic)
+|?
+| | "ラストオーダーに間に合わなかったようだな。"(light-gray, italic)
+
+; another scenic picture on the wall from pre-Calamity times
+; the player character doubts it either because things are too far gone, or because even if society recovers, they'll hopefully do things differently
+# task-world-all/semi-hub-3
+~ player
+| "いつの日か、再びこの風景画のような世界が訪れるかもしれない。 だが、可能性は低いだろうな。"(light-gray, italic)
+
+; the Semi Sisters' council chamber / control room, where Innis and Islay, the leaders, mostly hang out. It's quite deluxe and well-furnished compared to the makeshift areas of the rest of their base
+; conditional for when the base is empty later on
+# task-world-all/semi-hub-4
+~ player
+? (not (complete-p (find-task 'q11a-bomb-recipe 'task-move-semis)))
+| | "ここまでは中央ブロックの喧騒も届かないな。 ここにあるのは、ぼやけたビデオの映像と通信のお喋りの声だけだ。"(light-gray, italic)
+|?
+| | "真っ暗な画面だ。 トンネル内が真っ暗なのか、CCTVカメラが落ちているのか。"(light-gray, italic)
+
+; exploring a ruined underground "subscraper" - a skyscraper that goes down into the ground, rather than up into the sky (they built buildings like this before the Calamity)
+# task-world-all/semi-hub-5
+~ player
+| "何故この地下街は完全に崩壊せずに残っているのだろう。"(light-gray, italic)
+
+; makeshift areas of the Semi Sisters' base, where people have strung up modesty curtains on rails to give themselves privacy amongst the old factories and machinery where they now live
+# task-world-all/semi-hub-6
+~ player
+| "機械とプライバシー保護のカーテン... 私が期待していた組み合わせではないな。 だが、人が集団で生活するにはこうでなくてはならないのだろう。"(light-gray, italic)
+
+; a hydroponic "garden" in the Semi Sisters' base. Compared to the Noka faction on the surface, they're doing very well here at growing food and they have plenty of water
+# task-world-all/semi-hub-7
+~ player
+| "ここは水耕栽培のパラダイスだな。 ここの人たちは食料や水に関して心配することは無いのだろう。"(light-gray, italic)
+
+; a mostly empty vending machine from the old world.
+; Candy Android = a candy bar from the old world. Suggests maybe it was a PR thing to make people more amenable to androids, by making chocolate bars that resemble them.
+# task-world-all/semi-hub-8
+~ player
+| "この自動販売機に僅かに残っている食べ物は全て腐っている。 割れたガラス越しに私を見つめる、アンドロイド型のキャンディも。"(light-gray, italic)
+
+; an old office building is now a sleeping area in the Semi Sisters' base.
+; sly joke reference to crunch culture and sleeping under your desk.
+# task-world-all/semi-hub-9
+~ player
+| "かつてのオフィスも今や寝室か。"(light-gray, italic) (:giggle)"繁忙期でなくともオフィスで寝る理由が生まれたな。"(light-gray, italic)
+
+; a calendar still on the wall in an old office block; March 2368 is when the Calamity happened. There are faces on the calendar too.
+# task-world-all/semi-hub-10
+~ player
+| "2368年のカレンダーが大災害の発生した3月で止まっている。 書き込まれた予定のいくつかは達成されることが無かったのだろう。"(light-gray, italic)
+| "写真に写っているのはここで働いていた人々だろうか?"(light-gray, italic)
+
+; a fluorescent painted sign in the caves near the Semi Sisters base, directing people towards it.
+; The player may or may not have encountered the Semi Sisters when they find this.
+# task-world-all/semi-cave-west-1
+~ player
+| "おや、蛍光塗料のサインか。"(light-gray, italic) (:thinking)"どうやって塗ったのか気になるな。"(light-gray, italic)
+
+; spike traps and barbed wire litter areas around the Semi Sisters base - lethal to an android, as they reflect on police states from before the Calamity.
+; Maybe the Semi Sisters planted them for defence, even though it makes it harder for their own people to get around. Or maybe it's a legacy from when the militaristic Wraw faction inhabited this area?
+# task-world-all/semi-cave-west-2
+~ player
+| "誰がこんな場所にスパイクを設置したんだ? まるで警察国家だな。"(light-gray, italic)
+
+; these are the rail engineers from the Semi Sisters, who are digging out more of the old metro tunnels and expanding the rail network, but who got cut off when the tunnel collapsed.
+; The player may encounter them before the quest from the Semis to actually rescue them.
+# task-world-all/semi-cave-west-3
+~ player
+| "ここは仮設の"エンジニアキャンプ"(red)だ。 彼らは当面の自給自足の食料は、一応確保しているようだ。"(light-gray, italic)
+
+; the caved-in tunnel that trapped the Semi Sisters engineers. A different line plays depending on whether or not the debris has been cleared yet, and whether or not the player knows about the trapped engineers quests yet
+; the "UP and around" clue is important here, to tell the player they need to go up not down. We can imagine the player character has used FFCS to scan and know there's a way up but not down
+# task-world-all/engineers-wall
+~ player
+? (active-p (unit 'blocker-engineers))
+| ? (active-p 'q5a-rescue-engineers)
+| | | "恐らくこれが"セミの鉄道技師たち"(orange)を閉じ込めた"崩落したトンネル"(orange)だな。"(light-gray, italic)
+| | | "こちら側から突破出来そうには無いな。"(light-gray, italic)
+| | | (:thinking)""別の道から向こう側へ行く道を探す"(orange)必要があるな。"(light-gray, italic)
+| |?
+| | | "崩落したトンネルだ。 こちら側から突破出来そうには無いな。"(light-gray, italic)
+| | | (:thinking)""別の道から向こう側へ行く道を探す"(orange)必要があるな。"(light-gray, italic)
+|?
+| ? (or (active-p 'q5a-rescue-engineers) (complete-p 'q5a-rescue-engineers))
+| | | "崩落した鉄道トンネルの残骸だな。 十分に安定しているように見える。 今のところは。"(light-gray, italic)
+| |?
+| | | "崩落したトンネルの残骸だな。 十分に安定しているように見える。 今のところは。"(light-gray, italic)
+
+; REGION 2
+
+; abandoned laboratory
+; The player does know the term "Calamity" by this point
+# task-world-all/cerebat-lab-1
+~ player
+| "これらの機械に積み重なったホコリから察するに、この研究所は大災害以前から使われていないようだ。"(light-gray, italic)
+
+; abandoned lab, looking at an unusual sample in a glass tube (like something from Aliens)
+# task-world-all/cerebat-lab-2
+~ player
+| (:embarassed)"これは何だ? 有機物のようだが... 死んでいるのか。"(light-gray, italic)
+| "まぁ、放っておくか。 下手に触って何かが顔に飛びかかるのは避けたいしな。"(light-gray, italic)
+
+; in a big lush water cave
+; (works even if they've seen the deeper volcanic Wraw area, since here they're comparing it to the drier less habitable areas above)
+# task-world-all/cerebat-water-cave
+~ player
+| "この深さまで来るとマグマがあると思ってたんだがな。"(light-gray, italic)
+
+; big mushrooms in a big lush water cave, different to the ones higher up. And hence the drinkable joke
+# task-world-all/cerebat-mush-cave
+~ player
+| "これらはどれも違う種類のキノコか。 食べられるかどうかまでは分からないな。"(light-gray, italic)
+| (:giggle)"この場所の湿度の高さを考えると、ジュースにして飲むことが出来るかもしれない。"(light-gray, italic)
+
+; bottomless pit which would cause insta-death
+# task-world-all/cerebat-pit
+~ player
+| (:embarassed)"ここに落ちたら最後、誰も私を見つけることは出来ないだろう。"(light-gray, italic)
+
+; a painted Cerebats faction sign and direction arrow, though it only says "BATS"
+; character turns it into a joke, since chances are they've seen bats flying around in the caves before. Even if they haven't, they'll know the meaning.
+; They may or may not have encountered / know about the Cerebats faction at this point
+# task-world-all/cerebat-bats-1
+~ player
+| (:giggle)"BATS... あぁ、確かにこの辺りにはコウモリがいるな。"(light-gray, italic)
+
+; another painted Cerebats faction sign and direction arrow, though it only says "BATS" (and is written in red paint, the same colour as blood AND thermal fluid in androids)
+; They may or may not have encountered / know about the Cerebats faction at this point
+# task-world-all/cerebat-bats-2
+~ player
+| (:embarassed)"このサインは人間の血か、アンドロイドのサーマルフルイドで書かれたものじゃないだろうな?"(light-gray, italic)
+
+; a mushroom cave, but also referring to the lush backdrop
+# task-world-all/cerebat-mush
+~ player
+| "ここは湿度が高いから、こう鬱蒼としているのも納得だな。"(light-gray, italic)
+| (:giggle)"もし私が汗をかくアンドロイドだったら、腋の下で大量の植物に水やりをしてたところだ。"(light-gray, italic)
+
+; a lake area; the water is pumped from here to the Semis and Noka living areas far above
+; may or may not know the names of the factions in the levels above at this point, hence ambiguity
+# task-world-all/cerebat-lake
+~ player
+| (:thinking)"ここの湖から上の階層へポンプで水を吸い上げているんだな。"(light-gray, italic)
+
+; because this is a light area, even though it's deep underground
+; teasing the concept of big phosphorescent (radioactive?) fauna - though you never see anything
+# task-world-all/cerebat-light
+~ player
+| (:thinking)"地下にも関わらず、ここは何故こんなに明るいんだ? 光る植物でもあるのか?"(light-gray, italic)
+| (:embarassed)"あるいは光を放つ生物...?"(light-gray, italic)
+
+; wind in the tunnels, caused by difference in temperature with the levels above, and with the air over water and land
+# task-world-all/cerebat-wind
+~ player
+| (:thinking)"洞窟を流れる水が空気を冷やして風を起こしているのか。"(light-gray, italic)
+
+; wind power
+; may have encountered wind farming in the tunnels already in Semi/Cerebat territory (sidequest), or may not have - but can assume the character has observed this in the environment while exploring
+; not "the doldrums" - since the wind is light, and so is the mood here; not what she was expecting deep underground
+; her thrusters use power for wind!
+# task-world-all/cerebat-wind-power
+~ player
+| "この辺りは風が吹き荒んでいるんだな。"(light-gray, italic)
+| "ここに住む人々が風力を利用しているのも納得だ。"(light-gray, italic) (:giggle)"私のスラスターと同じようなものだしな。"(light-gray, italic)
+
+; bouncing springs like in Sonic
+; Helps people/hunters/androids (assuming you know of hunters at this point) to navigate these tunnels
+; Derived from old railway buffers (those round sprung buffers, use in pairs on the front and back of rail carriages/trucks/cars, to help avoid impacts when connecting them together)
+# task-world-all/cerebat-bouncer
+~ player
+| "これらのバネはレールの緩衝材を再利用したものか... よく思いつくものだ!"(light-gray, italic)
+
+; a hideout of neutral Rogue enemies, who ambush passers by (might not be obvious to player, so description clarifies). Well stocked due to all the item spawners.
+; player may or may not know about Rogues by this point
+# task-world-all/cerebat-hideout
+~ player
+| "良さげな隠れ家じゃないか。 だが、この酷い悪臭から察するに、"(light-gray, italic) (:giggle)"トイレの設備は整っていないようだな。"(light-gray, italic)
+
+; an abandoned hideout of neutral Rogue enemies, who used to ambush passers by (might not be obvious to player, so description clarifies)
+; player may or may not know about Rogues by this point, and the Semi Sisters (by name) on the level above; though to reach here, they will have seen that the level above is populated/watched
+# task-world-all/cerebat-old-hideout
+~ player
+| "昔使われていた隠れ家か... ほとんどのゴミは風で飛ばされたようだが、まだ足跡が残っているな。"(light-gray, italic)
+| (:thinking)"恐らく、ここは開けすぎていて、上の階層にも近すぎるんだ。"(light-gray, italic)
+
+; an encampment of raiders on the edge of the Cerebat base
+; player may or may not have discovered the Cerebat base by this point - if they have, then this makes sense; if not, then it's a slight clue (but not a spoiler) that a base is nearby
+; player may or may not suspect/know that the Wraw have taken over the Cerebats by this point (depending where they are in the plot); if they do suspect, then this fuels the fire
+# task-world-all/cerebat-encampment
+~ player
+| "路地裏の隠し貯蔵庫みたいだな。 彼らはこんな場所でブラックマーケットでも運営しているのだろうか。"(light-gray, italic)
+
+; cerebat council chamber - it's empty, no Council
+; the room is modern and shiny, like the Calamity never happened (unlike most other places the player has seen)
+; player may or may not suspect/know that the Wraw have taken over the Cerebats by this point (depending where they are in the plot)
+; the player does know the term "Calamity" by this point
+# task-world-all/cerebat-council
+~ player
+| "足元を見ると、影の代わりに黒く光る床が私を見返してくる。"(light-gray, italic)
+| "ここには大災害の影響も無かっただろうな。"(light-gray, italic)
+
+; living quarters - tents set up in rooms, deep underground
+; player may or may not suspect/know that the Wraw have taken over the Cerebats by this point (depending where they are in the plot)
+# task-world-all/cerebat-housing
+~ player
+| "ここはテントを張ってキャンプするには良さそうだな。 星空の下というわけにはいかないが。"(light-gray, italic)
+
+; shady backstreets
+; player may or may not suspect/know that the Wraw have taken over the Cerebats by this point (depending where they are in the plot)
+# task-world-all/cerebat-backstreet
+~ player
+| "この薄汚れた裏通り、一目見ただけで全てが分かってしまうな。"(light-gray, italic)
+
+; busy market
+; player may or may not suspect/know that the Wraw have taken over the Cerebats by this point (depending where they are in the plot) - thus we raise suspicion here if they don't know, or confirm suspicion if they do (or it may just be interpreted as prejudice towards androids)
+# task-world-all/cerebat-market
+~ player
+| "人通りが多く栄えてるマーケットのようだが、さっきからチラチラと横目で見られる視線を感じるな。"(light-gray, italic)
+
+; warehouse/factory
+; "Some of the boxes are covered in ash." - this is a clue that the Wraw have been suppling / have taken over the Cerebats. But it needs to be vague enough to make sense both before and after the player has discovered the Wraw takeover, at a time when they may or may not know as well that the Wraw come from a volcanic area. It also can't be too specific to serve as a plot clue, since this confirmation only comes from the cerebat trader during q8a.
+# task-world-all/cerebat-warehouse
+~ player
+| "大災害以前を含めても、こんなに大きな倉庫は見たことがないな。"(light-gray, italic)
+| "いくつかの箱は灰をかぶっている。"(light-gray, italic)
+
+; REGION 3
+; fewer lore entries here, to preserve the mystery
+
+; geothermal tube
+; part of the old underground power station, which circulated water into the heat of the earth to produce steam, which in turn powered a turbine
+; parts of it are still active, used exclusively by the Wraw faction
+; the Cerebats did cut off this water supply before the game started, leading to the Wraw invasion (before/early game); but now the Wraw have taken over, the flow is running again
+; this particular pipe is damaged already, because the Wraw have been pushing too hard with their various invasion schemes (or because the Cerebats sabotaged it to cut off the water...?); this ties into Jack's sq11 when he wants you to sabotage it - however, from this cursory inspection during exploration, the PC doesn't know for sure if the pipe is still operational - it requires a closer inspection on Jack's quest to confirm this.
+# task-world-all/wraw-tube
+~ player
+| "ここはトリクル地熱発電所の一つか。 パイプが運んだ水を沸騰させていたんだな。"(light-gray, italic)
+| "蒸気でタービンを回転させ、発電していた、と。"(light-gray, italic)
+
+; lava fishing spot
+; the player can fish certain rare and exotic (and machine) types of fish/waste from the lava
+# task-world-all/wraw-fish
+~ player
+| "溶岩の中を泳ぐには、生物として特別な進化を遂げる必要がある。"(light-gray, italic) (:embarassed)"私のようなポンコツアンドロイドには無理だ。"(light-gray, italic)
+
+; lava and spikes area
+; "smell" because of the burning everywhere, accentuated by the blasts of hot air that the player can ride to platform around
+; android may or may not be religious - probably not. But keeps it open for the player. If not, then ofc this is just a turn of phrase
+# task-world-all/wraw-lava
+~ player
+| (:embarassed)"なんて酷い場所だ。 見れば見るほど地獄を感じるな。"(light-gray, italic)
+
+; peoples' homes
+; the player may or may not know that these people are the enemy Wraw faction by this point; if they don't, then the negative tone here can be because this lava area seems a stupid place to live
+# task-world-all/wraw-people
+~ player
+| "わざわざ溶岩のトンネルに住むことを選ぶなど、相当丈夫な者たちなのだろうな。"(light-gray, italic)
+
+; cache of supplies (and weapons)
+; the player may or may not know that these people are the enemy Wraw faction by this point; so this is a more general comment about their living conditions
+# task-world-all/wraw-cache
+~ player
+| "こんな溶岩の氾濫原に住んでなければ、もっと快適な生活が送れるだろうに。"(light-gray, italic)
+
+; NOKA SEEDS
+; can be done before q2-seeds is given
+# task-world-seeds/seeds-arrive
+~ player
+| (:thinking)"む、何だこれは? 旧世界のバンカーか?"(light-gray, italic)
+| ""貯蔵庫"(orange)のようだが、見た目通りの古くカビくさい嫌な匂いがする。 種の入ったコンテナや小袋が散乱しているのは何者かがここに来たことがある証拠だな。"(light-gray, italic)
+| (:normal)"大半が使い物にならなくなっているが、いくつかの引き出しの中に格納されている"使えそうな種は誰かが欲しがるかもしれないな"(orange)。 どれどれ..."(light-gray, italic)
+! eval (store 'item:seeds 24)
+! eval (status "種袋x24を手に入れた")
+| ""24袋"(orange)、残っていたのはこれで全てか。 入っている種は小さく、砂粒のように硬い。"(light-gray, italic)
+| (:thinking)"これはまだ植えれば育つのだろうか?"(light-gray, italic)
+
+; SEMI SISTERS ENGINEERS
+
+; conversation with a Semi Sisters rail engineer, if you encounter them independently of the quest to rescue them.
+; This is dialogue with the player, not inner monologue.
+; Conditionals determine what they say based on first of all whether you've cleared the tunnel yet that's blocking them in, and second whether you've spoken to them before.
+; Task resolves once all the Semis move to the surface during q11a-bomb-recipe
+# task-world-engineers/trapped-engineers
+? (active-p (unit 'blocker-engineers))
+| ? (not (var 'engineers-first-talk))
+| | ~ semi-engineer-chief
+| | | 一体全体どうやってここまで来たんだ?
+| | ~ player
+| | | このシャフトの上部にトンネルがあるじゃないか。 人間が通れるようなものでは無かったがな。
+| | ~ semi-engineer-chief
+| | | ... //人間//が? ということは君は...
+| | ~ player
+| | - 人間ではない、ということになるな。
+| |   ~ semi-engineer-chief
+| |   | ... アンドロイドかぁ、コイツは驚いたよ。
+| | - アンドロイドだ。
+| |   ~ semi-engineer-chief
+| |   | ... コイツは驚いたよ。
+| | - ここで何をしている?
+| | ~ semi-engineer-chief
+| | | 君が来てくれて嬉しいよ。 私たちはセミ・シスターズの下で働く鉄道エンジニアだ。
+| | | トンネルが崩落してね。 チーフと仲間の半分を失ってしまったんだ。
+| | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
+| | ~ semi-engineer-chief
+| | | "今行き詰っている"(orange)んだが、君なら? アンドロイドなら可能だろうか?
+| | | "崩落地点はこの先だよ"(orange)。
+| | ! eval (setf (var 'engineers-first-talk) T)
+| | ! eval (activate 'world-engineers-wall)
+| | ! eval (deactivate 'task-engineers-wall-listen)
+| |?
+| | ~ semi-engineer-chief
+| | | "崩落した壁"(orange)はどうなった? 私たちもいつまでもここで留まっているわけにはいかないんだ。
+|?
+| ? (not (var 'engineers-first-talk))
+| | ~ semi-engineer-chief
+| | | 君は誰だ? どうやって崩落したトンネルを突破したんだ?
+| | ~ player
+| | - 私は... 人間ではない。
+| |   ~ semi-engineer-chief
+| |   | ... アンドロイドかぁ、コイツは驚いたよ。
+| | - 私はアンドロイドだ。
+| |   ~ semi-engineer-chief
+| |   | ... コイツは驚いたよ。
+| | - ここで何をしている?
+| | ~ semi-engineer-chief
+| | | 君が来てくれて嬉しいよ。 私たちはセミ・シスターズの下で働く鉄道エンジニアだ。
+| | | 私たちはトンネルが崩落した時にチーフと仲間の半分を失ってしまったんだ。
+| | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
+| | ~ semi-engineer-chief
+| | | しかし、ルートが開通したおかげで状況は好転するだろう。
+| | | 感謝するよ。
+| | ! eval (setf (var 'engineers-first-talk) T)
+| |?
+| | ~ semi-engineer-chief
+| | | 君があれを突破するとはな... これで食料や医療品も流通させられる。 感謝するよ。
+| | | 私たちは掘削を再開するよ。 どれだけ遅くとも、必ずやり遂げるさ。
+
+; replacement interact when the engineer is now on the surface in the final act, preparing for the battle
+; They're not too impressed with the nearby water pipe that you and Catherine worked on in act 1
+# task-engineers-surface/engineer-surface
+~ semi-engineer-chief
+| 地上に居るなんて変な気分だな。 君はこんなに暑い場所に住んでるのか?
+| 私たちの地下鉄が粗雑なパイプより役に立てばいいのだが。
+

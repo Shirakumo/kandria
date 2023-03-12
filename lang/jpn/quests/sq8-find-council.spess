@@ -1,0 +1,86 @@
+; Cerebat "good" market trader, concerned about the missing Cerebat Council, well spoken
+# reminder/interact-reminder
+~ cerebat-good-trader
+| "ワロー・テリトリーで評議員を探し出して、連れ戻してください。"(orange)
+| 私たちがレジスタンスを組織するには、彼らの存在が必要不可欠なのです。
+~ player
+| "FFCSは"3箇所の候補地"(orange)を示している。"(light-gray, italic)
+
+; use the task move-npc to determine if this is the first site visited or not, and if it is, activate move-npc
+# site-1/interact-site
+~ player
+| "ここが"1箇所目"(red)だ。 ここに"評議員が拘束されている可能性がある"(orange)。"(light-gray, italic)
+| (:thinking)"床には血痕があり、隅には糞尿が残されている。"(light-gray, italic)
+| (:normal)""他には何も見当たらないな"(orange)。"(light-gray, italic)
+? (not (complete-p 'move-npc))
+| ~ player
+| | ""残り2箇所も調べて"(orange)、評議員の痕跡と手がかりを探すか。"(light-gray, italic)
+| ! eval (activate 'move-npc)
+|? (complete-p 'site-2 'site-3-listener)
+| ~ player
+| | "これで最後だ。 もし評議員たちがまだ生きているとしても、ここには居ない。 "セレバットのトレーダーの元へ戻るか"(orange)。"(light-gray, italic)
+| ! eval (activate 'task-return)
+|?
+| ~ player
+| | "FFCSが示す候補地は"残り1箇所"(orange)だ。"(light-gray, italic)
+
+# site-2/interact-site
+~ player
+| "ここが"2箇所目"(red)か。 "だが評議員たちの気配は無いな"(orange)。"(light-gray, italic)
+| (:thinking)"こんな場所にぶち込まれたら目の前には大量のスパイク、後方には天然の厚い壁..."(light-gray, italic) "[(not (active-p (unit 'blocker-5663)))脱獄不可能な牢獄というわけか。 (私に壁を破壊されるまではな!) | 脱獄不可能な牢獄というわけか。]"(light-gray, italic)
+| (:thinking)"[(not (active-p (unit 'blocker-5663)))評議員たちもどうにかして脱獄出来たのか?|評議員たちはどうにかして脱獄出来たのか?]"(light-gray, italic)
+? (not (complete-p 'move-npc))
+| ~ player
+| | ""残り2箇所も調べて"(orange)、評議員の痕跡と手がかりを探すか。"(light-gray, italic)
+| ! eval (activate 'move-npc)
+|? (complete-p 'site-1 'site-3-listener)
+| ~ player
+| | "ここで最後だ。 もし評議員たちがまだ生きているとしても、ここには居ない。 "セレバットのトレーダーの元へ戻るか"(orange)。"(light-gray, italic)
+| ! eval (activate 'task-return)
+|?
+| ~ player
+| | "FFCSが示す候補地は"残り1箇所"(orange)だ。"(light-gray, italic)
+
+# task-return/interact-return
+~ cerebat-good-trader
+| 評議員が見当たりませんが... 良い報告があると言ってくださいよ...
+~ player
+- だと良かったのだがな。
+  ~ cerebat-good-trader
+  | あぁ、そんな...
+  | それは...?
+  < tunic
+- 残念ながら悪い知らせしか無い。
+  ~ cerebat-good-trader
+  | ...
+  | それは...?
+  < tunic
+- これを拾った。
+  < tunic
+- 彼らはきっと生きている。
+  ~ cerebat-good-trader
+  | ...
+  | それは...?
+  < tunic
+! label tunic
+! eval (retrieve 'item:tunic 1)
+! eval (status "チュニックの切れ端を失った")
+~ cerebat-good-trader
+| これは評議員のチュニックから引き裂かれた切れ端ですね。
+| ウソでしょう... こんなに血にまみれて...
+| 他には何も無かったのですか...? 誰も...?
+~ player
+| (:embarassed)"首を横に振る以外に出来る事があれば良かったのだがな。"(light-gray, italic)
+~ cerebat-good-trader
+| まだヘッドドレスは持っていますか?
+! eval (retrieve 'item:headdress 1)
+! eval (status "ヘッドドレスを失った")
+| ありがとう。 きっと、これが評議会の遺した唯一の物でしょう。
+| ... いえ、"アントニオ"(yellow)の。
+| あなたには感謝しています。 ですが、しばらく一人にしてください。 お願いします。
+~ player
+- すまなかった。
+- 分かっている。
+- レジスタンスはどうなる?
+  ~ cerebat-good-trader
+  | もう無理です。 不可能なんです。

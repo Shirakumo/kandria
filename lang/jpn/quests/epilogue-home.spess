@@ -1,0 +1,42 @@
+# 4-interact-catherine/interaction
+~ catherine
+| (:concerned)ウソ... "地上が... 私たちの全て... 何も無くなってる"(orange)。
+| (:concerned)どうしたらいいの? どこへ行けばいいの?
+| (:excited)"ワローも一切見えないよ... 奴らを地底の奥深くに埋葬してやったんだ!"(orange)
+| (:concerned)でも、やだよ... "この先にあるのは死体? それとも生きてる人?"(orange) お願いだから皆無事でいて...
+~ player
+| ""地面に横たわって動かない者がいるが、立って歩いている者も居るぞ"(orange)。"(light-gray, italic)
+~ player
+- 彼らを識別すべきか?
+  ~ catherine
+  | (:concerned)...
+  | 分かんない... けど、お願い。
+  < identify
+- 彼らが誰なのか知る必要があるな。
+  ~ catherine
+  | (:concerned)...
+  | だね、その通りだと思う。
+  < identify
+- さぁ、行こう。
+  < end
+
+# identify
+~ player
+| "ズーム、解像度上昇..."(light-gray, italic)
+| あれは"{#@fi-nametag}、{#@jack-nametag}、それに{#@innis-nametag}"(orange)だな。 "彼女たちは無事"(orange)だが、"心配そうな表情"(orange)をしているな。 "{#@fi-nametag}は負傷した腕を治療しているようだ"(orange)...
+| その向こうには"{#@trader-nametag}らしき者"(orange)が立っているし、"他にも何人か"(orange)居るな。 "{#@islay-nametag}の姿は見えない"(orange)。
+~ catherine
+| (:concerned)ウソ...
+~ player
+| "{#@alex-nametag}もワローも居ない"(orange)。
+< end
+
+# end
+~ catherine
+| (:concerned)"分かった、行こうか"(orange)。
+
+; the Fi injured ellipsis works if you flirted with Fi, and if not, then it works for Catherine's benefit
+
+# walk-end/walkntalk
+~ catherine
+| (:excited)よしっ!! 大丈夫そうだね! "さぁ、行こう"(orange)。

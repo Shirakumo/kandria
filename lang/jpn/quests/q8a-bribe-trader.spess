@@ -1,0 +1,64 @@
+; character voice: London cockney
+# return-parts/parts-return
+~ cerebat-trader-quest
+| "ブツを支払う準備"(orange)は出来たか? "評議会の情報は{(var 'trader-bribe)}と引き換えだぜ"(orange)。
+~ player
+- まだだ。
+  ~ cerebat-trader-quest
+  | なら帰りな。 アンタが得る物は無いぜ。
+- [(> (var 'trader-bribe) (item-count 'item:parts))しか持っていない。|]
+  ~ cerebat-trader-quest
+  | そうかい、そりゃ誰のせいだ? 俺じゃねぇよな!
+  ~ player
+  | "もっとパーツを集める必要があるな。 "魚を釣って、{#@islay-nametag}や{#@trader-nametag}のようなトレーダーに売りつけるのが良さそうだ"(orange)。"(light-gray, italic)
+- [(<= (var 'trader-bribe) (item-count 'item:parts))持ってるな。 支払おう。]
+  < outcome
+
+; " could try" - amongst other activities
+
+# outcome
+~ cerebat-trader-quest
+| もらおうか!
+! eval (retrieve 'item:parts (var 'trader-bribe))
+! eval (status (concatenate 'string "" (write-to-string (var 'trader-bribe)) "パーツを失った"))
+| 数えるからちょっと待ってくれよ。
+| ...
+| オッケー! ビジネスの始まりだ。
+| これはちょっと横にどけておくぜ。 これは特別な客に買い取ってもらうからな。
+~ player
+- さぁ情報を教えろ。
+  ~ cerebat-trader-quest
+  | そうだな、そろそろ気付いていると思っていたんだがな。
+- オホン。
+  ~ cerebat-trader-quest
+  | 心配すんな、分かってるよ。 だが、そろそろ気付いていると思っていたんだがな。
+- どんな客だ?
+  ~ cerebat-trader-quest
+  | そうだな、そろそろ気付いていると思っていたんだがな。
+~ cerebat-trader-quest
+| "ワロー"(orange)だよ。
+| 俺はワローと取引してんのさ。
+| "奴らが来てから"(orange)の唯一の収穫だな。 だが、これは他の奴には言うんじゃねぇぞ。
+| もう分かるよな。
+| "評議会が見つからないのはそれが理由だ。 奴らは死んだ"(orange)。
+| "奴らはワローの水を止めるべきではなかったんだろうな"(orange)。
+| な、俺が言った通り、誰も見つからなかっただろ!
+| ともかくだ、今なら俺もアンタを信頼出来るから、"取引してやるよ"(orange)。
+| "俺以外にもそう思ってる奴が居る"(orange)と思うぜ。
+| そんじゃな。
+~ player
+| (:embarassed)...
+| チッ。
+| (:normal)""{#@fi-nametag}に連絡"(orange)するか。 盗み聞きされないよう、"この狡猾なトレーダーとは少し離れなければな"(orange)。"(light-gray, italic)
+! eval (complete task)
+! eval (reset interaction)
+! eval (activate (unit 'fi-ffcs-cerebat-1))
+! eval (activate (unit 'fi-ffcs-cerebat-2))
+! eval (setf (music-state 'region1) :normal)
+! eval (setf (music-state 'region2) :normal)
+! eval (setf (music-state 'underground-camp) :normal)
+! eval (setf (music-state 'region3) :ambient)
+? (active-p 'q8-meet-council)
+| ! eval (deactivate (unit 'player-council-chamber))
+
+; "shouldn't have turned the Wraw's water off" - part of what led to the invasion; the Wraw are reliant on their Cerebat puppets for water to drink and power the geothermal power station (less so than most as the "potion" helps their endurance - but they also work in stifling conditions)

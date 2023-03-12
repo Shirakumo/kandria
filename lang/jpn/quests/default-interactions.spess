@@ -1,0 +1,460 @@
+# innis
+; PRIMARY NPCs
+; all lines in this file are the NPC speaking directly to the player, though some are more like musings to themselves as well
+; Innis (Semi Sisters leader, female) - generally doesn't like the player; Scottish dialect
+~ innis
+? (complete-p 'Q14-ENVOY)
+| | (:angry)お前の監視が解かれることは無いと思え。
+|? (complete-p 'Q13-PLANTING-BOMB)
+| | (:sly)おやおや、誰かと思えば。
+|? (complete-p 'Q11A-BOMB-RECIPE)
+| | アンドロイドごときが複数の派閥に甘言を弄するとは誰が予想出来ただろうな。
+|? (complete-p 'Q7-MY-NAME)
+| | (:angry)消えろ、私は忙しいんだ。
+|? (complete-p 'Q5A-RESCUE-ENGINEERS 'Q5B-INVESTIGATE-CCTV)
+| | (:angry)そんな風に私の周りをうろついていると、私に解体されたいという意思表示と受け取るぞ。
+|? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
+| | (:sly)どうした、迷子にでもなったか?
+|?
+| | 何が望みだ?
+
+# islay
+; Islay, female (Semi Sisters second in command and chief engineer, Innis' sister) - is warmer to the player; Scottish accent, but less dialect
+; Islay soon becomes a trader, so will never need default interacts after that (the trading is removed near the end, but is taken over by main quest dialogue for the most part, and this fallback to handle interactions while she's rewiring the other 2 bombs)
+~ islay
+? (complete-p 'Q15-CATHERINE)
+| | (:nervous)...
+|? (complete-p 'Q13-PLANTING-BOMB)
+| | 良かった、戻ってきてくれて。
+|? T
+| | やぁ、こんにちは。
+
+# alex
+; alex, non binary - ex-Noka hunter, doesn't like the player since they believe they stole their job with the Noka; speaks London multicultural English
+~ alex
+? (complete-p 'Q14-ENVOY)
+| | (:angry)お前は選択を誤ったな。
+|? (complete-p 'Q13-PLANTING-BOMB)
+| | (:angry)また会ったな。
+|? (complete-p 'Q13-INTRO)
+| | (:angry)終わりは近ぇ。
+|? (complete-p 'Q7-MY-NAME)
+| | (:angry)消えろっつってんだよ。
+|? (complete-p 'Q4-FIND-ALEX)
+| | (:angry)俺を試そうとすんじゃねぇよ、アンドロイド。
+|?
+| | (:angry)<-ヒック-> 消えな。
+
+# trader
+; Sahil, trader, male, Arabic code switching; after the intro quest, default chat interacts takeover, but this is for before the quest
+; Sahil soon becomes a trader, so has no needed for more default interacts
+~ trader
+? T
+| | 悪いな、ネェちゃん。 営業開始はキャラバンの設営が終わってからだ。
+
+# cerebat-trader-quest
+; Cerebat trader from q8a, male; after the quest, default chat interacts takeover, but this is for before the quest
+; stop being nosy!
+; Soon becomes a trader, so has no needed for more default interacts
+~ cerebat-trader-quest
+? T
+| | 探偵ごっこは他所でやんな!
+
+# jack
+; Jack (Noka faction chief engineer, male) - doesn't like the player, or androids in general; Southern USA accent and dialect
+; since SQ11-SABOTAGE-STATION doesn't have a return dialogue, Jack can make some allusion to it here in the main flow - until it gets overridden by more important primary plot developments (as with sidequest NPCs)
+~ jack
+? (complete-p 'Q14-ENVOY)
+| | {(nametag player)}、俺はテメェを誤解してたってのか?
+|? (complete-p 'Q13-PLANTING-BOMB)
+| | 見ろよ、まさかのお客様だぜ。
+|? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
+| | (:annoyed){#@innis-nametag}はマジでいけすかねぇビッチだ。 お前もそう思うだろ?
+|? (complete-p 'Q10A-RETURN-TO-FI)
+| | (:annoyed)なぁ、どうしてこうなっちまったんだ? あ?
+|? (complete-p 'Q10-WRAW)
+| | たまには良い報せを持って来れねぇのかよ。
+|? (complete-p 'SQ11-SABOTAGE-STATION)
+| | 発電所? 知らねぇな!
+|? (complete-p 'Q6-RETURN-TO-FI)
+| | どこへ行こうと、トラブルが絶えないのは何故だ?
+|? (complete-p 'Q5A-RESCUE-ENGINEERS 'Q5B-INVESTIGATE-CCTV)
+| | 何だ、テメェか。
+|? (complete-p 'Q3-NEW-HOME)
+| | (:annoyed)落ち着けよ、俺たちゃどこにも行かねぇし行けねぇんだからよ。
+|? (complete-p 'Q1-WATER)
+| | 俺の目が黒いうちは好き勝手出来ると思うなよ。
+|? (active-p 'Q1-WATER)
+| | "キャシーと一緒に行く"(orange)んじゃねぇのか?
+|? (complete-p 'Q0-FIND-JACK)
+| | 何だ?
+|?
+| | お前は誰だ?
+
+# fi
+; Fi (Noka faction leader, female) - somewhat indifferent and distanced to the player; formal, but warming to them. Japanese English accent and dialect.
+~ fi
+? (complete-p 'Q14-ENVOY)
+| | 君は私たちの仲間だ。
+|? (complete-p 'Q13-PLANTING-BOMB)
+| | (:unsure){(nametag player)}...
+|? (complete-p 'Q11A-BOMB-RECIPE)
+| | やぁ。
+|? (complete-p 'Q11-RECRUIT-SEMIS)
+| | (:unsure)何をするにしても、残された時間は少ないぞ。
+|? (complete-p 'Q4-FIND-ALEX)
+| | {#@alex-nametag}について、何か進展はあるか?
+|? (complete-p 'Q2-SEEDS)
+| | 食料も水も無くなったら、どうしたらいいのだろうな?
+|? (complete-p 'Q1-WATER)
+| | {(nametag player)}...か。
+|?
+| | こんにちは。
+
+# catherine
+; Catherine (Noka junior engineer, female) - thinks the player character as an android is amazing, though treats them a little too much like a machine to begin with, before becoming great friends with them. Midwest/generic USA accent and dialect.
+; (complete-p 'Q6-RETURN-TO-FI) may not be needed, as Catherine should at least a time trial giver, if not also a sidequest giver, until q10-wraw complete - added for completeness though
+~ catherine
+? (complete-p (find-task 'EPILOGUE-HOME '4-INTERACT-CATHERINE))
+| | (:concerned)みんな無事でいて...
+|? (complete-p 'EXPLOSION)
+| | 私たちは勝ったの?
+|? (complete-p 'Q15-BOSS)
+| | (:excited)よくあんなメックをやっつけられたね!
+|? (complete-p 'Q14-ENVOY)
+| | (:concerned)あなたは{#@zelah-nametag}の手下なんかじゃないよね。 あなたはあなた以外の誰のものでもないんだよ。
+|? (complete-p 'Q13-PLANTING-BOMB)
+| | そんなに強そうに見えないね。 (:excited)私が倒しちゃおうか。
+|? (complete-p 'Q13-INTRO)
+| | (:excited)何があったとしても、自爆はしちゃ駄目だよ。
+|? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
+| | (:concerned)ごめんね、{(nametag player)}。 ちょっと集中させて。
+|? (complete-p 'Q10A-RETURN-TO-FI)
+| | 大丈夫。 きっと大丈夫だから。
+|? (complete-p 'Q10-WRAW)
+| | (:excited)あなたとまた会えて嬉しいよ!
+|? (complete-p 'Q6-RETURN-TO-FI)
+| | (:concerned)全てを疑いながら生きていくなんて... 嫌だよ。
+|? (complete-p 'TRADER-ARRIVE)
+| | (:excited)まだ{#@trader-nametag}に会ってないの? 彼は最高だよ!
+|? (complete-p 'Q1-WATER)
+| | はぁい、{(nametag player)}!
+|? (complete-p (quest:find-named '22-GO-TO-Q1-PHONE (thing 'q1-water)))
+| | (:excited)さ、"キャンプへ戻ろう"(orange)!
+|? (active-p (quest:find-named '22-GO-TO-Q1-PHONE (thing 'q1-water)))
+| | 行って、"後ろにある公衆電話からジャックに電話してね"(orange)。 私はこれを直してるから。
+|? (active-p (quest:find-named '16-GO-TO-PUMP-BOSS-LOC (thing 'q1-water)))
+| | 何してんの?! "サーボを止めて"(orange)!
+|? (complete-p 'Q1-READY)
+| | (:excited)私のそばから離れないでね、あなたなら大丈夫でしょ。
+|?
+| | 大丈夫?
+
+# zelah
+; male, main antagonist, leader of the Wraw faction. Northern British accent/dialect
+; "Keep going" is deliberately ambiguous - are you working for him, that's why he says this (as encouragement); or are you not, and he doesn't like you, so is telling you to move along? He says in q14-envoy that you are working for him, but are you really?
+; Speech changes after the envoy confrontation, just before the battle
+~ zelah
+? (complete-p 'Q14-ENVOY)
+| | もう手遅れだ。 お前も、お仲間も。
+|?
+| | いいぞ、その調子だ...
+
+; SIDEQUEST NPC
+
+; speech that updates based on major plot events e.g. q10 and q11a, needs to also work whether the player did the sidequest involving that NPC or not (and if not, remember their name will still show as "???" so can't give clues as to who they are - teasing content for a following playthrough maybe)
+
+# semi-engineer-team
+; mix of engineers of different genders who were involved in the tunnel collapse
+; "new chief" is a clue to talk to a specific engineer NPC, after the old chief was killed in the tunnel collapse quest (q5a)
+; Don't spoiler the engineers' realisation of you being an android - save that for the new chief
+; Speech changes once they're on the surface as Noka allies, just before the battle
+~ npc
+? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
+| | [? 鉄道の仕事が終わったと思ったら... 今度はこれだよ。 | 俺はレールの溶接には慣れてるが銃の手入れは素人なんだがな。 | アンタが俺たちを救ってくれるのかって、そんなわけないか。]
+|? (not (active-p (unit 'blocker-engineers)))
+| | [? 自由になるっていい気分だな。 | 横になって休みたいよ。 | 君にはどれだけ感謝しても足りないよ。 ありがとう、ありがとう! | これからの人生で他の洞窟を見ることがないとしたら、ちょっと早すぎだ!]
+|?
+| | [? "新しいチーフと話すんだ。"(orange) | 長い勤務だったな。 | "新任のチーフは君が望むような人だ。"(orange) | あ... アンドロイド? いや、まさかな。 ありえない。 | "新しいチーフに確認"(orange)しよう。]
+
+# semi-engineer-base
+; mix of engineers of different genders to be found around the Semis base
+; Speech changes once they're on the surface as Noka allies, just before the battle
+~ npc
+? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
+| | [? 再建出来るものが残っていればいいのだが。 | 変だなぁ、ただ待機しているだけなんて。 | アンドロイドが味方につけば負けることなんて無い。 そうだろう? | アンタの核融合炉がこの戦いに耐えられることを願ってるよ。 | 俺たちは長い間あそこで生活してたんだ。 帰る場所が残っていますように。]
+|?
+| | [? 修理作業とか得意? | ドライバーの使い方は熟知してそうだな。 | あなたの内部構造がどうなってるか見せて頂けないでしょうか。 | 君のボディの耐荷重はどの程度なんだ? | お前は歩く工具箱みてぇなもんか。 | 見たところ戦闘も出来そうじゃねえか。]
+
+# soldier
+; mix of soldiers of different genders who follow Zelah around, serving as his bodyguards
+; Speech changes after the envoy confrontation, just before the battle
+~ npc
+? (complete-p 'Q14-ENVOY)
+| | [? ア、アンドロイドなんて怖くないからな。 | お前のルックスは兵士と言うよりは探偵、あるいはナースだな。 | お前はゼラの所有物だ、アンドロイド。 | 失せろ。 | お前のお友達にも、もうすぐ会えるだろうよ。]
+|? (complete-p 'Q13-PLANTING-BOMB)
+| | 離れろ。
+|?
+| | [? ん? | あぁ? | 何だ?]
+
+# semi-roboticist
+; Semi Sisters robotics engineer, female, strong empathy for machines, talky scientist
+; used in sq4
+; Speech changes once they're on the surface as Noka allies, just before the battle
+~ semi-roboticist
+? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
+| | 今こそ、サーボを我々の味方につけたいわ。
+|? (complete-p 'Q10-WRAW)
+| | 思えば、これまではサーボを解明することしか気にしていなかったわ。
+|? (complete-p 'SQ4-ANALYSE-ROBOTS)
+| | サーボが何を考えているか少しずつ理解出来てきたわ。 //あなた//の考えもね。
+|? (complete-p 'Q4-FIND-ALEX)
+| | 今は話してる暇は無いの、悪いわね。 サーボ科学は誰も待ってはくれないから。
+|? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
+| | "アレックス"(orange)...? 知らないわ、ごめんなさい。 "バーで聞き込みをすれば何か分かるかもしれないわよ"(orange)。
+|?
+| | 今は話してる暇は無いの、悪いわね。 サーボ科学は誰も待ってはくれないから。
+
+# semi-barkeep
+; Semi Sisters barkeep, non-binary, French code switching
+; used in sq5
+; Speech changes once they're on the surface as Noka allies, just before the battle
+; "No time for drinking" - in a literal sense in that there's no time, but also because the battle is imminent, this is also not an appropriate time for drinking
+; Soon becomes a time trail giver, so has no needed for more default interacts - but a brief window after sidequest is closed after q10
+~ semi-barkeep
+? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
+| | ここが地上? 設備は少し... ショボいわね。 でもタイムトライアルが出来そう!
+|? (complete-p 'Q10-WRAW)
+| | レースをしてる暇は無いわ。 酒を飲む暇もね。
+|? (complete-p 'Q4-FIND-ALEX)
+| | この派手なパンツは誰?
+|? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
+| | アレックス? ウィ、"もし私が間違ってなけりゃ、あっちで酔っ払ってるのがそうよ"(orange).
+|?
+| | この派手なパンツは誰?
+
+# semi-barkeep-2
+; female barkeep (other barkeep)
+; world NPC
+; Speech changes once they're on the surface as Noka allies, just before the battle
+~ semi-barkeep-2
+? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
+| | ここに来て興奮したとは言えないね。 まず、ビール樽はどこ?
+|? (complete-p 'Q10-WRAW)
+| | やっぱりあんたはトラブルメーカーだよ。
+|? (complete-p 'Q4-FIND-ALEX)
+| | あんたみたいのには接客しないんだ。
+|? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
+| | アレックスを探してるって...? "あんたメクラなの?!"(orange)
+|?
+| | あんたみたいのには接客しないんだ。
+
+# semi-patron-1
+; female, sober
+; used in sq5
+; Speech changes once they're on the surface as Noka allies, just before the battle
+~ semi-patron-1
+? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
+| | 物事を広い視野で考えるようにしようか? 戦争のこと。 私たちは今までどれだけ恵まれていたのか分かってなかった。
+|? (complete-p 'Q10-WRAW)
+| | なんだかウチもタイムトライアルに賭ける気を失くしちゃった。
+|? (complete-p 'SQ5-INTRO)
+| | あんたには期待してるわよ、アンドロイドさん。
+|? (complete-p 'Q4-FIND-ALEX)
+| | あんたは賭け事とか好きなタイプ? それっぽいね。
+|? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
+| | "あそこに居るのがアレックスよ。 あのブロンドヘアー"(orange)。 なんでも、地上から来たんだとさ。
+|?
+| | あんたは賭け事とか好きなタイプ? それっぽいね。
+
+# semi-patron-2
+; female, drunk (deliberate typos)
+; used in sq5
+; Speech changes once they're on the surface as Noka allies, just before the battle
+~ semi-patron-2
+? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
+| | このあらりにさけがのめるばしょはあるろ?
+|? (complete-p 'Q10-WRAW)
+| | うぇっ、なにがおこったの? は、はきそう。
+|? (complete-p 'SQ5-INTRO)
+| | もうれーすははじまってるろ? こ、ここはどこらの?
+|? (complete-p 'Q4-FIND-ALEX)
+| | __かんぱぁい!__
+|? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
+| | わるいけろ、"あれっくすなんてのはしらないわよ。 ありすならあっちのバーにいるけろね。 べつのばーね。"(orange) あれ、ここにはいくつばーがあるんらっけぇ?
+|?
+| | __かんぱぁい!__
+
+# semi-partner
+; male Semi, Tobias, was in a relationship with Kacey; speaks informal
+; used in sq6
+; Speech changes once they're on the surface as Noka allies, just before the battle
+~ semi-partner
+? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
+| | 彼女が居なければ、どこにも行く気はありません。
+|? (complete-p 'Q10-WRAW)
+| | 彼女の無事を願っています。 そして彼女も僕を思っていることを。
+|? (complete-p 'SQ6-DELIVER-LETTER)
+| | {#@cerebat-partner-nametag}から通信があったんです。僕たちはまだ付き合っていけそうです。
+|? (complete-p 'Q4-FIND-ALEX)
+| | ... 待ってください、誰か来ました。 オーバー。 ...えーっと、どうも? 何かお探しですか? 今通信中なんですが?
+|? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
+| | ... ちょっと待ってください。 "もしアレックスを探しているならバーへ行ってみてください"(orange)。 誰かがその名前を話しているのを聞いたことがあります。
+|?
+| | ... 待ってください、誰か来ました。 オーバー。 ...えーっと、どうも? 何かお探しですか? 今通信中なんですが?
+
+# cerebat-partner
+; female Cerebat, Kacey, was in a relationship with Tobias; speaks casual
+; used in sq6
+; Speech changes once you know of the Wraw invasion
+; (complete-p 'Q7-MY-NAME) though the (complete-p 'CEREBAT-TRADER-ARRIVE) check is written ambigious so works whether you've completed the sidequest or not
+~ cerebat-partner
+? (complete-p 'Q10-WRAW)
+| | またクソみたいな世界が訪れるのね。 いいじゃない。
+|? (complete-p 'CEREBAT-TRADER-ARRIVE)
+| | 絵でも描いてみたら? 長持ちするわよ。
+|? (complete-p 'Q7-MY-NAME)
+| | "評議会"(orange)? 私の知ったこっちゃないしどうでもいいわ、役立たずのろくでなし集団だし。
+| | ここにクソみたいな詐欺師がうようよ居るのは奴らのせいよ。 "この上の路地裏に居る男"(orange)みたいなね。
+|? (complete-p 'SQ6-DELIVER-LETTER)
+| | パライバシーって知ってる?
+|?
+| | とっとと行きなさいよ、お姉さん。
+
+# cerebat-good-trader
+; non-binary, Cerebat trader who's concerned for the well-being of the missing Cerebat Council; well spoken
+; used in sq8
+; Speech changes once you know of the Wraw invasion
+; "I need some time alone." - grieving over the seeming confirmed loss of the Cerebat Council, especially Antonio
+; (complete-p 'Q7-MY-NAME) check is for a hint during q8 to find the Council
+~ cerebat-good-trader
+? (complete-p 'Q10-WRAW)
+| | どうにかまだ生きています。 あなたも元気で。
+|? (complete-p 'SQ8-FIND-COUNCIL)
+| | 少し一人にしてください。
+|? (complete-p 'CEREBAT-TRADER-ARRIVE)
+| | 必ず評議会の方々を探し出します。
+|? (complete-p 'Q7-MY-NAME)
+| | 私たちは"評議会"(orange)を探しています。 あなたも手伝ってくれませんか?
+| | "下の路地裏の陰湿そうな男"(orange)から情報を聞けるかもしれませんが、あなたならもっと良いやり方があるかもしれません。
+| | まぁ、それが見つからなければ彼の首を絞め上げて聞き出すのもアリですが。
+|?
+| | 考え事をしてるので邪魔しないでください。
+
+# semi-spy
+; female, Semi Sisters spy deep in Cerebat territory, and organising races for the player to help themselves blend in undercover; formal speaker
+; used in sq9
+; Speech changes once they're on the surface as Noka allies, just before the battle
+; "Talk about out of the frying pan and into the burning sun" (riff off of "out of the frying pan and into the fire"); it could be night-time, but we can assume the heat of the sun's influence remains at night
+; (complete-p 'Q7-MY-NAME) check is for a hint during q8 to find the Council
+~ semi-spy
+? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
+| | 誰がこんな事態を迎えると想像出来たでしょうか? 些細な問題が大きな問題の火種になるとは...
+|? (complete-p 'Q10-WRAW)
+| | セレバットは今重大な問題を抱えています。 私にとっては都合が良いですが。
+|? (complete-p 'CEREBAT-TRADER-ARRIVE)
+| | 私は何も言ってません、いいですね。 何も言ってません!
+|? (complete-p 'Q7-MY-NAME)
+| | お気付きかもしれませんが、今ここに"評議会"(orange)は存在しません。 確かな情報源はあるのですが、彼らさえも詳細は知らないようです。
+| | "評議会の所在を知っているトレーダーが居る"(orange)という話している者がいましたが、その者の名前までは探れませんでした。
+| | "中層の裏通り、バーの周辺"(orange)が怪しいと睨んでいるのですが...
+|?
+| | <-シーッ->。 離れてください! 私の正体がバレてしまうじゃないですか!
+
+# wraw-sergeant
+; Wraw drill sergeant, female, organising troops in Cerebat territory after the invasion
+; Northern accent, similar to Zelah
+; used in sq10
+; (complete-p 'Q7-MY-NAME) check is for a hint during q8 to find the Council
+~ wraw-sergeant
+? (complete-p 'Q10-WRAW)
+| | 好機を逃したな。
+|? (complete-p 'CEREBAT-TRADER-ARRIVE)
+| | どうやって網をすり抜けた? 兵舎は//あっち//だ。
+|? (complete-p 'Q7-MY-NAME)
+| | もしこれ以上"評議会"(orange)について嗅ぎ回るなら、地獄への片道切符をプレゼントしてやろう。
+| | 俺を"上の通り"(orange)をうろつく、"名もなきクソトレーダー"(orange)と同じだと思うなよ?
+|?
+| | 早く訓練を開始しろ、ヒヨッコ。
+
+# sq4a-zombie
+; Servo developing sapience and sentience as a legacy of the roboticist's investigations in sq4a
+; gender unknown
+; if complete the quest, says more developed things - delib no punctuation
+~ sq4a-zombie
+? (complete-p 'SQ4-ANALYSE-ROBOTS)
+| | [? __ムワアァァ__ | __グルルアァァ__ | __ファアァァ__ | <-ムワアァァ-> | <-グルルアァァ-> | <-ファアァァ-> | おまえ だれ | おれ だれ | なぜ こっち みない | おれたち にてる | いたい | ここ いる | なかま どこ | なぜ いたい | いやだ | なにも かんがえられない | だれの せい | いかないで | おまえ なかま]
+|?
+| | [? __ムワアァァ__ | __グルルアァァ__ | __ファアァァ__ | <-ムワアァァ-> | <-グルルアァァ-> | <-ファアァァ->]
+
+# synthesis
+; Synthesis, shady character, unknown gender, Swiss-German accent and dialect, plural first person pronouns
+; used in sq14
+; Is looking for a secret formula for a drug used by the Wraw, and used pre-Calamity for workers, which increases pain tolerance and resistance to heat, but has many bad side effect
+; Before q5a and q5b complete, the NPC is in an inaccessible location, so the true fallback will never play - but here for completeness / in case we move them (actually now they are behind a breakable door)
+; (complete-p 'SQ14C-SYNTHESIS) has to work whether they're happy/unhappy with sq14 outcome - you helped them speed up making the drug, or hindered
+; as with others
+; (complete-p 'Q11A-BOMB-RECIPE) needs to work whether you did the quest or not, and even if you never spoke to them before - and also whether they are in the lab or still under the Cerebat base (they only get moved to the lab if you completed sq14c, to avoid spoilering the lab as linked with synthesis on subsequent playthroughs); could set the condition to be  (complete-p 'Q11A-BOMB-RECIPE 'SQ14C-SYNTHESIS) to guarantee they're in the lab, but we don't really do that with default interacts, it's less clean as would need a counter conditional - it's easy to keep the dialogue ambiguous to solve this
+~ synthesis
+? (complete-p 'Q11A-BOMB-RECIPE)
+| | (:grin)私たちは答えの在り処を知っている。
+|? (complete-p 'SQ14C-SYNTHESIS)
+| | (:normal)頭痛で視界がぼやけない時だけは、進むべき道が見える。
+|?
+| | (:grin)私たちはお前を知っている。
+
+# vinny
+~ vinny
+| ピザ食いてぇなぁ、マジで。
+
+; WORLD NPC
+
+; Generic NPCs, gender unknown, split per region
+; generic voice, no sign of strong accent or dialect, drunk, etc. as needs to work across the same and multiple NPCs
+; try and evoke the senses from time to time in the world building: sight, sound, smell, touch, taste
+
+; use the fallback for each area to do the most world building, sensory detail, etc before the plot conditionals steer the content
+; contradictory statements can be made in the same block, since it's rare the player will click on the same NPC many times - but even if they do, we can assume the NPC has changed their mind, or is sounding out different perspectives
+; surface = Semi Sisters after moved to surface (Noka don't have surface NPCs); region 1 = Semi Sisters before moved to surface; region 2 = Cerebats; region 3 = Wraw
+
+; final catch-all is just in case any NPCs slip through the net - generic region-independent replies (though no NPCs should be using these)
+
+; CONTENT GUIDE (could also branch here based on main quest state):
+; Semis (region 1): initially Semis world building; after q6, acknowledge word spread that Wraw invading Cerebats; after q10 when you (and they) have confirmed Wraw's wider invasion plans the speech reflects this; after q11a task when moved to surface, reflect this (covered by surface check)
+; The Semis also have intel on you as an android, so most recognise you
+; In a nutshell: life, habits
+
+; Cerebats: can tease from the beginning that something is afoot (as no visible Council after all - though at that time they could just not be in session), but don't spoiler the Wraw invasion reveal in q5a - can focus more on world building here too; q6 can tease about the Council not being around, and to keep asking, to help with main plot; once things have progressed to q10 complete and the player and Semis know about wider Wraw invasion, the Cerebats can hint at this, that plans are happening/afoot
+; The Cerebats don't know who you are, android or otherwise.
+; Having Cerebats (and Wraw) vageuly acknowledge the invasion after (complete-p 'Q5A-RESCUE-ENGINEERS 'Q5B-INVESTIGATE-CCTV) is fine, though doesn't count as evidence (hearsay), hence why it's not brought up when you might then return to Fi in q6, and she's asking for proof
+; In a nutshell: trading, politics
+
+; Wraw (mix in with Cerebat ones): can tease from the beginning that something is afoot, but don't spoiler the q1 reveal that they're after the Noka, nor the q5a reveal that they've invaded the Cerebats; after q10 complete when the invasion of the entire valley is afoot, they can hint that things are happening.
+; Can also hint about the poison/potion done to Wraw subjects, which ties into Synthesis quest - just don't spoiler too much e.g. explicit black cap association
+; The Wraw don't need a conditional for (complete-p 'Q5A-RESCUE-ENGINEERS 'Q5B-INVESTIGATE-CCTV), since although the Cerebats are covering things up a little before this time, the Wraw are clearer about having taken over the Cerebats from the start (albeit things remaining ambiguous for the player)
+; Zelah, the Wraw leader, has potentially known about you from early on in the game (or has he? We're never clear on this); but his inner circle, and certainly not the average Wraw villager, don't know who you are
+; In a nutshell: work work work
+
+; |? (eql 'region1 (subregion 'player))
+; | ? (complete-p 'Q10-WRAW) - this will also play for any non-engineer semis NPCs spawned below ground after they're moved to the surface in q11a e.g. in the Zenith hub upper, maybe in the Noka interiors too
+# npc
+~ npc
+? (eql 'surface (subregion 'player))
+| | [? よし、今こそ怒り、何かを変える時だ。 | 戦闘経験なんて無いんだけど、どんな感じなんだろう? | 彼らはどうやってこんな場所でで生きてこれたんだろう？まぁ、彼らが出来るなら、私たちだって出来るよ。 | 友達が居るっていいわね。 ノカ、気に入ったわ。 | これが{#@catherine-nametag}が私たちの元を去った理由ね。 彼女はずっと忙しいようね。 | {#@catherine-nametag}があなたをこの辺りで発見したというのは本当? | 誰もが何かに忙しなく取り組んでいる。 せめてそれが動揺を打ち消してくれるわ。 | ここは匂いが違うわね。 澄んでるけど、危なっかしさもある。 | ここの人たちは作物を育てるのに失敗したみたいね。 私たちなら協力出来るかもしれないわ。 | 誰だか忘れたけどとても不満そうにしてるわね? 彼は... ジョンだったかしら。 | ノカは私が思っていたよりも資源の活用が上手ね。 私たちにもチャンスがあるかしら。 | この場所は設備不足だけど、彼らの精神に一切の不足は無いわね。 | あなたもここに住んでるの? | 早くホームに帰りたいわね。 | 私は私の人生のすべてをあそこに置いてきた。 もう戻れないんでしょうね。 | 様々なことが急激に起こりすぎよ。 私は環境の変化に弱いのよ。 | 途中で命を落とす者も居たわ。 これはまだ始まりに過ぎないんでしょう。 | 空を見ると、何かが見えてくるような気がするんだ。あなたもそう思わない？ | 地面の下で長く生活していたせいで、空の下がどんなものだったか忘れていたよ。 | 鳥の鳴き声が聞こえると、この世界に生きている意味があるように感じるね。 | 聞こえる？ 風が怒っているわよ。 | 水が出ていて良かった。 この暑さでは気づかぬうちに脱水してしまう。 | ここでどうやって生きていくんだろう？ 地面が溶けてしまいそうな暑さよ。 | ノカは所有物は少ないのに分け合うことに躊躇が無いのね。]
+|? (eql 'region1 (subregion 'player))
+| ? (complete-p 'Q10-WRAW)
+| | | [? こんな事になるなんて誰が想像出来たでしょうね? | ワローと対等に渡り合う事も、倒す事さえも出来ると思うわ。 でも、もし奴らがこの地の半分を支配したら、確実にかなう者は居なくなるでしょうね。 | 急に落ち着かなくなってきたわ。 何が起こるというの? | 新しい常識を見つける時間ね。私たちは慣れっこよ。 | 私は戦う。もしワローがトンネルを通って来たら、私が彼らを完全に阻止するだろう。 | 私の事なんてどうでもいい。私の家族は戦えない。 | 今こそ、私たちの結束の強さが試される時だ。 | 私は軍隊を編成すべきだと思っていたんだ。 ここに襲い来る者に対処できるように、ハンターたちが全力を尽くす事に期待している。 | 私はペットのことを心配しているんだ。親や子供のことは言うまでもない。| すぐに終わるわよね? | 私たちの指導者は筋を通していないと思う。 | ここに居たら安全なの? 隠れてたらいいの? 誰も答えてはくれないわ。 | 私たちを守りに来たの? | せっかく多くのものを築き上げてきたのに。 | 何だか分からないけど、恐怖を感じるの。 あるいは、何も感じなくなったのかも。 | 手が汗でぐっしょりよ、あなたは? 決して良い兆候じゃないわよね。]
+| |? (complete-p 'Q6-RETURN-TO-FI)
+| | | [? ワローは境界を越えることなんて出来ないわよね。 答えは言わなくていいわ。 | ワローはこれまでもセレバットを操っていたんじゃないの? 何も変わっていないわよ。 | 今、銃の手入れをしないのならいつするんだ？ もちろん私は自前のを持ってる。 | 最近、皆の士気が下がっている気がするよ。 誰かを元気づけるために私にも何か出来ないかな。 | これまでの経験を踏まえると、もう現状以上に酷くなることなんて無いわ。 | 侵略者にアンドロイド、世界はどこへ向かっているんだ? | 君は{#@innis-nametag}派? それとも{#@islay-nametag}派? | 何が起ころうと、団結していれば大丈夫。 | ワローは私たちを過小評価したわね。 | もっと悪い状況だったとしたら、私たちは地上に逃げてたかもね。 | ローグはただのローグに過ぎないこともある。何が問題なのかわからない。 | 皆もっと落ち着いて、それぞれが自分の仕事をしてればいいのよ。 | まだそれほど悪い状況じゃないわ。 だって水も流れてるし。 | もっとリラックスしましょうよ。 本を読み、音楽を奏でてさ。 そんなに興奮する必要無いのよね。]
+| |?
+| | | [? あら、噂の! あなたの事は色々聞いてるわ。 | もしまた水漏れでもしたら私は誰かを殺しちゃいそう。 神に誓ってもいいわ。 | サーボは日に日に接近してくるわ。 タレットでも作って置いといたほうがいいんじゃないかしら。 | 皆が歳を取って、子供を生まなくなったらどうすればいいんだろう... でも、子供が生きていくには過酷すぎる世界よね。 | なかなか立派な場所よね? \"オバサン\"たちの集会所にしては悪くないわ。 | もうクタクタよ。 でも、自分の名前が付いた飲み物と冷たいシャワーが待ってるわ。 | ハンターは外は不自然なほど静かだと言っていたけど、それは良い事なんじゃないの? | あなた、高値で売れそうね。 | 君は具体的に何で作られているんだ? | 医療薬品を持ってる? ここにはそんなに無いのよ。 | 時々、まだ組み立てラインで働いてた方が自分には合ってるんじゃないかなと思う事があるわ。 | あなた、アンドロイドじゃないわよね... 本当に？ | 注意して、人々はアンドロイドを嫌っているわ。パーツを提供する場合を除いては。 | ところで、アンドロイドが世界を滅ぼしたってホント？ | 昔、君みたいなのを組み立てていたことがあるよ。 皮膚を取り付ける方法から、目の解像度まで、全て知ってるよ。 | お前を起動する方法を知ってるわ。 そして、停止する方法も。 | ここはあまりにも暑いわね。 風の通り道を整備しなきゃいけないわ。 | あなたは地上から来たののに、汗の臭いがしない。地上波は暑いけど、少なくとも気持ち良い風があるのよね。 | もう魚ばかり食べるのは嫌なんだけど。 たまにはカエルを食べさせてくれないかしら? | 地上では鳥が飛んでるって本当? | 昔の人たちが地下にこんな建物を造ってくれたおかげで、私たちは生きているようなものね。 | 蔓から直接取ったトマトを食べたことある? もし無ければ水耕栽培所に行ってみたら? | セレバットの洞窟でまだ動くCDプレイヤーを見つけたって聞いたわ。 再生できたら良いけど、持ってるだけでも楽しいわよね。 | もし旅の途中で本を拾ったら、是非図書館に寄贈してね。]
+|? (eql 'region2 (subregion 'player))
+| ? (complete-p 'Q10-WRAW)
+| | | [? 何が望みだ? | 味方につく派閥を選ぶにはもう手遅れだ。 | 静かだ。 ここまで静かになった事は今まで無い。 | もう元には戻れないだろう。 | もうすぐここを離れるよ。 ここが恋しくなるんだろうけどな。 | 奴らはこの場所を荒らし、全てを奪った。 | マーケットも人々も、以前の面影はもう無い。 | もし俺がアンタだったら、今すぐ逃げ出してるね。 | もしまだアンタが自由の身なら、その時間は限られている。 | どうしてこうなった? 俺たちに何が出来たってんだ? | 俺は誰かがこの混乱を解決すると思っていた。 他の奴らもきっとそうだろう。 | 評議会はまだ存続しているかもしれないぜ。 だって誰も死体を見てないんだ。 彼らがここに居た時から彼らを見た者はとても少なかったがな。 | 近い将来バラバラの肉片にされる。 それが今の俺たちの存在理由だな。 | 俺の意見を聞きたいって? 評議会は大失敗だったとしか言えねえな。 | あまりウロついてんじゃねぇぞ、ここは遊び場じゃねぇんだ。 | 仕事で忙しくなければ、その綺麗な尻を叩いてやってたのにな。 | エスコートサービスを頼んだ覚えはねぇが、俺とヤってくか? ヘヘ... | 戦う覚悟が無いなら、失せろ。 | ブラックキャップと呼ぶ者が多いが、私にとってはマジックマッシュルームだ。 そう説明する以外にあるか? | 俺にポーションはうってつけなのよ。 頭痛と吐き気はするけどよ、少なくとも飢え死にはしねぇ。 | 楽しもうぜ。 勝利の前の平和な時間だ。 | 何だお前? サーボの新機種か? | 君のようなメックが居たとは知らなかったよ。 見た目はそんなに強そうじゃないね。 | ボサッと突っ立ってんじゃねぇ。 | 役に立つ何かをするか、マグマに飛び込むか選びな。 | 女殺し屋を演じてるのか? 演技が下手だな。 | 裏道のトンネルを知る由も無いだろう!... このバカどもは私を何だと思ってるんだ? | 聞こえるか? 殺意に満ちた軍隊の足音が。 | 油と煙。 それが俺たちにとって戦争の匂いだ。 | 戦争は数だ。 奴らよりも俺たちのほうが数は多いだろう。 | 奴らはいずれ私たちの生活が良い事に気付くでしょう。 奴らに選択肢が無い事は別として。 | ポーションを知っちまったら、もうそれなしでは生きていけねぇんだ。 | 奴らは私たちの電力グリッドを共有//したくない//のか? | ポーションを持て、自分の任務を報告しろ。 怠け者め。 | 発電所の稼働音より、戦争の轟音の方がまだ耐えられるな。 | ワローの忠実な犬には見えないが、貴様は何をしているんだ? | 口内のあの味に気付いたか? ポーションが効いてきてる証拠だ。 つまり俺たちの勝ちってことだ。 | 人は何故いつも抵抗するのだ? 未来は統一だ、決別ではない。 私たちはそれを早めてやっているだけなのだ。 | あっちじゃ時々、下層の激しい熱が厚いレンガの壁のように感じるんだよな。 ここはそれほどでもねぇな。 | よくこんなセレバットどもが俺たちの水を奪えると思ったよな。 何考えてんだ?]
+| |? (complete-p 'Q5A-RESCUE-ENGINEERS 'Q5B-INVESTIGATE-CCTV)
+| | | [? 警告する。 あれこれ探るのはやめろ。 | すまないね、うちは閉店したんだ。 | 今日はマーケットデイじゃないぞ。 | 悪いが、今俺たちは機嫌が悪いんだ。 | もし私だったら評議会のことなんて口に出さないけどね。 | 洞窟に行ってごらんよ。 こんな吹き溜まりより見るべきものがあるよ。 | 消え失せろ。 本気で言ってんだぜ。 | 今そんな事を聞き込みするべきじゃない。 | 法と秩序、それは紙一重だ。 簡単にすり抜けられる。 | 自身の命が懸かっている時、人はルールに従わない。 誰が彼らを責められる? | 評議会は季節のように変わる。 それが現実だ。 | 物資が届かなくて、人々のイライラは募っている。 だからこそ、これは皆の総意として受け取ってくれ。 消えろ。 | 目立つな、黙れ。 | ここには２種類の人間しか居ない。 評議会にコネのある者と、そうでない者だ。 | 誰かが今何が起こっているか知っているとしても、それは俺じゃねぇな。 | 周囲の腐敗が進み続ける限り、何も変わらない。 | 闇市さえ閑散としてきている。 俺が言った事、誰にも言うなよ。 | 何故俺たちはこんな場所で暮らしているんだ... | ポーションが無ければ俺は何年も前に死んでただろうな。 | 貴様は新たな志願兵の一人か? | 自分たちの世話で精一杯なのに、他人のために場所と物資を割けるわけないだろう! | 別派閥からの援助なんて必要ねぇな! | 俺たちゃよくやってるよ。 | ポーションのおかげで身体能力は高まるわ、長時間働けるわで最高だ。 | ブラックキャップなしだと俺たちはどうなってただろうな。 ビタミンDも豊富だしな? | 下層では自分の考えがまとまらないこともある。 | 地熱発電によって余裕はあるが、誰もを支援出来るわけではない。 その者たちが発電所で精一杯働かない限りはな。 | どれだけ宝石があっても、水のほうが重要だ。 ポーションはもっと良い。 | 旧世界がどのようにして崩壊したかを知っている。 それが再び発生しないようにみっているのだ。]
+| |?
+| | | [? 今は補給品が少なくてね、すまないね。 | アンタ誰? トレーダーにゃ見えないね。 | 私たちの地下楽園へようこそ! | ここ多様性と包括性、それに商品や動植物の多様性には自信があるんだ! | 辺りを見て回った? ここは広いからね! 風のトンネルには気をつけてね。 | 洞窟で声を張り上げてみたら、エコーがとても長かったんだ! | ここは、この荒野で一番空気が美味しいと思うよ。 深呼吸してごらん! ただ、商品在庫を台無しにするカビには気をつけて。 | 甘い空気を感じるわ。 って私の香水? | うん、少し湿度は高いかもね。 在庫がカビに襲われることも珍しくはないけど、この辺りで人がまともに住める場所はここの他には無いよ。 | ネズミもコウモリも忘れろ! この辺じゃ魚やカエルを食ってるんだ。 | 議会が始まるのを待ってんのさ。 俺の質問の答えを得られるまで戻らないつもりさ! | 指導者の言うことにはよく従うんだな。 俺からのアドバイスだ。 | お前汗をかかないのか。 何者だ? | 良い剣だな。 | アンタの服... 見たこと無いデザインだね。 交換しない?]
+|?
+| | [? この辺じゃ見かけねぇ顔だな。 | ... | 忙しいの、ごめんね。 | ん。 どうも? | 邪魔するな。 | 変な格好ね。 | どいてくれ。 | 話してる暇はねぇ。]
+; these final fallbacks should never play, because every interactable world NPC is at least in the surface, region 1, or region 2 (none in region 3) - but keeping for safety

@@ -1,0 +1,27 @@
+# task-find/interact-reminder
+~ fi
+| "セミ・シスターズのテリトリー直下のセレバットの評議会"(orange)に会いに行ってほしい。 そこで"ワローの動向について調査するんだ"(orange)。
+
+# task-find/player-council-chamber
+~ player
+| "どうやらここがセレバットの会議室のようだが..."(light-gray, italic)
+| (:thinking)""評議員は一人も見当たらないな"(orange)。"(light-gray, italic)
+? (not (active-p 'q8a-bribe-trader))
+| ~ player
+| | ""彼らがどこに居るのか聞き込みをしてみるか。 現地のトレーダーなら何か知ってるかもしれないな"(orange)。"(light-gray, italic)
+| ! eval (activate 'task-search)
+| ! eval (deactivate 'task-find)
+|?
+| ~ player
+| | ""トレーダーが欲しがっている物をくれてやらなければ、評議会の情報は得られなさそうだ"(orange)。"(light-gray, italic)
+| ! eval (activate 'task-search-hold)
+| ! eval (deactivate 'task-find)
+
+# task-search-hold/interact-reminder
+~ fi
+| もし評議会の者が見つけられなければ、"セレバットのトレーダーに尋ねてみれば何か分かるかもしれない"(orange)。
+
+# task-search/interact-reminder
+~ fi
+| もし評議会の者が見つけられなければ、"セレバットのトレーダーに尋ねてみれば何か分かるかもしれない"(orange)。
+

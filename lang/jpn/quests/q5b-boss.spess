@@ -1,0 +1,19 @@
+# 2-interact-innis/interaction
+~ player
+| (:embarassed){#@innis-nametag}、<-破壊工作員->を発見したぞ。 私一人でこの人数の相手が出来るだろうか。
+| (:thinking)奴らが大人しく従うとも思えないな。
+~ innis
+| なら、自分の身を守ることに専念するんだな。
+| (:sly)もし生き残ることが出来たら、"直接報告しに来い"(orange)。
+| (:angry)もういちいち通信して私の邪魔をするなよ。
+! eval (override-music 'battle)
+  
+
+# 6-interact-/interaction
+~ player
+? (complete-p (find-task 'q5b-investigate-cctv 'q5b-task-cctv-1) (find-task 'q5b-investigate-cctv 'q5b-task-cctv-2) (find-task 'q5b-investigate-cctv 'q5b-task-cctv-3))
+| | "急いで"{#@innis-nametag}の元へ戻った方が良さそうだな"(orange)。"(light-gray, italic)
+| | (:thinking)"と思ったが、せっかくここまで来たのだから、"この辺の地形をマッピングしておく"(orange)のもいいな。"(light-gray, italic)
+|?
+| | ""この辺りのCCTVを調査"(orange)して、急いで"{#@innis-nametag}の元へ戻った方が良さそうだな"(orange)。"(light-gray, italic)
+

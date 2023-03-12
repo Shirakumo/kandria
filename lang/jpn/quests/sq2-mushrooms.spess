@@ -1,0 +1,44 @@
+# return-mushrooms/mushrooms-return
+~ catherine
+| キノコ狩りはどうだった? 採ってきたものを見せてくれるかな。
+? (> 25 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)))
+| ~ catherine
+| | あらら、まだ必要な量には達してなさそうだね。 必要なのは"サビホコリダケか花キノコを25個"(orange)だよ。 "ヒトヨタケはやめてね"(orange)。 "地下を探すと見つかる"(orange)はずだよ。
+| | (:excited)Good luck!
+| ~ player
+| | "今持ってるのは...  花キノコが{(item-count 'item:mushroom-good-1)}個"(orange)、"サビホコリダケが{(item-count 'item:mushroom-good-2)}個"(orange)、"ヒトヨタケが{(item-count 'item:mushroom-bad-1)}個"(orange)か。"(light-gray, italic)
+| < end
+|? (= 25 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)))
+| ~ catherine
+| | (:excited)これこれ、これが欲しかったんだ。 期待してた通りだけど、あなたの正確さには驚かされちゃうね。
+|? (< 25 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)))
+| ~ catherine
+| | (:cheer)わぁ、しかも頼んでた以上に採ってきてくれたの!
+? (have 'item:mushroom-good-1)
+| | (:excited)"花キノコ"(red)だ、いいねー! これを{#@fi-nametag}の所に持って行って、鍋で調理するよ。
+| | (:normal)あなたも、これを生で食べると下痢になっちゃうのかな。 いつかその説を検証したいね。
+| ! eval (status (concatenate 'string "花キノコx" (write-to-string (item-count 'item:mushroom-good-1)) "を失った"))
+| ! eval (retrieve 'item:mushroom-good-1 T)
+? (have 'item:mushroom-good-2)
+| | (:cheer)"サビホコリダケ"(red)だ、最高! これ私の大好物なの。 信じられないかもしれないけど、私のネッカチーフはこのキノコの繊維から作ったんだよ。
+| | (:normal)合成繊維と一緒に編み込んだんだ。 成熟した標本が散らす胞子から肺を保護するためにマスクが必要だったからね。
+| ! eval (status (concatenate 'string "サビホコリダケx" (write-to-string (item-count 'item:mushroom-good-2)) "を失った"))
+| ! eval (retrieve 'item:mushroom-good-2 T)
+? (have 'item:mushroom-bad-1)
+| | (:concerned)げっ、"ヒトヨタケ"(red)かぁ... これは毒を持ってるから食べられないんだ。
+| | (:normal)大丈夫、後で焼却処分しておくよ。 誰かが間違って食べちゃうと大変だからね。
+| ! eval (status (concatenate 'string "ブラックキャップx" (write-to-string (item-count 'item:mushroom-bad-1)) "を失った"))
+| ! eval (retrieve 'item:mushroom-bad-1 T)
+  
+| (:normal)あなたも分かってくれてると思うけど、こういうちょっとした運搬作業に私たちの存続は懸かってるんだよね。
+| 鳥や魚、コウモリを捕まえたりもするけど、これがなかなか難しいんだ。 でもキノコは逃げないからね。
+| (:excited)また大きな借りが出来ちゃったね。 はい、これは間違いなくあなたのお手柄だから"このパーツを持ってってよ"(orange)。
+! eval (store 'item:parts 300)
+! eval (status "300パーツを手に入れた")
+| (:normal)もしあなたが"他にもキノコを見つけたら"(orange)、しっかり収集しておくといいよ。
+| 私たちがそれを必要としなかったとしても、"{#@trader-nametag}と取引"(orange)出来るからね。
+| それじゃまたね、{(nametag player)}!
+! eval (complete task)
+! eval (reset interaction)
+
+# end

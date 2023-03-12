@@ -1,0 +1,105 @@
+# reminder/interact-reminder
+~ semi-partner
+| "セレバット・テリトリーで{#@cerebat-partner-nametag}を探してくださいね"(orange)。 彼女の外見のヒントが無くて申し訳ないのですが... "聞き込み"(orange)をしてみてください。
+| 遠距離恋愛の弊害というやつですかね... 僕は彼女がどんな見た目かなんて気にしませんが。
+
+# read-letter/interact-read
+~ semi-partner
+| __手紙を読んだんですか?__ 信じられない...
+| 皆がアンドロイドについて噂してることは本当かもしれませんね。
+| ...
+| とにかく届けてください、いいですね。 彼女の無事が知れればそれでいいんです。
+| やってくれますね?
+! eval (complete task)
+! eval (reset interaction)
+
+; Kacey, female Cerebat, speaks casual
+# deliver-letter/deliver-chat
+~ cerebat-partner
+| あんた誰?
+~ player
+| {#@cerebat-partner-nametag}?
+~ cerebat-partner
+| だから誰よ?
+~ player
+- 私は{(nametag player)}。
+  ~ cerebat-partner
+  | 当ててやりましょうか。 {#@semi-partner-nametag}に言われて来たでしょ。 そんな感じするわ。
+- {#@semi-partner-nametag}に言われて会いに来た。
+  ~ cerebat-partner
+  | はぁ。 でしょうね、そんな感じするわ。 普通こんな事しないわよ。
+- あるセミに、彼のガールフレンドを探しに行くよう言われて来た。
+  ~ cerebat-partner
+  | {#@semi-partner-nametag}の事でしょ。 そんな感じするわ。
+~ cerebat-partner
+| ちょい待ち... アンタ、アンドロイド?
+~ player
+- 何故分かった?
+  ~ cerebat-partner
+  | その記章よ。 アンドロイドについては多少の知識があるもの。
+- そうだ。
+  ~ cerebat-partner
+  | ワーオ。 こういう時もっと驚くべきなんでしょうね。 昔の私ならそうしてたかも。
+- そんな事はどうでもいい。
+  ~ cerebat-partner
+  | ま、それもそうね。
+~ cerebat-partner
+| そうよ、"私が{#@cerebat-partner-nametag}"(orange)。 彼、元気にしてた?
+! eval (setf (nametag (unit 'cerebat-partner)) (@ cerebat-partner-nametag))
+? (var 'read-letter)
+| ~ player
+| - (手紙を渡す)
+|   < given
+| - (手紙を渡さない)
+|   < withheld
+|?
+| ~ player
+| | この手紙を渡すように言われている。
+| < given
+
+# withheld
+~ cerebat-partner
+| ...で?
+~ player
+- 彼は君になにか良くない事が起きたのではないかと心配している。
+  ~ cerebat-partner
+  | お優しいこと。 でも大丈夫、普段の生活より悪いことなんて無いわ。
+  | 彼と別れなきゃいけないことを除けばね...
+  < breakup
+- 彼は寂しがっている。
+  ~ cerebat-partner
+  | 私も寂しいわ。 2人の関係が上手くいってれば良かったのにね。
+  < breakup
+- 彼はあなたとの関係を断つつもりだ。
+  ~ cerebat-partner
+  | 彼が...? まぁ、私も賛成よ。 まだ私たちには共通点があったようね。
+  < breakup
+
+# given
+! eval (retrieve 'item:love-letter 1)
+! eval (status "トビアスの手紙を失った")
+~ cerebat-partner
+| 手紙? {#@semi-partner-nametag}って古風な人ね。 見せて。
+| ...
+| なるほどね、私も賛成よ。 まだ私たちには共通点があったようね。
+! label breakup
+| 私が彼のコールを無視し続ければ、私が意図してる事を理解してくれると思ったのよ。 彼にこんな苦悩を与えずに済むわ。
+| 彼も、私たちの関係がうまくいくはずないって事が分かってたはずよ。
+| アンタがこの荒野の政治に詳しいかどうか知らないけど、セミとセレバット... 良い組み合わせとは言えないわ。
+~ player
+- 何故彼にそれを言わなかったんだ?
+  ~ cerebat-partner
+  | そうするべきだったんでしょうね。 彼を傷付けたくなかったのよ。
+- 無視は良くない。
+  ~ cerebat-partner
+  | そう?
+  | なに? アンタってセラピストなの? 探偵ゴッコでもしてんのかしら。
+- 本当に話し合うことは出来ないのか?
+  ~ cerebat-partner
+  | そうは思わないわ。 けど今は無理ね。
+  | それに、彼も望んでないでしょ。
+~ cerebat-partner
+| "アンドロイドポスタルサービス"には感謝するわ。 けど、"郵送料は払わない"(orange)わよ。
+| "彼に通信するわ"(orange)、いいわね。 直接話して解決するわ。
+| ありがとね、でももうここから先はアンタは関係ない。
+

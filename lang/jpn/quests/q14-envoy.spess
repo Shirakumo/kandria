@@ -1,0 +1,93 @@
+# 3-interact-zelah/interaction
+~ zelah
+| これはこれは、主賓の登場だ。 お前を待っていたぞ。
+~ player
+- お前は誰だ?
+  ~ zelah
+  | (:jovial){#@zelah-nametag}だ、"思い出したか"(orange)?
+- もしや... お前が{#@zelah-nametag}か。
+  ~ zelah
+  | 正解だ、ちゃんと"覚えてる"(orange)じゃねぇか。
+- お前がワローのリーダーか?
+  ~ zelah
+  | よく分かっているな。 だが、ワローだけじゃねぇ、この荒野は俺が仕切る。
+  | {#@zelah-nametag}だ、"思い出したか"(orange)?
+! eval (setf (nametag (unit 'zelah)) (@ zelah-nametag))
+~ fi
+| ...
+| (:annoyed)何が望みだ?
+~ zelah
+| アンドロイドに会いに来たんだよ。 "俺のアンドロイド"(orange)にな。
+~ jack
+| (:shocked)だと思ったぜ。
+~ zelah
+| (:jovial)そいつは俺のモンだ。 俺は"そいつを使ってお前たちを監視し、水の供給を止め、侵略の計画を立てたんだよ"(orange)。
+~ catherine
+| (:concerned)そんなのウソだ...
+~ zelah
+| そして今、"取り戻しに来た"(orange)ってわけだ。
+~ fi
+| (:annoyed)指一本でも彼女に触れたら、私がお前を殺す。
+~ zelah
+| (:jovial)俺は一切手を出すつもりはねぇよ。 ウチの兵隊がどうするかは知らねぇけどな。
+| (:normal)来い、アンドロイド。 お前は十分に俺の期待に応えてよくやった。 お前が派閥の結束を促したおかげでこの荒野に平和が訪れるんだ。
+| だが奴らの味方のフリをするのもここで終わりだ。 お前は裏切り者なんだよ、覚えているだろ? "俺たちのホームへ帰る時間だ"(orange)。
+| "お前が俺に従うのなら、こいつらも死なずに済む"(orange)。
+~ fi
+| (:annoyed)私には今ここに居る裏切り者は1人しか見えないな。
+~ alex
+| (:angry)先に俺を裏切ったのはそっちじゃねぇか。
+| お前がこいつを俺の後に送り込まなければ、こんなことにはならなかったんだ。
+~ zelah
+| {#@alex-nametag}はただ帰るべき場所に帰っただけだ。 お前たちもそうするべきだったな。
+| だが、お前はワローを去った時に仲間を裏切ったんだ、{#@fi-nametag}。 そして、そのアンドロイドを引き込んだ時にもな。
+| (:jovial)知ってるぜ。 お前、そのアンドロイドに惚れてるんだろう。
+~ fi
+| (:annoyed)彼女はどこにも行かせない。
+~ jack
+| (:shocked){#@fi-nametag}...
+~ innis
+| (:angry)私たちにアンドロイドなど必要ない。 やはり、こんな同盟は組むべきではなかったんだ。
+~ islay
+| (:nervous)彼女をワローと戦わせるのか、そうしない方がいいのか... どうしたらいいの?
+~ catherine
+| (:concerned)行っちゃ駄目だよ、{(nametag player)}。
+~ zelah
+| (:jovial)おっと、そう言えば名前を付けてもらったんだったな。 趣深いものだな。
+~ player
+- 私はここに残る。
+  ~ zelah
+  | (:jovial)そう言うと思ってたぜ。
+- 私は彼と行くべきかもしれない。 彼が言っていることは真実だ。
+  ~ catherine
+  | (:concerned)...
+  ~ fi
+  | (:annoyed)奴が言っていることは全て嘘だ。
+- もし今この場でお前を殺したらどうなる?
+  ~ zelah
+  | (:jovial)俺は大使としてここに来た。 俺を殺すということは、つまりお前が全員に死を宣告するということだ。
+  | (:normal)そして、それがお前の裏切りの証明になるな。
+~ fi
+| 奴が何を言おうと関係ない、{(nametag player)}。 君は君のまごころを私たちに示した。 君にとっては、その必要すら無かったというのに。
+~ zelah
+| (:jovial)最後のチャンスだ... //{(nametag player)}//。 俺と共に来るか、お前のお友達を死なせるか。
+~ player
+- 無駄足ご苦労だったな。
+- 死ね。
+- お前もじきに死ぬことになる。
+~ zelah
+| そうか。 それでは戦場でまた会おう。
+! eval (move-to 'wraw-surface-rally 'zelah)
+! eval (move-to 'wraw-surface-rally 'alex)
+! eval (move-to 'wraw-surface-rally 'soldier-1)
+! eval (move-to 'wraw-surface-rally 'soldier-2)
+! eval (move-to 'wraw-surface-rally 'soldier-3)
+~ islay
+| ...
+| {#@fi-nametag}、{(nametag player)}... "作業場に来て"(orange)。
+| "話し合わなければならない事があるわ"(orange)。
+! eval (activate (unit 'zelah-gone))
+
+; kent = knew (Scottish)
+; Zelah motivation: greed, resource/people acquisition
+; male, main antagonist, leader of the Wraw faction. Northern British accent/dialect

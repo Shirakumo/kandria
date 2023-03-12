@@ -1,0 +1,39 @@
+# intro/intro-chat
+~ catherine
+| 実は、もし時間があれば"手伝ってほしいちょっとしたプロジェクト"(orange)があるんだ。
+| まだ皆には秘密なんだけど、私たちの救世主になるかもしれないんだ。 その名は"風力発電"(orange)!
+| (:excited)あなたが気付いてるか分からないけど、地上はとても風が強くて、嵐になることもあるの。 "タービンを建設"(orange)して、その風を利用して発電したいんだ。
+| かなりイケてるアイディアだと思わない?
+~ player
+- そういうことなら私にも一枚噛ませてくれ。
+- 旧世界のように?
+  ~ catherine
+  | (:excited)そうそう! 大っきな風車の話を聞いたことがあるんだ。
+  | (:normal)流石に私が作れるとしても控えめなサイズだけどね。
+  ~ player
+  - 興味深いな。
+  - パスさせてもらおう。
+    < leave
+- 今忙しいんだ、すまない。
+  < leave
+~ catherine
+| まず用意しなきゃいけないのは必要不可欠な部品。 "風速計"(orange)、"ディスクブレーキ"(orange)、"変圧器"(orange)の3つ。
+| このプロジェクトを始めるためには、"それぞれ5つずつあれば十分かな"(orange)。 もちろん、"お駄賃は支払うよ"(orange)。
+| "セミの周りに落ちてる"(orange)と思う。 "セレバットにも... 既に風洞にタービンを設置してるしね"(orange)。
+| ありがとね、{(nametag player)}。
+? (and (<= 5 (item-count 'item:anemometer)) (<= 5 (item-count 'item:disc-brake)) (<= 5 (item-count 'item:transformer)))
+| ~ player
+| | (:giggle)"おっと、ちょっと待ってくれ。 "私は既に必要量の資材を持っているぞ"(orange)!"(light-gray, italic)
+|? (< 0 (+ (item-count 'item:anemometer) (item-count 'item:disc-brake) (item-count 'item:transformer)))
+| ~ player
+| | "ふむ、"いくつかは既に持っているな"(orange)。"(light-gray, italic)
+|?
+| ~ player
+| | "あいにく、全く持ち合わせていないな。"(orange, italic)
+! eval (complete task)
+! eval (reset interaction)
+
+# leave
+
+; there's an implication here that there'll be more stages to this quest, and that the player may eventually see the windmills assembled; but neither happens, due to the confirmation of the Wraw invasion of the entire valley (q10-wraw) - this itself is part of the tragedy of the story
+; if the player does this quest, or any other quest where Catherine refers to them by name (such as sq1-leaks), after changing their name in q7, then how has Catherine gotten word so quickly to use their new name, if you've come straight from Fi? Can assume Fi let people know quickly. And I don't really want to limit use of the player's new name to avoid this, as it's a cool reflection of the player's choice

@@ -1,0 +1,185 @@
+# sq-act1-catherine/talk-catherine
+~ catherine
+| やぁ、{(nametag player)}。 調子はどう?
+~ player
+- 何か手伝うことはあるか?
+  < choices
+- また会えて嬉しいよ。
+  ~ catherine
+  | これからもずっと一緒に居れたらいいよね。
+  < continue
+- 良い感じだ。 あなたは?
+  ~ catherine
+  | 私? うん、いつも通りかな。 (:concerned){#@jack-nametag}は相変わらず機嫌悪そうだけど、私はなんとかうまくやってるよ。
+  | (:normal)ひたすら集中して手を動かし続けていれば、これからのことを心配する暇なんて無いんだ。 過去のこともね。
+  | 明日は明日の風が吹く、ってね?
+  < continue
+- 最悪な気分だ。
+  ~ catherine
+  | (:concerned)そんな... ごめんなさい。 私には理解できないけど、みんなあなたに冷たくしすぎだよね。
+  | 自分たちが理解できないものに対して、排他的な考えを持ってるんだ。
+  | (:normal)あなたはあなたのままでいいんだから。 私がみんなを説得してみる、約束するよ。
+  < continue
+- 話している暇はない。
+  < leave
+
+# continue
+~ player
+- 何か私に出来ることはあるか？
+- 話している暇はない。
+  < leave
+! label choices
+~ catherine
+| あなたはやけにカンが鋭いね... (:excited)本当は是非あなたのコアの仕組みを解明させてもらいたいだけどな。
+| (:normal)また"水の出が悪くなったから、パイプラインをチェック"(orange)しに行ってもらえるかな。
+? (<= 25 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)) )
+| | (:normal)"食料が底をつきそうだからキノコを採ってきてほしい"(orange)って言うつもりだったんだけど...
+| | (:excited)もしかして、"そのキノコは私たちのために採ってきてくれたの"(orange)?
+| | (:excited)積極的に探索してるんだね、{(nametag player)}、そういうの好きだよ! ちょっと見てもいいかな。
+| ? (have 'item:mushroom-good-1)
+| | | (:excited)"花キノコ"(red)、いいねー! これを{#@fi-nametag}の所に持って行って、鍋で調理するよ。
+| | | (:normal)これを生で食べると下痢になっちゃうんだって。 いつかこの説を検証したいね。
+| | ! eval (status (concatenate 'string "花キノコx" (write-to-string (item-count 'item:mushroom-good-1)) "を失った"))
+| | ! eval (retrieve 'item:mushroom-good-1 T)
+| ? (have 'item:mushroom-good-2)
+| | | (:cheer)"サビホコリダケ"(red)だ、最高! これ私の大好物なの。 信じられないかもしれないけど、私のネッカチーフはこのキノコの繊維から作ったんだよ。
+| | | (:normal)合成繊維と一緒に編み込んだんだ。 成熟した標本が散らす胞子から肺を保護するためにマスクが必要だったからね。
+| | ! eval (status (concatenate 'string "サビホコリダケx" (write-to-string (item-count 'item:mushroom-good-2)) "を失った"))
+| | ! eval (retrieve 'item:mushroom-good-2 T)
+| ? (have 'item:mushroom-bad-1)
+| | | (:concerned)げっ、"ヒトヨタケ"(red)... これは毒を持ってるから食べられないんだ。
+| | | (:normal)大丈夫、後で焼却処分しておくよ。 誰かが間違って食べちゃうと大変だからね。
+| | ! eval (status (concatenate 'string "ブラックキャップx" (write-to-string (item-count 'item:mushroom-bad-1)) "を失った"))
+| | ! eval (retrieve 'item:mushroom-bad-1 T)
+|  
+| | (:normal)あなたも分かってくれてると思うけど、こういうちょっとした運搬作業に私たちの存続は懸かってるんだよね。
+| | 鳥や魚、コウモリを捕まえたりもするけど、これがなかなか難しいんだ。 でもキノコは逃げないからね。
+| | (:excited)また大きな借りが出来ちゃったね。 はい、これは間違いなくあなたのお手柄だから"このパーツを持ってってよ"(orange)。
+| ! eval (store 'item:parts 300)
+| ! eval (status "300パーツを手に入れた")
+| | (:normal)もしあなたが"他にもキノコを見つけたら"(orange)、しっかり収集しておくといいよ。
+| | 私たちがそれを必要としなかったとしても、"{#@trader-nametag}と取引"(orange)出来るからね。
+| ! eval (complete 'sq2-mushrooms)
+|?
+| | (:normal)それと、食料が底をつきそうだから、{#@fi-nametag}が"もっとキノコを採りたがってるよ"(orange)。 食べるだけじゃなく服を作るのにも役立つしね。
+| | 少なくとも"サビホコリダケか花キノコを25個"(orange)はお願いね。 "ヒトヨタケだけはいらない"(orange)からね。
+| ? (< 0 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)))
+| | ~ player
+| | | "いくつかは持っているが、もっと手に入れる必要があるか。"(orange, italic)
+| |?
+| | ~ player
+| | | "一つも持ってないな。 地下を探せば見つかるだろう。"(orange, italic)
+  
+~ catherine
+| (:excited)あっ、友達とあなたのことを話してたの。 みんなあなたの本当の実力を知りたがってるよ。
+| ねぇ、"タイムトライアルレース"(orange)なんて興味ない?
+| (:normal)基本は、私たちが置いた"ビールの缶を見つけて持ち帰る"(orange)だけだよ。
+| というわけで、是非挑戦してみてね。 もし興味があるなら、やれることは沢山あるよ。 他にも知りたい事はある?
+! label task-choice
+~ player
+- (水漏れについて尋ねる)
+  ~ catherine
+  | うん。 ポンプの安全は確保したから、"ほんの少し漏れてるだけ"(orange)だと思う。 (:concerned)サーボがまた破壊工作しに戻ってこなければいいんだけど。
+  ? (not (var 'asked-leaks))
+  | | (:normal)確か、アンドロイドは指先で溶接が出来るんだよね?
+  | ~ player
+  | - 私にそんな事が可能なのか?
+  |   ~ catherine
+  |   | 出来るはずだよ。 試してみて。
+  |   ~ player
+  |   | "彼女の言う通りだ。 多分。 自分には溶接が出来ると思い做すと、私の右手の人差し指がトーチの光を放ち始めた。"(light-gray, italic)
+  |   | (:thinking)"溶接するには温度が低すぎるな、ハンダ付けくらいなら出来そうだが。 恐らくこれは自己修復用の装備だ。 だが、パワーを大幅に上げたら...?"(light-gray, italic)
+  |   | (:giggle)"溶接トーチの出来上がりだ! なんだくすぐったいが。"(light-gray, italic)
+  |   | (:embarassed)"目が眩まないように、出力は抑えておこう。"(light-gray, italic)
+  |   ~ catherine
+  |   | (:excited)ほらね!
+  |   ~ player
+  |   - カッコいいな!
+  |   - こんな事が出来るなんて忘れてたよ。
+  |     ~ catherine
+  |     | 大丈夫、きっとすぐに全部思い出すよ。
+  |   - 火をお付けしましょうか?
+  |     ~ catherine
+  |     | ごめんね、私タバコ吸わないんだ。
+  | - 自己修復のためのハンダ付けぐらいなら。
+  |   ~ catherine
+  |   | そっか、それも素敵じゃない。 それじゃ、トーチを持って行くといいよ。
+  |   ~ player
+  |   | "とは言え、 この指先のハンダごてのパワーを大幅に上げたら...?"(light-gray, italic)
+  |   | (:giggle)"溶接トーチの出来上がりだ! なんだかくすぐったいが。"(light-gray, italic)
+  |   | (:normal)"彼女は感動しているようだ。 指先から溶接トーチを出せる人物はこの辺りでは珍しいのだろう。"(light-gray, italic)
+  |   | (:embarassed)"目が眩まないように、出力は抑えておこう。"(light-gray, italic)
+  |   ~ catherine
+  |   | (:excited)すっごーい!
+  | - よく知っているな?
+  |   ~ catherine
+  |   | 私がアンドロイドについて知っていることの一つに過ぎないよ。(:excited)隠してるつもりだった?
+  |   | もっとよく見せて!
+  |   ~ player
+  |   | "正確には自己修復のためのハンダ付けは出来そうだが溶接は無理だ。 だが、パワーを大幅に上げたら...?"(light-gray, italic)
+  |   | (:giggle)"溶接トーチの出来上がりだ! なんだかくすぐったいが。"(light-gray, italic)
+  |   | (:normal)"彼女は感動しているようだ。 指先から溶接トーチを出せる人物はこの辺りでは珍しいのだろう。"(light-gray, italic)
+  |   | (:embarassed)"目が眩まないように、出力は抑えておこう。"(light-gray, italic)
+  |   ~ catherine
+  |   | (:excited)すっごーい!
+  | | (:normal)これで準備はバッチリだね。
+  | ! eval (setf (var 'asked-leaks) T)
+    
+  | (:normal)前と同じように、"赤いパイプラインに沿って"(orange)下りるといいよ。
+  | 水の出方から察するに、破損箇所は"そう遠くない"(orange)はずだから、せいぜい無線の範囲内だと思うよ。
+  ~ player
+  | "{#@catherine-nametag}の言う通り、FFCSは地表近くで"3箇所の破損"(orange)を示している。"(light-gray, italic)
+  < task-choice
+- [(not (complete-p 'sq2-mushrooms)) (キノコについて尋ねる)|]
+  ~ catherine
+  | キノコは"キャンプ下の洞窟"(orange)のような、薄暗くてジメジメした場所で育つんだ。
+  | "花キノコ"(orange)のような食用キノコのおかげで、不作の時でも私たちはなんとか食いつないでいるんだ。
+  | 私たちが地上に出るまでは、ずっとそればかり食べてたんだよ。
+  | "サビホコリダケ"(orange)みたいのは繊維状で、衣類を織るのにも使えるよ。
+  | あなたが着てるような旧世界からリサイクルされた合成繊維や、狩った獣の毛皮と組み合わせたりするかな。
+  | 胞子を吸い込まないように気を付けなきゃいけないんだけど、あなたには関係なさそうだね。
+  | "ヒトヨタケ"(orange)みたいに毒を持つ種類のキノコもあるから、それは出来るだけ避けてね。
+  | 少なくとも"サビホコリダケか花キノコを25個"(orange)あれば、ひとまずは十分かな。(:excited)キノコ狩りを楽しんできてね、{(nametag player)}!
+  < task-choice
+- (タイムトライアルについて尋ねる)
+  ~ catherine
+  | (:excited)えへへ、あなたなら絶対興味を持つと思ってたんだ。 ほぼ完全な機能を備えたアンドロイドがどんな動きを見せてくれるのか楽しみだよ!
+  | (:normal)えっとね、私たちがこの周辺に配置した旧世界の"ビールの缶を見つけて持ち帰ってね"(orange)。
+  | 私は後世に残すために"あなたのタイムを記録するよ"(orange)。 これぞ人類学! "タイムが早ければ早いほど報酬のパーツを多く進呈するよ"(orange)。
+  | (:excited)最高でしょ?
+  < task-choice
+- 準備は出来た。
+  ~ catherine
+  | (:excited)うん、頑張ってね。
+  < end
+
+# end
+~ catherine
+| 自力でなんとか出来ると思うけど、もし必要だと思ったら連絡してね。 "トランシーバーを持って行くか、自分のFFCSを使う?"(orange) 私たちの無線とも通信出来るはずだよ。
+~ player
+- FFCSで十分だ。
+  ~ catherine
+  | はーい。
+- トランシーバーを借りよう。
+  ~ catherine
+  | はーい、どうぞ。
+  ! eval (store 'item:walkie-talkie 1)
+  ! eval (status "トランシーバーを手に入れた")
+  ! eval (setf (var 'take-walkie) T)
+~ catherine
+| "他に知りたいことがあったり、タイムトライアルがしたい時は声をかけてね"(orange)。
+| (:excited)それじゃ、よろしくね!
+! eval (activate 'sq1-leaks)
+? (not (complete-p 'sq2-mushrooms))
+| ! eval (activate 'sq2-mushrooms)
+  
+! eval (activate 'sq3-race)
+! eval (complete task)
+! eval (reset interaction)
+
+# leave
+~ catherine
+| うん、気にしないで! また話そうね。 "あなたが気に入りそうな仕事がいくつかあるんだ"(orange)。
+
+; "We get birds and fish when we can too" meaning they hunt them themselves now they can, living on the surface; but they also trade them with sahil from time to time
+; tasks get added to journal in one fell swoop (player did ask) - but they're sidequests, so they don't have to do them

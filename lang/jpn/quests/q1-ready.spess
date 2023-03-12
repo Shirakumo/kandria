@@ -1,0 +1,36 @@
+# q1-ready-chat/talk-catherine
+~ catherine
+| "水漏れを修理しに行く"(orange)準備は出来た?
+~ player
+- まだだ。
+  ~ catherine
+  | [? 大丈夫、もう少しだけなら待てるよ。 | 分かった、けど急がなきゃね。 パイプに自動修復機能は備わってないもの。 | 了解、だけど何をするにしても急いでね。]
+- (タスクログを確認する)
+  ~ player
+  | ""ログファイル"(orange)には私がやるべき事が記録されている。 次に何をすればいいか分からなくなった時は、これにアクセスして確認するとしよう。"(light-gray, italic)
+  | (:giggle)"これこそがアンドロイドのメリットだ!"(light-gray, italic)
+- 次は何をするんだ?
+  ~ catherine
+  | (:concerned)えぇ、短期記憶装置が破損したの? 私たちは水漏れを修理しに行くの - 作物が枯れてみんなが餓死する前にね!
+  ~ player
+  - 私に食事の必要は無いが。
+    ~ catherine
+    | (:concerned)それは良かったね。 かと言って、食べる必要があるのは悪いことでも無いけど。
+  - あぁ、たった今思い出した。
+    ~ catherine
+    | (:concerned)良かった。 それじゃあ...
+  - 今の私のシステムは万全とは言えないのだが。
+    ~ catherine
+    | 洞窟の中で何十年も寝てたら誰でもそうなるよ。
+    | (:concerned)今はあなたにしてあげられる事は何もなさそう。 ごめんね。
+  ~ catherine
+  | 行く準備が出来たら"私に声をかけてね"(orange)。 けど、あんまりもたもたしてる余裕は無いよ。
+- いつでも行ける。
+  ~ catherine
+  | 準備万端だね。 "向かいにある床の穴"(orange)から下りようか。
+  ~ player
+  | "彼女は真剣な様子で、棚から溶接トーチとゴーグルを取り出している。"(light-gray, italic)
+  ~ catherine
+  | "赤いパイプライン"(orange)に沿って行くから、"私から離れないでね"(orange)。
+  ! eval (deactivate interaction)
+  ! eval (complete task)

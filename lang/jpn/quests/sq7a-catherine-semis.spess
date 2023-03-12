@@ -1,0 +1,61 @@
+# intro/intro-chat
+~ catherine
+| (:excited)ねね、何か悩み事? {#@alex-nametag}はどうだったの?
+~ player
+- ダメだった。
+  ~ catherine
+  | (:concerned)... あー、何があったの?
+  | (:normal)んーとね、気にすることないよ。 ただでさえあなたは忙しいんだから。 私が{#@fi-nametag}と話してみるよ。
+  | (:concerned)... だけど、ワローがセレバットを侵略してるって噂もちらほら聞くんだ。
+  | ホントなの?
+- それ以上に大きな問題を抱えている。
+  ~ catherine
+  | (:concerned)そうなの? どんな?
+  ~ player
+  | セミ・シスターズはワローがセレバットを侵略したと考えている。
+  ~ catherine
+  | (:concerned)えぇ...
+  | あぁ、もう。
+  | ホントなの?
+- セミ・シスターズはあなたに戻ってきてほしがっている。
+  ~ catherine
+  | (:concerned)...
+  ~ player
+  - 戻りたいのか?
+    ~ catherine
+    | (:concerned)絶対やだ。 {#@fi-nametag}から聞いたかもしれないけど、あの人たちはロクに私の世話をしてくれなかった。
+  - {#@fi-nametag}は、あなたは戻りたがらないだろうと言っていた。
+    ~ catherine
+    | (:concerned)そうだよ。 あの人たちはロクに私の世話をしてくれなかった。
+  ~ catherine
+  | 実際、あの人たちが持つ技術や道具は本当にすごいよ。 エンジニアの夢みたいなものだよ。
+  | (:concerned)でも、やだ。 {#@innis-nametag}は本当に嫌な人だった。 {#@islay-nametag}も... 時々。
+  | (:excited)私は大きくなってすぐにセミを逃げ出したの。
+  | (:concerned)今にして思えば、確かにバカなことをしたかもしれない。 {#@fi-nametag}や他の人が見つけてくれなかったら、その辺で野垂れ死んでたと思う。
+  | (:normal)それでも、私は今こうしてここに居るし!
+  | (:concerned)とにかく、噂の件はどうなの? ワローがセレバットを侵略してるってのは?
+  | ホントなの?
+~ player
+- [(complete-p 'q8a-bribe-trader) あぁ、セレバットが奴らの水を止めたらしい。|]
+  ~ catherine
+  | (:excited)何をしたって? へへっ、やっぱり彼らは肝が据わってるね...
+- [(not (complete-p 'q8a-bribe-trader)) {#@fi-nametag}はそうは思ってないようだ。|]
+  ~ catherine
+  | (:concerned)その口ぶりは、あなたは納得してないってことね。
+- [(complete-p 'q8a-bribe-trader) そのようだ。|]
+  ~ catherine
+  | (:concerned)...
+  | ただでさえ私たちには悩み事がたくさんあるってのにさぁ。
+- [(not (complete-p 'q8a-bribe-trader)) 分からない。|]
+  ~ catherine
+  | (:concerned)うーん、良くない感じだね。
+- [(not (complete-p 'q8a-bribe-trader)) 私はそうは思わない。|]
+  ~ catherine
+  | (:concerned)だといいんだけどね。
+- それがどうした?
+~ catherine
+| (:concerned)あの辺をまとめ、支えているのはセレバットだよ。
+| 彼らが居なくなったら... 秩序が失われてしまうよ。
+| "{#@fi-nametag}はこれからどうするつもりなんだろう"(orange)。
+
+; these "rumours" are what soon convince Fi to send you down to investigate the Cerebats, find out if they have been invaded after all

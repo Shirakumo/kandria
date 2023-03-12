@@ -1,0 +1,74 @@
+# hub
+~ wraw-sergeant
+| ほう、よく逃げ出さずに戻ってきたな? もう後戻りは出来ないぞ。
+| "指定した場所を見つけ、殺されず、全てのターゲットを殺せ"(orange)。 俺が貴様にしてやれる最後の事はそれを貴様の頭に叩き込む、それだけだ。
+| "訓練用のマネキンと野生の犬ども"(orange)が貴様の相手をしてくれる。
+| 期待に胸が膨らむだろう? この荒野の外界に出た時の仮想敵だ。
+| マネキンは旧世界のアンドロイドと似た姿をしている。 ビビってヘマをするなよ!
+| 貴様の訓練の見返りに得るのはワローの不滅と栄華だ。 嬉しいだろう?
+| <-嬉しいだろう!?->
+| 訓練には簡単なものから難しいものまで、"5種類のコース"(orange)を使用する。 まぁ、貴様如き、最初のコースすらクリア出来ないだろうがな。
+| さて、それでは"死ぬ覚悟は出来たな"(orange)?
+! eval (clear-pending-interactions)
+
+;  "They say the mannequins are what androids used to look like" - a joke amongst the Wraw. Ofc, few know that Zelah actually has an android (you), if that's even true that he has one...
+
+# start
+? (timer-quest)
+| ~ wraw-sergeant
+| | 何をしている? "訓練は既に始まっているぞ"(orange)!
+| < quit
+
+~ wraw-sergeant
+| 貴様に訓練のメニューを与えてやる。
+| "{(quest:title (quest:find-named 'race task))}。"(orange)
+| このコースの俺のタイムは... "ゴールド:"(orange) {(format-relative-time gold)} - "シルバー:"(orange) {(format-relative-time silver)} - "ブロンズ:"(orange) {(format-relative-time bronze)}だ。
+? (var 'pb)
+| | このコースの貴様の"自己ベスト"(orange)は"{(format-relative-time pb)}"(orange)だ。
+~ wraw-sergeant
+| さぁ、配置につけ!
+! eval (complete task)
+! eval (clear-pending-interactions)
+
+# cancel
+~ wraw-sergeant
+| 思っていた通りだな。 "ここで訓練を終わらせて逃げ出すか?"(orange) 恥知らずめ。
+~ player
+- いや、継続する。
+  ~ wraw-sergeant
+  | やる気だけはいっちょ前か。 なら、<-さっさと行け!->
+- あぁ、中断する。
+  ~ wraw-sergeant
+  | 所詮ただの臆病者か。
+  ! eval (activate 'cancel-it)
+
+# return
+~ wraw-sergeant
+| そこまでだ!
+| 確かに報告通り全てのターゲットを排除したようだな。 貴様にしてはよくやったな。
+| タイムは"{(format-relative-time (clock quest))}"(orange)だ。
+? (and pb (< pb (clock quest)))
+| | 以前の貴様の"{(format-relative-time pb)}"(orange)の記録は"更新出来なかった"(orange)か。
+| | 明日からワローを名乗るなよ。 貴様のようなノロマは不要だ。
+|?
+| ? (not (null pb))
+| | | ふん、"自己ベスト"(orange)更新か。 よく頑張りまちたねぇ～。
+| ! eval (setf pb (clock quest))
+| ? (< pb gold)
+| | | ... 待て。 俺の"ゴールド"(orange)タイムより速いだと...!?
+| | | 貴様<-どんな不正->をしやがった?
+| |? (< pb silver)
+| | | しかも、俺の"シルバー"(orange)タイムより速いじゃねぇか...
+| | | いや、違うな。 おかしい。 何かがおかしいぞ。
+| |? (< pb bronze)
+| | | ほぉ、俺の"ブロンズ"(orange)タイムを越えやがったか...
+| | | 不正を怪しんでくださいって言ってるようなもんだぜ。
+| |?
+| | | "俺のブロンズタイムにすら達してねぇな"(orange)。 ま、こんなもんだろ。
+| | | おっと恥じる必要は無いぜ。 ただ貴様はワローに加わる基準すら満たせねぇクズってだけだ。
+  
+~ wraw-sergeant
+| 貴様の実力はその程度のもんか。 ワローのために精進するんだな。
+! eval (activate 'complete-it)
+
+# quit

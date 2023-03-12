@@ -1,0 +1,139 @@
+# 1-interact-innis/interaction
+~ innis
+| (:angry)アンドロイドか、何の用だ?
+~ player
+- {#@islay-nametag}に言われて来たのだが。
+  ~ innis
+  | そうか。 なら仕事についてもあいつから聞いているな。
+- 鉄道技師とCCTVの件を手伝いに来た。
+  ~ innis
+  | いいだろう。
+- {#@alex-nametag}を見つけたぞ。
+  ~ innis
+  | (:sly)あぁ。 お前にはなかなかの難題だっただろう?
+  | (:normal)仕事については{#@islay-nametag}から聞いているな? これは本当に難しいぞ。
+~ innis
+| (:angry){#@alex-nametag}がバーで転がっていなければ今頃とっくに解決していた問題なのだ。
+| (:normal)誤解するなよ、私もその辺の小娘と同程度には酒を嗜む。 しかしお前たちノカは酒に弱すぎだ。
+| お前はアレックスほど酒に弱くなければいいのだがな。
+~ player
+- 問題ない。
+  ~ innis
+  | (:sly)どうだかな。
+- 私が酔っ払うことは無い。
+  ~ innis
+  | (:sly)教えてくれよ。 私はアンドロイドの意思決定プロセスがどのような構造をしているか完全に理解出来ないんだ。
+  | (:normal)お前のプログラムはお前が酒を飲もうとするのを防ぐのか? それとも物理的に酔わないように出来るのか?
+  ~ player
+  - 酔えないんだ。
+    ~ innis
+    | なるほどな。 だがお前はまだ最近のビールは試してないだろう。
+    | (:sly)あれはお前の内部構造までぐちゃぐちゃにするぞ、保証してやる!
+  - 何も妨げるものは無い、ただ飲まないだけだ。
+    ~ innis
+    | 飲む飲まないは人の勝手だ。 だがお前はまだ最近のビールは試してないだろう。
+    | (:sly)あれはお前の内部構造までぐちゃぐちゃにするぞ、保証してやる!
+  ~ innis
+  | それではアンドロイドがやけ酒をしたケースは今までに一度も無いのだろうな。
+  | (:sly)戦場、ゲットー、病院で... 街頭清掃をするアンドロイドも。 非効率性を求めるような場所では無いからな。
+- {#@alex-nametag}のせいではない。
+  ~ innis
+  | では、誰のせいだと言うのだ?
+  | (:angry)人生というものはかつてより厳しくなっている。 もう人々は幸せな小さな泡の中で生きていないんだ。
+  | 上手く乗り切っていかなければ、どん底に落ちるぞ。
+~ innis
+| それで、敬愛なる我が妹はお前にどこまで話した? お前はお前がすべき事を把握しているのか?
+? (not (active-p (unit 'blocker-engineers)))
+| ~ innis
+| | あー... "生き埋めになった鉄道技師についてだが... 彼らを心配する必要は無い"(orange)。
+| | 最新のレポートによれば"彼らは解放された"(orange)ようだ。 何者かによってな。
+| ~ player
+| - 私だ。
+|   ~ innis
+|   | (:sly)何、本当か? 本当にお前の善意によって私たちに協力していたのか?
+|   ~ player
+|   - 何かおかしいか?
+|   - それが私の仕事だ。
+|   - 探索の邪魔だったから、そうした。
+|   ~ innis
+|   | もしそれが本当なら、すぐに分かることだ... それが事実であれば感謝する。
+|   | しかし他にやることはあるぞ。
+| - セミの守護神のおかげだな。
+|   ~ innis
+|   | それが事実ならな。
+|   | (:sly)待て... 何か言いたそうな顔をしているな?
+|   ~ player
+|   - まぁな。
+|     ~ innis
+|     | もしお前が私が考えているようなことを言おうとしているなら、すぐに分かることだ... それが事実であれば感謝する。
+|     | しかし他にやることはあるぞ。
+|   - そんなことは無いが。
+|     ~ innis
+|     | (:angry)なら黙っていろ。
+|   - 知らんな。
+|     ~ innis
+|     | (:angry)なら黙っていろ。
+| - 何故{#@islay-nametag}が報告した情報は更新されていないんだ?
+|   ~ innis
+|   | この辺では私たちは技術的には優位に立っているかもしれないが、辺境の地ではニュースが伝わるのは遅いものだ。
+|   | 私自身、この報告の更新に気付いたのはつい先程だ。
+| ~ innis
+| | 鉄道工事が再びレールに乗ったというわけだ。 どうだ、面白いギャグだろう。
+| | お前も知っての通り無限の英知を有する我が妹は、もし私たちが... (:angry)いや、//私が//お前に正式に"地下鉄へのアクセス"(orange)を許可したら、それが良い意思表示になると考えたのだろうな。
+| | ... 私たちセミ・シスターズとお前の友好関係のためにな。
+| | (:normal)"他の駅を見つけたらより早くお前の用を済ませられる"(orange)ようになるだろう。
+| ? (or (unlocked-p (unit 'station-surface)) (unlocked-p (unit 'station-east-lab)) (unlocked-p (unit 'station-semi-sisters)) (unlocked-p (unit 'station-cerebats)) (unlocked-p (unit 'station-wraw)))
+| | | (:sly)...っと、既に地下鉄を使いこなしているようだな。 しかし正式に許可するのは今からだ。 皆に通達しておいてやるよ、お前が... 逮捕されないようにな。
+| | | (:normal)"駅は谷中の至るところにある"(orange)。 私たちが鉄道網を拡張している間は"その全てが稼働しているわけではないがな"(orange)。
+| |?
+| | | (:normal)"駅は谷中の至るところにある"(orange)。 私たちが鉄道網を拡張している間は"その全てが稼働しているわけではないがな"(orange)。
+| | | "路線図から目的地を選択"(orange)して列車に乗るだけだ。
+| ? (not (unlocked-p (unit 'station-surface)))
+| | ! eval (activate (unit 'station-surface))
+| ? (not (unlocked-p (unit 'station-semi-sisters)))
+| | | (:normal)"セミの駅は中央ブロックの下にある"(orange)。
+| | ! eval (activate 'semi-station-marker)
+| |?
+| | ! eval (complete 'semi-station-marker)
+| ~ innis
+| | ともかくだ、これでお前がすべき事は"CCTVを調査する"(orange)だけになった。
+|?
+| ~ innis
+| | 私たちは"生き埋めの技師と機能停止したCCTV"(orange)の両方の問題を片付けなければならないが、"優先順位をつけるのはお前だ"(orange)。 どちらを先に処理するにしても、とにかく早急にな。
+! label questions
+~ player
+- [(active-p (unit 'blocker-engineers))生き埋めになっている鉄道技師たちについて教えてくれ。|]
+  ~ innis
+  | 人数は10人で、"セミ・テリトリーから遠い西上層"(orange)で作業している。
+  | 少しづつ旧式の磁気浮上式レールシステムを掘り起こしているのだ。 そこに私たちは基本的な電化鉄道を走らせている。
+  | (:angry)しかしとても危険な仕事だ。 だというのに作業員たちは報告を怠り、私たちのハンターが崩落したトンネルを発見した。
+  | ハンターではそれ以上進むことは出来なかった。 だがお前ならな。
+  < questions
+- [(not (active-p (unit 'blocker-engineers)))エンジニアが地下鉄の作業をしていたのか?|]
+  ~ innis
+  | そうだ。 少しづつ旧式の磁気浮上式レールシステムを掘り起こしているのだ。 そこに私たちは基本的な電化鉄道を走らせている。
+  | (:angry)しかしとても危険な仕事だ。
+  < questions
+- 機能停止したCCTVのカメラについて教えてくれ。
+  ~ innis
+  | 私たちはこの周辺地域、直上と直下を監視している。
+  | (:angry)そして"東下層"(orange)のセレバットとの境界で、"4台のカメラ"(orange)が機能停止しているのだ。
+  | (:normal)恐らく電気的故障だろう。 (:angry)悲しいかな、{#@islay-nametag}のデイジーチェーン接続では、1台が故障すると全てがダメになる。
+  | (:normal)"故障の具合をチェック"(orange)してきてくれ。
+  < questions
+- 把握した。
+~ innis
+| 進展があれば"報告してくれ"(orange)。
+! eval (activate 'q5b-investigate-cctv)
+! eval (activate (unit 'cctv-4-trigger))
+? (active-p (unit 'blocker-engineers))
+| ! eval (activate 'q5a-rescue-engineers)
+| ! eval (deactivate (find-task 'world 'task-world-engineers))
+| ! eval (deactivate (find-task 'world 'task-engineers-wall-listen))
+|?
+| ! eval (complete 'q5a-rescue-engineers)
+; ken = know (Scottish)
+; didnae = didn't (Scottish)
+; dinnae = don't (Scottish)
+; canna = cannot (Scottish)
+; player may know of trapped engineers from the barkeep races; but you're not going to just reveal that to Innis, whether you've rescued them already or not

@@ -1,0 +1,34 @@
+; Wraw drill sergeant, female, organising troops in Cerebat territory after the invasion
+; Northern/pirate accent, similar to Zelah
+# intro/intro-chat
+~ wraw-sergeant
+| 貴様は誰だ? 何故制服を着ていない?
+| こんなゴミクズも入隊候補の一人とは嘆かわしいな...
+| 貴様もワローの一員になりたいのなら、さっさと貴様に何が出来るのか俺に示してみろ。
+! eval (setf (nametag (unit 'wraw-sergeant)) (@ wraw-sergeant-nametag))
+~ player
+- イェッサー!
+  ~ wraw-sergeant
+  | ほう、見どころはありそうだな。
+- 何をすればいいですか?
+  ~ wraw-sergeant
+  | ハハハ、逆に何を//しない//と言うんだ。
+- 遠慮しておこう。
+  < leave
+~ wraw-sergeant
+| 貴様のようなケツの青いヒヨッコには厳しい訓練を課す決まりだ。
+| 俺が設計したアサルトコースをクリアしろ。 当然、全てのコースで俺が記録を保持しているがな。
+| 貴様にも分かりやすいようにルールはシンプルだ。 "指定した場所を見つけ、殺されず、全てのターゲットを殺せ"(orange)。 今お前がやるべきはそれだけの事だ。
+| 貴様如きには無理だろうが、俺のタイムを超えてみろ。 そうすれば貴様もワローを名乗ることを許可してやる。 でなければ貴様は一緒セレバットの腰抜け共と同じだぞ?
+| 分かったらさっさと"レースを開始しろ"(orange)、新入り。
+! eval (activate 'sq10-race)
+! eval (complete task)
+! eval (reset interaction)
+
+# leave
+~ wraw-sergeant
+| なら俺の視界から消えろ。
+
+; player can never join the Wraw, no matter how well they do - if they do badly, then it speaks for itself, if they do well, then the sergeant is spiteful; and before long the quest is curtailed since both the player, and the sergeant have bigger things to worry about - the full-scale Wraw invasion
+; We don't clarify here either, but hopefully through gameplay the player will understand, that they are basically using the Wraw here for practice - the quest log does acknowledge this though
+; these par times are supposedly set by the sergeant themselves, but given they're challenging even for an android, I think we can doubt that
