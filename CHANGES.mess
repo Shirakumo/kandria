@@ -2,6 +2,14 @@
 These are changes to Kandria that were realised thanks to public feedback.
 A big thanks to everyone for trying it out and reporting problems!
 
+## 1.1.2
+- Fix issue in depot directory listing causing local mods to crash
+  Reported by Ghost_Hunter_2000
+- Fix rare issue related to cursor switching
+  Reported by Charlie
+- Fix rare save issue where catherine will lose her companion, leading to a crash
+  Reported by Ari
+
 ## 1.1.1
 - Fix rare crash caused by entities going missing
   Reported by Subsume

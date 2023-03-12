@@ -194,7 +194,8 @@
            (harmony:stop (// 'sound 'slide))))))
 
 (defmethod handle-ai-states ((npc npc) ev)
-  (let ((companion (companion npc))
+  ;; KLUDGE: Apparently this can be nilled out?
+  (let ((companion (or (companion npc) (u 'player)))
         (min-distance (* 2 +tile-size+))
         (max-distance (* 5 +tile-size+)))
     (case (ai-state npc)
