@@ -30,7 +30,7 @@
 (define-action open-map (in-game))
 (define-action interact (in-game))
 (define-action jump (in-game))
-(define-action dash (in-game directional-action))
+(define-action dash (in-game))
 (define-action climb (in-game))
 (define-action crawl (in-game))
 (define-action light-attack (in-game))
