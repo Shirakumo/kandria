@@ -11,6 +11,10 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Ari
 - Fix controller rumble stuck state
   Reported by Ghost_Hunter_2000
+- Fix rare crash related to lack of file open dialog support on certain Linux systems
+  Reported by Docker
+- Fix bad action configuration for dash
+  Reported by Cadspen
 
 ## 1.1.1
 - Fix rare crash caused by entities going missing
