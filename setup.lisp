@@ -16,10 +16,12 @@ exec sbcl --dynamic-space-size 4GB --noinform --no-sysinit --no-userinit --load 
        (let ((path (string-trim '(#\Linefeed #\Return #\Space) (uiop:read-file-string (merge-pathnames ".install" *kandria-root*)))))
          (setf *kandria-install-root* (uiop:parse-native-namestring path :ensure-directory T))))
       (T
-       (error #+win32 "Kandria install root is not configured.
-Please create a symbolic link called install within the source directory which points to your installation and then try again"
-              #-win32 "Kandria install root is not configured.
-Please create a file called .install within the source directory which contains the path to your installation and then try again.")))
+       (error
+"Kandria install root is not configured!
+
+Please create a file called .install within the source directory which
+contains the path to your full Kandria game installation and then try
+again.")))
 
 ;;; Load quicklisp
 (unless (find-package '#:quicklisp)
