@@ -2,6 +2,12 @@
 These are changes to Kandria that were realised thanks to public feedback.
 A big thanks to everyone for trying it out and reporting problems!
 
+## 1.1.3
+- Fix rare issue related to input stacking
+  Reported by Markasoftware
+- Fix rare issue related to worlds listing
+  Reported by Noob
+
 ## 1.1.2
 - Fix issue in depot directory listing causing local mods to crash
   Reported by Ghost_Hunter_2000

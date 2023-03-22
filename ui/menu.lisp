@@ -43,7 +43,8 @@
 
 (defmethod (setf alloy:focus) :after ((focus (eql :strong)) (bar vertical-tab-bar))
   (cond ((null (alloy:index bar))
-         (setf (alloy:index bar) 0))
+         (when (< 0 (alloy:element-count bar))
+           (setf (alloy:index bar) 0)))
         ((alloy:focused bar)
          (setf (alloy:focus (alloy:focused bar)) :weak))
         (T
