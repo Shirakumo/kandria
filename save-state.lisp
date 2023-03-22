@@ -75,7 +75,7 @@
   (etypecase save-ish
     (string (find-canonical-save (save-state-path save-ish)))
     (pathname (when (probe-file save-ish)
-                (find-canonical-save (minimal-load-state save-ish))))
+                (ignore-errors (find-canonical-save (minimal-load-state save-ish)))))
     (save-state
      (let* ((filename (pathname-name (file save-ish)))
             (other-path (save-state-path (if (string= "resume-" filename)
@@ -83,10 +83,10 @@
                                              (format NIL "resume-~a" filename)))))
        (if (not (probe-file other-path))
            save-ish
-           (let ((other (minimal-load-state other-path)))
-             (if (< (save-time other) (save-time save-ish))
-                 save-ish
-                 other)))))))
+           (let ((other (ignore-errors (minimal-load-state other-path))))
+             (if (and other (< (save-time save-ish) (save-time other)))
+                 other
+                 save-ish)))))))
 
 (defun delete-saves ()
   (dolist (save (list-saves))

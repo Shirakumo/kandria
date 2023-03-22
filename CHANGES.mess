@@ -7,6 +7,8 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Markasoftware
 - Fix rare issue related to worlds listing
   Reported by Noob
+- Fix issue related to very old stale save files
+  Reported by Pro Helvetia
 
 ## 1.1.2
 - Fix issue in depot directory listing causing local mods to crash
