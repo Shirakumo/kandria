@@ -32,7 +32,7 @@
     (gamepad:rumble gamepad 0.0))
   (setf (target camera) NIL)
   (setf (chunk camera) NIL)
-  (setf (location camera) (vec 0 0))
+  (setf (location camera) (vec 0 0 0))
   (setf (intended-location camera) (vec 0 0))
   (setf (zoom camera) 1.0)
   (setf (intended-zoom camera) 1.0)
