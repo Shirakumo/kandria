@@ -497,7 +497,7 @@ void main(){
                    :speed 0 :speed-var 100))
 
 (define-asset (kandria sting) mesh
-    (make-rectangle 1000000 1))
+    (make-rectangle-mesh 1000000 1))
 
 (define-shader-entity sting-effect (vertex-entity rotated-entity shader-effect)
   ((vertex-array :initform (// 'kandria 'sting))

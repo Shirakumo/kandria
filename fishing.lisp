@@ -103,7 +103,7 @@
     (nv+ (frame-velocity buoy) vel)))
 
 (define-asset (kandria line-part) mesh
-    (make-rectangle 0.5 4 :align :topcenter))
+    (make-rectangle-mesh 0.5 4 :align :topcenter))
 
 (define-shader-entity fishing-line (lit-vertex-entity listener)
   ((name :initform 'fishing-line)

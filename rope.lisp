@@ -1,7 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (define-asset (kandria rope-part) mesh
-    (make-rectangle 2 8 :align :topcenter))
+    (make-rectangle-mesh 2 8 :align :topcenter))
 
 (define-shader-entity rope (lit-vertex-entity sized-entity interactable listener resizable ephemeral creatable)
   ((name :initform (generate-name "ROPE"))

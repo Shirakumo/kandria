@@ -367,7 +367,7 @@ void main(){
 }")
 
 (define-asset (kandria logo-rect) mesh
-    (make-rectangle 400 100))
+    (make-rectangle-mesh 400 100))
 
 (define-shader-entity logo (listener textured-entity vertex-entity located-entity)
   ((vertex-array :initform (// 'kandria 'logo-rect))

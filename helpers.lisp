@@ -25,10 +25,10 @@
       (v:warn :kandria "Failed to set pool path: ~a" e))))
 
 (define-asset (kandria 1x) mesh
-    (make-rectangle 1 1 :align :bottomleft))
+    (make-rectangle-mesh 1 1 :align :bottomleft))
 
 (define-asset (kandria 16x) mesh
-    (make-rectangle 16 16))
+    (make-rectangle-mesh 16 16))
 
 (define-asset (kandria placeholder) image
     #p"placeholder.png")
