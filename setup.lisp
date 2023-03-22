@@ -29,11 +29,6 @@ again.")))
     (error "Quicklisp is not set up. Did you run install.lisp?"))
   (load (merge-pathnames "quicklisp/setup.lisp" *kandria-root*)))
 
-;;; Ensure Kandria is known
-(unless (asdf:find-system "kandria" NIL)
-  (asdf:load-asd (merge-pathnames "kandria.asd" *kandria-root*))
-  (asdf:load-asd (merge-pathnames "quest/kandria-quest.asd" *kandria-root*)))
-
 ;;; Ensure extra projects are known
 (pushnew (merge-pathnames "local-projects/" *kandria-root*) ql:*local-project-directories* :test #'equalp)
 
@@ -41,6 +36,11 @@ again.")))
 (ql:quickload "cffi")
 (pushnew *kandria-install-root* cffi:*foreign-library-directories* :test #'equalp)
 (ql:quickload "deploy")
+
+;;; Ensure Kandria is known
+(unless (asdf:find-system "kandria" NIL)
+  (asdf:load-asd (merge-pathnames "kandria.asd" *kandria-root*))
+  (asdf:load-asd (merge-pathnames "quest/kandria-quest.asd" *kandria-root*)))
 
 ;;; Load er in.
 (ql:quickload "kandria")
