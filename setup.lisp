@@ -47,6 +47,7 @@ again.")))
 
 ;;; Launch Emacs
 (unless (or swank::*connections*
+            (find :darwin *features*)
             (find-package '#:org.shirakumo.fraf.kandria.install))
   (let ((port (swank:create-server)))
     (handler-case (sb-ext:run-program #+windows "emacs.exe" #-windows "emacs"
