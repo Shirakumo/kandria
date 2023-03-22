@@ -24,6 +24,8 @@ exec sbcl --dynamic-space-size 4GB --noinform --no-sysinit --no-userinit --load 
   (:export #:install))
 (in-package #:org.shirakumo.fraf.kandria.install)
 
+(require :uiop)
+
 (defvar *kandria-root* #.(make-pathname :name NIL :type NIL :defaults (or *load-pathname* (error "This file must be LOADed."))))
 
 (defun call-with-connection (function host port)
