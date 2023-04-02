@@ -41,7 +41,8 @@
    (#:sequences #:org.shirakumo.trivial-extensible-sequences)
    (#:filesystem-utils #:org.shirakumo.filesystem-utils)
    (#:promise #:org.shirakumo.promise)
-   (#:modio #:org.shirakumo.fraf.modio))
+   (#:modio #:org.shirakumo.fraf.modio)
+   (#:v #:org.shirakumo.verbose))
   (:export
    #:launch)
   ;; ui/general.lisp
