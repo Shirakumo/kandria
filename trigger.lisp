@@ -476,3 +476,42 @@ in vec2 world_pos;
 void main(){
   color = apply_lighting_flat(color, vec2(0), 0, world_pos) * visibility;
 }")
+
+(defclass text (trigger listener creatable alloy:popup alloy:label*)
+  ((alloy:value :initform "<Untitled>" :accessor text :type string)
+   (clock :initform 0.0 :accessor clock)))
+
+(presentations:define-realization (ui text)
+  ((label simple:text)
+   (alloy:margins) alloy:text
+   :font (setting :display :font)
+   :size (alloy:un 20)
+   :wrap T
+   :valign :top :halign :start
+   :outline (list 0.2 colors:black)
+   :pattern colors:white))
+
+(presentations:define-update (ui text)
+  (label
+   :text alloy:text))
+
+(defmethod interact ((text text) entity)
+  (setf (clock text) 0.5)
+  (unless (alloy:layout-tree text)
+    (alloy:enter text (u 'ui-pass))))
+
+(defmethod alloy:text ((text text))
+  (cl-ppcre:regex-replace-all "\\\\n" (alloy:value text) (string #\Linefeed)))
+
+(defmethod handle ((ev tick) (text text))
+  (when (and (alloy:layout-tree text))
+    (if (<= (decf (clock text) (dt ev)) 0.0)
+        (alloy:leave text T)
+        (alloy:with-unit-parent text
+          (alloy:mark-for-render text)
+          (let* ((screen-location (world-screen-pos (location text)))
+                 (z (* (view-scale (camera +world+)) (zoom (camera +world+))))
+                 (w (* z (vx (bsize text)))) (h (* z (vy (bsize text)))))
+            (setf (alloy:bounds text) (alloy:px-extent (- (vx screen-location) w)
+                                                       (- (vy screen-location) h)
+                                                       (* 2 w) (* 2 h))))))))
