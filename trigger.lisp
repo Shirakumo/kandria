@@ -481,17 +481,17 @@ void main(){
   ((alloy:value :initform "<Untitled>" :accessor text :type string)
    (clock :initform 0.0 :accessor clock)))
 
-(presentations:define-realization (ui text)
+(presentations:define-realization (org.shirakumo.fraf.trial.alloy:ui text)
   ((label simple:text)
    (alloy:margins) alloy:text
    :font (setting :display :font)
    :size (alloy:un 20)
    :wrap T
    :valign :top :halign :start
-   :outline (list 0.2 colors:black)
+   :markup '((0 10000 (:outline 1.0)))
    :pattern colors:white))
 
-(presentations:define-update (ui text)
+(presentations:define-update (org.shirakumo.fraf.trial.alloy:ui text)
   (label
    :text alloy:text))
 

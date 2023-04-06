@@ -54,7 +54,7 @@ void main(){
    :font (setting :display :font)
    :size (alloy:un 20)
    :pattern colors:white
-   :outline '(1.0)))
+   :markup '((0 100 (:outline 1.0)))))
 
 (defclass advance-prompt (alloy:label) ())
 
