@@ -2,6 +2,11 @@
 These are changes to Kandria that were realised thanks to public feedback.
 A big thanks to everyone for trying it out and reporting problems!
 
+## 1.1.4
+- Released Japanese localisation
+- Fix issue with shared library versions on Linux
+  Reported by Bellman Cryde
+
 ## 1.1.3
 - Fix issue with missing libevdev on Steam Deck and other Linux distributions
 - Fix rare issue related to input stacking
