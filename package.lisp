@@ -111,6 +111,26 @@ Either run the setup.lisp file directly, or start SBCL with
   ;; versions/world-v0.lisp
   (:export
    #:world-v0)
+  ;; camera.lisp
+  (:export
+   #:camera
+   #:view-scale
+   #:intended-view-scale
+   #:target-size
+   #:target
+   #:intended-location
+   #:zoom
+   #:intended-zoom
+   #:shake-timer
+   #:shake-intensity
+   #:rumble-intensity
+   #:offset
+   #:fix-offset
+   #:snap-to-target
+   #:shake-camera
+   #:rumble
+   #:duck-camera
+   #:in-view-p)
   ;; helpers.lisp
   (:export
    #:kandria
