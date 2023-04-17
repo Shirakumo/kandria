@@ -6,7 +6,7 @@
 | | あらら、まだ必要な量には達してなさそうだね。 必要なのは"サビホコリダケか花キノコを25個"(orange)だよ。 "ヒトヨタケはやめてね"(orange)。 "地下を探すと見つかる"(orange)はずだよ。
 | | (:excited)Good luck!
 | ~ player
-| | "今持ってるのは...  花キノコが{(item-count 'item:mushroom-good-1)}個"(orange)、"サビホコリダケが{(item-count 'item:mushroom-good-2)}個"(orange)、"ヒトヨタケが{(item-count 'item:mushroom-bad-1)}個"(orange)か。"(light-gray, italic)
+| | ""今持ってるのは...  花キノコが{(item-count 'item:mushroom-good-1)}個"(orange)、"サビホコリダケが{(item-count 'item:mushroom-good-2)}個"(orange)、"ヒトヨタケが{(item-count 'item:mushroom-bad-1)}個"(orange)か。"(light-gray, italic)
 | < end
 |? (= 25 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)))
 | ~ catherine
