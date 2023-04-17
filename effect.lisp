@@ -159,7 +159,7 @@ void main(){
       (setf (uniform shader "pxRange") (org.shirakumo.alloy.renderers.opengl.msdf::px-range (font effect)))
       ;; FIXME: this seems expensive, but maybe it would be worse to statically allocate for each text.
       (org.shirakumo.alloy.renderers.opengl:update-vertex-buffer vbo (vertex-data effect))
-      (org.shirakumo.alloy.renderers.opengl:draw-vertex-array vao :triangles 0 (truncate (length (vertex-data effect)) 10)))))
+      (org.shirakumo.alloy.renderers.opengl:draw-vertex-array vao :triangles 0 (truncate (length (vertex-data effect)) 15)))))
 
 (defclass displacement-effect (effect)
   ((displacement-texture :initarg :displacement-texture :initform (// 'kandria 'shockwave) :accessor displacement-texture)))

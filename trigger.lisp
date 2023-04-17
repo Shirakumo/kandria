@@ -479,13 +479,14 @@ void main(){
 
 (defclass text (trigger listener creatable alloy:popup alloy:label*)
   ((alloy:value :initform "<Untitled>" :accessor text :type string)
+   (size :initform 20 :accessor size :type integer)
    (clock :initform 0.0 :accessor clock)))
 
 (presentations:define-realization (org.shirakumo.fraf.trial.alloy:ui text)
   ((label simple:text)
    (alloy:margins) alloy:text
    :font (setting :display :font)
-   :size (alloy:un 20)
+   :size (alloy:un (size alloy:renderable))
    :wrap T
    :valign :top :halign :start
    :markup '((0 10000 (:outline 1.0)))
@@ -493,6 +494,7 @@ void main(){
 
 (presentations:define-update (org.shirakumo.fraf.trial.alloy:ui text)
   (label
+   :size (alloy:un (size alloy:renderable))
    :text alloy:text))
 
 (defmethod interact ((text text) entity)
