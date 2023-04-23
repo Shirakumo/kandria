@@ -8,6 +8,8 @@ A big thanks to everyone for trying it out and reporting problems!
 - Fixed a problem on some Windows setup with the Secur32.dll
   Reported by TemprusofTime, kamiy, boum
 - Fixed minor mod issues
+- Fixed a glibc dependency issue on Linux
+  Reported by Bellman Cryde
 
 ## 1.1.4
 - Released Japanese localisation
