@@ -2,6 +2,13 @@
 These are changes to Kandria that were realised thanks to public feedback.
 A big thanks to everyone for trying it out and reporting problems!
 
+## 1.1.5
+- Fixed a few minor issues in the Japanese localisation
+  Reported by cxxxr
+- Fixed a problem on some Windows setup with the Secur32.dll
+  Reported by TemprusofTime, kamiy, boum
+- Fixed minor mod issues
+
 ## 1.1.4
 - Released Japanese localisation
 - Fix issue with shared library versions on Linux
