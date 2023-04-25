@@ -332,13 +332,15 @@
 
 (defmethod alloy:activate ((icon module-icon))
   (let ((module (module icon)))
-    (if (module-editable-p module)
-        (let ((path (org.shirakumo.file-select:existing :title (@ module-select-preview-image)
-                                                        :default (preview module)
-                                                        :filter '(("PNG files" "png")))))
-          (when path
-            (setf (preview module) path)))
-        (harmony:play (// 'sound 'ui-error)))))
+    (cond ((null module))
+          ((module-editable-p module)
+           (let ((path (org.shirakumo.file-select:existing :title (@ module-select-preview-image)
+                                                           :default (preview module)
+                                                           :filter '(("PNG files" "png")))))
+             (when path
+               (setf (preview module) path))))
+          (T
+           (harmony:play (// 'sound 'ui-error))))))
 
 (presentations:define-realization (ui module-icon)
   ((:icon simple:icon)
