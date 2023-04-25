@@ -468,6 +468,9 @@
 (defun mouse-tile-pos (pos)
   (nvalign (mouse-world-pos (v- pos (/ +tile-size+ 2))) +tile-size+))
 
+(defclass pause-game (event) ())
+(defclass unpause-game (event) ())
+
 (defclass request-region (event)
   ((region :initarg :region :reader region)))
 
