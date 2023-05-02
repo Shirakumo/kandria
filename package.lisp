@@ -53,7 +53,7 @@ Either run the setup.lisp file directly, or start SBCL with
    (#:steam #:org.shirakumo.fraf.steamworks)
    (#:steam* #:org.shirakumo.fraf.steamworks.cffi)
    (#:notify #:org.shirakumo.fraf.trial.notify)
-   (#:bvh #:org.shirakumo.fraf.trial.bvh2)
+   (#:bvh #:org.shirakumo.fraf.trial.space.bvh2)
    (#:markless #:org.shirakumo.markless)
    (#:components #:org.shirakumo.markless.components)
    (#:depot #:org.shirakumo.depot)

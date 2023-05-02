@@ -104,7 +104,7 @@
           (decf (vy container) 300)
           (incf (vz container) 300)
           (incf (vw container) 300)
-          (bvh:do-fitting (object (bvh (region +world+)) container)
+          (do-fitting (object (bvh (region +world+)) container)
             (let* ((object (when (typep object 'shadow-caster)
                              (shadow-geometry object)))
                    (program (gethash object renderable-table)))

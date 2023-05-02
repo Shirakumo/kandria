@@ -604,7 +604,7 @@ Useful for interiors")
 (defmethod closest-acceptable-location ((entity chunk) location)
   (loop for i from 0
         for closest = NIL
-        do (bvh:do-fitting (other (bvh (region +world+)) (vec4 (- (vx location) (vx (bsize entity)))
+        do (do-fitting (other (bvh (region +world+)) (vec4 (- (vx location) (vx (bsize entity)))
                                                                (- (vy location) (vy (bsize entity)))
                                                                (+ (vx location) (vx (bsize entity)))
                                                                (+ (vy location) (vy (bsize entity)))))

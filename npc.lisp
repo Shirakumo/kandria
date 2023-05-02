@@ -105,12 +105,12 @@
   (setf (location npc) 'player))
 
 (defmethod target-blocked-p ((entity located-entity))
-  (bvh:do-fitting (entity (bvh (region +world+)) entity)
+  (do-fitting (entity (bvh (region +world+)) entity)
     (when (typep entity 'npc-block-zone)
       (return T))))
 
 (defmethod target-blocked-p ((location vec2))
-  (bvh:do-fitting (entity (bvh (region +world+)) location)
+  (do-fitting (entity (bvh (region +world+)) location)
     (when (typep entity 'npc-block-zone)
       (return T))))
 
@@ -438,7 +438,7 @@
                        (- (vy (location npc)) 32)
                        (+ center (* +tile-size+ 100))
                        (+ (vy (location npc)) 32))))
-    (bvh:do-fitting (entity (bvh (region +world+)) region crowding-level)
+    (do-fitting (entity (bvh (region +world+)) region crowding-level)
       (when (and (not (eq entity npc)) (typep entity 'npc))
         (let* ((dist (- (vx (location entity)) center))
                (gauss (* (/ (* 4 (sqrt (* 2 PI)))) (exp (* -0.5 (/ (* dist dist) 16))))))
@@ -451,7 +451,7 @@
                        (- (vy (location npc)) 32)
                        (+ center (* +tile-size+ 100))
                        (+ (vy (location npc)) 32))))
-    (bvh:do-fitting (entity (bvh (region +world+)) region direction)
+    (do-fitting (entity (bvh (region +world+)) region direction)
       (when (and (not (eq entity npc)) (typep entity 'npc))
         (let* ((dist (- (vx (location entity)) center)))
           (when (<= 0.1 (abs dist))

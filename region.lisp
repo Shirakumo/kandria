@@ -77,7 +77,7 @@
   (bvh:bvh-remove (bvh region) unit))
 
 (defmethod scan ((region region) target on-hit)
-  (bvh:do-fitting (object (bvh region) target)
+  (do-fitting (object (bvh region) target)
     (unless (eq object target)
       (let ((hit (scan object target on-hit)))
         (when hit
@@ -90,7 +90,7 @@
                     (- (vy2 loc) (vy2 bsize) 20)
                     (+ (vx2 loc) (vx2 bsize) 20)
                     (+ (vy2 loc) (vy2 bsize) 20))
-      (bvh:do-fitting (object (bvh region) vec)
+      (do-fitting (object (bvh region) vec)
         (unless (eq object target)
           (let ((hit (scan object target on-hit)))
             (when hit (return hit))))))))
@@ -100,7 +100,7 @@
                   (- (vy4 target) (vw4 target))
                   (+ (vx4 target) (vz4 target))
                   (+ (vy4 target) (vw4 target)))
-    (bvh:do-fitting (object (bvh region) vec)
+    (do-fitting (object (bvh region) vec)
       (let ((hit (scan object target on-hit)))
         (when hit (return hit))))))
 

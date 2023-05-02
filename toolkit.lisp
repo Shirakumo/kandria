@@ -268,6 +268,36 @@
     (vec2 (/ (+ l r) 2)
           (/ (+ b u) 2))))
 
+(defmacro do-fitting ((entity bvh region &optional result) &body body)
+  ;; REGION should be a vec2 for a point test, or a vec4 with left/bottom/right/top coordinates.
+  (let ((thunk (gensym "THUNK"))
+        (regiong (gensym "REGION")))
+    `(cl:block NIL
+       (flet ((,thunk (,entity)
+                ,@body))
+         (declare (dynamic-extent #',thunk))
+         (let ((,regiong ,region))
+           (etypecase ,regiong
+             (vec2 
+              (let ((,regiong (bvh:region (vx2 ,regiong) (vy2 ,regiong) 0 0 0 0)))
+                (declare (dynamic-extent ,regiong))
+                (bvh:call-with-overlapping #',thunk ,bvh ,regiong)))
+             (vec4
+              (let ((,regiong (bvh:region (vx4 ,regiong) (vy4 ,regiong) 0
+                                          (- (vz4 ,regiong) (vx4 ,regiong))
+                                          (- (vw4 ,regiong) (vy4 ,regiong))
+                                          0)))
+                (declare (dynamic-extent ,regiong))
+                (bvh:call-with-contained #',thunk ,bvh ,regiong)))
+             (trial:entity
+              (let* ((l (location ,regiong))
+                     (b (bsize ,regiong))
+                     (,regiong (bvh:region (- (vx2 l) (vx2 b)) (- (vy2 l) (vy2 b)) 0.0 
+                                           (* 2.0 (vx2 b)) (* 2.0 (vy2 b)) 0.0)))
+                (declare (dynamic-extent ,regiong))
+                (bvh:call-with-overlapping #',thunk ,bvh ,regiong))))))
+       ,result)))
+
 (defclass solid () ())
 (defclass half-solid (solid) ())
 (defclass resizable () ())
@@ -317,7 +347,7 @@
 
 (defmethod contained-p ((type symbol) (area symbol))
   (let ((area (unit area +world+)))
-    (bvh:do-fitting (entity (bvh (region +world+)) area)
+    (do-fitting (entity (bvh (region +world+)) area)
       (when (typep entity type)
         (return T)))))
 
@@ -379,7 +409,7 @@
 
 (defun find-chunk (thing &optional (region (region +world+)))
   (when region
-    (bvh:do-fitting (entity (bvh region) thing)
+    (do-fitting (entity (bvh region) thing)
       (when (typep entity 'chunk)
         (return entity)))))
 

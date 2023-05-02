@@ -140,7 +140,7 @@ Scales damage, defence, health")
 
 (defmethod endangering ((animatable animatable))
   (let ((loc (location animatable)))
-    (bvh:do-fitting (entity (bvh (region +world+)) (tvec (- (vx loc) 128)
+    (do-fitting (entity (bvh (region +world+)) (tvec (- (vx loc) 128)
                                                          (- (vy loc) 128)
                                                          (+ (vx loc) 128)
                                                          (+ (vy loc) 128)))
@@ -255,7 +255,7 @@ Scales damage, defence, health")
                              (+ (vx hurtbox) (vz hurtbox) 10)
                              (+ (vy hurtbox) (vw hurtbox) 10))))
            (declare (dynamic-extent region))
-           (bvh:do-fitting (entity (bvh (region +world+)) region)
+           (do-fitting (entity (bvh (region +world+)) region)
              (typecase entity
                (animatable
                 (when (and (not (eq animatable entity))

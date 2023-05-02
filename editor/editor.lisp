@@ -330,7 +330,7 @@
     (handle ev (unit 'render T))
     (setf (last-tick editor) (fc ev))
     (when (track-background-p editor)
-      (bvh:do-fitting (entity (bvh (region +world+)) (in-view-tester (camera +world+)))
+      (do-fitting (entity (bvh (region +world+)) (in-view-tester (camera +world+)))
         (when (typep entity 'chunk)
           (setf (background (unit 'background T)) (background entity))
           (update-background (unit 'background T) T)))))

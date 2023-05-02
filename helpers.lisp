@@ -93,7 +93,7 @@
   ())
 
 (defclass located-entity (base-entity transformed)
-  ((location :initarg :location :initform (vec 0 0) :accessor location
+  ((location :initarg :location :initform (vec 0 0) :accessor location :reader bvh:location
              :type vec2 :documentation "The location in 2D space.")))
 
 (defmethod initargs append ((_ located-entity))
@@ -134,7 +134,7 @@
       (rotate #.(vec 0 0 1) angle))))
 
 (defclass sized-entity (located-entity)
-  ((bsize :initarg :bsize :initform (nv/ (vec +tile-size+ +tile-size+) 2) :accessor bsize)))
+  ((bsize :initarg :bsize :initform (nv/ (vec +tile-size+ +tile-size+) 2) :accessor bsize :reader bvh:bsize)))
 
 (defmethod initargs append ((_ sized-entity))
   `(:bsize))

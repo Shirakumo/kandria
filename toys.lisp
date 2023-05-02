@@ -783,7 +783,7 @@ Use this to modify the start and end locations of the gate")
 
 (defmethod interact ((trigger gate-reset-trigger) (player player))
   (when (chunk player)
-    (bvh:do-fitting (entity (bvh (container trigger)) (chunk player))
+    (do-fitting (entity (bvh (container trigger)) (chunk player))
       (when (typep entity 'gate)
         (setf (state entity) :closed)))))
 
@@ -820,7 +820,7 @@ Use this to modify the start and end locations of the gate")
                 :documentation "The layer on which the windwmill is rendered")))
 
 (defmethod handle ((ev switch-region) (windmill windmill))
-  (bvh:do-fitting (entity (bvh (region +world+)) windmill)
+  (do-fitting (entity (bvh (region +world+)) windmill)
     (when (typep entity 'wind)
       (setf (animation windmill) 'strong))))
 

@@ -71,7 +71,7 @@
                       (+ (+ (vy v/2) (vy loc)) (abs (vy v/2)) (vy siz)))))
     (declare (type (unsigned-byte 8) found))
     ;; Scan for applicable entities
-    (bvh:do-fitting (entity (bvh (region +world+)) bounds)
+    (do-fitting (entity (bvh (region +world+)) bounds)
       (when (not (eq entity moving))
         (setf found (tentative-scan entity bounds tentative found))
         (when (= 16 found)
@@ -118,7 +118,7 @@
         (size (bsize moving))
         (collisions (collisions moving)))
     ;; Scan for medium
-    (let ((medium (bvh:do-fitting (entity (bvh (region +world+)) moving +default-medium+)
+    (let ((medium (do-fitting (entity (bvh (region +world+)) moving +default-medium+)
                     (when (typep entity 'medium)
                       (return entity)))))
       (setf (medium moving) medium)

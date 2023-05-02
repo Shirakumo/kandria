@@ -135,7 +135,7 @@
 
 (defun save-point-available-p ()
   (when (chunk (unit 'player +world+))
-    (bvh:do-fitting (object (bvh (region +world+)) (chunk (unit 'player +world+)))
+    (do-fitting (object (bvh (region +world+)) (chunk (unit 'player +world+)))
       (when (typep object 'save-point)
         (return T)))))
 

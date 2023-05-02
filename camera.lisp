@@ -42,7 +42,7 @@
 (defmethod map-visible (function (camera camera) (region region))
   (dolist (entity (indefinite-extent-entities region))
     (funcall function entity))
-  (bvh:do-fitting (entity (bvh region) (in-view-tester camera))
+  (do-fitting (entity (bvh region) (in-view-tester camera))
     (funcall function entity)))
 
 (defmethod layer-index ((counter fps-counter)) 100)

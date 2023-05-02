@@ -312,7 +312,7 @@
 (defclass map-panel (pausing-panel fullscreen-panel)
   ((show-trace :initform NIL :accessor show-trace)
    (clock :initform 0.2 :accessor clock)
-   (corrupted-p :initform (bvh:do-fitting (entity (bvh (region +world+)) (unit 'player T))
+   (corrupted-p :initform (do-fitting (entity (bvh (region +world+)) (unit 'player T))
                             (when (typep entity 'map-block-zone) (return T)))
                 :accessor corrupted-p)))
 

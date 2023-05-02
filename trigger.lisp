@@ -247,7 +247,7 @@
 
 (defmethod interact ((trigger shutter-trigger) (player player))
   (when (within-p trigger player)
-    (let ((state (bvh:do-fitting (entity (bvh (region +world+)) trigger :open)
+    (let ((state (do-fitting (entity (bvh (region +world+)) trigger :open)
                    (when (typep entity 'enemy) (return :closed)))))
       (dolist (shutter (children trigger))
         (setf (state shutter) state)))))

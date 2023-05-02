@@ -288,7 +288,7 @@
 
 (defun create-entity-connections (chunk region graph)
   (let ((grid (node-graph-grid graph)))
-    (bvh:do-fitting (entity (bvh region) chunk)
+    (do-fitting (entity (bvh region) chunk)
       (typecase entity
         (rope
          (let ((top (chunk-node-idx chunk (vec (+ (vx (location entity))
@@ -495,7 +495,7 @@
             (dolist (other chunks)
               (unless (eql chunk other)
                 (connect-chunks nodes chunk other)))
-            (bvh:do-fitting (entity (bvh region) chunk)
+            (do-fitting (entity (bvh region) chunk)
               (typecase entity
                 (door
                  (connect-entities nodes entity (target entity) #'%make-door-node))
@@ -656,7 +656,7 @@
                    (diff (abs (- (vx target) (vx loc)))))
                (setf (vx vel) (* dir (movement-speed movable)))))
            (trigger-door (location)
-             (bvh:do-fitting (entity (bvh (region +world+)) location)
+             (do-fitting (entity (bvh (region +world+)) location)
                (when (typep entity 'door)
                  (setf (animation entity) 'open)))))
       ;; Handle current step
@@ -761,7 +761,7 @@
                   (setf (state movable) :normal)
                   (teleport))))))
           (teleport-node
-           (bvh:do-fitting (entity (bvh (region +world+)) movable)
+           (do-fitting (entity (bvh (region +world+)) movable)
              (typecase entity
                (teleport-trigger
                 ;; KLUDGE: This is potentially very bad. We skip a full node.
@@ -846,7 +846,7 @@
          (region (region +world+))
          (chunk (find-chunk tloc region)))
     (when (and chunk (not (visible-on-map-p chunk)))
-      (bvh:do-fitting (entity (bvh region) chunk)
+      (do-fitting (entity (bvh region) chunk)
         (when (typep entity 'door)
           (let ((other (find-chunk (target entity) region)))
             (when (and other (visible-on-map-p other))
