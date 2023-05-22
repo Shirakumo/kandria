@@ -361,8 +361,8 @@
       (when (show-trace panel)
         (loop for (name . shape) across (presentations:shapes map)
               do (when (eql name 'trace)
-                   (let ((data (org.shirakumo.alloy.renderers.opengl::data shape))
-                         (idx (* (org.shirakumo.alloy.renderers.opengl::size shape) 4 6)))
+                   (let ((data (org.shirakumo.alloy.renderers.opengl::line-data shape))
+                         (idx (* (org.shirakumo.alloy.renderers.opengl::size shape) 5 6)))
                      (when (< idx (length data))
                        (incf (org.shirakumo.alloy.renderers.opengl::size shape) 2)
                        ;; KLUDGE: extract position from line

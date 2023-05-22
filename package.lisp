@@ -31,7 +31,7 @@ Either run the setup.lisp file directly, or start SBCL with
            #:animatable #:sprite-data #:sprite-animation
            #:commit #:prompt #:in-view-p #:layer #:*modules*
            #:hit #:hit-location #:hit-normal #:make-hit
-           #:box)
+           #:box #:activate)
   (:local-nicknames
    (#:fish #:org.shirakumo.fraf.kandria.fish)
    (#:item #:org.shirakumo.fraf.kandria.item)
