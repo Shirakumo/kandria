@@ -189,7 +189,7 @@ void main(){
   :vertex-form :patches)
 
 (define-shader-pass wave-propagate-pass (post-effect-pass)
-  ((previous :port-type trial::static-input :accessor previous)
+  ((previous :port-type trial::fixed-input :accessor previous)
    (next :port-type output :accessor next)
    (framebuffer :accessor framebuffer)
    (clock :initform 0.0 :accessor clock)))
@@ -203,7 +203,7 @@ void main(){
   (stage (previous pass) area)
   (stage (next pass) area))
 
-(defmethod render :after ((pass wave-propagate-pass) thing)
+(defmethod render :after ((pass wave-propagate-pass) (program shader-program))
   ;; Swap out the next and previous.
   (v:with-muffled-logging ()
     (rotatef (previous pass) (next pass)))
@@ -288,9 +288,9 @@ void main(){
 
 (defmethod render ((wave wave) (program shader-program))
   (handle (make-instance 'resize :width (width *context*) :height (height *context*)) wave)
-  (gl:active-texture :texture1)
+  (gl:active-texture :texture0)
   (gl:bind-texture :texture-2d (gl-name (next (wave-pass wave))))
-  (setf (uniform program "heightmap") 1)
+  (setf (uniform program "heightmap") 0)
   (setf (uniform program "transform_matrix") (matrix wave))
   (let* ((vao (vertex-array wave)))
     (gl:bind-vertex-array (gl-name vao))
