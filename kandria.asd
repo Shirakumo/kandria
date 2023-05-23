@@ -1,5 +1,5 @@
 (asdf:defsystem kandria
-  :version "1.1.5"
+  :version "1.1.6"
   :build-operation "deploy-op"
   :build-pathname #+linux "kandria-linux.run"
                   #+darwin "kandria-macos.o"
@@ -8,6 +8,7 @@
                   #-(or linux bsd win32) "kandria"
   :entry-point "org.shirakumo.fraf.kandria::main"
   :components ((:file "package")
+               (:file "bvh2")
                (:file "toolkit")
                (:file "helpers")
                (:file "palette")

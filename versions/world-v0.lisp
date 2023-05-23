@@ -93,7 +93,7 @@
       ;; Load initial state.
       (v:debug :kandria.region "World decoded, loading initial state...")
       (decode-payload (first (parse-sexps (depot:read-from (depot:entry "init.lisp" depot) 'character))) region depot 'save-v0))
-    (bvh:reoptimize (bvh region) :rounds 50)
+    (bvh:bvh-reinsert-all (bvh region) 50)
     region))
 
 (define-encoder (region world-v0) (_b depot)

@@ -20,6 +20,22 @@ Either run the setup.lisp file directly, or start SBCL with
 
 (defpackage #:org.shirakumo.fraf.kandria.fish)
 (defpackage #:org.shirakumo.fraf.kandria.item)
+(defpackage #:org.shirakumo.fraf.trial.bvh2
+  (:use #:cl #:3d-vectors)
+  (:import-from #:org.shirakumo.fraf.trial #:location #:bsize)
+  (:export
+   #:bvh
+   #:make-bvh
+   #:bvh-insert
+   #:bvh-remove
+   #:bvh-update
+   #:bvh-check
+   #:bvh-print
+   #:bvh-lines
+   #:bvh-reinsert-all
+   #:call-with-contained
+   #:call-with-overlapping
+   #:do-fitting))
 
 (defpackage #:kandria
   (:nicknames #:org.shirakumo.fraf.kandria)
@@ -32,6 +48,7 @@ Either run the setup.lisp file directly, or start SBCL with
            #:commit #:prompt #:in-view-p #:layer #:*modules*
            #:hit #:hit-location #:hit-normal #:make-hit
            #:box #:activate)
+  (:import-from #:org.shirakumo.fraf.trial.bvh2 #:do-fitting)
   (:local-nicknames
    (#:fish #:org.shirakumo.fraf.kandria.fish)
    (#:item #:org.shirakumo.fraf.kandria.item)
@@ -53,7 +70,7 @@ Either run the setup.lisp file directly, or start SBCL with
    (#:steam #:org.shirakumo.fraf.steamworks)
    (#:steam* #:org.shirakumo.fraf.steamworks.cffi)
    (#:notify #:org.shirakumo.fraf.trial.notify)
-   (#:bvh #:org.shirakumo.fraf.trial.space.bvh2)
+   (#:bvh #:org.shirakumo.fraf.trial.bvh2)
    (#:markless #:org.shirakumo.markless)
    (#:components #:org.shirakumo.markless.components)
    (#:depot #:org.shirakumo.depot)
