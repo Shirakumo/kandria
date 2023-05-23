@@ -163,6 +163,7 @@
                                                    :name 'trace
                                                    :pattern color
                                                    :line-width (alloy:un 4)
+                                                   :join-style :bevel
                                                    :hidden-p T
                                                    :z-index -5)))
                      (add-shape shape)
@@ -275,7 +276,7 @@
 
 (presentations:define-realization (ui map-legend-label)
   ((label simple:text)
-   (alloy:margins -10)
+   (alloy:margins)
    alloy:text
    :font (setting :display :font)
    :wrap T

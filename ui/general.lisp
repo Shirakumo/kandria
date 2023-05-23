@@ -2,6 +2,8 @@
 
 (colored:define-color #:accent #x0088EE)
 (colored:define-color #:dark-accent #x0055AA)
+;; Disable blend extensions because we don't need em
+(setf org.shirakumo.alloy.renderers.opengl::*gl-extensions* '(:none))
 
 (defclass ui (org.shirakumo.fraf.trial.alloy:ui
               org.shirakumo.alloy:fixed-scaling-ui
