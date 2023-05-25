@@ -131,7 +131,7 @@
                   (let* ((shape (simple:line-strip renderer (list (alloy:point (vx location) (vy location))
                                                                   (alloy:point (vx location) (+ (vy location) (/ size 2) 100)))
                                                    :pattern colors:white
-                                                   :line-width (alloy:un 2)
+                                                   :line-width (alloy:un 20)
                                                    :z-index -2)))
                     (add-shape shape))
                   (let* ((bounds (alloy:extent (- (vx location) (/ 1000 2))
@@ -162,7 +162,7 @@
                    (let ((shape (simple:line-strip renderer points
                                                    :name 'trace
                                                    :pattern color
-                                                   :line-width (alloy:un 4)
+                                                   :line-width (alloy:un 20)
                                                    :join-style :bevel
                                                    :hidden-p T
                                                    :z-index -5)))
