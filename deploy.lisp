@@ -20,7 +20,11 @@
    :strip-root T :if-exists :supersede)
   (deploy:copy-directory-tree
    (pathname-utils:subdirectory (data-root) "mods")
-   directory))
+   directory)
+  (deploy:copy-directory-tree
+   org.shirakumo.alloy.renderers.opengl::*shaders-directory*
+   (pathname-utils:subdirectory directory "pool" "alloy")
+   :copy-root NIL))
 
 #+linux
 (trial::dont-deploy
