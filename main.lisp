@@ -298,7 +298,7 @@ Possible sub-commands:
   (with-saved-changes-prompt (quit (context main))))
 
 (defmethod setup-rendering :after ((main main))
-  (disable :cull-face :scissor-test :depth-test)
+  (disable-feature :cull-face :scissor-test :depth-test)
   (etypecase (state main)
     (save-state (load-game (state main) main))
     ((eql :new) (setf (state main) (make-instance 'save-state :filename "new")) (load-game NIL main))
