@@ -126,6 +126,7 @@ out vec2 tex_coord;
 out float alpha;
 
 void main(){
+  maybe_call_next_method();
   world_pos = (position*scale) + off;
   tex_coord = (uv*uv_off.zw)+uv_off.xy;
   alpha = a;
@@ -144,6 +145,7 @@ uniform sampler2D texture_image;
 out vec4 color;
 
 void main(){
+  maybe_call_next_method();
   color = apply_lighting_flat(texture(texture_image, tex_coord)*alpha, vec2(0), 0, world_pos);
 }")
 
@@ -178,6 +180,7 @@ uniform float multiplier;
 out vec4 color;
 
 void main(){
+  maybe_call_next_method();
   color = texture(texture_image, tex_coord)*alpha*multiplier;
 }")
 

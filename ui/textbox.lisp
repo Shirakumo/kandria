@@ -33,6 +33,7 @@ float rand(vec2 co){
 }
 
 void main(){
+  maybe_call_next_method();
   float rng = rand(texcoord * clock);
   float gray = rng * color.r + 0.71 * color.g + 0.07 * color.b;
   color.rgb = mix(color.rgb, vec3(gray), fuzz);

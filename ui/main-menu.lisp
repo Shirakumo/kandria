@@ -150,6 +150,7 @@
   "out vec4 color;
 
 void main(){
+  maybe_call_next_method();
   color = apply_lighting_flat(color, vec2(0, -5), 0, vec2(0));
 }")
 
@@ -173,6 +174,7 @@ void main(){
   "uniform float multiplier = 1.0;
 out vec4 color;
 void main(){
+  maybe_call_next_method();
    color *= multiplier;
 }")
 
@@ -225,6 +227,7 @@ uniform float oscillator_speed = 0.001;
 out vec4 color;
 
 void main(){
+  maybe_call_next_method();
   ivec2 local = ivec2(gl_FragCoord.xy);
   vec2 current = texelFetch(previous, local, 0).rg;
   float previous_height = current.r;
@@ -306,6 +309,7 @@ out vec3 vPosition;
 out vec2 vUV;
 
 void main(){
+  maybe_call_next_method();
   vPosition = position;
   vUV = uv;
 }")
@@ -363,6 +367,7 @@ void main(){
 in float height;
 out vec4 color;
 void main(){
+  maybe_call_next_method();
   color = vec4(vec3(min(1,1+height)), abs(height/5));
 }")
 
@@ -411,6 +416,7 @@ float rand(vec2 co){
 }
 
 void main(){
+  maybe_call_next_method();
   float x = floor((texcoord.x-1)*300);
   vec2 offset = texcoord;
   color = vec4(0);

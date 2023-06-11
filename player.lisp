@@ -19,7 +19,10 @@
   "layout (location = 1) in vec2 vertex_uv;
 out vec2 uv;
 
-void main(){ uv = vertex_uv; }")
+void main(){ 
+  maybe_call_next_method();
+  uv = vertex_uv;
+}")
 
 (define-class-shader (stamina-wheel :fragment-shader)
   "
@@ -59,6 +62,7 @@ vec4 add(vec4 a, vec4 b){
 }
 
 void main(){
+  maybe_call_next_method();
   float b = stamina*PI;
   vec2 p = uv-0.5;
   float inner = -sdCirc(p, 0.225);
@@ -1509,6 +1513,7 @@ void main(){
 out vec4 color;
 
 void main(){
+  maybe_call_next_method();
   color.rgb = mix(color.rgb,color_mask.rgb,color_mask.a);
 }")
 

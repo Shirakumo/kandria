@@ -78,6 +78,7 @@
   "uniform float multiplier = 1.0;
 out vec4 color;
 void main(){
+  maybe_call_next_method();
   color = vec4(color.rgb*multiplier, color.a);
 }")
 
@@ -517,6 +518,7 @@ void main(){
 (define-class-shader (sting-effect :fragment-shader)
   "out vec4 color;
 void main(){
+  maybe_call_next_method();
    color = vec4(100,100,100,1);
 }")
 

@@ -26,6 +26,7 @@
 uniform int palette_index = 0;
 
 void main(){
+  maybe_call_next_method();
   if(color.r*color.b == 1 && color.g < 0.1){
     color = texelFetch(palette, ivec2(color.g*255, palette_index), 0);
   }

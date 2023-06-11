@@ -186,6 +186,7 @@ out vec2 map_coord_b;
 out vec2 world_xy;
 
 void main(){
+  maybe_call_next_method();
   gl_Position = vec4(vertex, 1);
   world_xy = (view_matrix*vec4(vertex_uv*view_size,0,1)).xy;
   // We start in view-space, so we have to inverse-map to world-space.
@@ -210,6 +211,7 @@ in vec2 world_xy;
 out vec4 color;
 
 void main(){
+  maybe_call_next_method();
   // FIXME: this does not transition right.
   float lighting_strength = backgrounds.b.lighting_strength;
   vec4 color_a = texture(texture_a, map_coord_a);

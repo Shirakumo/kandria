@@ -70,6 +70,7 @@ uniform sampler2D b_pass;
 in vec2 tex_coord;
 out vec4 color;
 void main(){
+  maybe_call_next_method();
   vec4 a = texture(a_pass, tex_coord);
   vec4 b = texture(b_pass, tex_coord);
   color = mix(a, b, b.a);
@@ -125,6 +126,7 @@ float rand(vec2 co){
 }
 
 void main(){
+  maybe_call_next_method();
   float scalar = 1-clamp(strength,0,1);
   vec2 pos = floor(tex_coord*num);
   int r = int(rand(pos+seed)*glyph_count);
@@ -185,6 +187,7 @@ in vec2 tex_coord;
 out vec4 color;
 
 void main(){
+  maybe_call_next_method();
   vec3 previous = texture(previous_pass, tex_coord).rgb;
   if(0 < strength){
     color.a = 1;

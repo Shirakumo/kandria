@@ -31,6 +31,7 @@ uniform mat4 view_matrix;
 uniform mat4 projection_matrix;
 
 void main(){
+  maybe_call_next_method();
   gl_Position = projection_matrix * view_matrix * model_matrix * vec4(position, 1.0f);
   tex_coord = in_tex_coord;
 }")
@@ -42,6 +43,7 @@ in vec2 tex_coord;
 out vec4 color;
 
 void main(){
+  maybe_call_next_method();
   vec2 strength = texture(texture_image, tex_coord).rg*2-1;
   color = vec4(strength*effect_strength, 0, 1);
 }")
@@ -95,6 +97,7 @@ in vec2 tex_coord;
 out vec4 color;
 
 void main(){
+  maybe_call_next_method();
   vec2 strength = texture(texture_image, vec2(tex_coord.x, tex_coord.y*2+offset)).rg*2-1;
   color = vec4(strength*effect_strength*(1-tex_coord.y), 0, 1);
 }")
@@ -147,6 +150,7 @@ in vec2 tex_coord;
 out vec4 color;
 
 void main(){
+  maybe_call_next_method();
   vec2 displacement = texture(displacement_map, tex_coord).rg;
   vec3 previous = texture(previous_pass, tex_coord+displacement).rgb;
   color = vec4(previous, 1);

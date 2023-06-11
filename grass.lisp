@@ -176,6 +176,7 @@ out vec2 tex_coord;
 out vec2 world_pos;
 
 void main(){
+  maybe_call_next_method();
   int shear_mult = gl_VertexID / 2;
   vec2 pos = position+offset+(shear*shear_mult);
   vec4 wpos = model_matrix * vec4(pos, 0.0f, 1.0f);
@@ -193,6 +194,7 @@ uniform sampler2D tex_image;
 out vec4 color;
 
 void main(){
+  maybe_call_next_method();
   color = texelFetch(tex_image, ivec2(tex_coord), 0);
   color = apply_lighting_flat(color, vec2(0, -5), 0.0, world_pos);
 }")

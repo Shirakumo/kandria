@@ -559,6 +559,7 @@ float voronoise(in vec2 p){
 }
 
 void main(){
+  maybe_call_next_method();
   float inv_visibility = 1-visibility;
   inv_visibility *= inv_visibility;
   vec2 off = world_pos*0.2;

@@ -249,6 +249,7 @@ out vec2 world_pos;
 const int tile_size = 16;
 
 void main(){
+  maybe_call_next_method();
   vec2 vert = (vertex.xy*map_size*tile_size*0.5);
   vec4 temp = model_matrix * vec4(vert, 0, 1);
   gl_Position = projection_matrix * view_matrix * temp;
@@ -269,6 +270,7 @@ in vec2 world_pos;
 out vec4 color;
 
 void main(){
+  maybe_call_next_method();
   // Calculate tilemap index and pixel offset within tile.
   ivec2 pixel_xy = ivec2((pix_uv-floor(pix_uv)) * tile_size);
   ivec2 map_xy = ivec2(pix_uv);
@@ -313,6 +315,7 @@ in vec2 world_pos;
 out vec4 color;
 
 void main(){
+  maybe_call_next_method();
   // Calculate tilemap index and pixel offset within tile.
   ivec2 pixel_xy = ivec2((pix_uv-floor(pix_uv)) * tile_size);
   ivec2 map_xy = ivec2(pix_uv);

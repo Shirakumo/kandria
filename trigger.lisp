@@ -462,6 +462,7 @@ uniform mat4 projection_matrix;
 out vec2 world_pos;
 
 void main(){
+  maybe_call_next_method();
   float phi = stretch.y;
   mat2 rot = mat2(cos(phi), sin(phi), -sin(phi), cos(phi));
   world_pos = offset + rot*(position*vec2(stretch.x, 1));
@@ -474,5 +475,6 @@ out vec4 color;
 in vec2 world_pos;
 
 void main(){
+  maybe_call_next_method();
   color = apply_lighting_flat(color, vec2(0), 0, world_pos) * visibility;
 }")

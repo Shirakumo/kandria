@@ -155,6 +155,7 @@ uniform mat4 view_matrix;
 uniform mat4 projection_matrix;
 
 void main(){
+  maybe_call_next_method();
   vec2 vertex = (model_matrix * vec4(vertex_position, 0, 1)).xy;
   if(gl_VertexID % 2 != 0){
     vec2 direction = normalize(gi.location - vertex);
@@ -168,5 +169,6 @@ void main(){
 uniform float strength = 1.0;
 
 void main(){
+  maybe_call_next_method();
   color = vec4(0.5*strength,0.0,0.0,1.0);
 }")

@@ -116,6 +116,7 @@
   "out vec4 color;
 
 void main(){
+  maybe_call_next_method();
   color = vec4(0.3,0.2,0.05,1);
 }")
 

@@ -334,6 +334,7 @@ Determines the animation used when entering it")))
 out vec4 color;
 
 void main(){
+  maybe_call_next_method();
   color.a *= visibility;
 }")
 

@@ -218,6 +218,7 @@ uniform vec2 offset;
 uniform vec4 color_mask = vec4(1,1,1,1);
 
 void main(){
+  maybe_call_next_method();
   color = texelFetch(texture_image, ivec2(offset+(texcoord*size)), 0);
   color *= color_mask;
 }")

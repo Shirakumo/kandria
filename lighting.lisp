@@ -219,6 +219,7 @@ uniform float gamma = 2.2;
 uniform float exposure = 0.5;
 
 void main(){
+  maybe_call_next_method();
   vec3 mapped = vec3(1.0) - exp((-color.rgb) * exposure);
   color.rgb = pow(mapped, vec3(1.0 / gamma));
 }")
@@ -294,6 +295,7 @@ uniform mat4 model_matrix;
 out vec2 world_pos;
 
 void main(){
+  maybe_call_next_method();
   world_pos = (model_matrix*vec4(position, 1)).xy;
 }")
 
@@ -302,6 +304,7 @@ void main(){
 in vec2 world_pos;
 
 void main(){
+  maybe_call_next_method();
   color = apply_lighting_flat(color, vec2(0, -5), 0, world_pos);
 }")
 
@@ -406,6 +409,7 @@ void main(){
 out vec4 color;
 
 void main(){
+  maybe_call_next_method();
   color *= multiplier;
 }")
 

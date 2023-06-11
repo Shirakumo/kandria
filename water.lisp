@@ -151,6 +151,7 @@ uniform mat4 view_matrix;
 uniform mat4 projection_matrix;
 
 void main(){
+  maybe_call_next_method();
   vec4 _position = model_matrix * vec4(position, 0.0f, 1.0f);
   world_pos = _position.xy;
   gl_Position = projection_matrix * view_matrix * _position;
@@ -163,6 +164,7 @@ out vec4 color;
 in vec2 world_pos;
 
 void main(){
+  maybe_call_next_method();
   vec4 base_color = vec4(0.53, 0.76, 0.99, 0.8);
   base_color.rgb += vec3(clamp((height-0.99)*1000.0,0,1));
   color = apply_lighting_flat(base_color, vec2(0), 1-(height*height*height*height), world_pos);
@@ -181,6 +183,7 @@ out vec4 color;
 in vec2 world_pos;
 
 void main(){
+  maybe_call_next_method();
   color = apply_lighting_flat(vec4(0.08, 0.05, 0.03, 1.0), vec2(0), 1-(height*height*height*height), world_pos);
 }")
 
@@ -232,6 +235,7 @@ uniform sampler2D albedo;
 uniform vec2 bsize;
 
 void main(){
+  maybe_call_next_method();
   vec2 a_size = textureSize(albedo, 0).xy;
   vpos.x = int(position.x+bsize.x);
   vpos.y = bsize.y*sign(position.y) - bsize.y - (16*16);
@@ -245,6 +249,7 @@ in vec2 vpos;
 uniform sampler2D albedo;
 
 void main(){
+  maybe_call_next_method();
   ivec2 texpos = ivec2(vpos);
   // This seems like it should be doable in the vertex shader but it leads to weird squishing? idk wtf.
   texpos.x = texpos.x % 5*16 + 16;
