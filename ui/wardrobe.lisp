@@ -90,7 +90,6 @@ uniform mat4 view_matrix;
 uniform mat4 projection_matrix;
 
 void main(){
-  maybe_call_next_method();
   texcoord = in_texcoord;
   gl_Position = (projection_matrix * (view_matrix * (model_matrix * vec4(position, 1.0))));
 }")
@@ -103,11 +102,11 @@ uniform int palette_index = 0;
 in vec2 texcoord;
 
 void main(){
-  maybe_call_next_method();
   color = texture(texture_image, texcoord);
   if(color.r*color.b == 1 && color.g < 0.1){
     color = texelFetch(palette, ivec2(color.g*255, palette_index), 0);
   }
+  if(color.a == 0) discard;
 }")
 
 (defclass wardrobe (pausing-panel menuing-panel)
