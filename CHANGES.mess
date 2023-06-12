@@ -2,6 +2,14 @@
 These are changes to Kandria that were realised thanks to public feedback.
 A big thanks to everyone for trying it out and reporting problems!
 
+## 1.1.7
+- Fix display of outfits overlapping oddly in the wardrobe
+  Reported by anonymous
+- Fix Kandria to work with the latest version of Trial
+  Reported by monroth
+- Fix petting of critters being able to clip you into walls
+  Reported by Zambito1
+
 ## 1.1.6
 - Fixed a regression that caused several collision volume issues
   Reported by anonymous
