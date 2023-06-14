@@ -9,6 +9,8 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by monroth
 - Fix petting of critters being able to clip you into walls
   Reported by Zambito1
+- Fix save crashing due to API incompatibility for framebuffer capture
+  Reported by eriedaberrie
 
 ## 1.1.6
 - Fixed a regression that caused several collision volume issues
