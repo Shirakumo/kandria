@@ -9,14 +9,7 @@ Either run the setup.lisp file directly, or start SBCL with
   sbcl --dynamic-space-size 4GB"))
 
 #+sbcl
-(let ((v (lisp-implementation-version))
-      (p 0))
-  (flet ((next ()
-           (let ((dot (position #\. v :start p)))
-             (prog1 (parse-integer v :start p :end dot)
-               (setf p (1+ dot))))))
-    (when (or (< (next) 2) (< (next) 2))
-      (error "Your SBCL version is too old. Please update."))))
+(sb-ext:assert-version->= 2 2)
 
 (defpackage #:org.shirakumo.fraf.kandria.fish)
 (defpackage #:org.shirakumo.fraf.kandria.item)
