@@ -93,8 +93,9 @@
   (defmethod ambient ((info gi-info))
     (evaluate-light (slot-value info 'ambient))))
 
-(define-shader-pass lighting-pass (per-object-pass hdr-output-pass)
-  ((gi-a :initform (make-instance 'gi-info) :accessor gi-a)
+(define-shader-pass lighting-pass (per-object-pass)
+  ((color :port-type output :texspec (:internal-format :rgba16f))
+   (gi-a :initform (make-instance 'gi-info) :accessor gi-a)
    (gi-b :initform (make-instance 'gi-info) :accessor gi-b)
    (mix :initform 1.0 :accessor mix)
    (name :initform 'lighting-pass)))
