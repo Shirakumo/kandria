@@ -113,7 +113,7 @@
 
 (define-class-shader (emitter :vertex-shader)
   "layout (location = 0) in vec2 position;
-layout (location = 1) in vec2 uv;
+layout (location = 1) in vec2 in_uv;
 layout (location = 2) in vec2 off;
 layout (location = 3) in float scale;
 layout (location = 4) in vec4 uv_off;
@@ -122,13 +122,13 @@ uniform mat4 view_matrix;
 uniform mat4 projection_matrix;
 
 out vec2 world_pos;
-out vec2 tex_coord;
+out vec2 uv;
 out float alpha;
 
 void main(){
   maybe_call_next_method();
   world_pos = (position*scale) + off;
-  tex_coord = (uv*uv_off.zw)+uv_off.xy;
+  uv = (in_uv*uv_off.zw)+uv_off.xy;
   alpha = a;
   gl_Position = projection_matrix * view_matrix * vec4(world_pos, 0, 1);
 }")
@@ -138,7 +138,7 @@ void main(){
 
 (define-class-shader (thing-emitter :fragment-shader)
   "in vec2 world_pos;
-in vec2 tex_coord;
+in vec2 uv;
 in float alpha;
 uniform sampler2D texture_image;
 
@@ -146,7 +146,7 @@ out vec4 color;
 
 void main(){
   maybe_call_next_method();
-  color = apply_lighting_flat(texture(texture_image, tex_coord)*alpha, vec2(0), 0, world_pos);
+  color = apply_lighting_flat(texture(texture_image, uv)*alpha, vec2(0), 0, world_pos);
 }")
 
 (defun make-tile-uvs (grid count width height &optional (offset 0))
@@ -172,7 +172,7 @@ void main(){
 
 (define-class-shader (light-emitter :fragment-shader)
   "in vec2 world_pos;
-in vec2 tex_coord;
+in vec2 uv;
 in float alpha;
 uniform sampler2D texture_image;
 uniform float multiplier;
@@ -181,7 +181,7 @@ out vec4 color;
 
 void main(){
   maybe_call_next_method();
-  color = texture(texture_image, tex_coord)*alpha*multiplier;
+  color = texture(texture_image, uv)*alpha*multiplier;
 }")
 
 (defun spawn-lights (location tiles &rest initargs)

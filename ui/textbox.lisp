@@ -34,11 +34,11 @@ float rand(vec2 co){
 
 void main(){
   maybe_call_next_method();
-  float rng = rand(texcoord * clock);
+  float rng = rand(uv * clock);
   float gray = rng * color.r + 0.71 * color.g + 0.07 * color.b;
   color.rgb = mix(color.rgb, vec3(gray), fuzz);
 
-  float line = min(1.0, max(0.0, 100.0*(0.25+rng)+sin(texcoord.y*10+clock*0.1)*100.0));
+  float line = min(1.0, max(0.0, 100.0*(0.25+rng)+sin(uv.y*10+clock*0.1)*100.0));
   color.a = mix(color.a, color.a*line, fuzz);
 }")
 

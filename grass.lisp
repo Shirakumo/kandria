@@ -172,7 +172,7 @@ uniform mat4 model_matrix;
 uniform mat4 view_matrix;
 uniform mat4 projection_matrix;
 
-out vec2 tex_coord;
+out vec2 uv;
 out vec2 world_pos;
 
 void main(){
@@ -181,12 +181,12 @@ void main(){
   vec2 pos = position+offset+(shear*shear_mult);
   vec4 wpos = model_matrix * vec4(pos, 0.0f, 1.0f);
   gl_Position = projection_matrix * view_matrix * wpos;
-  tex_coord = position + tex_offset;
+  uv = position + tex_offset;
   world_pos = wpos.xy;
 }")
 
 (define-class-shader (grass-patch :fragment-shader)
-  "in vec2 tex_coord;
+  "in vec2 uv;
 in vec2 world_pos;
 
 uniform sampler2D tex_image;
@@ -195,6 +195,6 @@ out vec4 color;
 
 void main(){
   maybe_call_next_method();
-  color = texelFetch(tex_image, ivec2(tex_coord), 0);
+  color = texelFetch(tex_image, ivec2(uv), 0);
   color = apply_lighting_flat(color, vec2(0, -5), 0.0, world_pos);
 }")

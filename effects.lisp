@@ -67,15 +67,15 @@ uniform vec3 screen_color = vec3(0,0,0);
 uniform sampler2D transition_map;
 uniform sampler2D a_pass;
 uniform sampler2D b_pass;
-in vec2 tex_coord;
+in vec2 uv;
 out vec4 color;
 void main(){
   maybe_call_next_method();
-  vec4 a = texture(a_pass, tex_coord);
-  vec4 b = texture(b_pass, tex_coord);
+  vec4 a = texture(a_pass, uv);
+  vec4 b = texture(b_pass, uv);
   color = mix(a, b, b.a);
 
-  float mask = abs(direction-texture(transition_map, tex_coord).r);
+  float mask = abs(direction-texture(transition_map, uv).r);
   mask = smoothstep(strength, strength+smooth_size, mask*(1-smooth_size)+smooth_size);
   vec4 o = vec4(screen_color, mask);
   color = mix(color, o, o.a);
@@ -109,7 +109,7 @@ void main(){
 uniform sampler2D previous_pass;
 uniform int seed = 0;
 uniform float strength = 0.0;
-in vec2 tex_coord;
+in vec2 uv;
 out vec4 color;
 
 const vec2 num = vec2(40, 26)*1.5;
@@ -128,16 +128,16 @@ float rand(vec2 co){
 void main(){
   maybe_call_next_method();
   float scalar = 1-clamp(strength,0,1);
-  vec2 pos = floor(tex_coord*num);
+  vec2 pos = floor(uv*num);
   int r = int(rand(pos+seed)*glyph_count);
   float val = 1;
   if(scalar*glyph_count < r){
     vec2 idx = vec2(r%glyphs.x, r/glyphs.x);
-    vec2 sub = mod(tex_coord*num, 1);
+    vec2 sub = mod(uv*num, 1);
     val = texelFetch(pixelfont, ivec2((sub+idx)*7), 0).r;
   }
   float scale = clamp(r,scalar*30,glyph_count)*scalar*scalar;
-  pos = floor(tex_coord*num*scale)/scale;
+  pos = floor(uv*num*scale)/scale;
   if(val == 1){
     color = texture(previous_pass, pos/num);
     color = mix(color, vec4(0.2,0.3,0.7,1), clamp(strength*4-3,0,1));
@@ -183,32 +183,32 @@ uniform sampler2D noise_cloud;
 uniform float strength = 1.0;
 uniform float speed = 1.0;
 uniform vec2 focus_center = vec2(0.5,0.5);
-in vec2 tex_coord;
+in vec2 uv;
 out vec4 color;
 
 void main(){
   maybe_call_next_method();
-  vec3 previous = texture(previous_pass, tex_coord).rgb;
+  vec3 previous = texture(previous_pass, uv).rgb;
   if(0 < strength){
     color.a = 1;
     float t = time*3;
     float r = (sin(t)+sin(t*0.3)+sin(t*0.1))*0.1;
     float off = sin(t*0.25)*0.0025*speed*0.1;
-    vec3  n = texture(noise,       (tex_coord+r*vec2(speed, 0.20)+vec2(0, 0.0)+t*vec2(speed*0.4, off))*1.5).rgb;
-    float a = texture(noise_cloud, (tex_coord+r*vec2(speed, 0.20)+vec2(0, 0.0)+t*vec2(speed*0.4, off))*0.3).r;
-    float b = texture(noise_cloud, (tex_coord+r*vec2(speed, 0.20)+vec2(0, 0.5)+t*vec2(speed*0.4, off))*0.2).r;
-    float c = texture(noise_cloud, (tex_coord+r*vec2(speed, 0.20)+vec2(0, 0.3)+t*vec2(speed*0.4, off))*0.1).r;
+    vec3  n = texture(noise,       (uv+r*vec2(speed, 0.20)+vec2(0, 0.0)+t*vec2(speed*0.4, off))*1.5).rgb;
+    float a = texture(noise_cloud, (uv+r*vec2(speed, 0.20)+vec2(0, 0.0)+t*vec2(speed*0.4, off))*0.3).r;
+    float b = texture(noise_cloud, (uv+r*vec2(speed, 0.20)+vec2(0, 0.5)+t*vec2(speed*0.4, off))*0.2).r;
+    float c = texture(noise_cloud, (uv+r*vec2(speed, 0.20)+vec2(0, 0.3)+t*vec2(speed*0.4, off))*0.1).r;
     float s = a*b*c*(length(n)*0.1+0.95)*strength;
     vec3 sand = vec3(0.9, 0.8, 0.7)*(s+0.5)+n/20;
     float mix_factor = clamp(1.3-s*5+strength, 0, 1);
     mix_factor = clamp((mix_factor-0.5)*0.5, -0.5, 0.5)+0.75;
     color.rgb = mix(sand, previous, mix_factor);
 // Focus sphere
-    float cdist = distance(tex_coord,focus_center);
+    float cdist = distance(uv,focus_center);
     cdist = clamp((0.3-cdist)*2.0, 0.0, 1.0);
     color.rgb = mix(color.rgb, previous, cdist);
 // Vignette
-    vec2 d = abs(tex_coord-0.5)-vec2(0.1);
+    vec2 d = abs(uv-0.5)-vec2(0.1);
     float sdf = length(max(d, 0.0)) + min(max(d.x,d.y), 0.0) - 0.2;
     color = mix(color, vec4(0.9,0.8,0.7,1), clamp(sdf*3*strength, 0, 1));
   }else{

@@ -347,7 +347,7 @@ uniform mat4 transform_matrix;
 in vec2 tcUV[];
 in vec3 tcPosition[];
 out vec3 tePosition;
-out vec2 texcoord;
+out vec2 uv;
 out float height;
 
 void main(){
@@ -356,8 +356,8 @@ void main(){
   vec2 u = mix(tcUV[0], tcUV[3], gl_TessCoord.x);
   vec2 v = mix(tcUV[1], tcUV[2], gl_TessCoord.x);
   tePosition = mix(a, b, gl_TessCoord.y);
-  texcoord = mix(u, v, gl_TessCoord.y);
-  height = texture(heightmap, texcoord).r;
+  uv = mix(u, v, gl_TessCoord.y);
+  height = texture(heightmap, uv).r;
   tePosition.y += height;
   gl_Position = transform_matrix * vec4(tePosition, 1);
 }")
@@ -408,7 +408,7 @@ uniform float depth = 1.0;
 uniform float clock = 0.0;
 const vec2 tex_dx = vec2(1.0/128.0, 1.0/128.0);
 
-in vec2 texcoord;
+in vec2 uv;
 out vec4 color;
 
 float rand(vec2 co){
@@ -417,8 +417,8 @@ float rand(vec2 co){
 
 void main(){
   maybe_call_next_method();
-  float x = floor((texcoord.x-1)*300);
-  vec2 offset = texcoord;
+  float x = floor((uv.x-1)*300);
+  vec2 offset = uv;
   color = vec4(0);
   float r = rand(vec2(x,clock/10000.0));
   for(int i=0; i<max_attempts; ++i){

@@ -82,15 +82,15 @@
 (define-class-shader (sprite-preview :vertex-shader)
   "
 layout(location = 0) in vec3 position;
-layout(location = 1) in vec2 in_texcoord;
-out vec2 texcoord;
+layout(location = 1) in vec2 in_uv;
+out vec2 uv;
 
 uniform mat4 model_matrix;
 uniform mat4 view_matrix;
 uniform mat4 projection_matrix;
 
 void main(){
-  texcoord = in_texcoord;
+  uv = in_uv;
   gl_Position = (projection_matrix * (view_matrix * (model_matrix * vec4(position, 1.0))));
 }")
 
@@ -99,10 +99,10 @@ void main(){
 uniform sampler2D texture_image;
 uniform sampler2D palette;
 uniform int palette_index = 0;
-in vec2 texcoord;
+in vec2 uv;
 
 void main(){
-  color = texture(texture_image, texcoord);
+  color = texture(texture_image, uv);
   if(color.r*color.b == 1 && color.g < 0.1){
     color = texelFetch(palette, ivec2(color.g*255, palette_index), 0);
   }

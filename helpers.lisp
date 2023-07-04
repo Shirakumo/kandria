@@ -210,7 +210,7 @@
   (vsetf (bsize sprite) (/ width 2) (/ height 2)))
 
 (define-class-shader (sprite-entity :fragment-shader)
-  "in vec2 texcoord;
+  "in vec2 uv;
 out vec4 color;
 uniform sampler2D texture_image;
 uniform vec2 size;
@@ -219,7 +219,7 @@ uniform vec4 color_mask = vec4(1,1,1,1);
 
 void main(){
   maybe_call_next_method();
-  color = texelFetch(texture_image, ivec2(offset+(texcoord*size)), 0);
+  color = texelFetch(texture_image, ivec2(offset+(uv*size)), 0);
   color *= color_mask;
 }")
 

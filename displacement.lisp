@@ -23,8 +23,8 @@
 
 (define-class-shader (displacer :vertex-shader)
   "layout (location = 0) in vec3 position;
-layout (location = 1) in vec2 in_tex_coord;
-out vec2 tex_coord;
+layout (location = 1) in vec2 in_uv;
+out vec2 uv;
 
 uniform mat4 model_matrix;
 uniform mat4 view_matrix;
@@ -33,18 +33,18 @@ uniform mat4 projection_matrix;
 void main(){
   maybe_call_next_method();
   gl_Position = projection_matrix * view_matrix * model_matrix * vec4(position, 1.0f);
-  tex_coord = in_tex_coord;
+  uv = in_uv;
 }")
 
 (define-class-shader (displacer :fragment-shader)
   "uniform sampler2D texture_image;
 uniform float effect_strength = 1.0;
-in vec2 tex_coord;
+in vec2 uv;
 out vec4 color;
 
 void main(){
   maybe_call_next_method();
-  vec2 strength = texture(texture_image, tex_coord).rg*2-1;
+  vec2 strength = texture(texture_image, uv).rg*2-1;
   color = vec4(strength*effect_strength, 0, 1);
 }")
 
@@ -93,13 +93,13 @@ void main(){
   "uniform sampler2D texture_image;
 uniform float effect_strength = 1.0;
 uniform float offset = 0.0;
-in vec2 tex_coord;
+in vec2 uv;
 out vec4 color;
 
 void main(){
   maybe_call_next_method();
-  vec2 strength = texture(texture_image, vec2(tex_coord.x, tex_coord.y*2+offset)).rg*2-1;
-  color = vec4(strength*effect_strength*(1-tex_coord.y), 0, 1);
+  vec2 strength = texture(texture_image, vec2(uv.x, uv.y*2+offset)).rg*2-1;
+  color = vec4(strength*effect_strength*(1-uv.y), 0, 1);
 }")
 
 (define-shader-entity scanline (displacer transformed)
@@ -146,13 +146,13 @@ void main(){
 (define-class-shader (displacement-pass :fragment-shader)
   "uniform sampler2D previous_pass;
 uniform sampler2D displacement_map;
-in vec2 tex_coord;
+in vec2 uv;
 out vec4 color;
 
 void main(){
   maybe_call_next_method();
-  vec2 displacement = texture(displacement_map, tex_coord).rg;
-  vec3 previous = texture(previous_pass, tex_coord+displacement).rgb;
+  vec2 displacement = texture(displacement_map, uv).rg;
+  vec3 previous = texture(previous_pass, uv+displacement).rgb;
   color = vec4(previous, 1);
 }")
 
