@@ -184,10 +184,10 @@ void main(){
              (s2 (/ s -2)))
         (dotimes (x s)
           (dotimes (y s)
-            (vertex :location (vec (+ x s2 -0.0) 0 (+ y s2 -0.0)) :uv (vec (/ (+ x 0) s) (/ (+ y 0) s)) :normal (vec 0 1 0))
-            (vertex :location (vec (+ x s2 +1.0) 0 (+ y s2 -0.0)) :uv (vec (/ (+ x 1) s) (/ (+ y 0) s)) :normal (vec 0 1 0))
-            (vertex :location (vec (+ x s2 +1.0) 0 (+ y s2 +1.0)) :uv (vec (/ (+ x 1) s) (/ (+ y 1) s)) :normal (vec 0 1 0))
-            (vertex :location (vec (+ x s2 -0.0) 0 (+ y s2 +1.0)) :uv (vec (/ (+ x 0) s) (/ (+ y 1) s)) :normal (vec 0 1 0))))))
+            (vertex :location (vec (+ x s2 -0.0) 0 (+ y s2 -0.0)) :uv (vec (/ (+ x 0) s) (/ (+ y 0) s)) :normal +vy3+)
+            (vertex :location (vec (+ x s2 +1.0) 0 (+ y s2 -0.0)) :uv (vec (/ (+ x 1) s) (/ (+ y 0) s)) :normal +vy3+)
+            (vertex :location (vec (+ x s2 +1.0) 0 (+ y s2 +1.0)) :uv (vec (/ (+ x 1) s) (/ (+ y 1) s)) :normal +vy3+)
+            (vertex :location (vec (+ x s2 -0.0) 0 (+ y s2 +1.0)) :uv (vec (/ (+ x 0) s) (/ (+ y 1) s)) :normal +vy3+)))))
   :vertex-form :patches)
 
 (define-shader-pass wave-propagate-pass (post-effect-pass)
@@ -285,7 +285,7 @@ void main(){
 
 (defmethod handle ((ev resize) (wave wave))
   (let ((mat (mperspective 50 (/ (max 1 (width ev)) (max 1 (height ev))) 1.0 100000.0)))
-    (nmlookat mat (vec 0 50 -200) (vec 0 30 0) (vec 0 1 0))
+    (nmlookat mat (vec 0 50 -200) (vec 0 30 0) +vy3+)
     (nmscale mat (vec 64 1 64))
     (setf (matrix wave) mat)))
 
