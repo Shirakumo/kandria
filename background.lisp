@@ -169,7 +169,7 @@
   (update-background background))
 
 (defmethod handle ((ev tick) (background background))
-  (when (< (mix (struct (// 'kandria 'backgrounds))) 1)
+  (when (< (mix (buffer-data (// 'kandria 'backgrounds))) 1)
     (with-buffer-tx (backgrounds (// 'kandria 'backgrounds))
       (incf (mix backgrounds) (dt ev)))))
 

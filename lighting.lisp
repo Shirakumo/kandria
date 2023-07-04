@@ -198,7 +198,7 @@
 
 (defmethod handle ((ev tick) (pass rendering-pass))
   (when (= 0 (mod (fc ev) 2))
-    (let ((gi (struct (// 'kandria 'gi))))
+    (let ((gi (buffer-data (// 'kandria 'gi))))
       (if (= 1 (active-p gi))
           (let* ((shade (local-shade (flow:other-node pass (first (flow:connections (flow:port pass 'shadow-map))))))
                  (current (local-shade pass)))
