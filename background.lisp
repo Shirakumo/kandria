@@ -174,7 +174,6 @@
       (incf (mix backgrounds) (dt ev)))))
 
 (define-class-shader (background :vertex-shader)
-  (gl-source (asset 'kandria 'backgrounds))
   "layout (location = 0) in vec3 vertex;
 layout (location = 1) in vec2 vertex_uv;
 uniform sampler2D texture_a;
@@ -202,7 +201,6 @@ void main(){
 }")
 
 (define-class-shader (background :fragment-shader)
-  (gl-source (asset 'kandria 'backgrounds))
   "uniform sampler2D texture_a;
 uniform sampler2D texture_b;
 in vec2 map_coord_a;

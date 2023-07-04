@@ -235,7 +235,6 @@ void main(){
 ;;        get lit even when the player is behind them, which is not
 ;;        correct. No idea how to fix that, though.
 (define-class-shader (lit-entity :fragment-shader 100)
-  (gl-source (asset 'kandria 'gi))
   "uniform sampler2D lighting;
 uniform sampler2D shadow_map;
 
