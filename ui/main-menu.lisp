@@ -205,11 +205,16 @@ void main(){
   (stage (previous pass) area)
   (stage (next pass) area))
 
+(defmethod object-renderable-p ((pass wave-propagate-pass) anything) NIL)
+(defmethod object-renderable-p ((renderable renderable) (pass wave-propagate-pass)) NIL)
+
+(defmethod render ((pass wave-propagate-pass) (program shader-program))
+  (call-next-method))
+
 (defmethod render :after ((pass wave-propagate-pass) (program shader-program))
   ;; Swap out the next and previous.
-  (v:with-muffled-logging ()
-    (rotatef (previous pass) (next pass)))
-  (gl:bind-framebuffer :framebuffer (gl-name (framebuffer pass)))
+  (trial:activate (framebuffer pass))
+  (rotatef (gl-name (previous pass)) (gl-name (next pass)))
   (%gl:framebuffer-texture :framebuffer :color-attachment0 (gl-name (next pass)) 0))
 
 (defmethod handle ((ev tick) (pass wave-propagate-pass))
@@ -303,7 +308,7 @@ void main(){
 
 (define-class-shader (wave :vertex-shader)
   "layout (location = 0) in vec3 position;
-layout (location = 1) in vec2 uv;
+layout (location = 2) in vec2 uv;
 
 out vec3 vPosition;
 out vec2 vUV;
@@ -389,7 +394,6 @@ void main(){
          (depth (float (* (expt (- (rem tt 3.0) 1.0) 4.0)
                           (max 0.0 (/ (+ (sin (* PI tt)) (sin (* 13 tt))) 2.0)))
                        0f0)))
-    (gl:clear-color 1 1 1 1)
     (setf (uniform program "clock") (float (/ tt 10) 0f0))
     (setf (uniform program "max_attempts") (1+ (logand #x5 (sxhash (floor (* 3 tt))))))
     (cond ((< (previous-depth logo) depth)
