@@ -131,6 +131,7 @@ void main(){
   (setf (uniform program "projection_matrix") (projection-matrix)))
 
 (defmethod render ((pass displacement-render-pass) target)
+  (trial::activate (framebuffer pass))
   (gl:clear-color 0 0 0 1)
   (gl:clear :color-buffer)
   (gl:blend-func :one :one)
