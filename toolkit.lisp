@@ -228,9 +228,9 @@
 
 (defmacro with-tvec ((v &rest args) &body body)
   `(let ((,v ,(ecase (length args)
-                (2 `(3d-vectors::%vec2 ,(first args) ,(second args)))
-                (3 `(3d-vectors::%vec3 ,(first args) ,(second args) ,(third args)))
-                (4 `(3d-vectors::%vec4 ,(first args) ,(second args) ,(third args) ,(fourth args))))))
+                (2 `(vec2 ,(first args) ,(second args)))
+                (3 `(vec3 ,(first args) ,(second args) ,(third args)))
+                (4 `(vec4 ,(first args) ,(second args) ,(third args) ,(fourth args))))))
      (declare (dynamic-extent ,v))
      ,@body))
 

@@ -4,7 +4,7 @@
 
 (defstruct (bvh-node
             (:include vec4)
-            (:constructor %make-bvh-node (3d-vectors::%vx4 3d-vectors::%vy4 3d-vectors::%vz4 3d-vectors::%vw4 d p l r o))
+            (:constructor %%make-bvh-node (varr4 d p l r o))
             (:copier NIL)
             (:predicate NIL))
   (d 0 :type (unsigned-byte 16))
@@ -12,6 +12,15 @@
   (l NIL :type (or null bvh-node))
   (r NIL :type (or null bvh-node))
   (o NIL :type T))
+
+(declaim (inline %make-bvh-node))
+(defun %make-bvh-node (x y z w d p l r o)
+  (let ((arr (make-array 4 :element-type 'single-float)))
+    (setf (aref arr 0) x)
+    (setf (aref arr 1) y)
+    (setf (aref arr 2) z)
+    (setf (aref arr 3) w)
+    (%%make-bvh-node arr d p l r o)))
 
 (defmethod print-object ((node bvh-node) stream)
   (print-unreadable-object (node stream :type T)
@@ -371,7 +380,7 @@
          (declare (dynamic-extent #',thunk))
          (let ((,regiong ,region))
            (etypecase ,regiong
-             (vec2 (let ((,regiong (3d-vectors::%vec4 (vx2 ,regiong) (vy2 ,regiong) (vx2 ,regiong) (vy2 ,regiong))))
+             (vec2 (let ((,regiong (vec4 (vx2 ,regiong) (vy2 ,regiong) (vx2 ,regiong) (vy2 ,regiong))))
                      (declare (dynamic-extent ,regiong))
                      (call-with-contained #',thunk ,bvh ,regiong)))
              (vec4 (call-with-contained #',thunk ,bvh ,regiong))
