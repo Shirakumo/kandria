@@ -138,6 +138,7 @@
     (create-marker editor)))
 
 (defmethod show :after ((editor editor) &key)
+  (award 'modder)
   (setf (entity editor) +world+)
   (setf (background (unit 'background T)) (background 'editor))
   (update-background (unit 'background T) T)
