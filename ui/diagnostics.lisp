@@ -34,7 +34,7 @@ SWANK:              ~a"
             (lisp-implementation-type) (lisp-implementation-version)
             (machine-type) (machine-version) (floor (nth-value 1 (trial:cpu-room)) (* 1024 1024))
             (setting :debugging :swank))
-    (context-info *context* stream :show-extensions NIL)))
+    (context-info *context* :stream stream :show-extensions NIL)))
 
 (defun runtime-info ()
   (let ((player (unit 'player T)))
