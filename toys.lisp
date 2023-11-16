@@ -71,7 +71,7 @@
    (axis :initform (vec 0 0 1))))
 
 (defmethod apply-transforms progn ((ball ball))
-  (let ((size (v* 2 (bsize ball))))
+  (let ((size (v* (bsize ball) 2)))
     (translate-by (/ (vx size) -2) (/ (vy size) -2) 0)
     (scale (vxy_ size))))
 
@@ -99,11 +99,11 @@
   (let ((vel (velocity ball))
         (normal (hit-normal hit))
         (loc (location ball)))
-    (let ((ref (nv+ (v* 2 normal (v. normal (v- vel))) vel)))
+    (let ((ref (nv+ (v* normal 2 (v. normal (v- vel))) vel)))
       (vsetf vel
              (if (< (abs (vx ref)) 0.2) 0 (vx ref))
              (if (< (abs (vy ref)) 0.2) 0 (* 0.8 (vy ref)))))
-    (nv+ loc (v* 0.1 normal))))
+    (nv+ loc (v* normal 0.1))))
 
 (defmethod collide :after ((ball ball) (block slope) hit)
   (let* ((loc (location ball))
