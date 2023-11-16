@@ -370,17 +370,11 @@ Useful for interiors")
                         for data in (rest layers)
                         collect (make-instance 'layer :size (vcopy size) :location (location chunk) :layer-index i
                                                       :tile-data tile-data :pixel-data data)))))
-    (setf (layers chunk) (coerce layers 'vector))
-    (register-generation-observer chunk tile-data)))
+    (setf (layers chunk) (coerce layers 'vector))))
 
 (defmethod print-object ((chunk chunk) stream)
   (print-unreadable-object (chunk stream :type T)
     (format stream "~s" (name chunk))))
-
-(defmethod observe-generation ((chunk chunk) (data tile-data) result)
-  (compute-shadow-geometry chunk T)
-  (unless (node-graph chunk)
-    (setf (node-graph chunk) (make-node-graph chunk (or *region* (region +world+))))))
 
 (defmethod recompute ((chunk chunk))
   (compute-shadow-geometry chunk T)
@@ -410,12 +404,18 @@ Useful for interiors")
         do (leave layer container)))
 
 (defmethod stage :after ((chunk chunk) (area staging-area))
+  (register-load-observer area chunk (tile-data (aref (layers chunk) 0)))
   (stage (c2mop:class-prototype (c2mop:ensure-finalized (find-class 'bg-layer))) (u 'render))
   (loop for layer across (layers chunk)
         do (stage layer area))
   (when (environment chunk)
     (stage (environment chunk) area))
   (stage (background chunk) area))
+
+(defmethod observe-load-state ((chunk chunk) (data tile-data) (state (eql :loaded)) (area staging-area))
+  (compute-shadow-geometry chunk T)
+  (unless (node-graph chunk)
+    (setf (node-graph chunk) (make-node-graph chunk (or *region* (region +world+))))))
 
 (defmethod clone ((chunk chunk) &rest initargs)
   (apply #'make-instance (class-of chunk)
