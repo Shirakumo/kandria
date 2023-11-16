@@ -5,9 +5,6 @@
 ;; Disable blend extensions because we don't need em
 (setf org.shirakumo.alloy.renderers.opengl::*gl-extensions* '(:none))
 
-;; KLUDGE: No idea why this is necessary to override, but I can't be arsed.
-(defmethod trial:deactivate ((framebuffer framebuffer)))
-
 (defclass ui (org.shirakumo.fraf.trial.alloy:ui
               org.shirakumo.alloy:fixed-scaling-ui
               org.shirakumo.alloy.renderers.simple.presentations:default-look-and-feel)
@@ -270,12 +267,12 @@
 
 (defmethod enter (thing (pass ui-pass)))
 
-(defmethod render :before ((pass ui-pass) target)
-  (gl:enable :depth-test)
-  (gl:clear-color 0 0 0 0))
-
-(defmethod render :after ((pass ui-pass) target)
-  (gl:disable :depth-test))
+(defmethod trial:render :around ((pass ui-pass) target)
+  (gl:clear-color 0 0 0 0)
+  (trial:activate (trial:framebuffer pass))
+  (trial:with-pushed-features
+    (trial:enable-feature :depth-test :stencil-test)
+    (call-next-method)))
 
 (defmethod handle :around ((ev event) (pass ui-pass))
   (unless (call-next-method)
