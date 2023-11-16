@@ -35,7 +35,7 @@
 (defmethod quest:complete :before ((quest quest))
   (when (and (not (eql :complete (quest:status quest)))
              (visible-p quest))
-    (award-experience (unit 'player T) (experience-reward quest))
+    (award-experience (node 'player T) (experience-reward quest))
     (harmony:play (// 'sound 'ui-quest-complete))
     (status :important (@formats 'quest-successfully-completed (quest:title quest)))
     (issue +world+ 'quest-completed :quest quest)))
@@ -124,7 +124,7 @@
 (defmethod quest:activate ((trigger interaction))
   (with-simple-restart (abort "Don't activate the interaction.")
     (when (and +world+ (not (auto-trigger trigger)))
-      (let ((interactable (unit (quest:interactable trigger) +world+)))
+      (let ((interactable (node (quest:interactable trigger) +world+)))
         (if (typep interactable 'interactable)
             (pushnew trigger (interactions interactable))
             (v:severe :kandria.quest "What the fuck? Can't find interaction target ~s, got ~a"
@@ -133,13 +133,13 @@
 (defmethod quest:deactivate :around ((trigger interaction))
   (call-next-method)
   (when +world+
-    (let ((interactable (unit (quest:interactable trigger) +world+)))
+    (let ((interactable (node (quest:interactable trigger) +world+)))
       (when (typep interactable 'interactable)
         (setf (interactions interactable) (remove trigger (interactions interactable)))))))
 
 (defmethod quest:complete ((trigger interaction))
   (when +world+
-    (let ((interactable (unit (quest:interactable trigger) +world+)))
+    (let ((interactable (node (quest:interactable trigger) +world+)))
       (when (and (typep interactable 'interactable)
                  (not (repeatable-p trigger)))
         (setf (interactions interactable) (remove trigger (interactions interactable)))))))
@@ -209,7 +209,7 @@
   (setf (quest:var name *current-task*) value))
 
 (defun global-wrap-lexenv (form)
-  `(let* ((player (unit 'player +world+))
+  `(let* ((player (node 'player +world+))
           (clock (clock +world+)))
      (declare (ignorable player clock))
      (flet ((have (thing &optional (count 1) (inventory player))
@@ -225,7 +225,7 @@
               (when (typep unit 'ai-entity)
                 (setf (ai-state unit) :move-to)))
             (unit (name &optional (container +world+))
-              (unit name container)))
+              (node name container)))
        (declare (ignorable #'have #'item-count #'store #'retrieve #'move-to #'unit))
        ,form)))
 
@@ -308,11 +308,11 @@
                                 ,@initargs
                                 :title ,(format NIL "Wait for ~@(~a~) to ~(~a~)." character animation)
                                 :visible NIL
-                                :condition (not (eql ',animation (name (animation (unit ',character +world+)))))
+                                :condition (not (eql ',animation (name (animation (node ',character +world+)))))
                                 :on-activate (action)
                                 :on-complete ,next
                                 (:action action
-                                         (start-animation ',animation (unit ',character +world+))
+                                         (start-animation ',animation (node ',character +world+))
                                          ,@body)))))
                  (:nearby ((place character) . body)
                           (form-fiddle:with-body-options (body initargs) body
