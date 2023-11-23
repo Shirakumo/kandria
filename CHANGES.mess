@@ -8,10 +8,12 @@ A big thanks to everyone for trying it out and reporting problems!
   This should help with Wayland compatibility on Linux
 - Fix bad input mapping for Wii U Pro controllers on Linux
   Submitted by Calla
-- Fix the modder achievement not being awarded when opening the editor.
+- Fix the modder achievement not being awarded when opening the editor
   Reported by lonelygiraffe7
 - Fix a typo in the item descriptions
   Submitted by Ikko Eltociear Ashimine
+- Fix default button maps not being correct for controllers that report triggers as buttons
+  Reported by Calla
 
 ## 1.1.7
 - Fix display of outfits overlapping oddly in the wardrobe

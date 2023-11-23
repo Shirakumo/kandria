@@ -84,6 +84,7 @@
 
 (trigger climb
  (key :one-of (:left-control))
+ (button :one-of (:l2))
  (axis :one-of (:l2) :threshold 0.25))
 
 (trigger crawl
@@ -134,10 +135,12 @@
 
 (trigger zoom-in
  (key :one-of (:e))
+ (button :one-of (:r2))
  (axis :one-of (:r2) :threshold 0.5))
 
 (trigger zoom-out
  (key :one-of (:q :minus))
+ (button :one-of (:l2))
  (axis :one-of (:l2) :threshold 0.5))
 
 (trigger close-map
