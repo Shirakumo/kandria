@@ -150,7 +150,7 @@
                   (with-open-file (in temp :direction :input :element-type '(unsigned-byte 8))
                     (uiop:copy-stream-to-stream in (depot:to-stream tx) :element-type '(unsigned-byte 8)))))))
           (encode-payload world NIL depot version))
-        (rename-file* tmp (file save-state)))))
+        (rename-file tmp (file save-state)))))
   save-state)
 
 (defmethod load-state ((save-state save-state) world)

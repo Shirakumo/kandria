@@ -233,7 +233,7 @@
              (output (make-pathname :type "tmp" :defaults (input* asset))))
         (with-open-file (stream output :direction :output :if-exists :supersede)
           (write-animation asset stream))
-        (rename-file* output (input* asset))))
+        (rename-file output (input* asset))))
     (alloy:on alloy:activate (load)
       (let ((asset (generator (texture entity))))
         (reload asset)
