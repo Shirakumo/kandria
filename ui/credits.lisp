@@ -121,7 +121,8 @@
 (defmethod from-markless ((element cl-markless-components:image) layout)
   (let* ((renderer (unit 'ui-pass T))
          (image (simple:request-image renderer (pool-path 'kandria (cl-markless-components:target element)))))
-    (allocate image)
+    (unless (allocated-p image)
+      (allocate image))
     (alloy:enter (make-instance 'icon :value image) layout)))
 
 (defmethod from-markless ((element cl-markless-components:parent-component) layout)

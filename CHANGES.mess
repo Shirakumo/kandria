@@ -9,6 +9,9 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by TannerGH
 - Fix fishing causing a crash due to an API incompatibility that wasn't noticed
   Reported by davepdotorg
+- Fix credits causing a crash due to a bad texture load
+  Reported by davepdotorg
+
 ## 1.1.8
 - Upgrade to latest Trial version
 - Upgrade to the latest GLFW
