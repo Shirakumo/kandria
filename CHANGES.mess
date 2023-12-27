@@ -2,6 +2,13 @@
 These are changes to Kandria that were realised thanks to public feedback.
 A big thanks to everyone for trying it out and reporting problems!
 
+## 1.1.9
+- Fix issue with feedback form leading to a crash
+  Reported by TannerGH
+- Fix issue with exiting fullscreen leading to unpredictable and weird window sizes
+  Reported by TannerGH
+- Fix fishing causing a crash due to an API incompatibility that wasn't noticed
+  Reported by davepdotorg
 ## 1.1.8
 - Upgrade to latest Trial version
 - Upgrade to the latest GLFW

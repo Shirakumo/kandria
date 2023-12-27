@@ -632,7 +632,7 @@ void main(){
        (let* ((line (fishing-line player))
               (visible (container line)))
          (when visible
-           (v<- (location line) (hurtbox player))
+           (!vload (location line) (hurtbox player) 'xy)
            ;; FIXME: If camera is near borders, duck small amount. Otherwise, duck full.
            (duck-camera (* 0.2 (- (vx (location (buoy line))) (vx loc)))
                         (+ 32 (- (vy (location (buoy line))) (vy loc)))))
@@ -640,7 +640,7 @@ void main(){
            (fishing-start
             (if (= (frame-idx player) 543)
                 (unless visible
-                  (v<- (location line) (hurtbox player))
+                  (!vload (location line) (hurtbox player) 'xy)
                   (enter line (region +world+))))))
          (case (name (animation player))
            (fishing-loop
