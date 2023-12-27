@@ -15,7 +15,8 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by campbellr
 - Fix rare crash when clicking on a title without a module entry
   Reported by monkey
-  
+- Fix issue with lighting probe assuming a bad framebuffer binding state
+  Reported by TannerGH, davepdotorg, and Jab
 
 ## 1.1.8
 - Upgrade to latest Trial version

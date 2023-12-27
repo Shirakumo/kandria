@@ -134,6 +134,7 @@
     (when (and player (= 0 (fc pass)))
       (let* ((pos (m* (projection-matrix) (view-matrix) (vec (vx (location player)) (+ (vy (location player)) 8) 0 1)))
              (px (nv/ (nv+ pos 1) 2)))
+        (gl:bind-framebuffer :read-framebuffer (gl-name (framebuffer pass)))
         (cffi:with-foreign-object (pixel :uint8)
           (%gl:read-pixels (floor (clamp 0 (* (vx px) (width pass)) (1- (width pass))))
                            (floor (clamp 0 (* (vy px) (height pass)) (1- (height pass))))
