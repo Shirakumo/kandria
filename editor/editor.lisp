@@ -163,7 +163,8 @@
       (setf (visibility entity) 0.0)))
   (when (chunk (unit 'player T))
     (switch-chunk (chunk (unit 'player T))))
-  (snap-to-target (camera +world+) (unit 'player T))
+  (when (unit 'player T)
+    (snap-to-target (camera +world+) (unit 'player T)))
   (issue +world+ 'force-lighting))
 
 (defmethod (setf tool) :around ((tool tool) (editor editor))
