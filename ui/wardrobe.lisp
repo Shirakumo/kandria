@@ -82,7 +82,7 @@
 (define-class-shader (sprite-preview :vertex-shader)
   "
 layout(location = 0) in vec3 position;
-layout(location = 1) in vec2 in_uv;
+layout(location = 2) in vec2 in_uv;
 out vec2 uv;
 
 uniform mat4 model_matrix;
@@ -142,5 +142,3 @@ void main(){
         (setf (alloy:focus focus) :strong)
         (setf (alloy:focus back) :weak)))
     (alloy:finish-structure panel layout focus)))
-
-
