@@ -7,6 +7,8 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Colesl4w
 - Fix wardrobe not displaying correctly due to a vertex binding point regression
   Reported by Nulmas
+- Fix audio bug leading to a crash when reloading a save file in the same session
+  Reported by Mark HJ
 
 ## 1.1.9
 - Fix issue with feedback form leading to a crash
