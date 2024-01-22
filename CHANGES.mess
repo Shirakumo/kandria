@@ -7,6 +7,8 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by Gootch03, EnemyStarship
 - Fix issue where leaving to explore early could leave you stranded due to the first fast travel option not being unlocked early enough
   Reported by spiralll_
+- Fix a crash occurring from a stray UI unit conversion issue
+  Reported by andrewbbaker
 
 ## 1.1.10
 - Fix issue with vector type coercion
