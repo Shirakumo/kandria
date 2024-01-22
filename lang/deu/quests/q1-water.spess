@@ -369,6 +369,7 @@
 | Aber für den Moment bist du frei zu tun, was du willst.
 | (:excited)"Schau dich einfach um, die ganze Welt steht dir offen"(orange)!
 | Bis später, {(nametag player)}!
+! eval (activate (unit 'station-surface))
 
 # main-leak-2/walkntalk
 ~ catherine

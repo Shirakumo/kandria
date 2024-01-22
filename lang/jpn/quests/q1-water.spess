@@ -383,6 +383,8 @@
 | (:normal)でも、今のあなたは自由の身だよ。 それもそう長続きしないだろうから、この時間を無駄にしないようにね。
 | (:excited)"周囲を見回して探索"(orange)してみるといいかも! (:normal)でも、あまりキャンプからは離れすぎないように気を付けること。
 | またね、{(nametag player)}!
+; Activate the surface station early to preempt players going too far and not being able to return easily.
+! eval (activate (unit 'station-surface))
 
 ; "And since I brought her online she's been with me the whole time" - might not be totally true at this point, but Catherine is more than happy to "white lie" for you. It also contradicts an earlier argument she made on the branch where she says you told her you'd killed the Servos - clearly she wasn't with you the whole time then. But Jack is too stupid (or angry) to pick up on that contradiction, and clearly Fi doesn't believe you were at fault too much, otherwise she'd not and let that go nor welcome you into the fold.
 ; The line can't really say "been with me most of the time" either, as critical path players will have been with her the whole time
