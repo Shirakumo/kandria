@@ -221,7 +221,8 @@ Possible sub-commands:
                    (list :context (list :width (first (setting :display :resolution))
                                         :height (second (setting :display :resolution))
                                         :vsync (setting :display :vsync)
-                                        :fullscreen (setting :display :fullscreen)
+                                        :fullscreen (if (setting :display :fullscreen)
+                                                        (setting :display :monitor))
                                         :title "Kandria"
                                         :version '(3 3)
                                         :profile :core))))))

@@ -15,6 +15,7 @@
                                   :music 1.0))
                  :display (:resolution (T T)
                            :fullscreen T
+                           :monitor T
                            :vsync T
                            :target-framerate :none
                            :gamma 2.2
