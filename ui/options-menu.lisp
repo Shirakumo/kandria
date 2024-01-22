@@ -246,6 +246,7 @@
       (control effect-volume (:audio :volume :effect) 'alloy:ranged-slider :range '(0 . 1) :step 0.1)
       (control music-volume (:audio :volume :music) 'alloy:ranged-slider :range '(0 . 1) :step 0.1))
     (with-tab (video-settings :icon "")
+      (control display-used (:display :monitor) 'org.shirakumo.fraf.trial.alloy:monitor)
       (control screen-resolution (:display :resolution) 'org.shirakumo.fraf.trial.alloy:video-mode)
       (control should-application-fullscreen (:display :fullscreen) 'alloy:checkbox)
       (control activate-vsync (:display :vsync) 'alloy:checkbox)

@@ -2,6 +2,10 @@
 These are changes to Kandria that were realised thanks to public feedback.
 A big thanks to everyone for trying it out and reporting problems!
 
+## 1.1.11
+- Add option to explicitly set the display to use in the video options
+  Reported by Gootch03
+
 ## 1.1.10
 - Fix issue with vector type coercion
   Reported by Colesl4w
