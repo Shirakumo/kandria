@@ -229,7 +229,5 @@
   ((:and .x-buy-button-widget-simple-payment-button :before)
    :font-size 5em))
  ((:and .x-buy-button-widget-simple-payment-button :before)
-  :font-family "\"Font Awesome 6 Free\""
-  :font-weight 900
-  :line-height 1
-  :content " "))
+  :font-family "promptfont"
+  :content "🛒"))
