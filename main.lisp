@@ -1,6 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (defclass main (org.shirakumo.fraf.trial.steam:main
+                org.shirakumo.fraf.trial.gog:main
                 #-kandria-release org.shirakumo.fraf.trial.notify:main
                 org.shirakumo.fraf.trial.harmony:settings-main
                 org.shirakumo.fraf.trial:task-runner-main)
@@ -16,7 +17,9 @@
    :context '(:version (3 3) :profile :core :title "Kandria")
    :app-id
    #-kandria-demo 1261430
-   #+kandria-demo 1918910))
+   #+kandria-demo 1918910
+   :gog-client-id "57241758991992155"
+   :gog-client-secret "bc8667469838f79aea8a14936dc669d63c094f67069a38bee22d984ebeba8657"))
 
 (defmethod initialize-instance ((main main) &key app-id world state)
   (declare (ignore app-id))

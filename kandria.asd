@@ -134,6 +134,7 @@
                :trial-alloy
                :trial-harmony
                :trial-steam
+               :trial-gog
                :trial-notify
                :trial-feedback
                :trial-png
