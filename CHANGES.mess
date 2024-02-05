@@ -3,7 +3,7 @@ These are changes to Kandria that were realised thanks to public feedback.
 A big thanks to everyone for trying it out and reporting problems!
 
 ## 1.1.11
-- Add option to explicitly set the display to use in the video options. This fixes the game starting up on the wrong display on Windows. Under linux the issue can persist due to issues in the underlying GLFW library
+- Add option to explicitly set the display to use in the video options, and disambiguate monitor names in case the names are duplicated. This fixes the game starting up on the wrong display on Windows. Under linux the issue can persist due to issues in the underlying GLFW library
   Reported by Gootch03, EnemyStarship
 - Fix issue where leaving to explore early could leave you stranded due to the first fast travel option not being unlocked early enough
   Reported by spiralll_
