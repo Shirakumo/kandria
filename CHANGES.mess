@@ -2,6 +2,10 @@
 These are changes to Kandria that were realised thanks to public feedback.
 A big thanks to everyone for trying it out and reporting problems!
 
+## 1.1.12
+- Fix issue with damage shields and other consumable items causing a crash
+  Reported by hide-
+
 ## 1.1.11
 - Add option to explicitly set the display to use in the video options, and disambiguate monitor names in case the names are duplicated. This fixes the game starting up on the wrong display on Windows. Under linux the issue can persist due to issues in the underlying GLFW library
   Reported by Gootch03, EnemyStarship

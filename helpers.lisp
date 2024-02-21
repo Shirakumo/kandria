@@ -125,6 +125,8 @@
   ((angle :initarg :angle :initform 0f0 :accessor angle
           :type single-float :documentation "The angle the entity is pointing in.")))
 
+(trial::define-transfer rotated-entity angle)
+
 (defmethod initargs append ((_ rotated-entity))
   '(:angle))
 
