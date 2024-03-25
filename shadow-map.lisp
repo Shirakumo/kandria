@@ -66,7 +66,7 @@
 (defmethod compute-shadow-geometry :after (caster (vbo vertex-buffer))
   (when (allocated-p vbo)
     (with-eval-in-render-loop (+world+)
-      (resize-buffer vbo (* 4 (length (buffer-data vbo))) :data (buffer-data vbo)))))
+      (resize-buffer-data vbo (* 4 (length (buffer-data vbo))) :data (buffer-data vbo)))))
 
 (defmethod compute-shadow-geometry :after (caster (geometry shadow-geometry))
   (setf (size (vertex-array geometry))

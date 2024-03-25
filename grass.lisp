@@ -87,7 +87,7 @@ Auto-determined by the size")
                        0.0 0.0
                        (+ (vx tile-start) (* (vx tile-size) (random tile-count))) (vy tile-start)))
         (when (allocated-p (vertex-buffer patch))
-          (resize-buffer (vertex-buffer patch) T))))))
+          (resize-buffer-data (vertex-buffer patch) T))))))
 
 (defmethod handle ((ev switch-chunk) (patch grass-patch))
   (fill (cut-patches patch) 0))

@@ -55,7 +55,7 @@
   (setf (buffer-data (vertex-buffer water)) (make-water-vertex-data (bsize water)))
   (setf (prev water) (copy-seq (buffer-data (vertex-buffer water))))
   (setf (size (vertex-array water)) (/ (length (buffer-data (vertex-buffer water))) 2))
-  (resize-buffer (vertex-buffer water) T))
+  (resize-buffer-data (vertex-buffer water) T))
 
 (defmethod nudge ((water water) pos strength)
   (let ((i (+ (* (floor (- (vx pos) (- (vx (location water)) (vx (bsize water)))) 4) 4) 3))

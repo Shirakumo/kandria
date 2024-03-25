@@ -264,7 +264,7 @@
       (let ((z (tvec 0 0 0)))
         (add (tvec 1 1 1 0.5) z z z z z z z z)))
     (when (gl-name buffer)
-      (resize-buffer buffer (* 4 (length array)) :data array :gl-type :float))
+      (resize-buffer-data buffer (* 4 (length array)) :data array))
     (setf (size vao) (floor (length array) (+ 3 3 4)))))
 
 (defun update-marker (editor)
