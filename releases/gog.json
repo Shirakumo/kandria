@@ -1,0 +1,49 @@
+{
+    "project": {
+        "baseProductId": "1489580449",
+        "clientId": "57241758991992155",
+        "clientSecret": "$SECRET",
+        "version": "$VERSION",
+        "installDirectory": "Kandria",
+        "name": "Kandria",
+        "platform": "$PLATFORM",
+        "tags": [
+            "editor_v_1_4_0"
+        ],
+        "languageMode": "together",
+        "products": [
+            {
+                "name": "Kandria",
+                "productId": "1489580449",
+                "depots": [
+                    {
+                        "name": "root",
+                        "folder": "$CONTENT",
+                        "languages": [
+                            "en-US"
+                        ],
+                        "osBitness": [
+                            "64"
+                        ]
+                    }
+                ],
+                "tasks": [
+                    {
+                        "type": "FileTask",
+                        "name": "Kandria",
+                        "languages": [
+                            "en-US"
+                        ],
+                        "category": "game",
+                        "path": "$EXECUTABLE",
+                        "isPrimary": true,
+                        "osBitness": [
+                            "64"
+                        ]
+                    }
+                ],
+                "supportDepots": []
+            }
+        ]
+    }
+}

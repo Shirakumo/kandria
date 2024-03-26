@@ -34,6 +34,9 @@
                    :windows "kandria:windows-64"))
   :steam (:branch "developer"
           :user "shirakumo_org")
+  :gog (:user "shinmera@tymoon.eu"
+        :password "secure.gog.com"
+        :branch ("Staging" "kCGTLpBC"))
   :upload (:targets #(:steam))
   :bundle (:targets #(:windows :linux))
   :system "kandria")
