@@ -2,6 +2,16 @@
 These are changes to Kandria that were realised thanks to public feedback.
 A big thanks to everyone for trying it out and reporting problems!
 
+## 1.1.14
+- Fix a crash in the editor when trying to present a file open dialog for a directory that doesn't exist
+  Reported by Muppo
+- Fix a crash caused by GLFW being unable to decode the clipboard contents
+  Reported by Sunny
+- Possibly fix a rare problem with handling the login to the modio API through Steam
+  Reported by Witch
+- Fix a crash caused by the OpenGL driver allocating a buffer object with a size that is different from what the engine expects
+  Reported by Bushek, Liam, RJ, mikio, mrguy, spicypants, A_Keick, Cloud, drque
+
 ## 1.1.13
 - Fix general issue with remote requests causing several features to stop working on Windows, such as the mod browser, news listing, and automated crash reports
   Reported by X-Calibar
