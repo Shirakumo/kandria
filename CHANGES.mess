@@ -2,6 +2,17 @@
 These are changes to Kandria that were realised thanks to public feedback.
 A big thanks to everyone for trying it out and reporting problems!
 
+## 1.1.15
+- Fix a crash when a toast is displayed while the map is being closed
+  Reported by aerphanas, delta_zzerty, desmondlulu
+- Fix a crash due to race conditions with the OpenGL context on Windows while the game is shutting down
+  Reported by bryan, RJ, azale, vovin, JoyousCoconut, skymt, Mateusz, nat
+- Fix a crash due to race conditions with windowing events while the game is shutting down
+  Reported by Chris
+- Don't require fontconfig to be present on a target Linux system
+  Reported by julius
+- Improve error reporting when the game crashes to a corrupted or faulty install
+
 ## 1.1.14
 - Fix a crash in the editor when trying to present a file open dialog for a directory that doesn't exist
   Reported by Muppo
