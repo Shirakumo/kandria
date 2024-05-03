@@ -44,6 +44,9 @@
 (defmethod alloy:close ((toast toast))
   (alloy:leave toast T))
 
+(defmethod hide ((toast toast))
+  (alloy:close toast))
+
 (defmethod animation:update :before ((toast toast) dt)
   (when (<= (decf (timer toast) dt) 0.0)
     (alloy:close toast)))
