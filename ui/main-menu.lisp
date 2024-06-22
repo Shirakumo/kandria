@@ -179,15 +179,15 @@ void main(){
 }")
 
 (define-asset (kandria wave-grid) mesh
-    (with-vertex-filling ((make-instance 'vertex-mesh :face-length 4 :vertex-type 'basic-vertex))
+    (with-mesh-construction (v finalize (location uv normal) NIL)
       (let* ((s (/ 512 64))
              (s2 (/ s -2)))
-        (dotimes (x s)
+        (dotimes (x s (finalize-data))
           (dotimes (y s)
-            (vertex :location (vec (+ x s2 -0.0) 0 (+ y s2 -0.0)) :uv (vec (/ (+ x 0) s) (/ (+ y 0) s)) :normal +vy3+)
-            (vertex :location (vec (+ x s2 +1.0) 0 (+ y s2 -0.0)) :uv (vec (/ (+ x 1) s) (/ (+ y 0) s)) :normal +vy3+)
-            (vertex :location (vec (+ x s2 +1.0) 0 (+ y s2 +1.0)) :uv (vec (/ (+ x 1) s) (/ (+ y 1) s)) :normal +vy3+)
-            (vertex :location (vec (+ x s2 -0.0) 0 (+ y s2 +1.0)) :uv (vec (/ (+ x 0) s) (/ (+ y 1) s)) :normal +vy3+)))))
+            (v (+ x s2 -0.0) 0 (+ y s2 -0.0) (/ (+ x 0) s) (/ (+ y 0) s) 0 1 0)
+            (v (+ x s2 +1.0) 0 (+ y s2 -0.0) (/ (+ x 1) s) (/ (+ y 0) s) 0 1 0)
+            (v (+ x s2 +1.0) 0 (+ y s2 +1.0) (/ (+ x 1) s) (/ (+ y 1) s) 0 1 0)
+            (v (+ x s2 -0.0) 0 (+ y s2 +1.0) (/ (+ x 0) s) (/ (+ y 1) s) 0 1 0)))))
   :vertex-form :patches)
 
 (define-shader-pass wave-propagate-pass (post-effect-pass)

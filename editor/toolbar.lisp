@@ -25,9 +25,6 @@
 (defclass tool-button (alloy:radio)
   ())
 
-(defmethod alloy:preferred-size ((button tool-button))
-  (alloy:size 50 20))
-
 (presentations:define-realization (ui tool-button)
   ((:background simple:rectangle)
    (alloy:margins)

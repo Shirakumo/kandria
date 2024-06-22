@@ -59,8 +59,7 @@
 
 (defclass save-button (alloy:direct-value-component)
   ((intent :initarg :intent :initform :new :accessor intent)
-   (texture :initform NIL :accessor texture)
-   (alloy:ideal-size :initform (alloy:size 500 108))))
+   (texture :initform NIL :accessor texture)))
 
 (defmethod initialize-instance :after ((button save-button) &key)
   (setf (texture button)

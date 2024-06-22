@@ -13,7 +13,6 @@
    (game-speed :initform 1.0 :accessor game-speed)
    (changes-saved-p :initform T :accessor changes-saved-p))
   (:default-initargs
-   :clear-color (vec 2/17 2/17 2/17 0)
    :context '(:version (3 3) :profile :core :title "Kandria")
    :app-id
    #-kandria-demo 1261430

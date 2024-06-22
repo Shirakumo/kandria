@@ -195,14 +195,6 @@
                      (if (typep (simple:bounds shape) 'alloy:margins) (simple:bounds shape) (alloy:margins 2)))
         size)))
 
-(defmethod alloy:ideal-size ((element label))
-  (or (call-next-method)
-      (let ((shape (or (presentations:find-shape :label element)
-                       (presentations:find-shape 'label element))))
-        (when shape
-          (alloy:widen (alloy:ideal-size shape)
-                       (if (typep (simple:bounds shape) 'alloy:margins) (simple:bounds shape) (alloy:margins 2)))))))
-
 (defmethod alloy:activate :after ((input alloy:text-input-component))
   (when (and (steam:steamworks-available-p)
              (not (eql :keyboard +input-source+)))

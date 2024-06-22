@@ -96,8 +96,7 @@
   (dot :pattern (if (authenticated-p alloy:value) colors:green colors:red)))
 
 (defclass module-rating-button (alloy:button)
-  ((rating :initarg :rating :accessor rating)
-   (alloy:ideal-size :initform (alloy:size 50 50))))
+  ((rating :initarg :rating :accessor rating)))
 
 (defmethod alloy:activate ((button module-rating-button))
   (handler-case
@@ -437,7 +436,7 @@
          (focus (make-instance 'alloy:focus-list))
          (info (make-instance 'alloy:vertical-linear-layout :cell-margins (alloy:margins 5)
                               :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:black))))
-         (icon (alloy:represent-with 'module-icon preview :value-function 'preview :layout-parent info :ideal-size (alloy:size 400 (/ 400 16/9)) :focus-parent focus))
+         (icon (alloy:represent-with 'module-icon preview :value-function 'preview :layout-parent info :focus-parent focus))
          (title (alloy:represent-with 'module-title preview :value-function 'title :layout-parent info :focus-parent focus))
          (actions (make-instance 'alloy:vertical-linear-layout :cell-margins (alloy:margins 0 5) :min-size (alloy:size 100 30) :layout-parent info))
          (data (make-instance 'alloy:grid-layout :col-sizes '(100 T) :row-sizes '(50) :layout-parent info
@@ -665,10 +664,6 @@
          (filter "")
          (input (alloy:represent filter 'filter-input)))
     (alloy:on alloy:value (value input)
-      (alloy:do-elements (element list)
-        (if (search value (alloy:text element) :test #'char-equal)
-            (setf (alloy:ideal-size element) (alloy:size 100 50))
-            (setf (alloy:ideal-size element) (alloy:size 0 0))))
       (alloy:refit list))
     (alloy:enter list focus :layer 0)
     (alloy:enter input focus :layer 1)
@@ -729,13 +724,12 @@
 (defmethod reset ((panel module-menu))
   (alloy:clear (module-list panel))
   (dolist (module (list-modules :available))
-    (let ((button (make-instance 'module-tab-button :value module :layout-parent (module-list panel) :ideal-size (alloy:size 100 50))))
+    (let ((button (make-instance 'module-tab-button :value module :layout-parent (module-list panel))))
       (alloy:on alloy:activate (button)
         (setf (alloy:object (module-preview panel)) module))))
   (alloy:clear (world-list panel))
   (dolist (world (list-worlds))
-    (let ((button (make-instance 'tab-button :data (make-instance 'alloy:value-data :value (title world)) :layout-parent (world-list panel)
-                                             :ideal-size (alloy:size 100 50))))
+    (let ((button (make-instance 'tab-button :data (make-instance 'alloy:value-data :value (title world)) :layout-parent (world-list panel))))
       (alloy:on alloy:activate (button)
         (setf (alloy:object (world-preview panel)) world)))))
 
