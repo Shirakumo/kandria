@@ -174,8 +174,8 @@
       (incf (mix backgrounds) (dt ev)))))
 
 (define-class-shader (background :vertex-shader)
-  "layout (location = 0) in vec3 vertex;
-layout (location = 2) in vec2 vertex_uv;
+  "layout (location = TRIAL_V_LOCATION) in vec3 vertex;
+layout (location = TRIAL_V_UV) in vec2 vertex_uv;
 uniform sampler2D texture_a;
 uniform sampler2D texture_b;
 uniform mat4 view_matrix;

@@ -307,8 +307,8 @@ void main(){
     (gl:bind-vertex-array 0)))
 
 (define-class-shader (wave :vertex-shader)
-  "layout (location = 0) in vec3 position;
-layout (location = 2) in vec2 uv;
+  "layout (location = TRIAL_V_LOCATION) in vec3 position;
+layout (location = TRIAL_V_UV) in vec2 uv;
 
 out vec3 vPosition;
 out vec2 vUV;

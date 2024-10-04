@@ -289,7 +289,7 @@ vec4 apply_lighting(vec4 color, vec2 offset, float absorption, vec2 normal, vec2
   ())
 
 (define-class-shader (lit-vertex-entity :vertex-shader)
-  "layout (location = 0) in vec3 position;
+  "layout (location = TRIAL_V_LOCATION) in vec3 position;
 
 uniform mat4 model_matrix;
 out vec2 world_pos;

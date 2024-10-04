@@ -148,7 +148,7 @@
   (force-lighting pass))
 
 (define-class-shader (shadow-map-pass :vertex-shader)
-  "layout(location = 0) in vec2 vertex_position;
+  "layout(location = TRIAL_V_LOCATION) in vec2 vertex_position;
 
 uniform mat4 model_matrix;
 uniform mat4 view_matrix;

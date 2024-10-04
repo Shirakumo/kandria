@@ -237,8 +237,8 @@
       (gl:bind-vertex-array 0))))
 
 (define-class-shader (layer :vertex-shader)
-  "layout (location = 0) in vec3 vertex;
-layout (location = 2) in vec2 vertex_uv;
+  "layout (location = TRIAL_V_LOCATION) in vec3 vertex;
+layout (location = TRIAL_V_UV) in vec2 vertex_uv;
 uniform mat4 view_matrix;
 uniform mat4 model_matrix;
 uniform mat4 projection_matrix;

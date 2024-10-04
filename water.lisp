@@ -142,7 +142,7 @@
 (defmethod action ((water water)) 'interact)
 
 (define-class-shader (water :vertex-shader)
-  "layout (location = 0) in vec2 position;
+  "layout (location = TRIAL_V_LOCATION) in vec2 position;
 out float height;
 out vec2 world_pos;
 
@@ -229,7 +229,7 @@ void main(){
   (setf (uniform program "bsize") (bsize magma)))
 
 (define-class-shader (magma :vertex-shader)
-  "layout (location = 0) in vec2 position;
+  "layout (location = TRIAL_V_LOCATION) in vec2 position;
 out vec2 vpos;
 uniform sampler2D albedo;
 uniform vec2 bsize;
