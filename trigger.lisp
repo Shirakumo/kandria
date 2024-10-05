@@ -338,7 +338,8 @@
            (vao (make-instance 'vertex-array :bindings `((,vbo :size 2 :offset 0 :stride 16)
                                                          (,vbo :size 2 :offset 8 :stride 16)
                                                          (,vbo :size 2 :offset 64 :stride 16 :instancing 1)
-                                                         (,vbo :size 2 :offset 72 :stride 16 :instancing 1)))))
+                                                         (,vbo :size 2 :offset 72 :stride 16 :instancing 1))
+                                             :size 4 :vertex-form :triangle-fan)))
       (macrolet ((seta (&rest els)
                    `(progn ,@(loop for i from 0 for el in els
                                    collect `(setf (aref arr ,i) ,(float el))))))
@@ -448,9 +449,7 @@
     (setf (uniform program "view_matrix") *view-matrix*)
     (setf (uniform program "projection_matrix") *projection-matrix*)
     (setf (uniform program "visibility") (clamp 0.0 (active-time wind) 1.0))
-    (let* ((vao (vertex-array wind)))
-      (gl:bind-vertex-array (gl-name vao))
-      (gl:draw-arrays-instanced :triangle-fan 0 4 16))))
+    (render-array (vertex-array wind) :instances 16)))
 
 (define-class-shader (wind :vertex-shader)
   "layout (location = 0) in vec2 position;

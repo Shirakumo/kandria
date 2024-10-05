@@ -85,7 +85,8 @@
                                                        (,vio :size 2 :stride ,(* 11 4) :offset  0 :instancing 1)
                                                        (,vio :size 1 :stride ,(* 11 4) :offset  8 :instancing 1)
                                                        (,vio :size 4 :stride ,(* 11 4) :offset 12 :instancing 1)
-                                                       (,vio :size 1 :stride ,(* 11 4) :offset 28 :instancing 1)))))
+                                                       (,vio :size 1 :stride ,(* 11 4) :offset 28 :instancing 1))
+                                           :size 6)))
     (setf (vio emitter) vio)
     (setf (vertex-array emitter) vao)))
 
@@ -105,11 +106,8 @@
 (defmethod render ((emitter emitter) (program shader-program))
   (setf (uniform program "view_matrix") (view-matrix))
   (setf (uniform program "projection_matrix") (projection-matrix))
-  (gl:active-texture :texture0)
-  (gl:bind-texture :texture-2d (gl-name (texture emitter)))
-  (gl:bind-vertex-array (gl-name (vertex-array emitter)))
-  (%gl:draw-arrays-instanced :triangles 0 6 (amount emitter))
-  (gl:bind-vertex-array 0))
+  (bind (texture emitter) :texture0)
+  (render-array (vertex-array emitter) :instances (amount emitter)))
 
 (define-class-shader (emitter :vertex-shader)
   "layout (location = 0) in vec2 position;

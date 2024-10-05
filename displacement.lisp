@@ -16,10 +16,7 @@
 (defmethod render ((displacer displacer) (program shader-program))
   (setf (uniform program "model_matrix") (model-matrix))
   (setf (uniform program "effect_strength") (strength displacer))
-  (let ((vao (// 'kandria '16x)))
-    (gl:bind-vertex-array (gl-name vao))
-    (%gl:draw-elements (vertex-form vao) (size vao) :unsigned-int 0)
-    (gl:bind-vertex-array 0)))
+  (render (// 'kandria '16x) program))
 
 (define-class-shader (displacer :vertex-shader)
   "layout (location = TRIAL_V_LOCATION) in vec3 position;

@@ -119,14 +119,9 @@
       (setf (uniform program "view_matrix") (minv *view-matrix*))
       (setf (uniform program "texture_a") 0)
       (setf (uniform program "texture_b") 1)
-      (gl:active-texture :texture0)
-      (gl:bind-texture :texture-2d (gl-name (texture-a background)))
-      (gl:active-texture :texture1)
-      (gl:bind-texture :texture-2d (gl-name (texture-b background)))
-      (gl:bind-vertex-array (gl-name vao))
-      (unwind-protect
-           (%gl:draw-elements :triangles (size vao) :unsigned-int 0)
-        (gl:bind-vertex-array 0)))))
+      (bind (texture-a background) :texture0)
+      (bind (texture-b background) :texture1)
+      (render vao program))))
 
 (defun update-background (background &optional force)
   (let ((info (background background)))

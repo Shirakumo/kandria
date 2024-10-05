@@ -193,7 +193,8 @@ void main(){
 (define-shader-entity wave (listener renderable)
   ((wave-pass :initform (make-instance 'wave-propagate-pass :resolution 512) :initarg :wave-pass :accessor wave-pass)
    (vertex-array :initform (// 'kandria 'wave-grid) :accessor vertex-array)
-   (matrix :initform (meye 4) :accessor matrix)))
+   (matrix :initform (meye 4) :accessor matrix)
+   (clock :initform 0.0 :accessor clock)))
 
 (defmethod initialize-instance :after ((wave wave) &key)
   (handle (make-instance 'resize :width (width *context*) :height (height *context*)) wave))
@@ -203,12 +204,15 @@ void main(){
   (stage (vertex-array wave) area))
 
 (defmethod handle ((ev tick) (wave wave))
-  (handle ev (wave-pass wave)))
+  (when (<= (decf (clock wave) (dt ev)) 0.0)
+    (enter (vrand (vec2 0.5) 0.5) (wave-pass wave))
+    (setf (clock wave) (+ 0.1 (random 0.5))))
+  (update (wave-pass wave) (dt ev) (tt ev) (fc ev)))
 
 (defmethod handle ((ev resize) (wave wave))
   (let ((mat (mperspective 50 (/ (max 1 (width ev)) (max 1 (height ev))) 1.0 100000.0)))
-    (nmlookat mat (vec 0 50 -200) (vec 0 30 0) +vy3+)
-    (nmscale mat (vec 64 1 64))
+    (!m* mat mat (mlookat (vec 0 50 -200) (vec 0 30 0) +vy3+))
+    (!m* mat mat (mscaling (vec 64 1 64)))
     (setf (matrix wave) mat)))
 
 (defmethod render ((wave wave) (program shader-program))

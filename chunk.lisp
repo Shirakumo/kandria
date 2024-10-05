@@ -223,18 +223,11 @@
     (setf (uniform program "albedo") 1)
     (setf (uniform program "absorption") 2)
     (setf (uniform program "normal") 3)
-    (gl:active-texture :texture0)
-    (gl:bind-texture :texture-2d (gl-name (tilemap layer)))
-    (gl:active-texture :texture1)
-    (gl:bind-texture :texture-2d (gl-name (albedo layer)))
-    (gl:active-texture :texture2)
-    (gl:bind-texture :texture-2d (gl-name (absorption layer)))
-    (gl:active-texture :texture3)
-    (gl:bind-texture :texture-2d (gl-name (normal layer)))
-    (gl:bind-vertex-array (gl-name (vertex-array layer)))
-    (unwind-protect
-         (%gl:draw-elements :triangles (size (vertex-array layer)) :unsigned-int 0)
-      (gl:bind-vertex-array 0))))
+    (bind (tilemap layer) :texture0)
+    (bind (albedo layer) :texture1)
+    (bind (absorption layer) :texture2)
+    (bind (normal layer) :texture3)
+    (render (vertex-array layer) program)))
 
 (define-class-shader (layer :vertex-shader)
   "layout (location = TRIAL_V_LOCATION) in vec3 vertex;
@@ -298,8 +291,7 @@ void main(){
 
 (defmethod render :before ((layer bg-layer) (program shader-program))
   (setf (uniform program "overlay") 4)
-  (gl:active-texture :texture4)
-  (gl:bind-texture :texture-2d (gl-name (overlay layer))))
+  (bind (overlay layer) :texture4))
 
 (define-class-shader (bg-layer :fragment-shader)
   "
