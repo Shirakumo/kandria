@@ -16,7 +16,7 @@
     (setf (uniform program "dash") (if (dash-exhausted player) 0.0 1.0))))
 
 (define-class-shader (stamina-wheel :vertex-shader)
-  "layout (location = TRIAL_V_LOCATION) in vec2 vertex_uv;
+  "layout (location = TRIAL_V_UV) in vec2 vertex_uv;
 out vec2 uv;
 
 void main(){ 

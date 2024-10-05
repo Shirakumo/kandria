@@ -185,11 +185,12 @@
   (clrhash *modules*))
 
 (defmethod register-module ((defaults (eql T)))
-  (dolist (file (filesystem-utils:list-contents (module-directory)))
-    (with-simple-restart (continue "Ignore the failing module")
-      (handler-case (register-module file)
-        (unsupported-save-file ()
-          (v:warn :kandria.module "Module version ~s is too old, ignoring." file))))))
+  (when (probe-file (module-directory))
+    (dolist (file (filesystem-utils:list-contents (module-directory)))
+      (with-simple-restart (continue "Ignore the failing module")
+        (handler-case (register-module file)
+          (unsupported-save-file ()
+            (v:warn :kandria.module "Module version ~s is too old, ignoring." file)))))))
 
 (defun list-modules (&optional (kind :active))
   (sort (ecase kind

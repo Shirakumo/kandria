@@ -190,91 +190,8 @@ void main(){
             (v (+ x s2 -0.0) 0 (+ y s2 +1.0) (/ (+ x 0) s) (/ (+ y 1) s) 0 1 0)))))
   :vertex-form :patches)
 
-(define-shader-pass wave-propagate-pass (post-effect-pass)
-  ((previous :port-type trial::fixed-input :accessor previous)
-   (next :port-type output :accessor next)
-   (framebuffer :accessor framebuffer)
-   (clock :initform 0.0 :accessor clock)))
-
-(defmethod initialize-instance :after ((pass wave-propagate-pass) &key)
-  (setf (previous pass) (make-instance 'texture :target :texture-2d :internal-format :rg32f :width 512 :height 512))
-  (setf (next pass) (make-instance 'texture :target :texture-2d :internal-format :rg32f :width 512 :height 512))
-  (setf (framebuffer pass) (make-instance 'framebuffer :attachments `((:color-attachment0 ,(next pass))))))
-
-(defmethod stage :after ((pass wave-propagate-pass) (area staging-area))
-  (stage (previous pass) area)
-  (stage (next pass) area))
-
-(defmethod object-renderable-p ((pass wave-propagate-pass) anything) NIL)
-(defmethod object-renderable-p ((renderable renderable) (pass wave-propagate-pass)) NIL)
-
-(defmethod render ((pass wave-propagate-pass) (program shader-program))
-  (call-next-method))
-
-(defmethod render :after ((pass wave-propagate-pass) (program shader-program))
-  ;; Swap out the next and previous.
-  (trial:activate (framebuffer pass))
-  (rotatef (gl-name (previous pass)) (gl-name (next pass)))
-  (%gl:framebuffer-texture :framebuffer :color-attachment0 (gl-name (next pass)) 0))
-
-(defmethod handle ((ev tick) (pass wave-propagate-pass))
-  (when (<= (decf (clock pass) (dt ev)) 0.0)
-    (let ((pos (nv+ (vrandr 0 200) 256)))
-      (enter (vec (vx pos) (vy pos) (1+ (random 3)) (+ 0.5 (random 3.0))) pass))
-    (setf (clock pass) (+ 0.1 (random 0.5))))
-  (render pass (shader-program pass)))
-
-(define-class-shader (wave-propagate-pass :fragment-shader)
-  "uniform sampler2D previous;
-uniform float energy_compensation = 0.28;
-uniform float propagation_speed = 0.46;
-uniform float oscillator_speed = 0.001;
-out vec4 color;
-
-void main(){
-  maybe_call_next_method();
-  ivec2 local = ivec2(gl_FragCoord.xy);
-  vec2 current = texelFetch(previous, local, 0).rg;
-  float previous_height = current.r;
-  current.r += (current.r-current.g);
-  current.g = previous_height;
-  current.r *= 1.0-oscillator_speed;
-  current.r += (current.r-current.g)*energy_compensation;
-  float local_sum = texelFetch(previous, local + ivec2(-1, 0), 0).r
-                  + texelFetch(previous, local + ivec2(+1, 0), 0).r
-                  + texelFetch(previous, local + ivec2(0, -1), 0).r
-                  + texelFetch(previous, local + ivec2(0, +1), 0).r;
-  current.r += (local_sum*0.25-current.r)*propagation_speed*0.5;
-  color = vec4(current.rg,0,1);
-}")
-
-(defmethod enter ((pos vec4) (pass wave-propagate-pass))
-  (let* ((r (round (vz pos)))
-         (a (vw pos))
-         (s (* 2 r))
-         (x (clamp 0 (- (round (vx pos)) r) (- 512 s)))
-         (y (clamp 0 (- (round (vy pos)) r) (- 512 s)))
-         (i -1))
-    (cffi:with-foreign-object (ptr :float (* 2 s s))
-      (dotimes (ix s)
-        (dotimes (iy s)
-          (let ((d (max 0.0 (- 1 (/ (+ (expt (- ix r) 2) (expt (- iy r) 2)) (expt r 2))))))
-            (setf (cffi:mem-aref ptr :float (incf i)) (* d a))
-            (setf (cffi:mem-aref ptr :float (incf i)) 0.0))))
-      (gl:bind-texture :texture-2d (gl-name (previous pass)))
-      (gl:tex-sub-image-2d :texture-2d 0 x y s s :rg :float ptr))))
-
-(defmethod enter ((pos vec2) (pass wave-propagate-pass))
-  (enter (vec (vx pos) (vy pos) 2 2) pass))
-
-(defmethod clear ((pass wave-propagate-pass))
-  (cffi:with-foreign-object (ptr :float 2)
-    (setf (cffi:mem-aref ptr :float 0) 0.0)
-    (setf (cffi:mem-aref ptr :float 1) 0.0)
-    (%gl:clear-tex-image (gl-name (previous pass)) 0 :rg :float ptr)))
-
 (define-shader-entity wave (listener renderable)
-  ((wave-pass :initform (make-instance 'wave-propagate-pass) :initarg :wave-pass :accessor wave-pass)
+  ((wave-pass :initform (make-instance 'wave-propagate-pass :resolution 512) :initarg :wave-pass :accessor wave-pass)
    (vertex-array :initform (// 'kandria 'wave-grid) :accessor vertex-array)
    (matrix :initform (meye 4) :accessor matrix)))
 
@@ -297,7 +214,7 @@ void main(){
 (defmethod render ((wave wave) (program shader-program))
   (handle (make-instance 'resize :width (width *context*) :height (height *context*)) wave)
   (gl:active-texture :texture0)
-  (gl:bind-texture :texture-2d (gl-name (next (wave-pass wave))))
+  (gl:bind-texture :texture-2d (gl-name (color (wave-pass wave))))
   (setf (uniform program "heightmap") 0)
   (setf (uniform program "transform_matrix") (matrix wave))
   (let* ((vao (vertex-array wave)))
