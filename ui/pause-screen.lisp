@@ -15,6 +15,7 @@
 (defmethod handle :after ((ev gain-focus) (world world))
   (hide-panel 'pause-screen world))
 
+#+trial-steam
 (steam:define-callback steam*::game-overlay-activated (result active)
   (v:info :kandria "Steam game overlay ~:[deactivated~;activated~]" (= 1 active))
   (when (should-show-pause-screen (scene +main+))

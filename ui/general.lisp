@@ -195,6 +195,7 @@
                      (if (typep (simple:bounds shape) 'alloy:margins) (simple:bounds shape) (alloy:margins 2)))
         size)))
 
+#+trial-steam
 (defmethod alloy:activate :after ((input alloy:text-input-component))
   (when (and (steam:steamworks-available-p)
              (not (eql :keyboard +input-source+)))
@@ -204,6 +205,7 @@
                                :description (@ enter-name-prompt))
         (v:warn :trial.steam "Failed to open gamepad text input panel..."))))
 
+#+trial-steam
 (defmethod alloy:exit :after ((input alloy:text-input-component))
   (when (and (steam:steamworks-available-p)
              (not (eql :keyboard +input-source+)))

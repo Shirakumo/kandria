@@ -1,24 +1,21 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defclass main (org.shirakumo.fraf.trial.steam:main
-                org.shirakumo.fraf.trial.gog:main
-                #-kandria-release org.shirakumo.fraf.trial.notify:main
+(defclass main (#+trial-steam org.shirakumo.fraf.trial.steam:main
+                #+trial-gog org.shirakumo.fraf.trial.gog:main
+                #+trial-notify org.shirakumo.fraf.trial.notify:main
                 org.shirakumo.fraf.trial.harmony:settings-main
                 org.shirakumo.fraf.trial:task-runner-main)
   ((scene :initform NIL)
    (state :initform NIL :accessor state)
    (timestamp :initform (get-universal-time) :accessor timestamp)
    (loader :initform (make-instance 'load-screen))
-   (org.shirakumo.fraf.trial.steam:use-steaminput :initform NIL)
    (game-speed :initform 1.0 :accessor game-speed)
    (changes-saved-p :initform T :accessor changes-saved-p))
   (:default-initargs
    :context '(:version (3 3) :profile :core :title "Kandria")
-   :app-id
-   #-kandria-demo 1261430
-   #+kandria-demo 1918910
-   :gog-client-id "57241758991992155"
-   :gog-client-secret "bc8667469838f79aea8a14936dc669d63c094f67069a38bee22d984ebeba8657"))
+   #+trial-steam (:app-id 1261430)
+   #+trial-gog (:client-id "57241758991992155"
+                :client-secret "bc8667469838f79aea8a14936dc669d63c094f67069a38bee22d984ebeba8657")))
 
 (defmethod initialize-instance ((main main) &key app-id world state)
   (declare (ignore app-id))

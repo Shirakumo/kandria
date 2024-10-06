@@ -68,8 +68,7 @@
                              (:file "module-v0")))
                (:module "remote"
                 :components ((:file "protocol")
-                             (:file "modio")
-                             (:file "steam")))
+                             (:file "modio")))
                (:module "ui"
                 :components ((:file "general")
                              (:file "components")
@@ -130,12 +129,13 @@
                (:file "deploy"))
   :serial T
   :defsystem-depends-on (:deploy)
-  :depends-on (:trial-glfw
+  :depends-on ((:feature (:not :nx) :trial-glfw)
+               (:feature (:not :nx) :trial-steam)
+               (:feature (:not :nx) :trial-gog)
+               (:feature (:not :release) :trial-notify)
+               (:feature :nx :trial-nxgl)
                :trial-alloy
                :trial-harmony
-               :trial-steam
-               :trial-gog
-               :trial-notify
                :trial-feedback
                :trial-png
                :alloy-constraint

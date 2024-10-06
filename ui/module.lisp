@@ -558,10 +558,12 @@
                 (cond ((null remote-module)
                        (etypecase remote
                          (modio:client (b remote (alloy:represent (@ module-publish-to-modio) 'button)))
+                         #+trial-steam
                          (steam:steamworkshop (b remote (alloy:represent (@ module-publish-to-steam) 'button)))))
                       ((user-authored-p remote remote-module)
                        (etypecase remote
                          (modio:client (b remote (alloy:represent (@ module-update-on-modio) 'button)))
+                         #+trial-steam
                          (steam:steamworkshop (b remote (alloy:represent (@ module-update-on-steam) 'button))))))
                 (when (and remote-module (upstream remote-module))
                   (let ((visit (alloy:represent (@ module-visit-official-page) 'button
@@ -842,6 +844,19 @@
 
 (defmethod begin-authentication-flow ((client modio:client))
   (promise:with-promise (ok)
+    (flet ((auth-generic ()
+             (promise:-> (query* (@ module-modio-login-query-email)
+                                 :placeholder "someone@example.com")
+                         (:then (email)
+                                (query* (or (modio:authenticate/email-request client email)
+                                            (@ module-modio-login-query-email-code))
+                                        :placeholder "----"))
+                         (:then (code)
+                                (modio:authenticate/email-exchange client code)
+                                (message (@ module-login-completed-successfully)))
+                         (:then () (funcall ok))
+                         (:handle () (message (@formats 'error-generic "Failed to log in, an unknown error occurred.")))))))
+    #+trial-steam
     (if (steam:steamworks-available-p)
         (promise:-> (if (setting :modules :modio-agreement-accepted)
                         (promise:pend :success T)
@@ -857,17 +872,8 @@
                    (modio:authenticate/steam client (base64:usb8-array-to-base64-string data) :terms-agreed T)))
           (:then () (funcall ok))
           (:handle () (message (@formats 'error-generic "Failed to log in via Steam, an unknown error occurred."))))
-        (promise:-> (query* (@ module-modio-login-query-email)
-                            :placeholder "someone@example.com")
-          (:then (email)
-                 (query* (or (modio:authenticate/email-request client email)
-                             (@ module-modio-login-query-email-code))
-                         :placeholder "----"))
-          (:then (code)
-                 (modio:authenticate/email-exchange client code)
-                 (message (@ module-login-completed-successfully)))
-          (:then () (funcall ok))
-          (:handle () (message (@formats 'error-generic "Failed to log in, an unknown error occurred.")))))))
+        (auth-generic))
+    #-trial-steam (auth-generic)))
 
 (defmethod show ((module module) &key)
   (let ((panel (cond ((find-panel 'module-menu)
