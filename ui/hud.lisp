@@ -72,7 +72,7 @@
             (alloy:px-size p 1)))
   (:level
    :text alloy:text
-   :pattern (if (<= 10 (- (level alloy:value) (level (unit 'player +world+))))
+   :pattern (if (<= 10 (- (level alloy:value) (level (node 'player +world+))))
                 colors:red colors:white)))
 
 (defclass hud-element ()
@@ -145,7 +145,7 @@
    :valign :middle
    :font (setting :display :font)
    :size (alloy:un 16)
-   :pattern (if (<= 10 (- (level alloy:value) (level (unit 'player +world+))))
+   :pattern (if (<= 10 (- (level alloy:value) (level (node 'player +world+))))
                 colors:red colors:white)
    :markup '((0 100 (:outline 1.0)))))
 
@@ -370,7 +370,7 @@
    (saving :accessor saving)
    (timer :initform NIL :accessor timer)))
 
-(defmethod initialize-instance :after ((hud hud) &key (player (unit 'player T)))
+(defmethod initialize-instance :after ((hud hud) &key (player (node 'player T)))
   (let* ((layout (make-instance 'hud-layout :player player))
          (bar (setf (health hud) (make-instance 'health-bar :value player)))
          (list (setf (lines hud) (make-instance 'alloy:vertical-linear-layout)))

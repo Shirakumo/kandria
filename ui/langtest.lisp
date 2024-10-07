@@ -21,7 +21,7 @@
          (label (alloy:represent (getf *language-lispum* (alloy:value data)) 'alloy:label
                                  :layout-parent layout
                                  :style `((:label :wrap T :valign :top
-                                                  :font ,(simple:request-font (unit 'ui-pass T) "PromptFont")
+                                                  :font ,(simple:request-font (node 'ui-pass T) "PromptFont")
                                                   :size ,(alloy:un 30))))))
     (alloy:on alloy:value (value data)
       (alloy:refresh label))

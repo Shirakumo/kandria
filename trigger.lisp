@@ -132,16 +132,16 @@
            (setf (mixed:volume (// 'sound 'sandstorm)) (/ value 4)))
           (T
            (harmony:stop (// 'sound 'sandstorm))))
-    (setf (strength (unit 'sandstorm T)) value)
-    (setf (velocity (unit 'sandstorm T)) (velocity trigger))))
+    (setf (strength (node 'sandstorm T)) value)
+    (setf (velocity (node 'sandstorm T)) (velocity trigger))))
 
 (defclass dust-trigger (tween-trigger creatable)
   ())
 
 (defmethod (setf value) (value (trigger dust-trigger))
   (let ((value (* 0.3 (max 0.0 (- value 0.01)))))
-    (setf (strength (unit 'sandstorm T)) value)
-    (setf (velocity (unit 'sandstorm T)) 0.05)))
+    (setf (strength (node 'sandstorm T)) value)
+    (setf (velocity (node 'sandstorm T)) 0.05)))
 
 (defclass zoom-trigger (tween-trigger creatable)
   ((easing :initform 'quint-in)))
@@ -190,7 +190,7 @@
   (decf (clock trigger) 0.01)
   (let* ((max 7.0)
          (hmax (/ max 2.0)))
-    (cond ((eql :fishing (state (unit 'player +world+))))
+    (cond ((eql :fishing (state (node 'player +world+))))
           ((<= (clock trigger) (- max))
            (shake-camera :duration 0.0 :intensity 0)
            (setf (clock trigger) (+ (duration trigger) (random 10.0))))
@@ -217,8 +217,8 @@
   (let ((sdf (max (- (abs (- (vx (location player)) (vx (location trigger)))) (vx (bsize trigger)))
                   (- (abs (- (vy (location player)) (vy (location trigger)))) (vy (bsize trigger))))))
     (if (<= sdf -3)
-        (setf (override (unit 'environment +world+)) (resource (track trigger) T))
-        (setf (override (unit 'environment +world+)) NIL))))
+        (setf (override (node 'environment +world+)) (resource (track trigger) T))
+        (setf (override (node 'environment +world+)) NIL))))
 
 (defclass audio-trigger (trigger creatable)
   ((sound :initarg :sound :initform (asset 'sound 'ambience-pebbles-fall) :accessor sound
@@ -277,7 +277,7 @@
              (eql :triggered (active-p prompt))
              (< (time-scale +world+) 1.0))
     ;; KLUDGE: if we're triggered but leave the volume, still show the prompt
-    (let* ((player (unit 'player T))
+    (let* ((player (node 'player T))
            (loc (vec (vx (location prompt))
                      (+ (vy (location player)) (vy (bsize player))))))
       (when (setting :gameplay :display-hud)

@@ -86,7 +86,7 @@
 (defmethod hide :after ((panel quick-menu))
   (setf (time-scale +world+) 1.0))
 
-(defmethod initialize-instance :after ((panel quick-menu) &key (inventory (unit 'player T)))
+(defmethod initialize-instance :after ((panel quick-menu) &key (inventory (node 'player T)))
   (let ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
         (scroll (make-instance 'alloy:clip-view :limit :x))
         (list (make-instance 'item-list))

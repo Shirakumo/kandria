@@ -325,13 +325,13 @@ void main(){
               :on-complete (lambda () ,@body))))
 
 (defun transition-active-p ()
-  (let ((pass (unit 'fade +world+)))
+  (let ((pass (node 'fade +world+)))
     (< 0.00001 (strength pass))))
 
 (defun nearby-p (thing &rest things)
   (flet ((resolve (thing)
            (etypecase thing
-             (symbol (unit thing +world+))
+             (symbol (node thing +world+))
              (entity thing)
              (vec thing)))
          (ensure-sized (x y w2 h2)

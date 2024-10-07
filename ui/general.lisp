@@ -362,12 +362,12 @@
 
 (defun find-panel (panel-type &optional (scene +world+))
   (declare (optimize speed))
-  (loop for panel in (panels (unit 'ui-pass scene))
+  (loop for panel in (panels (node 'ui-pass scene))
         do (when (typep panel panel-type)
              (return panel))))
 
 (define-compiler-macro find-panel (panel-type &optional (scene '+world+))
-  `(loop for panel in (panels (unit 'ui-pass ,scene))
+  `(loop for panel in (panels (node 'ui-pass ,scene))
          do (when (typep panel ,panel-type)
               (return panel))))
 
@@ -384,7 +384,7 @@
 
 (defun hide-panel (panel-type &optional (scene +world+))
   (if (eq T panel-type)
-      (loop for panel = (first (panels (unit 'ui-pass scene)))
+      (loop for panel = (first (panels (node 'ui-pass scene)))
             while panel do (hide panel))
       (let ((panel (find-panel panel-type scene)))
         (when panel
@@ -403,7 +403,7 @@
     ;; First stage and load
     (trial:commit panel (loader +main+) :unload NIL))
   ;; Then attach to the UI
-  (let ((ui (or ui (unit 'ui-pass T))))
+  (let ((ui (or ui (node 'ui-pass T))))
     (when (alloy:focus-element panel)
       (dolist (panel (panels ui))
         (when (active-p panel)
@@ -419,7 +419,7 @@
     panel))
 
 (defmethod hide ((panel panel))
-  (let ((ui (unit 'ui-pass T)))
+  (let ((ui (node 'ui-pass T)))
     (when (slot-boundp (alloy:layout-element panel) 'alloy:layout-parent)
       (alloy:leave panel (alloy:root (alloy:layout-tree ui)))
       (alloy:leave panel (alloy:root (alloy:focus-tree ui)))
@@ -466,10 +466,10 @@
   ())
 
 (defmethod show :after ((panel pausing-panel) &key)
-  (pause-game T (unit 'ui-pass T)))
+  (pause-game T (node 'ui-pass T)))
 
 (defmethod hide :after ((panel pausing-panel))
-  (unpause-game T (unit 'ui-pass T)))
+  (unpause-game T (node 'ui-pass T)))
 
 (defclass messagebox (alloy:dialog alloy:observable)
   ((message :initarg :message :accessor message))
@@ -484,8 +484,8 @@
                    :layout-parent box))
 
 (defun messagebox (message &rest format-args)
-  (alloy:with-unit-parent (unit 'ui-pass T)
-    (let ((box (make-instance 'messagebox :ui (unit 'ui-pass T)
+  (alloy:with-unit-parent (node 'ui-pass T)
+    (let ((box (make-instance 'messagebox :ui (node 'ui-pass T)
                                           :message (apply #'format NIL message format-args)
                                           :extent (alloy:extent (alloy:u- (alloy:vw 0.5) 300)
                                                                 (alloy:u- (alloy:vh 0.5) 200)
@@ -493,7 +493,7 @@
       (alloy:ensure-visible (alloy:layout-element box) T))))
 
 (defun make-basic-background ()
-  (let ((pass (unit 'ui-pass T)))
+  (let ((pass (node 'ui-pass T)))
     (alloy:with-unit-parent pass
       (simple:rectangle pass (alloy:margins) :pattern
                         (simple:image-pattern pass (// 'kandria 'ui-background)
@@ -501,16 +501,16 @@
                                                                    (alloy:u/ (alloy:px 32) (alloy:vh 1))))))))
 
 (define-setting-observer font :display :font ()
-  (when (unit 'ui-pass T)
-    (alloy:refresh (unit 'ui-pass T))))
+  (when (node 'ui-pass T)
+    (alloy:refresh (node 'ui-pass T))))
 
 (define-setting-observer ui-scale :display :ui-scale ()
-  (when (unit 'ui-pass T)
-    (alloy:refresh (unit 'ui-pass T))))
+  (when (node 'ui-pass T)
+    (alloy:refresh (node 'ui-pass T))))
 
 (define-language-change-hook ui ()
-  (when (unit 'ui-pass T)
-    (alloy:refresh (unit 'ui-pass T))))
+  (when (node 'ui-pass T)
+    (alloy:refresh (node 'ui-pass T))))
 
 (defclass ui-task (promise-task)
   ())

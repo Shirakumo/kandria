@@ -68,12 +68,12 @@
 
 (defmethod show :after ((credits credits) &key)
   (harmony:seek (// 'music 'credits) 0)
-  (setf (override (unit 'environment +world+)) (// 'music 'credits)))
+  (setf (override (node 'environment +world+)) (// 'music 'credits)))
 
 (defmethod hide :after ((credits credits))
   (setf (game-speed +main+) 1.0)
-  (when (eql (// 'music 'credits) (override (unit 'environment +world+)))
-    (setf (override (unit 'environment +world+)) NIL))
+  (when (eql (// 'music 'credits) (override (node 'environment +world+)))
+    (setf (override (node 'environment +world+)) NIL))
   (labels ((traverse (node)
              (typecase node
                (alloy:layout
@@ -119,7 +119,7 @@
                layout))
 
 (defmethod from-markless ((element cl-markless-components:image) layout)
-  (let* ((renderer (unit 'ui-pass T))
+  (let* ((renderer (node 'ui-pass T))
          (image (simple:request-image renderer (pool-path 'kandria (cl-markless-components:target element)))))
     (unless (allocated-p image)
       (allocate image))
@@ -156,15 +156,15 @@
     (alloy:finish-structure panel layout layout)))
 
 (defun show-credits (&key (transition T) (state (state +main+)) on-hide)
-  (reset (unit 'environment +world+))
+  (reset (node 'environment +world+))
   (flet ((thunk ()
-           (let ((player (unit 'player +world+)))
+           (let ((player (node 'player +world+)))
              ;; First, hide everything.
              #+kandria-release
              (when (and state player (setting :debugging :send-diagnostics))
-               (submit-trace state (unit 'player +world+)))
+               (submit-trace state (node 'player +world+)))
              (let ((els ()))
-               (alloy:do-elements (el (alloy:popups (alloy:layout-tree (unit 'ui-pass +world+))))
+               (alloy:do-elements (el (alloy:popups (alloy:layout-tree (node 'ui-pass +world+))))
                  (when (typep el 'popup)
                    (push el els)))
                (mapc #'hide els))

@@ -364,10 +364,10 @@ void main(){
   (let* ((camera (camera +world+))
          (tsize (target-size camera))
          (yspread (/ (vy tsize) 1.5)))
-    (setf (lighting (unit 'lighting-pass +world+)) (gi 'one))
-    (setf (override (unit 'environment +world+)) (// 'music 'menu))
+    (setf (lighting (node 'lighting-pass +world+)) (gi 'one))
+    (setf (override (node 'environment +world+)) (// 'music 'menu))
     (trial:commit (make-instance 'star) (loader +main+) :unload NIL)
-    (trial:commit (stage (make-instance 'star) (unit 'render +world+)) (loader +main+) :unload NIL)
+    (trial:commit (stage (make-instance 'star) (node 'render +world+)) (loader +main+) :unload NIL)
     (enter-and-load (make-instance 'fullscreen-background) +world+ +main+)
     (enter-and-load (make-instance 'logo :location (vec 0 80)) +world+ +main+)
     ;; Only enter the wave if we have tesselation available.
@@ -391,18 +391,18 @@ void main(){
             :height (alloy:un 300)))))
 
 (defmethod hide :after ((menu main-menu))
-  (setf (override (unit 'environment +world+)) NIL)
+  (setf (override (node 'environment +world+)) NIL)
   (for:for ((entity over +world+)
             (garbage when (typep entity '(or star fullscreen-background logo wave)) collect entity))
     (returning (dolist (entity garbage) (leave entity T)))))
 
 (defun return-to-main-menu ()
   (let ((state (state +main+))
-        (player (unit 'player +world+))
+        (player (node 'player +world+))
         (pauser (make-instance 'listener)))
     (clear +editor-history+)
     (pause-game +world+ pauser)
-    (reset (unit 'environment +world+))
+    (reset (node 'environment +world+))
     (promise:with-promise (succeed)
       (transition
         :kind :black

@@ -224,7 +224,7 @@ void main(){
   (setf (alloy:index (choices textbox)) 0)
   (when (active-p textbox)
     (setf (alloy:focus (choices textbox)) :strong))
-  (let ((player (unit 'player +world+)))
+  (let ((player (node 'player +world+)))
     (setf (source textbox) (nametag player))
     (setf (trial:sprite-data (profile textbox)) (profile-sprite-data player))
     (setf (animation (profile textbox)) 'normal))
@@ -302,10 +302,10 @@ void main(){
   (setf (scroll-index textbox) 0))
 
 (defmethod handle ((rq dialogue:source-request) (textbox textbox))
-  (let ((unit (unit (dialogue:name rq) T)))
+  (let ((unit (node (dialogue:name rq) T)))
     (cond (unit
            (setf (strength (profile textbox))
-                 (clamp 0.0 (- (vdistance (location unit) (location (unit 'player +world+))) (* 40 +tile-size+)) 1.0))
+                 (clamp 0.0 (- (vdistance (location unit) (location (node 'player +world+))) (* 40 +tile-size+)) 1.0))
            (setf (mixed:speed-factor (harmony:segment 2 (// 'sound 'ui-scroll-dialogue))) (pitch unit))
            (setf (source textbox) (nametag unit))
            (setf (trial:sprite-data (profile textbox)) (profile-sprite-data unit))

@@ -147,7 +147,7 @@
   ())
 
 (defmethod initialize-instance :after ((panel sales-menu) &key shop direction target)
-  (alloy:with-unit-parent (unit 'ui-pass T)
+  (alloy:with-unit-parent (node 'ui-pass T)
     (let* ((layout (make-instance 'eating-constraint-layout
                                   :shapes (list (make-basic-background))))
            (inner (make-instance 'alloy:border-layout))
@@ -155,11 +155,11 @@
            (scroll (alloy:represent-with 'alloy:y-scrollbar clipper))
            (focus (make-instance 'alloy:focus-stack :orientation :horizontal))
            (list (make-instance 'alloy:vertical-linear-layout
-                                :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern (colored:color 0 0 0 0.5)))
+                                :shapes (list (simple:rectangle (node 'ui-pass T) (alloy:margins) :pattern (colored:color 0 0 0 0.5)))
                                 :min-size (alloy:size 100 50)))
            (money (alloy:represent (item-count 'item:parts target) 'money-counter))
            (info (make-instance 'alloy:border-layout :padding (alloy:margins 10)
-                                                     :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern (colored:color 0 0 0 0.5)))))
+                                                     :shapes (list (simple:rectangle (node 'ui-pass T) (alloy:margins) :pattern (colored:color 0 0 0 0.5)))))
            (icon (make-instance 'item-icon :value NIL))
            (description (make-instance 'label :value "" :style `((:label :bounds ,(alloy:margins 10 0) :size ,(alloy:un 14))))))
 
@@ -305,7 +305,7 @@
 
 (defmethod initialize-instance :after ((panel transaction-panel) &key source)
   (let* ((layout (make-instance 'alloy:grid-layout :col-sizes '(150 150) :row-sizes '(40 40 T 40)
-                                                   :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:white))))
+                                                   :shapes (list (simple:rectangle (node 'ui-pass T) (alloy:margins) :pattern colors:white))))
          (focus (make-instance 'alloy:focus-list))
          (count (make-instance 'alloy:value-data :value 1))
          (wheel (make-instance 'item-wheel :data count :range (cons 0 (item-count source T)) :focus-parent focus))
@@ -350,4 +350,4 @@
 (defun show-sales-menu (direction character)
   (let ((shop (ensure-unit character)))
     (restock-shop shop)
-    (show-panel 'sales-menu :shop shop :target (unit 'player T)  :direction direction)))
+    (show-panel 'sales-menu :shop shop :target (node 'player T)  :direction direction)))

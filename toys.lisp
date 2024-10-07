@@ -4,7 +4,7 @@
   ((texture :initform (// 'kandria 'region2 'albedo))))
 
 (defmethod interactable-p ((bench bench))
-  (eql :normal (state (unit 'player +world+))))
+  (eql :normal (state (node 'player +world+))))
 
 (defmethod layer-index ((bench bench))
   (1- +base-layer+))

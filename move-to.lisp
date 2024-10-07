@@ -64,11 +64,11 @@
 (defun node-idx (graph x y)
   (+ x (* y (node-graph-width graph))))
 
-(declaim (inline node))
+(declaim (inline %node))
 (defun %node (graph x y)
   (the list (svref (node-graph-grid graph) (node-idx graph x y))))
 
-(declaim (inline (setf node)))
+(declaim (inline (setf %node)))
 (defun (setf %node) (value graph x y)
   (setf (svref (node-graph-grid graph) (node-idx graph x y)) value))
 
@@ -584,7 +584,7 @@
 (defmethod capable-p :around ((movable movable) (edge rope-node))
   (let ((rope (rope-node-rope edge)))
     (when (typep rope 'symbol)
-      (setf rope (unit rope T)))
+      (setf rope (node rope T)))
     (when (extended rope)
       (call-next-method))))
 
@@ -834,7 +834,7 @@
           (:drop `((drop NIL))))))
 
 (defmethod move (kind (name symbol) &rest args)
-  (apply #'move kind (unit name +world+) args))
+  (apply #'move kind (node name +world+) args))
 
 (defmethod stop ((movable movable))
   (setf (path movable) ()))
@@ -853,7 +853,7 @@
               (setf target (target entity))
               (return)))))
       ;;;; The following is better but way too expensive if the player is far
-      ;; (let* ((path (shortest-path (location (unit 'player +world+)) tloc (constantly T)))
+      ;; (let* ((path (shortest-path (location (node 'player +world+)) tloc (constantly T)))
       ;;        (door (loop for (node target) in path
       ;;                    when (typep node 'door-node)
       ;;                    do (return target))))

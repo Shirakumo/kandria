@@ -158,7 +158,7 @@
 
 (defmethod initialize-instance :after ((panel input-change-panel) &key source)
   (let* ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout
-                                :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:white))))
+                                :shapes (list (simple:rectangle (node 'ui-pass T) (alloy:margins) :pattern colors:white))))
          (bindings (make-instance 'alloy:horizontal-linear-layout :min-size (alloy:size 120 50) :cell-margins (alloy:margins)))
          (focus (make-instance 'alloy:visual-focus-manager))
          (label (make-instance 'popup-label :value (language-string (alloy:value source))))
@@ -214,7 +214,7 @@
   )
 
 (defmethod handle :after ((ev event) (panel input-change-panel))
-  (let ((focused (alloy:focused (unit 'ui-pass T))))
+  (let ((focused (alloy:focused (node 'ui-pass T))))
     (when (typep focused 'input-label)
       (handle ev focused))))
 

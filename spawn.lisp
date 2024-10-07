@@ -120,8 +120,8 @@ Or a list of names of objects to spawn")
 (define-unit-resolver-methods done-p (unit))
 
 (defmethod (setf active-p) :after (state (spawner spawner))
-  (when (and state (unit 'player +world+))
-    (handle-spawn spawner (chunk (unit 'player +world+)))))
+  (when (and state (node 'player +world+))
+    (handle-spawn spawner (chunk (node 'player +world+)))))
 
 (defmethod quest:activate ((spawner spawner))
   (setf (active-p spawner) T))
@@ -178,7 +178,7 @@ Or a list of names of objects to spawn")
   (apply #'spawn (location marker) type initargs))
 
 (defmethod spawn ((name symbol) type &rest initargs &key &allow-other-keys)
-  (apply #'spawn (location (unit name +world+)) type initargs))
+  (apply #'spawn (location (node name +world+)) type initargs))
 
 (defun clear-spawns ()
   (loop for entity being the hash-keys of +spawn-tracker+

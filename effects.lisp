@@ -167,8 +167,8 @@ void main(){
 (defmethod render :before ((pass sandstorm-pass) (program shader-program))
   (setf (uniform program "strength") (strength pass))
   (setf (uniform program "speed") (velocity pass))
-  (when (unit 'player +world+)
-    (let* ((loc (location (unit 'player +world+)))
+  (when (node 'player +world+)
+    (let* ((loc (location (node 'player +world+)))
            (loc (m* (projection-matrix) (view-matrix) (tvec (vx loc) (vy loc) 0 1))))
       (setf (uniform program "focus_center") (tvec (* 0.5 (1+ (vx loc)))
                                                    (* 0.5 (1+ (vy loc)))))))
@@ -218,10 +218,10 @@ void main(){
 
 (define-setting-observer visual-safe-mode :gameplay :visual-safe-mode (value)
   (when value
-    (when (unit 'distortion T)
-      (setf (active-p (unit 'distortion T)) NIL))
-    (when (unit 'sandstorm T)
-      (setf (active-p (unit 'sandstorm T)) NIL))))
+    (when (node 'distortion T)
+      (setf (active-p (node 'distortion T)) NIL))
+    (when (node 'sandstorm T)
+      (setf (active-p (node 'sandstorm T)) NIL))))
 
 (action-list:define-action-list death
   (ease 1.5 (strength (u 'distortion)) :from 0.0 :to 1.0 :ease #'easing-f:out-circ)

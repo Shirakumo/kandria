@@ -82,7 +82,7 @@
   ((list :initform (make-instance 'splits-layout))
    (timer)))
 
-(defmethod initialize-instance :after ((panel splits) &key (player (unit 'player +world+)))
+(defmethod initialize-instance :after ((panel splits) &key (player (node 'player +world+)))
   (when player
     (let ((layout (make-instance 'org.shirakumo.alloy.layouts.constraint:layout))
           (clipper (make-instance 'alloy:clip-view)))
@@ -119,7 +119,7 @@
     (alloy:enter (alloy:represent (slot-value quest 'clock) 'quest-timer :quest quest) (slot-value panel 'list))))
 
 (define-setting-observer show-splits :gameplay :show-splits (value)
-  (when (and +world+ (unit 'player +world+))
+  (when (and +world+ (node 'player +world+))
     (if value
         (show-panel 'splits)
         (hide-panel 'splits))))

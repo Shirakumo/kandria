@@ -72,9 +72,9 @@
   (unless (original-location tool)
     (setf (original-location tool) (vcopy (location (entity editor)))))
   (unless (timeline tool)
-    (setf (timeline tool) (make-instance 'timeline :ui (unit 'ui-pass T) :tool tool :entity (entity editor))))
+    (setf (timeline tool) (make-instance 'timeline :ui (node 'ui-pass T) :tool tool :entity (entity editor))))
   (unless (alloy:layout-tree (hurtbox tool))
-    (alloy:enter (hurtbox tool) (alloy:popups (alloy:layout-tree (unit 'ui-pass T))))))
+    (alloy:enter (hurtbox tool) (alloy:popups (alloy:layout-tree (node 'ui-pass T))))))
 
 (define-handler (animation-editor mouse-press) (pos button)
   (when (eql button :right)

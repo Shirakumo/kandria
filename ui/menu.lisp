@@ -402,7 +402,7 @@
   (let* ((layout (make-instance 'eating-constraint-layout
                                 :shapes (list (make-basic-background))))
          (focus (make-instance 'alloy:focus-list))
-         (clipper (make-instance 'alloy:clip-view :limit :x :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern (colored:color 0 0 0 0.5)))))
+         (clipper (make-instance 'alloy:clip-view :limit :x :shapes (list (simple:rectangle (node 'ui-pass T) (alloy:margins) :pattern (colored:color 0 0 0 0.5)))))
          (scroll (alloy:represent-with 'alloy:y-scrollbar clipper :focus-parent focus))
          (text (make-instance 'lore-text :value (if (setting :gameplay :display-swears)
                                                     (item-lore item)
@@ -478,7 +478,7 @@
 (defmethod (setf alloy:focus) :before (focus (button unlock-button))
   (when (item-unlocked-p (alloy:value button) (inventory button))
     (when (and (eql NIL focus) (alloy:focus button))
-      (alloy:do-elements (el (alloy:popups (alloy:layout-tree (unit 'ui-pass T))))
+      (alloy:do-elements (el (alloy:popups (alloy:layout-tree (node 'ui-pass T))))
         (when (typep el 'prompt)
           (hide el)
           (return))))))
@@ -492,7 +492,7 @@
 (defmethod show :before ((menu menu) &key)
   (harmony:play (// 'sound 'ui-open-menu) :reset T)
   (clear-retained)
-  (hide (unit 'walkntalk T)))
+  (hide (node 'walkntalk T)))
 
 (defmethod show :after ((menu menu) &key)
   (alloy:activate (alloy:focus-element menu)))
@@ -536,7 +536,7 @@
               (map (with-button open-map (show-panel 'map-panel)))
               (buttons (make-instance 'alloy:horizontal-linear-layout :min-size (alloy:size 200 40)))
               (status (make-instance 'alloy:grid-layout :col-sizes '(300 T) :row-sizes '(40) :cell-margins (alloy:margins -10)))
-              (player (unit 'player +world+))
+              (player (node 'player +world+))
               (module (module +world+))
               (long-play-time-limit (* 60 60 4)))
           (flet ((add (label value &rest args)
@@ -567,7 +567,7 @@
               (alloy:enter save buttons)))
           (when module
             (let ((module-bar (make-instance 'alloy:grid-layout :col-sizes '(500 300 T 70 70) :row-sizes '(T)
-                                                                :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:black)))))
+                                                                :shapes (list (simple:rectangle (node 'ui-pass T) (alloy:margins) :pattern colors:black)))))
               (make-instance 'label :value (title module) :layout-parent module-bar)
               (make-instance 'label :value (author module) :layout-parent module-bar)
               (when (ignore-errors (search-module T module))
@@ -599,7 +599,7 @@
                 (alloy:enter widget list)
                 (alloy:enter widget focus))))))
 
-      (let ((inventory (unit 'player T)))
+      (let ((inventory (node 'player T)))
         (with-tab-view ((@ inventory-menu) :icon "")
           (dolist (category '(consumable-item quest-item value-item special-item))
             (with-tab (category 'alloy:border-layout 'vertical-menu-focus-list
@@ -608,7 +608,7 @@
                      (clipper (make-instance 'alloy:clip-view :limit :x :layout-parent layout))
                      (scroll (alloy:represent-with 'alloy:y-scrollbar clipper))
                      (info (make-instance 'alloy:border-layout :padding (alloy:margins 10)
-                                                               :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:extent 0 (alloy:ph 1) (alloy:pw 1) 1) :name :top :pattern colors:white))))
+                                                               :shapes (list (simple:rectangle (node 'ui-pass T) (alloy:extent 0 (alloy:ph 1) (alloy:pw 1) 1) :name :top :pattern colors:white))))
                      (icon (make-instance 'item-icon :value NIL))
                      (description (make-instance 'label :layout-parent info :value ""
                                                         :style `((:label :bounds ,(alloy:margins 5)

@@ -4,7 +4,7 @@
   ((offset :initform (vec 0 0) :accessor offset)
    (state :initform NIL :accessor state)
    (bsize :initform (vec 0 0) :accessor bsize)
-   (zoom :initform (/ 0.125 (alloy:resolution-scale (unit 'ui-pass T))) :accessor zoom)))
+   (zoom :initform (/ 0.125 (alloy:resolution-scale (node 'ui-pass T))) :accessor zoom)))
 
 (animation:define-animation (flash-marker :loop T)
   0 ((setf simple:pattern) colors:gold)
@@ -36,7 +36,7 @@
 (defmethod presentations:realize-renderable ((renderer presentations:renderer) (map map-element))
   (presentations:clear-shapes map)
   (let ((array (make-array 0 :adjustable T :fill-pointer T))
-        (player (unit 'player T))
+        (player (node 'player T))
         (gap 10)
         (fac (alloy:to-px (alloy:un 1))))
     (setf (offset map) (v* (location player) fac))
@@ -192,14 +192,14 @@
 
 (defmethod update-markers ((map map-element))
   (let ((shapes (presentations:shapes map))
-        (renderer (unit 'ui-pass T)))
+        (renderer (node 'ui-pass T)))
     (alloy:with-unit-parent map
       (loop for i from 0
             for shape across shapes
             do (when (eql (car shape) 'marker)
                  (setf (fill-pointer shapes) i)
                  (return)))
-      (dolist (marker (map-markers (unit 'player T)))
+      (dolist (marker (map-markers (node 'player T)))
         (let ((bounds (alloy:extent (- (vx (map-marker-location marker)) 128)
                                     (- (vy (map-marker-location marker)) 128)
                                     256 256)))
@@ -313,7 +313,7 @@
 (defclass map-panel (pausing-panel fullscreen-panel)
   ((show-trace :initform NIL :accessor show-trace)
    (clock :initform 0.2 :accessor clock)
-   (corrupted-p :initform (do-fitting (entity (bvh (region +world+)) (unit 'player T))
+   (corrupted-p :initform (do-fitting (entity (bvh (region +world+)) (node 'player T))
                             (when (typep entity 'map-block-zone) (return T)))
                 :accessor corrupted-p)))
 
@@ -325,21 +325,21 @@
         (alloy:finish-structure panel map map))))
 
 (defmethod show :after ((panel map-panel) &key)
-  (alloy:with-unit-parent (unit 'ui-pass T)
+  (alloy:with-unit-parent (node 'ui-pass T)
     (alloy:enter (make-instance 'reticle :value (if (corrupted-p panel) (@ corrupted-map-reticle) "[ ]"))
-                 (alloy:popups (alloy:layout-tree (unit 'ui-pass T)))
+                 (alloy:popups (alloy:layout-tree (node 'ui-pass T)))
                  :x (alloy:u- (alloy:vw 0.5) (alloy:un 250))
                  :y (alloy:u- (alloy:vh 0.5) (alloy:un 25))
                  :w (alloy:un 500) :h (alloy:un 50))
     (unless (corrupted-p panel)
       (alloy:enter (make-instance 'map-legend)
-                   (alloy:popups (alloy:layout-tree (unit 'ui-pass T)))
+                   (alloy:popups (alloy:layout-tree (node 'ui-pass T)))
                    :x 0 :y 0 :w (alloy:vw 1) :h (alloy:un 60)))))
 
 (defmethod hide :after ((panel map-panel))
   (harmony:stop (// 'sound 'ui-scroll))
   (let ((els ()))
-    (alloy:do-elements (el (alloy:popups (alloy:layout-tree (unit 'ui-pass T))))
+    (alloy:do-elements (el (alloy:popups (alloy:layout-tree (node 'ui-pass T))))
       (push el els))
     (mapc #'hide els)))
 
@@ -430,7 +430,7 @@
                                  (:scroll :complete)
                                  (:complete NIL)))
       (when (find (show-trace panel) '(NIL :complete))
-        (update-player-tick panel (vx (location (unit 'player T))) (vy (location (unit 'player T)))))
+        (update-player-tick panel (vx (location (node 'player T))) (vy (location (node 'player T)))))
       (loop for (name . shape) across (presentations:shapes map)
             do (when (eql name 'trace)
                  (ecase (show-trace panel)
@@ -449,7 +449,7 @@
         (nv+ loc (v/ (v- (pos (source-event ev))
                          (v/ (vec (width *context*) (height *context*)) 2))
                      (* (zoom map) unfac unfac))))
-      (loop for marker in (map-markers (unit 'player T))
+      (loop for marker in (map-markers (node 'player T))
             for mloc = (map-marker-location marker)
             do (when (and (< (vdistance mloc loc) 256)
                           (or (null found) (< (vdistance mloc loc) (vdistance (map-marker-location found) loc))))
@@ -493,7 +493,7 @@
 
 (defmethod initialize-instance :after ((panel marker-menu) &key marker)
   (let* ((layout (make-instance 'alloy:grid-layout :col-sizes '(T T T T T) :row-sizes '(50)
-                                                   :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:white))))
+                                                   :shapes (list (simple:rectangle (node 'ui-pass T) (alloy:margins) :pattern colors:white))))
          (focus (make-instance 'alloy:focus-grid :width 5)))
     (dolist (label '(" " "★" "☠" "♥" "⚑"
                      "🐟" "❓" "❗" "☹" "☺"
@@ -517,14 +517,14 @@
 
 (defmethod hide :after ((panel marker-menu))
   (clear-retained)
-  (let ((markers (map-markers (unit 'player T)))
+  (let ((markers (map-markers (node 'player T)))
         (marker (marker panel)))
     (cond ((string= " " (map-marker-label marker))
-           (setf (map-markers (unit 'player T)) (remove marker markers)))
+           (setf (map-markers (node 'player T)) (remove marker markers)))
           ((find marker markers))
           ((null markers)
            (setf (map-marker-color marker) (first *marker-colors*))
-           (setf (map-markers (unit 'player T)) (list marker)))
+           (setf (map-markers (node 'player T)) (list marker)))
           (T
            (loop for color in *marker-colors*
                  do (unless (loop for marker in markers
@@ -538,4 +538,4 @@
       (update-markers panel))))
 
 (defun show-sales-menu (direction character)
-  (show-panel 'sales-menu :shop (unit character T) :target (unit 'player T)  :direction direction))
+  (show-panel 'sales-menu :shop (node character T) :target (node 'player T)  :direction direction))

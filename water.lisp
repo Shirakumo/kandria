@@ -210,8 +210,8 @@ void main(){
 
 (defmethod stage :after ((magma magma) (area staging-area))
   (stage (emitter magma) area)
-  (stage (emitter magma) (unit 'lighting-pass +world+))
-  (stage (unit 'lighting-pass +world+) area)
+  (stage (emitter magma) (node 'lighting-pass +world+))
+  (stage (node 'lighting-pass +world+) area)
   (stage (// 'kandria 'region3 'albedo) area))
 
 (defmethod enter :after ((magma magma) (container container))

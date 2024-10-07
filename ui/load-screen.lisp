@@ -84,7 +84,7 @@
            (setf (last-time loader) (get-internal-real-time))
            (unless (find-panel 'load-panel)
              (show-panel 'load-panel :loader loader))
-           (stage (unit 'ui-pass +world+) area)
+           (stage (node 'ui-pass +world+) area)
            (with-cleanup-on-failure (abort-commit area)
              (stage object area))
            (apply #'trial:commit area loader args)
@@ -105,7 +105,7 @@
   (when *show-load-screen*
     (let ((prog (if (= so-far total) 100.0 (* 0.1 (floor (* 1000 (/ so-far 14000))))))
           (text (if (cold-boot loader) (@ load-screen-new-game) (@ load-screen-load-game)))
-          (ui (unit 'ui-pass +world+)))
+          (ui (node 'ui-pass +world+)))
       (when (and (/= prog (slot-value loader 'progress))
                  (if (cold-boot loader)
                      (< (* internal-time-units-per-second 1/60) (- (get-internal-real-time) (last-time loader)))

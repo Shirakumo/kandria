@@ -20,7 +20,7 @@
     (alloy:clear layout)
     (alloy:clear focus)
     (populate-toolbar layout focus editor entity)
-    (alloy:register layout (unit 'ui-pass T))))
+    (alloy:register layout (node 'ui-pass T))))
 
 (defclass tool-button (alloy:radio)
   ())

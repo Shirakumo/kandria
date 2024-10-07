@@ -56,8 +56,8 @@
   (alloy:finish-structure panel (make-instance 'alloy:fixed-layout) NIL))
 
 (defmethod show :after ((panel report-panel) &key)
-  (make-instance 'report-dialog :ui (unit 'ui-pass T)))
+  (make-instance 'report-dialog :ui (node 'ui-pass T)))
 
 (defmethod hide :after ((panel report-panel))
-  (alloy:do-elements (el (alloy:popups (alloy:layout-tree (unit 'ui-pass T))))
+  (alloy:do-elements (el (alloy:popups (alloy:layout-tree (node 'ui-pass T))))
     (alloy:leave el T)))

@@ -197,7 +197,7 @@
 (defmethod initialize-instance :after ((prompt quest-indicator) &key target)
   (let* ((target (typecase target
                   (entity target)
-                  (symbol (unit target +world+))
+                  (symbol (node target +world+))
                   (T target))))
     (setf (target prompt) (closest-visible-target target))))
 
@@ -275,7 +275,7 @@
 
 (defmethod show ((prompt quest-indicator) &key target)
   (unless (alloy:layout-tree prompt)
-    (alloy:enter prompt (unit 'ui-pass T) :w 1 :h 1))
+    (alloy:enter prompt (node 'ui-pass T) :w 1 :h 1))
   (when target
     (setf (target prompt) target))
   (alloy:mark-for-render prompt))

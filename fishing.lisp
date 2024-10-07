@@ -59,7 +59,7 @@
              (item (item buoy)))
          (incf (vy vel) (* 0.1 (signum (- (vy line) (vy (location buoy))))))
          (incf (vx vel) (* 0.01 (signum (- (vx line) (vx (location buoy))))))
-         (cond ((< (abs (- (vx (location (unit 'player +world+))) (vx (location buoy)))) 8)
+         (cond ((< (abs (- (vx (location (node 'player +world+))) (vx (location buoy)))) 8)
                 (cond (item
                        (harmony:play (// 'sound 'fishing-fish-caught))
                        (cond ((< (price item) 100)
@@ -69,11 +69,11 @@
                              (T
                               (harmony:play (// 'sound 'fishing-rare-catch))))
                        (setf (state buoy) :show)
-                       (award-experience (unit 'player +world+) (experience-reward item))
-                       (store item (unit 'player +world+))
+                       (award-experience (node 'player +world+) (experience-reward item))
+                       (store item (node 'player +world+))
                        (status (@formats 'fish-caught-successfully (language-string (type-of item)))))
                       (T
-                       (setf (animation (unit 'player +world+)) 'stand)
+                       (setf (animation (node 'player +world+)) 'stand)
                        (leave (fishing-line buoy) T))))
                (item
                 (v<- (location item) (location buoy))
@@ -81,7 +81,7 @@
                     (incf (angle item) (* (- (float (* 1.5 PI) 0f0) (angle item)) (* 10 dt)))
                     (setf (angle item) (float (mod (- (point-angle vel) PI) (* 2 PI)) 0f0)))))))
       (:show
-       (let* ((player (unit 'player +world+))
+       (let* ((player (node 'player +world+))
               (hurtbox (hurtbox player))
               (item (item buoy)))
          (setf (animation player) 'show)

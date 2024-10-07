@@ -1,10 +1,10 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
 (defun should-show-pause-screen (world)
-  (and (unit 'ui-pass world)
+  (and (node 'ui-pass world)
        (not (find-panel 'load-panel world))
        (not (find-panel 'main-menu world))
-       (unit 'environment world)))
+       (node 'environment world)))
 
 (defmethod handle :after ((ev lose-focus) (world world))
   (when (and (setting :gameplay :pause-on-focus-loss)

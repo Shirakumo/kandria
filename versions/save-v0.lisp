@@ -25,7 +25,7 @@
                       :clock (clock world)
                       :timestamp (timestamp world))
                 stream)
-        (princ* (encode (unit 'environment world))
+        (princ* (encode (node 'environment world))
                 stream)))))
 
 (define-decoder (world save-v0) (_b depot)
@@ -45,7 +45,7 @@
             (setf (storyline world) (decode 'quest:storyline))
             (setf (storyline world) (make-instance 'storyline)))))
     (when env-data
-      (decode (unit 'environment world) env-data))))
+      (decode (node 'environment world) env-data))))
 
 (defmethod migrate :before (save (old version) (new version))
   (v:info :kandria.save "Migrating old save file ~a from ~a to ~a" save old new))
@@ -72,7 +72,7 @@
         (princ* (list :clock (clock world)
                       :timestamp (timestamp world))
                 stream)
-        (princ* (encode (unit 'environment world)) stream)
+        (princ* (encode (node 'environment world)) stream)
         (princ* (encode (region world)) stream)))))
 
 (define-decoder (world save-v2) (_b depot)
@@ -96,7 +96,7 @@
               (setf (storyline world) (decode 'quest:storyline))
               (setf (storyline world) (make-instance 'storyline))))
         (when env-data
-          (decode (unit 'environment world) env-data))))))
+          (decode (node 'environment world) env-data))))))
 
 (define-encoder (quest:storyline save-v0) (_b depot)
   (depot:with-open (tx (depot:ensure-entry "storyline.lisp" depot) :output 'character)
@@ -261,7 +261,7 @@
         (recurse region)))
     ;; Update state on ephemeral ones
     (loop for (name . state) in ephemeral
-          for unit = (unit name region)
+          for unit = (node name region)
           do (if unit
                  #-kandria-release
                  (with-simple-restart (continue "Ignore")
@@ -340,12 +340,12 @@
     (handler-case
         (let* ((data (depot:read-from (depot:entry "trace.dat" depot) 'byte))
                (count (nibbles:ub16ref/le data 0)))
-          (trial::with-pointer-to-vector-data (src data)
+          (mem:with-pointer-to-array-data (src data)
             (cffi:incf-pointer src 2)
             (when (< (array-total-size trace) count)
               (adjust-array trace count))
             (setf (fill-pointer trace) count)
-            (trial::with-pointer-to-vector-data (dst trace)
+            (mem:with-pointer-to-array-data (dst trace)
               (static-vectors:replace-foreign-memory dst src (* count 4)))))
       (error (e)
         (v:warn :kandria.save "Failed to restore movement trace: ~a" e)))))
@@ -355,12 +355,12 @@
     (handler-case
         (let* ((data (depot:read-from (depot:entry "trace.dat" depot) 'byte))
                (count (nibbles:ub32ref/le data 0)))
-          (trial::with-pointer-to-vector-data (src data)
+          (mem:with-pointer-to-array-data (src data)
             (cffi:incf-pointer src 4)
             (when (< (array-total-size trace) count)
               (adjust-array trace count))
             (setf (fill-pointer trace) count)
-            (trial::with-pointer-to-vector-data (dst trace)
+            (mem:with-pointer-to-array-data (dst trace)
               (static-vectors:replace-foreign-memory dst src (* count 4)))))
       (error (e)
         (v:warn :kandria.save "Failed to restore movement trace: ~a" e)))))
@@ -421,7 +421,7 @@
     (setf (ai-state npc) ai-state)
     (setf (walk npc) walk)
     (setf (target npc) (when target (decode 'vec2 target)))
-    (setf (companion npc) (when companion (unit companion T)))
+    (setf (companion npc) (when companion (node companion T)))
     (setf (storage npc) (alexandria:alist-hash-table inventory :test 'eq))
     (when nametag
       (setf (nametag npc) nametag))

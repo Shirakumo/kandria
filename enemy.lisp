@@ -194,7 +194,7 @@
 ;;        obscured.
 
 (defmethod handle-ai-states ((enemy wolf) ev)
-  (let* ((player (unit 'player T))
+  (let* ((player (node 'player T))
          (ploc (location player))
          (eloc (location enemy))
          (distance (vlength (v- ploc eloc)))
@@ -289,7 +289,7 @@
     (T 1.0)))
 
 (defmethod handle-ai-states ((enemy zombie) ev)
-  (let* ((player (unit 'player T))
+  (let* ((player (node 'player T))
          (ploc (location player))
          (eloc (location enemy))
          (vel (velocity enemy)))
@@ -384,7 +384,7 @@
   (load-time-value (make-instance 'vacuum)))
 
 (defmethod handle-ai-states ((enemy drone) ev)
-  (let* ((player (unit 'player T))
+  (let* ((player (node 'player T))
          (ploc (location player))
          (eloc (location enemy))
          (vel (velocity enemy))
@@ -470,7 +470,7 @@
     (T (p! walk-limit))))
 
 (defmethod handle-ai-states ((enemy rogue) ev)
-  (let* ((player (unit 'player T))
+  (let* ((player (node 'player T))
          (ploc (location player))
          (eloc (location enemy))
          (vel (velocity enemy)))
@@ -577,7 +577,7 @@
          (:normal
           (setf (ai-state enemy) :active))
          (:active
-          (let* ((player (unit 'player T))
+          (let* ((player (node 'player T))
                  (ploc (location player))
                  (eloc (location enemy))
                  (vel (velocity enemy)))
@@ -646,7 +646,7 @@
           (setf (ai-state enemy) :active)))
        (:active
         (when (<= (cooldown-time enemy) 0.0)
-          (let* ((player (unit 'player +world+))
+          (let* ((player (node 'player +world+))
                  (direction (- (vx (location player)) (vx (location enemy))))
                  (distance (abs direction))
                  (tentative (cond ((< (* 0.25 (maximum-health enemy)) (damage-accumulated enemy)) 'stun)

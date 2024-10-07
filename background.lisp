@@ -8,7 +8,7 @@
 
 (defmethod (setf background) (value (name symbol))
   (when *context*
-    (update-background (unit 'background T)))
+    (update-background (node 'background T)))
   (if value
       (setf (gethash name *background-info*) value)
       (remhash name *background-info*))

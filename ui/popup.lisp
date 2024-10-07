@@ -133,7 +133,7 @@
 
 (defmethod initialize-instance :after ((panel info-panel) &key text on-accept)
   (let* ((layout (make-instance 'alloy:grid-layout :col-sizes '(T) :row-sizes '(T 40)
-                                                   :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:white))))
+                                                   :shapes (list (simple:rectangle (node 'ui-pass T) (alloy:margins) :pattern colors:white))))
          (label (make-instance 'info-label :value text :layout-parent layout))
          (button (alloy:represent (@ dismiss-info-panel) 'popup-button :layout-parent layout)))
     (alloy:on alloy:activate (button)
@@ -152,7 +152,7 @@
 
 (defmethod initialize-instance :after ((panel prompt-panel) &key text (accept (@ accept-prompt-panel)) (cancel (@ dismiss-prompt-panel)) on-accept on-cancel)
   (let* ((layout (make-instance 'alloy:grid-layout :col-sizes '(T) :row-sizes '(T 50)
-                                                   :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:white))))
+                                                   :shapes (list (simple:rectangle (node 'ui-pass T) (alloy:margins) :pattern colors:white))))
          (focus (make-instance 'alloy:focus-list))
          (label (make-instance 'info-label :value text :layout-parent layout))
          (buttons (make-instance 'alloy:grid-layout :col-sizes '(T T) :row-sizes '(T) :layout-parent layout))
@@ -188,7 +188,7 @@
 
 (defmethod initialize-instance :after ((panel query-panel) &key text (value "") (accept (@ accept-prompt-panel)) (cancel (@ dismiss-prompt-panel)) on-accept on-cancel placeholder)
   (let* ((layout (make-instance 'alloy:grid-layout :col-sizes '(T) :row-sizes '(T 50 50)
-                                                   :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:white))))
+                                                   :shapes (list (simple:rectangle (node 'ui-pass T) (alloy:margins) :pattern colors:white))))
          (focus (make-instance 'alloy:focus-list))
          (label (make-instance 'info-label :value text :layout-parent layout))
          (input (make-instance 'popup-line :layout-parent layout :focus-parent focus :placeholder placeholder
@@ -228,7 +228,7 @@
 
 (defmethod initialize-instance :after ((panel spinner-panel) &key)
   (let ((layout (make-instance 'eating-constraint-layout
-                               :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins)
+                               :shapes (list (simple:rectangle (node 'ui-pass T) (alloy:margins)
                                                                :pattern (colored:color 0 0 0 0.5)))))
         (icon (make-instance 'save-icon)))
     (alloy:enter icon layout :constraints `(:center (:size 6 6)))

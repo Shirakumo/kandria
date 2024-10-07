@@ -10,7 +10,7 @@
 (defmethod alloy:accept ((lighting lighting)))
 
 (defmethod initialize-instance :after ((lighting lighting) &key)
-  (let* ((pass (unit 'lighting-pass T))
+  (let* ((pass (node 'lighting-pass T))
          (layout (make-instance 'alloy:vertical-linear-layout :layout-parent lighting))
          (focus (make-instance 'alloy:focus-list :focus-parent lighting))
          (gi NIL)

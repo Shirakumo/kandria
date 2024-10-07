@@ -3,7 +3,7 @@
 (defclass stats-screen (pausing-panel menuing-panel)
   ())
 
-(defmethod initialize-instance :after ((panel stats-screen) &key (player (unit 'player T)) next)
+(defmethod initialize-instance :after ((panel stats-screen) &key (player (node 'player T)) next)
   (let* ((stats (stats player))
          (layout (make-instance 'big-prompt-layout))
          (focus (make-instance 'alloy:focus-list))

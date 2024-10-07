@@ -76,7 +76,7 @@
             for entity = (decode-payload initargs type data world-v0)
             do #-kandria-release
                (when (name entity)
-                 (let ((existing (unit (name entity) region)))
+                 (let ((existing (node (name entity) region)))
                    (when existing
                      (restart-case (error "Duplicate entity on name ~a:~%~a~%~a" (name entity) entity existing)
                        (use-value (value)
@@ -301,7 +301,7 @@
             (4 (push (make-fall-node to) (svref grid i)))
             (5 (push (make-jump-node to (decode 'vec2)) (svref grid i)))
             (6 (let* ((name (decode-payload stream 'symbol depot 'binary-v0))
-                      (unit (or (unit name *region*) (error "No such unit ~a" name))))
+                      (unit (or (node name *region*) (error "No such unit ~a" name))))
                  (push (make-rope-node to unit) (svref grid i))))
             (7 (push (make-inter-door-node to) (svref grid i)))))))))
 

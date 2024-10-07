@@ -7,7 +7,7 @@
               ,@body)
             (,handler (error)
               (v:severe :trial.editor error)
-              (alloy:message (princ-to-string error) :title "Error" :ui (unit 'ui-pass T))
+              (alloy:message (princ-to-string error) :title "Error" :ui (node 'ui-pass T))
               (invoke-restart ',handler)))
        (if (deploy:deployed-p)
            (with-simple-restart (,handler "Exit.")
@@ -110,7 +110,7 @@
                  ("View"
                   ("Zoom In" (incf (alloy:value zoom) 0.1))
                   ("Zoom Out" (decf (alloy:value zoom) 0.1))
-                  ("Center on Player" (v<- (location (camera +world+)) (location (unit 'player T))))
+                  ("Center on Player" (v<- (location (camera +world+)) (location (node 'player T))))
                   ("Fit Map Into View" (edit 'fit-into-view editor))
                   :separator
                   ("Toggle Background" (setf (track-background-p editor) (not (track-background-p editor))))
@@ -140,14 +140,14 @@
 (defmethod show :after ((editor editor) &key)
   (award 'modder)
   (setf (entity editor) +world+)
-  (setf (background (unit 'background T)) (background 'editor))
-  (update-background (unit 'background T) T)
+  (setf (background (node 'background T)) (background 'editor))
+  (update-background (node 'background T) T)
   (setf (zoom (camera +world+)) (expt 0.8 5))
   (for:for ((entity over (region +world+)))
     (when (and (typep entity 'chunk)
                (null (show-solids entity)))
       (setf (visibility entity) 0.3)))
-  (reset (unit 'lighting-pass T)))
+  (reset (node 'lighting-pass T)))
 
 (defmethod hide :after ((editor editor))
   (when (edited-entities editor)
@@ -161,10 +161,10 @@
     (when (and (typep entity 'chunk)
                (null (show-solids entity)))
       (setf (visibility entity) 0.0)))
-  (when (chunk (unit 'player T))
-    (switch-chunk (chunk (unit 'player T))))
-  (when (unit 'player T)
-    (snap-to-target (camera +world+) (unit 'player T)))
+  (when (chunk (node 'player T))
+    (switch-chunk (chunk (node 'player T))))
+  (when (node 'player T)
+    (snap-to-target (camera +world+) (node 'player T)))
   (issue +world+ 'force-lighting))
 
 (defmethod (setf tool) :around ((tool tool) (editor editor))
@@ -194,8 +194,8 @@
 
 (defmethod (setf track-background-p) :after (value (editor editor))
   (unless value
-    (setf (background (unit 'background T)) (background 'editor))
-    (update-background (unit 'background T) T)))
+    (setf (background (node 'background T)) (background 'editor))
+    (update-background (node 'background T) T)))
 
 (defmethod undo ((editor editor) region)
   (undo (history editor) region))
@@ -204,7 +204,7 @@
   (redo (history editor) region))
 
 (defmethod stage :after ((editor editor) (area staging-area))
-  (stage (simple:request-font (unit 'ui-pass T) "Brands") area)
+  (stage (simple:request-font (node 'ui-pass T) "Brands") area)
   (stage (background 'editor) area)
   (stage (marker editor) area))
 
@@ -329,13 +329,13 @@
 
 (defmethod handle :around ((ev event) (editor editor))
   (when (typep ev 'tick)
-    (handle ev (unit 'render T))
+    (handle ev (node 'render T))
     (setf (last-tick editor) (fc ev))
     (when (track-background-p editor)
       (do-fitting (entity (bvh (region +world+)) (in-view-tester (camera +world+)))
         (when (typep entity 'chunk)
-          (setf (background (unit 'background T)) (background entity))
-          (update-background (unit 'background T) T)))))
+          (setf (background (node 'background T)) (background entity))
+          (update-background (node 'background T) T)))))
   (unless (call-next-method)
     (with-editor-error-handling
       (handle ev (cond ((retained :alt) (alt-tool editor))
@@ -385,7 +385,7 @@
                  (edit 'save-world-as editor)
                  (edit 'save-world editor))))
       (#\t (edit 'toggle-lighting editor))
-      (#\u (setf (entity editor) (unit 'player T)))
+      (#\u (setf (entity editor) (node 'player T)))
       (#\y (edit 'redo editor))
       (#\z (edit 'undo editor)))))
 
@@ -435,11 +435,11 @@
       (enter region +world+)
       (setf (entity editor) +world+)
       (trial:commit +world+ +main+ :unload NIL)
-      (setf (background (unit 'background region)) (background 'editor))
+      (setf (background (node 'background region)) (background 'editor))
       (reset +world+)
       (reset (camera +world+))
-      (setf (target (camera +world+)) (unit 'player region))
-      (update-background (unit 'background region) T)
+      (setf (target (camera +world+)) (node 'player region))
+      (update-background (node 'background region) T)
       (setf (changes-saved-p +main+) T)
       (show-cursor *context*))))
 
@@ -500,7 +500,7 @@
          (container (container entity)))
     (cond ((typep entity '(or player world region camera))
            (v:warn :kandria.editor "Refusing to delete ~a" entity)
-           (alloy:message (format NIL "Cannot delete the ~a" (type-of entity)) :title "Error" :ui (unit 'ui-pass T)))
+           (alloy:message (format NIL "Cannot delete the ~a" (type-of entity)) :title "Error" :ui (node 'ui-pass T)))
           (T
            ;; FIXME: Clean up stale data files from region packet
            ;;        Should probably do that as an explicit command to invoke at some point.
@@ -512,22 +512,22 @@
               (setf (entity editor) entity)))))))
 
 (defmethod edit ((action (eql 'select-entity)) (editor editor))
-  (make-instance 'selector :ui (unit 'ui-pass T)))
+  (make-instance 'selector :ui (node 'ui-pass T)))
 
 (defmethod edit ((action (eql 'insert-entity)) (editor editor))
-  (make-instance 'creator :ui (unit 'ui-pass T)))
+  (make-instance 'creator :ui (node 'ui-pass T)))
 
 (defmethod edit ((action (eql 'clone-entity)) (editor editor))
   (let ((entity (entity editor)))
     (cond ((typep entity '(or player world region camera))
            (v:warn :kandria.editor "Refusing to clone.")
-           (alloy:message (format NIL "Cannot clone the ~a" (type-of entity)) :title "Error" :ui (unit 'ui-pass T)))
+           (alloy:message (format NIL "Cannot clone the ~a" (type-of entity)) :title "Error" :ui (node 'ui-pass T)))
           (T
            (let ((loc (vcopy (closest-acceptable-location entity (location (camera +world+))))))
              (edit (make-instance 'insert-entity :entity (clone entity :location loc)) editor))))))
 
 (defmethod edit ((action (eql 'show-history)) (editor editor))
-  (make-instance 'history-dialog :ui (unit 'ui-pass T) :history (history editor)))
+  (make-instance 'history-dialog :ui (node 'ui-pass T) :history (history editor)))
 
 (defmethod edit ((action (eql 'undo)) (editor editor))
   (undo editor T)
@@ -541,11 +541,11 @@
   (let* ((entity (if (and (typep (entity editor) 'located-entity)
                           (not (retained :control)))
                      (entity editor)
-                     (unit 'player T)))
+                     (node 'player T)))
          (oloc (vcopy (location entity))))
     (with-commit (editor "Move ~a" (descriptor entity))
       ((setf (location entity) (mouse-world-pos (cursor-position *context*)))
-       (setf (state (unit 'player T)) :normal))
+       (setf (state (node 'player T)) :normal))
       ((setf (location entity) oloc)))))
 
 #+(OR)
@@ -571,10 +571,10 @@
        (create-marker editor)))))
 
 (defmethod edit ((action (eql 'change-lighting)) (editor editor))
-  (make-instance 'lighting :ui (unit 'ui-pass T)))
+  (make-instance 'lighting :ui (node 'ui-pass T)))
 
 (defmethod edit ((action (eql 'toggle-lighting)) (editor editor))
-  (let ((pass (unit 'lighting-pass T)))
+  (let ((pass (node 'lighting-pass T)))
     (setf (lighting pass)
           (if (eql (gi 'none) (lighting pass))
               (gi (chunk (camera +world+)))

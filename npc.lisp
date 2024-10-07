@@ -52,7 +52,7 @@
   ;; KLUDGE: This is pretty bad lmao.
   (let ((y (vy (location entity))))
     (flet ((try (name result)
-             (let ((unit (unit name +world+)))
+             (let ((unit (node name +world+)))
                (when (and unit (< (- (vy (location unit)) (vy (bsize unit))) y))
                  result))))
       (or (try 'hub-station 'surface)
@@ -204,7 +204,7 @@
          (execute-path npc ev))
        (when (and (setting :gameplay :display-hud)
                   (nametag-element npc))
-         (if (< (vsqrdistance (location npc) (location (unit 'player T))) (expt min-distance 2))
+         (if (< (vsqrdistance (location npc) (location (node 'player T))) (expt min-distance 2))
              (show (nametag-element npc))
              (hide (nametag-element npc)))))
       (:move-to
@@ -460,7 +460,7 @@
 (defmethod handle-ai-states ((npc roaming-npc) ev)
   (when (and (setting :gameplay :display-hud)
              (nametag-element npc))
-    (if (< (vsqrdistance (location npc) (location (unit 'player T))) (expt 64 2))
+    (if (< (vsqrdistance (location npc) (location (node 'player T))) (expt 64 2))
         (show (nametag-element npc))
         (hide (nametag-element npc))))
   (when (eql :normal (state npc))

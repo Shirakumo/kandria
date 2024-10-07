@@ -80,10 +80,10 @@
 (defmethod show :before ((dialog dialog) &key)
   ;; Needs to happen before primary method as resetting state of player
   ;; can switch the active action set.
-  (let ((player (unit 'player T)))
+  (let ((player (node 'player T)))
     (unless (eql :crawling (state player))
-      (setf (state (unit 'player T)) :normal)
-      (setf (animation (unit 'player T)) 'stand))))
+      (setf (state (node 'player T)) :normal)
+      (setf (animation (node 'player T)) 'stand))))
 
 (defmethod show :after ((dialog dialog) &key)
   (when (= 1.0 (intended-zoom (camera +world+)))
@@ -136,7 +136,7 @@
            (hide dialog))
           (T
            ;; If we have multiple show choice.
-           (setf (source dialog) (nametag (unit 'player T)))
+           (setf (source dialog) (nametag (node 'player T)))
            (setf (choices dialog)
                  (cons (mapcar #'quest:title interactions) interactions))
            (let* ((label (prompt-string :left :bank :keyboard))

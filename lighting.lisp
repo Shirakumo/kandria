@@ -11,7 +11,7 @@
 
 (defmethod (setf gi) (value (name symbol))
   (when *context*
-    (update-lighting (unit 'lighting-pass T)))
+    (update-lighting (node 'lighting-pass T)))
   (if value
       (setf (gethash name *gi-info*) value)
       (remhash name *gi-info*))
@@ -76,7 +76,7 @@
         (null
          NIL)
         (symbol
-         (let ((unit (unit loc +world+)))
+         (let ((unit (node loc +world+)))
            (if unit
                (location unit)
                (vec 0 0))))))))

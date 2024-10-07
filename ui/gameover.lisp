@@ -29,15 +29,15 @@
                     button)))
       (when (setting :gameplay :allow-resuming-death)
         (with-button resume-game
-          (setf (health (unit 'player T))
-                (maximum-health (unit 'player T)))
-          (setf (state (unit 'player T)) :normal)
+          (setf (health (node 'player T))
+                (maximum-health (node 'player T)))
+          (setf (state (node 'player T)) :normal)
           (hide panel)))
       (with-button load-last-save
         (hide panel)
         (load-game T +main+))
       (let ((exit (with-button return-to-main-menu
-                    (reset (unit 'environment +world+))
+                    (reset (node 'environment +world+))
                     (transition
                       :kind :black
                       (reset +main+)))))

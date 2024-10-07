@@ -79,8 +79,8 @@
 
 (defmethod (setf tool) :after ((tool move-to) (editor editor))
   (setf (node-graph (visualizer tool)) (entity tool))
-  (unless (find (visualizer tool) (alloy:elements (alloy:popups (alloy:layout-tree (unit 'ui-pass T)))))
-    (alloy:enter (visualizer tool) (alloy:popups (alloy:layout-tree (unit 'ui-pass T)))
+  (unless (find (visualizer tool) (alloy:elements (alloy:popups (alloy:layout-tree (node 'ui-pass T)))))
+    (alloy:enter (visualizer tool) (alloy:popups (alloy:layout-tree (node 'ui-pass T)))
                  :w (width *context*) :h (height *context*))))
 
 (defmethod stage ((tool move-to) (area staging-area))
@@ -88,7 +88,7 @@
 
 (defmethod hide :after ((tool move-to))
   (when (slot-boundp (visualizer tool) 'alloy:layout-parent)
-    (alloy:leave (visualizer tool) (alloy:popups (alloy:layout-tree (unit 'ui-pass T))))))
+    (alloy:leave (visualizer tool) (alloy:popups (alloy:layout-tree (node 'ui-pass T))))))
 
 (defmethod handle ((ev mouse-press) (tool move-to))
   (let ((pos (mouse-world-pos (pos ev))))
@@ -114,8 +114,8 @@
                                                  (float-features:float-nan-p (aref trace (- i 1))))
                                unless invalid collect (list (vec (aref trace (- i 3)) (aref trace (- i 2)) 0) (vec 1 0 0 0.1))
                                unless invalid collect (list (vec (aref trace (- i 1)) (aref trace (- i 0)) 0) (vec 1 0 0 0.1)))))
-  (unless (find (marker tool) (alloy:elements (alloy:popups (alloy:layout-tree (unit 'ui-pass T)))))
-    (alloy:enter (marker tool) (alloy:popups (alloy:layout-tree (unit 'ui-pass T)))
+  (unless (find (marker tool) (alloy:elements (alloy:popups (alloy:layout-tree (node 'ui-pass T)))))
+    (alloy:enter (marker tool) (alloy:popups (alloy:layout-tree (node 'ui-pass T)))
                  :w (width *context*) :h (height *context*))))
 
 (defmethod stage ((tool movement-trace) (area staging-area))
@@ -123,7 +123,7 @@
 
 (defmethod hide :after ((tool movement-trace))
   (when (slot-boundp (marker tool) 'alloy:layout-parent)
-    (alloy:leave (marker tool) (alloy:popups (alloy:layout-tree (unit 'ui-pass T))))))
+    (alloy:leave (marker tool) (alloy:popups (alloy:layout-tree (node 'ui-pass T))))))
 
 (defmethod applicable-tools append ((player player))
   '(movement-trace))

@@ -37,7 +37,7 @@ SWANK:              ~a"
     (context-info *context* :stream stream :show-extensions NIL)))
 
 (defun runtime-info ()
-  (let ((player (unit 'player T)))
+  (let ((player (node 'player T)))
     (if player
         (format NIL "~
 Region:             ~a

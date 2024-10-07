@@ -122,12 +122,12 @@
 
 (defmethod interrupt-walk-n-talk ((string string))
   ;; KLUDGE: only avoid recaching if we're already displaying the same string.
-  (unless (interrupt (unit 'walkntalk +world+))
-    (setf (interrupt (unit 'walkntalk +world+))
+  (unless (interrupt (node 'walkntalk +world+))
+    (setf (interrupt (node 'walkntalk +world+))
           (make-instance 'stub-interaction :dialogue string))))
 
 (defmethod interrupt-walk-n-talk ((null null))
-  (setf (interrupt (unit 'walkntalk +world+)) null))
+  (setf (interrupt (node 'walkntalk +world+)) null))
 
 (defmethod walk-n-talk ((string string))
   (walk-n-talk (make-instance 'stub-interaction :dialogue string)))
@@ -136,10 +136,10 @@
   (walk-n-talk (make-instance 'stub-interaction :source cons)))
 
 (defmethod walk-n-talk ((interaction interaction))
-  (setf (interaction (unit 'walkntalk +world+)) interaction))
+  (setf (interaction (node 'walkntalk +world+)) interaction))
 
 (defmethod walk-n-talk ((null null))
-  (setf (interaction (unit 'walkntalk +world+)) null))
+  (setf (interaction (node 'walkntalk +world+)) null))
 
 (defmethod alloy:render :around ((ui ui) (textbox walkntalk-layout))
   (when (< 0 (length (text (slot-value textbox 'walkntalk))))

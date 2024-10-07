@@ -94,7 +94,7 @@
     (let ((segment (harmony:segment :music-lowpass T)))
       (when (< 50 (abs (- (mixed:frequency segment) 400)))
         (setf (mixed:frequency segment) 400.0)))
-    (harmony:transition (unit 'environment world) 0.2 :in 0.5))
+    (harmony:transition (node 'environment world) 0.2 :in 0.5))
   (push pauser (handler-stack world)))
 
 (defmethod unpause-game ((world world) pauser)
@@ -111,7 +111,7 @@
              (target (1- (mixed:samplerate segment))))
         (when (< 50 (abs (- (mixed:frequency segment) target)))
           (setf (mixed:frequency segment) target)))
-      (harmony:transition (unit 'environment world) 1.0))))
+      (harmony:transition (node 'environment world) 1.0))))
 
 (defmethod enter :after ((region region) (world world))
   (setf (gethash 'region (name-map world)) region)
@@ -123,7 +123,7 @@
     (remhash 'region (name-map world))))
 
 (defun saving-possible-p ()
-  (let ((player (unit 'player +world+)))
+  (let ((player (node 'player +world+)))
     (and (null (find-panel 'dialog))
          player
          (typep (svref (collisions player) 2) '(or ground platform slope))
@@ -134,13 +134,13 @@
            (when (typep entity 'enemy) (return NIL))))))
 
 (defun save-point-available-p ()
-  (when (chunk (unit 'player +world+))
-    (do-fitting (object (bvh (region +world+)) (chunk (unit 'player +world+)))
+  (when (chunk (node 'player +world+))
+    (do-fitting (object (bvh (region +world+)) (chunk (node 'player +world+)))
       (when (typep object 'save-point)
         (return T)))))
 
 (defun pausing-possible-p (&optional (check-ground T))
-  (let ((player (unit 'player +world+)))
+  (let ((player (node 'player +world+)))
     (and (null (find-panel '(or menuing-panel map-panel load-panel fullscreen-prompt)))
          player
          (if check-ground (svref (collisions player) 2) T)
@@ -150,10 +150,10 @@
 
 ;; Preloading
 (defmethod stage :before ((world world) (area staging-area))
-  (stage (c2mop:ensure-finalized (find-class 'sprite-effect)) (unit 'render world))
-  (stage (c2mop:ensure-finalized (find-class 'sting-effect)) (unit 'render world))
-  (stage (c2mop:ensure-finalized (find-class 'text-effect)) (unit 'render world))
-  (stage (c2mop:ensure-finalized (find-class 'textured-light)) (unit 'lighting-pass world)))
+  (stage (c2mop:ensure-finalized (find-class 'sprite-effect)) (node 'render world))
+  (stage (c2mop:ensure-finalized (find-class 'sting-effect)) (node 'render world))
+  (stage (c2mop:ensure-finalized (find-class 'text-effect)) (node 'render world))
+  (stage (c2mop:ensure-finalized (find-class 'textured-light)) (node 'lighting-pass world)))
 
 (defmethod stage :after ((world world) (area staging-area))
   (stage (// 'kandria 'placeholder) area)
@@ -177,9 +177,9 @@
           do (when (active-p module)
                (handle event module)))
     (cond (handler
-           (handle event (unit :controller world))
+           (handle event (node :controller world))
            (handle event (camera +world+))
-           (handle event (unit 'fade world))
+           (handle event (node 'fade world))
            (handle event handler))
           (T
            (call-next-method)))))
@@ -194,8 +194,8 @@
           (yoff 100))
       (case (key ev)
         (:kp-enter
-         (let ((player (unit 'player world))
-               (sentinel (unit :sentinel world)))
+         (let ((player (node 'player world))
+               (sentinel (node :sentinel world)))
            (cond ((null player))
                  ((null sentinel)
                   (setf sentinel (make-instance 'sentinel :location (vcopy (location player))))
@@ -279,7 +279,7 @@
     (v:info :kandria "Screenshot saved to ~a" file)))
 
 (defmethod handle :after ((ev toggle-menu) (world world))
-  (cond ((typep (first (panels (unit 'ui-pass T))) 'menu)
+  (cond ((typep (first (panels (node 'ui-pass T))) 'menu)
          (hide-panel 'menu))
         ((pausing-possible-p)
          (show-panel 'menu))
@@ -320,7 +320,7 @@
   (apply #'save-region region +world+ args))
 
 (defmethod save-region ((region (eql T)) (world world) &rest args)
-  (apply #'save-region (unit 'region world) world args))
+  (apply #'save-region (node 'region world) world args))
 
 (defmethod load-region ((region (eql T)) (world world))
   (depot:with-depot (depot (depot world) :close :if-closed)
@@ -330,12 +330,12 @@
   (load-region region +world+))
 
 (defmethod load-region :around ((depot depot:depot) (world world))
-  (let ((old-region (unit 'region world)))
+  (let ((old-region (node 'region world)))
     (restart-case
         (call-next-method)
       (abort ()
         :report "Give up changing the region and continue with the old."
-        (when (and old-region (not (eql old-region (unit 'region world))))
+        (when (and old-region (not (eql old-region (node 'region world))))
           (enter old-region world)
           NIL)))))
 

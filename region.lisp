@@ -10,7 +10,7 @@
 (defgeneric save-region (region depot &key version &allow-other-keys))
 
 (defmethod save-region ((scene scene) target &rest args)
-  (apply #'save-region (unit 'region scene) target args))
+  (apply #'save-region (node 'region scene) target args))
 
 (defmethod save-region :around (region target &rest args &key (version T))
   (apply #'call-next-method region target :version (ensure-version version) args))
@@ -33,8 +33,8 @@
 
 (defmethod load-region (thing (scene scene))
   (let ((new (load-region thing NIL)))
-    (when (unit 'region scene)
-      (leave (unit 'region scene) scene))
+    (when (node 'region scene)
+      (leave (node 'region scene) scene))
     (enter new scene)
     new))
 

@@ -17,7 +17,7 @@
   (when (active-p entity)
     (let* ((voice (voice entity))
            (max (expt (mixed:max-distance voice) 2))
-           (dist (vsqrdistance (location entity) (location (unit 'player +world+)))))
+           (dist (vsqrdistance (location entity) (location (node 'player +world+)))))
       (cond ((< dist (+ max 32)) ; Start a bit before the entrance to ensure we have a smooth ramp up.
              (harmony:play voice :location (location entity)))
             ((< (+ max 128) dist) ; Stop even farther out to ensure we don't accidentally flip-flop and overburden the sound server.
@@ -130,7 +130,7 @@
   (apply #'harmony:transition thing to args))
 
 (defun override-music (track)
-  (setf (override (unit 'environment +world+)) (when track (// 'music track))))
+  (setf (override (node 'environment +world+)) (when track (// 'music track))))
 
 (defclass environment ()
   ((name :initarg :name :initform NIL :accessor name)
@@ -153,7 +153,7 @@
   (when (ambience environment) (stage (ambience environment) area)))
 
 (defmethod state ((environment environment))
-  (let* ((controller (unit 'environment +world+))
+  (let* ((controller (node 'environment +world+))
          (cons (assoc (area environment) (area-states controller))))
     (if cons
         (cdr cons)
@@ -163,7 +163,7 @@
   (issue +world+ 'switch-area-state :area (area environment) :state state))
 
 (defmethod quest:activate ((environment environment))
-  (let ((controller (unit 'environment +world+)))
+  (let ((controller (node 'environment +world+)))
     (when (not (eq environment (environment controller)))
       (switch-environment (environment controller) environment))))
 

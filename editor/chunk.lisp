@@ -136,7 +136,7 @@
 (alloy::define-subbutton (chunk-widget clear) ()
   (if (retained :control)
       (clear (aref (layers (entity chunk-widget)) +base-layer+))
-      (alloy:with-confirmation ("Are you sure you want to clear the chunk?" :ui (unit 'ui-pass T))
+      (alloy:with-confirmation ("Are you sure you want to clear the chunk?" :ui (node 'ui-pass T))
         (clear (entity chunk-widget)))))
 
 (alloy:define-subcontainer (chunk-widget layout)

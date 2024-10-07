@@ -179,7 +179,7 @@
 
 (defmethod unit (thing (target (eql T)))
   (when +world+
-    (unit thing +world+)))
+    (node thing +world+)))
 
 (declaim (inline within-dist-p closer
                  invclamp absinvclamp point-angle random* intersection-point ~=))
@@ -317,7 +317,7 @@
        (< (abs (- (vy a) (vy b))) (+ (vw a) (vw b)))))
 
 (defmethod contained-p ((type symbol) (area symbol))
-  (let ((area (unit area +world+)))
+  (let ((area (node area +world+)))
     (do-fitting (entity (bvh (region +world+)) area)
       (when (typep entity type)
         (return T)))))
@@ -542,7 +542,7 @@
                                  `(funcall #',func)
                                  `(,func))
                            ,@(let ((list (copy-list arglist)))
-                               (setf (nth i list) `(or (unit ,(nth i list) +world+)
+                               (setf (nth i list) `(or (node ,(nth i list) +world+)
                                                        (error "No unit named ~s found." ,(nth i list))))
                                list)))))))
 
@@ -551,13 +551,13 @@
 (defun ensure-unit (unit)
   (etypecase unit
     (entity unit)
-    (symbol (unit unit +world+))))
+    (symbol (node unit +world+))))
 
 (defun ensure-location (unit)
   (etypecase unit
     (entity (location unit))
     (vec unit)
-    (symbol (location (unit unit +world+)))))
+    (symbol (location (node unit +world+)))))
 
 (defun set-tile (map width height x y tile)
   (destructuring-bind (&optional (tx 0) (ty 0) (w 1) (h 1)) tile

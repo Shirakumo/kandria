@@ -7,7 +7,7 @@
   (<= (alloy:on-value checkbox) (alloy:value checkbox)))
 
 (defmethod alloy:activate ((checkbox upgrade-checkbox))
-  (let ((player (unit 'player T)))
+  (let ((player (node 'player T)))
     (when (= (1+ (sword-level player)) (alloy:on-value checkbox))
       (cond ((loop for (count item) in (materials checkbox)
                    always (<= count (item-count item player)))
@@ -51,7 +51,7 @@
   ((requirements simple:text)
    (alloy:extent (alloy:pw 2.8) (alloy:ph 1.3) 500 (alloy:ph 3.7))
    (@formats 'upgrade-ui-requirements
-             (loop with player = (unit 'player +world+)
+             (loop with player = (node 'player +world+)
                    for (count item) in (materials alloy:renderable)
                    collect (list (item-count item player) count (language-string item))))
    :pattern colors:white
@@ -90,7 +90,7 @@
 
 (defmethod initialize-instance :after ((panel upgrade-ui) &key)
   ;; FIXME: spruce this up a little.
-  (let* ((player (unit 'player T))
+  (let* ((player (node 'player T))
          (layout (make-instance 'eating-constraint-layout
                                 :shapes (list (make-basic-background))))
          (data (make-instance 'alloy:accessor-data :object player :accessor 'sword-level))

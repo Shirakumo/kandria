@@ -30,7 +30,7 @@
                ((not (eq 'stand (name (animation critter))))
                 (setf (animation critter) 'stand)
                 (setf (clock critter) (random* 1.0 1.0))))
-         (let ((player (unit 'player +world+)))
+         (let ((player (node 'player +world+)))
            (when (and (within-dist-p (location critter) (location player) (alert-distance critter))
                       (< (p! slowwalk-limit) (vx (velocity player))))
              (setf (animation critter) 'run)

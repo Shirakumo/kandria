@@ -48,10 +48,10 @@
 
 (define-cheat tpose
   (clear-retained)
-  (start-animation 't-pose (unit 'player T)))
+  (start-animation 't-pose (node 'player T)))
 
 (define-cheat god
-  (setf (invincible-p (unit 'player T)) (not (invincible-p (unit 'player T)))))
+  (setf (invincible-p (node 'player T)) (not (invincible-p (node 'player T)))))
 
 (define-cheat armageddon
   (cond ((= 1 +health-multiplier+)
@@ -81,27 +81,27 @@
   (setf (hour +world+) 12))
 
 (define-cheat test
-  (let ((room (unit 'debug T)))
+  (let ((room (node 'debug T)))
     (when room
-      (place-on-ground (unit 'player T) (location room))
+      (place-on-ground (node 'player T) (location room))
       (setf (intended-zoom (camera +world+)) 1.0)
-      (snap-to-target (camera +world+) (unit 'player T)))))
+      (snap-to-target (camera +world+) (node 'player T)))))
 
 (define-cheat self-destruct
-  (cond ((<= (health (unit 'player T)) 1)
-         (setf (health (unit 'player T)) 0)
-         (kill (unit 'player T)))
+  (cond ((<= (health (node 'player T)) 1)
+         (setf (health (node 'player T)) 0)
+         (kill (node 'player T)))
         (T
-         (trigger 'explosion (unit 'player T))
-         (setf (health (unit 'player T)) 1))))
+         (trigger 'explosion (node 'player T))
+         (setf (health (node 'player T)) 1))))
 
 #-kandria-demo
 (flet ((noclip ()
-         (setf (state (unit 'player T))
-               (case (state (unit 'player T))
+         (setf (state (node 'player T))
+               (case (state (node 'player T))
                  (:noclip :normal)
                  (T :noclip)))
-         (eql (state (unit 'player T)) :noclip)))
+         (eql (state (node 'player T)) :noclip)))
   (define-cheat noclip
     (noclip))
 
@@ -109,10 +109,10 @@
     (noclip)))
 
 (define-cheat nanomachines
-  (setf (health (unit 'player T)) (maximum-health (unit 'player T))))
+  (setf (health (node 'player T)) (maximum-health (node 'player T))))
 
 (define-cheat (you-must-die |you must die|)
-  (kill (unit 'player T)))
+  (kill (node 'player T)))
 
 (define-cheat (lp0-on-fire |lp0 on fire|)
   (error "Simulating an uncaught error."))
@@ -125,14 +125,14 @@
 
 (define-cheat blingee
   (dolist (class (list-leaf-classes 'value-item) T)
-    (store (class-name class) (unit 'player T))))
+    (store (class-name class) (node 'player T))))
 
 (define-cheat motherlode
-  (store 'item:parts (unit 'player T) 10000))
+  (store 'item:parts (node 'player T) 10000))
 
 (define-cheat (unlock-palettes |clothes make the woman|)
   (dolist (class (list-leaf-classes 'palette-unlock) T)
-    (store (class-name class) (unit 'player T))))
+    (store (class-name class) (node 'player T))))
 
 #-kandria-release
 (define-cheat snapshot
@@ -148,7 +148,7 @@
   (for:for ((unit over (region +world+)))
     (when (typep unit 'chunk)
       (setf (unlocked-p unit) T)))
-  (let ((player (unit 'player T)))
+  (let ((player (node 'player T)))
     (setf (stats-chunks-uncovered (stats player)) (stats-chunks-total (stats player)))))
 
 #-kandria-demo
@@ -178,7 +178,7 @@
       (:on T))))
 
 (define-cheat (level-up |i'm feeling stronger|)
-  (incf (level (unit 'player T))))
+  (incf (level (node 'player T))))
 
 (define-cheat (splits-panel |gotta go fast|)
   (toggle-panel 'splits))

@@ -7,7 +7,7 @@
    (visibility :initform 0.0 :accessor visibility)))
 
 (defmethod render :before ((stamina-wheel stamina-wheel) (program shader-program))
-  (let ((player (unit 'player +world+)))
+  (let ((player (node 'player +world+)))
     (translate-by (vx (location player)) (vy (location player)) -1000)
     (scale-by -0.8 0.8 1)
     (translate-by (* -20 (direction player)) 20 0)
@@ -173,7 +173,7 @@ void main(){
     (stage (// 'sound sound) area))
   (stage (fishing-line player) area)
   (stage (stamina-wheel player) area)
-  (stage (fishing-line player) (unit 'render +world+))
+  (stage (fishing-line player) (node 'render +world+))
   (stage (// 'kandria 'line-part) area)
   (stage (// 'kandria 'sting) area)
   (stage (// 'kandria 'lights) area))
@@ -1445,7 +1445,7 @@ void main(){
 (defmethod (setf limp-time) :after (time (player player))
   (when (< 0 time)
     (setf (combat-time player) 0.0))
-  (setf (strength (unit 'distortion +world+)) (* (clamp 0.0 (/ time 5) 1.0) 0.6)))
+  (setf (strength (node 'distortion +world+)) (* (clamp 0.0 (/ time 5) 1.0) 0.6)))
 
 (defmethod (setf health) :before (health (player player))
   (when (< (health player) health)
@@ -1456,7 +1456,7 @@ void main(){
            (harmony:play (// 'sound 'player-low-health))
            (start-action-list 'low-health)))
         (T
-         (setf (strength (unit 'fade +world+)) 0.0)
+         (setf (strength (node 'fade +world+)) 0.0)
          (harmony:stop (// 'sound 'player-low-health))
          (setf (limp-time player) 0.0))))
 
@@ -1465,7 +1465,7 @@ void main(){
          (setf (state player) :dying)
          (setf (buffer player) NIL)
          (setf (animation player) 'die)
-         (setf (override (unit 'environment +world+)) 'null)
+         (setf (override (node 'environment +world+)) 'null)
          (harmony:play (// 'sound 'player-die))
          (start-action-list 'death))
         ((null (transition-active-p))
@@ -1494,7 +1494,7 @@ void main(){
       (respawn player))))
 
 (defun player-screen-y ()
-  (* (- (vy (location (unit 'player T))) (vy (location (camera +world+))))
+  (* (- (vy (location (node 'player T))) (vy (location (camera +world+))))
      (view-scale (camera +world+))))
 
 (defmethod apply-transforms progn ((player player))
@@ -1518,5 +1518,5 @@ void main(){
 }")
 
 (define-setting-observer god-mode :gameplay :god-mode (value)
-  (when (unit 'player T)
-    (setf (invincible-p (unit 'player T)) value)))
+  (when (node 'player T)
+    (setf (invincible-p (node 'player T)) value)))

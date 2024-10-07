@@ -51,14 +51,14 @@
 (defmethod layer-index ((counter fps-counter)) 100)
 
 (defmethod map-visible (function (camera camera) (world world))
-  (let ((fps (unit 'fps-counter world)))
+  (let ((fps (node 'fps-counter world)))
     (when fps (funcall function fps)))
   (if (region world)
       (map-visible function camera (region world))
       (call-next-method)))
 
 (defmethod enter :after ((camera camera) (scene scene))
-  (setf (target camera) (unit 'player scene))
+  (setf (target camera) (node 'player scene))
   (when (target camera)
     (setf (location camera) (vcopy (location (target camera))))))
 
@@ -184,7 +184,7 @@
   (setf (chunk camera) (chunk ev)))
 
 (defmethod handle ((ev switch-region) (camera camera))
-  (setf (target camera) (unit 'player T)))
+  (setf (target camera) (node 'player T)))
 
 (defmethod handle ((ev window-shown) (camera camera))
   (if (target camera)

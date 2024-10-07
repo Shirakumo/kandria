@@ -14,7 +14,7 @@
   (harmony:play (// 'sound 'ui-confirm))
   (alloy:do-elements (button (alloy:focus-parent button))
     (alloy:refresh button))
-  (setf (palette-index (unit 'player T)) (palette-index (alloy:value button))))
+  (setf (palette-index (node 'player T)) (palette-index (alloy:value button))))
 
 (presentations:define-realization (ui palette-button)
   ((:background simple:rectangle)
@@ -37,7 +37,7 @@
          (alloy:point (alloy:pw 0.7) (alloy:ph 0.8))
          (alloy:point (alloy:pw 1.0) (alloy:ph 0.8)))
    :pattern colors:red
-   :hidden-p (not (eql (palette-index (unit 'player T)) (palette-index alloy:value))))
+   :hidden-p (not (eql (palette-index (node 'player T)) (palette-index alloy:value))))
   ((:current-text simple:text)
    (alloy:extent (alloy:pw 0.72) (alloy:ph 0.3) (alloy:pw 0.3) (alloy:ph 0.4))
    (@ current-outfit-selection)
@@ -46,7 +46,7 @@
    :pattern colors:white
    :valign :middle
    :halign :start
-   :hidden-p (not (eql (palette-index (unit 'player T)) (palette-index alloy:value)))))
+   :hidden-p (not (eql (palette-index (node 'player T)) (palette-index alloy:value)))))
 
 (presentations:define-update (ui palette-button)
   (:background
@@ -54,9 +54,9 @@
   (:label
    :pattern (if alloy:focus colors:black colors:white))
   (:current-bg
-   :hidden-p (not (eql (palette-index (unit 'player T)) (palette-index alloy:value))))
+   :hidden-p (not (eql (palette-index (node 'player T)) (palette-index alloy:value))))
   (:current-text
-   :hidden-p (not (eql (palette-index (unit 'player T)) (palette-index alloy:value)))))
+   :hidden-p (not (eql (palette-index (node 'player T)) (palette-index alloy:value)))))
 
 (define-shader-entity sprite-preview (alloy:renderable alloy:layout-element standalone-shader-entity)
   ((target :initarg :target :accessor target)))
@@ -117,21 +117,21 @@ void main(){
                                 :shapes (list (make-basic-background))))
          (clipper (make-instance 'alloy:clip-view :limit :x))
          (scroll (alloy:represent-with 'alloy:y-scrollbar clipper))
-         (preview (make-instance 'sprite-preview :target (clone (unit 'player T))
-                                 :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern colors:black))))
+         (preview (make-instance 'sprite-preview :target (clone (node 'player T))
+                                 :shapes (list (simple:rectangle (node 'ui-pass T) (alloy:margins) :pattern colors:black))))
          (focus (make-instance 'alloy:focus-stack :orientation :horizontal))
          (list (make-instance 'alloy:vertical-linear-layout
-                              :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern (colored:color 0 0 0 0.5)))
+                              :shapes (list (simple:rectangle (node 'ui-pass T) (alloy:margins) :pattern (colored:color 0 0 0 0.5)))
                               :min-size (alloy:size 100 50))))
     (alloy:enter list clipper)
     (alloy:enter preview layout :constraints `((:left 50) (:right 570) (:bottom 100) (:top 100)))
     (alloy:enter clipper layout :constraints `((:width 500) (:right 70) (:bottom 100) (:top 100)))
     (alloy:enter scroll layout :constraints `((:width 20) (:right 50) (:bottom 100) (:top 100)))
     (alloy:enter (make-instance 'label :value (@ wardrobe-title)) layout :constraints `((:left 50) (:above ,clipper 10) (:size 500 50)))
-    (loop for palette in (unlocked-palettes (unit 'player T))
+    (loop for palette in (unlocked-palettes (node 'player T))
           for button = (make-instance 'palette-button :value palette :target (target preview) :layout-parent list)
           do (alloy:enter button focus :layer 1)
-             (when (eql (palette-index palette) (palette-index (unit 'player T)))
+             (when (eql (palette-index palette) (palette-index (node 'player T)))
                (setf (alloy:focus button) :weak)))
     (let ((back (alloy:represent (@ go-backwards-in-ui) 'button)))
       (alloy:enter back layout :constraints `((:left 50) (:below ,clipper 10) (:size 200 50)))

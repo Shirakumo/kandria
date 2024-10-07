@@ -69,7 +69,7 @@
          (preview (make-instance 'icon :value (// 'kandria 'empty-save)))
          (focus (make-instance 'alloy:focus-stack :orientation :horizontal))
          (list (make-instance 'alloy:vertical-linear-layout
-                              :shapes (list (simple:rectangle (unit 'ui-pass T) (alloy:margins) :pattern (colored:color 0 0 0 0.5)))
+                              :shapes (list (simple:rectangle (node 'ui-pass T) (alloy:margins) :pattern (colored:color 0 0 0 0.5)))
                               :min-size (alloy:size 100 50))))
     (alloy:enter list clipper)
     (alloy:enter preview layout :constraints `((:left 100) (:right 630) (:bottom 100) (:top 100)))

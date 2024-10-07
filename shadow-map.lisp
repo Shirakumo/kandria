@@ -129,7 +129,7 @@
 
 (defmethod render :after ((pass shadow-map-pass) target)
   (gl:blend-func :src-alpha :one-minus-src-alpha)
-  (let ((player (unit 'player T)))
+  (let ((player (node 'player T)))
     (setf (fc pass) (mod (+ (fc pass) 1) 60))
     (when (and player (= 0 (fc pass)))
       (let* ((pos (m* (projection-matrix) (view-matrix) (vec (vx (location player)) (+ (vy (location player)) 8) 0 1)))

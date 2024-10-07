@@ -262,7 +262,7 @@ Possible sub-commands:
   (let ((scene (scene main)))
     (setf (action-lists scene) ())
     (tagbody retry
-       (loop for panel in (panels (unit 'ui-pass scene))
+       (loop for panel in (panels (node 'ui-pass scene))
              do (unless (typep panel '(or prerelease-notice hud))
                   (hide panel)
                   (go retry)))))
@@ -274,7 +274,7 @@ Possible sub-commands:
 (defmethod reset ((main main))
   (let ((scene (scene main)))
     (let ((els ()))
-      (alloy:do-elements (el (alloy:popups (alloy:layout-tree (unit 'ui-pass +world+))))
+      (alloy:do-elements (el (alloy:popups (alloy:layout-tree (node 'ui-pass +world+))))
         (when (typep el 'popup)
           (push el els)))
       (mapc #'hide els))
@@ -282,8 +282,8 @@ Possible sub-commands:
     (setf (state main) NIL)
     (reset (camera scene))
     (leave (region scene) scene)
-    (setf (strength (unit 'sandstorm scene)) 0.0)
-    (setf (strength (unit 'distortion scene)) 0.0)
+    (setf (strength (node 'sandstorm scene)) 0.0)
+    (setf (strength (node 'distortion scene)) 0.0)
     (setf (storyline scene) (make-instance 'storyline))
     (setf (changes-saved-p main) T)
     (trial:commit scene (loader main))
@@ -317,9 +317,9 @@ Possible sub-commands:
     (destructuring-bind (&key ui-scale gamma &allow-other-keys) value
       (with-eval-in-render-loop (+world+)
         (invoke-restart 'trial::reset-render-loop))
-      (when (and gamma (unit 'render (scene +main+)))
-        (setf (monitor-gamma (unit 'render (scene +main+))) gamma)
-        (setf (alloy:base-scale (unit 'ui-pass T)) ui-scale)))))
+      (when (and gamma (node 'render (scene +main+)))
+        (setf (monitor-gamma (node 'render (scene +main+))) gamma)
+        (setf (alloy:base-scale (node 'ui-pass T)) ui-scale)))))
 
 (define-setting-observer game-speed :gameplay :game-speed (value)
   (when +main+

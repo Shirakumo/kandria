@@ -24,12 +24,12 @@
 (define-achievement full-map switch-chunk
   :icon (// 'kandria 'ach-map)
   (and (string= "00000000-0000-0000-0000-000000000000" (id +world+))
-       (multiple-value-bind (total found) (chunk-find-rate (unit 'player +world+))
+       (multiple-value-bind (total found) (chunk-find-rate (node 'player +world+))
          (<= total found))))
 
 (define-achievement all-fish item-unlocked
   :icon (// 'kandria 'ach-fish)
-  (loop with player = (unit 'player +world+)
+  (loop with player = (node 'player +world+)
         for fish in (c2mop:class-direct-subclasses (find-class 'fish))
         always (item-unlocked-p (class-name fish) player)))
 
@@ -44,8 +44,8 @@
 (defvar *last-death-count* (cons NIL 0))
 (define-achievement persistence player-died
   :icon (// 'kandria 'ach-deaths)
-  (unless (eq (car *last-death-count*) (chunk (unit 'player T)))
-    (setf (car *last-death-count*) (chunk (unit 'player T)))
+  (unless (eq (car *last-death-count*) (chunk (node 'player T)))
+    (setf (car *last-death-count*) (chunk (node 'player T)))
     (setf (cdr *last-death-count*) 0))
   (<= 30 (incf (cdr *last-death-count*))))
 

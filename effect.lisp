@@ -116,7 +116,7 @@ void main(){
 
 (define-shader-entity text-effect (located-entity effect listener renderable)
   ((text :initarg :text :initform "" :accessor text)
-   (font :initarg :font :initform (simple:request-font (unit 'ui-pass T) (setting :display :font)) :accessor font)
+   (font :initarg :font :initform (simple:request-font (node 'ui-pass T) (setting :display :font)) :accessor font)
    (vertex-data :accessor vertex-data)
    (lifetime :initarg :lifetime :initform 1.0 :accessor lifetime)))
 
@@ -145,7 +145,7 @@ void main(){
   (gl:active-texture :texture0)
   (gl:bind-texture :texture-2D (gl-name (org.shirakumo.alloy.renderers.opengl.msdf:atlas (font effect))))
   ;; FIXME: this is horribly inefficient and stupid
-  (let* ((renderer (unit 'ui-pass +world+))
+  (let* ((renderer (node 'ui-pass +world+))
          (shader (org.shirakumo.alloy.renderers.opengl:resource 'org.shirakumo.alloy.renderers.opengl.msdf::text-shader renderer))
          (vbo (org.shirakumo.alloy.renderers.opengl:resource 'org.shirakumo.alloy.renderers.opengl.msdf::text-vbo renderer))
          (vao (org.shirakumo.alloy.renderers.opengl:resource 'org.shirakumo.alloy.renderers.opengl.msdf::text-vao renderer)))
@@ -450,7 +450,7 @@ void main(){
                                      :size (vec 96 96)
                                      :offset (vec 112 96))))
     (enter flash (region +world+)))
-  (let* ((distance (expt (vsqrdistance (location effect) (location (unit 'player T))) 0.75))
+  (let* ((distance (expt (vsqrdistance (location effect) (location (node 'player T))) 0.75))
          (strength (min 2.0 (/ 300.0 distance))))
     (when (< 0.1 strength)
       (shake-camera :intensity strength))))
