@@ -93,7 +93,7 @@
 (define-asset (music ambience/bar) trial-harmony:environment
     '((:normal "ambience track_ bar.ogg")))
 
-(define-assets-from-path (kandria sprite-data "sprite/*.lisp" :ignore-directory T)
+(define-assets-from-path (kandria sprite-data "sprite/*.lisp" :ignore-directory T :coalesce NIL)
   (player-profile :min-filter :linear :mag-filter :linear)
   (catherine-profile :min-filter :linear :mag-filter :linear)
   (jack-profile :min-filter :linear :mag-filter :linear)
@@ -107,9 +107,9 @@
   (cerebat-trader-profile :min-filter :linear :mag-filter :linear)
   (vinny-profile :min-filter :linear :mag-filter :linear))
 
-(define-assets-from-path (kandria tile-data "tileset/*.lisp" :ignore-directory T))
+(define-assets-from-path (kandria tile-data "tileset/*.lisp" :ignore-directory T :coalesce NIL))
 
-(define-assets-from-path (kandria image "texture/*.png" :ignore-directory T)
+(define-assets-from-path (kandria image "texture/*.png" :ignore-directory T :coalesce NIL)
   (T :min-filter :nearest :mag-filter :nearest)
   (ui-background :min-filter :linear :mag-filter :linear :wrapping :repeat)
   (sword :min-filter :linear :mag-filter :linear)
@@ -134,7 +134,7 @@
   (wall-overlay :wrapping :repeat)
   (achievements :min-filter :linear :mag-filter :linear))
 
-(define-assets-from-path (sound trial-harmony:sound "**/*.wav")
+(define-assets-from-path (sound trial-harmony:sound "**/*.wav" :coalesce NIL)
   (T :volume (db -8))
   (elevator-start :volume (db -6) :max-distance (* +tile-size+ 32) :min-distance (* +tile-size+ 3))
   (elevator-stop :volume (db -6) :max-distance (* +tile-size+ 32) :min-distance (* +tile-size+ 3))
@@ -207,7 +207,7 @@
   (bomb-active :volume (db -6) :max-distance (* +tile-size+ 32) :min-distance (* +tile-size+ 3))
   (blocker-destroy :volume (db -1)))
 
-(define-assets-from-path (sound trial-harmony:sound "**/*.ogg")
+(define-assets-from-path (sound trial-harmony:sound "**/*.ogg" :coalesce NIL)
   (T :volume 0.4)
   (bomb-explode :volume (db 0.0))
   (ambience-strong-wind :repeat T :min-distance 100000000000.0 :max-distance 100000100000.0)

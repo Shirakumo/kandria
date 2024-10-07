@@ -1,7 +1,16 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(defclass main (#+trial-steam org.shirakumo.fraf.trial.steam:main
-                #+trial-gog org.shirakumo.fraf.trial.gog:main
+#+trial-steam
+(defclass main-steam (org.shirakumo.fraf.trial.steam:main)
+  () (:default-initargs :steam '(:app-id 1261430)))
+
+#+trial-gog
+(defclass main-gog (org.shirakumo.fraf.trial.gog:main)
+  () (:default-initargs :gog '(:client-id "57241758991992155"
+                               :client-secret "bc8667469838f79aea8a14936dc669d63c094f67069a38bee22d984ebeba8657")))
+
+(defclass main (#+trial-gog main-gog
+                #+trial-steam main-steam
                 #+trial-notify org.shirakumo.fraf.trial.notify:main
                 org.shirakumo.fraf.trial.harmony:settings-main
                 org.shirakumo.fraf.trial:task-runner-main)
@@ -12,10 +21,7 @@
    (game-speed :initform 1.0 :accessor game-speed)
    (changes-saved-p :initform T :accessor changes-saved-p))
   (:default-initargs
-   :context '(:version (3 3) :profile :core :title "Kandria")
-   #+trial-steam (:app-id 1261430)
-   #+trial-gog (:client-id "57241758991992155"
-                :client-secret "bc8667469838f79aea8a14936dc669d63c094f67069a38bee22d984ebeba8657")))
+   :context '(:version (3 3) :profile :core :title "Kandria")))
 
 (defmethod initialize-instance ((main main) &key app-id world state)
   (declare (ignore app-id))

@@ -95,7 +95,8 @@
                           (modio:original (modio:logo mod)))))
           (unless (probe-file target)
             (with-open-stream (input (drakma:http-request source :want-stream T))
-              (with-open-file (output target :direction :output :element-type '(unsigned-byte 8))
+              (with-open-file (output target :direction :output :element-type '(unsigned-byte 8)
+                                             :if-exists :supersede)
                 (uiop:copy-stream-to-stream input output :element-type '(unsigned-byte 8)))))
           (setf (slot-value mod 'preview) target))))))
 
