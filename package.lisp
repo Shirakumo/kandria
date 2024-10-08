@@ -73,6 +73,7 @@ Either run the setup.lisp file directly, or start SBCL with
    (#:promise #:org.shirakumo.promise)
    (#:modio #:org.shirakumo.fraf.modio)
    (#:mem #:org.shirakumo.memory-regions)
+   (#:machine-state #:org.shirakumo.machine-state)
    (#:v #:org.shirakumo.verbose))
   ;; ui/general.lisp
   (:export

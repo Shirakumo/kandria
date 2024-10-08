@@ -32,7 +32,7 @@ Machine:            ~a ~a (~aGB heap)
 SWANK:              ~a"
             (version :app)
             (lisp-implementation-type) (lisp-implementation-version)
-            (machine-type) (machine-version) (floor (nth-value 1 (trial:cpu-room)) (* 1024 1024))
+            (machine-type) (machine-version) (floor (nth-value 1 (machine-state:gc-room)) (* 1024 1024))
             (setting :debugging :swank))
     (context-info *context* :stream stream :show-extensions NIL)))
 
@@ -80,9 +80,9 @@ Collisions:
         (fps (alloy:represent (slot-value panel 'fps) 'alloy:plot
                               :y-range '(1 . 60) :style `((:curve :line-width ,(alloy:un 2)))))
         (ram (alloy:represent (slot-value panel 'ram) 'alloy:plot
-                              :y-range `(0 . ,(nth-value 1 (cpu-room))) :style `((:curve :line-width ,(alloy:un 2)))))
+                              :y-range `(0 . ,(nth-value 1 (machine-state:gc-room))) :style `((:curve :line-width ,(alloy:un 2)))))
         (vram (alloy:represent (slot-value panel 'vram) 'alloy:plot
-                               :y-range `(0 . ,(nth-value 1 (gpu-room))) :style `((:curve :line-width ,(alloy:un 2)))))
+                               :y-range `(0 . ,(nth-value 1 (machine-state:gpu-room))) :style `((:curve :line-width ,(alloy:un 2)))))
         (io (alloy:represent (slot-value panel 'io) 'alloy:plot
                              :y-range `(0 . 1024) :style `((:curve :line-width ,(alloy:un 2)))))
         (gc (alloy:represent (slot-value panel 'gc) 'alloy:plot
@@ -113,13 +113,13 @@ Collisions:
       (let ((frame-time (frame-time +main+)))
         (push-value (if (= 0 frame-time) 1 (/ frame-time)) fps))
       (alloy:notify-observers 'fps panel fps panel)
-      (multiple-value-bind (free total) (cpu-room)
+      (multiple-value-bind (free total) (machine-state:gc-room)
         (push-value (- total free) ram))
       (alloy:notify-observers 'ram panel ram panel)
-      (multiple-value-bind (free total) (gpu-room)
+      (multiple-value-bind (free total) (machine-state:gpu-room)
         (push-value (- total free) vram))
       (alloy:notify-observers 'vram panel vram panel)
-      (let ((total (io-bytes)))
+      (let ((total (machine-state:process-io-bytes)))
         (when (< 0 last-io)
           (push-value (- total last-io) io))
         (setf last-io total))
