@@ -40,7 +40,8 @@ Either run the setup.lisp file directly, or start SBCL with
            #:animatable #:sprite-data #:sprite-animation
            #:commit #:prompt #:in-view-p #:layer #:*modules*
            #:hit #:hit-location #:hit-normal #:make-hit
-           #:box #:activate #:deactivate #:rotated-entity)
+           #:box #:activate #:deactivate #:rotated-entity
+           #:displacement-pass)
   (:import-from #:org.shirakumo.fraf.trial.bvh2 #:do-fitting)
   (:local-nicknames
    (#:fish #:org.shirakumo.fraf.kandria.fish)
