@@ -52,7 +52,7 @@
                                                           :size 0)))))
 
 (defmethod alloy:render ((pass ui-pass) (marker marker))
-  (alloy:constrain-visibility (alloy:size (alloy:w marker) (alloy:h marker)) pass)
+  (alloy:constrain-visibility marker pass)
   (render marker NIL))
 
 (defmethod alloy:suggest-size (size (marker marker)) size)
