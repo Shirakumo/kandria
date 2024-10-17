@@ -498,13 +498,13 @@
                (cond ((<= 0.3 level)
                       (setf (ai-state npc) :crowded)
                       (setf (walk npc) (< 0.1 (random 1.0)))
-                      (setf (direction npc) (float-sign (random* 0.0 1.0)))
+                      (setf (direction npc) (floor (float-sign (random* 0.0 1.0))))
                       (setf (roam-time npc) (random* (+ 0.5 level) 0.5)))
                      (T
                       (setf (ai-state npc) :lonely)
                       (setf (walk npc) (< 0.1 (random 1.0)))
                       (let ((dir (crowd-direction npc)))
-                        (setf (direction npc) (float-sign (if (<= dir 1) (random* 0.0 1.0) dir))))
+                        (setf (direction npc) (floor (float-sign (if (<= dir 1) (random* 0.0 1.0) dir)))))
                       (setf (roam-time npc) (random* avg-time 1.0)))))))
           (:sit
            (setf (animation npc) 'sit)
@@ -523,7 +523,7 @@
                            (normalize))
                           (T
                            (let ((dir (crowd-direction npc)))
-                             (setf (direction npc) (float-sign (if (<= dir 1) (random* 0.0 1.0) dir))))))))))
+                             (setf (direction npc) (floor (float-sign (if (<= dir 1) (random* 0.0 1.0) dir)))))))))))
           (:crowded
            (move-towards (* speed (direction npc)))
            (when (svref (collisions npc) (if (< 0 (direction npc)) 1 3))
