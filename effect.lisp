@@ -93,7 +93,7 @@ void main(){
 (define-shader-entity sprite-effect (lit-animated-sprite shader-effect particle-effect)
   ((offset :initarg :offset :initform (vec 0 0) :accessor offset)
    (layer-index :initarg :layer-index :initform +base-layer+ :accessor layer-index)
-   (direction :initform NIL))
+   (direction :initform 0))
   (:default-initargs :sprite-data (asset 'kandria 'effects)))
 
 (defmethod initialize-instance :after ((effect sprite-effect) &key animation)

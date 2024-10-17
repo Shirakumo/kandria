@@ -142,8 +142,7 @@
 (define-shader-entity lantern-light (textured-light)
   ((bsize :initform #.(vec 48 48))
    (size :initform #.(vec 96 96))
-   (offset :initform #.(vec 0 48))
-   (location :initform NIL)))
+   (offset :initform #.(vec 0 48))))
 
 (defmethod spawned-p ((light lantern-light)) T)
 

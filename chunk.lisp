@@ -282,7 +282,7 @@ void main(){
 }")
 
 (define-shader-entity bg-layer (layer)
-  ((overlay :initarg :overlay :initform (// 'kandria 'placeholder) :accessor overlay :type texture
+  ((overlay :initarg :overlay :initform (// 'kandria 'placeholder) :accessor overlay :type (or placeholder-resource texture)
             :documentation "The overlay texture that replaces pink spots"))
   (:inhibit-shaders (layer :fragment-shader)))
 
@@ -340,13 +340,13 @@ void main(){
    (background :initform (background 'debug) :initarg :background :accessor background
                :type background-info :documentation "The background to show in the chunk")
    (bg-overlay :initform (// 'kandria 'placeholder) :initarg :bg-overlay :accessor bg-overlay
-               :type texture :documentation "The texture to merge with pink pixels on layer 0")
+               :type (or placeholder-resource texture) :documentation "The texture to merge with pink pixels on layer 0")
    (gi :initform (gi 'none) :initarg :gi :accessor gi
        :type gi-info :documentation "The lighting to show in the chunk")
    (name :initform (generate-name "CHUNK"))
    (chunk-graph-id :initform NIL :accessor chunk-graph-id)
    (environment :initform NIL :initarg :environment :accessor environment
-                :type environment :documentation "The music environment to use")
+                :type (or null environment) :documentation "The music environment to use")
    (visible-on-map-p :initform T :initarg :visible-on-map-p :accessor visible-on-map-p
                      :type boolean :documentation "Whether the chunk is visible on the map or not
 Useful for interiors")
