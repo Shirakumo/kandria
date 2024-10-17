@@ -64,7 +64,7 @@
 ~ trader
 | (:jolly)Voila! Bitteschön, das "Android Heilpacket"(orange)! Nur für dich.
 ~ player
-| "Es sieht primitiv aus, aber könnte nützlich sein."(light-gay, italic)
+| "Es sieht primitiv aus, aber könnte nützlich sein."(light-gray, italic)
 ~ player
 - Danke!
   ~ trader
@@ -79,4 +79,3 @@
 ~ trader
 | Gib mir Bescheid "wenn du handeln möchtest"(orange), OK?
 | (:jolly)Machs gut, Habibti.
-
