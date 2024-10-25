@@ -2,6 +2,13 @@
 These are changes to Kandria that were realised thanks to public feedback.
 A big thanks to everyone for trying it out and reporting problems!
 
+## 1.1.16
+- Fix the wave effect on the main menu, which had disappeared in a prior version
+- Fix sources to work with the latest Trial release
+- Fix the mod browser not working anymore due to an upstream modio API change
+- Fix a minor typo in the German translation
+  Committed by Jan Moringen
+
 ## 1.1.15
 - Fix a crash when a toast is displayed while the map is being closed
   Reported by aerphanas, delta_zzerty, desmondlulu
