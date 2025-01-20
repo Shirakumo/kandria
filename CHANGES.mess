@@ -9,6 +9,8 @@ A big thanks to everyone for trying it out and reporting problems!
 - Fix a minor typo in the German translation
   Committed by Jan Moringen
 - set executable flag for install.lisp and setup.lisp so the README works
+- Updated with-mesh-reconstruction macro call to be consistent with its changed syntax in Trial (as of commit ba1c063).
+  Committed by Pranav Vats
 
 ## 1.1.15
 - Fix a crash when a toast is displayed while the map is being closed
