@@ -179,7 +179,7 @@ void main(){
 }")
 
 (define-asset (kandria wave-grid) mesh
-    (with-mesh-construction (v finalize (location uv normal) NIL)
+    (with-mesh-construction (v :finalizer finalize :attributes (location uv normal) :deduplicate NIL)
       (let* ((s (/ 512 64))
              (s2 (/ s -2)))
         (dotimes (x s (finalize-data))
