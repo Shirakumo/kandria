@@ -148,66 +148,43 @@
   (when (and main (scene main))
     (clock (scene main))))
 
-(defun main ()
-  (let* ((args (uiop:command-line-arguments))
-         (arg (pop args)))
-    (cond ((null arg)
-           (launch))
-          ((equal arg "config-directory")
-           (format T "~&~a~%" (uiop:native-namestring (config-directory))))
-          ((equal arg "controller-config")
-           (gamepad::configurator-main))
-          ((equal arg "system-info")
-           (loop for (header . info) in (org.shirakumo.feedback.client::gather-system-info)
-                 do (format T "~&~% ========== ~a ==========~%" header)
-                    (write-string info)))
-          ((equal arg "credits")
-           (format T "~&~a~%" (alexandria:read-file-into-string
-                               (merge-pathnames "CREDITS.mess" (data-root)))))
-          ((equal arg "region")
-           (if args
-               (launch :region (pop args))
-               (format T "~&Please pass a region file to load.~%")))
-          ((equal arg "report")
-           (let ((report (format NIL "~{~a~^ ~}" args)))
-             (org.shirakumo.fraf.trial.feedback:submit-report
-              :files NIL :description report)
-             (format T "~&Report sent. Thank you!~%")))
-          ((equal arg "swank")
-           (let ((port (manage-swank T)))
-             (format T "~&Started swank on port ~d.~%" port)
-             (loop (sleep 1))))
-          ((equal arg "state")
-           (let ((path (if args
-                           (uiop:parse-native-namestring (format NIL "~{~a~^ ~}" args))
-                           (org.shirakumo.file-select:existing :title "Select save state"
-                                                               :default (first (mapcar #'file (list-saves)))
-                                                               :filter '(("Save Files" "zip"))))))
-             (launch :state path)))
-          ((equal arg "world")
-           (if args
-               (let ((path (format NIL "~{~a~^ ~}" args)))
-                 (launch :world path))
-               "~&Please pass a world file to load.~%"))
-          ((equal arg "help")
-           (format T "~&Kandria v~a
+(define-command-line-command credits ()
+  (format T "~&~a~%" (alexandria:read-file-into-string
+                      (merge-pathnames "CREDITS.mess" (data-root)))))
+
+(define-command-line-command region (region)
+  (launch :region region))
+
+(define-command-line-command world (path)
+  (launch :world path))
+
+(define-command-line-command state (&optional path)
+  (let ((path (or path (org.shirakumo.file-select:existing :title "Select save state"
+                                                           :default (first (mapcar #'file (list-saves)))
+                                                           :filter '(("Save Files" "zip"))))))
+    (launch :state path)))
+
+(define-command-line-command swank (&optional port)
+  (let ((port (manage-swank T port)))
+    (format T "~&Started swank on port ~d.~%" port)
+    (loop (sleep 1))))
+
+(define-command-line-command trial::copyright ()
+  :help "Display copyright information"
+  (format T "~&Kandria v~a
 
 Website:     https://kandria.com
 Discord:     https://kandria.com/discord
 Steam page:  https://kandria.com/steam
 Editor Help: https://kandria.com/editor
+Support:     mailto:shirakumo@tymoon.eu
 
-Possible sub-commands:
-  config-directory      Show the directory with config and save files.
-  controller-config     Launch the controller configuration utility.
-  credits               Show the game credits.
-  help                  Show this help screen.
-  region [region]       Load the region from the specified file.
-  report [report...]    Send a feedback report.
-  state [save]          Load the save from the specified file.
-  swank                 Launch swank to allow debugging.
-  world [world]         Load the world from the specified file.
-" (version :app))))))
+© ~d ~a, all rights reserved"
+          (version :app) #.(nth-value 5 (get-decoded-time)) +app-vendor+))
+
+(defun main ()
+  (command-line-toplevel)
+  (launch))
 
 (defmethod render-loop :around ((main main))
   (let ((*package* #.*package*))
@@ -325,8 +302,8 @@ Possible sub-commands:
   (when +main+
     (setf (game-speed +main+) (float value 0f0))))
 
-(defun manage-swank (&optional (mode (setting :debugging :swank)))
-  (let ((port (or (setting :debugging :swank-port) swank::default-server-port)))
+(defun manage-swank (&optional (mode (setting :debugging :swank)) port)
+  (let ((port (or port (setting :debugging :swank-port) swank::default-server-port)))
     (handler-case
         (cond (mode
                (v:info :kandria.debugging "Launching SWANK server on port ~a." port)
