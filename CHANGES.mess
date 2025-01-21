@@ -6,9 +6,13 @@ A big thanks to everyone for trying it out and reporting problems!
 - Fix the wave effect on the main menu, which had disappeared in a prior version
 - Fix sources to work with the latest Trial release
 - Fix the mod browser not working anymore due to an upstream modio API change
+- Fix the mod display not sizing previews correctly
+- Fix the database menu having misaligned icons and text
+- Fix the map trace display
 - Fix a minor typo in the German translation
   Committed by Jan Moringen
-- set executable flag for install.lisp and setup.lisp so the README works
+- Set executable flag for install.lisp and setup.lisp so the README works
+  Committed by Arne Babenhauserheide
 - Updated with-mesh-reconstruction macro call to be consistent with its changed syntax in Trial (as of commit ba1c063).
   Committed by Pranav Vats
 
