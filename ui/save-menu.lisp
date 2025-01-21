@@ -108,7 +108,7 @@
                 (colored:color 0.15 0.15 0.15 1)
                 (colored:color 0.15 0.15 0.15 0.5)))
   ((:icon simple:icon)
-   (alloy:extent 0 0 192 (alloy:ph 1))
+   (alloy:extent 5 0 192 (alloy:ph 1))
    (texture alloy:renderable)
    :sizing :contain)
   ((:author simple:text)
@@ -152,7 +152,7 @@
 
 (defmethod initialize-instance :after ((panel save-menu) &key intent)
   (let ((layout (make-instance 'load-screen-layout))
-        (list (make-instance 'alloy:vertical-linear-layout))
+        (list (make-instance 'alloy:vertical-linear-layout :min-size (alloy:size 100 120)))
         (focus (make-instance 'alloy:focus-list)))
     (alloy:enter list layout :constraints `((:left 50) (:right 50) (:bottom 100) (:top 100)))
     (dolist (name '("1" "2" "3" "4"))
