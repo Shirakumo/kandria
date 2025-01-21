@@ -31,7 +31,7 @@
     (make-rectangle-mesh 16 16))
 
 (define-asset (kandria placeholder) image
-    #p"placeholder.png")
+    #p"texture/placeholder.png")
 
 (defmethod recompute ((entity entity)))
 
