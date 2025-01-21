@@ -149,22 +149,27 @@
     (clock (scene main))))
 
 (define-command-line-command credits ()
+  :help "Print the game credits"
   (format T "~&~a~%" (alexandria:read-file-into-string
                       (merge-pathnames "CREDITS.mess" (data-root)))))
 
-(define-command-line-command region (region)
+(define-command-line-command region ((region "The name of the region to load"))
+  :help "Launch to a particular game region"
   (launch :region region))
 
-(define-command-line-command world (path)
+(define-command-line-command world ((path "The path to the world file to load"))
+  :help "Launch another game world from a file"
   (launch :world path))
 
-(define-command-line-command state (&optional path)
+(define-command-line-command state (&optional (path NIL "The path to the save state to load"))
+  :help "Load directly into a particular save state"
   (let ((path (or path (org.shirakumo.file-select:existing :title "Select save state"
                                                            :default (first (mapcar #'file (list-saves)))
                                                            :filter '(("Save Files" "zip"))))))
     (launch :state path)))
 
-(define-command-line-command swank (&optional port)
+(define-command-line-command swank (&optional (port NIL "The port to start swank on. Defaults to 4005"))
+  :help "Start SWANK and wait"
   (let ((port (manage-swank T port)))
     (format T "~&Started swank on port ~d.~%" port)
     (loop (sleep 1))))
@@ -179,7 +184,7 @@ Steam page:  https://kandria.com/steam
 Editor Help: https://kandria.com/editor
 Support:     mailto:shirakumo@tymoon.eu
 
-© ~d ~a, all rights reserved"
+© ~d ~a, all rights reserved~%"
           (version :app) #.(nth-value 5 (get-decoded-time)) +app-vendor+))
 
 (defun main ()
