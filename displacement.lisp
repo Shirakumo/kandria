@@ -141,16 +141,13 @@ void main(){
    (displacement-map :port-type input)))
 
 (define-class-shader (displacement-pass :fragment-shader)
-  "uniform sampler2D previous_pass;
+  "
 uniform sampler2D displacement_map;
-in vec2 uv;
-out vec4 color;
 
-void main(){
-  maybe_call_next_method();
+vec4 post_process(sampler2D previous_pass, vec2 uv){
   vec2 displacement = texture(displacement_map, uv).rg;
   vec3 previous = texture(previous_pass, uv+displacement).rgb;
-  color = vec4(previous, 1);
+  return vec4(previous, 1);
 }")
 
 
