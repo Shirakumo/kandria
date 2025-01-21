@@ -317,7 +317,7 @@
   (module-editable-p (module component)))
 
 (defclass module-icon (alloy:icon module-component)
-  ())
+  ((alloy:sizing-strategy :initform (make-instance 'alloy:proportional :aspect-ratio 11/9))))
 
 ;; KLUDGE: since the icon is not part of any focus list, we handle the drop in an :around.
 (defmethod alloy:handle :around ((event alloy:drop-event) (icon module-icon))
