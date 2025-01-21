@@ -368,7 +368,7 @@
               (alloy:point 0 0))))
 
 (defclass lore-text (label)
-  ())
+  ((alloy:sizing-strategy :initform (make-instance 'alloy:fit-to-content))))
 
 (presentations:define-realization (ui lore-text)
   ((background simple:rectangle)
@@ -383,11 +383,11 @@
    :pattern colors:black
    :line-width (alloy:un 1))
   ((label simple:text)
-   (alloy:margins 10 0)
+   (alloy:margins 10)
    alloy:text
    :pattern colors:white
    :font (setting :display :font)
-   :halign :middle
+   :halign :left
    :valign :top
    :size (alloy:un 16)
    :wrap T))
@@ -424,7 +424,9 @@
     (alloy:finish-structure panel layout focus)))
 
 (defclass unlock-button (item-icon)
-  ((inventory :initarg :inventory :accessor inventory)))
+  ((inventory :initarg :inventory :accessor inventory)
+   (alloy:sizing-strategy :initform (make-instance 'alloy:fixed-size :fixed-size (alloy:size 100)))
+   (rotation :initform 0f0 :initarg :rotation :accessor rotation)))
 
 ;; KLUDGE: copypasta to add padding to the scroll
 (defmethod alloy:ensure-visible ((element unlock-button) (layout alloy:clip-view))
@@ -461,7 +463,7 @@
                 (if alloy:focus colors:accent colors:white)
                 (if alloy:focus colors:gray colors:black)))
   (icon
-   :rotation (float (/ PI -2) 0f0)
+   :rotation (rotation alloy:renderable)
    :pivot (alloy:point (alloy:ph 0.5) (alloy:ph 0.5))
    :composite-mode (if (item-unlocked-p alloy:value (inventory alloy:renderable))
                        :source-over
@@ -637,7 +639,8 @@
               (alloy:enter "" layout :place :south :size (alloy:un 20))
               (alloy:enter scroll layout :place :east :size (alloy:un 20))
               (dolist (item (list-items (c2mop:class-prototype (c2mop:ensure-finalized (find-class category))) T))
-                (let ((button (make-instance 'unlock-button :value item :inventory inventory)))
+                (let ((button (make-instance 'unlock-button :value item :inventory inventory :rotation
+                                             (case category (fish (float (/ PI -2) 0f0)) (t 0f0)))))
                   (alloy:enter button list)
                   (alloy:enter button focus)))
               (add-tab tabs (make-instance 'trial-alloy:language-data :name category) layout focus
