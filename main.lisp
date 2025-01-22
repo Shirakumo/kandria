@@ -184,7 +184,7 @@ Steam page:  https://kandria.com/steam
 Editor Help: https://kandria.com/editor
 Support:     mailto:shirakumo@tymoon.eu
 
-© ~d ~a, all rights reserved~%"
+© ~d ~a, all rights reserved"
           (version :app) #.(nth-value 5 (get-decoded-time)) +app-vendor+))
 
 (defun main ()

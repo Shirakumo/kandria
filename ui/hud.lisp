@@ -21,6 +21,9 @@
   (when (alloy:layout-tree prompt)
     (alloy:leave prompt T)))
 
+(defmethod alloy:sizing-strategy ((el sticky-element))
+  (load-time-value (make-instance 'org.shirakumo.alloy.renderers.simple.presentations::fit-to-shapes)))
+
 (defclass nametag-element (sticky-element)
   ())
 
@@ -29,9 +32,9 @@
 
 (presentations:define-realization (ui nametag-element)
   ((:background simple:rectangle)
-   (alloy:extent -2 -8 100 10))
+   (alloy:extent -5 0 100 10))
   ((label simple:text)
-   (alloy:extent 0 -5 1000 15)
+   (alloy:margins)
    alloy:text
    :halign :start
    :valign :middle
