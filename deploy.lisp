@@ -26,12 +26,6 @@
    (pathname-utils:subdirectory directory "pool" "alloy")
    :copy-root NIL))
 
-#+linux
-(trial::dont-deploy
- org.shirakumo.file-select.gtk::gmodule
- org.shirakumo.file-select.gtk::gio
- org.shirakumo.file-select.gtk::gtk
- org.shirakumo.file-select.gtk::glib)
 #+darwin
 (trial::dont-deploy
  org.shirakumo.file-select.macos::foundation
