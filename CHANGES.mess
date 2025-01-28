@@ -15,6 +15,10 @@ A big thanks to everyone for trying it out and reporting problems!
   Committed by Arne Babenhauserheide
 - Updated with-mesh-reconstruction macro call to be consistent with its changed syntax in Trial (as of commit ba1c063).
   Committed by Pranav Vats
+- Disable GOG Galaxy integration, which was causing crashes on several setups.
+  Reported by TEATIME, pasza, Giaddon
+- Fix an isuse with dialogue choice scrolling
+  Reported by TEATIME
 
 ## 1.1.15
 - Fix a crash when a toast is displayed while the map is being closed
