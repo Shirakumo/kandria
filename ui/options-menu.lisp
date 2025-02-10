@@ -242,9 +242,9 @@
                       layout-outer :place :north :size (alloy:un 40)))
         (org.shirakumo.fraf.mixed:device-drain
          (control audio-output-device (:audio :device) 'alloy:combo-set :value-set (list* :default (mixed:list-devices (harmony:segment :drain (harmony:segment :output T)))))))
-      (control master-volume (:audio :volume :master) 'alloy:ranged-slider :range '(0 . 1) :step 0.1)
-      (control effect-volume (:audio :volume :effect) 'alloy:ranged-slider :range '(0 . 1) :step 0.1)
-      (control music-volume (:audio :volume :music) 'alloy:ranged-slider :range '(0 . 1) :step 0.1))
+      (control master-volume (:audio :volume :master) 'alloy:ranged-slider :range '(0.0 . 1.0) :step 0.1)
+      (control effect-volume (:audio :volume :effect) 'alloy:ranged-slider :range '(0.0 . 1.0) :step 0.1)
+      (control music-volume (:audio :volume :music) 'alloy:ranged-slider :range '(0.0 . 1.0) :step 0.1))
     (with-tab (video-settings :icon "")
       (control display-used (:display :monitor) 'org.shirakumo.fraf.trial.alloy:monitor)
       (control screen-resolution (:display :resolution) 'org.shirakumo.fraf.trial.alloy:video-mode)
