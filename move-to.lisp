@@ -321,7 +321,7 @@
                  (push (make-inter-door-node a) (svref grid b)))))))))))
 
 (defun make-node-graph (chunk &optional (region (region +world+)))
-  (trial::with-timing-report (:info :kandria.move-to "Computed node graph for ~a in ~fs run time, ~fs clock time." chunk)
+  (trial::with-timing-report (:info :kandria.move-to "Computed node graph for ~a in ~fs." chunk)
     (let ((graph (%make-node-graph (floor (vx (size chunk))) (floor (vy (size chunk))))))
       (create-connections (pixel-data chunk) graph)
       (create-entity-connections chunk region graph)
@@ -457,7 +457,7 @@
                              (vec (+ +tile-size+) 0)))))))))
 
 (defun make-chunk-graph (region)
-  (trial::with-timing-report (:info :kandria.move-to "Computed chunk graph for ~a in ~fs run time, ~fs clock time." region)
+  (trial::with-timing-report (:info :kandria.move-to "Computed chunk graph for ~a in ~fs." region)
     (let ((chunks ()) (i 0))
       (labels ((locs-with-connections (chunk entity)
                  (let ((containing ()))

@@ -43,7 +43,7 @@
   (alloy:enter (slot-value sidebar 'layout) representation)
   (alloy:enter (slot-value sidebar 'focus) representation))
 
-(define-shader-entity marker (trial::lines standalone-shader-entity alloy:layout-element)
+(define-shader-entity marker (trial::lines standalone-shader-entity alloy:layout-element alloy:renderable)
   ((vertex-array :initform (let ((buffer (make-instance 'vertex-buffer :data-usage :dynamic-draw
                                                                        :buffer-data (make-array 0 :element-type 'single-float :adjustable T :fill-pointer T))))
                              (make-instance 'vertex-array :bindings `((,buffer :stride 40 :offset  0 :size 3 :index 0)

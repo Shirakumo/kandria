@@ -1,6 +1,6 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
-(define-shader-entity profile-picture (trial:animated-sprite standalone-shader-entity alloy:layout-element)
+(define-shader-entity profile-picture (trial:animated-sprite standalone-shader-entity alloy:layout-element alloy:renderable)
   ((strength :initform 0.0 :accessor strength))
   (:default-initargs :sprite-data (asset 'kandria 'player-profile)))
 
