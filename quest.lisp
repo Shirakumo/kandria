@@ -4,7 +4,7 @@
 (defvar *current-interaction*)
 
 (defclass storyline (quest:storyline)
-  ((default-interactions :initform (make-hash-table :test 'eql) :reader default-interactions)))
+  ((default-interactions :initform (make-hash-table :test 'eql) :accessor default-interactions)))
 
 (defclass quest (quest:quest alloy:observable)
   ((clock :initarg :clock :initform 0f0 :accessor clock)
@@ -269,7 +269,10 @@
           (*current-task* (quest:task interaction)))
      ,(task-wrap-lexenv form)))
 
-(defun load-default-interactions (&optional (storyline (quest:storyline T)) (file (merge-pathnames "quests/default-interactions.spess" (language-dir))))
+(defun load-default-interactions (&key (table (default-interactions (quest:storyline T)))
+                                       (language (language))
+                                       (file (merge-pathnames "quests/default-interactions.spess" (language-dir language))))
+  (v:info :kandria.language "Loading default interactions for ~a" language)
   (let ((*package* #.*package*)
         (interactions (make-hash-table :test 'eql))
         (root (dialogue:parse file))
@@ -282,10 +285,9 @@
             do (if (typep component 'components:header)
                    (start-new (read-from-string (aref (components:children component) 0)))
                    (vector-push-extend component (components:children section))))
-      (loop with defaults = (default-interactions storyline)
-            for name being the hash-keys of interactions using (hash-value root)
+      (loop for name being the hash-keys of interactions using (hash-value root)
             do (when (typep root 'components:root-component)
-                 (setf (gethash name defaults) (ensure-instance (gethash name defaults) 'stub-interaction :dialogue root)))))))
+                 (setf (gethash name table) (ensure-instance (gethash name table) 'stub-interaction :dialogue root)))))))
 
 (defmacro define-sequence-quest ((storyline name) &body body)
   (let ((counter 0))

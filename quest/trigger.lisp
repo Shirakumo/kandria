@@ -11,7 +11,7 @@
     (error "NAME must be a symbol, not ~s" name)))
 
 (defmethod print-object ((trigger trigger) stream)
-  (print-unreadable-object (trigger stream :type T)
+  (print-unreadable-object (trigger stream :type T :identity T)
     (format stream "~s ~a" (name trigger) (status trigger))))
 
 (defmethod find-named (name (trigger trigger) &optional (error T))

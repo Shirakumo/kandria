@@ -102,6 +102,7 @@
 (defmethod (setf interaction) :after ((interaction interaction) (dialog dialog))
   (setf *current-task* (quest:task interaction))
   (setf *current-interaction* interaction)
+  (v:info :kandria.dialogue "Running interaction ~a" interaction)
   (dialogue:run (quest:dialogue interaction) (vm dialog)))
 
 (defmethod (setf interactions) :after (list (dialog dialog))
