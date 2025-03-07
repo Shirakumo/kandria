@@ -11,8 +11,11 @@ Either run the setup.lisp file directly, or start SBCL with
 #+sbcl
 (sb-ext:assert-version->= 2 2)
 
-(defpackage #:org.shirakumo.fraf.kandria.fish)
-(defpackage #:org.shirakumo.fraf.kandria.item)
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (unless (find-package '#:org.shirakumo.fraf.kandria.fish)
+    (make-package '#:org.shirakumo.fraf.kandria.fish))
+  (unless (find-package '#:org.shirakumo.fraf.kandria.item)
+    (make-package '#:org.shirakumo.fraf.kandria.item)))
 (defpackage #:org.shirakumo.fraf.trial.bvh2
   (:use #:cl #:org.shirakumo.fraf.math.vectors)
   (:import-from #:org.shirakumo.fraf.trial #:location #:bsize)
