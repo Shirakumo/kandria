@@ -12,7 +12,9 @@
                   "pool/**/*.*~"
                   "pool/**/*.kra"
                   "pool/**/#*#")
-          :copy ("CHANGES.mess" "README.mess"))
+          :copy ("CHANGES.mess" "README.mess"
+                                ("bin/pool/trial/ascii.raw"
+                                 "pool/trial/ascii.raw")))
   :depots (:linux ("*.so" "kandria-linux.run")
            :windows ("*.dll" "kandria-windows.exe")
            :macos ("*.dylib" "kandria-macos.o")
