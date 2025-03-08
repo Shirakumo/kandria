@@ -17,7 +17,8 @@
 
 (defclass dialog-entity (interactable)
   ((interactions :initform () :accessor interactions)
-   (default-interaction :initform NIL :initarg :default-interaction :accessor default-interaction)))
+   (default-interaction :initform NIL :initarg :default-interaction :accessor default-interaction)
+   (default-interaction-init :initform NIL :initarg :default-interaction :accessor default-interaction-init)))
 
 (defmethod interactable-p ((entity dialog-entity))
   (let ((default (default-interaction entity)))
