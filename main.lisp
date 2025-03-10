@@ -248,8 +248,8 @@ Support:     mailto:shirakumo@tymoon.eu
                   (go retry)))))
   (show-panel 'load-panel :loader (loader main))
   (render main main)
-  (refresh-language T)
-  (load-state state main))
+  (load-state state main)
+  (refresh-language T))
 
 (defmethod reset ((main main))
   (let ((scene (scene main)))
