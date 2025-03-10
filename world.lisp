@@ -20,7 +20,7 @@
    (clock-scale :initform 60.0 :accessor clock-scale)
    (update-timer :initform 0.2 :accessor update-timer)
    (timestamp :initform (initial-timestamp) :accessor timestamp)
-   (camera :initform (make-instance 'camera) :accessor camera)
+   (trial:camera :initform (make-instance 'camera) :accessor camera)
    (action-lists :initform NIL :accessor action-lists)
    (clock :initform 0.0 :accessor clock)))
 
