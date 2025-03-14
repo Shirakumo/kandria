@@ -2,6 +2,11 @@
 These are changes to Kandria that were realised thanks to public feedback.
 A big thanks to everyone for trying it out and reporting problems!
 
+## 1.1.17
+- Fix audio output to select devices on Windows not working due to... bizarre and inexplicable behaviour of WASAPI. The new XAudio2 backend should be more stable.
+  Reported by ReveN, SupSuper
+- Fix NPCs roaming far too slowly
+
 ## 1.1.16
 - Fix the wave effect on the main menu, which had disappeared in a prior version
 - Fix sources to work with the latest Trial release
