@@ -202,6 +202,13 @@
    :valign :top))
 
 (presentations:define-update (ui module-button)
+  (icon :hidden-p NIL)
+  (title :hidden-p NIL)
+  (author :hidden-p NIL)
+  (description :hidden-p NIL)
+  (version :hidden-p NIL)
+  (rating :hidden-p NIL)
+  (download-count :hidden-p NIL)
   (:background
    :pattern (if alloy:focus
                 (colored:color 0.3 0.3 0.3)
