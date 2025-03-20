@@ -17,6 +17,8 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by dell
 - Fix the wrong language being set during dialogue in some cases
   Reported by scj643
+- Increase default audio latency from 0.005 to 0.02 to avoid crackling on some systems. This setting is not updated automatically for existing players however. If you experience crackles, try updating the settings file directly, which is in ~/.config/shirakumo/kandria on Linux systems, and %AppData%/shirakumo/kandria on Windows.
+  Reported by scj643
 - Support loading default-device-mappings.lisp from the game's source directory to allow ad-hoc controller mapping changes
 
 ## 1.1.17
