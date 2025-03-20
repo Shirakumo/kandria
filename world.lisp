@@ -29,6 +29,9 @@
   (when depot
     (setf (initial-state world) (minimal-load-state (depot:entry "init" depot)))))
 
+(defmethod (setf storyline) :after ((storyline storyline) (world world))
+  (refresh-language storyline))
+
 (defmethod reset ((world world))
   (setf (id world) (make-uuid))
   (setf (title world) "Untitled")
