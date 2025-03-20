@@ -195,10 +195,7 @@ Support:     mailto:shirakumo@tymoon.eu
 
 (defun launch (&rest initargs)
   (let ((*package* #.*package*))
-    (load-keymap)
-    (ignore-errors
-     (load-settings))
-    (save-settings)
+    (default-startup-load)
     (manage-swank)
     (apply #'trial:launch 'main
            (append (setting :debugging :initargs)

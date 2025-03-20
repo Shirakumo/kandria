@@ -2,6 +2,21 @@
 These are changes to Kandria that were realised thanks to public feedback.
 A big thanks to everyone for trying it out and reporting problems!
 
+## 1.1.18
+- Fix GLFW shutdown on Linux/Wayland leading to crashes on some systems
+  Reported by scj643
+- Fix controller support for DualSense Edge
+  Reported by scj643
+- Fix a compatibility issue on Wayland when trying to determine the monitor the game is on
+  Reported by scj643, volkert, errie, wsg
+- Fix an issue when trying to open links on Windows
+  Reported by Sunwise, itosan1114, nickc, Brbro
+- Fix a crash when trying to change button mappings
+  Reported by an itch.io player
+- Fix a crash in the editor when using the move-to tool
+  Reported by dell
+- Support loading default-device-mappings.lisp from the game's source directory to allow ad-hoc controller mapping changes
+
 ## 1.1.17
 - Fix audio output to select devices on Windows not working due to... bizarre and inexplicable behaviour of WASAPI. The new XAudio2 backend should be more stable.
   Reported by ReveN, SupSuper
