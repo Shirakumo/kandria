@@ -2,6 +2,14 @@
 These are changes to Kandria that were realised thanks to public feedback.
 A big thanks to everyone for trying it out and reporting problems!
 
+## 1.1.19
+- Fix some remaining prompt display failures.
+  Reported by scj643
+- Fix camera zoom going out of whack after a resize.
+  Reported by scj643
+- Fix another crash when trying to change button mappings
+  Reported by an itch.io player
+
 ## 1.1.18
 - Fix GLFW shutdown on Linux/Wayland leading to crashes on some systems
   Reported by scj643
