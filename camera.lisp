@@ -154,7 +154,7 @@
   (when (region +world+)
     (setf (chunk camera) (find-chunk target))))
 
-(defmethod handle :before ((ev resize) (camera camera))
+(defmethod handle ((ev resize) (camera camera))
   ;; Adjust max width based on aspect ratio to ensure ultrawides still get to see something.
   (let ((aspect (float (/ (width ev) (max 1 (height ev))))))
     (setf (vx (target-size camera))
@@ -190,6 +190,9 @@
   (if (target camera)
       (snap-to-target camera (target camera))
       (vsetf (location camera) 0 0)))
+
+(defmethod setup-perspective ((camera camera) (w (eql T)) (h (eql T)))
+  (setup-perspective camera (max 1 (width *context*)) (max 1 (height *context*))))
 
 (defmethod project-view ((camera camera))
   (let* ((z (max 0.0001 (* (view-scale camera) (zoom camera))))
