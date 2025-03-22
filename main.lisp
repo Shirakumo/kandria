@@ -303,6 +303,7 @@ Support:     mailto:shirakumo@tymoon.eu
     (setf (game-speed +main+) (float value 0f0))))
 
 (defun manage-swank (&optional (mode (setting :debugging :swank)) port)
+  #+swank
   (let ((port (or port (setting :debugging :swank-port) swank::default-server-port)))
     (handler-case
         (cond (mode

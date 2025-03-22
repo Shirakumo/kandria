@@ -161,7 +161,7 @@
                :cl-modio
                :zpng
                :com.inuoe.jzon
-               (:feature (:not :swank) :swank)
+               (:feature (:not (:or :swank :nx)) :swank)
                :action-list
                :easing
                :promise
