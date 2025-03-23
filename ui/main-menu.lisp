@@ -37,6 +37,7 @@
             (subseq version-line 2))))
 
 (defun fetch-news (target &optional (url "https://kandria.com/news.mess"))
+  #-nx
   (with-eval-in-task-thread ()
     (v:info :kandria.news "Fetching news...")
     (handler-case

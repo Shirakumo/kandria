@@ -62,6 +62,7 @@
   (setf (mixed:max-distance harmony:*server*) (* +tile-size+ (vx +tiles-in-view+)))
   (setf (game-speed main) (setting :gameplay :game-speed))
   (load-achievement-data T)
+  #-nx
   (with-eval-in-task-thread ()
     (handler-bind (#+kandria-release (module-registration-failed #'continue))
       (register-module T))
