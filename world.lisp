@@ -253,7 +253,7 @@
 (defmethod handle :after ((ev toggle-fullscreen) (world world))
   (setf (setting :display :fullscreen) (not (setting :display :fullscreen))))
 
-#-kandria-demo
+#-(or kandria-demo nx)
 (defmethod handle :after ((ev toggle-editor) (world world))
   (when (and (not (find-panel 'menu))
              #++(setting :debugging :allow-editor)

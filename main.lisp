@@ -14,7 +14,7 @@
                 #+trial-steam main-steam
                 #+trial-notify org.shirakumo.fraf.trial.notify:main
                 org.shirakumo.fraf.trial.harmony:settings-main
-                org.shirakumo.fraf.trial:task-runner-main)
+                #-nx org.shirakumo.fraf.trial:task-runner-main)
   ((scene :initform NIL)
    (state :initform NIL :accessor state)
    (timestamp :initform (get-universal-time) :accessor timestamp)
