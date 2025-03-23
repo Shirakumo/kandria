@@ -9,7 +9,8 @@
   () (:default-initargs :gog '(:client-id "57241758991992155"
                                :client-secret "bc8667469838f79aea8a14936dc669d63c094f67069a38bee22d984ebeba8657")))
 
-(defclass main (#+trial-gog main-gog
+(defclass main (#+nx single-threaded-display
+                #+trial-gog main-gog
                 #+trial-steam main-steam
                 #+trial-notify org.shirakumo.fraf.trial.notify:main
                 org.shirakumo.fraf.trial.harmony:settings-main
@@ -21,7 +22,8 @@
    (game-speed :initform 1.0 :accessor game-speed)
    (changes-saved-p :initform T :accessor changes-saved-p))
   (:default-initargs
-   :context '(:version (3 3) :profile :core :title "Kandria")))
+   :context '(:version (3 3) :profile :core :title "Kandria")
+   :initialize-audio #+nx NIL #-nx T))
 
 (defmethod initialize-instance ((main main) &key app-id world state)
   (declare (ignore app-id))
