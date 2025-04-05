@@ -272,3 +272,4 @@ error-version-not-supported "Failed to load: the version of the module is not su
 error-world-source-disappeared "Cannot load: the world sources are not accessible. Did you delete them?"
 error-world-load-failed "Cannot load world: an error occurred during loading. The world sources may be corrupted~@[: ~a~]"
 error-world-save-failed "Failed to save world: an error occurred during saving~@[: ~a~]"
+error-save-state-failed "Creating the save file failed! Your installation may be corrupt or you may be out of space."

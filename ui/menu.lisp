@@ -671,9 +671,9 @@
                      (with-ignored-errors-on-release (:kandria.save)
                        (handler-case
                            (save-state +world+ resume)
-                         (org.shirakumo.zippy:decoding-error ()
+                         (org.shirakumo.zippy:zippy-condition ()
                            (uiop:delete-file-if-exists (file resume))
-                           (save-state +world+ resume)))))
+                           (ignore-errors (save-state +world+ resume))))))
                    (return-to-main-menu))))
         (let ((mins (floor (- (get-universal-time) (save-time (state +main+))) 60)))
           (if (or (< mins 1) (not (saving-possible-p)))
