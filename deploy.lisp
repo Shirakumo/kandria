@@ -35,10 +35,12 @@
 (deploy:remove-hook :deploy 'org.shirakumo.fraf.trial.alloy::alloy)
 
 (load-language :language "eng")
+
+#-(or :nx :trial-release)
 (depot:with-depot (depot (find-world))
   (v:info :kandria.quest "Setting up default world, this can take a bit...")
   (setup-world NIL depot))
 
-(dolist (language (languages))
+#+(and (not nx) trial-release)
+(dolist (language (languages) (load-language :language "eng"))
   (maybe-init-language-cache language))
-(load-language :language "eng")
