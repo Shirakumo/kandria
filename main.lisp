@@ -52,14 +52,12 @@
     (null)))
 
 (defmethod trial-harmony:server-initargs append ((main main))
-  (list :mixers '((:music mixed:basic-mixer :effects ((mixed:biquad-filter :filter :lowpass :name :music-lowpass)))
-                  (:effect mixed:plane-mixer))
+  (list :mixers `((:music mixed:basic-mixer :effects ((mixed:biquad-filter :filter :lowpass :name :music-lowpass)))
+                  (:effect mixed:plane-mixer :min-distance ,(* +tile-size+ 5) :max-distance ,(* +tile-size+ (vx +tiles-in-view+))))
         :effects '((mixed:biquad-filter :filter :lowpass :name :lowpass)
                    (mixed:speed-change :name :speed))))
 
 (defmethod initialize-instance :after ((main main) &key)
-  (setf (mixed:min-distance harmony:*server*) (* +tile-size+ 5))
-  (setf (mixed:max-distance harmony:*server*) (* +tile-size+ (vx +tiles-in-view+)))
   (setf (game-speed main) (setting :gameplay :game-speed))
   (load-achievement-data T)
   #-nx
@@ -73,9 +71,10 @@
 (defmethod update ((main main) tt dt fc)
   (let* ((scene (scene main))
          (dt (* (time-scale scene) (game-speed main) (float dt 1.0))))
-    (let ((target (expt 2 (/ (log (max 0.1 (* dt 100.0)) 2) 3)))
-          (source (mixed:speed-factor (harmony:segment :speed T))))
-      (setf (mixed:speed-factor (harmony:segment :speed T)) (+ (* target 0.05) (* source 0.95))))
+    (when harmony:*server*
+      (let ((target (expt 2 (/ (log (max 0.1 (* dt 100.0)) 2) 3)))
+            (source (mixed:speed-factor (harmony:segment :speed T))))
+        (setf (mixed:speed-factor (harmony:segment :speed T)) (+ (* target 0.05) (* source 0.95)))))
     (when (< 0 (pause-timer scene))
       (decf (pause-timer scene) dt)
       (setf dt (* dt 0.1)))

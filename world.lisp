@@ -90,14 +90,15 @@
 (defmethod pause-game ((world world) pauser)
   (unless (handler-stack world)
     (handle (make-event 'pause-game) world)
-    (let ((sfx (copy-seq (harmony:segments (harmony:segment :sources T)))))
-      (loop for segment across sfx
-            unless (typep segment 'harmony:music-segment)
-            do (ignore-errors (harmony:stop segment))))
-    (let ((segment (harmony:segment :music-lowpass T)))
-      (when (< 50 (abs (- (mixed:frequency segment) 400)))
-        (setf (mixed:frequency segment) 400.0)))
-    (harmony:transition (node 'environment world) 0.2 :in 0.5))
+    (when harmony:*server*
+      (let ((sfx (copy-seq (harmony:segments (harmony:segment :sources T)))))
+        (loop for segment across sfx
+              unless (typep segment 'harmony:music-segment)
+              do (ignore-errors (harmony:stop segment))))
+      (let ((segment (harmony:segment :music-lowpass T)))
+        (when (< 50 (abs (- (mixed:frequency segment) 400)))
+          (setf (mixed:frequency segment) 400.0)))
+      (harmony:transition (node 'environment world) 0.2 :in 0.5)))
   (push pauser (handler-stack world)))
 
 (defmethod unpause-game ((world world) pauser)
@@ -110,11 +111,12 @@
       (setf (handler-stack world) (remove-if #'test (handler-stack world))))
     (when (and found (null (handler-stack world)))
       (handle (make-event 'unpause-game) world)
-      (let* ((segment (harmony:segment :music-lowpass T))
-             (target (1- (mixed:samplerate segment))))
-        (when (< 50 (abs (- (mixed:frequency segment) target)))
-          (setf (mixed:frequency segment) target)))
-      (harmony:transition (node 'environment world) 1.0))))
+      (when harmony:*server*
+        (let* ((segment (harmony:segment :music-lowpass T))
+               (target (1- (mixed:samplerate segment))))
+          (when (< 50 (abs (- (mixed:frequency segment) target)))
+            (setf (mixed:frequency segment) target)))
+        (harmony:transition (node 'environment world) 1.0)))))
 
 (defmethod enter :after ((region region) (world world))
   (setf (gethash 'region (name-map world)) region)

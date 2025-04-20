@@ -17,8 +17,9 @@
                                   (* (direction player) 12)))
   (vsetf (velocity player) 0 0)
   (setf (intended-zoom (camera +world+)) 1.5)
-  (let ((segment (harmony:segment :lowpass T)))
-    (setf (mixed:frequency segment) 700))
+  (when harmony:*server*
+    (let ((segment (harmony:segment :lowpass T)))
+      (setf (mixed:frequency segment) 700)))
   (start-animation 'sit-down player)
   (setf (state player) :sitting))
 
