@@ -117,6 +117,7 @@
             (show-panel 'save-menu :intent :new)))
       (with-button (options-menu)
         (show-panel 'options-menu))
+      #-nx
       (with-button (mod-menu)
         (show-panel 'module-menu))
       (with-button (credits-menu)
@@ -124,6 +125,7 @@
       #++
       (with-button (changelog-menu)
         )
+      #-nx
       (let ((subbutton
               (with-button (subscribe-cta)
                 (open-in-browser "https://courier.tymoon.eu/subscription/1"))))
@@ -139,7 +141,7 @@
           (setf (alloy:focus focus) :strong)))
       (let ((news (make-instance 'news-display)))
         (alloy:enter news layout :constraints `((:left 5) (:bottom 5) (:height 60) (:width 500))))
-      (let ((version (make-instance 'label :value (format NIL "v~a" (version :app))
+      (let ((version (make-instance 'label :value (format NIL #-nx "v~a" #+nx "v~a/NX" (version :app))
                                            :style `((:label :pattern ,colors:gray :halign :right :valign :bottom :size ,(alloy:un 10))))))
         (alloy:enter version layout :constraints `((:right 5) (:bottom 5) (:height 60) (:width 500)))))
     (alloy:finish-structure panel layout focus)))

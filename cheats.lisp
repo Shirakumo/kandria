@@ -114,12 +114,15 @@
 (define-cheat (you-must-die |you must die|)
   (kill (node 'player T)))
 
+#-nx
 (define-cheat (lp0-on-fire |lp0 on fire|)
   (error "Simulating an uncaught error."))
 
+#-nx
 (define-cheat (lp1-on-fire |lp1 on fire|)
   (error 'gl:opengl-error :error-code :out-of-memory))
 
+#-nx
 (define-cheat (lp2-on-fire |lp2 on fire|)
   (error 'gl:opengl-error :error-code :invalid-operation))
 
@@ -140,7 +143,7 @@
     (when state
       (submit-trace state))))
 
-#-kandria-demo
+#-(or kandria-demo nx)
 (define-cheat (developer |i am a developer|)
   (setf (setting :debugging :show-debug-settings) T))
 
