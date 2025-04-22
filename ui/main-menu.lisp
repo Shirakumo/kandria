@@ -204,7 +204,8 @@ void main(){
 
 (defmethod stage :after ((wave wave) (area staging-area))
   (stage (wave-pass wave) area)
-  (stage (vertex-array wave) area))
+  (stage (vertex-array wave) area)
+  (clear (wave-pass wave)))
 
 (defmethod handle ((ev tick) (wave wave))
   (when (<= (decf (clock wave) (dt ev)) 0.0)
@@ -244,14 +245,14 @@ void main(){
 }")
 
 (define-class-shader (wave :tess-control-shader)
-  (format NIL "#version 330
+  "#version 330
 #extension GL_ARB_tessellation_shader : require
 layout (vertices = 4) out;
 in vec3 vPosition[];
 in vec2 vUV[];
 out vec3 tcPosition[];
 out vec2 tcUV[];
-const int subdivs = ~d;
+const int subdivs = 64;
 
 void main(){
   tcPosition[gl_InvocationID] = vPosition[gl_InvocationID];
@@ -264,7 +265,7 @@ void main(){
     gl_TessLevelOuter[2] = subdivs;
     gl_TessLevelOuter[3] = subdivs;
   }
-}" #-nx 64 #+nx 32))
+}")
 
 (define-class-shader (wave :tess-evaluation-shader)
   "#version 330
