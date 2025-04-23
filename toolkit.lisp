@@ -1,5 +1,7 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+(declaim (type (unsigned-byte 8) +tile-size+ +layer-count+ +base-layer+))
+(declaim (type vec2 +tiles-in-view+))
 (define-global +tile-size+ 16)
 (define-global +layer-count+ 6)
 (define-global +base-layer+ 2)

@@ -60,6 +60,7 @@
       (coerce (nreverse blocks) 'vector))))
 
 (sb-ext:defglobal +surface-blocks+ NIL)
+(declaim (type simple-vector +surface-blocks+))
 (setf +surface-blocks+ (make-surface-blocks +tile-size+ '(1 2 3)))
 
 (defmethod velocity ((block block))
