@@ -73,9 +73,11 @@
 (defmethod resource ((data tile-data) (name (eql T)))
   (resource data 'albedo))
 
+#+trial-notify
 (defmethod notify:files-to-watch append ((asset tile-data))
   (list (merge-pathnames (getf (read-src (input* asset)) :source) (input* asset))))
 
+#+trial-notify
 (defmethod notify:notify :before ((asset tile-data) file)
   (when (string= "ase" (pathname-type file))
     (sleep 1)

@@ -84,11 +84,13 @@
    (palette :initform NIL :accessor palette)
    (palettes :initform NIL :accessor palettes)))
 
+#+trial-notify
 (defmethod notify:files-to-watch append ((asset sprite-data))
   (let ((source (getf (read-src (input* asset)) :source)))
     (when (typep source 'pathname)
       (list (merge-pathnames source (input* asset))))))
 
+#+trial-notify
 (defmethod notify:notify :before ((asset sprite-data) file)
   (when (string= "ase" (pathname-type file))
     (sleep 1)

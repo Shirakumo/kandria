@@ -66,7 +66,7 @@ Either run the setup.lisp file directly, or start SBCL with
    (#:mixed #:org.shirakumo.fraf.mixed)
    #+trial-steam (#:steam #:org.shirakumo.fraf.steamworks)
    #+trial-steam (#:steam* #:org.shirakumo.fraf.steamworks.cffi)
-   (#:notify #:org.shirakumo.fraf.trial.notify)
+   #-trial-release (#:notify #:org.shirakumo.fraf.trial.notify)
    (#:bvh #:org.shirakumo.fraf.trial.bvh2)
    (#:markless #:org.shirakumo.markless)
    (#:components #:org.shirakumo.markless.components)

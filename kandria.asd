@@ -217,7 +217,7 @@
   :depends-on ((:feature (:not :nx) :trial-glfw)
                (:feature (:not :nx) :trial-steam)
                #++(:feature (:not :nx) :trial-gog)
-               (:feature (:not :release) :trial-notify)
+               (:feature (:not :trial-release) :trial-notify)
                (:feature :nx :trial-nxgl)
                :trial-alloy
                :trial-harmony
