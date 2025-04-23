@@ -211,6 +211,16 @@
              (not (eql :keyboard +input-source+)))
     (ignore-errors (steam:show-floating-text-input (steam:interface 'steam:steamutils T)))))
 
+#+nx
+(defmethod alloy:activate :after ((input alloy:text-input-component))
+  (let ((text (nxgl:show-keyboard :default (alloy:text input)
+                                  :prompt (@ enter-name-prompt))))
+    (cond (text
+           (setf (alloy:value input) text)
+           (alloy:accept input))
+          (T
+           (alloy:decline input)))))
+
 (defclass deferrer (alloy:renderable alloy:layout-element)
   ())
 
