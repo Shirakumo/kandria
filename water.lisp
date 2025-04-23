@@ -92,7 +92,7 @@
 (defmethod handle ((ev tick) (water water))
   (declare (optimize speed))
   (let ((bs2 (vec2)))
-    (declare (dynamic-extent (bsize water)))
+    (declare (dynamic-extent bs2))
     (!v* bs2 (bsize water) 1.5)
     (when (in-view-p (location water) bs2)
       (let* ((data (buffer-data (vertex-buffer water)))
