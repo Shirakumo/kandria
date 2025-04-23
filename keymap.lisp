@@ -21,7 +21,7 @@
 
 (trigger skip
  (key :one-of (:enter :space))
- (button :one-of (:b)))
+ (button :one-of (#-nx :b #+nx :a)))
 
 (trigger advance
  (key :one-of (:enter :space))
@@ -50,11 +50,11 @@
 
 (trigger accept
  (key :one-of (:enter :e))
- (button :one-of (:a)))
+ (button :one-of (#-nx :a #+nx :b)))
 
 (trigger back
  (key :one-of (:escape :c))
- (button :one-of (:b :select)))
+ (button :one-of (#-nx :b #+nx :a :select)))
 
 (trigger mark-for-bulk
  (key :one-of (:m))
@@ -71,11 +71,11 @@
 
 (trigger interact
  (key :one-of (:f :e :enter))
- (button :one-of (:b)))
+ (button :one-of (#-nx :b #+nx :a)))
 
 (trigger jump
  (key :one-of (:space))
- (button :one-of (:a)))
+ (button :one-of (#-nx :a #+nx :b)))
 
 (trigger dash
  (key :one-of (:left-shift))
@@ -123,15 +123,15 @@
 
 (trigger cast-line
  (key :one-of (:space :e))
- (button :one-of (:a)))
+ (button :one-of (#-nx :a #+nx :b)))
 
 (trigger reel-in
  (key :one-of (:space :e))
- (button :one-of (:a)))
+ (button :one-of (#-nx :a #+nx :b)))
 
 (trigger stop-fishing
  (key :one-of (:backspace :enter))
- (button :one-of (:b)))
+ (button :one-of (#-nx :b #+nx :a)))
 
 (trigger zoom-in
  (key :one-of (:e))
@@ -154,7 +154,7 @@
 (trigger toggle-marker
  (key :one-of (:space))
  (mouse :one-of (:middle))
- (button :one-of (:a)))
+ (button :one-of (#-nx :a #+nx :b)))
 
 (trigger pan-left
  (key :one-of (:a :left))
