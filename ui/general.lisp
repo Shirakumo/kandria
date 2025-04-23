@@ -213,8 +213,8 @@
 
 #+nx
 (defmethod alloy:activate :after ((input alloy:text-input-component))
-  (let ((text (nxgl:show-keyboard :default (alloy:text input)
-                                  :prompt (@ enter-name-prompt))))
+  (let ((text (org.shirakumo.fraf.trial.nxgl:show-keyboard :default (alloy:text input)
+                                                           :prompt (@ enter-name-prompt))))
     (cond (text
            (setf (alloy:value input) text)
            (alloy:accept input))
