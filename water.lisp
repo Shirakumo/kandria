@@ -91,35 +91,39 @@
 
 (defmethod handle ((ev tick) (water water))
   (declare (optimize speed))
-  (let* ((data (buffer-data (vertex-buffer water)))
-         (prev (prev water))
-         (h (vy (the vec2 (bsize water))))
-         (dt (min 0.01 (the single-float (dt ev))))
-         (c (float (* dt dt (the single-float (propagation-speed water))) 0f0))
-         (damp (the single-float (dampening-factor water))))
-    (declare (type (simple-array single-float (*)) data prev))
-    (declare (type single-float dt))
-    ;; Discretized wave equation. We only care about i*4+3 indexes, as
-    ;; those are the top edges. We then store our result for the next iteration
-    ;; in the bottom edges. Once we're through we rotate and restore the bottom
-    ;; edges to their constant y again.
-    (loop for i from (+ 3 4) below (- (length data) 4) by 4
-          for u = (- (aref data i) h)
-          for p = (- (aref prev i) h)
-          do (setf (aref prev i) (+ u h))
-             (setf (aref data (- i 2))
-                   (+ (* damp
-                         (+ (- p)
-                            (* 2 u)
-                            (* c (+ (- (aref data (- i 4)) h)
-                                    (* -2 u)
-                                    (- (aref data (+ i 4)) h)))))
-                      h)))
-    (setf (aref data 3) h)
-    (setf (aref data (- (length data) 1)) h)
-    (loop for i from (+ 3 4) below (- (length data) 4) by 4
-          do (shiftf (aref data i) (aref data (- i 2)) (- h)))
-    (update-buffer-data (vertex-buffer water) T)))
+  (let ((bs2 (vec2)))
+    (declare (dynamic-extent (bsize water)))
+    (!v* bs2 (bsize water) 1.5)
+    (when (in-view-p (location water) bs2)
+      (let* ((data (buffer-data (vertex-buffer water)))
+             (prev (prev water))
+             (h (vy (the vec2 (bsize water))))
+             (dt (min 0.01 (the single-float (dt ev))))
+             (c (float (* dt dt (the single-float (propagation-speed water))) 0f0))
+             (damp (the single-float (dampening-factor water))))
+        (declare (type (simple-array single-float (*)) data prev))
+        (declare (type single-float dt))
+        ;; Discretized wave equation. We only care about i*4+3 indexes, as
+        ;; those are the top edges. We then store our result for the next iteration
+        ;; in the bottom edges. Once we're through we rotate and restore the bottom
+        ;; edges to their constant y again.
+        (loop for i from (+ 3 4) below (- (length data) 4) by 4
+              for u = (- (aref data i) h)
+              for p = (- (aref prev i) h)
+              do (setf (aref prev i) (+ u h))
+                 (setf (aref data (- i 2))
+                       (+ (* damp
+                             (+ (- p)
+                                (* 2 u)
+                                (* c (+ (- (aref data (- i 4)) h)
+                                        (* -2 u)
+                                        (- (aref data (+ i 4)) h)))))
+                          h)))
+        (setf (aref data 3) h)
+        (setf (aref data (- (length data) 1)) h)
+        (loop for i from (+ 3 4) below (- (length data) 4) by 4
+              do (shiftf (aref data i) (aref data (- i 2)) (- h)))
+        (update-buffer-data (vertex-buffer water) T)))))
 
 (defmethod description ((water water))
   (language-string 'water))
