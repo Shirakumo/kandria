@@ -6,6 +6,12 @@
 
 (defmethod is-collider-for ((platform moving-platform) (entity ai-entity)) NIL)
 
+(defun clamp-velocity (vel)
+  (let ((min (vec2)))
+    (declare (dynamic-extent min))
+    (!v- min (p! velocity-limit))
+    (nvclamp min vel (p! velocity-limit))))
+
 (defmethod handle :before ((ev tick) (entity ai-entity))
   (let ((collisions (collisions entity))
         (vel (velocity entity)))
@@ -21,11 +27,11 @@
              (setf (vx vel) 0))
            (incf (vx vel) (* (vx g) (dt ev)))
            (incf (vy vel) (* (vy g) (dt ev)))
-           (nvclamp (v- (p! velocity-limit)) vel (p! velocity-limit))))))
+           (clamp-velocity vel)))))
     (case (state entity)
       ((:dying :stunned :dead))
       (T (handle-ai-states entity ev)))
-    (nvclamp (v- (p! velocity-limit)) vel (p! velocity-limit))
+    (clamp-velocity vel)
     (nv+ (frame-velocity entity) vel)))
 
 (defgeneric handle-ai-states (entity ev))

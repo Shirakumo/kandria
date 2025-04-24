@@ -27,7 +27,7 @@
     1.0)
 
   (defmethod gravity ((air air))
-    (vec 0 -15))
+    #.(vec 0 -15))
 
   (defclass vacuum (air)
     ())

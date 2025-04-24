@@ -894,7 +894,7 @@ Use this to modify the start and end locations of the gate")
         (setf (vx vel) (max (* (vx vel) -0.8) 0.0)))
       (incf (vx vel) (* (vx g) (dt ev)))
       (incf (vy vel) (* (vy g) (dt ev)))
-      (nvclamp (v- (p! velocity-limit)) vel (p! velocity-limit)))
+      (clamp-velocity vel))
     (nv+ (frame-velocity door) vel)))
 
 (define-shader-entity flag (lit-animated-sprite creatable ephemeral half-solid)
