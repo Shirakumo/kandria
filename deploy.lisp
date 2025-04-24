@@ -13,6 +13,18 @@
 (defmethod trial:report-on-error ((error org.shirakumo.file-select:file-select-error))
   (continue))
 
+(define-as-unused kandria
+  "**/*.ase"
+  "**/*.kra"
+  "**/*.*~"
+  "**/#*#")
+
+(define-as-unused music
+  "**/*.wav")
+
+(define-as-unused trial
+  "")
+
 (deploy:define-hook (:deploy kandria -1) (directory)
   (org.shirakumo.zippy:compress-zip
    (pathname-utils:subdirectory (data-root) "world")
