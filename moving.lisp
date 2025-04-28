@@ -56,7 +56,7 @@
 
 (defun perform-collision-tick (moving dt)
   (declare (type single-float dt))
-  (declare (optimize speed))
+  (declare (optimize speed (safety 0)))
   (let* ((tentative (load-time-value (map-into (make-array 16) #'%make-hit)))
          (found 0)
          (vel (nv* (the vec2 (frame-velocity moving)) (* 100.0 dt)))
@@ -72,6 +72,7 @@
     (declare (dynamic-extent bounds))
     (declare (type (unsigned-byte 8) found))
     (declare (type vec2 loc siz))
+    (declare (type (simple-array hit (16)) tentative))
     ;; Scan for applicable entities
     (do-fitting (entity (bvh (region +world+)) bounds)
       (when (not (eq entity moving))
@@ -115,17 +116,20 @@
       (try-collide))))
 
 (defmethod handle ((ev tick) (moving moving))
+  (declare (optimize speed (safety 0)))
   (when (next-method-p) (call-next-method))
   (let ((loc (location moving))
         (vel (velocity moving))
         (size (bsize moving))
         (collisions (collisions moving)))
+    (declare (type simple-vector collisions))
+    (declare (type vec2 loc vel size))
     ;; Scan for medium
     (let ((medium (do-fitting (entity (bvh (region +world+)) moving +default-medium+)
                     (when (typep entity 'medium)
                       (return entity)))))
       (setf (medium moving) medium)
-      (nv* (velocity moving) (drag medium))
+      (nv* (the vec2 (velocity moving)) (the single-float (drag medium)))
       (cond ((and (typep medium 'sized-entity)
                   (within-p medium moving))
              (submerged moving medium))
@@ -140,16 +144,16 @@
       (setf (svref collisions 3) NIL))
 
     (when (and (typep (svref collisions 0) 'moving-platform)
-               (svref collisions 2) (< (vy (velocity (svref collisions 0))) 0))
+               (svref collisions 2) (< (vy2 (velocity (svref collisions 0))) 0))
       (die moving))
     (when (and (typep (svref collisions 2) 'moving-platform)
-               (svref collisions 0) (< 0 (vy (velocity (svref collisions 2)))))
+               (svref collisions 0) (< 0 (vy2 (velocity (svref collisions 2)))))
       (die moving))
     (when (and (typep (svref collisions 1) 'moving-platform)
-               (svref collisions 3) (< (vx (velocity (svref collisions 1))) 0))
+               (svref collisions 3) (< (vx2 (velocity (svref collisions 1))) 0))
       (die moving))
     (when (and (typep (svref collisions 3) 'moving-platform)
-               (svref collisions 1) (< 0 (vx (velocity (svref collisions 3)))))
+               (svref collisions 1) (< 0 (vx2 (velocity (svref collisions 3)))))
       (die moving))
     ;; KLUDGE: if the entity gets badly stuck in the ground with a hitbox
     ;;         smaller than the tile size, it will be stuck permanently.
@@ -157,9 +161,9 @@
     ;;         entity's position.
     (when (and (svref collisions 0) (svref collisions 2))
       (when (chunk moving)
-        (loop for tile = (or (first (tile loc (chunk moving))) 0)
+        (loop for tile of-type (unsigned-byte 8) = (or (first (tile loc (chunk moving))) 0)
               while (or (= 1 tile) (= 22 tile))
-              do (incf (vy (location moving)) 8))))
+              do (incf (vy2 (location moving)) 8))))
     
     ;; Point test for adjacent walls
     (flet ((test (hit)
@@ -170,12 +174,12 @@
           ;; KLUDGE: this *sucks*
           (when (and l (not (typep (hit-object l) 'crumbling-platform)))
             (when (< (vx vel) 0.0)
-              (setf (vx loc) (+ (vx (hit-location l)) (vx (bsize moving)) (vx (bsize (hit-object l))))))
+              (setf (vx loc) (+ (vx2 (hit-location l)) (vx2 (bsize moving)) (vx2 (bsize (hit-object l))))))
             (setf (aref collisions 3) (hit-object l))))
         (let ((r (scan +world+ (tvec (+ (vx loc) (vx size) 1) (vy loc) 1 (- (vy size) 2)) #'test)))
           (when (and r (not (typep (hit-object r) 'crumbling-platform)))
             (when (< 0.0 (vx vel))
-              (setf (vx loc) (- (vx (hit-location r)) (vx (bsize moving)) (vx (bsize (hit-object r))))))
+              (setf (vx loc) (- (vx2 (hit-location r)) (vx2 (bsize moving)) (vx2 (bsize (hit-object r))))))
             (setf (aref collisions 1) (hit-object r))))
         (let ((u (scan +world+ (tvec (vx loc) (+ (vy loc) (vy size) 1.5) (- (vx size) 2) 1) #'test)))
           (when u
@@ -183,7 +187,7 @@
         (let ((b (scan +world+ (tvec (vx loc) (- (vy loc) (vy size) 1.5) (- (vx size) 2) 1) #'test)))
           (when b
             (setf (aref collisions 2) (hit-object b)))))))
-  (incf (air-time moving) (dt ev)))
+  (incf (the single-float (air-time moving)) (dt ev)))
 
 (defmethod collides-p ((moving moving) (solid half-solid) hit)
   (= 0 (vy (hit-normal hit))))
@@ -332,10 +336,11 @@
 
 
 (defmethod collides-p :around ((entity game-entity) other hit)
-  (let* ((loc (location entity))
-         (siz (bsize entity))
-         (bloc (hit-location hit))
-         (bsiz (bsize other)))
+  (declare (optimize speed (safety 1)))
+  (let* ((loc (the vec2 (location entity)))
+         (siz (the vec2 (bsize entity)))
+         (bloc (the vec2 (hit-location hit)))
+         (bsiz (the vec2 (bsize other))))
     (when (and (< (- (vx loc) (vx siz) (vx bsiz)) (vx bloc) (+ (vx loc) (vx siz) (vx bsiz)))
                (< (- (vy loc) (vy siz) (vy bsiz)) (vy bloc) (+ (vy loc) (vy siz) (vy bsiz))))
       ;; We are intersecting, compute normal

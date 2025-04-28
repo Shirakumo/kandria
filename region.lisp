@@ -84,6 +84,7 @@
           (return hit))))))
 
 (defmethod scan ((region region) (target game-entity) on-hit)
+  (declare (optimize speed (safety 1)))
   (let ((loc (location target))
         (bsize (bsize target)))
     (with-tvec (vec (- (vx2 loc) (vx2 bsize) 20)
@@ -96,6 +97,7 @@
             (when hit (return hit))))))))
 
 (defmethod scan ((region region) (target vec4) on-hit)
+  (declare (optimize speed (safety 1)))
   (with-tvec (vec (- (vx4 target) (vz4 target))
                   (- (vy4 target) (vw4 target))
                   (+ (vx4 target) (vz4 target))

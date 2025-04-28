@@ -148,6 +148,8 @@
   (vsetf (bsize entity) (/ width 2) (/ height 2)))
 
 (defmethod scan ((entity sized-entity) (target vec2) on-hit)
+  (declare (optimize speed))
+  (declare (type function on-hit))
   (let ((w (vx2 (bsize entity)))
         (h (vy2 (bsize entity)))
         (loc (location entity)))
@@ -157,8 +159,10 @@
         (unless (funcall on-hit hit) hit)))))
 
 (defmethod scan ((entity sized-entity) (target vec4) on-hit)
-  (let ((bsize (bsize entity))
-        (loc (location entity)))
+  (declare (optimize speed))
+  (declare (type function on-hit))
+  (let ((bsize (the vec2 (bsize entity)))
+        (loc (the vec2 (location entity))))
     (when (and (< (abs (- (vx2 loc) (vx4 target))) (+ (vx2 bsize) (vz4 target)))
                (< (abs (- (vy2 loc) (vy4 target))) (+ (vy2 bsize) (vw4 target))))
       (let ((hit (make-hit entity (location entity))))
@@ -299,8 +303,10 @@ void main(){
   (handle-oob entity))
 
 (defmethod handle :after ((ev tick) (entity game-entity))
+  (declare (optimize speed (safety 1)))
   (let ((vel (frame-velocity entity))
         (loc (location entity)))
+    (declare (type vec2 vel loc))
     (incf (vx loc) (* (vx vel) 100 (dt ev)))
     (incf (vy loc) (* (vy vel) 100 (dt ev)))
     (vsetf vel 0 0)

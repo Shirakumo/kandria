@@ -286,6 +286,7 @@
   (normal NIL :type vec2))
 
 (defun make-hit (object location &optional (time 0f0) (normal (tvec 0 0)))
+  (declare (optimize speed))
   (let ((hit (load-time-value (%make-hit NIL (vec 0 0)))))
     (setf (hit-object hit) object)
     (setf (hit-location hit) location)

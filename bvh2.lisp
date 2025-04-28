@@ -347,7 +347,7 @@
                 (return)))))))
 
 (defun call-with-overlapping (function bvh object)
-  (declare (optimize speed (safety 1)))
+  (declare (optimize speed (safety 0)))
   (flet ((ensure-vec2 (x)
            (etypecase x
              (vec2 x)

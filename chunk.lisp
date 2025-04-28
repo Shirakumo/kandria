@@ -97,6 +97,7 @@
 (defmacro %with-layer-xy ((layer location) &body body)
   `(let ((x (floor (+ (- (vx ,location) (vx2 (location ,layer))) (vx2 (bsize ,layer))) +tile-size+))
          (y (floor (+ (- (vy ,location) (vy2 (location ,layer))) (vy2 (bsize ,layer))) +tile-size+)))
+     (declare (type (signed-byte 32) x y))
      (when (and (< -1.0 x (vx2 (size ,layer)))
                 (< -1.0 y (vy2 (size ,layer))))
        ,@body)))
@@ -113,6 +114,7 @@
   (contained-p (location entity) layer))
 
 (defmethod contained-p ((location vec2) (layer layer))
+  (declare (optimize speed (safety 1)))
   (%with-layer-xy (layer location)
     layer))
 
