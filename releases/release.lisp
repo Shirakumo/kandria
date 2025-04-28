@@ -1,5 +1,8 @@
 (org.shirakumo.fraf.trial.release:configure
-  :build (:features (:kandria-release)
+  :build (:features (:kandria-release
+                     :3d-math-no-f64
+                     :3d-math-no-u32
+                     :3d-math-no-i32)
           :prune ("pool/effects/"
                   "pool/workbench/"
                   "pool/trial/"
