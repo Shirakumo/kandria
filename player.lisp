@@ -1448,7 +1448,7 @@ void main(){
 (defmethod (setf limp-time) :after (time (player player))
   (when (< 0 time)
     (setf (combat-time player) 0.0))
-  (setf (strength (node 'distortion +world+)) (* (clamp 0.0 (/ time 5) 1.0) 0.6)))
+  (setf (distortion-strength (node 'fade +world+)) (* (clamp 0.0 (/ time 5) 1.0) 0.6)))
 
 (defmethod (setf health) :before (health (player player))
   (when (< (health player) health)

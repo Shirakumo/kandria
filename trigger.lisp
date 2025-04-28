@@ -132,16 +132,18 @@
            (setf (mixed:volume (// 'sound 'sandstorm)) (/ value 4)))
           (T
            (harmony:stop (// 'sound 'sandstorm))))
-    (setf (strength (node 'sandstorm T)) value)
-    (setf (velocity (node 'sandstorm T)) (velocity trigger))))
+    (let ((pass (node 'fade T)))
+      (setf (sandstorm-strength pass) value)
+      (setf (velocity pass) (velocity trigger)))))
 
 (defclass dust-trigger (tween-trigger creatable)
   ())
 
 (defmethod (setf value) (value (trigger dust-trigger))
-  (let ((value (* 0.3 (max 0.0 (- value 0.01)))))
-    (setf (strength (node 'sandstorm T)) value)
-    (setf (velocity (node 'sandstorm T)) 0.05)))
+  (let ((value (* 0.3 (max 0.0 (- value 0.01))))
+        (pass (node 'fade T)))
+    (setf (sandstorm-strength pass) value)
+    (setf (velocity pass) 0.05)))
 
 (defclass zoom-trigger (tween-trigger creatable)
   ((easing :initform 'quint-in)))

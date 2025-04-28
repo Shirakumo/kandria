@@ -217,10 +217,8 @@ Support:     mailto:shirakumo@tymoon.eu
   (let ((shadow (make-instance 'shadow-map-pass))
         (lighting (make-instance 'lighting-pass))
         (rendering (make-instance 'rendering-pass))
-        (distortion (make-instance 'distortion-pass))
         (disp-render (make-instance 'displacement-render-pass))
         (displacement (make-instance 'displacement-pass))
-        (sandstorm (make-instance 'sandstorm-pass))
         ;; This is dumb and inefficient. Ideally we'd connect the same output
         ;; to both distortion and UI and then just make the UI pass not clear
         ;; the framebuffer when drawing.
@@ -230,9 +228,7 @@ Support:     mailto:shirakumo@tymoon.eu
     (connect (port lighting 'color) (port rendering 'lighting) scene)
     (connect (port rendering 'color) (port displacement 'previous-pass) scene)
     (connect (port disp-render 'displacement-map) (port displacement 'displacement-map) scene)
-    (connect (port displacement 'color) (port sandstorm 'previous-pass) scene)
-    (connect (port sandstorm 'color) (port distortion 'previous-pass) scene)
-    (connect (port distortion 'color) (port blend 'trial::a-pass) scene)
+    (connect (port displacement 'color) (port blend 'trial::a-pass) scene)
     (connect (port ui 'color) (port blend 'trial::b-pass) scene))
   (when (setting :debugging :fps-counter)
     (enter (make-instance 'trial:fps-counter) (scene main)))
@@ -266,8 +262,8 @@ Support:     mailto:shirakumo@tymoon.eu
      (setf (state main) NIL)
      (reset (camera scene))
      (leave (region scene) scene)
-     (setf (strength (node 'sandstorm scene)) 0.0)
-     (setf (strength (node 'distortion scene)) 0.0)
+     (setf (sandstorm-strength (node 'fade scene)) 0.0)
+     (setf (distortion-strength (node 'fade scene)) 0.0)
      (setf (storyline scene) (make-instance 'storyline))
      (setf (changes-saved-p main) T)
      (trial:commit scene (loader main))
