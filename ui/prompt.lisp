@@ -77,7 +77,7 @@
   (when description-p
     (setf (alloy:value (description prompt)) (or description "")))
   (unless (alloy:layout-tree prompt)
-    (alloy:enter prompt (alloy:layout-element (find-panel 'hud))))
+    (alloy:enter prompt (alloy:popups (alloy:layout-tree (node 'ui-pass T)))))
   (alloy:with-unit-parent prompt
     (let* ((screen-location (world-screen-pos location))
            (size (alloy:suggest-size (alloy:px-size 16 16) prompt)))
