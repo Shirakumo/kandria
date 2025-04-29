@@ -79,10 +79,6 @@
         (setf found (tentative-scan entity bounds tentative found))
         (when (= 16 found)
           (return))))
-    ;; Stub out other tentative values
-    (loop for i from found below (length tentative)
-          do (vsetf (hit-location (aref tentative i))
-                    MOST-POSITIVE-SINGLE-FLOAT MOST-POSITIVE-SINGLE-FLOAT))
     ;; Sort so we process close hits first
     (flet ((dist (hit)
              (declare (type hit hit))
@@ -90,7 +86,18 @@
                (if (= (vx l) MOST-POSITIVE-SINGLE-FLOAT)
                    MOST-POSITIVE-SINGLE-FLOAT
                    (vsqrdistance l loc)))))
-      (sort tentative #'< :key #'dist))
+      (declare (dynamic-extent #'dist))
+      (case found
+        ((0 1))
+        (2
+         (when (< (dist (aref tentative 1)) (dist (aref tentative 0)))
+           (rotatef (aref tentative 1) (aref tentative 0))))
+        (T ; slow path
+         ;; Stub out other tentative values
+         (loop for i from found below (length tentative)
+               do (vsetf (hit-location (aref tentative i))
+                         MOST-POSITIVE-SINGLE-FLOAT MOST-POSITIVE-SINGLE-FLOAT))
+         (sort tentative #'< :key #'dist))))
     
     (flet ((try-collide ()
              (loop for i from 0 below found
