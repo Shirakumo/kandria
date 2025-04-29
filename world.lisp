@@ -187,7 +187,9 @@
            (handle event (node 'fade world))
            (handle event handler))
           (T
-           (call-next-method)))))
+           (call-next-method)))
+    (loop for listener across (visible-listeners (camera world))
+          do (handle event listener))))
 
 (defmethod handle :after ((ev key-press) (world world))
   ;; KLUDGE: bind ESC to menu always

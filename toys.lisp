@@ -23,7 +23,7 @@
   (start-animation 'sit-down player)
   (setf (state player) :sitting))
 
-(define-shader-entity mirror (lit-animated-sprite interactable ephemeral creatable)
+(define-shader-entity mirror (lit-animated-sprite interactable ephemeral creatable visible-listener)
   ()
   (:default-initargs
    :sprite-data (asset 'kandria 'mirror)))
@@ -39,7 +39,7 @@
 (defmethod interact ((mirror mirror) (player player))
   (show-panel 'wardrobe))
 
-(define-shader-entity workbench (lit-animated-sprite interactable ephemeral creatable)
+(define-shader-entity workbench (lit-animated-sprite interactable ephemeral creatable visible-listener)
   ()
   (:default-initargs
    :sprite-data (asset 'kandria 'workbench)))
@@ -207,7 +207,7 @@
        (setf (state lantern) :active)
        (setf (animation lantern) 'respawn)))))
 
-(define-shader-entity spring (lit-animated-sprite solid collider ephemeral creatable)
+(define-shader-entity spring (lit-animated-sprite solid collider ephemeral creatable visible-listener)
   ((size :initform (vec 16 16))
    (bsize :initform (vec 8 8))
    (iframes :initform 0.0 :accessor iframes)
@@ -570,7 +570,7 @@ void main(){
   color.a *= noise;
 }")
 
-(define-shader-entity chest (interactable-animated-sprite ephemeral creatable)
+(define-shader-entity chest (interactable-animated-sprite ephemeral creatable visible-listener)
   ((name :initform (generate-name "CHEST"))
    (bsize :initform (vec 8 8))
    (item :initform NIL :initarg :item :accessor item :type alloy::any
@@ -649,7 +649,7 @@ void main(){
 
 (defmethod spawned-p ((shutter shutter)) T)
 
-(define-shader-entity switch (lit-animated-sprite solid collider ephemeral creatable)
+(define-shader-entity switch (lit-animated-sprite solid collider ephemeral creatable visible-listener)
   ((name :initform NIL)
    (bsize :initform (vec 8 8))
    (state :initform :off :initarg :state :accessor state :type (member :off :on)
@@ -812,7 +812,7 @@ Use this to modify the start and end locations of the gate")
     (when (< (decf (cooldown blocker) (dt ev)) 0.0)
       (setf (slot-value blocker 'animation) (aref (animations blocker) 0)))))
 
-(define-shader-entity windmill (ephemeral lit-animated-sprite creatable)
+(define-shader-entity windmill (ephemeral lit-animated-sprite creatable visible-listener)
   ((name :initform NIL)
    (bsize :initform (vec 32 64))
    (clock :initform (random 0.5))
@@ -897,7 +897,7 @@ Use this to modify the start and end locations of the gate")
       (clamp-velocity vel))
     (nv+ (frame-velocity door) vel)))
 
-(define-shader-entity flag (lit-animated-sprite creatable ephemeral half-solid)
+(define-shader-entity flag (lit-animated-sprite creatable ephemeral half-solid visible-listener)
   ((trial:sprite-data :initform (asset 'kandria 'flag))
    (next-world :initform "" :accessor next-world :type string
                :documentation "The ID of the next world to load (if any)")

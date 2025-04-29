@@ -63,7 +63,7 @@ void main(){
   (let* ((s (- 11.0 (min 11.0 (/ 1.0 (+ 0.01 (expt (clock displacer) 1.001)))))))
     (scale-by s s 1)))
 
-(define-shader-entity heatwave (displacer sized-entity resizable listener ephemeral creatable)
+(define-shader-entity heatwave (displacer sized-entity resizable listener ephemeral creatable visible-listener)
   ((texture :initform (// 'kandria 'heatwave))
    (strength :initform 0.02)
    (offset :initform 0.0 :accessor offset))

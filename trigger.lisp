@@ -258,7 +258,7 @@
   (dolist (shutter (children trigger))
     (setf (state shutter) :open)))
 
-(defclass action-prompt (trigger listener creatable)
+(defclass action-prompt (trigger listener creatable visible-listener)
   ((action :initarg :action :initform NIL :accessor action
            :type alloy::any :documentation "The name or list of names of an action to show the prompt for")
    (interrupt :initarg :interrupt :initform NIL :accessor interrupt

@@ -21,7 +21,7 @@
   (when (<= (decf (clock part) (dt ev)) 0.0)
     (leave part T)))
 
-(define-shader-entity grass-patch (lit-entity sized-entity resizable renderable listener ephemeral creatable)
+(define-shader-entity grass-patch (lit-entity sized-entity resizable renderable listener ephemeral creatable visible-listener)
   ((texture :initform (// 'kandria 'grass) :accessor texture :accessor albedo)
    (vertex-buffer :accessor vertex-buffer)
    (vertex-array :accessor vertex-array)

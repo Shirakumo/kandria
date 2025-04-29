@@ -47,7 +47,7 @@
     (incf (vy (velocity player)) 2.0)
     (stun player 0.1)))
 
-(define-shader-entity sawblade (enemy solid immovable creatable)
+(define-shader-entity sawblade (enemy solid immovable creatable visible-listener)
   ((bsize :initform (vec 16 16)))
   (:default-initargs
    :sprite-data (asset 'kandria 'sawblade)))
@@ -58,7 +58,7 @@
 
 (defmethod (setf health) (value (sawblade sawblade)) value)
 
-(define-shader-entity box (enemy solid immovable creatable)
+(define-shader-entity box (enemy solid immovable creatable visible-listener)
   ((bsize :initform (vec 8 8)))
   (:default-initargs
    :sprite-data (asset 'kandria 'box)))
@@ -149,7 +149,7 @@
              (T
               (setf (animation enemy) 'stand)))))))
 
-(define-shader-entity dummy (minor-enemy half-solid immovable creatable)
+(define-shader-entity dummy (minor-enemy half-solid immovable creatable visible-listener)
   ((bsize :initform (vec 8 16)))
   (:default-initargs
    :sprite-data (asset 'kandria 'dummy)))

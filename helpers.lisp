@@ -33,6 +33,12 @@
 (define-asset (kandria placeholder) image
     #p"texture/placeholder.png")
 
+
+(defclass visible-listener () ())
+
+(defmethod add-listener ((listener visible-listener) (scene trial:scene)))
+(defmethod remove-listener ((listener visible-listener) (scene trial:scene)))
+
 (defmethod recompute ((entity entity)))
 
 (defclass collider () ())

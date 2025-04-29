@@ -3,7 +3,7 @@
 (define-asset (kandria rope-part) mesh
     (make-rectangle-mesh 2 8 :align :topcenter))
 
-(define-shader-entity rope (lit-vertex-entity sized-entity interactable listener resizable ephemeral creatable)
+(define-shader-entity rope (lit-vertex-entity sized-entity interactable listener resizable ephemeral creatable visible-listener)
   ((name :initform (generate-name "ROPE"))
    (vertex-array :initform (// 'kandria 'rope-part))
    (chain :initform #() :accessor chain)

@@ -85,7 +85,7 @@
   (stage (resource (profile-sprite-data profile) 'texture) area)
   (stage (resource (profile-sprite-data profile) 'vertex-array) area))
 
-(define-shader-entity door (lit-animated-sprite interactable ephemeral)
+(define-shader-entity door (lit-animated-sprite interactable ephemeral visible-listener)
   ((target :initform NIL :initarg :target :accessor target)
    (bsize :initform (vec 11 20))
    (primary :initform T :initarg :primary :accessor primary)
@@ -184,7 +184,7 @@ Determines the animation used when entering it")))
          (harmony:play (// 'sound 'door-access-denied))
          (setf (animation door) 'denied))))
 
-(define-shader-entity save-point (lit-animated-sprite interactable ephemeral creatable)
+(define-shader-entity save-point (lit-animated-sprite interactable ephemeral creatable visible-listener)
   ((bsize :initform (vec 8 18)))
   (:default-initargs :sprite-data (asset 'kandria 'telephone)))
 
@@ -205,7 +205,7 @@ Determines the animation used when entering it")))
 (defmethod layer-index ((save-point save-point))
   (1- +base-layer+))
 
-(define-shader-entity station (lit-animated-sprite interactable ephemeral creatable)
+(define-shader-entity station (lit-animated-sprite interactable ephemeral creatable visible-listener)
   ((name :initform (generate-name "STATION"))
    (bsize :initform (vec 24 16))
    (train :initform (make-instance 'train) :accessor train)
