@@ -192,9 +192,10 @@
   (let ((chunked (chunked-listeners camera)))
     (declare (type (and (vector T) (not simple-array)) chunked))
     (setf (fill-pointer chunked) 0)
-    (do-fitting (entity (bvh (region +world+)) chunk)
-      (when (typep entity 'chunk-listener)
-        (vector-push-extend entity chunked)))))
+    (when chunk
+      (do-fitting (entity (bvh (region +world+)) chunk)
+        (when (typep entity 'chunk-listener)
+          (vector-push-extend entity chunked))))))
 
 (defmethod handle ((ev switch-chunk) (camera camera))
   (loop for el across (chunked-listeners camera)
