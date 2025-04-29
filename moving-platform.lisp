@@ -20,7 +20,7 @@
       (when (contained-p point tiled-platform)
         tiled-platform)))
 
-(define-shader-entity falling-platform (shadow-caster tiled-platform creatable)
+(define-shader-entity falling-platform (shadow-caster tiled-platform creatable chunk-listener)
   ((size :initform (vec 2 5))
    (fall-timer :initform 0.9 :accessor fall-timer)
    (initial-location :initform (vec 0 0) :initarg :initial-location :accessor initial-location)

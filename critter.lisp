@@ -176,7 +176,7 @@
   (start-animation 'stand npc)
   (start-animation 'pet player))
 
-(define-shader-entity baba (pet creatable)
+(define-shader-entity baba (pet creatable chunk-listener)
   ((nametag-element :initform NIL)
    (bsize :initform (vec 8 8)))
   (:default-initargs :sprite-data (asset 'kandria 'critter-baba)))

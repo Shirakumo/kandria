@@ -241,7 +241,7 @@
         (setf (played-p trigger) T))
       (setf (played-p trigger) NIL)))
 
-(defclass shutter-trigger (parent-entity listener trigger creatable)
+(defclass shutter-trigger (parent-entity listener trigger creatable chunk-listener)
   ())
 
 (defmethod make-child-entity ((trigger shutter-trigger))
@@ -356,7 +356,7 @@
                (setf (aref arr (+ i 3)) 1.0))
       vao))
 
-(define-shader-entity wind (textured-entity lit-entity trigger listener creatable)
+(define-shader-entity wind (textured-entity lit-entity trigger listener creatable chunk-listener)
   ((vertex-array :initform NIL :accessor vertex-array)
    (vertex-buffer :initform NIL :accessor vertex-buffer)
    (texture :initform (// 'kandria 'wind))

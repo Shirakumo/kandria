@@ -115,7 +115,7 @@
     (let ((yrel (lerp (vy (slope-l block)) (vy (slope-r block)) (clamp 0f0 xrel 1f0))))
       (setf (vy loc) (+ 0.05 yrel (vy (bsize ball)) (vy (hit-location hit)))))))
 
-(define-shader-entity balloon (game-entity lit-animated-sprite ephemeral creatable)
+(define-shader-entity balloon (game-entity lit-animated-sprite ephemeral creatable chunk-listener)
   ()
   (:default-initargs
    :sprite-data (asset 'kandria 'balloon)))
@@ -147,7 +147,7 @@
 
 (defmethod spawned-p ((light lantern-light)) T)
 
-(define-shader-entity lantern (lit-animated-sprite solid collider ephemeral creatable)
+(define-shader-entity lantern (lit-animated-sprite solid collider ephemeral creatable chunk-listener)
   ((size :initform (vec 32 32))
    (bsize :initform (vec 16 16))
    (state :initform :active :accessor state)
@@ -277,7 +277,7 @@ Change this to set the spring's direction"))
            (rotate-by 0 0 1 PI)
            (translate-by 0 -8 0)))))
 
-(define-shader-entity fountain (lit-animated-sprite solid collider ephemeral creatable)
+(define-shader-entity fountain (lit-animated-sprite solid collider ephemeral creatable chunk-listener)
   ((size :initform (vec 32 64))
    (bsize :initform (vec 16 32))
    (timer :initform 0.0 :accessor timer)
@@ -379,7 +379,7 @@ Change this to set the fountain's direction"))
     (vsetf vec (vx2 loc) (vy2 loc) (vx2 bsize) (vy2 bsize))
     (scan entity vec on-hit)))
 
-(define-shader-entity crumbling-platform (lit-animated-sprite collider ephemeral solid creatable)
+(define-shader-entity crumbling-platform (lit-animated-sprite collider ephemeral solid creatable chunk-listener)
   ((bsize :initform (vec 24 4))
    (size :initform (vec 48 32))
    (state :initform :active :accessor state)
@@ -473,7 +473,7 @@ Change this to set the fountain's direction"))
 (defmethod (setf active-p) :after (value (hider hider))
   (setf (visibility hider) (if value 1.0 0.0)))
 
-(define-shader-entity blocker (layer solid ephemeral collider listener creatable)
+(define-shader-entity blocker (layer solid ephemeral collider listener creatable chunk-listener)
   ((size :initform (vec 5 5))
    (visibility :type single-float :documentation "How visible the blocker is right now")
    (name :initform (generate-name "BLOCKER"))
@@ -688,7 +688,7 @@ void main(){
 
 (defmethod spawned-p ((switch switch)) T)
 
-(define-shader-entity gate (parent-entity tiled-platform creatable)
+(define-shader-entity gate (parent-entity tiled-platform creatable chunk-listener)
   ((name :initform (generate-name "GATE"))
    (size :initform (vec 1 5))
    (state :initform :closed :type (member :closed :open :opening :closing)
@@ -840,7 +840,7 @@ Use this to modify the start and end locations of the gate")
     (harmony:play (// 'sound 'bomb-active) :location (location bomb) :reset T)
     (setf (played-p bomb) T)))
 
-(define-shader-entity crashable-door (moving lit-animated-sprite creatable ephemeral)
+(define-shader-entity crashable-door (moving lit-animated-sprite creatable ephemeral chunk-listener)
   ((trial:sprite-data :initform (asset 'kandria 'door-burst))
    (bsize :initform (vec 8 20))))
 

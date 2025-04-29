@@ -188,8 +188,11 @@
            (handle event handler))
           (T
            (call-next-method)))
-    (loop for listener across (visible-listeners (camera world))
-          do (handle event listener))))
+    (let ((camera (camera world)))
+      (loop for listener across (visible-listeners camera)
+            do (handle event listener))
+      (loop for listener across (chunked-listeners camera)
+            do (handle event listener)))))
 
 (defmethod handle :after ((ev key-press) (world world))
   ;; KLUDGE: bind ESC to menu always

@@ -17,7 +17,8 @@
    (offset :initform (vec 0 0) :accessor offset)
    (fix-offset :initform NIL :accessor fix-offset)
    (in-view-tester :initform (vec 0 0 0 0) :accessor in-view-tester)
-   (visible-listeners :initform (make-array 128 :adjustable T :fill-pointer 0) :accessor visible-listeners))
+   (visible-listeners :initform (make-array 128 :adjustable T :fill-pointer 0) :accessor visible-listeners)
+   (chunked-listeners :initform (make-array 128 :adjustable T :fill-pointer 0) :accessor chunked-listeners))
   (:default-initargs
    :location (vec 0 0)
    :target-size (v* +tiles-in-view+ +tile-size+ .5)))
@@ -187,10 +188,20 @@
 
 (defmethod (setf chunk) :after (chunk (camera camera))
   ;; Optimal bounds might have changed, update.
-  (handle (make-instance 'resize :width (width *context*) :height (height *context*)) camera))
+  (handle (make-instance 'resize :width (width *context*) :height (height *context*)) camera)
+  (let ((chunked (chunked-listeners camera)))
+    (declare (type (and (vector T) (not simple-array)) chunked))
+    (setf (fill-pointer chunked) 0)
+    (do-fitting (entity (bvh (region +world+)) chunk)
+      (when (typep entity 'chunk-listener)
+        (vector-push-extend entity chunked)))))
 
 (defmethod handle ((ev switch-chunk) (camera camera))
-  (setf (chunk camera) (chunk ev)))
+  (loop for el across (chunked-listeners camera)
+        do (handle ev el))
+  (setf (chunk camera) (chunk ev))
+  (loop for el across (chunked-listeners camera)
+        do (handle ev el)))
 
 (defmethod handle ((ev switch-region) (camera camera))
   (setf (target camera) (node 'player T)))

@@ -33,9 +33,11 @@
 (define-asset (kandria placeholder) image
     #p"texture/placeholder.png")
 
-
+(defclass chunk-listener () ())
 (defclass visible-listener () ())
 
+(defmethod add-listener ((listener chunk-listener) (scene trial:scene)))
+(defmethod remove-listener ((listener chunk-listener) (scene trial:scene)))
 (defmethod add-listener ((listener visible-listener) (scene trial:scene)))
 (defmethod remove-listener ((listener visible-listener) (scene trial:scene)))
 
