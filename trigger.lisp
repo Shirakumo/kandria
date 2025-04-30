@@ -477,5 +477,5 @@ in vec2 world_pos;
 
 void main(){
   maybe_call_next_method();
-  color = apply_lighting_flat(color, vec2(0), 0, world_pos) * visibility;
+  color = vec4(1) * visibility;
 }")
