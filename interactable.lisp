@@ -205,7 +205,7 @@ Determines the animation used when entering it")))
 (defmethod layer-index ((save-point save-point))
   (1- +base-layer+))
 
-(define-shader-entity station (lit-animated-sprite interactable ephemeral creatable visible-listener)
+(define-shader-entity station (lit-animated-sprite interactable ephemeral creatable)
   ((name :initform (generate-name "STATION"))
    (bsize :initform (vec 24 16))
    (train :initform (make-instance 'train) :accessor train)
