@@ -7,6 +7,12 @@ A big thanks to everyone for trying it out and reporting problems!
   Reported by scj643
 - Fix some shader effects compositing as black
 - Fix some performance issues
+- Fix glyphs not showing up correctly on certain controllers
+  Reported by Elias Mårtenson
+- Fix the DualShock 3 controller having a bad default mapping on Linux
+  Reported by abridgewater
+- Fix rumble not working on some controllers under Linux
+  Reported by abridgewater
 
 ## 1.1.19
 - Fix some remaining prompt display failures.
