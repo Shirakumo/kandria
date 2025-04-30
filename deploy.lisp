@@ -23,7 +23,7 @@
   "**/*.wav")
 
 (define-as-unused trial
-  "")
+  "**/*.glsl")
 
 (deploy:define-hook (:deploy kandria -1) (directory)
   (org.shirakumo.zippy:compress-zip
