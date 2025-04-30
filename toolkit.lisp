@@ -9,7 +9,7 @@
 (define-global +world+ NIL)
 (define-global +app-system+ "kandria")
 (define-global +settings+
-    (copy-tree '(:audio (:latency 0.02
+    (copy-tree '(:audio (:latency #-nx 0.02 #+nx 0.04
                          :backend :default
                          :device :default
                          :volume (:master 0.5
