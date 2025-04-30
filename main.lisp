@@ -22,8 +22,7 @@
    (game-speed :initform 1.0 :accessor game-speed)
    (changes-saved-p :initform T :accessor changes-saved-p))
   (:default-initargs
-   :context '(:version (3 3) :profile :core :title "Kandria")
-   :initialize-audio #+nx NIL #-nx T))
+   :context '(:version (3 3) :profile :core :title "Kandria")))
 
 (defmethod initialize-instance ((main main) &key app-id world state)
   (declare (ignore app-id))
