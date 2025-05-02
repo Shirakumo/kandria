@@ -32,6 +32,8 @@
 (defmethod reset ((camera camera))
   (dolist (gamepad (gamepad:list-devices))
     (gamepad:rumble gamepad 0.0))
+  (setf (fill-pointer (visible-listeners camera)) 0)
+  (setf (fill-pointer (chunked-listeners camera)) 0)
   (setf (target camera) NIL)
   (setf (chunk camera) NIL)
   (setf (location camera) (vec 0 0))
