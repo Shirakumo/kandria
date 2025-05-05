@@ -5,7 +5,7 @@
 
 (defmethod show ((element sticky-element) &key)
   (unless (alloy:layout-tree element)
-    (alloy:enter element (alloy:layout-element (find-panel 'hud))))
+    (alloy:enter element (alloy:popups (alloy:layout-tree (node 'ui-pass T)))))
   (alloy:with-unit-parent element
     (let* ((target (alloy:value element))
            (screen-location (world-screen-pos (vec (vx (location target))
