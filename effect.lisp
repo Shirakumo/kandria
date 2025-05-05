@@ -153,9 +153,10 @@ void main(){
     (let ((pos (world-screen-pos (location effect)))
           (f1 (/ 2.0 (max 1.0 (width *context*))))
           (f2 (/ 2.0 (max 1.0 (height *context*)))))
-      (setf (uniform shader "transform") (mat f1 0 (+ -1 (* f1 (vx pos)))
-                                              0 f2 (+ -1 (* f2 (vy pos)))
-                                              0 0 1))
+      (setf (uniform shader "transform") (mat f1 0 0 (+ -1 (* f1 (vx pos)))
+                                              0 f2 0 (+ -1 (* f2 (vy pos)))
+                                              0 0 1 0
+                                              0 0 0 1))
       (setf (uniform shader "color") (vec4 1 1 1 (min (lifetime effect) 1)))
       (setf (uniform shader "pxRange") (org.shirakumo.alloy.renderers.opengl.msdf::px-range (font effect)))
       ;; FIXME: this seems expensive, but maybe it would be worse to statically allocate for each text.
