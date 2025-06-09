@@ -198,6 +198,7 @@
 #+trial-steam
 (defmethod alloy:activate :after ((input alloy:text-input-component))
   (when (and (steam:steamworks-available-p)
+             (not (typep input 'alloy:wheel))
              (not (eql :keyboard +input-source+)))
     (or (ignore-errors (steam:show-floating-text-input (steam:interface 'steam:steamutils T)))
         (steam:show-text-input (steam:interface 'steam:steamutils T)
@@ -208,6 +209,7 @@
 #+trial-steam
 (defmethod alloy:exit :after ((input alloy:text-input-component))
   (when (and (steam:steamworks-available-p)
+             (not (typep input 'alloy:wheel))
              (not (eql :keyboard +input-source+)))
     (ignore-errors (steam:show-floating-text-input (steam:interface 'steam:steamutils T)))))
 
