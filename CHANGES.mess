@@ -5,6 +5,9 @@ A big thanks to everyone for trying it out and reporting problems!
 ## 1.1.21
 - Fix the steam keyboard showing on input wheels such as during trading
   Reported by Nicolas
+- Fix event caching introducing confusing behaviour in the input remapping dialog
+  Reported by Nicolas
+- Fix regression in Alloy causing the map to no longer render properly
 
 ## 1.1.20
 - Fix prompts displaying in the corner for one frame

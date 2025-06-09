@@ -225,6 +225,8 @@
       (alloy:render renderer (simple:rectangle renderer (alloy:bounds map) :pattern (simple:image-pattern renderer (// 'kandria 'ui-background)
                                                                                                           :scaling (alloy:size (alloy:u/ (alloy:px 32) (alloy:vw 1))
                                                                                                                                (alloy:u/ (alloy:px 32) (alloy:vh 1))))))
+      ;; KLUDGE: this should not be necessary.
+      (gl:clear :depth-buffer)
       (simple:translate renderer (alloy:px-point (/ (width *context*) 2) (/ (height *context*) 2)))
       (simple:scale renderer (alloy:size (zoom map) (zoom map)))
       (simple:translate renderer (alloy:px-point (- (vx (offset map))) (- (vy (offset map)))))
