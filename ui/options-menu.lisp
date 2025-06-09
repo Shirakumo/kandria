@@ -119,16 +119,16 @@
          (call-next-method))))
 
 (defmethod handle ((ev key-press) (label input-label))
-  (setf (alloy:value label) ev)
+  (setf (alloy:value label) (clone ev))
   (alloy:accept label))
 
 (defmethod handle ((ev gamepad-press) (label input-label))
-  (setf (alloy:value label) ev)
+  (setf (alloy:value label) (clone ev))
   (alloy:accept label))
 
 (defmethod handle ((ev gamepad-move) (label input-label))
   (when (< 0.5 (abs (pos ev)))
-    (setf (alloy:value label) ev)
+    (setf (alloy:value label) (clone ev))
     (alloy:accept label)))
 
 (presentations:define-realization (ui input-label)
