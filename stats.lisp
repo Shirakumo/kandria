@@ -58,14 +58,19 @@
 
 (defmethod handle :after ((ev switch-region) (entity stats-entity))
   (let ((stats (stats entity))
+        (unlocked 0)
         (chunks 0)
         (secrets 0))
     (for:for ((entity over (region +world+)))
       (typecase entity
         (hider (incf secrets))
-        (chunk (incf chunks))))
+        (chunk (when (visible-on-map-p entity)
+                 (when (unlocked-p entity)
+                   (incf unlocked))
+                 (incf chunks)))))
     (setf (stats-secrets-total stats) secrets)
-    (setf (stats-chunks-total stats) chunks)))
+    (setf (stats-chunks-total stats) chunks)
+    (setf (stats-chunks-uncovered stats) unlocked)))
 
 (defmethod score ((stats stats))
   (floor

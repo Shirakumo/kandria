@@ -8,6 +8,8 @@ A big thanks to everyone for trying it out and reporting problems!
 - Fix event caching introducing confusing behaviour in the input remapping dialog
   Reported by Nicolas
 - Fix regression in Alloy causing the map to no longer render properly
+- Fix the map achievement not being triggered due to an invalid counting of visible map chunks
+  Reported by Gleefre
 
 ## 1.1.20
 - Fix prompts displaying in the corner for one frame
