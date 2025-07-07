@@ -1,0 +1,27 @@
+# task-find/interact-reminder
+~ fi
+| 去“看Semi Sisters领土下面的Cerebat议会”(orange) - 看看你能“了解关于Wraw据说的接管”(orange)什么。
+
+# task-find/player-council-chamber
+~ player
+| “这似乎是Cerebat议会厅……”(light-gray, italic)
+| (:thinking)“但这里“没有议会”(orange)。”(light-gray, italic)
+? (not (active-p 'q8a-bribe-trader))
+| ~ player
+| | “我应该“四处打听，查明他们在哪里”(orange) - “当地商人可能知道些什么”(orange)。”(light-gray, italic)
+| ! eval (activate 'task-search)
+| ! eval (deactivate 'task-find)
+|?
+| ~ player
+| | “看起来我需要“给那个商人他想要的东西才能查明他们在哪里”(orange)。”(light-gray, italic)
+| ! eval (activate 'task-search-hold)
+| ! eval (deactivate 'task-find)
+
+# task-search-hold/interact-reminder
+~ fi
+| 如果议会不在那里，你需要调查。"看看有没有Cerebat商人知道什么"(orange)。
+
+# task-search/interact-reminder
+~ fi
+| 如果议会不在那里，你需要调查。"看看有没有Cerebat商人知道什么"(orange)。
+

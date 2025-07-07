@@ -1,0 +1,25 @@
+# 2-interact-catherine/interaction
+~ catherine
+| (:cheer)__哒哒！__我们到了。
+| 你觉得怎么样…？
+~ player
+- 这个城市被摧毁了。
+  ~ catherine
+  | (:excited)太好了，你的声音系统也能工作。
+  | 是的。这就是家。
+- 很不错。
+  ~ catherine
+  | (:excited)太好了，你的声音系统也能工作。
+  | 我知道你会喜欢我们的家。
+- (谎言) 很不错。
+  ~ catherine
+  | (:excited)太好了，你的声音系统也能工作。
+  | 真的吗？你喜欢吗？我知道你会喜欢我们的家。
+- 你们住在这里？
+  ~ catherine
+  | (:excited)太好了，你的声音系统也能工作。
+  | 是的。相当棒的家，对吧？
+~ catherine
+| 还有"来看看这个"(orange) - 我保证你从未见过这样的东西。
+! eval (complete 'tutorial)
+! eval (activate 'q0-settlement-arrive)

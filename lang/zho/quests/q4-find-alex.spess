@@ -1,0 +1,320 @@
+# find-alex-reminder/q4-reminder
+~ fi
+? (not (complete-p 'find-alex-cerebats))
+| | 去"地下深处的Cerebat人的城镇，找到{#@alex-nametag}并带他们回来"(orange)进行汇报。
+| | 在路上要小心Semi Sisters。她们不是我们的敌人，但她们不可预测。
+| | 你可以"通过泵房地板进入下层"(orange)。
+|?
+| | (:unsure){#@alex-nametag}不在Cerebat人那里？这很令人担心。
+| | (:normal)好吧，他们仍然没有回来。我建议你"搜索Semi和Cerebat人之间的隧道"(orange)。
+| | 我希望他们没事。
+
+; this version might not play any more, as I think the triggers mean you will always get the "remote" version instead (see below)
+# find-alex/innis-stop-local
+~ innis
+| (:angry)<-停下-> 不许动！
+| 你觉得你可以就这样大摇大摆地穿过这里吗？
+| (:sly)我们一直在看着你，机器人。你和你与{#@catherine-nametag}的小探险。
+| 现在你来拜访我们了。多体贴啊。
+~ player
+- 你是谁？
+  ~ innis
+  | 哎呀，不太聪明...
+- 你想要什么？
+  ~ innis
+  | (:sly)如果你不介意的话，我来问问题。
+- 你是Semi Sisters吗？
+  ~ innis
+  | (:sly)如果你不介意的话，我来问问题。
+~ innis
+| (:sly)我们//应该//对你做什么？我打赌你的Genera核心可以运行我们的整个操作。
+| 你觉得呢，"{#@islay-nametag}"(yellow)？
+! eval (setf (nametag (unit 'islay)) (@ islay-nametag))
+~ islay
+| (:nervous)我认为你应该放过她。
+~ innis
+| (:angry)...
+| (:normal)来吧，姐姐 - 人类工程的巅峰就站在你面前，你就只能说这些？
+| (:sly)顺便说一下，这不是在夸奖你，机器人。(:normal)但现在让我们不要从错误的足部开始。
+~ player
+- 我的名字是{(nametag player)}。
+  ~ innis
+  | 这个我知道，机器人。(:sly)告诉我，你为什么在这里？
+- ...
+  ~ innis
+  | (:sly)你为什么在这里？我对你了解很多，但我想要更多。
+~ innis
+| (:sly){#@fi-nametag}//派//她的机器狗做什么？
+| 我想，证明她的忠诚。
+~ player
+- 我的事就是我的事。
+  ~ innis
+  | 如果这是你的特权。
+  | 但你会高兴地知道"{#@alex-nametag}在这里"(orange)。
+- 我在找一个叫{#@alex-nametag}的人，你见过他们吗？
+  ~ innis
+  | (:sly)你看，妹妹，直接的方法再次产生了结果 - 并证实了我的信息。
+  | (:normal)你会高兴地知道"{#@alex-nametag}在这里"(orange)。
+- 去你的。
+  ~ islay
+  | ...
+  ~ innis
+  | (:angry)...
+  | 我记得你这种类型！你以为你很聪明，只因为你可以模仿我们。
+  | 你是一台机器，如果我想的话，我可以让人把你拆散并散落到这个山谷的四个角落。
+  | (:normal)现在，让我们再试一次。
+  | 你会高兴地知道你要找的人，"{#@alex-nametag}，在这里"(orange)。
+~ innis
+| 请纵容我一下，好吗？我想看看你有多聪明。
+| 看看你能不能自己"找到他们"(orange)。
+! eval (deactivate 'innis-stop-remote)
+! eval (deactivate (unit 'innis-stop-2))
+! eval (deactivate (unit 'innis-stop-3))
+! eval (deactivate (unit 'innis-stop-4))
+! eval (deactivate (unit 'innis-stop-5))
+! eval (deactivate (unit 'innis-stop-6))
+! eval (deactivate (unit 'innis-stop-7))
+! eval (deactivate (unit 'innis-stop-8))
+! eval (deactivate (unit 'innis-stop-semi-station))
+! eval (activate 'find-alex-semis)
+? (active-p 'find-alex-cerebats)
+| ! eval (deactivate 'find-alex-cerebats)
+| ! eval (deactivate (unit 'player-stop-cerebats))
+? (active-p 'find-alex-semis-route)
+| ! eval (deactivate 'find-alex-semis-route)
+; dinnae = don't (Scots)
+; ken = know (Scots)
+
+; Similar to the "local" version above, but tweaked to suit Innis being remote.
+; The body is the same in local and remote, but remote has different start and ending dialogue (hence why can't jump to a label, as don't know which one jump back to - could set a variable to branch, but could get finicky if wanted more differences between the two; hence copy-paste-edit)
+# find-alex/innis-stop-remote
+~ innis
+| (:angry)<-停下-> 你在哪里！
+| 你以为你可以直接穿过这里吗？
+| (:sly)我们一直在看着你，机器人。你和你与{#@catherine-nametag}的小旅行。
+| 现在你来拜访我们了。多体贴啊。
+! label questions
+~ player
+- 你是谁？
+  ~ innis
+  | (:sly)你很快就会知道的。
+- 你在哪里？
+  ~ innis
+  | (:sly)在附近。
+- 你想要什么？
+  ~ innis
+  | (:sly)如果你不介意的话，我来问问题。
+- 你是Semi Sisters吗？
+  ~ innis
+  | (:sly)如果你不介意的话，我来问问题。
+~ innis
+| (:sly)What //should// we do with you? I bet your Genera core could run our entire operation.
+| What do you think, "{#@islay-nametag}"(yellow)?
+! eval (setf (nametag (unit 'islay)) (@ islay-nametag))
+~ islay
+| (:nervous)I think you should leave her alone.
+~ innis
+| (:angry)...
+| (:normal)Come now, sister - you're speaking with the pinnacle of human engineering, and that's all you can say?
+| (:sly)That wasn't a compliment by the way, android. (:normal)But let's no' get off on the wrong foot now.
+~ player
+- 我的名字是{(nametag player)}。
+  ~ innis
+  | 这个我知道，机器人。(:sly)告诉我，你为什么在这里？
+- ...
+  ~ innis
+  | (:sly)你为什么在这里？我对你了解很多，但我想要更多。
+~ innis
+| (:sly){#@fi-nametag}//派//她的机器狗做什么？
+| 我想，证明她的忠诚。
+~ player
+- 我的事就是我的事。
+  ~ innis
+  | 如果这是你的特权。
+  | 但你会高兴地知道"{#@alex-nametag}在这里"(orange)。
+- 我在找一个叫{#@alex-nametag}的人，你见过他们吗？
+  ~ innis
+  | (:sly)你看，妹妹，直接的方法再次产生了结果 - 并证实了我的信息。
+  | (:normal)你会高兴地知道"{#@alex-nametag}在这里"(orange)。
+- 去你的。
+  ~ islay
+  | ...
+  ~ innis
+  | (:angry)...
+  | 我记得你这种类型！你以为你很聪明，只因为你可以模仿我们。
+  | 你是一台机器，如果我想的话，我可以让人把你拆散并散落到这个山谷的四个角落。
+  | (:normal)现在，让我们再试一次。
+  | 你会高兴地知道你要找的人，"{#@alex-nametag}，在这里"(orange)。
+~ innis
+| 请纵容我一下，好吗？我想看看你有多聪明。
+| 看看你能不能自己"找到他们"(orange)。
+~ player
+| "她走了。那是一个FFCS广播，来自附近某个地方。"(light-gray, italic)
+| "这意味着"{#@alex-nametag}在附近"(orange)。除非这是一个陷阱。"(light-gray, italic)
+! eval (deactivate 'innis-stop-local)
+! eval (deactivate (unit 'innis-stop-1))
+! eval (deactivate (unit 'innis-stop-2))
+! eval (deactivate (unit 'innis-stop-3))
+! eval (deactivate (unit 'innis-stop-4))
+! eval (deactivate (unit 'innis-stop-5))
+! eval (deactivate (unit 'innis-stop-6))
+! eval (deactivate (unit 'innis-stop-7))
+! eval (deactivate (unit 'innis-stop-8))
+! eval (deactivate (unit 'innis-stop-semi-station))
+! eval (activate 'find-alex-semis)
+? (active-p 'find-alex-cerebats)
+| ! eval (deactivate 'find-alex-cerebats)
+| ! eval (deactivate (unit 'player-stop-cerebats))
+? (active-p 'find-alex-semis-route)
+| ! eval (deactivate 'find-alex-semis-route)
+; dinnae = don't (Scots)
+; ken = know (Scots)
+
+# find-alex-cerebats/player-stop-cerebats
+~ player
+| "嗯，我不认为{#@alex-nametag}在这里。"(orange, italic)
+| (:thinking)"也许我在路上错过了他们 - 我应该"沿着道路回到Semi Sisters那里"(orange)。"(light-gray, italic)
+
+# find-alex-semis/islay-hint
+~ islay
+| 你好，{(nametag player)}。很荣幸见到你。
+| (:nervous)我为我妹妹的行为道歉。
+| (:normal)如果你在找"{#@alex-nametag}，试试酒吧"(orange)。它在"我们上面的一层"(orange)。
+| 只是不要告诉"{#@innis-nametag}"(yellow)我告诉了你。她会认为我对机器人软心了。
+! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
+! eval (setf (var 'android-soft) T)
+
+; Alex speaks London multicultural English
+; the barkeep in this scene is female
+# find-alex-semis/alex-meet
+~ player
+| "这个人的呼吸闻起来像柴油混合海藻。"(light-gray, italic)
+~ alex
+| (:angry)你在看什么？<-嘆->。
+~ player
+- {#@alex-nametag}？
+- （说谎）我没在看你。
+  ~ alex
+  | (:angry)那就走开。
+  ~ player
+  | 你是{#@alex-nametag}吗？
+- 一个酒吧里的醉汉。
+  ~ alex
+  | (:angry)你怎么敢。
+  ~ player
+  | 你是{#@alex-nametag}吗？
+~ alex
+| 我不是Alice。
+~ player
+| 我说的是"{#@alex-nametag}"不是"Alice"。
+~ alex
+| <-嘆->。这就是我说的。
+~ player
+| 哦，天哪。
+| 你是来自Noka的{#@alex-nametag}吗？你认识{#@fi-nametag}吗？
+~ alex
+| ...
+| 是的，那是我。<-嘆->。
+! eval (setf (nametag (unit 'alex)) (@ alex-nametag))
+~ player
+- 我的名字是{(nametag player)}。
+  ~ alex
+  | <-嘆->。我知道。你是新的猎人。
+  | 机器人。
+- {#@fi-nametag}派我来的。
+  ~ alex
+  | <-嘆->。我知道。你是新的猎人。
+  | 机器人。
+- 我是一个机器人。
+  ~ alex
+  | 你想要勋章吗？<-嘆->。我知道你是谁。你是新的猎人。
+~ alex
+| 让我给你省点麻烦。"我不会回去的"(orange)。
+~ player
+- 为什么不？
+  ~ alex
+  | (:angry)你真的要问这个吗？
+  | ...
+  | 好吧，你自找的：<-嘆->。"你就是原因"(orange)。
+- 你这样做很重要。
+  ~ alex
+  | 不，不重要。远非如此。
+~ alex
+| (:angry)我听说过你，做我的工作-<-嘆->。
+| "{#@innis-nametag}"(yellow)甚至给我看了监控录像。Semi Sisters对我很好。
+! eval (setf (nametag (unit 'innis)) (@ innis-nametag))
+| "那么{#@fi-nametag}为什么还需要我这个小人物呢？"(orange)
+~ player
+- 我们不能都做猎人吗？
+  ~ alex
+  | (:angry)不，我们血腥的不能！
+- 但这也是我擅长的。
+  ~ alex
+  | 猎杀？太难了。
+- 我很抱歉。
+  ~ alex
+  | 有点太晚了。
+~ alex
+| 跑吧，伙计 -<-嘆->- 告诉{#@fi-nametag}去转转，为什么不呢？
+~ player
+| 你知道Wraw计划攻击Noka的事情吗？
+~ alex
+| 他们总是在计划攻击。<-嘆->。这只是{#@fi-nametag}又在扰乱了。
+| (:angry)<-嘆->。说到扰乱，不能在这里给个老头再来一杯吗？__酒保！__
+~ player
+| "他们这样不会引起任何人的注意。"(light-gray, italic) (:embarassed)"哦，太好了，现在酒保也在皘视我。"(light-gray, italic)
+~ player
+- (Buy {#@alex-nametag} another drink - 40)
+  ? (<= 40 (item-count 'item:parts))
+  | ! eval (retrieve 'item:parts 40)
+  | ! eval (status "Lost 40 Scrap Part")
+  | ~ alex
+  | | Ugh, thansssks. <-Hic->.
+  | ~ player
+  | | "I'm not surprised the barkeep won't look at me while she pours the drink."(light-gray, italic)
+  | | "Instead she's watching the dirty, soulless liquid slosh into Alex's can."(light-gray, italic)
+  | ~ player
+  | | "Wow, Alex downed it in one."(light-gray, italic)
+  | | (:embarassed)"Are they going to throw up?!... I should move."(light-gray, italic)
+  | | (:normal)"Oh, they swallowed it back down. Lovely."(light-gray, italic)
+  | | "I'm glad that can't happen to androids."(light-gray, italic)
+  |?
+  | ~ player
+  | | (:embarassed)"I don't have enough scrap for that. I didn't think the barkeep's brow could furrow any more, but it has."(light-gray, italic)
+- (Buy {#@alex-nametag} a soft drink - 20)
+  ? (<= 20 (item-count 'item:parts))
+  | ! eval (retrieve 'item:parts 20)
+  | ! eval (status "Lost 20 Scrap Part")
+  | ~ player
+  | | "I'm not surprised the barkeep won't look at me while she pours the drink."(light-gray, italic)
+  | | "Instead she's watching the rouge, carbonated liquid slosh into Alex's can. It smells like beetroot."(light-gray, italic)
+  | ~ alex
+  | | (:angry)This ain't booze! What am I suppossed to do wiv this? <-Hic->.
+  | ~ player
+  | | "Oh, they're drinking it anyway."(light-gray, italic)
+  |?
+  | ~ player
+  | | (:embarassed)"I don't have enough scrap for that. I didn't think the barkeep's brow could furrow any more, but it has."(light-gray, italic)
+- (Don't buy them a drink)
+~ player
+| "Whoa, {#@alex-nametag} nearly fell over. I'm not sure they can see straight. Now they're looking at me again."(light-gray, italic)
+~ alex
+| 你是个耐力十足的家伙，不是吗？<-嘆->。
+~ player
+- 你从Cerebat人那里学到什么了吗？
+  ~ alex
+  | 我学会了所有隧道的走向。<-嘆->。绘制了整个区域的地图，还有下面的那个。
+- 这段时间你都在哪里？
+  ~ alex
+  | 这里，大部分时间。
+  | 哦，我绘制了整个区域的地图，还有下面的那些。
+~ player
+| 那些地图真的可以帮助我。
+~ alex
+| (:angry)你疯了吗？我把这些给你，我真的就什么都没有了。<-嘆->。
+| 现在滚开。
+| (:normal)实际上，在你走之前：你知道是我找到你的吗？<-嘆->。我告诉了{#@catherine-nametag}你在哪里。
+| 我只是在跑步，你就在那里。我觉得是地震暴露了你。<-嘆->。我把你从瓦砾中拉了出来。
+| (:angry)现在我希望我当时闭嘴，直接把你打碎。
+! eval (deactivate 'islay-hint)
+

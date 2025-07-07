@@ -1,0 +1,211 @@
+# task-reminder/interact-reminder
+~ fi
+| "去见Semi Sisters，说服她们加入我们。"(orange)
+
+# task-destination/interact-innis
+~ innis
+| (:angry){#@catherine-nametag}还是没来。怎么回事？还是Noka人喜欢喝沙子而不是水？
+~ player
+- 我想你们应该有更大的事情担心。
+  ~ innis
+  | 你指的是Wraw？那在掌握中。
+  | (:angry)现在走开 - 我没什么要对你说的了。
+- 她不会来的。
+  ~ innis
+  | (:angry)什么？
+- 我们需要谈谈。
+  ~ innis
+  | (:angry)除非你能解释为什么{#@catherine-nametag}不在这里，否则我没什么要对你说的。
+~ islay
+| (:nervous)姐姐！{(nametag player)}不是我们的敌人。Noka人不是我们的敌人。
+~ innis
+| (:angry)闭嘴，{#@islay-nametag}。记住谁是负责人！
+| (:normal)无论如何，这次我不知道你为什么在这里，机器人。
+~ player
+- 我需要你们的帮助。
+  ~ innis
+  | (:sly)什么？一个全能的机器人需要我们的帮助？
+  | (:normal)我不这么认为。更像是{#@fi-nametag}需要我们的帮助。
+- 我们需要你们的帮助。
+  ~ innis
+  | (:sly)更像是{#@fi-nametag}需要我们的帮助。
+  | (:normal)你不需要我们的帮助 - 你是机器人。
+- 我们可以帮助你们。
+  ~ innis
+  | (:angry)Noka人？帮助我们？别让我笑。
+~ innis
+| (:sly)…… 哦，别告诉我你关心Noka人。
+| 我从来不理解为什么他们给机器人情感。只不过是分心。
+~ islay
+| (:nervous)听她说吧{#@innis-nametag}，看在上帝的份上！
+~ innis
+| (:angry)...
+~ islay
+| (:nervous)Wraw就在我们门口。不知怎么的，他们在干扰我们的网络。
+| 我们又聋又盲。
+~ innis
+| (:angry)这不是你能决定的。
+~ islay
+| (:nervous)那你为什么不问问我们的人？他们看到我们的摄像头一个接一个地关闭，我们的枪都放在仓库里。
+| 你的计划到底是什么，姐姐？
+~ innis
+| (:angry)你是说你能做得更好？
+~ islay
+| (:nervous)我是说我们需要帮助。我们需要Noka人 - 我们也需要{(nametag player)}。
+~ innis
+| (:angry)……
+| 好吧。说我们与Noka人结盟。然后呢？
+~ islay
+| 我们汇集我们的资源 - 我们的武器和人员。
+| 我们不知道Wraw的确切数量和能力，但我可以从你派出的猎人猜测。以及有多少人回来了。
+~ player
+| 我也看到了他们的机甲和装备 - 数量相当可观。
+~ islay
+| 对。确实如此。但我认为如果我们合作，我们有一线战斗的机会。
+| …… 我们要放弃我们的家。
+~ innis
+| (:angry)不。绝不。
+~ islay
+| 这不是永久的。但Wraw已经在这里了，我们无法单独对抗他们。
+| 我们装上火车，离开到地面。尽可能多带东西。
+| 我们留下的任何东西都可能Wraw用来对付我们。
+~ innis
+| 那炸弹怎么办？
+~ player
+- 炸弹？
+- 现在你说到点子上了。
+- 我们把他们炸掉！
+~ islay
+| 我临时制作了一个爆炸物，可以阻止他们的推进。完全倒塔隧道 - 包括地铁。
+| …… 我们仍然可以使用它。
+| 但我们"缺少关键部件"(orange) - 幸存的猎人几乎是命悬一线才逃出来，更别说我们需要的物资了。
+~ innis
+| (:sly)在我们撤离的时候派机器人去。
+~ islay
+| (:normal)好，这可能有用。你需要再次深入敌后。
+| "Wraw囤积这类东西"(orange) - 他们现在应该有很多闲置的。
+| (:normal)我们需要"起爆帽"(orange)用于雷管，还有"电荷包"(orange)用于爆炸物。
+| 我认为"每样10个"(orange)应该够了，留出几个备用的。
+| 实际上，做成"20个电荷包"(orange)，以确保它有足够大的爆炸威力。
+| 你将"因你的努力而得到报酬"(orange)：毕竟我是个商人。
+! eval (setf (var 'bomb-fee) 25)
+~ player
+- 谢谢。
+  ~ islay
+  | 没关系 - 我们珍视你的工作。我可以给你"每件25个零件"(orange)。
+  | 但还不要谢我 - 这将会很危险。
+- 不用了。
+  ~ islay
+  | 不，我坚持。我们珍视你的工作，这将会很危险。
+  | 我可以给你"每件25个零件"(orange)。
+  ~ innis
+  | ...
+- 多少钱？
+  ~ innis
+  | (:angry)……
+  ~ islay
+  | 我可以给你"每件25个零件"(orange)。
+  ~ player
+  - 对我来说没问题。
+    ~ islay
+    | 好吧。我们确实重视你的工作，这会很危险。
+  - 提高到50。
+    ~ innis
+    | (:angry)见鬼！在Wraw扫荡这里之后，你还能拿钱干什么？
+    ~ islay
+    | 如果我们阻止了他们，生活可能会恢复正常。
+    | 但我们负担不起50 - 我们需要那些零件。"35怎么样？"(orange)我们确实重视你的工作，这会很危险。
+    ~ player
+    - 成交。
+      ~ islay
+      | 很好，"就35"(orange)。
+      ! eval (setf (var 'bomb-fee) 35)
+      ~ innis
+      | (:angry)...
+    - 其实25就够了。
+      ~ innis
+      | (:angry)...
+      ~ islay
+      | 好吧，"就25"(orange)。
+    - 我改主意了：我要少于25的。
+      ~ islay
+      | 不，我坚持。这不会很容易，"25是公平的"(orange)。
+      ~ innis
+      | (:angry)...
+  - 我可以少拿一点，但不能太少。
+    ~ islay
+    | 不，我坚持。我们重视你的工作，这会很危险。我认为"25是公平的"(orange)。
+    ~ innis
+    | ...
+~ islay
+| 但请快点。
+| 我们会"暂时让地铁运行"(orange)来帮助你 - 但"Wraw可能会使用隧道移动他们的部队"(orange)。
+~ innis
+| (:angry)或者他们会让火车脱轨。
+~ islay
+| (:nervous)希望他们不会。
+~ player
+| 我会通知{#@fi-nametag}，然后就上路。
+~ innis
+| (:sly)没错，做个好狗。
+~ islay
+| (:nervous)<-{#@innis-nametag}!->
+| (:normal)...你"不能告诉{#@fi-nametag}"(orange) - 无论"Wraw对我们的网络做了什么，也影响了你的FFCS"(orange)。
+~ player
+- （检查FFCS）
+  ~ player
+  | "检查FFCS中..."(light-gray, italic)
+  | (:embarassed)""被阻断了"(orange)。该死。"(light-gray, italic)
+  ~ innis
+  | (:sly)我想她刚刚检查了她的FFCS。
+  | (:angry)你还想让我们信任你？
+- （信任{#@islay-nametag}）
+- 你确定不是你像之前一样在干扰吗？
+  ~ innis
+  | (:angry)你怎么敢！
+  ~ islay
+  | (:nervous)...听着，如果我们要相互信任，现在是时候开始了。
+~ islay
+| 一旦我们到达地面，我会向{#@fi-nametag}解释一切。"你拿到组件后在那里与我们会合"(orange)。
+| 你明白了吗？这很重要。
+~ player
+- 再说一遍。
+  ~ islay
+  | 所以：我们需要"10个起爆帽"(orange)和"20个电荷包"(orange)来制作炸弹。
+  | 你应该在"Wraw领土深处"(orange)找到它们。然后"在地面的Noka营地与我们会合"(orange)。
+- 明白了。
+~ islay
+| 祝你好运，{(nametag player)}。
+~ player
+| (:thinking)"我想我"知道在哪里可能找到这样的组件"(orange)，在我上次深入Wraw领土之后。"(light-gray, italic)
+| (:normal)"我应该"检查他们的工厂和仓库"(orange) - 我会"更新我的地图"(orange)。"(light-gray, italic)
+| "我也应该"完成任何现有的工作"(orange)，如果我还没有完成的话，在情况变糟之前。"(light-gray, italic)
+? (or (or (active-p 'sq3-race) (complete-p 'sq3-race)) (or (active-p 'sq5-race) (complete-p 'sq5-race)) (or (active-p 'sq9-race) (complete-p 'sq9-race)) (or (active-p 'sq10-race) (complete-p 'sq10-race)))
+| ~ player
+| | "不过我觉得是时候"退出计时挑战"(orange)，挂起我的快速靴子了。"(light-gray, italic)
+  
+! eval (deactivate 'task-reminder)
+! eval (activate 'q12-help-alex)
+! eval (setf (location 'alex) 'alex-wraw-loc)
+! setf (direction 'alex) 1
+! eval (complete 'trader-semi-chat)
+! eval (complete 'trader-semi-alex)
+! eval (activate (unit 'bomb-cap-1))
+! eval (activate (unit 'bomb-cap-2))
+! eval (activate (unit 'bomb-cap-3))
+! eval (activate (unit 'bomb-cap-4))
+! eval (activate (unit 'bomb-cap-5))
+! eval (activate (unit 'bomb-cap-6))
+! eval (activate (unit 'bomb-charge-1))
+! eval (activate (unit 'bomb-charge-2))
+! eval (activate (unit 'bomb-charge-3))
+! eval (activate (unit 'bomb-charge-4))
+! eval (activate (unit 'bomb-charge-5))
+
+; dinnae = don't / do not (Scottish)
+
+; "finish any existing jobs for people as well" - simpler than doing a conditional to check many sidequest statuses, and implies the character themselves will need to check their log to see what's done and not done - they aren't infallible in their memory after all (also makes no reference to starting new sidequests, since starting them is now curtailed - but had Fi warning in q11-intro)
+
+; also now has a conditional to explain why races void here, using the core log quest for each race type to check if active or complete (and thus whether unlocked actual races themselves). "Speed boots" is a non-licence infringing reference to Sonic's Power Sneakers :)
+
+; "shit hits the proverbial wind turbine" - a post-Calamity riff on the old-world phrase, "when the shit hits the fan"; player has likely seen cerebat wind turbines in the tunnels to make the joke, if not necessarily talked to Catherine about them (sq7), heard world NPCs talking about them, or found the lore interacts

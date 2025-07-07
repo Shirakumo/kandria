@@ -1,0 +1,87 @@
+# 1-interact-fi/interaction
+~ fi
+| 好的，是这样的：Wraw几乎肯定会来夺回我们。
+| 但不知道他们的计划，我们无法保卫自己：他们将在哪里攻击，更重要的是//何时//。
+| {#@alex-nametag}在更深的地下“Cerebat领土”(red)中狩猎，可能有我们需要的答案。那是一个商人和外交官丰富的地方。
+| (:unsure)但他们现在已经离开很久了。太久了。
+| (:normal)我希望你“找到{#@alex-nametag}并把他们带回来”(orange)进行汇报。
+| 他们有“金发，可能没有你那么高，而且有英国口音”(orange)。你可能必须“四处打听”(orange)。
+| 要到达 Cerebats 乡镇，你需要穿过由技术女巫“Semi Sisters”(red)控制的土地。
+| 我们关系良好，所以//应该//没问题。他们建造了维持我们运作的基础设施，如水泵和电话。
+| 你可以“通过泵房的地板”(orange)到达他们的土地。
+| 但他们以前从未见过机器人 - 至少在大灾难之前没有。希望他们会友好相处。
+| 如果不是…… 你将不得不即兴发挥。
+~ player
+- 即兴发挥？
+  ~ fi
+  | 你熟悉这个概念吗？
+  | (:unsure)…… 我道歉，这话说错了。我的意思是，机器人能……？
+  | (:normal)…… 我想你已经回答了这个问题。
+  | 很抱歉我不能更具体。只是要为任何事情做好准备。
+- 我会没事的。
+  ~ fi
+  | (:happy)我相信你会的。
+- 我就是为此而设计的。
+  ~ fi
+  | 你是一个了不起的……
+  | (:unsure)…… 人。(:normal)你是一个了不起的//人//。
+~ fi
+| 一切都清楚吗？你知道你需要做什么吗？
+~ player
+- 我有一些问题。
+  ~ fi
+  | 当然。
+  < questions
+- 很清楚。
+  ~ fi
+  | 很好。
+  < end
+# questions
+~ player
+- (Ask about {#@alex-nametag})
+  ~ fi
+  | They're a hunter, like you. They've been with us from the beginning.
+  | I hope you'll meet them soon - it would be nice to get to know them yourself.
+  | Two hunters is a luxury. I'm excited to see what you can do together.
+  < questions
+- (Ask about the Semi Sisters)
+  ~ fi
+  | They're tech witches, old enough to remember before the Calamity. They worked for Semi and a bunch of other megacorps.
+  | They keep the power and water on in this whole area, and don't seem to mind if we siphon a little off.
+  | Two sisters are in charge. It would be best to avoid them for now.
+  < questions
+- (Ask about the Cerebats)
+  ~ fi
+  | I suppose they're the closest thing there is to a council in the valley.
+  | They manage trade and arbitrate disputes between factions.
+  | But I think most people know who's really pulling the strings.
+  | Perhaps I should be surprised that politics survived the apocalypse. (:annoyed)But I'm not.
+  < questions
+- Do you trust me yet?
+  ~ fi
+  | This is not the kind of task for someone you don't trust.
+  | Of course, you'd be right if you said I don't have a choice. No one else can do this.
+  < questions
+- That'll do.
+  < end
+# end
+~ fi
+| See {#@trader-nametag} if you haven't already and buy some supplies - it will be a long journey.
+| {#@catherine-nametag} tells me your "FFCS works with our radios"(orange). You'll be deep underground, and I'd like you to "keep in contact"(orange).
+| As {#@alex-nametag} has shown, falling off the grid isn't helpful.
+| So please stay in touch - you can call me day or night.
+! eval (setf (location 'innis) 'innis-intercept)
+! setf (direction 'innis) -1
+! eval (setf (location 'islay) 'islay-intercept)
+! setf (direction 'islay) 1
+! eval (activate (unit 'innis-stop-1))
+! eval (activate (unit 'innis-stop-2))
+! eval (activate (unit 'innis-stop-3))
+! eval (activate (unit 'innis-stop-4))
+! eval (activate (unit 'innis-stop-5))
+! eval (activate (unit 'innis-stop-6))
+! eval (activate (unit 'innis-stop-7))
+! eval (activate (unit 'innis-stop-8))
+! eval (activate (unit 'innis-stop-semi-station))
+! eval (activate (unit 'player-stop-cerebats))
+

@@ -1,0 +1,139 @@
+# 1-interact-innis/interaction
+~ innis
+| (:angry)什么事，机器人？
+~ player
+- {#@islay-nametag}派我来的。
+  ~ innis
+  | 好的。那我就假设她告诉了你关于工作的事。
+- 我来这里帮助处理工程师和监控的事。
+  ~ innis
+  | 这才像话。
+- 我找到了{#@alex-nametag}。
+  ~ innis
+  | (:sly)是的。不过这几乎不是什么挑战，对吧？
+  | (:normal)我想{#@islay-nametag}告诉了你关于工作的事？那些才是真正的挑战。
+~ innis
+| (:angry)如果{#@alex-nametag}不是在酒吧里喝酒，这些事早就解决了。
+| (:normal)不要误解我，我和下一个姑娘一样喜欢喝酒。但你们 Noka 真的不能喝酒。
+| 我希望你更可靠一些。
+~ player
+- 我是的。
+  ~ innis
+  | (:sly)我们等着看。
+- 我不会醉酒。
+  ~ innis
+  | (:sly)请指教我。我从未完全理解机器人核心是如何做决定的。
+  | (:normal)你的程序是否禁止你喝酒？还是说你只是生理上无法醉酒？
+  ~ player
+  - 我不会醉。
+    ~ innis
+    | 说得通。不过你没试过现在这些所谓的啤酒。
+    | (:sly)我保证它甚至会腐蚀你的内脏！
+  - 没有什么禁止我，我只是不喝酒。
+    ~ innis
+    | 各有所好。不过你没试过现在这些所谓的啤酒。
+    | (:sly)我保证它甚至会腐蚀你的内脏！
+  ~ innis
+  | 我想从来没有机器人生气的情况。
+  | (:sly)战争区域、贫民窟、医院 - 甚至扫街。不是你想要低效率的地方。
+- 这不是{#@alex-nametag}的错。
+  ~ innis
+  | 那是谁的错？
+  | (:angry)生活比以前更艰难了。人们不再生活在快乐的小泡泡里。
+  | 如果你做不到，你就会掉入水沟。
+~ innis
+| 那么我可敬爱的姐姐说了多少？你知道需要做什么吗？
+? (not (active-p (unit 'blocker-engineers)))
+| ~ innis
+| | 哦：关于“被困的铁路工程师 - 不要担心他们”(orange)。
+| | 最后的报告显示“他们已经被解救”(orange) - 我不知道是谁做的。
+| ~ player
+| - 是我做的。
+|   ~ innis
+|   | (:sly)真的吗？你只是出于善心帮助我们？
+|   ~ player
+|   - 这有什么错？
+|   - 这就是我做的。
+|   - 我在探索，所以想为什么不呢。
+|   ~ innis
+|   | 好吧，如果这是真的 - 我很快就会知道 - 那么谢谢。
+|   | 但还有更多事要做。
+| - 你的守护天使。
+|   ~ innis
+|   | 如果这是真的就好了。
+|   | (:sly)等等 - 你试图告诉我什么吗？
+|   ~ player
+|   - 是的。
+|     ~ innis
+|     | 好吧，如果你说的是我想的那样 - 我很快就会知道 - 那么谢谢。
+|     | 但还有更多事要做。
+|   - 不。
+|     ~ innis
+|     | (:angry)那就闭嘴吧。
+|   - 我不知道。
+|     ~ innis
+|     | (:angry)那就闭嘴吧。
+| - 为什么{#@islay-nametag}的情报过时了？
+|   ~ innis
+|   | 我们在这里可能有技术优势，但在偏远地区消息传播得很慢。
+|   | 我自己也刚刚得到这个变化的消息。
+| ~ innis
+| | 对你来说好消息是，这意味着我们的工程工作回到了正轨。双关语有意。
+| | 你看，我的姐姐，以她无限的智慧，认为如果我们-…… (:angry)好吧，//如果我//，正式给你“地铁访问权”(orange)，这可能是一个好的表示。
+| | …… 为了半女姐妹和你之间的良好关系。
+| | (:normal)这肯定会“加快你的差使 - 一旦你找到其他站点”(orange)。
+| ? (or (unlocked-p (unit 'station-surface)) (unlocked-p (unit 'station-east-lab)) (unlocked-p (unit 'station-semi-sisters)) (unlocked-p (unit 'station-cerebats)) (unlocked-p (unit 'station-wraw)))
+| | | (:sly)你已经熟悉地铁了。但现在这是正式的。我会发出消息，这样你就不会被……逮捕。
+| | | (:normal)"站点遍布整个山谷"(orange)。不过"在我们扩建网络期间，并非所有站点都能运行"(orange)。
+| |?
+| | | (:normal)"They run throughout the valley"(orange), though "no' all are operational"(orange) while we expand the network.
+| | | 只需“从路线图中选择目的地”(orange)并上火车。
+| ? (not (unlocked-p (unit 'station-surface)))
+| | ! eval (activate (unit 'station-surface))
+| ? (not (unlocked-p (unit 'station-semi-sisters)))
+| | | (:normal)"我们的车站在这个中心街区下面。"(orange)
+| | ! eval (activate 'semi-station-marker)
+| |?
+| | ! eval (complete 'semi-station-marker)
+| ~ innis
+| | 无论如何，这意味着只有“你需要调查的监控”(orange)。
+|?
+| ~ innis
+| | 我们需要“工程师和监控”(orange)都得到解决，所以“按你想要的任何顺序调查他们”(orange)。只要快速做就行。
+! label questions
+~ player
+- [(active-p (unit 'blocker-engineers)) Tell me about the trapped engineers.|]
+  ~ innis
+  | 他们有十个人，在我们领土的“遥远的西北高地”(orange)工作。
+  | 我们正在慢慢挖出旧的磁悬浮地铁系统。我们有一个基本的电气化铁路在运行。
+  | (:angry)但这是危险的工作。他们没有报告，我们的猎人发现隧道倒塌了。
+  | 猎人们不能再往前走了。但你可以。
+  < questions
+- [(not (active-p (unit 'blocker-engineers))) So the engineers were working on the metro?|]
+  ~ innis
+  | 正确。我们正在慢慢挖出旧的磁悬浮系统。我们有一个基本的电气化铁路在运行。
+  | (:angry)但这是危险的工作。
+  < questions
+- 告诉我关于损坏的监控摄像头。
+  ~ innis
+  | 我们监控周围地区，紧邻的上面和下面。
+  | (:angry)基本上，在Cerebat边界上的"我们的4台摄像头"(orange)失效了，在"遥远的低位东部地区"(orange)。
+  | (:normal)这可能只是电气故障。(:angry)不幸的是，由于{#@islay-nametag}把它们串联在一起，一个坏了全部都坏了。
+  | (:normal)我想让你"去检查一下"(orange)。
+  < questions
+- 我明白了。
+~ innis
+| 有消息时"报告情况"(orange)。
+! eval (activate 'q5b-investigate-cctv)
+! eval (activate (unit 'cctv-4-trigger))
+? (active-p (unit 'blocker-engineers))
+| ! eval (activate 'q5a-rescue-engineers)
+| ! eval (deactivate (find-task 'world 'task-world-engineers))
+| ! eval (deactivate (find-task 'world 'task-engineers-wall-listen))
+|?
+| ! eval (complete 'q5a-rescue-engineers)
+; ken = know (Scottish)
+; didnae = didn't (Scottish)
+; dinnae = don't (Scottish)
+; canna = cannot (Scottish)
+; player may know of trapped engineers from the barkeep races; but you're not going to just reveal that to Innis, whether you've rescued them already or not

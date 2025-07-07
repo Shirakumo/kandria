@@ -1,0 +1,28 @@
+# return-supplies/supplies-return
+~ catherine
+| (:excited)你拿到风车的零件了吗？让我看看！
+? (or (> 5 (item-count 'item:anemometer)) (> 5 (item-count 'item:disc-brake)) (> 5 (item-count 'item:transformer)))
+| ~ catherine
+| | 啊，别担心 - 看看你能在"半机械姐妹仓库和脑蝠族风洞"(orange)找到什么。
+| | 记住："风速计、盘式制动器、变压器 - 每样5个"(orange)。
+| ~ player
+| | "我目前有："{(item-count 'item:anemometer)}个风速计"(orange)，"{(item-count 'item:disc-brake)}个盘式制动器"(orange)，"{(item-count 'item:transformer)}个变压器"(orange)。"(light-gray, italic)
+|?
+| ~ catherine
+| | (:cheer)这些都很完美。谢谢你！
+| ! eval (retrieve 'item:anemometer 5)
+| ! eval (status "Lost 5 Anemometer")
+| ! eval (retrieve 'item:disc-brake 5)
+| ! eval (status "Lost 5 Disc Brake")
+| ! eval (retrieve 'item:transformer 5)
+| ! eval (status "Lost 5 Transformer")
+| | (:excited)哦天哪，我迫不及待要开始了。想象一下就在地面上看到风车...
+| | 这会像一个幻想王国变成现实！
+| | (:normal)更不用说我们将产生的能源。
+| | 我真的很感激这个，{(nametag player)}。
+| | 获得这些一定很危险 - (:excited)你赢得了这个"奖励"(orange)。
+| ! eval (store 'item:parts 450)
+| ! eval (status "Received 450 Scrap Part")
+| | (:normal)回头见！
+| ! eval (complete task)
+| ! eval (reset interaction)

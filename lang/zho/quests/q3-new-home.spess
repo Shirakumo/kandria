@@ -1,0 +1,125 @@
+# task-q3-reminder/q3-reminder
+~ jack
+| (:annoyed)我们的新家不会自己找到自己。再见。
+~ player
+| "{#@jack-nametag}说我应该"在东面废墟的地面上搜索"(orange)。我的FFCS显示有"4个候选地点"(orange)。"(light-gray, italic)
+
+# find-home-first/new-home-site-1
+~ player
+| "这是"新家候选地点1"(red)。"(light-gray, italic)
+| (:thinking)"这栋建筑里可能有避雨所。让我们到里面看看……"(light-gray, italic)
+| (:normal)"泥土和沙子几乎从每个裂缝都侵入了。"(light-gray, italic)
+| "这是个流沙死亡陷阱。"(light-gray, italic)
+? (complete-p 'find-home-second 'find-home-third 'find-home-fourth)
+| | (:normal)"那是最后一个勘察的地点。我应该带着坏消息"回到{#@jack-nametag}那里"(orange)。"(light-gray, italic)
+| ! eval (activate 'return-new-home)
+| ! eval (deactivate 'task-q3-reminder)
+|? (not (var 'first-home))
+| | (:normal)"我应该"继续寻找"(orange)，并查看我的"日志文件"(orange)和"地图"(orange)"< {(prompt-string 'open-map)} >"(gold)以了解剩余的地点。"(light-gray, italic)
+| ! eval (setf (var 'first-home) T)
+
+# find-home-second/new-home-site-2
+~ player
+| "这是"新家候选地点2"(red)。"(light-gray, italic)
+| (:thinking)"它地势较高，隐蔽得很好，有一个可以发现入侵者的有利位置。"(light-gray, italic)
+| (:giggle)"（我觉得自己像个房地产中介。）"(light-gray, italic)
+| (:thinking)"建筑的地基看起来很牢固，但其余部分都是被沙子冲蚀过的壳体。"(light-gray, italic)
+| "这行不通。"(light-gray, italic)
+? (complete-p 'find-home-first 'find-home-third 'find-home-fourth)
+| | (:normal)"That's the last site surveyed. I should "return to {#@jack-nametag}"(orange) with the bad news."(light-gray, italic)
+| ! eval (activate 'return-new-home)
+| ! eval (deactivate 'task-q3-reminder)
+|? (not (var 'first-home))
+| | (:normal)"我应该"继续寻找"(orange)，并查看我的"日志文件"(orange)和"地图"(orange)"< {(prompt-string 'open-map)} >"(gold)以了解剩余的地点。"(light-gray, italic)
+| ! eval (setf (var 'first-home) T)
+
+# find-home-third/new-home-site-3
+~ player
+| "这是"新家候选地点3"(red)。"(light-gray, italic)
+| (:thinking)"它安全隐蔽，而且可以避风雨。"(light-gray, italic)
+| (:normal)"但在容易发生地震的地区，悬崖脚下也许不是最明智的选择。"(light-gray, italic)
+? (complete-p 'find-home-first 'find-home-second 'find-home-fourth)
+| | (:normal)"那是最后一个勘察的地点。我应该带着坏消息"回到{#@jack-nametag}那里"(orange)。"(light-gray, italic)
+| ! eval (activate 'return-new-home)
+| ! eval (deactivate 'task-q3-reminder)
+|? (not (var 'first-home))
+| | (:normal)"我应该"继续寻找"(orange)，并查看我的"日志文件"(orange)和"地图"(orange)"< {(prompt-string 'open-map)} >"(gold)以了解剩余的地点。"(light-gray, italic)
+| ! eval (setf (var 'first-home) T)
+
+# find-home-fourth/new-home-site-4
+~ player
+| "这是"新家候选地点4"(red)。"(light-gray, italic)
+| (:thinking)"这些工厂隔间可以作为绝佳的储藏室，甚至可以作为工程部的基地。"(light-gray, italic)
+| "我可以清理障碍物，这样儿童、老人和体弱者都能通过。"(light-gray, italic)
+? (or (complete-p 'q2-seeds) (have 'item:seeds))
+| | (:thinking)"但它靠近污染的种子储藏点是个麻烦。这还是在他们考虑地震之前。"(light-gray, italic)
+|?
+| | (:thinking)"但工厂对地震几乎没有结构性保护，而且有很多可怕的方式会刺穿你。"(light-gray, italic)
+? (complete-p 'find-home-first 'find-home-second 'find-home-third)
+| | (:normal)"那是最后一个勘察的地点。我应该带着坏消息"回到{#@jack-nametag}那里"(orange)。"(light-gray, italic)
+| ! eval (activate 'return-new-home)
+| ! eval (deactivate 'task-q3-reminder)
+|? (not (var 'first-home))
+| | (:normal)"我应该"继续寻找"(orange)，并查看我的"日志文件"(orange)和"地图"(orange)"< {(prompt-string 'open-map)} >"(gold)以了解剩余的地点。"(light-gray, italic)
+| ! eval (setf (var 'first-home) T)
+
+# return-new-home/new-home-return
+~ jack
+| 你回来了。怎么样？
+~ player
+- 你觉得怎么样？
+  ~ jack
+  | I admit it was a thankless task, but I thought there might be at least somewhere we could go.
+- Not good news I'm afraid.
+  ~ jack
+  | (:annoyed)God dammit.
+- You're stuck here.
+  ~ jack
+  | (:annoyed)God dammit.
+~ jack
+| {#@fi-nametag} ain't gonna like this. (:annoyed)I suppose she'd better hear it from me than from some stone-cold android.
+| (:normal)Thanks for your help, but it's my problem now.
+| You want something for your labour?
+~ player
+- Yes please.
+  ~ jack
+  | Figures. "Here ya go"(orange).
+  < reward
+- That's the normal etiquette, isn't it?
+  ~ jack
+  | I guess so. "Here ya go"(orange).
+  < reward
+- Not from you.
+  ~ jack
+  | Suit yerself.
+  < continue
+- No thanks.
+  ~ jack
+  | Suit yerself.
+  < continue
+
+# reward
+! eval (store 'item:parts 100)
+! eval (status "Received 100 Scrap Part")
+< continue
+
+# continue
+? (complete-p 'q2-seeds)
+| ~ jack
+| | (:normal)Oh, "Cathy wants a word too"(orange).
+| | (:annoyed)Know that my threat still stands if you touch her.
+| | (:normal)"{#@fi-nametag}'s got a new job for you"(orange) as well. From what I hear, should get you outta our hair for a while. Can't wait.
+| ! eval (activate 'sq-act1-intro)
+| ! eval (activate 'q4-intro)
+|?
+| ? (not (active-p 'q2-seeds))
+| | ~ jack
+| | | (:normal)Speaking of "{#@fi-nametag}, she wants to talk to you"(orange). Not a word about the scouting fail though, alright?
+|   
+| ~ jack
+| | (:normal)Don't let me be the one to help you out, either, but I heard "{#@trader-nametag} was back"(orange).
+| | His caravan is down in the Midwest Market, beneath the "Zenith Hub"(red).
+| | I don't know what opposition you've faced scouting around, but you might wanna stock up.
+| | (:annoyed)I hear even androids ain't indestructible.
+| ! eval (activate 'trader-arrive)
+

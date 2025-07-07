@@ -1,0 +1,6 @@
+# trade-shop/buy
+! eval (show-sales-menu :buy 'trader)
+
+# trade-shop/sell
+! eval (show-sales-menu :sell 'trader)
+

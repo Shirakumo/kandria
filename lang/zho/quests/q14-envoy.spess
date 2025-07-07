@@ -1,0 +1,94 @@
+# 3-interact-zelah/interaction
+~ zelah
+| 啊，贵宾。我们一直在等你。
+~ player
+- 你是谁？
+  ~ zelah
+  | (:jovial)我是{#@zelah-nametag}，"记得"(orange)吗？
+- 让我猬猬：{#@zelah-nametag}。
+  ~ zelah
+  | 好，你"记得"(orange)。
+- So you lead the Wraw?
+  ~ zelah
+  | 你知道我是的。我领导这里的所有人。
+  | 我是{#@zelah-nametag}，"记得"(orange)吗？
+! eval (setf (nametag (unit 'zelah)) (@ zelah-nametag))
+~ fi
+| ……
+| (:annoyed)你想要什么？
+~ zelah
+| 我是为了机器人来的。"我的机器人"(orange)。
+~ jack
+| (:shocked)我就知道。
+~ zelah
+| (:jovial)这是我的财产。我一直在"用它监视你们，破坏你们的供水，并计划这次攻击"(orange)。
+~ catherine
+| (:concerned)这不可能是真的……
+~ zelah
+| 现在我"想要它回来"(orange)。
+~ fi
+| (:annoyed)碰她一下，我就杀了你。
+~ zelah
+| (:jovial)我不会碰任何人。但我的军队会。
+| (:normal)来吧，机器人。你做得很好 - 感谢你，山谷里将有和平，各派系联合在一起。
+| 但现在假面舞会结束了。你是这些人的叛徒，记得吗？现在是"回家的时候"(orange)了。
+| "如果你这样做，我甚至会饶恶这些人的性命。"(orange)
+~ fi
+| (:annoyed)我在这里只看到一个叛徒。
+~ alex
+| (:angry)你先背叛了我。
+| 如果你没有派这个东西来追我，也许我不会这样做。
+~ zelah
+| {#@alex-nametag}只是回家了 - 就像你们其他人应该做的那样。
+| 但不，当你逃跑时，你背叛了你的人民，{#@fi-nametag}。当你接纳这个机器人时也是。
+| (:jovial)我知道你喜欢它。
+~ fi
+| (:annoyed)她哪里都不去。
+~ jack
+| (:shocked){#@fi-nametag}……
+~ innis
+| (:angry)我们不需要机器人。我知道这个联盟是一个错误。
+~ islay
+| (:nervous)让她为Wraw作战，或者不作战，会更好吗？
+~ catherine
+| (:concerned)不要去，{(nametag player)}。
+~ zelah
+| (:jovial)哦，我忘了你给它起了个名字。多么古雅。
+~ player
+- 我要留在这里。
+  ~ zelah
+  | (:jovial)我希望你会这样说。
+- 也许我应该去。他可能在说实话。
+  ~ catherine
+  | (:concerned)……
+  ~ fi
+  | (:annoyed)他不是。
+- 如果我现在就杀了你怎么办？
+  ~ zelah
+  | (:jovial)这是一次使者会面。杀了我，你就签署了每个人的死亡证书。
+  | (:normal)并证明你是个叛徒。
+~ fi
+| 他说什么都不重要，{(nametag player)}。你已经向我们展示了你真正的样子。你甚至不需要这样做。
+~ zelah
+| (:jovial)这是你的最后机会…… //{(nametag player)}//。跟我走，或者你的朋友会死。
+~ player
+- 好试图。
+- 去你的。
+- 你很快就会死的。
+~ zelah
+| 好吧。我们在战场上见。
+! eval (stop-following 'zelah)
+! eval (move-to 'wraw-surface-rally 'zelah)
+! eval (move-to 'wraw-surface-rally 'alex)
+! eval (move-to 'wraw-surface-rally 'soldier-1)
+! eval (move-to 'wraw-surface-rally 'soldier-2)
+! eval (move-to 'wraw-surface-rally 'soldier-3)
+~ islay
+| ……
+| {#@fi-nametag}，{(nametag player)} - "来工程部"(orange)。
+| 我们"需要谈谈"(orange)。
+! eval (activate (unit 'zelah-gone))
+
+; kent = knew (Scottish)
+; Zelah motivation: greed, resource/people acquisition
+; male, main antagonist, leader of the Wraw faction. Northern British accent/dialect

@@ -1,0 +1,36 @@
+# q1-ready-chat/talk-catherine
+~ catherine
+| 你准备好"修复那个漏洞"(orange)了吗？
+~ player
+- 还没有。
+  ~ catherine
+  | [? 好吧，你可以有一分钟时间。 | 好的，但我们需要赶紧 - 供水系统不会自己修复。 | 好的，但无论你需要做什么，请快点。]
+- （查看任务日志）
+  ~ player
+  | “我的“日志文件”(orange)记录了我被分配任务的数据；如果我不确定下一步该做什么，我应该访问并查看它们。”(light-gray, italic)
+  | (:giggle)“做机器人的好处！”(light-gray, italic)
+- 我们再做什么来着？
+  ~ catherine
+  | (:concerned)嘘，你的短期记忆损坏了吗？我们需要修复漏水 - 在我们失去庄稼并且每个人都饿死之前！
+  ~ player
+  - 我不需要吃东西。
+    ~ catherine
+    | (:concerned)好吧，我们其他人没有这么幸运。实际上不是这么不幸。
+  - 啊，我现在想起来了。
+    ~ catherine
+    | (:concerned)好的。好吧……
+  - 但我的系统目前处于次优状态。
+    ~ catherine
+    | 在洞穴里坐了几十年会这样的。
+    | (:concerned)不过我觉得我现在也不能为你做太多。抱歉。
+  ~ catherine
+  | 你准备好出发时“告诉我”(orange)。但我们不能等太久。
+- 我准备好了。
+  ~ catherine
+  | 好的。我们要下到“那边地板上的洞”(orange)。
+  ~ player
+  | “她从架子上拿了焦焊炬和护目镜 - 她是认真的。”(light-gray, italic)
+  ~ catherine
+  | 沿着“红色管道”(orange)走，并且“跟紧我”(orange)。
+  ! eval (deactivate interaction)
+  ! eval (complete task)

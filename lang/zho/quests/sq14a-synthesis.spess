@@ -1,0 +1,69 @@
+; Synthesis, shady character, unknown gender, Swiss-German accent and dialect, plural first person pronouns
+# return-supplies/supplies-return
+~ synthesis
+| 我们的药剂在哪里？
+? (> 4 (item-count 'item:mushroom-bad-1))
+| ~ synthesis
+| | 快点！我们"还需要黑帽菇 - 给我们带来4个"(orange)。
+| | "检查上面的定居点，或者洞穴。"(orange)
+| ~ player
+| | "我目前有"{(item-count 'item:mushroom-bad-1)}个黑帽菇"(orange)。"(light-gray, italic)
+|?
+| ~ synthesis
+| | (:grin)很好。把那些黑帽菇给我们。
+| | ! eval (retrieve 'item:mushroom-bad-1 4)
+| | ! eval (status "Lost 4 Black Cap")
+| < result
+
+; they only take the minimum amount they need, as they don't want to rely on you too much; once they're recovered, they can source their own black caps
+
+# result
+~ synthesis
+| (:grin)谢谢。全部都有了。
+| (:normal)我们需要一点时间，管理它们不会花太长时间。
+~ player
+| (:embarassed)"我看不到他们在做什么，但我绝对看到了一根针。"(light-gray, italic)
+~ synthesis
+| ...
+| (:grin)我们可以开始了。
+| 现在我们想让那些惹恼"{#@synthesis-nametag}"(yellow)的人遭受痛苦。
+~ player
+- 现在你告诉我关于旧世界的事。
+  ~ synthesis
+  | (:grin)你可以亲眼看到 - 一旦安全了。
+- 那是你的名字吗？
+  | (:grin)我们的名字。也是我们的目的。与此同时...
+- 谁应该遭受痛苦？
+  ~ synthesis
+  | 土匪。"流浪者"(orange)。无头强盗。任何挡我们路的人。
+  < task
+! eval (setf (nametag (unit 'synthesis)) (@ synthesis-nametag))
+~ synthesis
+| 我们有我们的敌人：土匪。"流浪者"(orange)。无头强盗。任何挡我们路的人。
+! label task
+! eval (setf (nametag (unit 'synthesis)) (@ synthesis-nametag))
+~ synthesis
+| 他们也在寻找这些信息，而且他们接近了。
+| (:grin)但我们采取了先发制人的行动：袭击了他们在半机械边界的营地。重创了他们。大部分都完了，但有些逃脱了。
+| 他们的新营地在"这里的低东部，在这个区域的中间"(orange)。
+| 他们想要终结我们。但如果我们死了，我们的知识也会消失。
+| 你要"为我们杀死他们"(orange)。
+~ player
+- 我要？
+  ~ synthesis
+  | (:grin)如果你想知道更多，你就要。
+- 我怎么知道他们是坏人而不是你？
+  ~ synthesis
+  | (:grin)你不知道。
+- 我们在这里分道扬镳。
+  ~ synthesis
+  | (:grin)如果必须这样的话。
+  | 但"我们的提议仍然有效"(orange)。我们流亡者，必须团结一致。
+  < end
+~ synthesis
+| (:grin)"做我们要求的，我们就会继续。"(orange)
+< end
+
+# end
+! eval (complete task)
+! eval (reset interaction)

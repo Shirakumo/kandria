@@ -1,0 +1,93 @@
+# chat-semi/chat-semi
+~ islay
+| 当然。
+! label talk
+? (not (complete-p 'q7-my-name))
+| ~ player
+| - 为什么监视诺卡族？
+|   ~ islay
+|   | 我们监视所有人。这就是我们的工作，不针对任何人。
+|   | 我们有技术，也有动机。不知道你有没有注意到，但这里大多数人都在试图互相杀死。
+|   | 不管怎么说，我珍惜我们与诺卡族的友谊。{#@fi-nametag}是个好领导者。
+|   < talk
+| - 你能读取我的黑匣子吗？
+|   ~ islay
+|   | 你觉得你可能无意中背叛了诺卡族。
+|   | 我们对你了解很多 - 但不，我们读不了你的黑匣子。现在没人能读取了。对不起。
+|   | 我看到了泵房里伺服机器人的情况 - 它们是独立行动还是被控制，很难说。
+|   | 不过安卓人确实能做到这一点。
+|   < talk
+| - 灾难之前是什么样的？
+|   ~ islay
+|   | ...
+|   | 那是另一个世界，另一个人生。
+|   | 如果你想知道是否是安卓人摧毁了世界，我帮不了你。
+|   | 我不在地面上 - (:nervous)我们中很少有人在，这就是为什么我们还在这里。
+|   | (:normal)但我不觉得这可能做得到。
+|   | 即使真是安卓人做的，我非常怀疑这是他们自己的主意。不。
+|   < talk
+| - 就这样吧。
+|   < leave
+|? (and (complete-p 'q7-my-name) (not (complete-p 'q10-wraw)))
+| ~ player
+| - What's happening on the Cerebat border?
+|   ~ islay
+|   | (:nervous)We're still trying to ascertain that - but we've lost more cameras since you left.
+|   | (:normal){#@innis-nametag} thinks we're next, but I'm not so sure.
+|   | The Wraw are primitive. Maybe they're messing with the Cerebats, but they wouldn't stand a chance against our technology.
+|   | And I'm not just talking about surveillance. We have weapons.
+|   ! eval (setf (var 'semis-weapons) T)
+|   < talk
+| - What's it like living underground?
+|   ~ islay
+|   | (:nervous)You mean apart from the lack of sunlight, and not knowing what time of day it is?
+|   | (:normal)At least we get vitamin D from mushrooms like the flower fungus, once we expose them to UV light.
+|   | Apart from that it's fine - most of us spent our lives underground even before the Calamity.
+|   | (:nervous)Fresh air is a problem, and it's too hot - as you've probably noticed. The wind tunnels help though.
+|   | (:normal)Sometimes I envy the Noka. I know living on the surface has it challenges, but it must be nice living under the sky.
+|   < talk
+| - Why are the Semi Sisters mostly women?
+|   ~ islay
+|   | (:nervous)Why not?
+|   | Though we're not a religious order, or a bunch of nurses, if that's what you're thinking - despite our uniforms.
+|   | (:normal)Most who worked in the factories were women. After the Calamity we just stayed together.
+|   | And we've done better than most.
+|   | Maybe the world wouldn't have fallen apart if there were more women in charge. Present company included.
+|   < talk
+| - I need to go.
+|   < leave
+|? (and (complete-p 'q10-wraw) (not (complete-p 'q11-recruit-semis)))
+| ~ player
+| - The Wraw are coming for everyone in the valley.
+|   ~ islay
+|   | Thank you, but we already know about the scale of their operation.
+|   | (:nervous)We're making... preparations.
+|   ~ player
+|   - You've been spying on me again.
+|     ~ islay
+|     | ... I'm afraid so.
+|     | Good luck, {(nametag player)}.
+|   - What preparations?
+|     ~ islay
+|     | I'm afraid I can't share that. I'm sorry.
+|     | Good luck, {(nametag player)}.
+|   - Good luck.
+|     ~ islay
+|     | Thank you, {(nametag player)}. To you too.
+|   - Let's talk about something else.
+|   < talk
+| - Do androids live in the mountains?
+|   ~ islay
+|   | Oh, that old chestnut...
+|   | Before the Calamity there were hundreds of thousands of androids, and more in production.
+|   | Where did they all go? Were they all destroyed? - Present company excepted.
+|   | Sometimes we find the occasional Genera core; but the truth is no one knows, and we'll probably never know.
+|   | But I doubt any are living in the mountains. We'd have seen or heard something, detected a signal... But there's nothing.
+|   < talk
+| - I need to go.
+|   < leave
+
+# leave
+~ islay
+| [? Take care, {(nametag player)}. | Mind how you go, {(nametag player)}. | I'll be seeing you. | Ta-ta.]
+

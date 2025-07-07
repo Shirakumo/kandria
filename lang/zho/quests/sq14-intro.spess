@@ -1,0 +1,81 @@
+; Synthesis, shady character, unknown gender, Swiss-German accent and dialect, plural first person pronouns
+# intro/intro-chat
+~ synthesis
+| (:grin)是时候了，机器人。
+~ player
+- ...
+- 你能听起来更神秘一点吗？
+  ~ synthesis
+  | (:grin)也许可以。
+- 不，不是时候。
+  < leave
+~ synthesis
+| (:grin)我们有"关于旧世界的答案"(orange)，如果你愿意帮助我们的话。
+~ player
+- 你的代词是复数，还是你们有很多人？
+  ~ synthesis
+  | (:grin)只有我。"我们"(italic)。
+- 这是皇室的"我们"吗？
+  ~ synthesis
+  | 我们看起来像皇室吗？
+- 好吧...
+~ synthesis
+| (:grin)你想要它们吗？答案？
+~ player
+- 什么答案？
+  ~ synthesis
+  | 对你来说有价值的答案。
+- 你想要什么？
+- 我可以用武力夺取那些答案。
+  ~ synthesis
+  | (:grin)你可以试试。但你会失败。
+- 没兴趣。
+  < leave
+~ synthesis
+| 啊...
+~ player
+| "...我几乎看不到他们的脸，但他们似乎正经历世界上最严重的头痛。"(light-gray, italic)
+~ synthesis
+| 啊...<-啊...->
+~ player
+- 你还好吗？
+- 你看起来不太好。
+- 我希望这不会传染。
+~ synthesis
+| 我们需要我们的"药剂"(orange)。给我们弄来。
+| 你有"黑帽菇"(orange)吗？是的，有毒的那种。
+~ player
+- 你们需要多少？
+- 我可以弄一些。
+- [(<= 1 (item-count 'item:mushroom-bad-1)) (撒谎) 恐怕没有。]
+  ~ synthesis
+  | 啊，太糟糕了。
+~ synthesis
+| "给我们带来4个黑帽菇。"(orange)
+| "搜索脑蝠族的后街，甚至洞穴。"(orange)
+| 快点。
+? (= 4 (item-count 'item:mushroom-bad-1))
+| ~ player
+| | "我确实"已经有他们需要的东西了"(orange)。"(light-gray, italic)
+|? (< 4 (item-count 'item:mushroom-bad-1))
+| ~ player
+| | "我确实"已经有超过他们需要的数量了"(orange)。"(light-gray, italic)
+|? (< 1 (item-count 'item:mushroom-bad-1))
+| ~ player
+| | "我确实"已经有{(item-count 'item:mushroom-bad-1)}个黑帽菇了"(orange)。"(light-gray, italic)
+|? (= 1 (item-count 'item:mushroom-bad-1))
+| ~ player
+| | "好吧，我"目前只有1个黑帽菇"(orange)。"(light-gray, italic)
+|?
+| ~ player
+| | "我"现在没有任何黑帽菇"(orange)。糟糕。"(light-gray, italic)
+  
+! eval (activate 'sq14a-synthesis)
+! eval (complete task)
+! eval (reset interaction)
+
+# leave
+~ synthesis
+| (:grin)当你准备好知道真相时，"我们会在这里"(orange)。但不会永远。
+
+; too ill to collect them themselves

@@ -1,0 +1,14 @@
+# 7-interact-/interaction
+~ player
+? (not (complete-p 'q11a-bomb-recipe))
+| | "他们的敌人被解决了。也许现在他们会告诉我在哪里可以找到关于旧世界的信息。"(light-gray, italic)
+| | "我最好"回到{#@synthesis-nametag}那里"(orange)。"(light-gray, italic)
+|?
+| | "{#@synthesis-nametag}的敌人被解决了。"(light-gray, italic)
+| | "但现在"回去向他们报告已经太晚了"(orange)。我应该离开这里。"(light-gray, italic)
+| ! eval (activate (unit 'spawner-5703))
+| ! eval (activate (unit 'spawner-5705))
+| ! eval (activate (unit 'spawner-5704))
+
+; ^ invariant check
+; spawners will reactivate while player on screen, but is an edge case

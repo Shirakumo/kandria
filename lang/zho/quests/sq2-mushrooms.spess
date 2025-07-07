@@ -1,0 +1,44 @@
+# return-mushrooms/mushrooms-return
+~ catherine
+| 你的蘑菇收集怎么样？让我看看你找到了什么。
+? (> 25 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)))
+| ~ catherine
+| | 哦，我觉得你还没有足够的。我需要"25个锈斑球菇或花朵菌"(orange)。不过"避开黑帽菇"(orange)。继续"在地下搜索"(orange)。
+| | (:excited)祝你好运！
+| ~ player
+| | "我目前有："{(item-count 'item:mushroom-good-1)}个花朵菌"(orange)，"{(item-count 'item:mushroom-good-2)}个锈斑球菇"(orange)，"{(item-count 'item:mushroom-bad-1)}个黑帽菇"(orange)。"(light-gray, italic)
+| < end
+|? (= 25 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)))
+| ~ catherine
+| | (:excited)哇，你找到的正好是我要求的数量。我想我不应该对你如此精确感到惊讶。
+|? (< 25 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)))
+| ~ catherine
+| | (:cheer)哇，你找到的比我要求的还多！
+? (have 'item:mushroom-good-1)
+| | (:excited)"花朵菌"(red)，不错！我会把这些给{#@fi-nametag}，直接放进锅里。
+| | (:normal)显然如果你生吃它们会让你拉肚子。总有一天我要测试这个理论。
+| ! eval (status (concatenate 'string "Lost " (write-to-string (item-count 'item:mushroom-good-1)) " Flower Fungus"))
+| ! eval (retrieve 'item:mushroom-good-1 T)
+? (have 'item:mushroom-good-2)
+| | (:cheer)"锈斑球菇"(red)，太棒了！我最喜欢吃这些 - 信不信由你，我的围巾就是用它们做的。
+| | (:normal)我用合成废料把它们编织在一起；我需要一个面罩，这样成熟标本的孢子就不会让我得肺病。
+| ! eval (status (concatenate 'string "Lost " (write-to-string (item-count 'item:mushroom-good-2)) " Rusty Puffball"))
+| ! eval (retrieve 'item:mushroom-good-2 T)
+? (have 'item:mushroom-bad-1)
+| | (:concerned)哦，"黑帽菇"(red)...有毒的我做不了什么。
+| | (:normal)别担心，我稍后会烧掉它们 - 不想让任何人意外吃到。
+| ! eval (status (concatenate 'string "Lost " (write-to-string (item-count 'item:mushroom-bad-1)) " Black Cap"))
+| ! eval (retrieve 'item:mushroom-bad-1 T)
+  
+| (:normal)你知道，这可能看起来不多，但像这样的收获可能是我们生存和死亡的区别。
+| 我们也会捕捉鸟类、鱼类和蝙蝠，但它们更难抓到。蘑菇不会跑掉。
+| (:excited)我们欠你一个大人情。这里，"拿着这些零件"(orange)，你绝对配得上。
+! eval (store 'item:parts 300)
+! eval (status "Received 300 Scrap Part")
+| (:normal)如果你"找到更多蘑菇"(orange)，确保你抓住它们。
+| 如果我们不需要，你至少可以"和{#@trader-nametag}交易"(orange)。
+| 回头见，{(nametag player)}！
+! eval (complete task)
+! eval (reset interaction)
+
+# end

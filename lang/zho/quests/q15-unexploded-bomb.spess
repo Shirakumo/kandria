@@ -1,0 +1,57 @@
+# task-reminder/interact-fi
+~ fi
+| 快点 - "在水泵房找到{#@islay-nametag}并修理那些炸弹"(orange)。
+
+# check-bomb-3/interact-bomb
+
+# islay-person/islay-talk-bomb
+! eval (ensure-nearby 'player 'catherine)
+~ catherine
+| (:concerned){#@islay-nametag}，你全身湿透了。
+~ islay
+| (:nervous)该死…… 你们不应该来。我能处理这个。
+~ player
+- 让我们帮忙。
+  ~ catherine
+  | 我们可以一起做。(:excited)还能节省时间。
+- 我们在一起更高效。
+  ~ catherine
+  | (:excited)对。她说得对。
+- 你才不能。
+  ~ catherine
+  | (:concerned){(nametag player)}说得对。让我们帮你。
+~ islay
+| (:nervous)……
+| "这个炸弹上的接收器已经被拆弹"(orange)……
+| (:normal)但我认为"我可以重新布线"(orange)，这样他们就不能再乱动它了。
+| 他们有一个"拆弹机甲"(orange) - 我看到"一个向水泵房走去"(orange)。
+| 既然你们现在在这里，你可以"摧毁机甲"(orange)。
+| 做完这个"然后去 Brother 办公室的炸弹。{#@catherine-nametag}，你可以重新布线"(orange)。
+~ catherine
+| (:excited)明白了。
+~ islay
+| 当我完成时"我将去医院公寓之外的那个"(orange)。
+| 还有{(nametag player)}，不管值不值得：我不认为你是叛徒。
+| 现在，拜托：我需要工作。
+~ catherine
+| 当你处理机甲时，我可以去 Brother 办公室。
+~ player
+- 我们应该在一起。
+- 你被杀了对我们没好处。
+- 你可能会遇到士兵或机甲。
+~ catherine
+| (:concerned)…… 但我能做到。
+~ player
+| 我知道你能，但如果你没有到达炸弹那里，我们就遇到麻烦了。
+~ catherine
+| (:concerned)……
+~ catherine
+| (:excited)好的。我们一起去 - "在机甲之后"(orange)。
+! eval (complete 'check-bomb-3)
+! eval (deactivate 'task-reminder)
+! eval (clear-pending-interactions)
+
+; is easier for Islay/Catherine to rewire an existing receiver to make it tamper proof, than use one of the seven vanilla receivers the player is still carrying
+
+; Islay is working on the "receiver" here, not the bomb itself, because of course the bomb sprite is still there in the flooded room!
+

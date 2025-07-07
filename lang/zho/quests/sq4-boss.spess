@@ -1,0 +1,13 @@
+# 7-interact-/interaction
+~ player
+? (not (complete-p 'q11a-bomb-recipe))
+| | "我有注意到那些伺服机器人有什么异常吗？"(light-gray, italic)
+| | "我应该"回到机器人学家那里汇报我的发现"(orange)。"(light-gray, italic)
+|?
+| | "我想那些就是机器人学家在研究的伺服机器人。"(light-gray, italic)
+| | "但现在"回去向她报告已经太晚了"(orange)。我应该离开这里。"(light-gray, italic)
+| ! eval (activate (unit 'spawner-5032))
+
+; ^ invariant check
+
+; spawner will reactivate while player on screen, but is an edge case

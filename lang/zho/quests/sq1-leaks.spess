@@ -1,0 +1,222 @@
+# task-sq1-reminder/sq1-reminder
+~ catherine
+| "像我们之前那样沿着红色管道"(orange)往下走，你就会找到新的泄漏。
+~ player
+| "我的FFCS显示有"3个泄漏"(orange)，都接近地面。"(light-gray, italic)
+
+# leak-first/leak-1
+~ player
+| "这是"泄漏1"(red)。"(light-gray, italic)
+| "管道上有个洞 - 可能是在转弯处由于压力造成的。"(light-gray, italic)
+? (not (var 'first-leak))
+| | "我的指尖有个简易的燃接火焰。"(light-gray, italic)
+| | [(var 'q1-weld-burn) (:embarassed)"这次我会在我的摄像头上启用紫外线过滤器。"(light-gray, italic) | (:normal)"又到了摄像头紫外线过滤器时间。"(light-gray, italic)]
+| | (:normal)"燃接完成。"(light-gray, italic)
+| ! eval (setf (animation (unit 'leak-1)) 'normal)
+| ? (have 'item:walkie-talkie)
+| | | "现在用对讲机。"(light-gray, italic) (:thinking)"这东西怎么用？"(light-gray, italic)
+|  
+| | {#@catherine-nametag}，我已经封住了一个泄漏。[(have 'item:walkie-talkie) 完毕。|]
+| ~ catherine
+| | 工作得很好 - 压力已经好多了。
+| | "继续前进"(orange) - 如果遇到任何麻烦请告诉我。[(have 'item:walkie-talkie) 通话结束。|]
+| ~ player
+| | "好的，还剩"2个泄漏"(orange)。"(light-gray, italic)
+| ! eval (setf (var 'first-leak) T)
+|? (complete-p 'leak-second 'leak-third)
+| ~ player
+| | "燃接完成。"(light-gray, italic)
+| ! eval (setf (animation (unit 'leak-1)) 'normal)
+| | {#@catherine-nametag}，我想我修好了最后一个泄漏。[(have 'item:walkie-talkie) 完毕。|]
+| ~ catherine
+| | (:cheer)你做到了 - 压力正在恢复！工作做得很好。
+| | (:normal)有破坏迹象吗？[(have 'item:walkie-talkie) 完毕。|]
+| ~ player
+| - 没有，一切正常。
+|   ~ catherine
+|   | 这正是我想听到的。
+| - 全都是下沉或者磨损。
+|   ~ catherine
+|   | 天哪，你可能不需要关于山体滑坡的提醒 - 抱歉！
+| - 你造成了其中一个泄漏。
+|   ~ catherine
+|   | (:concerned)我造成的？从之前的维修？我很抱歉。
+|   | 一定是我水平下降了。请不要告诉{#@jack-nametag}。(:normal)总之...
+| ~ catherine
+| | (:excited)"快点回来"(orange)，我有个小东西给你。[(have 'item:walkie-talkie) 通话结束。|]
+| ! eval (deactivate 'task-sq1-reminder)
+| ! eval (activate 'return-leaks)
+|?
+| ~ player
+| | "燃接完成。"(light-gray, italic)
+| ! eval (setf (animation (unit 'leak-1)) 'normal)
+| | "还有"1个泄漏"(orange)要处理。"(light-gray, italic)
+; how does FFCS communicate with Catherine? Catherine still needs to use walkie and "over"? Yes, but FFCS removes need for "over" as it can control things dynamically remotely
+
+# leak-second/leak-2
+~ player
+| "这是"泄漏2"(red)。"(light-gray, italic)
+| "管道裂开了。没有下沉，但它靠近{#@catherine-nametag}之前的维修处 - 我想知道她是否意外损坏了它。"(light-gray, italic)
+? (not (var 'first-leak))
+| | "我的指尖有个简易的燃接火焰。"(light-gray, italic)
+| | [(var 'q1-weld-burn) (:embarassed)"这次我会在我的摄像头上启用紫外线过滤器。"(light-gray, italic) | (:normal)"又到了摄像头紫外线过滤器时间。"(light-gray, italic)]
+| | (:normal)"燃接完成。"(light-gray, italic)
+| ! eval (setf (animation (unit 'leak-2)) 'normal)
+| ? (have 'item:walkie-talkie)
+| | | "现在用对讲机。"(light-gray, italic) (:thinking)"这东西怎么用？"(light-gray, italic)
+|  
+| | {#@catherine-nametag}，我已经封住了一个泄漏。[(have 'item:walkie-talkie) 完毕。|]
+| ~ catherine
+| | 工作得很好 - 压力已经好多了。
+| | "继续前进"(orange) - 如果遇到任何麻烦请告诉我。[(have 'item:walkie-talkie) 通话结束。|]
+| ~ player
+| | "好的，还剩"2个泄漏"(orange)。"(light-gray, italic)
+| ! eval (setf (var 'first-leak) T)
+|? (complete-p 'leak-first 'leak-third)
+| ~ player
+| | "燃接完成。"(light-gray, italic)
+| ! eval (setf (animation (unit 'leak-2)) 'normal)
+| | {#@catherine-nametag}，我想我修好了最后一个泄漏。[(have 'item:walkie-talkie) 完毕。|]
+| ~ catherine
+| | (:cheer)你做到了 - 压力正在恢复！工作做得很好。
+| | (:normal)有破坏迹象吗？[(have 'item:walkie-talkie) 完毕。|]
+| ~ player
+| - 没有，一切正常。
+|   ~ catherine
+|   | 这正是我想听到的。
+| - 全都是下沉或者磨损。
+|   ~ catherine
+|   | 天哪，你可能不需要关于山体滑坡的提醒 - 抱歉！
+| - 你造成了其中一个泄漏。
+|   ~ catherine
+|   | (:concerned)我造成的？从之前的维修？我很抱歉。
+|   | 一定是我水平下降了。请不要告诉{#@jack-nametag}。(:normal)总之...
+| ~ catherine
+| | (:excited)"快点回来"(orange)，我有个小东西给你。[(have 'item:walkie-talkie) 通话结束。|]
+| ! eval (deactivate 'task-sq1-reminder)
+| ! eval (activate 'return-leaks)
+|?
+| ~ player
+| | "燃接完成。"(light-gray, italic)
+| ! eval (setf (animation (unit 'leak-2)) 'normal)
+| | "还有"1个泄漏"(orange)要处理。"(light-gray, italic)
+
+# leak-third/leak-3
+~ player
+| "这是"泄漏3"(red)。"(light-gray, italic)
+| "管道破裂了，就像动脉渗血一样。"(light-gray, italic)
+? (not (var 'first-leak))
+| | "我的指尖有个简易的燃接火焰。"(light-gray, italic)
+| | [(var 'q1-weld-burn) (:embarassed)"这次我会在我的摄像头上启用紫外线过滤器。"(light-gray, italic) | (:normal)"又到了摄像头紫外线过滤器时间。"(light-gray, italic)]
+| | (:normal)"燃接完成。"(light-gray, italic)
+| ! eval (setf (animation (unit 'leak-3)) 'normal)
+| ? (have 'item:walkie-talkie)
+| | | "现在用对讲机。"(light-gray, italic) (:thinking)"这东西怎么用？"(light-gray, italic)
+|  
+| | {#@catherine-nametag}，我已经封住了一个泄漏。[(have 'item:walkie-talkie) 完毕。|]
+| ~ catherine
+| | 工作得很好 - 压力已经好多了。
+| | "继续前进"(orange) - 如果遇到任何麻烦请告诉我。[(have 'item:walkie-talkie) 通话结束。|]
+| ~ player
+| | "好的，还剩"2个泄漏"(orange)。"(light-gray, italic)
+| ! eval (setf (var 'first-leak) T)
+|? (complete-p 'leak-first 'leak-second)
+| ~ player
+| | "燃接完成。"(light-gray, italic)
+| ! eval (setf (animation (unit 'leak-3)) 'normal)
+| | {#@catherine-nametag}，我想我修好了最后一个泄漏。[(have 'item:walkie-talkie) 完毕。|]
+| ~ catherine
+| | (:cheer)你做到了 - 压力正在恢复！工作做得很好。
+| | (:normal)有破坏迹象吗？[(have 'item:walkie-talkie) 完毕。|]
+| ~ player
+| - 没有，一切正常。
+|   ~ catherine
+|   | 这正是我想听到的。
+| - 全都是下沉或者磨损。
+|   ~ catherine
+|   | (:concerned)天哪，你可能不需要关于山体滑坡的提醒 - 抱歉！
+| - 你造成了其中一个泄漏。
+|   ~ catherine
+|   | (:concerned)我造成的？从之前的维修？我很抱歉。
+|   | 一定是我水平下降了。请不要告诉{#@jack-nametag}。(:normal)总之...
+| ~ catherine
+| | (:excited)"快点回来"(orange)，我有个小东西给你。[(have 'item:walkie-talkie) 通话结束。|]
+| ! eval (deactivate 'task-sq1-reminder)
+| ! eval (activate 'return-leaks)
+|?
+| ~ player
+| | "燃接完成。"(light-gray, italic)
+| ! eval (setf (animation (unit 'leak-3)) 'normal)
+| | "还有"1个泄漏"(orange)要处理。"(light-gray, italic)
+
+# return-leaks/leaks-return
+~ catherine
+| (:cheer)水压回来了！我就知道你能做到。
+| (:normal)来，"拿着这些零件"(orange) - 你当之无愧。
+! eval (store 'item:parts 150)
+! eval (status "Received 150 Scrap Part")
+? (and (var 'take-walkie) (have 'item:walkie-talkie))
+| | 我现在把对讲机拿回来，以防其他人需要。
+| ! eval (retrieve 'item:walkie-talkie 1)
+| ! eval (status "Lost 1 Walkie-Talkie")
+| | 我打赌使用这种古老技术很奇怪。
+| ~ player
+| - 我喜欢它。
+| - 再也不要了。
+|   ~ catherine
+|   | 哦，那么糟糕吗？
+| - 还凑合。
+|? (and (var 'take-walkie) (not (have 'item:walkie-talkie)))
+| ~ catherine
+| | 咕，对讲机在哪里？
+| ~ player
+| - 我卖了它。
+|   ~ catherine
+|   | (:concerned)哦，我明白了。
+|   | (:normal)我想这可以算作机智分。
+|   | (:concerned)我们确实有一些备用的 - 虽然它很有价值，无论是作为零件还是实用性。
+|   < payback
+| - （谎言）我弄丢了。
+|   ~ catherine
+|   | 哦，不要担心。这种事情会发生。我们有几个备用的，没关系。
+| - 哦，你需要把那个还回来？
+|   ~ catherine
+|   | 啊，不要担心。我们有几个备用的。
+|   < payback
+  
+! label end
+~ catherine
+| 好吧，你绝对可以把水管泄漏从你的任务清单上划掉，对吗？
+| 再见，{(nametag player)}！
+
+; player always has 150 parts to give here, since they just received that as a reward
+; during quest, if not using walkie, she just assumes you decided not to use it after all, and use your FFCS instead
+
+# payback
+~ player
+- 我会还给你的。
+  ~ catherine
+  | 不要担心，没关系。无论如何，你在外面会需要所有能得到的零件。
+  ~ player
+  - 好的，谢谢。
+  - 请了，我坚持。
+    ~ catherine
+    | 好吧，但只是因为这会让你感觉更好。
+    | 我不知道你卖了多少钱，这也不重要。如果你愿意的话，就算作"我刚刚给你的零件，150个"(orange)。
+    ~ player
+    - 同意。
+      ~ catherine
+      | 太好了。谢谢你。
+      ! eval (retrieve 'item:parts 150)
+      ! eval (status "Lost 150 Scrap Part")
+    - 这比我预期的要多。
+      ~ catherine
+      | (:concerned)哦。那在这种情况下，算了，没关系。
+- 我会去把它买回来。
+  ~ catherine
+  | 不要担心，没关系。无论如何，你在外面会需要所有能得到的零件。
+- 我很抱歉。
+  ~ catherine
+  | 不要担心，没关系。
+< end
+

@@ -1,0 +1,22 @@
+# task-reminder/reminder
+~ jack
+| (:annoyed)我说过忘记我们谈过这些！
+| (:normal)听着，很简单："去Wraw领土的东部，找到他们地热电站的供水管道 - 然后把它彻底砸烂"(orange)。
+| 你明白了吗？现在走开。
+
+# task-station/station-pipe
+~ player
+| ""{#@jack-nametag}想让我破坏的电站供水管道就是"这个"(orange)，但是..."(light-gray, italic)
+| (:embarassed)"看起来"已经有人做过了"(orange)。"(light-gray, italic)
+| (:thinking)"那样的话，或者这里最近发生了"可怕的事故"(orange) - 也许Wraw推进得"(light-gray, italic)"太"(light-gray)"猛了。"(light-gray, italic)
+| "水仍然可以从这里流下去，但供应充其量是不可靠的 -"(light-gray, italic) (:giggle)"我想我对水管泄漏还是有点了解的。"(light-gray, italic)
+| (:thinking)"但管道内部是干涸的。里面也没有声音 - "涡轮机已经关闭"(orange)。"(light-gray, italic)
+| (:normal)"{#@jack-nametag}说得对 - 这对他们的发电是"重大打击"(orange)。"(light-gray, italic)
+| "希望这能起到作用。"(light-gray, italic)
+| "好吧，那么"任务完成"(orange)了。算是吧。"(light-gray, italic)
+
+; the Wraw could be "pushing too hard" right now due to any of these, depending where the player is on the main quest line. Because: they're after the Noka; because they seem to have invaded the Cerebats; because they have invaded the Cerebats; because they are planning to invade the entire valley.
+
+; "somebody already did" - if done q8a by this point, then there's a strong implication here, without needing a conditional, that this could have been how the Cerebats turned the Wraw's water off - destroyed the pipe (happened before the game began or in the early game, as did the Wraw invasion of Cerebats in retaliation)
+
+; "I'd like to think I know a little about water leaks" - the player has defo done the 3 leaks in q1 by this point, possibly the sq1 leaks too (or may do these afterwards)
