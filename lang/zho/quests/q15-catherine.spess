@@ -1,0 +1,70 @@
+# 2-interact-catherine/interaction
+~ catherine
+| 嘉，{(nametag player)}。
+~ player
+- {#@islay-nametag}需要紧急和你说话。
+  ~ catherine
+  | (:concerned)哦，好的。
+- 你准备好另一次冒险了吗？
+  ~ catherine
+  | (:excited)和你一起？永远！
+- 看起来老团队要重新聚首了。
+  ~ catherine
+  | 什么，你和我？
+  | (:excited)计划是什么？
+~ player
+| "我最好降低我的声音，这样只有{#@catherine-nametag}能听到。"(light-gray, italic)
+| (:embarassed)炸弹没有引爆。
+~ catherine
+| (:concerned)<-什么？！->
+~ player
+| 和我一起去"工程部"(orange)。
+
+# 6-interact-fi/interaction
+~ fi
+| (:annoyed){#@islay-nametag}走了。我阻止不了她。
+| 她说唯一确保的方法就是她亲自检查炸弹。
+~ player
+- 什么？！
+- 她太老了。
+  ~ fi
+  | 她可能会让你惊吃。
+- 那她死定了。
+  ~ fi
+  | 她可能会让你惊吃。
+~ catherine
+| (:concerned){#@islay-nametag}……
+~ fi
+| 她确实设计了炸弹，所以如果有人能修理它们，那就是她。
+~ player
+- 我们应该去找她。
+  ~ fi
+  | 恐怕我同意。有你的帮助她会更幸运。
+  | 尽管她说不要跟随。
+- 她还说了别的吗？
+  ~ fi
+  | 她说不要跟随。
+  | 但我认为有你的帮助她会更幸运。
+- 现在怎么办？
+  ~ fi
+  | 恐怕你需要去找她 - 尽管她说不要跟随。
+  | 有你的帮助她会更幸运。
+~ catherine
+| (:excited)那我们走吧！
+~ fi
+| 你的FFCS正在工作吗？
+~ player
+| "检查FFCS……"(light-gray, italic)
+| 没有。"Wraw干扰"(orange)。
+~ fi
+| (:unsure)这可能意味着攻击即将来临……
+| (:normal)好的，"拿上这个对讲机"(orange) - 她没有回应，但"如果她需要帮助可能会打电话"(orange)。
+! eval (store 'item:walkie-talkie-2 1)
+! eval (status "Received 1 Walkie-Talkie")
+| 她可能"先去了水泵房炸弹"(orange)，因为它离边界最近。
+| (:annoyed)她还"拿走了信号引爆器"(orange)……
+! eval (follow 'player 'catherine)
+
+; implication here that the walkie, though shorter range than FFCS (and Semis' FFCS devices) can at least cut through the interference
+
+; it's possible (though unlikely on a crit path first playthrough) that the player will go and see Islay at the pump room bomb (via train), before triggering this convo above with Fi. However, since Islay's trade options will still be on at this point (they are neatly removed when sequence quest q15-catherine is completed, since then she's focused on the bombs) she will trade, but nothing more. And what the player can then say (or not say) above to Fi, still makes sense if they've seen Islay down there (on the map, or in person).

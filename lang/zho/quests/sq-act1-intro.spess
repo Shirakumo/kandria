@@ -1,0 +1,185 @@
+# sq-act1-catherine/talk-catherine
+~ catherine
+| 嗨，{(nametag player)}。你好吗？
+~ player
+- 我能帮忙吗？
+  < choices
+- 很高兴再次见到你。
+  ~ catherine
+  | 我希望我们能多花些时间在一起。
+  < continue
+- 很好。你好吗？
+  ~ catherine
+  | 我？哦，跟平常一样。(:concerned){#@jack-nametag}依然像以前一样专横，但我能忍受。
+  | (:normal)我想如果我能保持低调并继续做事，那么我就不会担心未来。或者过去。
+  | 就这样过一天算一天，你知道吗？
+  < continue
+- 我感觉很低落。
+  ~ catherine
+  | (:concerned)哦不...我很抱歉。人们都很刻薄，我不明白为什么。
+  | 任何与众不同的人，他们已经对他们做出了判断。
+  | (:normal)你只需要做你自己。我会和他们谈的，我保证。
+  < continue
+- 我需要走了。
+  < leave
+
+# continue
+~ player
+- 我能帮忙吗？
+- 我需要走了。
+  < leave
+! label choices
+~ catherine
+| 你的洞察力很奇特...(:excited)天哪，我很想了解你的核心是如何工作的。
+| (:normal)"水压又下降了"(orange)，所以你可以"检查管道"(orange)。
+? (<= 25 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)) )
+| | (:normal)我本来要说我们也需要一些"蘑菇，因为食物储备即将耗尽"(orange)。
+| | (:excited)但是，还是我看错了，那些不是"你携带的蘑菇"(orange)吗？
+| | (:excited)你非常主动，{(nametag player)}，我喜欢这点！让我看看你有什么。
+| ? (have 'item:mushroom-good-1)
+| | | (:excited)"花菌"(red)，不错！我会把这些给{#@fi-nametag}并直接放进烹饪锅。
+| | | (:normal)显然如果你生吃它们，会让你拉肚子。有一天我会测试这个理论。
+| | ! eval (status (concatenate 'string "Lost " (write-to-string (item-count 'item:mushroom-good-1)) " Flower Fungus"))
+| | ! eval (retrieve 'item:mushroom-good-1 T)
+| ? (have 'item:mushroom-good-2)
+| | | (:cheer)"锈球菌"(red)，太好了！我最喜欢吃这些 - 信不信，我用它们做了我的领巾。
+| | | (:normal)我用合成碎片把它们编织在一起；我需要一个口罩，这样成熟标本的孢子就不会让我患肺病。
+| | ! eval (status (concatenate 'string "Lost " (write-to-string (item-count 'item:mushroom-good-2)) " Rusty Puffball"))
+| | ! eval (retrieve 'item:mushroom-good-2 T)
+| ? (have 'item:mushroom-bad-1)
+| | | (:concerned)哦，"黑帽蘑"(red)...有毒的我做不了什么。
+| | | (:normal)不用担心，我稍后会烧掉它们 - 不希望任何人意外吃到它们。
+| | ! eval (status (concatenate 'string "Lost " (write-to-string (item-count 'item:mushroom-bad-1)) " Black Cap"))
+| | ! eval (retrieve 'item:mushroom-bad-1 T)
+|  
+| | (:normal)你知道，这可能看起来不多，但这样的收获可能是我们能否幸存的关键。
+| | 我们也会在可能的时候捕鸟、鱼和蝙蝠，但它们更难捕捉。蘑菇不会逃跑。
+| | (:excited)我们欠你的。给，"拿着这些零件"(orange)，你绝对配得上。
+| ! eval (store 'item:parts 300)
+| ! eval (status "Received 300 Scrap Part")
+| | (:normal)如果你"发现更多蘑菇"(orange)，一定要抓住它们。
+| | 如果我们不需要它们，你至少可以"和{#@trader-nametag}交易它们"(orange)。
+| ! eval (complete 'sq2-mushrooms)
+|?
+| | (:normal)由于食物储备即将耗尽，{#@fi-nametag}也希望"采集更多蘑菇"(orange)。加上它们对服装也很好。
+| | 我说至少"25个球菌或花菌"(orange)应该就够了。不过"要避免黑帽蘑"(orange)。
+| ? (< 0 (+ (item-count 'item:mushroom-good-1) (item-count 'item:mushroom-good-2)))
+| | ~ player
+| | | "我已经有一些了 - 但我需要找更多。"(orange, italic)
+| |?
+| | ~ player
+| | | "我现在没有 - 我需要去地下搜索。"(orange, italic)
+  
+~ catherine
+| (:excited)哦，我一直在和我的朋友们说话 - 我们都渴望看到你真正的能力。
+| "计时赛"(orange)听起来怎么样？
+| (:normal)基本上我们已经放置了"啤酒罐让你找到并带回来"(orange)。
+| 那么就这样 - 如果你喜欢的话，有很多事情可做。你想要更多信息吗？
+! label task-choice
+~ player
+- （问关于泄漏）
+  ~ catherine
+  | 当然。我现在已经固定了泵，所以我相当确定这"只是几个泄漏"(orange)。(:concerned)希望破坏者没有回来。
+  ? (not (var 'asked-leaks))
+  | | (:normal)机器人可以从指尖燃接，对吗？
+  | ~ player
+  | - 我能做到吗？
+  |   ~ catherine
+  |   | 我相当确定你能。试试看。
+  |   ~ player
+  |   | "她说得对。某种程度上。我想了想，现在我右手食指上有一个小火炬在发光。"(light-gray, italic)
+  |   | (:thinking)"它不够热无法燃接，但可以焦接 - 可能是用于自我修复。但如果我显著增加功率会怎么样？..."(light-gray, italic)
+  |   | (:giggle)"现在这是一个燃接火炬！有点痒。"(light-gray, italic)
+  |   | (:embarassed)"最好保持低强度，以免弄瀬我们。"(light-gray, italic)
+  |   ~ catherine
+  |   | (:excited)看到了！
+  |   ~ player
+  |   - 太酷了！
+  |   - 我忘了我能做这个。
+  |     ~ catherine
+  |     | 不用担心。
+  |   - 需要灯吗？
+  |     ~ catherine
+  |     | 抱歉，我不吸烟。
+  | - 焦接，不是燃接 - 用于自我修复。
+  |   ~ catherine
+  |   | 哦，好的，这很酷。也许你应该带个燃接火炬。
+  |   ~ player
+  |   | "话说回来，如果我显著增加焦接烙的功率会怎么样？..."(light-gray, italic)
+  |   | (:giggle)"有效！有点痒。"(light-gray, italic)
+  |   | (:normal)"她看起来很印象深刻。我想从某人手指尖发光的燃接火炬在这里不是最常见的景象。"(light-gray, italic)
+  |   | (:embarassed)"最好保持低强度，以免弄瀮我们。"(light-gray, italic)
+  |   ~ catherine
+  |   | (:excited)这太酷了！
+  | - 你从哪里听说的？
+  |   ~ catherine
+  |   | 这只是我对机器人了解的事情之一。(:excited)怎么，这是个大秘密吗？
+  |   | 让我看看！
+  |   ~ player
+  |   | "从技术上讲，我可以焦接，不是燃接，用于自我修复。但如果我显著增加焦接烙的功率会怎么样？..."(light-gray, italic)
+  |   | (:giggle)"有效！有点痒。"(light-gray, italic)
+  |   | (:normal)"她看起来很印象深刻。我想从某人手指尖发光的燃接火炬在这里不是最常见的景象。"(light-gray, italic)
+  |   | (:embarassed)"最好保持低强度，以免弄瀮我们。"(light-gray, italic)
+  |   ~ catherine
+  |   | (:excited)这太酷了！
+  | | (:normal)好的，我想你已经准备好了。
+  | ! eval (setf (var 'asked-leaks) T)
+    
+  | (:normal)就像我们之前做的那样，"沿着红色管道"(orange)往下走。
+  | 从压降来看，这些泄漏"不会太远"(orange)，所以你会在无线电范围内。
+  ~ player
+  | "我的FFCS显示有"3个泄漏"(orange)，就像{#@catherine-nametag}说的那样接近地面。"(light-gray, italic)
+  < task-choice
+- [(not (complete-p 'sq2-mushrooms)) （询问关于蘑菇）|]
+  ~ catherine
+  | 它们生长在"营地下面的洞穴"(orange)里，在那里的昏暗光线和潮湿环境中。
+  | 像"花菌"(orange)这样的食用蘑菇即使在作物歉收时也能维持我们的生存。
+  | 在我们搬到地面之前，这些就是我们唯一的食物。
+  | 像"锈球菌"(orange)这样的纤维状蘑菇也可以用来编织衣物。
+  | 我们把它们与来自旧世界的再生合成衣物（比如你的）以及我们狩猎动物的毛皮结合起来。
+  | 只是不要吸入它们的孢子 - 虽然我怀疑它们会影响到你。
+  | 其他种类是致命毒性的，比如"黑帽蘑 - 如果可以的话要避开它们"(orange)。
+  | 至少"25个球菌或花菌"(orange)现在应该就够了。(:excited)采蘑菇愉快，{(nametag player)}！
+  < task-choice
+- （询问关于计时赛）
+  ~ catherine
+  | (:excited)嘿，我就知道这会引起你的兴趣。我迫不及待想看看一个几乎完全功能的机器人能做什么！
+  | (:normal)是的，我们在这个区域放置了旧世界的"啤酒罐让你找到并带回来"(orange)。
+  | 我会"记录你的时间"(orange)供后世参考 - 这是人类学！"你越快，得到的零件就越多"(orange)。
+  | (:excited)很酷，不是吗？
+  < task-choice
+- 我准备好了。
+  ~ catherine
+  | (:excited)好的。
+  < end
+
+# end
+~ catherine
+| 你能够应付，但是如果你觉得有必要的话要联系。你想要"带个对讲机，还是只使用你的FFCS"(orange)？ - 它可以与我们的无线电配合使用。
+~ player
+- 我的FFCS就足够了。
+  ~ catherine
+  | 你说了算。
+- 我会带个对讲机。
+  ~ catherine
+  | 你说了算 - 拿着这个。
+  ! eval (store 'item:walkie-talkie 1)
+  ! eval (status "Received 1 Walkie-Talkie")
+  ! eval (setf (var 'take-walkie) T)
+~ catherine
+| "如果你需要更多信息请告诉我"(orange) - 还有"如果你想开始计时赛"(orange)。
+| (:excited)祝你好运！
+! eval (activate 'sq1-leaks)
+? (not (complete-p 'sq2-mushrooms))
+| ! eval (activate 'sq2-mushrooms)
+  
+! eval (activate 'sq3-race)
+! eval (complete task)
+! eval (reset interaction)
+
+# leave
+~ catherine
+| 嘿，没关系！我们很快再聊 - "我有几个你可能喜欢的工作"(orange)。
+
+; "We get birds and fish when we can too" meaning they hunt them themselves now they can, living on the surface; but they also trade them with sahil from time to time
+; tasks get added to journal in one fell swoop (player did ask) - but they're sidequests, so they don't have to do them

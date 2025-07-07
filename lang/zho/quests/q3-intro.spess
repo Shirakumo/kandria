@@ -1,0 +1,49 @@
+; could have been sent here by Fi or Catherine
+# talk-to-jack/talk-jack
+~ jack
+| (:annoyed)哦，是你。来杀我的？
+~ player
+- 什么？
+  ~ jack
+  | (:annoyed)没有幽默感。情理之中。
+- 你觉得呢？
+  ~ jack
+  | (:annoyed)不。只要你让{#@fi-nametag}和Cathy绕着你的假小手指转就不会。
+- 我希望如此。
+  ~ jack
+  | (:shocked)哦哦，你继续这样说话，{#@fi-nametag}会拆解你的。你不会想要那样，对吧？
+~ jack
+| 无论如何，你可以为我做些事。
+| {#@fi-nametag}想要“为新家园探路”(orange) - 我猜现在Wraw在我们脖子上呼吸，她很担心。
+| 好吧，你可以看到，我不是个侦察兵。我猜我只是没有这方面的体质。
+| (:annoyed)“{#@alex-nametag}”(yellow)是我们的猎人，但上帝知道他们在哪里。所以这取决于你…… //{(nametag player)}//。
+~ player
+- 我真幸运。
+  ~ jack
+  | 我希望如此。
+- 计划是什么？
+- 收到，老板。
+  ~ jack
+  | (:annoyed)不要试图对我说甜言蜜语，亲爱的。听着……
+~ jack
+| 我觉得向“东”(orange)的“废墟”(red)是你最好的选择。它让我们靠近“农场”(red)，仍然给我们提供庇护所。
+| 所以“穿过地面”(orange)，四处侦察，攀爬，挖掘 - 做任何机器人会做的事。
+| 只是记住，当你像忍者一样四处潜行时，我们这些凡人必须跟随你的路径。
+| 你的机器人大脑可能认为摩天大楼的顶部是最安全的地方；但人们不能爬到那里，更不用说住在那里。
+| 你明白我的意思吗？
+~ player
+- 明白了。
+- 不太明白。
+  ~ jack
+  | (:annoyed)太难了 - 我不会重复我自己的话。
+- 你觉得我很笨吗？
+  ~ jack
+  | (:annoyed)I'm yet to see evidence otherwise. Just do the job, okay?
+~ jack
+| Well, I guess I should say good luck.
+| Don't bother to check in with your FFS or whatever the fuck it's called - I'm busy.
+| Seeya.
+~ player
+| "Charming as always."(light-gray, italic)
+| "Speaking of my FFCS: it indicates "4 candidate locations to the east"(orange). That should help me narrow things down."(light-gray, italic)
+

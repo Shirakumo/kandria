@@ -1,0 +1,86 @@
+; Cerebat "good" market trader, concerned about the missing Cerebat Council, well spoken
+# reminder/interact-reminder
+~ cerebat-good-trader
+| "去Wraw领土，找到脑蝠族议会，把他们带回来。"(orange)
+| 只有这样我们才能考虑发起抵抗。
+~ player
+| "我的FFCS显示了"3个可能的地点"(orange)。"(light-gray, italic)
+
+; use the task move-npc to determine if this is the first site visited or not, and if it is, activate move-npc
+# site-1/interact-site
+~ player
+| "这是"地点1"(red)，"议员们可能被关押的地方"(orange)。"(light-gray, italic)
+| (:thinking)"地板上有血迹，角落里有粪便。"(light-gray, italic)
+| (:normal)"这里也"没有别的可看的了"(orange)。"(light-gray, italic)
+? (not (complete-p 'move-npc))
+| ~ player
+| | "我需要"检查其他2个地点"(orange)寻找议员们的任何痕迹。"(light-gray, italic)
+| ! eval (activate 'move-npc)
+|? (complete-p 'site-2 'site-3-listener)
+| ~ player
+| | "那是最后一个要检查的地方。如果议会还活着，他们不在这里。我最好"回到脑蝠族商人那里"(orange)。"(light-gray, italic)
+| ! eval (activate 'task-return)
+|?
+| ~ player
+| | "还剩下"1个地点"(orange)要检查。"(light-gray, italic)
+
+# site-2/interact-site
+~ player
+| "这是"地点2"(red)。"不过没有议员们的迹象"(orange)。"(light-gray, italic)
+| (:thinking)"这是一个相当坚固的监狱，在那些尖刺之间"(light-gray, italic)"和"(light-gray)"天然[(not (active-p (unit 'blocker-5663))) 屏障（直到我突破！）| 屏障]之间。"(light-gray, italic)
+| (:thinking)"议员们是否也以某种方式突破[(not (active-p (unit 'blocker-5663))) 出去了| 出去了]？"(light-gray, italic)
+? (not (complete-p 'move-npc))
+| ~ player
+| | "我需要"检查其他2个地点"(orange)寻找他们的任何迹象。"(light-gray, italic)
+| ! eval (activate 'move-npc)
+|? (complete-p 'site-1 'site-3-listener)
+| ~ player
+| | "那是最后一个要检查的地方。如果议会还活着，他们不在这里。我最好"回到脑蝠族商人那里"(orange)。"(light-gray, italic)
+| ! eval (activate 'task-return)
+|?
+| ~ player
+| | "还剩下"1个地点"(orange)要检查。"(light-gray, italic)
+
+# task-return/interact-return
+~ cerebat-good-trader
+| 我没看到议会。告诉我有好消息。
+~ player
+- 我希望我能。
+  ~ cerebat-good-trader
+  | 哦不。
+  | 你拿的那是什么？...
+  < tunic
+- 恐怕只有坏消息。
+  ~ cerebat-good-trader
+  | ...
+  | 你拿的那是什么？...
+  < tunic
+- 我找到了这个。
+  < tunic
+- 他们可能还活着。
+  ~ cerebat-good-trader
+  | ...
+  | 你拿的那是什么？...
+  < tunic
+! label tunic
+! eval (retrieve 'item:tunic 1)
+! eval (status "Lost 1 Tunic Scrap")
+~ cerebat-good-trader
+| 这是从议员长袍上撕下来的。
+| 哦上帝...上面满是血迹。
+| 所以没有别的了？...没有其他人？...
+~ player
+| (:embarassed)"我希望我能做的不只是摇头。"(light-gray, italic)
+~ cerebat-good-trader
+| 你还有头饰吗？
+! eval (retrieve 'item:headdress 1)
+! eval (status "Lost 1 Headdress")
+| 谢谢你。这可能是议会剩下的全部了。
+| ...关于"Antonio"(yellow)的。
+| 我很感激，但我需要一些独处的时间。拜托。
+~ player
+- 我很抱歉。
+- 当然。
+- 抵抗组织怎么办？
+  ~ cerebat-good-trader
+  | 不会有了。现在不会了。

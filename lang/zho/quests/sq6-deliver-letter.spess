@@ -1,0 +1,105 @@
+# reminder/interact-reminder
+~ semi-partner
+| "你在Cerebat人的领地找{#@cerebat-partner-nametag}"(orange)。很抱歉我不能告诉你她长什么样 - 你必须"四处打听"(orange)。
+| 这就是异地恋的缺点…… 并不是说我在乎她长什么样。
+
+# read-letter/interact-read
+~ semi-partner
+| __你读了信？__ 我不敢相信……
+| 也许他们对机器人的说法是真的。
+| ……
+| 把它送去吧。我需要知道她安全。
+| 你能做到吗？
+! eval (complete task)
+! eval (reset interaction)
+
+; Kacey, female Cerebat, speaks casual
+# deliver-letter/deliver-chat
+~ cerebat-partner
+| 你是谁？
+~ player
+| {#@cerebat-partner-nametag}？
+~ cerebat-partner
+| 谁想知道？
+~ player
+- 我的名字是{(nametag player)}。
+  ~ cerebat-partner
+  | 让我猜猜：{#@semi-partner-nametag}。这充满了他的过度热情。
+- {#@semi-partner-nametag}派我来的。
+  ~ cerebat-partner
+  | 糟糕。是的，这充满了他的过度热情。他不应该这样做。
+- 我是被一个Semi派来的，他在找他的女朋友。
+  ~ cerebat-partner
+  | 那就是{#@semi-partner-nametag}。这充满了他的过度热情。
+~ cerebat-partner
+| 等等…… 你是机器人？
+~ player
+- 你怎么知道的？
+  ~ cerebat-partner
+  | 你的徽章。我听说过机器人。
+- 是的。
+  ~ cerebat-partner
+  | 哇。我想我应该惊吃。曾经有一段时间我会是这样。
+- 这不重要。
+  ~ cerebat-partner
+  | 这几乎不算是否定。
+~ cerebat-partner
+| 是的，"我是{#@cerebat-partner-nametag}"(orange)。他还好吗？
+! eval (setf (nametag (unit 'cerebat-partner)) (@ cerebat-partner-nametag))
+? (var 'read-letter)
+| ~ player
+| - (Give her the letter)
+|   < given
+| - (Keep the letter)
+|   < withheld
+|?
+| ~ player
+| | 他给了我这个让我给你。
+| < given
+
+# withheld
+~ cerebat-partner
+| 那么？
+~ player
+- 他想你发生了什么不好的事情。
+  ~ cerebat-partner
+  | 这很甘美。但没有，没有比平常更糟糕的事情。
+  | 除了必须和我的男朋友分手……
+  < breakup
+- 他想念你。
+  ~ cerebat-partner
+  | 我也想念他。我真的希望事情能够成功。
+  < breakup
+- 他想分手。
+  ~ cerebat-partner
+  | 他是吗？…… 至少我们在这点上达成了一致。也许我们确实还有一些共同点。
+  < breakup
+
+# given
+! eval (retrieve 'item:love-letter 1)
+! eval (status "Lost 1 Tobias' Letter")
+~ cerebat-partner
+| 一封信？典型的{#@semi-partner-nametag}。让我看看。
+| ……
+| 嘿，至少我们在这点上达成了一致。也许我们确实还有一些共同点。
+! label breakup
+| 我以为如果我不再接他的电话，他可能会明白。让他免受必须这样做的痛苦。
+| 他知道这不会成功，如果曾经有可能的话。
+| 我不知道你是否了解这里的政治，但Semi和Cerebat…… 这不是一个好的组合。
+~ player
+- 你为什么不直接告诉他？
+  ~ cerebat-partner
+  | 也许我应该的。我不想伤害他。
+- 我觉得忽视他让情况变得更糟。
+  ~ cerebat-partner
+  | 你觉得吗？
+  | 你是什么，治疗师吗？你看起来更像一个令人毛骨悚然的侦探。
+- 你确定你们不能解决问题吗？
+  ~ cerebat-partner
+  | 不，我不这么认为。现在不行。
+  | 而且，他也不想要。
+~ cerebat-partner
+| Look, I appreciate your android postal service, or whatever this is. But I'm "not paying for it"(orange).
+| "I'll call him"(orange), alright. Set things straight.
+| Thank you, but it's not your problem any more. If it ever was.
+

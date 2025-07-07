@@ -1,0 +1,105 @@
+; Semi Sisters barkeep, non-binary, French code switching from time to time
+; semi-patron-1 - sober, female
+; semi-patron-2 - drunk, female
+# hub
+~ semi-barkeep
+| 我就知道你抵抗不了诱惑。好吧，那么：
+| "找到Genera核心，把它带回来给我，我就停止计时"(orange)。
+| "你做得越快，你就能得到越多部件"(orange)。
+| 我想我们可以为你安排"6条路线"(orange)。"完成一条，我就告诉你下一条"(orange)。懂了吗？
+| 我会为每场比赛提前通过无线电联络，让猎人在地点投放Genera核心。
+| "准备好开始时告诉我"(orange)，然后我们就开始这场表演！
+! eval (clear-pending-interactions)
+; uses walkie-talkie when talking to hunters, since these poorer Semis don't have access to the FFCS tech. Though they are more powerful walkie-talkies, able to cover larger distances than the Noka's
+
+# start
+? (timer-quest)
+| ~ semi-barkeep
+| | 不可能 - 你"已经在比赛中"(orange)。"先完成或停止那个"(orange)。
+| < quit
+
+~ semi-barkeep
+| 表演时间！告诉你，我们的奖品库存可是越来越丰富了！
+| "{(quest:title (quest:find-named 'race task))}."(orange)
+? (eq (quest:name quest) 'sq5-race-2)
+| ? (active-p (unit 'blocker-engineers))
+| | | 我确实知道工程师们有一些核心 - 但他们被困住了。如果你有时间，你可能也想"帮助他们"(orange)。
+| |?
+| | | 现在隗道已经清理干净了 - 顺便说一句，做得好 - 猎人们可以通过并放置核心。
+  
+| 我们的猎人在这条路线上的最佳成绩是："金牌："(orange) {(format-relative-time gold)} - "银牌："(orange) {(format-relative-time silver)} - "铜牌："(orange) {(format-relative-time bronze)}。
+? (eq (quest:name quest) 'sq5-race-2)
+| ? (active-p (unit 'blocker-engineers))
+| | | 说实话，这些记录是在隗道通畅时设定的。
+? (var 'pb)
+| | 你在这条路线上的"个人最佳成绩"(orange)是"{(format-relative-time pb)}"(orange)。
+~ semi-barkeep
+| 开始！
+! eval (complete task)
+! eval (clear-pending-interactions)
+
+; the barkeep knows about the trapped engineers, more so than Innis (they have radio contact) - hence what they say, and the mention of rescue; they're still more interested in the races though
+; this is also how they know the tunnel got cleared soon after you clear it
+; they speak using "our" a lot, despite being disparaging towards Innis and Islay, because they still view themselves as part of the Semi Sisters - just a different faction within them
+
+
+# cancel
+~ semi-barkeep
+| "你想停止比赛吗？"(orange) 如果你这样做就没有奖励 - 而且你会让每个人都很伤心。
+~ player
+- 不，我会继续比赛。
+  ~ semi-barkeep
+  | 好。现在就出发吧。时间就是金钱。
+- 是的，结束吧。
+  ~ semi-barkeep
+  | 如果你坚持的话。但你会回来的，我就知道。
+  ! eval (activate 'cancel-it)
+
+# return
+~ semi-barkeep
+| 停止计时！
+| 让我看看那个Genera核心上的序列号。是的，就是这个。那么现在……
+| 你的时间是："{(format-relative-time (clock quest))}"(orange)。
+? (and pb (< pb (clock quest)))
+| | 遗憾这对你的记录"{(format-relative-time pb)}"(orange)"没有提高"(orange)。
+|?
+| ? (not (null pb))
+| | | 这是你的"新个人最佳成绩"(orange)。
+| ! eval (setf pb (clock quest))
+| ? (< pb gold)
+| | | 这比"金牌"(orange)猎人更快。
+| | ~ semi-patron-1
+| | | 天哪……
+| | ~ semi-barkeep
+| | | 这很令人印象深刻，虽然也不意外。不过，这是你在赌注中分得的："500废料零件"(orange)。
+| | ! eval (store 'item:parts 500)
+| | ! eval (status "Received 500 Scrap Part")
+| | | 问题是，你还有更多潜力吗？
+| |? (< pb silver)
+| | | 这比"银牌"(orange)猎人更快。不错。不过我们觉得你可以做得更好。
+| | ~ semi-patron-2
+| | | 你只是在热身，对吧？
+| | ~ semi-barkeep
+| | | 这是你在赌注中分得的："300废料零件"(orange)。
+| | ! eval (store 'item:parts 300)
+| | ! eval (status "Received 300 Scrap Part")
+| |? (< pb bronze)
+| | | 这比"铜牌"(orange)猎人更快。不错。
+| | ~ semi-patron-1
+| | | 也不好，特别是对于一个机器人来说！
+| | ~ semi-barkeep
+| | | 这是你在赌注中分得的，如承诺的："200废料零件"(orange)。
+| | ! eval (store 'item:parts 200)
+| | ! eval (status "Received 200 Scrap Part")
+| |?
+| | | 但很抱歉，这比"铜牌"(orange)猎人更慢。
+| | ~ semi-patron-2
+| | | 这可真是可悲。可-悲-悲。
+| | ~ semi-barkeep
+| | | 这次"你在赌注中什么也得不到"(orange)。但你会带着更强的实力回来吗？
+  
+~ semi-barkeep
+| 下次再见！
+! eval (activate 'complete-it)
+
+# quit

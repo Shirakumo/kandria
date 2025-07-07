@@ -1,0 +1,460 @@
+# innis
+; PRIMARY NPCs
+; all lines in this file are the NPC speaking directly to the player, though some are more like musings to themselves as well
+; Innis (Semi Sisters leader, female) - generally doesn't like the player; Scottish dialect
+~ innis
+? (complete-p 'Q14-ENVOY)
+| | (:angry)我在监视你。
+|? (complete-p 'Q13-PLANTING-BOMB)
+| | (:sly)看看这是谁。
+|? (complete-p 'Q11A-BOMB-RECIPE)
+| | 谁知道一个机器人能够甘言蜜语地说服整个派系。
+|? (complete-p 'Q7-MY-NAME)
+| | (:angry)走开，我们很忙。
+|? (complete-p 'Q5A-RESCUE-ENGINEERS 'Q5B-INVESTIGATE-CCTV)
+| | (:angry)继续像这样在我身边游荡，我就让人把你拆了。
+|? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
+| | (:sly)怎么了，你迷路了？
+|?
+| | 你想要什么？
+
+# islay
+; Islay, female (Semi Sisters second in command and chief engineer, Innis' sister) - is warmer to the player; Scottish accent, but less dialect
+; Islay soon becomes a trader, so will never need default interacts after that (the trading is removed near the end, but is taken over by main quest dialogue for the most part, and this fallback to handle interactions while she's rewiring the other 2 bombs)
+~ islay
+? (complete-p 'Q15-CATHERINE)
+| | (:nervous)……
+|? (complete-p 'Q13-PLANTING-BOMB)
+| | 好，你回来了。
+|? T
+| | 你好。
+
+# alex
+; alex, non binary - ex-Noka hunter, doesn't like the player since they believe they stole their job with the Noka; speaks London multicultural English
+~ alex
+? (complete-p 'Q14-ENVOY)
+| | (:angry)你选错了站队。
+|? (complete-p 'Q13-PLANTING-BOMB)
+| | (:angry)又见面了。
+|? (complete-p 'Q13-INTRO)
+| | (:angry)终结即将来临。
+|? (complete-p 'Q7-MY-NAME)
+| | (:angry)滚蛋。
+|? (complete-p 'Q4-FIND-ALEX)
+| | (:angry)不要试探我，机器人。
+|?
+| | (:angry)<-嘣隔->. 走开。
+
+# trader
+; Sahil, trader, male, Arabic code switching; after the intro quest, default chat interacts takeover, but this is for before the quest
+; Sahil soon becomes a trader, so has no needed for more default interacts
+~ trader
+? T
+| | 对不起，habibti。在我修理我的商队时，我停止营业。
+
+# cerebat-trader-quest
+; Cerebat trader from q8a, male; after the quest, default chat interacts takeover, but this is for before the quest
+; stop being nosy!
+; Soon becomes a trader, so has no needed for more default interacts
+~ cerebat-trader-quest
+? T
+| | 把你的大鼻子伸到别的地方去！
+
+# jack
+; Jack (Noka faction chief engineer, male) - doesn't like the player, or androids in general; Southern USA accent and dialect
+; since SQ11-SABOTAGE-STATION doesn't have a return dialogue, Jack can make some allusion to it here in the main flow - until it gets overridden by more important primary plot developments (as with sidequest NPCs)
+~ jack
+? (complete-p 'Q14-ENVOY)
+| | 我对你的看法错了吗，{(nametag player)}？
+|? (complete-p 'Q13-PLANTING-BOMB)
+| | 看看猫拖进来了什么。
+|? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
+| | (:annoyed){#@innis-nametag}真是个坏女人，你不认为吗？
+|? (complete-p 'Q10A-RETURN-TO-FI)
+| | (:annoyed)怎么会变成这样？怎么会？
+|? (complete-p 'Q10-WRAW)
+| | 你最好有些好消息来改变一下。
+|? (complete-p 'SQ11-SABOTAGE-STATION)
+| | 什么发电站？从来没听说过！
+|? (complete-p 'Q6-RETURN-TO-FI)
+| | 为什么无论你去哪里，麻烦都不远？
+|? (complete-p 'Q5A-RESCUE-ENGINEERS 'Q5B-INVESTIGATE-CCTV)
+| | 哦，是你。
+|? (complete-p 'Q3-NEW-HOME)
+| | (:annoyed)你最好舒服一点 - 我们哪里都不去。
+|? (complete-p 'Q1-WATER)
+| | 我盯着你。
+|? (active-p 'Q1-WATER)
+| | 你"和Cathy一起去"(orange)还是怎么样？
+|? (complete-p 'Q0-FIND-JACK)
+| | 什么？
+|?
+| | 你是谁？
+
+# fi
+; Fi (Noka faction leader, female) - somewhat indifferent and distanced to the player; formal, but warming to them. Japanese English accent and dialect.
+~ fi
+? (complete-p 'Q14-ENVOY)
+| | 你是我们的一员。
+|? (complete-p 'Q13-PLANTING-BOMB)
+| | (:unsure){(nametag player)}...
+|? (complete-p 'Q11A-BOMB-RECIPE)
+| | 嘿。
+|? (complete-p 'Q11-RECRUIT-SEMIS)
+| | (:unsure)无论你在做什么，请抓紧时间。
+|? (complete-p 'Q4-FIND-ALEX)
+| | 有{#@alex-nametag}的消息吗？我仍然需要他们回来。
+|? (complete-p 'Q2-SEEDS)
+| | 没有食物和水，我们算什么？
+|? (complete-p 'Q1-WATER)
+| | {(nametag player)}.
+|?
+| | 你好。
+
+# catherine
+; Catherine (Noka junior engineer, female) - thinks the player character as an android is amazing, though treats them a little too much like a machine to begin with, before becoming great friends with them. Midwest/generic USA accent and dialect.
+; (complete-p 'Q6-RETURN-TO-FI) may not be needed, as Catherine should at least a time trial giver, if not also a sidequest giver, until q10-wraw complete - added for completeness though
+~ catherine
+? (complete-p (find-task 'EPILOGUE-HOME '4-INTERACT-CATHERINE))
+| | (:concerned)我希望大家都没事。
+|? (complete-p 'EXPLOSION)
+| | 所以我们赢了吗？
+|? (complete-p 'Q15-BOSS)
+| | (:excited)我不敢相信你是怎么打倒那台机甲的！
+|? (complete-p 'Q14-ENVOY)
+| | (:concerned)你不属于{#@zelah-nametag}。你不属于任何人，只属于你自己。
+|? (complete-p 'Q13-PLANTING-BOMB)
+| | 他看起来不怎么硬气。(:excited)我能对付他。
+|? (complete-p 'Q13-INTRO)
+| | (:excited)无论你做什么，不要把自己炸了。
+|? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
+| | (:concerned)抱歉，{(nametag player)} - 我需要集中精力。
+|? (complete-p 'Q10A-RETURN-TO-FI)
+| | 我们会没事的。我就是知道我们会没事。
+|? (complete-p 'Q10-WRAW)
+| | (:excited)天哪，我真高兴见到你！
+|? (complete-p 'Q6-RETURN-TO-FI)
+| | (:concerned)我不喜欢这样，带着这些疑惑生活。
+|? (complete-p 'TRADER-ARRIVE)
+| | (:excited)你见过{#@trader-nametag}了吗？他很棒不是吗！
+|? (complete-p 'Q1-WATER)
+| | 嘿 {(nametag player)}！
+|? (complete-p (quest:find-named '22-GO-TO-Q1-PHONE (thing 'q1-water)))
+| | (:excited)让我们"回到营地"(orange)！
+|? (active-p (quest:find-named '22-GO-TO-Q1-PHONE (thing 'q1-water)))
+| | 继续，"用后面的电话给Jack打电话"(orange)。我在这里收尾就行。
+|? (active-p (quest:find-named '16-GO-TO-PUMP-BOSS-LOC (thing 'q1-water)))
+| | 你在做什么？！- "摧毁那些伺服机器人"(orange)！
+|? (complete-p 'Q1-READY)
+| | (:excited)跟着我，你会没事的。
+|?
+| | 你还好吗？
+
+# zelah
+; male, main antagonist, leader of the Wraw faction. Northern British accent/dialect
+; "Keep going" is deliberately ambiguous - are you working for him, that's why he says this (as encouragement); or are you not, and he doesn't like you, so is telling you to move along? He says in q14-envoy that you are working for him, but are you really?
+; Speech changes after the envoy confrontation, just before the battle
+~ zelah
+? (complete-p 'Q14-ENVOY)
+| | 对你来说已经太晚了。对他们来说也太晚了。
+|?
+| | 继续前进。
+
+; SIDEQUEST NPC
+
+; speech that updates based on major plot events e.g. q10 and q11a, needs to also work whether the player did the sidequest involving that NPC or not (and if not, remember their name will still show as "???" so can't give clues as to who they are - teasing content for a following playthrough maybe)
+
+# semi-engineer-team
+; mix of engineers of different genders who were involved in the tunnel collapse
+; "new chief" is a clue to talk to a specific engineer NPC, after the old chief was killed in the tunnel collapse quest (q5a)
+; Don't spoiler the engineers' realisation of you being an android - save that for the new chief
+; Speech changes once they're on the surface as Noka allies, just before the battle
+~ npc
+? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
+| | [? 在铁路上做了这么多工作后…… 现在又是这样。 | 我习惯了焦接铁轨，不是清洁枪支。 | 你就是那个救了我们的人，不是吗。]
+|? (not (active-p (unit 'blocker-engineers)))
+| | [? 感觉自由真好。 | 那个班次后我需要躺下休息。 | 你清理了隧道，我怎么感谢你都不够。谢谢谢谢谢谢！ | 如果我这辈子都不用再看到洞穴，那就太好了！]
+|?
+| | [? "和新首席谈谈。"(orange) | 这个班次真长。 | "新首席就是你要找的人。"(orange) | 一个…… 机器人？不，不可能。这不可能。 | 我会"去看看新首席"(orange)。]
+
+# semi-engineer-base
+; mix of engineers of different genders to be found around the Semis base
+; Speech changes once they're on the surface as Noka allies, just before the battle
+~ npc
+? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
+| | [? 我希望还有东西可以重建。 | 就这样等待，真奇怪。 | 有机器人在我们这边，我们不会输。对吧？ | 我希望你的聚变反应堆能应付这场战斗。 | 我们花了很长时间在那下面建造我们的家。我希望还有东西可以回去。]
+|?
+| | [? 你擅长修理东西吗？ | 你看起来很懂螺丝刀。 | 我不介意看看你内部是怎么工作的。 | 你身体的最大应力耐受性是多少？ | 你就是个会走路的工具箱，不是吗。 | 你看起来能打仗。]
+
+# soldier
+; mix of soldiers of different genders who follow Zelah around, serving as his bodyguards
+; Speech changes after the envoy confrontation, just before the battle
+~ npc
+? (complete-p 'Q14-ENVOY)
+| | [? 我不怕机器人。 | 你看起来像个侦探，不像个士兵。或者可能是个护士。 | Zelah拥有你，机器人。 | 走开。 | 我们很快就会见到你。还有你的朋友们。]
+|? (complete-p 'Q13-PLANTING-BOMB)
+| | 走开。
+|?
+| | [? 呵？ | 干嘛？ | 什么？]
+
+# semi-roboticist
+; Semi Sisters robotics engineer, female, strong empathy for machines, talky scientist
+; used in sq4
+; Speech changes once they're on the surface as Noka allies, just before the battle
+~ semi-roboticist
+? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
+| | 我们现在真的可以用一些伺服机器人在我们这边。
+|? (complete-p 'Q10-WRAW)
+| | 想想看，我以前只担心理解伺服机器人。
+|? (complete-p 'SQ4-ANALYSE-ROBOTS)
+| | 我越来越接近理解伺服机器人是怎么思考的。也理解//你//是怎么思考的。
+|? (complete-p 'Q4-FIND-ALEX)
+| | 现在不能说话，抱歉。伺服机器人科学不等人。
+|? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
+| | "Alex"(orange)？…… 不认识他们，抱歉。你可以"在酒吧问问"(orange)。
+|?
+| | 现在不能说话，抱歉。伺服机器人科学不等人。
+
+# semi-barkeep
+; Semi Sisters barkeep, non-binary, French code switching
+; used in sq5
+; Speech changes once they're on the surface as Noka allies, just before the battle
+; "No time for drinking" - in a literal sense in that there's no time, but also because the battle is imminent, this is also not an appropriate time for drinking
+; Soon becomes a time trail giver, so has no needed for more default interacts - but a brief window after sidequest is closed after q10
+~ semi-barkeep
+? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
+| | 所以这就是地面？设施有点…… 简陋。但我看到了这里的计时赛潜力！
+|? (complete-p 'Q10-WRAW)
+| | 没时间赛车。也没时间喝酒。
+|? (complete-p 'Q4-FIND-ALEX)
+| | 这个装模作样的家伙是谁？
+|? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
+| | Alex？ Oui，"如果我没弄错的话，他们就在那边，靠着另一个酒吧"(orange)。
+|?
+| | 这个装模作样的家伙是谁？
+
+# semi-barkeep-2
+; female barkeep (other barkeep)
+; world NPC
+; Speech changes once they're on the surface as Noka allies, just before the battle
+~ semi-barkeep-2
+? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
+| | 不能说我很兴奋来到这里。首先，啤酒桶在哪里？
+|? (complete-p 'Q10-WRAW)
+| | 我就知道你会给我们带来麻烦。
+|? (complete-p 'Q4-FIND-ALEX)
+| | 我不为你这种人服务。
+|? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
+| | 你在找Alex？…… "你瘰了吗？！"(orange)
+|?
+| | 我不为你这种人服务。
+
+# semi-patron-1
+; female, sober
+; used in sq5
+; Speech changes once they're on the surface as Noka allies, just before the battle
+~ semi-patron-1
+? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
+| | 这让人看清了事情，不是吗？我指的是战争。我们从来不知道我们过得有多好。
+|? (complete-p 'Q10-WRAW)
+| | 连我都对计时赛失去了兴趣。
+|? (complete-p 'SQ5-INTRO)
+| | 我对你寄予厚望，机器人。
+|? (complete-p 'Q4-FIND-ALEX)
+| | 你是那种喜欢赌博的人吗？也许你可以是。
+|? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
+| | 那个"金发的家伙可能就是Alex"(orange)。显然是从地面来的。
+|?
+| | 你是那种喜欢赌博的人吗？也许你可以是。
+
+# semi-patron-2
+; female, drunk (deliberate typos)
+; used in sq5
+; Speech changes once they're on the surface as Noka allies, just before the battle
+~ semi-patron-2
+? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
+| | 这里的该死的酒吧在哪里？
+|? (complete-p 'Q10-WRAW)
+| | 喔，发生了什么？我觉得我要吐了。
+|? (complete-p 'SQ5-INTRO)
+| | 你开始比赛了吗？我在哪里？
+|? (complete-p 'Q4-FIND-ALEX)
+| | __干杯！__
+|? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
+| | 抱歉，不认识"Alex。不过Alice在那边，在酒吧。另一个酒吧。"(orange) 这里有多少个酒吧？
+|?
+| | __干杯！__
+
+# semi-partner
+; male Semi, Tobias, was in a relationship with Kacey; speaks informal
+; used in sq6
+; Speech changes once they're on the surface as Noka allies, just before the battle
+~ semi-partner
+? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
+| | 没有她我哪里也不去。
+|? (complete-p 'Q10-WRAW)
+| | 我希望她没事。还有在想着我。
+|? (complete-p 'SQ6-DELIVER-LETTER)
+| | {#@cerebat-partner-nametag}给我打了电话。不过我们仍然是朋友。
+|? (complete-p 'Q4-FIND-ALEX)
+| | …… 等等，这里有人。完毕。……噢，你好？我能帮你吗？- 你没看到我在打电话吗？
+|? (complete-p (find-task 'Q4-FIND-ALEX 'FIND-ALEX))
+| | …… 等一下，给我一秒。完毕。……"如果你在找Alex，去酒吧试试"(orange) - 我听到一些人在议论他们。
+|?
+| | …… 等等，这里有人。完毕。……噢，你好？我能帮你吗？- 你没看到我在打电话吗？
+
+# cerebat-partner
+; female Cerebat, Kacey, was in a relationship with Tobias; speaks casual
+; used in sq6
+; Speech changes once you know of the Wraw invasion
+; (complete-p 'Q7-MY-NAME) though the (complete-p 'CEREBAT-TRADER-ARRIVE) check is written ambigious so works whether you've completed the sidequest or not
+~ cerebat-partner
+? (complete-p 'Q10-WRAW)
+| | 所以世界又变成狗屎了。真棒。
+|? (complete-p 'CEREBAT-TRADER-ARRIVE)
+| | 你为什么不画个画？那样能保存更久。
+|? (complete-p 'Q7-MY-NAME)
+| | "议会"(orange)？我不在乎他们继续迷路，他们做了什么好事。
+| | 这里爆满了卑鄙的骗子都是他们的错，就像那个"在这上面小巷里的家伙"(orange)。
+|? (complete-p 'SQ6-DELIVER-LETTER)
+| | 你懂隐私，对吧？
+|?
+| | 继续走，伙计。
+
+# cerebat-good-trader
+; non-binary, Cerebat trader who's concerned for the well-being of the missing Cerebat Council; well spoken
+; used in sq8
+; Speech changes once you know of the Wraw invasion
+; "I need some time alone." - grieving over the seeming confirmed loss of the Cerebat Council, especially Antonio
+; (complete-p 'Q7-MY-NAME) check is for a hint during q8 to find the Council
+~ cerebat-good-trader
+? (complete-p 'Q10-WRAW)
+| | 我还在这里。不知道怎么做到的。保重。
+|? (complete-p 'SQ8-FIND-COUNCIL)
+| | 我需要一些时间。
+|? (complete-p 'CEREBAT-TRADER-ARRIVE)
+| | 我会找到议会。他们会看到的。
+|? (complete-p 'Q7-MY-NAME)
+| | 看来我们在找到"议会"(orange)方面有共同利益。也许你很快就可以帮助我。
+| | 不过你可以试试从那个"在这下面小巷里的阴险家伙"(orange)那里挖出些什么。
+| | 要么就直接掉他的脖子。
+|?
+| | 我脑子里想的事情太多了，抱歉。
+
+# semi-spy
+; female, Semi Sisters spy deep in Cerebat territory, and organising races for the player to help themselves blend in undercover; formal speaker
+; used in sq9
+; Speech changes once they're on the surface as Noka allies, just before the battle
+; "Talk about out of the frying pan and into the burning sun" (riff off of "out of the frying pan and into the fire"); it could be night-time, but we can assume the heat of the sun's influence remains at night
+; (complete-p 'Q7-MY-NAME) check is for a hint during q8 to find the Council
+~ semi-spy
+? (complete-p (find-task 'Q11A-BOMB-RECIPE 'TASK-MOVE-SEMIS))
+| | 这是什么鬼地方？真是刚出虎穴，又入狼窝。
+|? (complete-p 'Q10-WRAW)
+| | Cerebat人现在有更大的事情要操心 - 这正合我意。
+|? (complete-p 'CEREBAT-TRADER-ARRIVE)
+| | 我什么都没告诉你，好吗。什么都没有！
+|? (complete-p 'Q7-MY-NAME)
+| | "议会"(orange)现在不在这里，你可能已经注意到了。我有我的消息源，但连他们也不知道什么。
+| | 有人说有个"可能知道他们在哪里的商人"(orange)，但他们没给我名字。
+| | 去"东南小巷，废弃酒吧外面"(orange)试试。
+|?
+| | <-走开->. 离开这里！你想做什么，破坏我的伪装？
+
+# wraw-sergeant
+; Wraw drill sergeant, female, organising troops in Cerebat territory after the invasion
+; Northern accent, similar to Zelah
+; used in sq10
+; (complete-p 'Q7-MY-NAME) check is for a hint during q8 to find the Council
+~ wraw-sergeant
+? (complete-p 'Q10-WRAW)
+| | 你错过了机会，伙计。
+|? (complete-p 'CEREBAT-TRADER-ARRIVE)
+| | 你是怎么漏网的？兵营在//那//边。
+|? (complete-p 'Q7-MY-NAME)
+| | 如果你想要一张单程票去地底深处，你就继续打听"议会"(orange)。
+| | 你觉得我是谁，那个在"上层小巷"(orange)里鬼鬼祟祟的"无名垃圾商人"(orange)？
+|?
+| | 报到训练，你这个渣渣。
+
+# sq4a-zombie
+; Servo developing sapience and sentience as a legacy of the roboticist's investigations in sq4a
+; gender unknown
+; if complete the quest, says more developed things - delib no punctuation
+~ sq4a-zombie
+? (complete-p 'SQ4-ANALYSE-ROBOTS)
+| | [? __MWAAA__ | __GRRAAA__ | __FWAAA__ | <-MWAAA-> | <-GRRAAA-> | <-FWAAA-> | 你是谁 | 我是谁 | 为什么你不看 | 我们相像 | 痛 | 待在这里 | 朋友在哪 | 为什么痛 | 不想要 | 不能思考 | 谁的错 | 不要走 | 你朋友]
+|?
+| | [? __MWAAA__ | __GRRAAA__ | __FWAAA__ | <-MWAAA-> | <-GRRAAA-> | <-FWAAA->]
+
+# synthesis
+; Synthesis, shady character, unknown gender, Swiss-German accent and dialect, plural first person pronouns
+; used in sq14
+; Is looking for a secret formula for a drug used by the Wraw, and used pre-Calamity for workers, which increases pain tolerance and resistance to heat, but has many bad side effect
+; Before q5a and q5b complete, the NPC is in an inaccessible location, so the true fallback will never play - but here for completeness / in case we move them (actually now they are behind a breakable door)
+; (complete-p 'SQ14C-SYNTHESIS) has to work whether they're happy/unhappy with sq14 outcome - you helped them speed up making the drug, or hindered
+; as with others
+; (complete-p 'Q11A-BOMB-RECIPE) needs to work whether you did the quest or not, and even if you never spoke to them before - and also whether they are in the lab or still under the Cerebat base (they only get moved to the lab if you completed sq14c, to avoid spoilering the lab as linked with synthesis on subsequent playthroughs); could set the condition to be  (complete-p 'Q11A-BOMB-RECIPE 'SQ14C-SYNTHESIS) to guarantee they're in the lab, but we don't really do that with default interacts, it's less clean as would need a counter conditional - it's easy to keep the dialogue ambiguous to solve this
+~ synthesis
+? (complete-p 'Q11A-BOMB-RECIPE)
+| | (:grin)答案就在这里，我们知道在哪里找。
+|? (complete-p 'SQ14C-SYNTHESIS)
+| | (:normal)当偏头痛不再模糊我们的视线时，我们看到了前进的道路。
+|?
+| | (:grin)我们认识你。
+
+# vinny
+~ vinny
+| 我急需披萨。
+
+; WORLD NPC
+
+; Generic NPCs, gender unknown, split per region
+; generic voice, no sign of strong accent or dialect, drunk, etc. as needs to work across the same and multiple NPCs
+; try and evoke the senses from time to time in the world building: sight, sound, smell, touch, taste
+
+; use the fallback for each area to do the most world building, sensory detail, etc before the plot conditionals steer the content
+; contradictory statements can be made in the same block, since it's rare the player will click on the same NPC many times - but even if they do, we can assume the NPC has changed their mind, or is sounding out different perspectives
+; surface = Semi Sisters after moved to surface (Noka don't have surface NPCs); region 1 = Semi Sisters before moved to surface; region 2 = Cerebats; region 3 = Wraw
+
+; final catch-all is just in case any NPCs slip through the net - generic region-independent replies (though no NPCs should be using these)
+
+; CONTENT GUIDE (could also branch here based on main quest state):
+; Semis (region 1): initially Semis world building; after q6, acknowledge word spread that Wraw invading Cerebats; after q10 when you (and they) have confirmed Wraw's wider invasion plans the speech reflects this; after q11a task when moved to surface, reflect this (covered by surface check)
+; The Semis also have intel on you as an android, so most recognise you
+; In a nutshell: life, habits
+
+; Cerebats: can tease from the beginning that something is afoot (as no visible Council after all - though at that time they could just not be in session), but don't spoiler the Wraw invasion reveal in q5a - can focus more on world building here too; q6 can tease about the Council not being around, and to keep asking, to help with main plot; once things have progressed to q10 complete and the player and Semis know about wider Wraw invasion, the Cerebats can hint at this, that plans are happening/afoot
+; The Cerebats don't know who you are, android or otherwise.
+; Having Cerebats (and Wraw) vageuly acknowledge the invasion after (complete-p 'Q5A-RESCUE-ENGINEERS 'Q5B-INVESTIGATE-CCTV) is fine, though doesn't count as evidence (hearsay), hence why it's not brought up when you might then return to Fi in q6, and she's asking for proof
+; In a nutshell: trading, politics
+
+; Wraw (mix in with Cerebat ones): can tease from the beginning that something is afoot, but don't spoiler the q1 reveal that they're after the Noka, nor the q5a reveal that they've invaded the Cerebats; after q10 complete when the invasion of the entire valley is afoot, they can hint that things are happening.
+; Can also hint about the poison/potion done to Wraw subjects, which ties into Synthesis quest - just don't spoiler too much e.g. explicit black cap association
+; The Wraw don't need a conditional for (complete-p 'Q5A-RESCUE-ENGINEERS 'Q5B-INVESTIGATE-CCTV), since although the Cerebats are covering things up a little before this time, the Wraw are clearer about having taken over the Cerebats from the start (albeit things remaining ambiguous for the player)
+; Zelah, the Wraw leader, has potentially known about you from early on in the game (or has he? We're never clear on this); but his inner circle, and certainly not the average Wraw villager, don't know who you are
+; In a nutshell: work work work
+
+; |? (eql 'region1 (subregion 'player))
+; | ? (complete-p 'Q10-WRAW) - this will also play for any non-engineer semis NPCs spawned below ground after they're moved to the surface in q11a e.g. in the Zenith hub upper, maybe in the Noka interiors too
+# npc
+~ npc
+? (eql 'surface (subregion 'player))
+| | [? 好吧，也许现在是愤怒和改变事情的时候了。 | 我从未参加过战斗。那是什么感觉？ | 这些家伙是怎么在这上面生存下来的？如果他们能做到，我们也能。 | 有朋友的感觉真好。我喜欢这些Noka。 | 所以这就是{#@catherine-nametag}为了什么离开我们的。我看她一直很忙。 | {#@catherine-nametag}真的是在这附近找到你的吗？ | 每个人都在忙着做什么。至少这能阻止思维wandering。 | 这里闻起来不一样。更干净，但也更致命。 | 看起来这些人试图种植庄稼。失败了。我们可以在这方面帮助他们。 | 那个对每个人皱眉的家伙是谁？我想他的名字叫John。 | 这些Noka比我想象的更有资源 - 也许我们确实有机会。 | 这个地方严重缺乏便利设施，但毫无疑问他们的精神。 | 所以，你也住在这里？ | 我希望我们能很快回家。 | 我把我的整个生活都留在了那里。我想它现在消失了。 | 很多事情都变了，而且很快。我不太适应变化。 | 我想我们在路上失去了一些人。这只是开始。 | 天空有一些特别的东西。它只是……让事情有了视角，如果你知道我的意思的话。 | 我在地下摩天大楼住了这么久，都忘了摩天大楼是什么样子了。 | 鸟鸣声……这几乎让一切都变得值得。 | 你能听到吗？风很愤怒。 | 感谢上帝水还在流 - 在这种热度下你可能在不知不觉中脱水。 | 你怎么在这上面生活？感觉地面在融化。 | Noka没有太多，但他们愿意分享。]
+|? (eql 'region1 (subregion 'player))
+| ? (complete-p 'Q10-WRAW)
+| | | [? 谁知道Wraw有这样的本事？ | 我认为我们可以给Wraw一场公平的战斗 - 甚至击败他们。但如果他们征服了半个山谷就不行！ | 突然间我感觉不再安定了。会发生什么？ | 我想又到了寻找新常态的时候了。幸好我们习惯了。 | 我要战斗。如果Wraw穿过这些隧道，我会在路上阻止他们。 | 我不担心我自己 - 是我的家人，他们不会战斗。 | 现在我们发现我们的友谊到底有多坚固。 | 我知道我们应该组建一支军队 - 希望我们的猎人能处理即将到来的一切。 | 我有宠物要担心，更不用说父母和孩子了。 | 这一切很快就会过去，不是吗？ | 我觉得我们的领导人迷失了方向。 | 我们在这里安全吗？我们不能只是呆在里面吗？没有人告诉我任何事情。 | 你是来保护我们的吗？ | 在我们建造了一切之后，然后发生了这种事。 | 我知道这没有意义，但我能听到恐惧 - 或者说，听不到它。 | 我的手心出汗，你的呢？这从来不是好兆头。]
+| |? (complete-p 'Q6-RETURN-TO-FI)
+| | | [? Wraw不敢越过我们的边界。不，我不想听这些。 | Wraw不是一直在操纵Cerebat吗？真的什么都没改变。 | 如果现在不是拿出我们枪的时候，我不知道什么时候是。当然，我有自己的。 | 我觉得这里的士气最近受到了打击。要是我能做点什么让大家高兴起来就好了。 | 经历了这么多，事情肯定不会变得更糟。 | 入侵和一个机器人，这个世界要变成什么样？ | 你是{#@innis-nametag}还是{#@islay-nametag}的人？ | 无论发生什么，如果我们团结在一起，我们就会没事。 | 我觉得Wraw可能低估了我们。 | 事情可能更糟：我们可能生活在地表。 | 有时候流浪者就是流浪者 - 有什么大惊小怪的？ | 人们需要冷静下来。我们都有工作要做，所以我们应该去做。 | 水还在流，所以不可能那么糟。 | 人们应该冷静下来 - 去读书，奏个曲子。没必要变得如此激动。]
+| |?
+| | | [? 哇！是你。我听说过很多关于你的事情。 | 我向上帝发誓，如果我还要修理另一个漏洞，我会杀死某人。 | 那些伺服机器人每天都在接近 - 如果你问我，我们需要自动炮塔。 | 当每个人都在变老，没有人生孩子时该怎么办……不过这对孩子来说也不是一个合适的世界。 | 相当令人印象深刻的地方，不是吗？对于一群"老太婆"来说还不错。 | 我累坏了。但有一杯有我名字的饮料 - 还有一个冷水澡。 | 我们的猎人说外面太安静了，但这肯定是个好兆头？ | 你看起来可能很有价值。 | 你到底是用什么制造的？ | 你有医疗用品吗？我们在这里不够重视它们。 | 有时我想知道我是否最好还在生产线上工作。 | 你不可能是机器人……你能吗？ | 小心你的背后 - 人们不喜欢机器人，除非他们提供他们的零件。 | 所以告诉我：机器人摧毁了世界吗？ | 我过去常常组装像你这样的东西 - 我了解你的一切，从如何附着你的"皮肤"，到你称为眼睛的那些摄像头的分辨率。 | 我知道如何激活你。和停用你。 | 太热了 - 我们需要重新路由一些风道。 | 你来自地表 - 你看，你不臭汗味。我知道那里很热，但至少你有微风。 | 我厌倦了吃鱼 - 我们不能改吃青蛙吗？ | 地表真的有鸟吗？ | 感谢上帝他们把这些地下摩天大楼建得这么好 - 否则我们就无处可去了。 | 你吃过从藤上摘下的新鲜番茄吗？去水培园走一趟，享受一下。 | 我听说有人在Cerebat洞穴里发现了一个能用的CD播放器。想象能够播放一个，而不是只是假装。 | 如果你在旅行中找到一本书，我们的图书馆总是可以再要一本。]
+|? (eql 'region2 (subregion 'player))
+| ? (complete-p 'Q10-WRAW)
+| | | [? 你想要什么？ | 选择立场已经太晚了。 | 现在很安静。这里从来没有这么安静过。 | 我不确定事情会回到原来的样子。 | 我很快就要离开了。我会想念这个地方。 | 他们蹂躏了这个地方。拿走了一切。 | 市场现在只是过去的空壳。人们也是。 | 如果我是你，我现在就走。 | 如果他们还没有把你抓起来，那么你的时间是借来的。 | 这怎么发生的？我们能做什么不同的事情吗？ | 我以为其他人会解决这个烂摊子。我想他们也是这样想的。 | 议会可能没有死 - 没有人看到他们的尸体。虽然他们在这里时也没什么可看的。 | 所以这就是我们现在的全部：绞肉机的肉。 | 你想要我的意见？议会搞砸了。大时间。 | 看着你要去哪里 - 这不是游乐场。 | 注意你娇嫩的屁股 - 如果我没有工作要做，我会打它。 | 对不起，我没有订客房服务。呵。 | 除非你想决斗，否则滚开。 | 大多数人叫它们黑帽，但对我来说它们是魔菇。否则你如何解释我们的长寿？ | 药剂对我来说很好 - 只是通常的头痛和恶心。至少我不会饿死。 | 享受它 - 我是指胜利前的和平。 | 你是什么？一种新的伺服机器人？ | 我不知道他们制造了像你这样的机甲。你看起来不是很强壮。 | 不要只是站在那里，我们在动员。 | 让自己有用或去跳岩浆。 | 你应该是谁，某种蛇蝎美人？现实点。 | 如果你不知道后路隧道在哪里，那么你就不应该知道！……这些白痴把我当什么？ | 你听到了吗？那是有目标的士兵的声音。我建议你找到你的。 | 油和烟。对我来说闻起来像战争。 | 赢得战斗是一个数字游戏。我数出我们比他们多。 | 他们很快就会看到我们的生活方式更好。虽然他们没有选择。 | 一旦他们记起药剂能做什么，他们就不想没有它生活。 | 他们不//想要//分享我们的电网吗？恶毒的混蛋。 | 拿你的药剂并报告到你的岗位。懒鬼。 | 我想知道战斗的咆哮是否比发电站持续的嗡嗡声更能忍受。 | 你看起来不像Wraw的忠诚臣民。你在这里做什么？ | 你注意到你嘴里的味道吗？这意味着药剂在起作用。这意味着我们要赢了。 | 为什么人们总是要抵抗？未来是团结，不是分裂。我们只是在加速进程。 | 有时那里的热度变得如此令人窒息，它像一堵厚厚的砖墙一样击中你。不过这里不是。 | 这些爱管闲事的'蝙蝠怎么敢搞乱我们的水。他们在想什么？]
+| |? (complete-p 'Q5A-RESCUE-ENGINEERS 'Q5B-INVESTIGATE-CCTV)
+| | | [? 警告一句：别再问问题了。 | 对不起，我们关门了。 | 今天不是集市日。 | 恐怕我们的好心情用完了。 | 如果我是你，我会对议会闭嘴。 | 我可以推荐探索洞穴 - 比这个粪坑周围有更多可看的。 | 滚开 - 我说这话是出于最诚挚的善意。 | 这不是你现在应该问的那种问题。 | 法律和秩序 - 这是一条细线。容易越过。 | 当生存受到威胁时，人们不遵守规则。你能责怪他们吗？ | 议会像季节一样变化。这就是现实。 | 补给没有到达，脾气也在恶化。所以当我说这话时不要往心里去：滚开。 | 低着头闭嘴。 | 这里有两种人：在议会有朋友的，和没有的。 | 有人可能知道正在发生什么。但不是我。 | 只要腐败统治着，这里什么都不会改变。 | 连黑市都在枯竭 - 但我从来没告诉过你这个。 | 告诉我我们为什么又住在这里下面…… | 没有药剂我几年前就死了。 | 你是新兵之一吗？ | 我们自己的房间和资源都勉强够 - 我们不需要更多张嘴要喂！ | 就像我们需要另一个派系的帮助！ | 我们更好因为我们能把事情做好。 | 我们身体更强壮，能工作更长时间 - 这就是药剂为我们做的。 | 没有黑帽我们会在哪里 - 比维生素D多一点，嗯？ | 我在那里连自己想什么都听不到。想象住在内燃机里工作，你就有些概念了。 | 我知道我们有很多地热能，但我们不能支持每个人。除非他们也下去折断自己的背。 | 我们可能有很多珠宝，但没有水我们还是走不远。不过药剂有帮助。 | 我们知道旧世界为什么失败。而且不会再发生 - 不在我们的监视下。]
+| |?
+| | | [? 现在地面上的装备很少，抱歉。 | 你是谁？你看起来不像商人。 | 欢迎来到我们的地下天堂！ | 总是很高兴看到新面孔。我们在这里以多样性和包容性为荣 - 更不用说我们商品、植物和动物的多样性！ | 你看过风景吗？这个地方很大！只是在风道里要小心。 | 我在洞穴里大声喂喊 - 回声持续了很久！ | 我认为这是山谷中氧气最丰富的地方。吸入它！只是做的时候避开垃圾。 | 尝尝那甜美的空气。或者这只是我的香水？ | 好吧，所以有点潮湿。霉菌蹄踽我们的库存也不罕见。但我向你保证在这下面没有更好的地方住。 | 忘了老鼠和蝙蝠！我们在这些地方吃鱼和青蛙。 | 我在等待议会开会 - 我有问题，我想要答案！ | 我的建议是不要惹你的领导人。 | 你没有出汗。你是谁？ | 好剑。 | 你的衣服……我从来没有见过这样的。想要交换吗？]
+|?
+| | [? 以前没有在附近看到过你。 | …… | 抱歉，我很忙。 | 吵。嗨？ | 让我一个人待着。 | 你看起来有点奇怪。 | 不好意思。 | 没时间聊天。]
+; these final fallbacks should never play, because every interactable world NPC is at least in the surface, region 1, or region 2 (none in region 3) - but keeping for safety

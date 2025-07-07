@@ -1,0 +1,79 @@
+# alex-task/alex-interact
+? (complete-p 'q8-alex-cerebat)
+| ~ player
+| | 你为什么在这里？
+| ~ alex
+| | (:angry)你认为呢？
+|?
+| ~ player
+| - {#@alex-nametag}？
+|   ~ alex
+|   | (:angry)不会太久了。
+| - 你在这里做什么？
+|   ~ alex
+|   | (:angry)在等待时机。
+| - 你还好吗？
+|   ~ alex
+|   | (:normal)从没有这么好过。
+| - 你清醒吗？
+|   ~ alex
+|   | (:angry)像末日审判时的上帝一样清醒。
+  
+~ alex
+| (:angry)我迫不及待地想看到你告诉{#@fi-nametag}时她脸上的表情 - 以及当Wraw从地下涌出来的时候。
+~ player
+- 告诉她什么？
+- 你是什么意思？
+- 你做了什么？
+~ alex
+| "我告诉了他们Noka营地的确切位置。"(orange)
+| (:angry)这是我能做的最少的事来报答你和{#@fi-nametag}的忠诚。
+| (:normal)现在如果你不介意的话，我有一场战斗要打。
+| (:angry)小心你的后面，{(nametag player)}。
+! eval (setf (location 'fi) (location 'shutter-3))
+! eval (setf (direction 'fi) -1)
+! eval (setf (location 'jack) (location 'shutter-4))
+! eval (setf (direction 'jack) -1)
+! eval (activate 'fi-task)
+
+; optional dialogue
+; could occur with either Jack and Fi alone outside shutters (set above), or with Islay if Semis are on surface now (set during q11a) (can never happen when Fi is on surface but Jack still in engineering calling people back to base, after q10a return); or with Fi and Islay alone in Engineering. Either way, Islay doesn't weigh in on this Noka business, and we can assume Fi will tell her later
+# fi-task/fi-interact
+~ fi
+| (:unsure){#@alex-nametag}背叛了我们？你是什么意思？
+~ player
+| 我在Wraw领土找到了他们。他们告诉了他们我们的位置。
+~ fi
+| (:unsure)……
+? (not (complete-p 'q11a-bomb-recipe))
+| ~ jack
+| | (:annoyed)你为什么不趁机会结果了他们的痛苦？！谁知道他们还会告诉他们什么。
+| ~ player
+| - 冷血杀掉？
+|   ~ jack
+|   | 机器人没有血液。
+|   ~ fi
+|   | (:annoyed)我不认同，{#@jack-nametag}。
+| - 我不是杀手。
+|   ~ jack
+|   | 真的吗？你醒来后杀了多少人？
+|   | 我赌你已经数不清了。
+|   | 更不用说你在灾难之前杀的那些人。
+|   ~ fi
+|   | {(nametag player)}帮助并保卫了我们。(:annoyed)我不会听你的迷信！
+|   ~ jack
+|   | (:annoyed)……
+| - 也许你是对的。
+|   ~ jack
+|   | (:shocked)……
+|   ~ fi
+|   | (:annoyed)不，我不认为他是对的。
+| ~ fi
+| | 越早知道{#@alex-nametag}的事情越好。至少我们知道我们面对的是什么。
+| | 谢谢你，{(nametag player)}。
+|?
+| ~ fi
+| | (:unsure)我不知道说什么。
+| | (:normal)至少对于{#@alex-nametag}我们知道我们面对的是什么。
+| | 谢谢你告诉我，{(nametag player)}。
+

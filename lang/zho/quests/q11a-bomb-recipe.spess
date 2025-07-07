@@ -1,0 +1,124 @@
+# task-reminder/interact-reminder-innis
+~ innis
+| (:angry)你最好动作快点。{#@islay-nametag}总共需要"10个雷管"(orange)和"20个充电包"(orange)来制作炸弹。
+| (:sly)在"Wraw领土"(orange)玩得开心。
+~ player
+| "我需要"检查Wraw工厂和仓库"(orange)。我目前有："{(item-count 'item:blasting-cap)}个雷管"(orange)，"{(item-count 'item:charge-pack)}个充电包"(orange)。"(light-gray, italic)
+
+; optional dialogue - symbolic that Fi is kinda sidelined now, as Islay takes charge with the bomb.
+# task-return-fi/fi-return-recruit
+~ fi
+| (:happy)Semi Sisters那边做得很好。
+~ player
+- 谢谢。
+  ~ fi
+  | (:happy)我很高兴你平安。
+- {#@islay-nametag}做了大部分说服工作。
+  ~ fi
+  | 好吧，我想她最了解{#@innis-nametag}。
+  | 但如果没有你和他们谈话，这一切都不会发生。
+  ~ player
+  - 我想我做了我的部分。
+    ~ fi
+    | (:happy)很重要的部分。而且在危险的道路上。
+  - 只是做我的工作。
+    ~ fi
+    | (:happy)我想不止如此。特别是现在道路这么危险。
+  - 但这是你的想法。
+    ~ fi
+    | 是的，但你能让他们倾听 - 并且在危险的道路上进行了旅程。
+- 这是你的想法。
+  ~ fi
+  | 是的，但你能让他们倾听 - 并且在危险的道路上进行了旅程。
+~ fi
+| {#@islay-nametag}告诉了我一切，关于你为什么不能打电话。
+| 考虑到所有情况，这里出人意料地平静。
+| (:unsure)每个人都相信{#@islay-nametag}说我们能够阻止Wraw的说法。我想这个炸弹是个有说服力的信息。
+| (:normal)她一直让{#@catherine-nametag}努力建造它，这点我知道。(:happy)至少我们的武器已经准备好了。
+! label questions
+~ player
+- 你不认为我们能赢？
+  ~ fi
+  | {#@islay-nametag}说我们人数不错。(:unsure)但她也说她不知道Wraw有多少人。
+  | 这不能让我充满信心，无论有没有炸弹。
+  < questions
+- 我们有什么武器？
+  ~ fi
+  | 我们有一些{#@catherine-nametag}和{#@jack-nametag}修好的灾难前的旧枪。Semi Sisters也有一些，但状态更好，数量也更多。
+  | 我不记得Wraw有类似的东西 - 他们更喜欢刀剑和长矛，这样他们可以近距离看着你死去。
+  | (:unsure)我们还有镰刀、剪刀和其他尖锐的农具。
+  | (:happy)而且我们有你。
+  ~ player
+  - 我会尽力而为。
+    ~ fi
+    | (:happy)我知道你会的。
+  - 你知道的。
+    ~ fi
+    | (:happy)我想比大多数人都多。
+  - [(var 'fight-army) 我仍然不能对抗一支军队。| 我不能对抗一支军队。]
+    ~ fi
+    | 你可能不必要。(:unsure)我想{#@islay-nametag}为你计划了一些特别的事情。
+  < questions
+- 你对炸弹怎么看？
+  ~ fi
+  | 这是个大胆的想法，可能会有效。
+  | (:unsure)但我忧心它可能对整个地区造成的破坏。对我们的生活方式。
+  | 不过我想Wraw搨毁我们会更糟。
+  | (:normal)而且我不能说我对在我们营地中间组装一个巨大的爆炸物感到舒服。
+  < questions
+- 现在谁在负责？
+  ~ fi
+  | {#@islay-nametag}有计划，但她相当外交。(:happy)感觉像是伙伴关系。
+  | (:annoyed)但我不确定{#@innis-nametag}是否这样看。
+  < questions
+- 我必须走了。
+  ~ fi
+  | 如果你已经得到了"炸弹的所有组件，把它们带给{#@islay-nametag}"(orange)。
+  | 我们很快会再聊的。
+
+# task-return/components-return
+~ islay
+| 你得到炸弹的组件了吗？
+? (or (> 10 (item-count 'item:blasting-cap)) (> 20 (item-count 'item:charge-pack)))
+| ~ islay
+| | 快点，{(nametag player)} - 记住："10个雷管"(orange)和"20个充电包"(orange)。
+| | "搜索Wraw领土。"(orange)
+| ~ player
+| | "我需要"检查Wraw工厂和仓库"(orange)。我目前有："{(item-count 'item:blasting-cap)}个雷管"(orange)，"{(item-count 'item:charge-pack)}个充电包"(orange)。"(light-gray, italic)
+|?
+| ~ islay
+| | [(< 30 (+ (item-count 'item:blasting-cap) (item-count 'item:charge-pack))) 是的。这是最后一批，还有多的！ | 是的。这就是最后一批了！]
+| | 谢谢你，{(nametag player)}。"这是你按物品的报酬，如约定的"(orange)。
+| ! eval (store 'item:parts (* (+ (item-count 'item:blasting-cap) (item-count 'item:charge-pack)) (var 'bomb-fee)))
+| ! eval (status (concatenate 'string "Received " (write-to-string (* (+ (item-count 'item:blasting-cap) (item-count 'item:charge-pack)) (var 'bomb-fee))) " Scrap Part"))
+| ! eval (status (concatenate 'string "Lost " (write-to-string (item-count 'item:blasting-cap)) " Blasting Cap"))
+| ! eval (retrieve 'item:blasting-cap T)
+| ! eval (status (concatenate 'string "Lost " (write-to-string (item-count 'item:charge-pack)) " Charge Pack"))
+| ! eval (retrieve 'item:charge-pack T)
+| < result
+
+# result
+~ islay
+| 我会把组件带给{#@catherine-nametag}，这样她就可以完成了。
+| {#@fi-nametag}，你愿意"在工程室和我一起"(orange)吗？
+~ fi
+| 如果你坚持的话。
+| 那{(nametag player)}怎么办？因为她是把我们聚在一起的人 - 并且带来了你的炸弹组件。
+~ islay
+| 我正要补充…… "你也能和我们一起吗，{(nametag player)}"(orange)？这与你有关。
+| 恐怕"你的其他任务都必须等待"(orange)。
+| {#@innis-nametag}，在这里留意情况。
+~ innis
+| (:angry)好的，好吧。
+! eval (complete task)
+! eval (reset interaction)
+! eval (activate 'q13-intro)
+? (complete-p 'sq14c-synthesis)
+| ! eval (setf (location 'synthesis) 'synthesis-lab)
+| ! setf (direction 'synthesis) -1
+  
+! eval (clear-pending-interactions)
+
+; "your other jobs will have to wait" hints that sidequests will come back in a bit - a small smoothing concession when many sidequests have potentially just been invalidated. But of course, surprise, they don't come back - but hopefully the story makes clear why that is (bombs, Wraw attack, etc.)
+
+; only move synthesis to the lab if completed the final part of the quest, to avoid spoilering their association with the lab on subsequent playthroughs (they're in the lab to either follow up on the info you gave them in sq14c, or to try and obtain it themself if you denied them the info)

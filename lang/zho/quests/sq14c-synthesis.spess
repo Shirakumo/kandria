@@ -1,0 +1,554 @@
+; Synthesis, shady character, unknown gender, Swiss-German accent and dialect, plural first person pronouns
+# task-reminder/reminder
+~ synthesis
+| (:grin)去"这个地区最东面的实验室，访问3个正常工作的终端，然后把信息带回来给我们"(orange)。
+| "在数据库中搜索\"black caps\"。"(orange)
+| 你会庆幸你这样做的。
+
+; terminal system messages written in US English spellings, common for online world
+; including for the Zenith newspaper articles, so assuming Zenith is in US/Canada/NA (maybe eastern seaboard, given ocean is to the east?)
+; (though android's inner clock was set to UTC according to the loading screen - maybe just the interior system clock though?)
+; shorthand dates in US style due to most software being US e.g. 3.19.2368
+; "I hope it's clean" - physically, and no viruses, sticking finger in random terminals no
+; no options to delete info - need to piece it all together first. And don't want to delete history?
+
+; Network terminal
+; drug immune system main clue
+; another op to see Calamity date specific, but more overt than loading screen (and more specific than semi world interact)
+; Oxford Dictionaries synthesis definition altered from source to avoid using verbatim, as not permitted for commercial use
+# terminal-1/terminal
+~ player
+| "这是"终端1"(red)。"(light-gray, italic)
+? (not (var 'first-one))
+| | "这是"{#@synthesis-nametag}想让我检查的数据库之一"(orange)。"(light-gray, italic)
+| | "这些是旧的互联网服务器 - 它们处于低功耗模式。"(light-gray, italic)
+| | (:giggle)"很高兴看到另一台工作的电脑 -"(light-gray, italic) (:normal)"虽然它们太原始了，无法读取我的黑匣子。"(light-gray, italic)
+| | (:embarassed)"没有用户界面 - 我必须直接用手指连接。我希望它是干净的。"(light-gray, italic)
+  
+| "正在打开访问权限……"(light-gray, italic)
+| "\[警告\] 云服务不可用。查询本地数据库？"
+! label terminal-1-query
+~ player
+- (Search "black caps")
+  ~ player
+  | "Archive retrieved:"
+  | "Tricholoma gvswvt44 dpnnpomz known bt "black caps"(orange)."
+  | "Not gbubm jo32uifntfmwft, and once accepted as a reliable source of vitamin D."
+  | "But sustained consumption pwfs tfwfsbm xfflt has recently been shown to tfwfsfmz "weaken the immune system"(orange)."
+  | "Thus fatality often occurs as the result pg jogfdujpo46"
+  | "Usjbmfe as a biological deterrent by Xftufso tvqfsqpxfst in the nje32twenty-fourth century."
+  | "不出所料它已损坏，但我认为我已经"从这个获得了我需要的"(orange)。"(light-gray, italic)
+  ? (not (var 'first-one))
+  | | "我现在要"格式化磁盘"(orange)，因为我已经记录了数据；反正它在衰减，但为了安全起见。"(light-gray, italic)
+  | | "也没有其他人可以访问它 - 至少我不认为有。"(light-gray, italic)
+  | | "虽然我仍然可以"在我能的时候搜索更多信息"(orange)。"(light-gray, italic)
+  |?
+  | | "我要"格式化磁盘"(orange)，虽然我仍然可以"在我能的时候搜索更多信息"(orange)。"(light-gray, italic)
+    
+  ! eval (setf (var 'terminal-1-clue) T)
+  < terminal-1-query
+- (Search "cloud service")
+  ~ player
+  | "Remote servers offline: cannot sfbdi JQ beesftt"
+  | "Contact ebub dfoufs administrator or email admin64tfnj45tfswfst46dpn"
+  | (:giggle)"对，是的 - 在没有互联网接入的情况下给某人发邮件。经典。"(light-gray, italic)
+  < terminal-1-query
+- (Search "low power")
+  ~ player
+  | "Primary power offline: dpsf systems curtailed"
+  | "Backup power at 495337 and ipmejoh"
+  | "Total power failure risks ebub integrity"
+  < terminal-1-query
+- (Search "synthesis")
+  ~ player
+  | "Retrieving cached32bsdijwf:"
+  | "Noun. Qmvsbm: syntheses"
+  | "Multiple definitions found: selecting most rvfsjfe58"
+  | "The production of dpnqpvoet by difnjdbm reaction."
+  | ""synthesis"46 Retrieved from SemiTuvefouMbc.dpn (accessed on Nbsdi 17, 2368)46"
+  < terminal-1-query
+- (Search "help")
+  ~ player
+  | "Help functions xjuiifme due to power outage: speak with b nfncfs32pg tubgg for32assistance or to sftupsf qpxfs"
+  < terminal-1-query
+- [(var 'terminal-1-clue) (Format disk)]
+  ~ player
+  | "Confirm format disk? All data will be erased."
+  ~ player
+  - (No)
+    < terminal-1-query
+  - (Yes)
+? (not (var 'first-one))
+| ~ player
+| | "好吧，还有"2个终端"(orange)要检查。"(light-gray, italic)
+| ! eval (setf (var 'first-one) T)
+|? (complete-p 'terminal-2 'terminal-3)
+| < summary
+|?
+| ~ player
+| | "还剩"1个终端"(orange)需要检查。"(light-gray, italic)
+; Corrupted strings have been shifted forwards one letter, with punctuation/numbers occasionally replaced with alt code
+; common alt code: , = 44; space = 32; . = 46; – (en dash) = 0150; — (em dash) = 0151; - = 45; ? = 63; ! = 33; @ = 64; % = 37; & = 38; # = 35; : = 58; / = 47; ... = 133; ( = 40; ) = 41;
+; use https://www.dcode.fr/shift-cipher (cipher)
+; use https://www.rapidtables.com/code/text/ascii-table.html (alt code ascii table)
+; Easy to write, plausible corruption, easy and simple fun for players to figure out - similar to Talos Principle's hex corruptions
+; Ambiguous whether android character herself can read it all - either way she has enough info to report to Synthesis
+; different kind of corruption to the android's own memories and remembering name issues
+
+; black caps cipher words
+; "furvus,", "commonly", "as"
+; "not fatal in themselves",
+; "over several weeks", "severely",
+; "of infection"
+; "Trialed", "Western superpowers", "mid"
+; cloud services cipher words
+; "reach IP address",
+; "data center", "@semi-servers.com"
+; low power cipher words
+; "core"
+; "Backup power at 15% and holding" - solar power / oil generators (Synthesis maintaining?)
+; "15%", "holding"
+; "data"
+; synthesis cipher words
+; using an actual Oxford Dictionaries definition, example, and citation format, 1) so properly cited, and 2) to work with the Calamity fiction
+; "archive"
+; "Plural"
+; "queried:"
+; "compounds", "chemical"
+; "StudentLab.com", "March"
+; help cipher words
+; "withheld", "a member of staff", "restore power"
+
+
+; Library terminal
+; on image corruption here, only text corruption
+; drug painkiller main clue
+# terminal-2/terminal
+~ player
+| "这是"终端2"(red)。"(light-gray, italic)
+? (not (var 'first-one))
+| | "这是"{#@synthesis-nametag}想让我检查的数据库之一"(orange)。"(light-gray, italic)
+| | "这些是旧的互联网服务器 - 它们处于低功耗模式。"(light-gray, italic)
+| | (:giggle)"很高兴看到另一台工作的电脑 -"(light-gray, italic) (:normal)"虽然它们太原始了，无法读取我的黑匣子。"(light-gray, italic)
+| | (:embarassed)"没有用户界面 - 我必须直接用手指连接。我希望它是干净的。"(light-gray, italic)
+  
+| "正在打开访问权限..."(light-gray, italic)
+| "\[严重\] 多个核心无法访问。怀疑硬件故障。查询本地数据库？"
+! label terminal-2-query
+~ player
+- (Search "black caps")
+  ~ player
+  | "呀，损坏了，在意料之中。我什么都读不了。不过有一个报纸头版的部分扫描："(light-gray, italic)
+  | "ZENITH ZONAL ZODIAC - 星期五，2367年7月21日"
+  | "阿片类药物试验成功为经济拉开新篇章"
+  | "Chase Yasiri，首席劳工记者"
+  | "站在那个巨大玻璃建筑前阶上的男人和女人，手牵着手举向天空，被标注为Molly Jacobson教授和Devan Kerr博士。"(light-gray, italic)
+  | "好吧，让我们看看这篇文章要说什么。知道Zodiac不会有好事。"(light-gray, italic)
+  | "长期试验在提高痛痛耐受性方面取得了超人的成功。"
+  | "Rootless终于在他们的"新劳动药物"(orange)上取得了成功，即将以品牌名"速效"(orange)快速投放市场。"
+  | "像Trickle、Artemis、Cross Section、Aegis和Semi这样的核心地下工业巨头都将在早至10月获得剂量。"
+  | "Bridges和Swift被认为正在竭尽全力确保顺利高效的分配。"
+  | "当然，这种药物"不能太快到达，考虑到最近的热浪在多大程度上破坏了生产力"(orange)。"
+  | "员工合同将进行修改，使剂量成为工作日的强制性部分。"
+  | "尽管"从有毒的黑帽蘑菇中开发"(orange)，但临床试验可靠地显示副作用可以忽略不计。"
+  | "相反，这种药物"大大抑制了疼痛，尤其是对热量的反应"(orange)。"
+  | "对经济的好处是显而易见的："更长的工作时间，减少对日益减少的食物和水资源的消耗"(orange)。
+  | "'The Guiding Light education program is already underway, to ensure the next generation understand and appreciate the clear benefits of Expediate,' said Rootless' head of PR, Tamsin Shultz."
+  | "Story continues on p5"
+  | "Not in this edition it doesn't - there aren't any more scans. Not that I want to read any more of this rag."(light-gray, italic)
+  | (:embarassed)"No wonder people called it the three Zs - it puts you in a coma."(light-gray, italic)
+  | (:normal)"Still, it was shockingly informative for my task: I've "got what I need from this terminal"(orange)."(light-gray, italic)
+  ? (not (var 'first-one))
+  | | "I'll "format the disk"(orange) now I've recorded the data; it's decaying anyway, but just to be safe."(light-gray, italic)
+  | | "It's not like there's anyone else who can access it, either - at least I don't think there is."(light-gray, italic)
+  | | "Though I could still "search for more information while I can"(orange)."(light-gray, italic)
+  |?
+  | | "I'll "format the disk"(orange), though I could still "search for more information while I can"(orange)."(light-gray, italic)
+    
+  ! eval (setf (var 'terminal-2-clue) T)
+  < terminal-2-query
+- (Search "hardware failure")
+  ~ player
+  | "Accessing logs..."
+  | "Failures occurred between 3.9.235456 and 3.14.505168:"
+  | "Stress tolerance of bouj45tipdl gsbnf... EXCEEDED!"
+  | "Fire detected in wfoujmbujpo system. Checking sprinklers... JOPQFSBUJWF!"
+  | "Water damage to CPU 38 motherboard... CHECK DPPMBOU SYSTEM33"
+  < terminal-2-query
+- (Search "low power")
+  ~ player
+  | "Insufficient power to action request"
+  < terminal-2-query
+- (Search "synthesis")
+  ~ player
+  | "Archive retrieved:"
+  | "Synthesis Corporation was a gbsnjoh nvmujobujpobm headquartered in Ebmmbt, TX."
+  | "Officially declared cbolsvqu in 2361, the company lost a protracted court battle with the Department of the Treasury over uby fwbtjpo, with respect to its subterranean pqjvn qpqqz gbsnt."
+  | "Sppumftt are understood to have acquired many of the company's assets sold off by mjrvjebupst46"
+  < terminal-2-query
+- (Search "help")
+  ~ player
+  | "Opening FAQs..."
+  ! label terminal-2-help
+  - (1. What is this?)
+    ~ player
+    | "A convenient repository of archived information for those qftlz ujnft when the internet connection is down."
+    < terminal-2-help
+  - (2. I can't access the internet)
+    ~ player
+    | "That's not ufdiojdbmmz b rvftujpo, but we'll let it slide! Unfortunately internet connectivity is a frequent casualty of npefso mjwjoh."
+    | "Thankfully, most things you might need to know about how to mfbe b ifbmuiz boe qspevdujwf mjgf are right here, stored on these ibse ejtlt you can see with your own eyes."
+    | "Assuming you opened the server case. Usvtu vt46"
+    < terminal-2-help
+  - (3. I need help)
+    | ~ player
+    | "Also not a question, and also a little too bctusbdu for us to parse."
+    | "If you need help using this system, please select a more specific 40ps bo bduvbm41 question, or find a helpful member of staff nearby."
+    | "If you seek nfejdbm ifmq, please make an appointment with your Sppumftt hfofsbm practitioner."
+    < terminal-2-help
+  - (5246 Ipx nvdi epft uijt dptu?)
+    ~ player
+    | "Tfswjdft bsf monitored automatically boe charged to your ID card at premium rates46 Uibol zpv33"
+    < terminal-2-help
+  - (Return to top level)
+    < terminal-2-query
+- [(var 'terminal-2-clue) (Format disk)]
+  ~ player
+  | "Confirm format disk? All data will be erased."
+  ~ player
+  - (No)
+    < terminal-2-query
+  - (Yes)
+? (not (var 'first-one))
+| ~ player
+| | "Alright, "2 more terminals"(orange) to check."(light-gray, italic)
+| ! eval (setf (var 'first-one) T)
+|? (complete-p 'terminal-1 'terminal-3)
+| < summary
+|?
+| ~ player
+| | "That's "1 more terminal"(orange) left to check."(light-gray, italic)
+; since Semi had the drug, but the Semi Sisters don't seem to use it, it suggests they've weaned themselves off of it, or these survivors were never exposed
+; hardware damage cipher words
+; "3.9.2368", "3.14.2368"
+; "anti-shock frame",
+; "ventilation", "INOPERATIVE"
+; "COOLANT"
+; synthesis cipher words
+; "farming multinational", "Dallas",
+; "bankrupt", "tax evasion", "opium poppy farms"
+; "Rootless", "liquidators"
+; help cipher words
+; "pesky times"
+; "technically a question", "modern living"
+; "lead a healthy and productive life", "hard disks", "Trust us."
+; "abstract"
+; "(or an actual)"
+; "medical help", "Rootless general"
+; "4. How much does this cost?"
+; "Services are", "and", "Thank you!"
+; "Expediate" not technically a word ("expedite" is the one), but it's gaining acceptance, and we can imagine it could be a future buzzword
+
+; UX terminal
+; TalkToFrank.com used as inspiration here, but text changed
+; drug recipe and side effects main clue
+# terminal-3/terminal
+~ player
+| "It's "terminal 3"(red)."(light-gray, italic)
+? (not (var 'first-one))
+| | "This is "one of the databases {#@synthesis-nametag} wanted me to check"(orange)."(light-gray, italic)
+| | "These are old internet servers - they're in low power mode."(light-gray, italic)
+| | (:giggle)"Good to see another working computer -"(light-gray, italic) (:normal)"though they're too primitive to read my black box."(light-gray, italic)
+| | (:embarassed)"There's no user interface - I'll have to connect directly with my finger. I hope it's clean."(light-gray, italic)
+  
+| "Opening access..."(light-gray, italic)
+| "\[SEVERE\] Support modules not responding. Potential cyber attack in progress. Query local database?"
+! label terminal-3-query
+~ player
+- (Search "black caps")
+  ~ player
+  | "DRUG BUST - Honest information about drugs"
+  | "E 45 most sfbe article: "Expediate"(orange)"
+  | "Expediate, also called 'uif qpujpo'. Manufactured by Rootless and marketed with the slogan '35FyqfejufZpvsMjgf'."
+  | "What does it look, taste and smell like? Commonly available as ubcmfut boe dbqtvmft, but also as syrups and solutions."
+  | "Typically odourless and tasteless, but can have a txffu tnfmm ps ubtuf."
+  | "How long does it last63 The duration of the effects depends on the quantity consumed, your size, and what other esvht njhiu cf jo zpvs system."
+  | "If the drug is administered through your employer, how long the effects last also depends on uif joevtusz zpv bsf xpsljoh jo. Consult your dpousbdu for more information."
+  | "Know the sjtlt58 Properly prescribed small doses can serve as an effective qbjoljmmfs. However, many recommended doses as tujqvmbufe jo46fnqmpznfou contracts far exceed this32"
+  | ""Typical symptoms include: vomiting, mfuibshz44 dizziness, migraines, addiction"(orange)4632However, more are being actively researched."
+  | "How is it made? The drug is derived from a "chemical synthesis of opium poppy juice and antibiotics from Usjdipmpnb furvus (black cap mushrooms)"(orange)."
+  | "A dbubmztu "enzyme is also required"(orange)."
+  | ""Download Expediate.txt"(orange) for more information."
+  | "I think I will - half of this is corrupted. And besides, "{#@synthesis-nametag} would need to know exact quantities"(orange) if they intend to do anything with this."(light-gray, italic)
+  | ""Downloading Expediate.txt..."(orange)"
+  ! eval (store 'item:synthesis-file 1)
+  ! eval (status "Received 1 Expediate.txt")
+  | (:giggle)"Wow that was quick. Oh, it's only 34KB... Legacy file types! And it's not corrupted. Good."(light-gray, italic)
+  | (:normal)"Well I've "got what I need from this one"(orange)."(light-gray, italic)
+  ? (not (var 'first-one))
+  | | "I'll "format the disk"(orange) now I've recorded the data; it's decaying anyway, but just to be safe."(light-gray, italic)
+  | | "It's not like there's anyone else who can access it, either - at least I don't think there is."(light-gray, italic)
+  | | "Though I could still "search for more information while I can"(orange)."(light-gray, italic)
+  |?
+  | | "I'll "format the disk"(orange), though I could still "search for more information while I can"(orange)."(light-gray, italic)
+    
+  ! eval (setf (var 'terminal-3-clue) T)
+  < terminal-3-query
+- (Search "cyber attack")
+  ~ player
+  | "524852 Qbhf not found"
+  | "Network capacity exceeded... EEPT BUUBDL SUSPECTED"
+  < terminal-3-query
+- (Search "low power")
+  ~ player
+  | "Cbuufsz qpxfs depleted"
+  | "Backup generator in operation since 3.4957.2368... NBJOUFOBODF SFRVJSFE"
+  | "Checking fans133 INOPERABLE"
+  | "Npuifscpbse temperature has exceeded 494848D... RISK OF FIRE33"
+  < terminal-3-query
+- (Search "synthesis")
+  ~ player
+  | "Cjphsbqijdbm data retrieved:"
+  | "Known alias of b ibdlfs dpmmfdujwf44 active in the late uxfouz-tfdpoe century."
+  | "Noted for their political and corporate activism, especially regarding the widespread ejttpmvujpo of qvcmjd ifbmui services around the world."
+  | "The group were known for their ippefe spcft, akin to the dpxmt worn by Dbuipmjd npolt46"
+  < terminal-3-query
+- (Search "help")
+  ~ player
+  | "Help system error."
+  | "Huh, what's this? It's dumped some kind of chat history:"(light-gray, italic)
+  | "Welcome guest332456833 You've been assigned to Sppumftt Sfq Bmbob"
+  | "Alana: Hi my name's Alana. What can I help you with today?"
+  | "Bmbob58 Would you like to book an appointment with your general practitioner?"
+  | "Alana: Are you tujmm uifsf63"
+  | "guest3324568: ittssss startedd 45 mppl pvutjef"
+  | "hvftu332456858 u need to go"
+  | "Alana58 Ifmmp?"
+  | "guest3324568 left the session"
+  | "Session ufsnjobufe. Chat log saved."
+  < terminal-3-query
+- [(var 'terminal-3-clue) (Format disk)]
+  ~ player
+  | "Confirm format disk? All data will be erased."
+  ~ player
+  - (No)
+    < terminal-3-query
+  - (Yes)
+? (not (var 'first-one))
+| ~ player
+| | "Alright, "2 more terminals"(orange) to check."(light-gray, italic)
+| ! eval (setf (var 'first-one) T)
+|? (complete-p 'terminal-1 'terminal-2)
+| < summary
+|?
+| ~ player
+| | "That's "1 more terminal"(orange) left to check."(light-gray, italic)
+; black caps cipher words
+; "read",
+; "the potion", "#ExpediteYourLife",
+; "tablets and capsules", "sweet smell or taste"
+; "drugs might be in your"
+; "the industry you are working in", "contract"
+; "risks", "painkiller", "stipulated in employment"
+; "lethargy",
+; "Tricholoma",
+; "catalyst"
+; cyber attack cipher words
+; "404 Page"
+; "DDOS ATTACK"
+; low power cipher words
+; "Battery power"
+; "3.19.2368", "MAINTENANCE REQUIRED"
+; "..."
+; "Motherboard", "100C"
+; synthesis cipher words
+; "Biographical"
+; "a hacker collective,", "twenty-second",
+; "dissolution", "public health"
+; "hooded robes", "cowls", "Catholic monks"
+; help cipher words
+; "Rootless Rep Alana",
+; "Alana:"
+; "still there?"
+; "look outside"
+; "guest3324568:"
+; "terminated"
+
+# summary
+~ player
+| "那是最后一个终端。"(light-gray, italic)
+| (:thinking)"所以总结一下：这是一种"将黑帽与鸦片结合创造药物的方法"(orange)。"(light-gray, italic)
+| "它"提高人体对疼痛的耐受性"(orange)，也许作为止痛剂。"(light-gray, italic)
+| "理论上它还"延长人们无需食物或水（或睡眠）工作的时间，并意味着他们可以在更极端的温度下工作"(orange)。"(light-gray, italic)
+| (:embarassed)"它还有各种有趣的"副作用"(orange)，尤其是偏头痛和成瘾 - 甚至可能免疫反应降低..."(light-gray, italic)
+| (:giggle)"哦，但是嘴，它还是维生素D的来源！"(light-gray, italic)
+| (:normal)"所以这就是他们想要的信息？"(light-gray, italic)
+| (:thinking)"我真的想要"把这个交给{#@synthesis-nametag}"(orange)吗？我可以看到对地下生活的人们 - 以及地上的人们的好处。但这感觉不对，不是吗？"(light-gray, italic)
+| "也许我就不回去了。"(light-gray, italic)
+! eval (activate 'task-return)
+
+# task-return/return
+~ synthesis
+| (:grin)哈罗 {(nametag player)}。我们认为你有消息。
+~ player
+- （说谎）我什么都没找到。
+  ~ synthesis
+  | (:grin)你说谎。我们不是昨天才出生的。实际上远非如此。
+- （说谎）数据太损坏了。
+  ~ synthesis
+  | (:grin)也许有些是，但不是全部。
+  | 那些服务器仍在运行。
+- 我有速效的配方。
+  ~ synthesis
+  | (:grin)好。现在我们都将受益。
+~ synthesis
+| (:grin)你知道，我们确实需要我们的药剂。我们的"长寿"(italic)。
+| (:normal)你花的时间太长了。我们已经感到药效在消退。
+~ player
+- 我在帮你们。
+  ~ synthesis
+  | 这还有待观察。
+- 你们不能继续使用黑帽吗？
+  ~ synthesis
+  | (:grin)纯黑帽可以缓解最严重的症状。
+  | (:normal)但它们的药效只有一小部分。它们也有毒，会破坏免疫系统。
+- 这是谁的错？
+  ~ synthesis
+  | 你要指责瘦者吗？
+~ synthesis
+| 现在给我们信息，否则我们将强行从你的头颅中提取。
+| (:grin)我相信Semi Sisters可以找到一种方法，让一个无身体的Genera核心和断裂的机器人手与实验室的终端连接。
+| 我们自己对此有一些想法。即使蹰过你的尸体，我们也会得到我们需要的。
+| 但我们认为我们是朋友 - 尤其是因为这个信息也对你有帮助。
+~ player
+- This drug is bad news.
+  ~ synthesis
+  | (:grin)The side effects are not your problem though, are they?
+- How does it help me?
+  ~ synthesis
+  | (:grin)Come, you're not so slow, are you?
+- Haven't people done just fine without it?
+  ~ synthesis
+  | (:grin)You must be joking. Does it look like people are doing fine?
+  | (:normal)Some survivors have powered through and learned to live without it - or think they have. Many didn't.
+  | And this place is not better off without it.
+~ synthesis
+| (:grin)这就是"我们如何改善人们的生活"(orange)。地下生活艰苦、痛苦 - 尤其是因为热量。"你在地面上的朋友们情况更糟"(orange)。
+| 药剂就是答案。只要"看看Wraw用它完成了什么"(orange)。"如果控制剂量，副作用是可以管理的"(orange)。
+| 而成瘾...如果他们反正需要它，那还重要吗？
+| 如果每个人都能接触到这个，他们就会像Wraw一样有能力。"那么Wraw就不会占主导地位"(orange)。
+~ player
+- 所以军备竞赛就是你的答案？
+  ~ synthesis
+  | (:grin)这不就是已经在发生的事情吗？至少这样它将是一场"公平的战斗。或者根本不会有战斗"(orange)。
+- 你为什么在乎？
+  ~ synthesis
+  | (:grin)我们也生活在这里。如果有"战斗，至少它将是公平的。或者根本不会有战斗"(orange)。
+- 你在为Wraw工作吗？
+  ~ synthesis
+  | (:grin)我们蒯视Wraw。他们相信通过控制来统一。至少这"拉平了竞争环境。甚至保持和平"(orange)。
+- 所以你要发财？
+  ~ synthesis
+  | (:grin)这可能是一个副作用。但"我们想要统一超过想要金钱。这将拉平竞争环境。甚至保持和平"(orange)。
+~ synthesis
+| (:grin)你知道，有一种叫做"威慑"(orange)的东西。
+| "那么你要给我们信息还是不给？"(orange)
+~ player
+- （分享速效.txt）
+  ~ player
+  | "由于没有办法传输文件，我必须大声读出来。"(light-gray, italic)
+  | "啊，他们带着铅笔和纸张来了，多有组织。"(light-gray, italic)
+  | (:embarassed)"公式的化学部分令人麻木：我想我会关闭我的日志，让文本转语音算法来做这件事。"(light-gray, italic)
+  | (:normal)"..."(light-gray, italic)
+  | "哦，已经完成了？没花太长时间。"(light-gray, italic)
+  ~ synthesis
+  | (:grin)我们得到了。这个配方是..."迷人的"(italic)。
+  < good-end
+- (Modify and share the file)
+  ~ player
+  | "Since there's no way to transfer the file, I'll have to read it aloud."(light-gray, italic)
+  | "But not before I make some subtle alterations, copy-paste-edit style... I'm no chemist, but I think changing the quantity of compounds should scupper the chemical reaction."(light-gray, italic)
+  | (:giggle)"It might even blow up in their face!"(light-gray, italic)
+  ! eval (store 'item:synthesis-file-1 1)
+  ! eval (status "Received 1 Expediate (doctored).txt")
+  | (:normal)"Oh, they've come prepared with a pencil and paper - I was hoping they might try and memorise it and forget."(light-gray, italic)
+  | (:embarassed)"The chemistry of the formula is mind-numbing: I think I'll disengage my log and let the text-to-speech algorithm do its thing."(light-gray, italic)
+  | (:normal)"..."(light-gray, italic)
+  | "Oh, done already? That didn't take long."(light-gray, italic)
+  ~ synthesis
+  | We have it. This recipe is... "unexpected"(italic).
+  < good-end
+- (Corrupt and share it)
+  ~ player
+  | "Since there's no way to transfer the file, I'll have to read it aloud."(light-gray, italic)
+  | "But not before I plausibly corrupt some choice key words and quantities, similar to those corruptions I saw in the terminals."(light-gray, italic)
+  | (:giggle)"Copy, paste, edit... Done. I'd like to see them get a chemical reaction out of this!"(light-gray, italic)
+  ! eval (store 'item:synthesis-file-2 1)
+  ! eval (status "Received 1 Expediate (corrupted).txt")
+  | (:normal)"Oh, they've come prepared with a pencil and paper - I was hoping they might try and memorise it and forget."(light-gray, italic)
+  | (:embarassed)"The chemistry of the formula was mind-numbing, even before my corruptions: I think I'll disengage my log and let the text-to-speech algorithm do its thing."(light-gray, italic)
+  | "The last thing I want to hear right now is me saying: gps b dbubmztu vtf uif tqfdjgjfe tzouifujd32foaznf jo uif tqfdjgjfe rvboujuz58"(light-gray, italic)
+  | (:normal)"..."(light-gray, italic)
+  | "Oh, done already? That didn't take long."(light-gray, italic)
+  ~ synthesis
+  | Didn't you hear us? Half of that was gobbledygook!
+  | (:grin)Was there corruption? Or are you playing with us?
+  ~ player
+  - There was corruption.
+  - That's everything the file contains. VERBATIM.
+  ~ synthesis
+  | ...
+  | There might be enough here for us to work out the rest, but we're not sure.
+  | (:grin)Still, this is better than nothing. Perhaps we can learn more from the lab.
+  < end-end
+- (Don't share the file)
+  ~ synthesis
+  | ...
+  | If that is really your choice.
+  < bad-end
+- (Delete it)
+  ~ player
+  | "Since there's no way to transfer the file, I'll have to read it aloud."(light-gray, italic)
+  | "But not if I delete it."(light-gray, italic)
+  | (:giggle)"Oh, they've come prepared with a pencil and paper. Happy to disappoint."(light-gray, italic)
+  ! eval (retrieve 'item:synthesis-file 1)
+  ! eval (status "Lost 1 Expediate.txt")
+  | (:normal)"File deleted."(light-gray, italic)
+  ~ player
+  - I don't have it any more.
+  - I deleted my file on it.
+  ~ synthesis
+  | ... You try our patience, android.
+  < bad-end
+
+# bad-end
+~ synthesis
+| 非常好，我们没有心情玩游戏。
+| (:grin)我们有"其他手段来获得我们需要的"(orange)。
+| (:normal)但看起来黑帽必须再支撑一段时间。
+| (:grin)认为我们的"伙伴关系结束了"(orange)。小心你的后面，{(nametag player)}。
+
+# good-end
+~ synthesis
+| 种植足够的鸦片罂粟花将是挑战，但我们知道一个地方。
+| 至于酶 - 我们认为实验室中的那些样品是关键。
+< end-end
+
+# end-end
+| (:grin)我们看到了一个"新的开始。痛苦的缓解"(orange)。我们有很多工作要做。
+| 但这现在也是你的遗产。如果它有效，"我们会与你分享"(orange)。
+| "当"(italic)它有效时。
+
+; cipher for corrupted thought/speech: "for a catalyst use the specified synthetic enzyme in the specified quantity:"
+
+; some endings suggest they will go and investigate the lab themselves, but ofc the player has formatted the termainls; but they couldn't access them themselves anyway. They mean they will look for other clues in the lab
+
+; Watch your back: Semis too busy to help him get you though (Wraw-Cerebat concern) / you've helped them already - and if this is after the official Semi alliance, well, they wouldn't (or maybe Innis would...); hollow threat anyway, as goes to lab themself and tries to brute force it; gets buried underground with Wraw at end?
+
+; presumably they could try and get the recipe from the Wraw - but they're clearly opposed to the Wraw, and it would be too difficult
+
+; good-end: in theory, could stop the Wraw invasion? But I think the implication here is that The Synthesis needs time, which the invasion doesn't have
+
+; "Growing sufficient opium poppies will be challenging" - sufficient quantities for them and everyone in the valley, irrespecitve of the contents of the recipe shared
+
+; although the player does not get information about what caused the Calamity, as they might have expected, perhaps they did after all...

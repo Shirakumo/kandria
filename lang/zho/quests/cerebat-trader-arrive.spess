@@ -1,0 +1,147 @@
+; character voice: London cockney, male
+# talk-trader/talk-to-trader
+~ cerebat-trader-quest
+| 你来这里是要做交易吗？
+~ player
+| Cerebat议会在哪里？
+~ cerebat-trader-quest
+| ……
+| 小声点，行吗！
+| 你想见他们做什么？
+~ player
+- 这是私人事务。
+  ~ cerebat-trader-quest
+  | 是这样啊。那就确保保持这样。
+- 我想问他们一些问题。
+  ~ cerebat-trader-quest
+  | 给个友善的建议：现在不是问问题的好时机。
+- 我来自Noka。
+  ~ cerebat-trader-quest
+  | Noka？那个试图在地面生活的新派系？
+  | 如果你问我的话，就是一群疯狂的混蛋。无意冒犯。
+~ cerebat-trader-quest
+| 无论如何，你不能见议会 - 他们不见任何人。
+| 但你很幸运，我是优质信息的供应商，刚才已经证明了。
+| 我还有更多可以分享。
+| 但不是全部免费。商人得谋生，尤其是在这些时候。
+~ player
+- 那是什么时候？
+  ~ cerebat-trader-quest
+  | ……
+  | 啊，好样的！伙计，你差点就骗到我了！
+  | 但在我告诉你任何事情之前，我想要一些东西。
+- 你想要什么？
+  ~ cerebat-trader-quest
+  | 哦，不是很多。真的不多。只是……
+- 我理解。
+  ~ cerebat-trader-quest
+  | 好。这是个简单的经济问题，不是吗？
+~ cerebat-trader-quest
+| 如果我要冒生命危险，你也得冒你的。
+| 你看，平常的商队都过不来，所以维持生计有点难。
+| 我们就说是…… "{(var 'trader-bribe)}个废料零件"(orange)，怎么样？
+~ player
+- 所以这是贿赂？
+  ~ cerebat-trader-quest
+  | 不，这是交易。
+  ~ player
+  - 太贵了。
+    < haggle
+  - 好吧，我付。
+    ~ cerebat-trader-quest
+    | 好。但不用急。
+- 我能得到折扣吗？
+  < haggle
+- 如果这是你想要的。
+  ~ cerebat-trader-quest
+  | 是的。但不用急。
+! label patient
+~ cerebat-trader-quest
+| "考虑一下。我还会在这里。"(orange)
+! label goodbye
+| 不要见外！
+~ player
+| "的确。"(light-gray, italic)
+? (<= (var 'trader-bribe) (item-count 'item:parts))
+| ~ player
+| | (:giggle)"好吧，"我已经有足够的钱付给他了"(orange)……"(light-gray, italic)
+| | (:normal)"另外我也可以"通过清道和捕鱼然后卖给像{#@trader-nametag}和{#@islay-nametag}这样的商人来储备更多"(orange)。"(light-gray, italic)
+|?
+| ~ player
+| | "好吧，"我还没有足够的钱付给他 - 我最好先赚更多废料零件"(orange)。"(light-gray, italic)
+| | "如果其他方法都失败了，清道和打鱼然后卖给像{#@trader-nametag}和{#@islay-nametag}这样的商人应该会有帮助。"(orange, italic)
+? (active-p (find-task 'q8-meet-council 'task-search))
+| ! eval (deactivate (find-task 'q8-meet-council 'task-search))
+| ! eval (activate (find-task 'q8-meet-council 'task-search-hold))
+
+; "If all else fails" / "like by" - hinting at sidequests without banging over the head with it, since they've already been tutorialised and hinted at in dialogue several times
+; both paths also nice reminder that traders exist in case you've not traded with either yet, or even forgotten about Sahil's arrival quest
+; ofc, this guy isn't prepared to trade just yet, and it would be silly to generate the money to pay him, from him
+
+# haggle
+~ cerebat-trader-quest
+| ...
+| 我喜欢你的直接。而且我喜欢好的讨价还价。
+| 好吧，给我一个报价！
+! label haggle-reset
+~ player
+- 100.
+  ~ cerebat-trader-quest
+  | 哈哈！这个不错。
+  | …… 哦，你是认真的……
+  | 你为什么不再试一次。
+  < haggle-reset
+- 300.
+  ~ cerebat-trader-quest
+  | ……？
+  | 你真是个大胆的家伙，不是吗。
+  | 600.
+  ~ player
+  - 450.
+    ~ cerebat-trader-quest
+    | ...
+    | 你真是个狡猾的家伙，但好吧 - 我们成交了。
+    ! eval (setf (var 'trader-bribe) 450)
+  - 成交。
+    ~ cerebat-trader-quest
+    | 啊哈！我们成交了。
+    ! eval (setf (var 'trader-bribe) 600)
+- 500.
+  ~ cerebat-trader-quest
+  | ……？
+  | 600.
+  ~ player
+  - 550.
+    ~ cerebat-trader-quest
+    | ...
+    | 你真是个狡猾的家伙，但好吧 - 我们成交了。
+    ! eval (setf (var 'trader-bribe) 550)
+  - 成交。
+    ~ cerebat-trader-quest
+    | 啊哈！我们成交了。
+    ! eval (setf (var 'trader-bribe) 600)
+- 700.
+  ~ cerebat-trader-quest
+  | ...
+  | 800.
+  ~ player
+  - 750.
+    ~ cerebat-trader-quest
+    | ...
+    | 好吧 - 我们成交了。
+    ! eval (setf (var 'trader-bribe) 750)
+  - 成交。
+    ~ cerebat-trader-quest
+    | 啊哈！我们成交了。
+    ! eval (setf (var 'trader-bribe) 800)
+- 900.
+  ~ cerebat-trader-quest
+  | ……？
+  | __成交！__
+  ! eval (setf (var 'trader-bribe) 900)
+~ cerebat-trader-quest
+| 那么就是"{(var 'trader-bribe)}废料零件"(orange)！
+| 但是"不用急着去弄。慢慢来！我还会在这里"(orange)。
+< goodbye
+
+; technically against style to start sentences with numbers, but they need to be figures here for ease of comprehension, and it's better than styling the choices as "(Offer 100)" for example, since instead we capture the back and forth blurting of numbers that haggling involves

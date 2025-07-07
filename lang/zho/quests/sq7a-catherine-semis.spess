@@ -1,0 +1,61 @@
+# intro/intro-chat
+~ catherine
+| (:excited)当然，你在想什么？和{#@alex-nametag}进展如何？
+~ player
+- 不太好。
+  ~ catherine
+  | (:concerned)...呃，怎么说？
+  | (:normal)你知道吗：别担心。我确信你已经有够多事要处理了。我会和{#@fi-nametag}谈。
+  | (:concerned)...尽管有谣言四起，关于Wraw入侵脑蝠族。
+  | 是真的吗？
+- 我们有更大的问题。
+  ~ catherine
+  | (:concerned)真的？比如什么？
+  ~ player
+  | 半机械姐妹认为Wraw已经入侵了脑蝠族。
+  ~ catherine
+  | (:concerned)哦...
+  | 该死。
+  | 是真的吗？
+- 半机械姐妹想要你回去。
+  ~ catherine
+  | (:concerned)...
+  ~ player
+  - 你想回去吗？
+    ~ catherine
+    | (:concerned)不太想。我不知道{#@fi-nametag}有没有告诉你，但她们并没有真正照顾我。
+  - {#@fi-nametag}说你不会想回去。
+    ~ catherine
+    | (:concerned)她说得对。她们并没有真正照顾我。
+  ~ catherine
+  | 别误会 - 她们的技能和工具确实很棒。工程师的梦想。
+  | (:concerned)但不行。{#@innis-nametag}可能是个真正的婊子。{#@islay-nametag}有时候也是。
+  | (:excited)我一到足够大的年龄就匆忙离开了那里。
+  | (:concerned)实际上这有点愚蠢。如果{#@fi-nametag}和其他人没有找到我，我可能已经死了。
+  | (:normal)但我仍然在这里！
+  | (:concerned)无论如何，这些谣言怎么样？关于Wraw入侵脑蝠族？
+  | 是真的吗？
+~ player
+- [(complete-p 'q8a-bribe-trader) 是的，脑蝠族切断了他们的水源。|]
+  ~ catherine
+  | (:excited)他们做了什么？呵，也许他们确实有骨气。不过...
+- [(not (complete-p 'q8a-bribe-trader)) {#@fi-nametag}不这么认为。|]
+  ~ catherine
+  | (:concerned)你听起来不太确信。
+- [(complete-p 'q8a-bribe-trader) 他们似乎是。|]
+  ~ catherine
+  | (:concerned)...
+  | 就好像我们还没有足够的担心。
+- [(not (complete-p 'q8a-bribe-trader)) 我不知道。|]
+  ~ catherine
+  | (:concerned)那可不好。
+- [(not (complete-p 'q8a-bribe-trader)) 我不认为是真的。|]
+  ~ catherine
+  | (:concerned)我希望你是对的。
+- 这有什么关系？
+~ catherine
+| (:concerned)下面维持事物团结的那点胶水要归功于脑蝠族。
+| 如果她们消失了...那就是开放季节了。
+| 我想知道"{#@fi-nametag}会怎么做"(orange)。
+
+; these "rumours" are what soon convince Fi to send you down to investigate the Cerebats, find out if they have been invaded after all
