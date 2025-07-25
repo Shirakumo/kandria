@@ -8,7 +8,7 @@
 # instead ensure SBCL is in your PATH, and perform the following line
 # on your own.
 
-exec sbcl --dynamic-space-size 4GB --noinform --no-sysinit --no-userinit --load "$0" --eval '(org.shirakumo.fraf.kandria.install:install)' --quit
+exec sbcl --dynamic-space-size 4GB --noinform --no-sysinit --no-userinit --load "$0" --quit
 
 # The script will set up Quicklisp inside the Kandria distribution and
 # also install any other prerequisite libraries.
@@ -78,13 +78,16 @@ exec sbcl --dynamic-space-size 4GB --noinform --no-sysinit --no-userinit --load 
               (error "Fuck")
               (uiop:copy-stream-to-stream stream output)))
         (unwind-protect
-             (load output)
+             (let ((*standard-output* (make-broadcast-stream)))
+               (load output))
           (delete-file output))))))
 
 (defun install-quicklisp (&rest args)
   (unless (find-package 'quicklisp-quickstart)
     (load-quicklisp-quickstart))
-  (a quicklisp-quickstart install args))
+  (let ((*trace-output* (make-broadcast-stream))
+        (*standard-output* (make-broadcast-stream)))
+    (a quicklisp-quickstart install args)))
 
 (defun status (format &rest args)
   (format *query-io* "; ~?~%" format args))
@@ -92,9 +95,11 @@ exec sbcl --dynamic-space-size 4GB --noinform --no-sysinit --no-userinit --load 
 (defun install-environment (&optional (path *kandria-root*))
   (unless (find-package :quicklisp)
     (status "Installing Quicklisp...")
-    (install-quicklisp :path path))
+    (install-quicklisp :path (merge-pathnames "quicklisp/" path)))
   (unless (f ql-dist find-dist "shirakumo")
-    (f ql-dist install-dist "http://dist.shirakumo.org/shirakumo.txt" :prompt NIL))
+    (let ((*trace-output* (make-broadcast-stream))
+          (*standard-output* (make-broadcast-stream)))
+      (f ql-dist install-dist "http://dist.shirakumo.org/shirakumo.txt" :prompt NIL)))
   (unless (or (probe-file (merge-pathnames "install/" *kandria-root*))
               (probe-file (merge-pathnames ".install" *kandria-root*)))
     (status "Please enter the location of the Kandria game installation.")
