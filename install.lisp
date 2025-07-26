@@ -107,10 +107,12 @@ exec sbcl --dynamic-space-size 4GB --noinform --no-sysinit --no-userinit --load 
     (status "Please enter the location of the Kandria game installation.")
     (status "On Steam you can find this by right-clicking Kandria, and selecting \"Browse local files\".")
     (loop for pathname = (uiop:parse-native-namestring (read-line *query-io*) :ensure-directory T)
-          do (if (probe-file pathname)
-                 (with-open-file (stream (merge-pathnames ".install" *kandria-root*) :direction :output)
-                   (write-string (uiop:native-namestring pathname) stream))
-                 (status "The given path does not exist. Please try again."))))
+          do (cond ((probe-file pathname)
+                    (with-open-file (stream (merge-pathnames ".install" *kandria-root*) :direction :output)
+                      (write-string (uiop:native-namestring pathname) stream))
+                    (return))
+                   (T
+                    (status "The given path does not exist. Please try again.")))))
   (load (merge-pathnames "setup.lisp" path))
   (status "Done!"))
 
