@@ -1,5 +1,5 @@
 #|
-exec sbcl --dynamic-space-size 4GB --noinform --no-sysinit --no-userinit --load "$0"
+exec sbcl --dynamic-space-size 4GB --noinform --no-sysinit --no-userinit --load "$0" --end-toplevel-options "$@"
 |#
 
 (in-package #:cl-user)
@@ -47,6 +47,7 @@ again.")))
 
 ;;; Launch Emacs
 (unless (or swank::*connections*
+            (find "-n" (rest sb-ext:*posix-argv*) :test #'string-equal)
             (find :darwin *features*)
             (find-package '#:slynk)
             (find-package '#:org.shirakumo.fraf.kandria.install))
@@ -57,3 +58,6 @@ again.")))
       (error (e)
         (format *error-output* "; Failed to launch emacs: ~a~%" e)
         (format *error-output* "; Please use slime-connect with port ~a.~%" port)))))
+
+(when (find "-b" (rest sb-ext:*posix-argv*) :test #'string-equal)
+  (asdf:make :kandria))
