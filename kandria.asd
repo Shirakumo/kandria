@@ -215,8 +215,7 @@
   :serial T
   :defsystem-depends-on (:deploy)
   :depends-on ((:feature (:not :nx) :trial-glfw)
-               (:feature (:not :nx) :trial-steam)
-               #++(:feature (:not :nx) :trial-gog)
+               (:feature (:not (:or :arm :nx)) :trial-steam)
                (:feature (:not :trial-release) :trial-notify)
                (:feature :nx :trial-nxgl)
                :trial-alloy
