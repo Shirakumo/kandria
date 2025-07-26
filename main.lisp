@@ -231,6 +231,8 @@ Support:     mailto:shirakumo@tymoon.eu
     (connect (port ui 'color) (port blend 'trial::b-pass) scene))
   (when (setting :debugging :fps-counter)
     (enter (make-instance 'trial:fps-counter) (scene main)))
+  (when (setting :debugging :system-stats)
+    (enter (make-instance 'trial:system-stats) (scene main)))
   (register (make-instance 'walkntalk) scene))
 
 (defmethod load-game (state (main main))

@@ -53,6 +53,7 @@
     (funcall function entity)))
 
 (defmethod layer-index ((counter fps-counter)) 100)
+(defmethod layer-index ((counter system-stats)) 100)
 
 (defmethod map-visible (function (camera camera) (world world))
   (let ((visible (visible-listeners camera)))
@@ -65,6 +66,8 @@
       (declare (dynamic-extent #'thunk))
       (let ((fps (node 'fps-counter world)))
         (when fps (thunk fps)))
+      (let ((system (node 'system-stats world)))
+        (when system (thunk system)))
       (if (region world)
           (map-visible #'thunk camera (region world))
           (call-next-method #'thunk camera world)))))
