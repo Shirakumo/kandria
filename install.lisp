@@ -93,6 +93,8 @@ exec sbcl --dynamic-space-size 4GB --noinform --no-sysinit --no-userinit --load 
   (format *query-io* "; ~?~%" format args))
 
 (defun install-environment (&optional (path *kandria-root*))
+  (when (probe-file (merge-pathnames "quicklisp/setup.lisp" path))
+    (load (merge-pathnames "quicklisp/setup.lisp" path)))
   (unless (find-package :quicklisp)
     (status "Installing Quicklisp...")
     (install-quicklisp :path (merge-pathnames "quicklisp/" path)))
