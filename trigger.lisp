@@ -337,10 +337,10 @@
 (define-asset (kandria wind-mesh) static
     (let* ((arr (make-array (+ (* 4 4) (* 4 16)) :element-type 'single-float))
            (vbo (make-instance 'vertex-buffer :data-usage :stream-draw :buffer-data arr))
-           (vao (make-instance 'vertex-array :bindings `((,vbo :size 2 :offset 0 :stride 16)
-                                                         (,vbo :size 2 :offset 8 :stride 16)
-                                                         (,vbo :size 2 :offset 64 :stride 16 :instancing 1)
-                                                         (,vbo :size 2 :offset 72 :stride 16 :instancing 1))
+           (vao (make-instance 'vertex-array :bindings `((,vbo :index 0 :size 2 :offset 0 :stride 16)
+                                                         (,vbo :index 2 :size 2 :offset 8 :stride 16)
+                                                         (,vbo :index 3 :size 2 :offset 64 :stride 16 :instancing 1)
+                                                         (,vbo :index 4 :size 2 :offset 72 :stride 16 :instancing 1))
                                              :size 4 :vertex-form :triangle-fan)))
       (macrolet ((seta (&rest els)
                    `(progn ,@(loop for i from 0 for el in els
@@ -455,8 +455,8 @@
 
 (define-class-shader (wind :vertex-shader)
   "layout (location = 0) in vec2 position;
-layout (location = 2) in vec2 offset;
-layout (location = 3) in vec2 stretch;
+layout (location = 3) in vec2 offset;
+layout (location = 4) in vec2 stretch;
 
 uniform mat4 view_matrix;
 uniform mat4 projection_matrix;
