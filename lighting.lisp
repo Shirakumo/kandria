@@ -1,5 +1,6 @@
 (in-package #:org.shirakumo.fraf.kandria)
 
+(defconstant SHADOW-MAP-SCALE #-nx 1 #+nx 2)
 (defvar *gi-info* (make-hash-table :test 'eq))
 
 (defmethod gi ((name symbol))
@@ -236,6 +237,7 @@ void main(){
 ;;        get lit even when the player is behind them, which is not
 ;;        correct. No idea how to fix that, though.
 (define-class-shader (lit-entity :fragment-shader 100)
+  (format NIL "#define SHADOW_MAP_SCALE ~d" SHADOW-MAP-SCALE)
   "uniform sampler2D lighting;
 uniform sampler2D shadow_map;
 
@@ -255,7 +257,7 @@ vec4 apply_lighting_flat(vec4 color, vec2 offset, float absorption, vec2 world_p
     vec2 dir = gi.location - world_pos;
     float dirl = (length(dir)-10)/10;
     float attenuation = 1.0/max(1.0, pow(dirl, gi.attenuation));
-    float shade = clamp(2-3*texelFetch(shadow_map, pos, 0).r, 0, 1);
+    float shade = clamp(2-3*texelFetch(shadow_map, pos/SHADOW_MAP_SCALE, 0).r, 0, 1);
     truecolor += gi.light*clamp(shade*(1-absorption)*attenuation, 0, 1)*color.rgb;
   }
 
@@ -277,7 +279,7 @@ vec4 apply_lighting(vec4 color, vec2 offset, float absorption, vec2 normal, vec2
     float dirl = (length(dir)-10)/10;
     float incidence = clamp(dot(normalize(dir), normal), 0, 1);
     float attenuation = 1.0/max(1.0, pow(dirl, gi.attenuation));
-    float shade = clamp(2-3*texelFetch(shadow_map, pos, 0).r, 0, 1);
+    float shade = clamp(2-3*texelFetch(shadow_map, pos/SHADOW_MAP_SCALE, 0).r, 0, 1);
     incidence = mix(1.0, incidence, clamp((dirl-1)/3, 0, 1));
     truecolor += gi.light*clamp(shade*(1-absorption)*incidence*attenuation, 0, 1)*color.rgb;
   }

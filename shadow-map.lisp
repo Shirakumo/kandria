@@ -74,7 +74,7 @@
 
 (define-shader-pass shadow-map-pass (per-object-pass single-shader-pass)
   ((name :initform 'shadow-map-pass)
-   (shadow-map :port-type output :texspec (:internal-format :r8))
+   (shadow-map :port-type output :texspec (:internal-format :r8 :width (truncate width SHADOW-MAP-SCALE) :height (truncate height SHADOW-MAP-SCALE)))
    (local-shade :initform 0.0 :accessor local-shade)
    (fc :initform 0 :accessor fc))
   (:buffers (kandria gi)))
