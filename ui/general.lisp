@@ -125,7 +125,10 @@
   (:handle
    :pattern (case alloy:focus
               (:strong colors:white)
-              (T colors:accent)))
+              (T colors:accent))
+   :offset (ecase (alloy:orientation alloy:renderable)
+                     (:horizontal (alloy:point (alloy:pw (alloy:slider-unit alloy:renderable)) 0))
+                     (:vertical (alloy:px-point 0 (alloy:ph (alloy:slider-unit alloy:renderable))))))
   (:display
    :text (format NIL "~,2f" alloy:value)))
 
