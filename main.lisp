@@ -218,9 +218,6 @@ Support:     mailto:shirakumo@tymoon.eu
         (rendering (make-instance 'rendering-pass))
         (disp-render (make-instance 'displacement-render-pass))
         (displacement (make-instance 'displacement-pass))
-        ;; This is dumb and inefficient. Ideally we'd connect the same output
-        ;; to both distortion and UI and then just make the UI pass not clear
-        ;; the framebuffer when drawing.
         (ui (make-instance 'ui-pass :base-scale (setting :display :ui-scale)))
         (blend (make-instance 'combine-pass)))
     (connect (port shadow 'shadow-map) (port rendering 'shadow-map) scene)
