@@ -94,6 +94,7 @@
     '((:normal "ambience track_ bar.ogg")))
 
 (define-assets-from-path (kandria sprite-data "sprite/*.lisp" :ignore-directory T :coalesce NIL)
+  (T :min-filter :nearest :mag-filter :nearest)
   (player-profile :min-filter :linear :mag-filter :linear)
   (catherine-profile :min-filter :linear :mag-filter :linear)
   (jack-profile :min-filter :linear :mag-filter :linear)
