@@ -139,7 +139,7 @@
   (:border (simple:bounds :duration 0.2))
   (:background (simple:pattern :duration 0.2)))
 
-(defclass tab (tab-button)
+(defclass tab (tab-button alloy:focus-parent)
   ((tab-view :initarg :tab-view :accessor tab-view)
    (alloy:focus-element :initform NIL :accessor alloy:focus-element)
    (alloy:layout-element :initform NIL :accessor alloy:layout-element)
@@ -152,9 +152,13 @@
 
 (defmethod alloy:enter ((element alloy:element) (button tab) &key)
   (when (typep element 'alloy:focus-element)
-    (setf (alloy:focus-element button) element))
+    (setf (alloy:focus-element button) element)
+    (when (alloy:focus-tree button)
+      (alloy::set-focus-tree (alloy:focus-tree button) element)))
   (when (typep element 'alloy:layout-element)
-    (setf (alloy:layout-element button) element)))
+    (setf (alloy:layout-element button) element)
+    (when (alloy:layout-tree button)
+      (alloy::set-layout-tree (alloy:layout-tree button) element))))
 
 (defmethod alloy::set-focus-tree :before (value (item tab))
   (when (alloy:focus-element item)
