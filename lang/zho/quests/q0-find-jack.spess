@@ -1,0 +1,74 @@
+# 2-interact-catherine/interaction
+~ jack
+| (:annoyed)… 别给我说这些废话！你到底去哪里了？这又是谁？
+~ catherine
+| (:cheer)你什么意思？我把机器人带回来了。我让她工作了。
+~ jack
+| (:annoyed)天哪… 这正是我们所需要的。
+~ player
+- 很高兴见到你。
+- 我想你就是{#@jack-nametag}。
+- 你有什么问题？我来这里是为了帮忙。
+~ jack
+| (:shocked)我去，它会说话…
+~ catherine
+| (:concerned){#@jack-nametag}，怎么了？和我说说。
+! eval (setf (nametag (unit 'jack)) (@ jack-nametag))
+~ jack
+| 水系统又出故障了，这次我不觉得是泵的问题。肯定是哪里漏了。
+| 如果我们不能尽快修复，我们就完了。我们会失去整个该死的作物。
+~ catherine
+| (:concerned)糟糕！… 我应该在这里的。
+~ jack
+| 是的，你应该在。
+~ catherine
+| 好吧，我现在在这里了。我能做什么？
+~ jack
+| 你可以在这里待着照看工程部。其他人可能需要你。
+| 我要下去检查供水管道。
+~ catherine
+| 你不能去 - 你的腿还没好。而且你知道没有什么是我修不好的。
+~ jack
+| 不行。太危险了。
+~ catherine
+| (:excited)机器人可以和我一起去。你应该看看她能做什么。
+~ jack
+| (:annoyed)你疯了吗？机器人可不是玩具！
+| 你去"Wraw领地"(red)深处探洞都比和那东西一起去任何地方要安全。
+~ player
+- 我可以保护她。
+  ~ jack
+  | (:annoyed)你能个鬼。
+  | 在这里机器人可不是随处可见的。有人说你们就是现在没有树木的原因。还有建筑物。
+  | 还有人类。
+- 你为什么怕我？
+  ~ jack
+  | (:annoyed)机器人可不是随处可见的。有人说你们就是现在没有树木的原因。还有建筑物。
+  | 还有人类。
+- 你的担心是对的。
+  ~ catherine
+  | (:concerned)她在开玩笑…… 对吧？！
+  ~ jack
+  | (:shocked)我不太确定……
+  | (:annoyed)机器人可不是随处可见的。你知道他们说什么 - 你们就是现在没有树木的原因。还有建筑物。
+  | 还有人类。
+~ catherine
+| 听着，我们现在必须修好水系统，否则我们就完了。而我是你最好的选择。
+| 我和我的机器人伙伴。
+~ jack
+| (:annoyed)该死……
+| (:normal)好吧。你最好不要让我失望。
+~ catherine
+| (:cheer)太好了！！
+~ jack
+| (:annoyed)但我警告你，机器人：如果你伤她一根毫毛，我就再把你埋三十年！
+~ catherine
+| (:concerned)谢谢“<-爸爸->”。我们走了。
+~ jack
+| 等等，Cathy - 拿上这个对讲机。“有任何麻烦就用无线电联系”(orange)。
+~ catherine
+| 我会的。不要担心 - 我们很快就会回来的。
+| 好的，机器人 - “准备好出发就告诉我”(orange)。
+! eval (activate 'q1-ready)
+; meet Jack for the first time - player already presumes this is Jack
+; The mission here is too urgent for Catherine to think, oh, let's establish the android's name

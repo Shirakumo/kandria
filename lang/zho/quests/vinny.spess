@@ -1,0 +1,28 @@
+# intro/first
+~ vinny
+| 嘿，你身上有什么好蘑菇吗？我说的不是花菌那种基础货色。我需要稀有品种。
+| 你知道的，藤蘑菇、肉蘑菇之类的。
+~ player
+| 抱歉，不能说我遇到过任何这种蘑菇。
+~ vinny
+| 好吧，听着，如果你找到我朋友Scoot，告诉他Vinny需要他的新酱汁，好吗？
+! eval (setf (nametag (unit 'vinny)) "Vinny")
+~ player
+| (:thinking)"我完全不知道他在说什么。我的数据库"没有关于藤蘑菇或肉蘑菇，或任何叫Scoot的人的记录"(orange)。奇怪。"(light-gray, italic)
+| (:normal)嗯，我会的。还有什么我能帮你的吗？
+~ vinny
+| 好的，如果你有其他蘑菇，我会从你手里买下来。
+| 我告诉你，配上合适的酱汁这些东西...太棒了！
+
+# shop/info
+~ player
+| 你又是谁来着？
+~ vinny
+| 你怎么能忘记你的伙伴Vinny呢？
+| 大灾雾之前我曾是世界著名的<-内容创作者->，你知道的。
+| 现在我只是和我的伙伴Scoot一起处理肉类。
+~ player
+| (:thinking)"我真的不知道该怎么看他。我想当网络名人还存在时，他们确实都很古怪，不过他看起来比我记忆中的那些人要放松得多。"(light-gray, italic)
+
+# shop/sell
+! eval (show-sales-menu :sell 'vinny)

@@ -1,0 +1,39 @@
+# intro/intro-chat
+~ catherine
+| 实际上，我确实有一个"小项目你可以帮忙"(orange)，如果你有时间的话。
+| 这是私下进行的，但我认为它可能是我们的救星："风力发电"(orange)！
+| (:excited)我不知道你有没有注意到，但地面上可能会很大风 - 甚至有暴风雨。我想"建造涡轮机"(orange)并利用风力发电。
+| 很酷，对吧？
+~ player
+- 算我一个。
+- 像旧世界那样？
+  ~ catherine
+  | (:excited)对！我听说过那些巨大的风车。
+  | (:normal)不过这些会更适中一些。
+  ~ player
+  - 我有兴趣。
+  - 我现在就算了。
+    < leave
+- 现在不行，抱歉。
+  < leave
+~ catherine
+| 我首先需要的是一些基本组件："风速计"(orange)、"盘式制动器"(orange)、"变压器"(orange)。
+| 我想"每样5个"(orange)，刚好让我开始。我可以"付钱给你"(orange)。
+| "半机械姐妹应该有一些闲置的"(orange)。"脑蝠族也是 - 她们的风洞里已经有涡轮机了"(orange)。
+| 谢谢，{(nametag player)}。
+? (and (<= 5 (item-count 'item:anemometer)) (<= 5 (item-count 'item:disc-brake)) (<= 5 (item-count 'item:transformer)))
+| ~ player
+| | (:giggle)"哦，等等 - "我已经有足够的那些物品了"(orange)！"(light-gray, italic)
+|? (< 0 (+ (item-count 'item:anemometer) (item-count 'item:disc-brake) (item-count 'item:transformer)))
+| ~ player
+| | "好吧至少"我已经有一些那些物品了"(orange)。"(light-gray, italic)
+|?
+| ~ player
+| | "我身上没有任何那些东西。真糟糕。"(orange, italic)
+! eval (complete task)
+! eval (reset interaction)
+
+# leave
+
+; there's an implication here that there'll be more stages to this quest, and that the player may eventually see the windmills assembled; but neither happens, due to the confirmation of the Wraw invasion of the entire valley (q10-wraw) - this itself is part of the tragedy of the story
+; if the player does this quest, or any other quest where Catherine refers to them by name (such as sq1-leaks), after changing their name in q7, then how has Catherine gotten word so quickly to use their new name, if you've come straight from Fi? Can assume Fi let people know quickly. And I don't really want to limit use of the player's new name to avoid this, as it's a cool reflection of the player's choice

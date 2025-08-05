@@ -1,0 +1,5 @@
+station-surface "天顶中央配送站"
+station-east-lab "无根实验室 Z05C"
+station-semi-sisters "导光公寓 3055"
+station-cerebats "快速交付点 23-605-A"
+station-wraw "涓流电站 52M"

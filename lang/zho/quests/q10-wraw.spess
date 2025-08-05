@@ -1,0 +1,35 @@
+# wraw-objective/reminder
+~ fi
+| (:unsure)你回来了…… 我仍然需要你“深入Wraw领土”(orange)并“查明{#@zelah-nametag}计划何时以及在哪里抓捕我们”(orange)。
+| (:normal)试试他们的“主要房间，在他们领土的西部”(orange)。
+| 保持安全，并“尽快联系我”(orange)。
+~ player
+| “我在地图上标记了可能要调查的位置。”(orange, italic)
+
+; a new spawn item in this area too is refined oil, which matches this description
+# wraw-warehouse/warehouse
+~ player
+| “这个仓库有充足的供应品。”(light-gray, italic)
+| (:thinking)“煤炭和油罐表明“大量生产”(orange)，而且他们已经有相当可观的地热储备。”(light-gray, italic)
+? (complete-p 'q10-boss)
+| ~ player
+| | (:embarassed)“这个规模足以制造足够的机甲和武器来“入侵整个山谷”(orange) - 从山脉到海岸……”(light-gray, italic)
+| | (:normal)“我需要“联系{#@fi-nametag}”(orange)。”(light-gray, italic)
+| | “…… “FFCS无法突破”(orange) - 这是来自岩浆的磁干扰，或者“Wraw正在行动”(orange)。”(light-gray, italic)
+| | “我最好“离开这里”(orange)并“无论如何都要交付我的报告”(orange)。”(light-gray, italic)
+| ! eval (complete 'wraw-objective)
+| ! eval (activate 'q10a-return-to-fi)
+| ! eval (setf (music-state 'region3) :normal)
+| ! eval (setf (music-state 'camp) :ambient)
+| ! eval (setf (music-state 'desert) :ambient)
+| ! eval (activate (unit 'wraw-border-1))
+| ! eval (activate (unit 'wraw-border-2))
+| ! eval (activate (unit 'wraw-border-3))
+| ! eval (activate (unit 'station-east-lab-trigger))
+| ! eval (activate (unit 'station-cerebat-trigger))
+| ! eval (activate (unit 'station-semi-trigger))
+| ! eval (activate (unit 'station-surface-trigger))
+|?
+| ~ player
+| | 我需要"检查地图上最后一个要看的地方"(orange) - "寻找他们活动的更多迹象"(orange)。
+

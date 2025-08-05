@@ -1,0 +1,153 @@
+# 3-interact-islay/interaction
+~ islay
+| 这是最后的组件。
+~ catherine
+| 太好了！ - 哦，嘉！我没看到你在那里{(nametag player)}。(:excited)我就知道你会为我们度过难关。
+| (:normal)好吧，炸弹快准备好了。
+~ fi
+| (:unsure)炸弹？我以为只有一个炸弹。
+~ islay
+| 我们现在认为几个小一些的炸药会更有效。
+~ fi
+| (:annoyed)你打算什么时候告诉我？
+~ islay
+| 现在？
+| 我们想要堵塔他们用来运兵的多条隧道，同时尽量减少对我们共同基础设施的损害。
+~ fi
+| 好吧，听起来对我来说没问题。
+~ catherine
+| 用这种方式我们不需要更多的组件 - 现在我们有了这批货就不需要了。
+~ islay
+| 好。尽快完成组装。
+| …… 这只剩下一个问题，我们怎么安放它们。
+~ player
+| "{#@islay-nametag}正在看着{#@fi-nametag}。我想他们之间正在达成一种理解。"(light-gray, italic)
+~ islay
+| 我认为你是我们最好的选择，{(nametag player)}。
+~ player
+- 我同意。
+  < brave
+- 我不会选择其他方式。
+  < brave
+- 那这就是自杀。
+  ~ fi
+  | (:unsure)……
+  | 我希望不是。
+  ~ catherine
+  | (:concerned)我也是- 抱歉，我回去工作。
+  ~ fi
+  | 但你是我们在这方面最好的人选，尽管我希望你不是。
+  < continue
+
+# brave
+~ fi
+| (:unsure)...
+| (:normal)你是我们在这方面最好的人选，尽管我希望你不是。
+! eval (setf (var 'brave) T)
+< continue
+
+# continue
+~ islay
+| 确实有危险。但你可以保卫自己对抗他们的士兵。
+| 而且我相信炸弹不会过早引爆。
+~ player
+- [(var 'brave) 我说过我会做的。|]
+  ~ islay
+  | 好的。情况怎么样？
+- [(not (var 'brave)) 没关系。我知道我没有选择。|]
+  ~ fi
+  | (:happy)但你有。你一直都有。
+  ~ islay
+  | 好的。情况怎么样？
+- 多有信心？
+  ~ islay
+  | 非常有信心。
+  | {#@catherine-nametag}，情况怎么样？
+- 我相信{#@catherine-nametag}的手艺。
+  ~ catherine
+  | 谢谢。我只是在做{#@islay-nametag}告诉我的事。
+  ~ islay
+  | 你是一个伟大的工程师，{#@catherine-nametag}。他们很幸运有你- //我们//很幸运有你。
+  | 说到这个，情况怎么样？
+~ catherine
+| 它们准备好了。给你，{(nametag player)}。
+! eval (store 'item:explosive 3)
+! eval (status "Received 3 Explosive")
+~ player
+| "所以我有了"3个炸弹"(orange)，每个都有大砖头那么大。"(light-gray, italic)
+| "它们看起来像塑料炸药，类似于我看到的拆弹小组使用的那种。"(light-gray, italic)
+~ catherine
+| 不用担心，它们抗冲击。这些家伙只有在我们发送信号时才会爆炸。
+! eval (store 'item:receiver 13)
+! eval (status "Received 13 RF Detonator")
+~ player
+| "还有一把附在起爆帽上的射频接收器 - 引爆器。"(light-gray, italic)
+~ catherine
+| 只要在你安放好后"将接收器推入炸药"(orange) - "每个放2个以确保安全"(orange)。
+| This will prime the charge packs and activate the receivers.
+| I've given you a few spares, just in case.
+~ islay
+| 每个接收器都设置为一个独立的频率，所以只有我们才能触发它们。而且它应该能穿透 Wraw的干扰。
+~ fi
+| 它们在哪里引爆？
+~ islay
+| ……
+~ fi
+| (:unsure)好吧？
+~ islay
+| 在旧的"Zenith Hub西面的Brother办公室"(orange)；
+| 在你们的"东面低边界，旧Rootless医院公寓之外"(orange)；
+| …… 在"水泵房旁边的淹水洞穴"(orange)。
+~ fi
+| (:annoyed)你不是认真的吧？
+~ islay
+| 我们在你们领土底部的监控设备已经开始断线。
+| 我们需要现在就在这里阻止Wraw。
+~ fi
+| 那么爆炸我们的水泵就是做到这一点的方法？
+~ islay
+| 这是我们的水泵。我们让你们使用它。
+~ fi
+| (:annoyed)……
+~ islay
+| 而且我们不是要摧毁水泵，只是摧毁它旁边的房间 - 足以堵塔隧道并关闭通道。
+| 下沉房间里的水将帮助实现这一点。
+| 我们可以稍后修理对水泵的任何损害，但损害将是微乎其微的。
+~ fi
+| (:annoyed)听起来我没有选择。
+~ islay
+| 这会有效的。
+~ islay
+| 好吧，{(nametag player)}："安放所有3个炸弹，然后到达安全距离"(orange) - 我说至少到"Zenith Hub"(orange)。
+| 你的"FFCS在炸弹位置可能无法工作"(orange)，因为它们靠近边界。
+| 如果可以，"在你安放每个炸弹后报告"(orange)。如果不可以，那么我们将"等待你从Zenith Hub的通话"(orange)。
+| "然后我们将引爆它们"(orange)，按顺序，一举将Wraw埋葬。
+~ catherine
+| (:excited)当一个爆炸时，它们都会爆炸！
+~ islay
+| (:normal)记住在哪里"安放它们"(orange)：
+| "Zenith Hub西面的旧Brother办公室；"(orange)
+| "水泵旁边的淇水房间；"(orange)
+| "旧Rootless医院公寓东面。"(orange)
+~ player
+- 明白了。
+  ~ islay
+  | 一路平安。
+  ~ catherine
+  | 再见{(nametag player)}。
+- 祈祷我好运。
+  ~ islay
+  | 好运。
+  ~ catherine
+  | 好运{(nametag player)}！
+  ~ fi
+  | 你不需要它。
+- 我会再见到你的。
+  ~ fi
+  | 你会的。
+  ~ islay
+  | 一路平安。
+  ~ catherine
+  | 再见{(nametag player)}。
+
+; the bombs assembly is finished quickly here by Catherine, but it's only 3 bombs. The process was also begun back in Semis territory before they moved to the surface, and Catherine has been finishing it off while she waited for these final components. So it didn't take much to finish them here

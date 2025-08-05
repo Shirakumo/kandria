@@ -1,0 +1,129 @@
+# wraw-objective-return/objective
+
+# wraw-fi-ffcs/wraw-border
+~ player
+| "我已经越过了Cerebat边界。我现在应该能够联系{#@fi-nametag}了。"(light-gray, italic)
+| {#@fi-nametag}...
+| {#@fi-nametag}...?
+| (:thinking)"…… 该死。"FFCS仍然无法突破"(orange)。我想"Wraw绝对在行动"(orange)。"(light-gray, italic)
+| (:normal)"我需要"回到地面"(orange)。现在。"(light-gray, italic)
+
+# wraw-fi-ffcs/station-trigger
+~ player
+| "我离开了Wraw领土。我现在应该能够联系{#@fi-nametag}了。"(light-gray, italic)
+| {#@fi-nametag}...
+| {#@fi-nametag}...?
+| (:thinking)"…… 该死。"FFCS仍然无法突破"(orange)。我想"Wraw绝对在行动"(orange)。"(light-gray, italic)
+| (:normal)"我需要"回到地面"(orange)。现在。"(light-gray, italic)
+
+# wraw-fi-ffcs/station-surface-trigger
+~ player
+| "甜蜜的家。"(light-gray, italic)
+| "我应该尽快"向{#@fi-nametag}报告即将到来的Wraw入侵"(orange)。"(light-gray, italic)
+
+# return-fi/talk-fi
+~ fi
+| (:unsure){(nametag player)}，我们一直在等。
+~ player
+- Wraw来了。
+  ~ jack
+  | (:annoyed)我们已经知道了 - 他们是来找我们的。
+- Wraw建立了一支入侵军队。
+  ~ fi
+  | (:unsure)...
+  ~ catherine
+  | (:concerned)天哪。
+- Wraw来征服整个山谷。
+  ~ fi
+  | (:unsure)你说整个山谷是什么意思？
+~ player
+| 他们有机甲 - 动力装甲士兵。我想他们已经制造了足够的数量来强行占领整个沙漠，一直到海洋。
+| 而且我想他们已经在行进中。
+~ fi
+| (:unsure)...
+| …… 机甲？他们没有机甲。为什么？{#@zelah-nametag}只是因为水才攻击Cerebats。他不是战争贩子。
+~ jack
+| (:annoyed)他现在是了！他会奴役我们，或者杀死我们。
+~ fi
+| (:unsure)我……
+~ jack
+| {#@fi-nametag}？……
+| (:annoyed){#@fi-nametag}？我们该怎么办？
+| (:shocked)…… 要我命。我们需要离开这里！
+~ catherine
+| (:concerned)去哪里？
+| 我们还要考虑老人和孩子。
+~ player
+- 可能有个地方。
+  ~ fi
+  | 哪里？
+- 我和他们的一个机甲连接了……
+  ~ jack
+  | (:annoyed)省省你的龌阰性生活吧，机器人。
+  ~ fi
+  | (:annoyed)<-JACK!-> 现在不行！
+  | (:normal)继续。
+- 机器人住在山里吗？
+  ~ jack
+  | (:annoyed)天哪，来了。
+  ~ fi
+  | (:unsure)你为什么这么问？
+~ player
+| 我发现了一个听起来像是机器人派系的提及，"来源"(Genera)，他们生活在西部的山区。
+| 我想这是给他们机甲的指令，让他们寻找。
+~ jack
+| (:annoyed)天哪，如果Wraw想要找根本不存在的东西，他们真的疑了。
+~ catherine
+| (:concerned)我们不知道他们不存在。{(nametag player)}在这里，不是吗？
+~ fi
+| 山里的机器人是个古老的谣言。
+| 但我不认为我们可以把未来寄托在这上面 - 沙漠无法通过，更不用说山地地形了。
+~ jack
+| (:annoyed)我们完了。简单明了。
+~ catherine
+| (:concerned)……
+~ fi
+| 还没有。只要我们还能战斗就不会。
+~ jack
+| (:shocked)…… 战斗？什么，对抗Wraw机甲、士兵和狩猎小队？
+| 这是自杀。他们会把我们切成碎片，吃掉剩下的。
+~ catherine
+| 这不是自杀。我们有一个机器人。
+~ player
+- 我准备好战斗了。
+  ~ fi
+  | 谢谢你，{(nametag player)}。你将是无价的。
+- 我会杀死他们所有人！
+  ~ catherine
+  | (:concerned)……
+- 我不能对抗一支军队。
+  ~ jack
+  | (:annoyed)那你有什么用？
+  ~ catherine
+  | (:concerned)比你有用多了！
+  ~ jack
+  | (:shocked)……
+  | Cathy……
+  ! eval (setf (var 'fight-army) T)
+~ fi
+| 我们必须开始准备。
+| {#@jack-nametag}，用对讲机叫所有人回到营地。
+~ jack
+| (:annoyed)所以这真的在发生…… 要命。
+~ fi
+| {#@catherine-nametag}，去"储藏室"(red)收集你能找到的武器。
+~ catherine
+| (:excited)交给我！
+~ fi
+| 我会找出{#@trader-nametag}去了哪里。
+! eval (move-to 'check-supplies 'catherine)
+! eval (move-to 'eng-jack 'jack)
+! eval (setf (walk 'jack) T)
+! eval (setf (location 'trader) (location 'trader-semi-loc))
+! eval (setf (direction 'trader) 1)
+? (not (complete-p 'trader-arrive))
+| ! eval (activate 'trader-chat)
+| ! eval (activate 'trader-shop)
+; no reward - it's battle stations. If player needs more currency here, they need to get it from sidequests and selling to traders.
+
+; moving Sahil back to his start location in the Semis base. Yes it's arguably closer to the frontline, but he wants strength in numbers, or to hide in a familiar corner maybe

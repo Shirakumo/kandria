@@ -1,0 +1,34 @@
+# bomb-explode/islay-reminder
+~ islay
+| (:nervous)我需要集中精力处理这个炸弹。
+| (:normal)你需要"去 Brother 办公室的那个"(orange)。{#@catherine-nametag}，你可以"重新布线"(orange)。
+| (:nervous)快点！
+
+# bomb-explode/call-explode
+! eval (ensure-nearby 'player 'catherine)
+~ islay
+| {(nametag player)}，{#@catherine-nametag} - "医院公寓的炸弹已经重新布线"(orange)。
+| (:normal)你对付那个机甲怎么样？完毕。
+~ player
+- 它不再是威胁了。完毕。
+  ~ islay
+  | 好的。
+- 我踢了它的屁股。完毕。
+  ~ islay
+  | 太棒了。
+- 划掉一个机甲。希望没有更多的了。完毕。
+  ~ islay
+  | 我没有看到任何。
+~ islay
+| 你"向Brother办公室炸弹出发"(orange)。我要向-
+~ player
+| "有什么东西打断了她。那是什么声音？"(light-gray, italic)
+~ player
+- {#@islay-nametag}？
+- 这是地震吗？
+- 趴下！
+! eval (deactivate (unit 'bomb-explode-1))
+! eval (deactivate (unit 'bomb-explode-2))
+! eval (activate 'explosion)
+! eval (move :freeze player)
+; lock player controls early in this case, before epilogue script

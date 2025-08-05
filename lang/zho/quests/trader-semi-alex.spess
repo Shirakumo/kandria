@@ -1,0 +1,48 @@
+# chat-semi-alex/chat-semi-alex
+? (not (complete-p 'q7-my-name))
+| ? (and (complete-p 'q5a-rescue-engineers) (complete-p 'q5b-investigate-cctv) (not (var 'alex-done)))
+| | ~ alex
+| | | (:angry)怎么了？害怕亲自和我说话吗，安卓人？<-嘆息->。
+| | ~ islay
+| | | 酒保已经停止为他们服务了，这是个好消息。
+| | ~ alex
+| | | (:angry)喂，安卓人！<-嘆息->。我听说你甚至还偷了我在这里的工作。
+| | ~ islay
+| | | 你们可以为了诺卡族而合作，{#@alex-nametag} - 和{(nametag player)}一起回到{#@fi-nametag}那里，重新获得你的旧生活。
+| | ~ alex
+| | | "{(nametag player)}"，哈。别让我笑了-<-嘆息->。我是陌生人。对我自己的人民而言是陌生人。对我自己而言也是陌生人。
+| | | 滚开，你们两个。
+| | ~ islay
+| | | 让我们"让他们安静一会儿"(orange)。他们醒酒后可能会有不同的想法。
+| | | 你为我们做了很多，但没得到什么回报。
+| | | "把这些零件作为补偿"(orange) - 希望很快你也能拥有{#@alex-nametag}作为回报。
+| | ! eval (store 'item:parts 600)
+| | ! eval (status "Received 600 Scrap Part")
+| | ! eval (setf (var 'alex-fee) T)
+| | | [(not (complete-p 'q6-return-to-fi)) 你应该"回去向{#@fi-nametag}汇报"(orange)。我会留意{#@alex-nametag}。 | 别担心，我会留意他们的。]
+| | | 我们再聊。
+| | ! eval (setf (var 'alex-done) T)
+| | ! eval (clear-pending-interactions)
+| |? (var 'alex-done)
+| | ~ islay
+| | | 你自己看吧 - 不过我已经告诉酒保不要为他们服务。
+| | | 我很快就要回控制室了，但我在他们身上装了隐藏摄像头 - Alex放个屁都逃不过我的眼睛。
+| |?
+| | ~ islay
+| | | 恐怕没好多少。(:normal)不过我觉得聊天在起作用。
+| | | 如果我能让他们离开这个酒吧，这就是个开始。
+|? (and (complete-p 'q7-my-name) (not (complete-p 'q11-recruit-semis)))
+| ~ islay
+| | (:nervous)"他们走了。我不知道在哪里"(orange)。他们就这样起身离开了。设法逃过了我们大部分的摄像头。
+| | (:normal)如果他们没有返回诺卡族，那我就不知道了。
+| | 我希望他们安好。而且清醒。
+| | 对不起，我应该更仔细地盯着。这不是借口，但现在发生了很多事情。
+| ? (not (var 'alex-fee))
+| | | 你为我们做了很多，但没得到什么回报。
+| | | 请"把这些零件作为补偿"(orange)。
+| | ! eval (store 'item:parts 600)
+| | ! eval (status "Received 600 Scrap Part")
+| | ! eval (setf (var 'alex-fee) T)
+|  
+| ~ islay
+| | 小心点，{(nametag player)}。

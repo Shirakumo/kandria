@@ -1,0 +1,142 @@
+# task-reminder/reminder
+~ innis
+| (:angry)你已经忘了？(:normal)在倒塔的铁路隧道中"找到工程师"(orange)，为他们做你能做的事，然后报告。
+| 在"我们领土的远西上方"(orange)。
+
+# task-engineers/engineers
+? (not (var 'engineers-intro))
+| ~ player
+| | {#@innis-nametag}派我来的。你们是失踪的Semi工程师吗？
+| ! eval (setf (var 'engineers-intro) T)
+? (active-p (unit 'blocker-engineers))
+| ? (not (var 'engineers-first-talk))
+| | ~ semi-engineer-chief
+| | | 你到底是怎么进来的？
+| | ~ player
+| | | 这个竖井上面有一条隧道 - 虽然人类无法通过。
+| | ~ semi-engineer-chief
+| | | ...一个//人类//？所以你是...
+| | ~ player
+| | - 不是人类，是的。
+| |   ~ semi-engineer-chief
+| |   | ...一个机器人，我还活着并且还在呼吸。
+| | - 一个机器人。
+| |   ~ semi-engineer-chief
+| |   | ...我还活着并且还在呼吸。
+| | - 你们在这里做什么？
+| | ~ semi-engineer-chief
+| | | "我们就是你要找的工程师"(orange)。感谢上帝有{#@innis-nametag}。
+| | | 隧道倒塔了；我们失去了主管和一半的同事。
+| | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
+| | ~ semi-engineer-chief
+| | | 我们"无法突破"(orange) - 你能吗？机器人能做到吗？
+| | | "倒塔就在前面。"(orange)
+| | ! eval (setf (var 'engineers-first-talk) T)
+| | ! eval (activate 'task-wall-location)
+| |?
+| | ~ semi-engineer-chief
+| | | "倒塔的墙"(orange)情况怎么样？我们不能永远待在这里。
+| | ! eval (activate 'task-wall-location)
+|?
+| ? (not (var 'engineers-first-talk))
+| | ~ semi-engineer-chief
+| | | 你是谁？你是怎么突破倒塔隧道的？
+| | ~ player
+| | - 我...不是人类。
+| |   ~ semi-engineer-chief
+| |   | ...一个机器人，我还活着并且还在呼吸。
+| | - 我是一个机器人。
+| |   ~ semi-engineer-chief
+| |   | ...我还活着并且还在呼吸。
+| | - 你们在这里做什么？
+| | ~ semi-engineer-chief
+| | | "我们就是你要找的工程师"(orange)。感谢上帝有{#@innis-nametag}。
+| | | 隧道倒塔时我们失去了主管和一半的同事。
+| | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
+| | ~ semi-engineer-chief
+| | | 但现在路线开放了，情况有所好转。
+| | | 谢谢你。
+| | ! eval (setf (var 'engineers-first-talk) T)
+| |?
+| | ~ semi-engineer-chief
+| | | 我不能相信你能通过...现在食物和医疗用品也能通过了。谢谢你。
+| | | 我们可以恢复挖掘工作。会很慢，但我们会完成的。
+  
+! eval (reset (find-task 'world 'task-world-engineers))
+! eval (activate (find-task 'world 'task-world-engineers))
+! eval (complete task)
+
+# task-return-engineers/return-engineers
+~ innis
+| 受伤的工程师已经在回来的路上了 - 我已经派猎人引导他们。
+? (complete-p 'task-engineers)
+| | 他们也很感激你去看望他们 - 谢谢你。
+|?
+| | (:angry)遗憾的是你没有和他们说话 - 他们真的需要有人谈谈，让他们知道发生了什么。
+  
+~ innis
+| 我们失去了人手很艰难，但有时这就是进步的代价。我会让{#@islay-nametag}通知他们的家人。
+| 更重要的是：你是怎么清理那些碎片的？关于机器人有什么我不知道的吗？
+~ player
+- 我找到了一个薄弱点并推了推。
+  ~ innis
+  | 这听起来很合理。(:sly)你的核聚变反应堆会产生必要的力量，而你的纳米管肌肉能够承受冲击。
+- 我用我的剑切穿了。
+  ~ innis
+  | 我相信你做到了。你的核聚变反应堆会产生必要的力量，而你的纳米管肌肉能够承受冲击。
+  | (:sly)更不用说你的Artemis剑刃的固有强度。
+- （说谎）我拉了一个隐藏的杠杆并说，"芝麻开门！"
+  ~ innis
+  | (:angry)...
+  | 有趣。(:sly)我怀疑这更多的是与你的核聚变反应堆和纳米管肌肉的可怕组合有关。
+- 你不想知道吗。
+  ~ innis
+  | (:sly)我确实想知道。不用担心，在这里事情不会保密太久。
+  | 我期望核聚变反应堆和纳米管肌肉的组合使你相当可怕。
+~ innis
+| 这确实意味着我们的工程工作重新步入正轨。双关语。考虑到这一点...
+| 我妹妹以她无穷的智慧，认为如果我们-...(:angry)好吧，//如果我//，正式给你地铁访问权，这可能是个好姿态。
+| ...为了Semi Sisters和你之间的良好关系。
+| (:normal)这当然会"加快你的差事 - 一旦你找到了其他站点"(orange)。
+? (or (unlocked-p (unit 'station-surface)) (unlocked-p (unit 'station-east-lab)) (unlocked-p (unit 'station-semi-sisters)) (unlocked-p (unit 'station-cerebats)) (unlocked-p (unit 'station-wraw)))
+| | (:sly)你已经对地铁很熟悉了。但现在这是正式的。我会发出通知，这样你就不会被...逃捕。
+| | (:normal)"站点遍布整个山谷"(orange)。虽然在我们扩展网络时"不是所有站点都在运营"(orange)。
+|?
+| | (:normal)"它们遍布整个山谷"(orange)，虽然在我们扩展网络时"不是所有站点都在运营"(orange)。
+| | 只需"从路线地图中选择你的目的地"(orange)并上火车。
+? (not (unlocked-p (unit 'station-surface)))
+| ! eval (activate (unit 'station-surface))
+? (not (unlocked-p (unit 'station-semi-sisters)))
+| | (:normal)"我们的站点在这个中央区块下面。"(orange)
+| ! eval (activate 'semi-station-marker)
+|?
+| ! eval (complete 'semi-station-marker)
+? (complete-p 'q5b-investigate-cctv)
+| ~ innis
+| | 你已经向我们证明了你的价值。我可能还要再次找你帮忙。
+| | 但现在你应该"给{#@fi-nametag}打电话"(orange)。
+| | 遗憾的是你不能说服{#@alex-nametag}回家。(:sly)我迫不及待地想看到你告诉她时她脸上的表情。
+| | 我想机器人也不能做所有事情。
+| | (:angry)告诉她"我们也希望{#@catherine-nametag}回来"(orange)。由于Wraw的侵犯，我们比以往任何时候都更需要她。
+| | (:sly)如果她不同意，就告诉她我会"关闭水源"(orange)。
+| ! eval (activate 'q6-return-to-fi)
+| ! eval (activate (unit 'fi-ffcs-1))
+| ! eval (activate (unit 'fi-ffcs-2))
+| ! eval (activate (unit 'fi-ffcs-3))
+| ! eval (activate 'sq14-intro)
+| ! eval (setf (location 'synthesis) 'synthesis-cerebat)
+| ! setf (direction 'synthesis) 1
+|?
+| ~ innis
+| | 我会再见到你的。
+? (not (active-p (find-task 'world 'task-world-engineers)))
+| ! eval (activate (find-task 'world 'task-world-engineers))
+  
+! eval (complete task)
+! eval (reset interaction)
+
+; dinnae = don't (Scots)
+; didnae = didn't (Scottish)
+; ken = know (Scots)
+; couldnae = couldn't (Scots)
+; canna = cannot (Scottish)

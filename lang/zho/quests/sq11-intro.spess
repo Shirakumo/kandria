@@ -1,0 +1,92 @@
+; sent here by Fi before starting q8 in earnest (a medium priority errand), or catching up with Jack later on when high priority things are happening (like the Wraw need investigating, or their invasion is confirmed, or needing to recruit Semis and build bomb)
+; Jack could be: milling around in Engineering at this point; on the surface with Fi and Catherine awaiting q10 wraw invasion hand in; calling people back to camp (from Engineering) after Wraw invasion reported in q10a; on the surface next to Innis and co once the Semis have arrived (q11a)
+# intro/intro-chat
+~ jack
+| 啊，好，你来了。
+~ player
+- {#@fi-nametag}说你想见我。
+- 我们能快点吗？
+  ~ jack
+  | 我也很乐意。你也不是我优先考虑的人。
+- 这最好很重要。
+  ~ jack
+  | 当然。如果不重要我也不会浪费口舌跟你说话。
+~ player
+| "{#@jack-nametag}看起来有些羞怯，这一点也不像他。"(light-gray, italic)
+~ jack
+| 你想做个忠诚的Noka人，给Wraw点颜色看看吗？我说的不是按规矩办事。
+~ player
+- 你想到什么了？
+- 没兴趣。
+  < leave
+~ jack
+| 他们破坏我们，我们就破坏他们。简单。
+| 他们觉得搞乱我们的水管、威胁我们的生命很有趣。好吧，我说我们去搞乱他们的电站管道！
+| (:annoyed)让他们试试没有水怎么制造蒸汽！
+| (:normal)"在他们领土的最东端有一条供水管道"(orange)，很偏僻 - 我以前负责维护它。
+| "摧毁那根管道"(orange)你就能给他们"致命一击"(orange)！
+| 我们没有什么武器或炸药 - 但我希望作为机器人，你能想到办法。
+| 当然，{#@fi-nametag}对这些一无所知，我想保持这样。
+| 那么，你参加吗？
+! label questions
+~ player
+- 我应该怎么"想办法"？
+  ~ jack
+  | (:shocked)你是机器人。有把剑。就做你毁灭世界时做的事情。
+  ~ player
+  | "..."(light-gray, italic)
+  < questions
+- 现在你信任我了？
+  ~ jack
+  | (:annoyed)不。但如果你这么做了，你//可能//会说服我你不是为Wraw工作的。
+  < questions
+- 你从中能得到什么？
+  ~ jack
+  | 你觉得呢？我不想让Wraw再威胁我们一秒钟。
+  | 我不会撒谎，我也有个人原因。我因为Wraw的"工作作风"失去了一条腿。
+  | Betina，我妻子，制作了这个假肢。当我不够强壮无法工作时，他们反而让她拼命工作。他们杀死了她。
+  ~ player
+  - 我很抱歉。
+  - 那些混蛋。
+    ~ jack
+    | (:annoyed)叛徒也会这么说...
+  - 假肢让你想起她...
+  ~ jack
+  | Cathy说她想给我做一条新腿，更好的。但我不会用这条腿换世界上任何东西。
+  < questions
+- 你对Wraw了解很多...
+  ~ jack
+  | (:annoyed)嘿！我不是这里的叛徒，记住。
+  | (:normal)嗯，我们曾经是Wraw，不是吗 - 我自己、{#@fi-nametag}、{#@alex-nametag}，还有其他人。不过不包括Cathy。
+  | 我承认，尽管那里的生活很艰难，我并不急于离开 - 没有理智的人会住在地面上。
+  | (:shocked)当我听说这个想法来自{#@fi-nametag}时，我吓坏了。(:normal)一旦{#@alex-nametag}找到了那些种子...我想它们在她心中种下了种子。
+  | 她扭转了我的想法 - 需要一个总工程师。我想在那里我已经没有什么可活的了；尽管，大灾变后，Wraw是我唯一知道的。
+  < questions
+- 破坏他们的电站可能很危险。
+  ~ jack
+  | (:annoyed)废话。
+  | (:normal)但最坏会发生什么？它爆炸并把他们活埋？听起来不错。
+  | 你能跑得很快，不是吗？你会没事的！
+  | 但如果你按我说的做，它不会爆炸。它只是会停止工作。相信我。
+  < questions
+- 我想退出。
+  < leave
+- 我参加。
+~ jack
+| 好吧。你知道该做什么："去Wraw领土的东部，找到为他们地热电站供水的水管 - 然后摧毁它"(orange)。
+| "我不需要进度汇报 - 我甚至不需要也不想你回来告诉我什么时候完成。"(orange)
+| 我只想要你去做。为了Noka。好吗？
+| 忘记我们谈过这些。
+! eval (activate 'sq11-sabotage-station)
+! eval (complete task)
+! eval (reset interaction)
+# leave
+~ jack
+| 不想证明我错了？那很好。
+| 我哪儿也不去 - "当你想明白时来找我"(orange)。
+
+; Wraw's "work ethic" could also refer to the "potion", explained more in Synthesis quest
+
+; Jack's (opt-in) explanation about the Wraw may be the first time you learn the Noka came from the Wraw; or you may have learned this from Fi (q2-intro) or during early Sahil chats. If the latter, then at least you have some privy knowledge Jack doesn't know about, and he doesn't labour the point. Why would your character still prompt this if they have this knowledge already? - because Jack seems to have some VERY specific knowledge about the Wraw, so it's a chance to throw some sus his way
+
+; quest could run concurrent to the Semi's bomb parts acquisition - so Jack's comment about burying the Wraw if the station explodes, even though he's pretty much out of the loop when it comes to the bomb plans (even when the Semis arrive on the surface), is thematically relevant

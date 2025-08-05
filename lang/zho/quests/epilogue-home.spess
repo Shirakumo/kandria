@@ -1,0 +1,42 @@
+# 4-interact-catherine/interaction
+~ catherine
+| (:concerned)天哪。"地面…… 我们拥有的一切…… 完全被夹平了"(orange)。
+| (:concerned)我们要做什么？我们要去哪里？
+| (:excited)我"看不到任何Wraw - 我们一定把他们埋了"(orange)！
+| (:concerned)糟糕。前面的那些是"尸体还是人"(orange)？请大家都没事……
+~ player
+| "有"人在地上，一动不动。但其他人还站着"(orange)。"(light-gray, italic)
+~ player
+- 我应该识别他们吗？
+  ~ catherine
+  | (:concerned)……
+  | 我不知道…… 是的，我想。
+  < identify
+- 我需要知道他们是谁。
+  ~ catherine
+  | (:concerned)……
+  | 是的，我想你是对的。
+  < identify
+- 我们继续前进吧。
+  < end
+
+# identify
+~ player
+| "放大并提高分辨率……"(light-gray, italic)
+| 是"{#@fi-nametag}、{#@jack-nametag}和{#@innis-nametag}"(orange)。"他们还好"(orange)，但他们看起来"担心得要命"(orange)。"{#@fi-nametag}在照料她的手臂"(orange)……
+| 那个"可能是{#@trader-nametag}"(orange)站在远处，还有"其他几个人"(orange)。我"看不到{#@islay-nametag}"(orange)。
+~ catherine
+| (:concerned)哦不……
+~ player
+| "没有{#@alex-nametag}，也没有Wraw"(orange)。
+< end
+
+# end
+~ catherine
+| (:concerned)"好的，我们走吧。"(orange)
+
+; the Fi injured ellipsis works if you flirted with Fi, and if not, then it works for Catherine's benefit
+
+# walk-end/walkntalk
+~ catherine
+| (:excited)好！！看起来你很好！"我们走"(orange)。

@@ -1,0 +1,49 @@
+# 4-interact-catherine/interaction
+~ catherine
+| (:concerned)…… 天哪，你让我在那里担心了。我一直在试图重新激活你。
+| 你还好吗？
+~ player
+- 发生了什么？
+  ~ catherine
+  | (:concerned)什么没发生。
+  | 我不知道我昏了多久。"自从我醒来已经过了大约十五分钟"(orange) - 我不得不从瓦砾中把你拉出来。
+- 我在哪里？
+  ~ catherine
+  | (:concerned)或多或少在我们之前的地方。
+  | 我不知道我昏了多久。"自从我醒来已经过了大约十五分钟"(orange) - 我不得不从瓦砾中把你拉出来。
+- 这次我是了多少十年？
+  ~ catherine
+  | 幸好没有，"只有大约十五分钟"(orange)。好吧，这是"在我醒来之后"(orange) - 我不得不从瓦砾中把你拉出来。
+  | (:concerned)你的头部受到的撞击一定比我更大。
+~ catherine
+| (:concerned)那个炸弹几乎"在我们脸上爆炸"(orange) - 我认为"它们都爆炸了"(orange)。
+| (:excited)这意味着"我们赢了"(orange)？！
+| (:concerned)但"那些爆炸比它们应该的更大"(orange)……
+| 我四处看了看 - 我认为他们"已经完全倒塌了这个地区"(orange)。
+| 我希望{#@islay-nametag}还好。
+~ player
+- 她会没事的。
+  ~ catherine
+  | (:concerned)我希望如此。
+- 你还好吗？
+  ~ catherine
+  | (:concerned)我的头很痛。我可能有脑震荡，但我会没事的。
+- 她在炸弹旁边，所以……
+  ~ catherine
+  | (:concerned)……
+  | 但我们也是，而且我们还好。大部分。
+~ catherine
+| (:concerned)这个地方不安全。我们"回家"(orange)吧。"你能走路吗"(orange)？
+~ player
+- 我想可以。
+  ~ catherine
+  | (:excited)好的，尽你最大努力。
+- 只有一种方法可以知道。
+  ~ catherine
+  | 慢慢来。
+- 如果不能，我不认为你能背得动我。
+  ~ catherine
+  | 你比看起来更重。
+; place is unsafe, so even with concussion, it's better for Catherine to leave. You lead the way though
+
+; on waking up, is no longer immediately obvious to the character that they're in the grave (see level design change Sep 22) - however, we can assume this becomes clear to them, AND the player, once they've explored a bit on the way out

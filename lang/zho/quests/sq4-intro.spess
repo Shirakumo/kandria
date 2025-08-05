@@ -1,0 +1,66 @@
+; Semi Sisters robotics engineer, female, strong empathy for machines, talky scientist
+# intro/intro-chat
+~ semi-roboticist
+| 嘿，机器人！
+| 你想帮助一个机器人学家吗？这是重要的工作："调查伺服机器人的智慧。甚至是感知能力"(orange)。
+! eval (setf (nametag (unit 'semi-roboticist)) (@ semi-roboticist-nametag))
+~ player
+- 你引起了我的注意。
+  ~ semi-roboticist
+  | 好。我研究的一些背景：
+- 我以为它们是自动机器人。
+  ~ semi-roboticist
+  | 前自动机器人。但是是的，你说得对，大部分情况下是这样。
+  | 然而，那些伺服机器人比表面看起来的更复杂。我不是说它们能变成汽车和直升机。
+  ~ player
+  - 告诉我更多。
+  - 也许以后吧。
+    < leave
+- 也许以后吧。
+  < leave
+~ semi-roboticist
+| 在大灾变之前，伺服机器人就是那样 - 服务机器人。
+| 你会发现它们做各种事情，从吸尘你的公寓，到在你最喜欢的餐厅当服务员。
+| 机器人也做一些那样的工作，对吧？事实上，有些人认为伺服机器人是机器人的残留。
+| 不过它们不是，尽管有表面的相似性。
+| 但我跑题了：我说的是个性、情感、感觉。比我们认为伺服机器人拥有的更高的智能。
+| 我亲眼看到过，我的几个同事也看到过。但我需要更多数据。
+| 如果我靠得太近，我可能会被砍头 - 考虑到我们对待它们的方式，谁能责怪它们呢。
+| 但你可以接近。你可以"研究它们"(orange)。至少用它们理解的唯一语言："暴力"(orange)。
+! label questions
+~ player
+- 你想让我通过杀死它们来研究它们？
+  ~ semi-roboticist
+  | 如果你不杀死它们，它们会杀死你。此外，这是生成我需要的数据的唯一方法。
+  < questions
+- 我已经与伺服机器人战斗过了，那不会有帮助吗？
+  ~ semi-roboticist
+  | 不太会。我正在研究特定时间的特定群体 - 我需要比较它们的结果，看看它们如何变化。
+  < questions
+- 我已经摧毁了很多...
+  ~ semi-roboticist
+  | 我想"杀死"是你要找的词。
+  | 但嘿，别担心。我确信那是自卫，对吧？
+  < questions
+- 你不能远程研究它们吗？
+  ~ semi-roboticist
+  | 有时候可以，虽然我们在那个区域没有摄像头。还有一个小问题...诱饵。
+  < questions
+- 我想退出。
+  < leave
+- 目标在哪里？
+~ semi-roboticist
+| 我现在"正在研究的群体"(orange)在"我们领土的最东端"(orange)。有点难到达，但我觉得你会没事的。
+| 当然，我可以"为你的工作给予补偿"(orange)："400个废料零件"(orange)。{#@islay-nametag}慷慨地资助这种研究。
+| "我会等你的。"(orange)
+| 别被杀了。
+! eval (activate 'sq4-analyse-robots 'sq4-boss)
+! eval (complete task)
+! eval (reset interaction)
+# leave
+~ semi-roboticist
+| 随你便。但你错过了 - 我不只是在说废料零件。
+| 如果你改变主意，你"知道在哪里找到我"(orange)。
+
+; "more to those Servos than meets the eye", "And I don't mean they turn into cars and helicopters" - referring to a popular old-world toy line ;)
+; I'm not normally one for pop culture references, but hey the game has robots, and I did work on transformers once so I couldn't resist this

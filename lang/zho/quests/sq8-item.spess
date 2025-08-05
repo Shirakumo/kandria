@@ -1,0 +1,24 @@
+# 3-interact-/interaction
+~ player
+| (:thinking)"一块"长袍碎片"(orange)...它是"与议员头饰相同的毛皮"(orange)，而且"两者都镶着珍珠边"(orange)。"(light-gray, italic)
+| (:embarassed)"它也"满是血迹"(orange)。"(light-gray, italic)
+? (not (complete-p 'q11a-bomb-recipe))
+| ~ player
+| | ""议员们不在这里"(orange)，但我想我可以把"地点3"(red)从我的清单上划掉。"(light-gray, italic)
+| ? (not (complete-p (find-task 'sq8-find-council 'move-npc)))
+| | ~ player
+| | | "我需要"检查其他2个地点"(orange)。"(light-gray, italic)
+| | ! eval (activate (find-task 'sq8-find-council 'move-npc))
+| |? (complete-p (find-task 'sq8-find-council 'site-1) (find-task 'sq8-find-council 'site-2))
+| | ~ player
+| | | "那是最后一个要检查的地方。如果议会还活着，他们不在这里。我最好"回到脑蝠族商人那里"(orange)。"(light-gray, italic)
+| | ! eval (activate (find-task 'sq8-find-council 'task-return))
+| |?
+| | ~ player
+| | | "还剩下"1个地点"(orange)要检查。"(light-gray, italic)
+|?
+| ~ player
+| | "这不是好兆头，但现在"回去向脑蝠族商人报告已经太晚了"(orange)。"(light-gray, italic)
+| | "我应该离开这里。"(light-gray, italic)
+
+; ^ invariant check included

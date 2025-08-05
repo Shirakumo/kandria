@@ -1,0 +1,121 @@
+; Semi Sisters robotics engineer, female, strong empathy for machines, talky scientist
+# boss-reminder/reminder
+~ semi-roboticist
+| 机器人的大脑并不像人们说的那么厉害，是吧？或者也许是你的脑袋被撞坏了。
+| 你需要"在最东端找到伺服机器人"(orange)，"与它们战斗"(orange)，然后"把你对它们行为的分析带给我"(orange)。
+
+# task-return/servo-return
+~ semi-roboticist
+| 欢迎回来。研究进行得怎么样？我有"4个问题"(orange)，这将帮助我解析结果。
+| 现在仔细想想。
+| "问题1"(orange)：有任何伺服机器人在攻击你之前表现出犹豫吗？
+~ player
+- 你在开玩笑吗？
+  ~ semi-roboticist
+  | 我是科学家。
+  ~ player
+  - 它们没有犹豫，没有。
+  - 那我不确定。
+- 没有。
+- 我不确定。
+- 我觉得有几个可能有。
+  ~ semi-roboticist
+  | 有趣。
+~ semi-roboticist
+| "问题2"(orange)：它们是否表现出策略，比如分波攻击？
+~ player
+- 那是一场混战。
+  ~ semi-roboticist
+  | 嗯，是的，我可以想象。嗯不，实际上我想象不出来。
+- 它们一个接一个地来找我。就像那些老电影里一样。
+  ~ semi-roboticist
+  | 我以前很喜欢那些！有趣...
+- 它们没有互相打斗，所以也许？
+  ~ semi-roboticist
+  | 耐人寻味。
+- 它们在咆哮 - 也许那是它们交流策略的方式？
+  ~ semi-roboticist
+  | 一个富有想象力的理论。不过没有得到证实。
+| "问题3"(orange)：有任何机器人对它们的同伴伺服机器人表现出关心吗？
+~ player
+- 没有。
+- 我是它们唯一关心的。或者说，我的死亡是。
+- 站在彼此前面算吗？
+  ~ semi-roboticist
+  | 在如此狭小的空间里，可能不算。
+- 它们都没有逃跑，所以...团结？
+  ~ semi-roboticist
+  | ...不。
+~ semi-roboticist
+| 最后，"问题4"(orange)：有其他机器和伺服机器人在一起吗，还是它们独自一人？
+~ player
+- 飞行无人机。
+  ~ semi-roboticist
+  | 确实。有多少？
+  ~ player
+  - 几个？我不太记得了。
+    ~ semi-roboticist
+    | 那就够了。
+  - 八个。
+    ~ semi-roboticist
+    | 哇，即使在激烈的战斗中你也能数清它们？我印象深刻。
+  - 我不知道。
+    ~ semi-roboticist
+    | 没关系，别担心。我想在激烈的战斗中很难跟踪。
+- (撒谎) 它们是独自一人。
+  ~ semi-roboticist
+  | 我有时看到它们伴随着无人机，但这次没有。
+~ semi-roboticist
+| 好了，我们完成了。这非常有用，谢谢你。
+| 让我"确定你的报酬"(orange)。
+~ player
+- 谢谢。
+  < reward
+- 我真的是这里的实验对象吗？
+  ~ semi-roboticist
+  | 什么？不...
+  | 啊，抱歉。我那么明显吗？
+  | 听着，我确实在研究伺服机器人。但我怎么能错过"同时研究一个机器人"(orange)的机会！
+  ~ player
+  - 没关系。
+    ~ semi-roboticist
+    | 不对，但我很感激你这么说。
+    | 这里，让我"提高你的报酬"(orange)到"500个零件"(orange)作为补偿。
+    < big-reward
+  - 下次问一下。
+    ~ semi-roboticist
+    | 我会的。当然。
+    | 这里，让我"提高你的报酬"(orange)到"500个零件"(orange)作为补偿。
+    < big-reward
+  - 我想要更多补偿。
+    ~ semi-roboticist
+    | 当然。这里，让我"提高你的报酬"(orange)到"500个零件"(orange)作为补偿。
+    < big-reward
+- 没必要。这项工作足够重要。
+  ~ semi-roboticist
+  | 有趣...我的意思是- 你说得对。但这些地方的科学资金充足。
+  | 而且，不是我付钱 - 是{#@islay-nametag}！
+  | 这里，拿着！
+  < reward
+
+# reward
+! eval (store 'item:parts 400)
+! eval (status "Received 400 Scrap Part")
+< end
+
+# big-reward
+! eval (store 'item:parts 500)
+! eval (status "Received 500 Scrap Part")
+< end
+
+# end
+~ semi-roboticist
+| 好吧，我需要将这些伺服机器人数据与我之前的发现进行比较，看看能得出什么结论。
+| 我会用这些来计划我的下一个研究。
+| 再次感谢你。再见，{(nametag player)}。
+! eval (activate (unit 'spawner-5032))
+
+; reactivate world spawner again, now you're away from it
+; the ability to lie here is to skew the results, when you might sense that the roboticist is also discreetly psycho-analysing you (the frequency of questions, and esp the last one)
+; don't have so many questions that the player would want to skip the experiment - need to keep them small in number, but potent (hence no skip choice, which would void the purpose of the quest anyway)
+; no conclusive (lie) answers from the player, which would go against the actual AI behaviour of the Servos - only "maybes"

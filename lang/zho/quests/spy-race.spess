@@ -1,0 +1,81 @@
+# hub
+~ semi-spy
+| 好的，我想我准备好了。
+| 记住："找到那个酒壶，把它带回这里，我就停止计时"(orange)。
+| 希望没有人会发现这是个完全的骗局 - 我会继续看起来像个真正的Cerebat骗子！
+| 我为你安排了"5条路线"(orange)，你可以一次做一条。
+| 那么，"你为第一场比赛准备好了吗"(orange)？
+! eval (clear-pending-interactions)
+
+# start
+? (timer-quest)
+| ~ semi-spy
+| | 你"已经在进行计时赛"(orange)！这是非常不合规的。
+| < quit
+
+~ semi-spy
+| 听着，听着！计时赛即将开始！
+| "我过分夸张了吗？我会低调一点。"(small)
+| "{(quest:title (quest:find-named 'race task))}."(orange)
+| 这条路线的时间段如下："金牌："(orange) {(format-relative-time gold)} - "银牌："(orange) {(format-relative-time silver)} - "铜牌："(orange) {(format-relative-time bronze)}。
+? (var 'pb)
+| | 你在这条路线上的"个人最佳成绩"(orange)是"{(format-relative-time pb)}"(orange)。
+~ semi-spy
+| 各就各位。预备……出发！
+! eval (complete task)
+! eval (clear-pending-interactions)
+
+# cancel
+~ semi-spy
+| "你要停止比赛吗？"(orange) 这是允许的，不会看起来可疑。事实上这看起来非常真实。
+| 但自然我不能为此奖励你，尽管我很想这样做。
+~ player
+- 不，我会继续比赛。
+  ~ semi-spy
+  | 理解。但时间在流逝！
+- 是的，结束吧。
+  ~ semi-spy
+  | 认为比赛结束了。但不要把我丢在这里不管 - 快回来。
+  ! eval (activate 'cancel-it)
+
+# return
+~ semi-spy
+| 停止计时！
+| 这是我的酒壶，没错！
+~ player
+| (:embarassed)"她正在大口地喂着里面的东西 - 我想我只能等一下。"(light-gray, italic)
+~ semi-spy
+| __啊啊啊啊啊__…… 我需要这个。好的，你的时间是："{(format-relative-time (clock quest))}"(orange)。
+? (and pb (< pb (clock quest)))
+| | 不幸的是，你对你的记录"{(format-relative-time pb)}"(orange)"没有改善"(orange)。
+| | "你要理解，如果我们要继续这个骗局，我必须公平对待。"(small)
+|?
+| ? (not (null pb))
+| | | 这是一个"全新的个人最佳成绩"(orange)！
+| ! eval (setf pb (clock quest))
+| ? (< pb gold)
+| | | 这是"金牌标准"(orange)的时间！
+| | | 这意味着你获得最大奖励，由{#@innis-nametag}提供："750废料零件"(orange)。
+| | ! eval (store 'item:parts 750)
+| | ! eval (status "Received 750 Scrap Part")
+| |? (< pb silver)
+| | | 这是"银牌标准"(orange)的时间！
+| | | 这相当于，由{#@innis-nametag}提供："450废料零件"(orange)。
+| | ! eval (store 'item:parts 450)
+| | ! eval (status "Received 450 Scrap Part")
+| |? (< pb bronze)
+| | | 这是"铜牌标准"(orange)的时间。
+| | | 这意味着你赚得，由{#@innis-nametag}提供："300废料零件"(orange)。
+| | ! eval (store 'item:parts 300)
+| | ! eval (status "Received 300 Scrap Part")
+| |?
+| | | 但很抱歉，这"甚至连铜牌标准都达不到"(orange)。
+| | | "为了保持可信度，我必须扣留你的奖品。你可能也应该看起来很沒丧。"(small)
+| | ~ player
+| | | (:embarassed)"我不确定我的脸在做什么。我看起来很沖丧吗？"(light-gray, italic)
+  
+~ semi-spy
+| 我能让你有兴趣再来一次吗？不要把我放在一边不理。
+! eval (activate 'complete-it)
+
+# quit

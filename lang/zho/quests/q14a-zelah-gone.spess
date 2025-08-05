@@ -1,0 +1,5 @@
+# zelah-gone/zelah-gone-prompt
+~ player
+| "{#@zelah-nametag}走了，暂时的。"(light-gray, italic)
+| "我应该"回到工程部的{#@islay-nametag}和{#@fi-nametag}那里"(orange)。"(light-gray, italic)
+

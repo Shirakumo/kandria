@@ -1,0 +1,82 @@
+; Semi Sisters barkeep, non-binary, French code switching from time to time
+; semi-patron-1 - sober, female
+; semi-patron-2 - drunk, female
+; ambiguous whether this is an alcoholic drink or not, as in q5-intro player can choose that they don't drink alcohol if they prefer
+# intro/intro-chat
+! eval (setf (nametag (unit 'semi-barkeep)) (@ semi-barkeep-nametag))
+! eval (setf (nametag (unit 'semi-patron-1)) (@ semi-patron-1-nametag))
+! eval (setf (nametag (unit 'semi-patron-2)) (@ semi-patron-2-nametag))
+~ semi-barkeep
+| Salut，{(nametag player)}。
+| 我希望你可能会顺道过来。如你所见，这些人手头时间太多了。
+| 你想给这个地方带来一点火花吗？我说的是"计时赛"(orange)。
+~ player
+- 让我听听。
+- 我要走了。
+  < leave
+~ semi-barkeep
+| 首先，我可以给你来一杯饮料吗？当然是免费的。
+! label choice
+~ player
+- 来吧。
+  ~ semi-patron-1
+  | 所以机器人//能//喝酒。你欠我五十个。
+  ~ semi-patron-2
+  | 该死，机器人。但你不是//真的//喝酒，对吗？
+  ~ semi-patron-1
+  | 不要计较技术细节，伙计。如果机器人喝了，就算数。
+  ~ player
+  | (:embarassed)"他们在等着看我会做什么。我被设计成可以喝酒。"(light-gray, italic)
+  | "但现在每个人都在盯着我，我想喝吗？"(light-gray, italic)
+  - （喝了它）
+    ~ semi-patron-1
+    | 嘴！五十个废料零件，非常感谢。
+    ~ semi-patron-2
+    | 啊，糟糕。拿着吧。
+    ~ player
+    | 是的，吃起来像柴油混合海藻。
+    ! eval (setf (var 'lost-bet-2) T)
+  - （放下不喝）
+    ~ semi-patron-2
+    | 看来你欠我的，伙计。
+    ~ semi-patron-1
+    | 去你的，机器人。
+    ! eval (setf (var 'lost-bet-1) T)
+- 不用了，谢谢。
+  ~ semi-barkeep
+  | 如你所愿。
+- 你很平滑。
+  ~ semi-barkeep
+  | 非常感谢。这在这个工作中确实有帮助。
+  | 那么，关于那杯饮料？虽然我不能保证它会这么顺滑。
+  < choice
+- 我要走了。
+  < leave
+~ semi-barkeep
+| 正如我所说，这里的生活可能会有点…… //无聊//。至少对我们这些不受尊敬的领导人家重的人来说是这样。
+| 如你所见，我们过着//好//日子 - 当然，这是按灾难后的标准来说。但这里不会发生太多事情。
+| 所以当一个机器人到达时，人们会注意到。
+~ semi-patron-2
+| 切入正题，好吗？机器人没有一整天的时间。
+? (var 'lost-bet-2)
+| | 如果我要赢回我的钱，我也没有。
+|? (var 'lost-bet-1)
+| ~ semi-patron-1
+| | 如果我要赢回我的钱，我也没有。
+  
+~ semi-barkeep
+| 不着急！一切都会在适当的时候发生。
+| 事情是这样的：我们通过派遣最优秀的猎人去"巡逻并获取独特物品"(orange)来训练他们。我们会"计时"(orange)。
+| 我们想看看你是否 - 确切地说是//何时// - 能够"打破他们的纪录"(orange)。
+| 我们会运行一个奖金池，并"给你一部分奖金 - 你越快得到的越多"(orange)。
+| 让我想想…… 我们有一些"损坏的Genera核心"(orange)闲置着。这些正好适合。
+| 猎人们可以"把它们广泛放置"(orange) - 在我们的领土周围，甚至可能超出范围。
+| "如果你想参加就告诉我"(orange)。同时，我会试图组织这群乱七八糟的人并进行一些赌注。
+! eval (activate 'sq5-race)
+! eval (complete task)
+! eval (reset interaction)
+! label leave
+~ semi-barkeep
+| 走吧，再见。不要离开太久。
+
+; mate/matey = friend, in this context

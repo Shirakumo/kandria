@@ -1,0 +1,52 @@
+# 1-interact-fi/interaction
+~ player
+- 我能做什么？
+  ~ fi
+  | (:happy)我很高兴你问。
+- 我想你忘了我。
+  ~ fi
+  | (:happy)恰恰相反。
+- 我现在是自由特工吗？
+  ~ fi
+  | (:happy)你总是一个自由特工。(:normal)但我有一个重要的任务给你。
+~ fi
+| 所以{#@innis-nametag}对Cerebat接管的说法是对的 - 这//确实//不仅仅是关于水的问题。
+| 如果Wraw已经行军那么远，她说Semi Sisters是下一个目标也是对的。
+| (:annoyed)现在不是分裂的时候 - Wraw现在对他们的威胁和对我们的威胁一样大。
+| (:normal)我认为你已经赢得了"{#@innis-nametag}的信任"(orange)。
+| 我希望你利用你对她的任何影响力，"请求Semis加入我们"(orange)。
+~ player
+- 明白了。
+- 我不会让你抱太大希望。
+- 如果他们加入Wraw怎么办？
+- [(var 'semis-weapons) 他们也有武器。]
+  ~ fi
+  | (:unsure)他们是这么说的，虽然我从没见过任何武器。
+  | (:normal)但我会接受我们能得到的一切。
+~ fi
+| {#@innis-nametag}不笨，尽管她有其他的"特质"。
+| 只要确保你先到达 Semis。"有消息时联系我"(orange)。
+| 还有：那里的情况可能会快速变化。虽然这现在是你的"首要任务"(orange)，但如果你有"其他事情要做，我认为现在是时候了"(orange)。
+~ player
+| "{#@fi-nametag}看起来像是想说别的什么，但我想这个时机已经过去了。"(light-gray, italic)
+- 你还好吗？
+  ~ fi
+  | (:happy)我很好。保重。
+- 我会很好的。
+  ~ fi
+  | (:happy)我知道你会的。保重。
+- 回头见。
+  ~ fi
+  | (:happy)保重。
+- 再见。
+  ~ fi
+  | (:unsure)你说这话的语气太终结性了。
+  | 请保重。
+~ player
+- 我会的。
+- 你也是。
+- 不做承诺。
+! eval (setf (location 'innis) (location 'innis-org-loc))
+! eval (setf (direction 'innis) -1)
+! eval (setf (location 'islay) (location 'islay-org-loc))
+! eval (setf (direction 'islay) -1)

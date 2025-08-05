@@ -1,0 +1,26 @@
+# 8-interact-catherine/interaction
+~ catherine
+| (:cheer)太好了！！
+| (:concerned)呃，"你能走路吗"(orange)？
+
+# 10-interact-catherine/interaction
+~ catherine
+| (:excited)不可能！看起来"你的大部分系统仍然正常工作"(orange)。
+| (:normal)我的名字是"{#@catherine-nametag}"(yellow)。来吧，"让我们离开这里"(orange)。
+! eval (setf (nametag (unit 'catherine)) (@ catherine-nametag))
+
+# rope-start/walkntalk
+~ catherine
+| "小心不要掉下去。"(orange)
+
+# dash-end/walkntalk
+~ catherine
+| <-糟糕！->… (:concerned)嘵，"现在怎么办"(orange)？…
+
+# platform-start/walkntalk
+~ catherine
+| (:cheer)这太__棒了！__这是某种增强模块吗？
+
+# platform-end/walkntalk
+~ catherine
+| 我们快到了 - 就"从这里过去"(orange)。

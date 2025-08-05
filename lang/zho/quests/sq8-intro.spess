@@ -1,0 +1,74 @@
+; Cerebat "good" market trader, concerned about the missing Cerebat Council
+# intro/intro-chat
+~ cerebat-good-trader
+| 我不想打扰你，但我不知道还能做什么。
+~ player
+- 别担心，我在听。
+- 我需要离开。
+  < leave
+~ cerebat-good-trader
+| 是"脑蝠族议会 - 他们消失了"(orange)。
+| 自从"Wraw搬进来后情况就一团糟"(orange) - 我们需要恢复秩序，在我们的生活方式永远消失之前。
+| 我只是个商人 - 我不知道该怎么办。
+! eval (setf (nametag (unit 'cerebat-good-trader)) (@ cerebat-good-trader-nametag))
+~ cerebat-good-trader
+| 但如果你能"找到议会，把他们带回来"(orange)...
+| 我的意思是，Wraw不会喜欢的，但至少我们可以发起抵抗。
+~ player
+- 我参加。
+- 议会不是死了吗？
+  ~ cerebat-good-trader
+  | 除非我看到他们的尸体，否则我不会相信。
+- 我需要走了。
+  < leave
+~ cerebat-good-trader
+| 这里，拿着这个。这是"议员们的头饰"(orange)之一...我找到的。
+! eval (store 'item:headdress 1)
+! eval (status "Received 1 Headdress")
+~ player
+| "它华丽精美，上面装饰着珍珠。"(light-gray, italic) (:embarassed)"但它也潮湿，散发着海藻的臭味。"(light-gray, italic)
+~ cerebat-good-trader
+| "在Wraw领土寻找任何类似的东西"(orange) - 我认为他们被带到那里了。
+! label questions
+~ player
+- 你在哪里找到头饰的？
+  ~ cerebat-good-trader
+  | 在附近的一个湖里。
+  ~ player
+  - 他们可能溺水了吗？
+    ~ cerebat-good-trader
+    | 不。绝对不会！我的意思是...没有任何尸体，所以。
+  - 这不是好兆头。
+    ~ cerebat-good-trader
+    | 确实不是。但我还抱有希望。
+  < questions
+- 如果议会死了怎么办？
+  ~ cerebat-good-trader
+  | 那我看不到前进的路。对脑蝠族，也对这里的任何其他派系都一样。
+  | 他们是不可替代的。我们需要经验来对抗Wraw，还需要团结。
+  | 但我们只是一群商人，每个人都只顾自己。
+  ~ player
+  - 你不一样。
+    ~ cerebat-good-trader
+    | 我想我确实不一样。
+    | 但我只是一个人。
+  - 那我希望他们还活着。
+    ~ cerebat-good-trader
+    | 我也是。
+  < questions
+- 有多少议员？
+  ~ cerebat-good-trader
+  | 有"8个"(orange)，加上"高级议员"(orange)"Dashad"(yellow)。
+  | 我认为这个头饰是"Antonio"(yellow)的。
+  < questions
+- 我准备好出发了。
+~ cerebat-good-trader
+| 你回来时我会在这里。实际上，不 - 按照人们消失的速度...
+| 改在"后巷见面，在市场下面"(orange)。
+| 保重。
+~ player
+| "我想我的FFCS可以确定"3个Wraw地点"(orange)，议员们很可能被关押在那里。如果他们还活着的话。"(light-gray, italic)
+! eval (complete task)
+! eval (reset interaction)
+! eval (activate (unit 'sq8-spawner))
+# leave

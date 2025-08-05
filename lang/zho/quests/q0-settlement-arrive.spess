@@ -1,0 +1,38 @@
+# 2-interact-catherine/interaction
+~ catherine
+| (:excited)我怎么跟你说的？难以置信，对吧！
+~ player
+- 沙漠里种作物？
+  ~ catherine
+  | (:excited)很神奇吧。
+  | (:normal)...
+  | (:concerned)别看起来不太兴奋的样子。相信我，在"大灾变之后"(red)种植这些是一项真正的壮举。
+- 你们是怎么做到的？
+  ~ catherine
+  | (:normal)别问我 - 我只是个工程师。不过我帮助安装了灌溉系统。
+  | 不用说，在"大灾变之后"(red)种植作物并不容易。
+  | (:excited)呵，我就知道你会印象深刻的。
+- 我以前见过这些。很多次。
+  ~ catherine
+  | (:normal)哦，是在"大灾变"(red)之前吗？我敢打赌他们有很多种植园。我们没有多少。
+  | (:excited)太酷了。我希望我也能看到那些。
+~ catherine
+| (:concerned)呃，等等。大家都在哪里？
+| 这不是我期待的欢迎方式。
+~ player
+- 有什么问题吗？
+  ~ catherine
+  | (:concerned)我刚刚重新激活了一个"旧世界"(red)的机器人。我想大家都会来看你的。
+- 你在期待什么？
+  ~ catherine
+  | (:concerned)我不知道...
+  | 虽然我刚刚重新激活了一个"旧世界"(red)的机器人。我想大家都会来看你的。
+- 是我的问题吗？
+  ~ catherine
+  | (:concerned)你？...当然不是。
+  | ...我的意思是，(:excited)我觉得你很棒 - 一个来自"旧世界"(red)的正常运作的机器人。
+  | (:normal)但不是每个人对机器人都有美好的故事可讲，我想。不过这是他们的损失。
+  | 但我确信不是那样的。
+~ catherine
+| (:concerned)我们最好去找"{#@jack-nametag}"(yellow)。他应该在"营地"(red)的"工程区"(red)。
+! eval (activate 'q0-find-jack)

@@ -1,0 +1,69 @@
+; male Semi Sister, speaks informal
+# intro/intro-chat
+~ semi-partner
+| 你能帮助我吗？没有其他人能帮忙了。
+| 这是关于..."我的伴侣"(orange)。
+~ player
+- 怎么了？
+- 抱歉，我太忙了。
+  < leave
+~ semi-partner
+| 我的女朋友，"{#@cerebat-partner-nametag}"(yellow) - 她有麻烦了，我确信。
+| 她是"脑蝠族，不是半机械姐妹"(orange)。我们过去一直通过远程无线电交谈，但她沉默了。
+| 顺便说一下，我是"{#@semi-partner-nametag}"(yellow)。
+! eval (setf (nametag (unit 'semi-partner)) (@ semi-partner-nametag))
+~ player
+- {(nametag player)}。
+- 抱歉。我确信她没事。
+- 尽量别担心。
+~ semi-partner
+| 你能"去那里找到她？给她一封信"(orange)吗？
+~ player
+- 当然。
+- 她长什么样？
+  ~ semi-partner
+  | 呃，这是个好问题。我们从未面对面见过。
+  | 但如果你"四处打听"(orange)，我确信你会找到她。
+  | 如果有帮助的话，她有个好听的声音。
+- 抱歉，我现在不能做那个。
+  < leave
+~ semi-partner
+| 谢谢你，{(nametag player)}。没有其他人关心，我自己无法进行这趟旅程 - 即使坐火车也不行。
+| 这是"信。请保管好。"(orange)
+! eval (store 'item:love-letter 1)
+! eval (status "Received 1 Tobias' Letter")
+! eval (activate (unit 'sq6-check-note))
+! eval (activate 'check-note)
+! eval (activate 'sq6-deliver-letter)
+! eval (complete task)
+! eval (reset interaction)
+# leave
+~ semi-partner
+| 拜托，拜托"考虑一下"(orange)。
+
+# check-note/check-note-self
+~ player
+| "好奇心可能害死了猫，但我是机器人。有九条命。"(light-gray, italic)
+~ player
+- (读信)
+  < read
+- (不读)
+# read
+| "这是某种墨水写在羊皮纸上。好吧，我想这是一个新的黑暗时代。"(light-gray, italic)
+| "我想我能破译这瘦弱的笔迹："(light-gray, italic)
+| ""嗨{#@cerebat-partner-nametag}，我是{#@semi-partner-nametag}。抱歉我不能和你在一起，但我派了这个信使。"(light-gray, italic)"
+| ""我希望你没事。我想念你。我一直在尝试打电话 - 我希望我制作的远程模块没有搞砸频率。"(light-gray, italic)"
+| ""如果搞砸了，那我就完蛋了，因为我无法撤销它们。"(light-gray, italic)"
+| ""我直接说重点（难得一次）：这里发生了一些事情。坏事。"(light-gray, italic)"
+| ""我不知道我们的领导在做什么，但他们在说脑蝠族的坏话。"(light-gray, italic)"
+| ""我认为我们应该踩刹车。对我们。"(light-gray, italic)"
+| ""抱歉这不是你想听到的。但这会帮助我们都保持安全。"(light-gray, italic)"
+| ""当事情恢复正常时，也许我们可以真正见面？看看事情如何发展。"(light-gray, italic)"
+| ""请在你能的时候给我打电话 - 我仍然想知道你没事。"(light-gray, italic)"
+| ""所有的爱，{#@semi-partner-nametag} x x x"(light-gray, italic)"
+| (:embarassed)""他在和她分手"(orange)...该死。"(light-gray, italic)
+| "好吧，我想这不关我的事。"(light-gray, italic)
+! eval (activate (find-task 'sq6-deliver-letter 'read-letter))
+! eval (setf (var 'read-letter) T)
+
+; he can't make the journey on foot as it's too dangerous - and even via train now, due to the Semi-Cerebat situation, it's too dangerous for him
