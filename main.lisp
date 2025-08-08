@@ -73,7 +73,10 @@
     (when harmony:*server*
       (let ((target (expt 2 (/ (log (max 0.1 (* dt 100.0)) 2) 3)))
             (source (mixed:speed-factor (harmony:segment :speed T))))
-        (setf (mixed:speed-factor (harmony:segment :speed T)) (+ (* target 0.05) (* source 0.95)))))
+        (setf (mixed:speed-factor (harmony:segment :speed T))
+              (if (< (abs (- target source)) 0.0001)
+                  1.0
+                  (+ (* target 0.05) (* source 0.95))))))
     (when (< 0 (pause-timer scene))
       (decf (pause-timer scene) dt)
       (setf dt (* dt 0.1)))
