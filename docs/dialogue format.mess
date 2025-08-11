@@ -1,5 +1,5 @@
 # Kandria Dialogue Format
-This document describes the markup syntax used for dialogues in Kandria. The basis for this is "Speechless"(link https://shirakumo.github.io/speechless). Please see its documentation first and foremost. Here we will only outline extensions and functions specific to Kandria.
+This document describes the markup syntax used for dialogues in Kandria. The basis for this is "Speechless"(link https://shirakumo.org/docs/speechless). Please see its documentation first and foremost. Here we will only outline extensions and functions specific to Kandria.
 
 One specific extension is the retrieval of language-specific strings (such as for items). In order to splice this into dialogue you can use the following:
 
@@ -81,7 +81,7 @@ If you're worried about the use of Lisp code, see the "Lisp crash course"(link l
 ### Visual Studio Code
 We created an extension to offer syntax highlighting in VSC. To use it, simply clone our extension into VSC's extensions folder. On Windows, that's ``%USERPROFILE%\\.vscode\\extensions\\`` and elsewhere that's ``~/.vscode/extensions/``.
 
-The extension can be found here: https://github.com/shirakumo/markless-vsc
+The extension can be found here: https://shirakumo.org/project/markless-vsc
 
 Once it has been cloned in, restart VSC, and it should automatically be activated. You can test this by opening any file with the ``.mess`` or ``.spess`` extension.
 
@@ -94,4 +94,4 @@ The emacs package ``markless`` can be installed from melpa. To activate it after
 (add-to-list 'auto-mode-alist '("\\.spess\\'" . markless-mode))
 ::
 
-Alternatively you can find the source here: https://github.com/shirakumo/markless.el
+Alternatively you can find the source here: https://shirakumo.org/project/markless.el

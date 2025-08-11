@@ -38,7 +38,7 @@ The packet must contain an entry named ``setup.lisp``, containing raw Common Lis
 After a successful load, the system proceeds as in "initialization"(link #initialization)
 
 ### ``module-v1``
-The packet must contain an entry named ``Blueprint``, which is a "Forge"(https://github.com/shirakumo/forge) blueprint format describing the mod's build. The blueprint must define a project of the same symbol name of the ``name`` as contained in the metadata. When the mod is loaded the project of that name is built.
+The packet must contain an entry named ``Blueprint``, which is a "Forge"(https://shirakumo.org/project/forge) blueprint format describing the mod's build. The blueprint must define a project of the same symbol name of the ``name`` as contained in the metadata. When the mod is loaded the project of that name is built.
 
 After a successful BUILD, the system proceeds as in "initialization"(link #initialization)
 

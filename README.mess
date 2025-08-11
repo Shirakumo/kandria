@@ -7,7 +7,7 @@ In order to get set up with a development environment capable of working with Ka
 ### Quickstart
 If you are new to Lisp, welcome! The easiest way to get a development environment up and running is "Portacle"(https://portacle.github.io). Simply download and extract the appropriate package for your system, then launch the ``Portacle`` application.
 
-This should launch an Emacs editor window along with a command line at the bottom (the REPL). First thing we should do now is clone the Kandria sources into the Portacle projects folder. To do so, press Alt+x, then type: ``clone-project``. It should prompt you for an address. Type the address of this repo: ``https://github.com/shirakumo/kandria``. It'll take a bit, but after a while the repository will be in the ``projects`` folder of your Portacle installation.
+This should launch an Emacs editor window along with a command line at the bottom (the REPL). First thing we should do now is clone the Kandria sources into the Portacle projects folder. To do so, press Alt+x, then type: ``clone-project``. It should prompt you for an address. Type the address of this repo: ``https://shirakumo.org/project/kandria``. It'll take a bit, but after a while the repository will be in the ``projects`` folder of your Portacle installation.
 
 Next, you'll want to click into the REPL and run: ``(load "projects/kandria/install.lisp")`` It might ask you some stuff about your setup, just enter the answers into the REPL. Again, this step will take a while, as it'll compile the game from source.
 
@@ -33,7 +33,7 @@ If you already have an existing Common Lisp setup, you can still make use of the
    ::
 2. Clone Kandria to a folder where it can be found, such as Quicklisp's local-projects.
    ::
-   git clone https://github.com/shirakumo/kandria.git ~/quicklisp/local-projects/kandria
+   git clone https://shirakumo.org/project/kandria.git ~/quicklisp/local-projects/kandria
    ::
 3. Create a file called ``.install`` within the kandria directory that contains a full path to your full kandria game install.
    ::
