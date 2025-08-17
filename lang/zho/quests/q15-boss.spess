@@ -1,0 +1,29 @@
+# 8-interact-catherine/interaction
+~ catherine
+| (:concerned)你还好吗？(:excited)这太不可思议了！
+~ player
+- 我能控制它。
+  ~ catherine
+  | (:excited)我能看出来。
+- 这比我预期的更困难。
+  ~ catherine
+  | 好吧，现在都结束了。(:concerned)假设没有更多的了。
+- 我需要度假。
+  ~ catherine
+  | (:excited)你和我都是。没有沙子或士兵的地方。除非是海滩！
+~ catherine
+| "{#@islay-nametag}重新布线了引爆器并将它重新连接到淇水房间的炸弹上。"(orange)
+| 现在"她去了医院公寓附近的那个"(orange)。
+| (:excited)我们应该"到 Brother 办公室去看看最后一个炸弹"(orange)。
+| {#@islay-nametag}指望着我们。
+! eval (follow 'player 'catherine)
+! eval (activate 'q15-target-bomb)
+! eval (activate (unit 'bomb-explode-1))
+! eval (activate (unit 'bomb-explode-2))
+! eval (deactivate (unit 'spawner-7817))
+
+# q15-boss-fight/walkntalk
+~ player
+| 退后{#@catherine-nametag}。
+~ catherine
+| (:cheer)天哪！

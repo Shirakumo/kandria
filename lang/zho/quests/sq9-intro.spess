@@ -1,0 +1,38 @@
+; Semi Sisters spy, female, deep in Cerebat territory, and organising races for the player to help themselves blend in undercover
+; formal speaker
+# intro/intro-chat
+~ semi-spy
+| 啊哈，{(nametag player)}。时机刚好。
+~ player
+| "她为什么在窃窃私语？她的眼睛到处张望，就像从洞穴里偷看的老鼠。"(light-gray, italic)
+~ semi-spy
+| 我是半机械姐妹的猎人。我在做卧底，但我觉得有人怀疑我了。
+! eval (setf (nametag (unit 'semi-spy)) (@ semi-spy-nametag))
+~ semi-spy
+| 你能帮忙吗？我需要看起来很忙 - 比如"组织她们在这里似乎很喜欢的那种"计时挑战"(orange)"那种忙。
+~ player
+- 我会帮忙。
+  ~ semi-spy
+  | 你会？__谢谢你！__
+  | ...我的意思是，"谢谢你"(small)。
+- 我喜欢计时挑战。
+  ~ semi-spy
+  | 你喜欢？__太好了！__
+  | ...我的意思是，"太好了"(small)。
+- 我需要走了。
+  < leave
+~ semi-spy
+| 我已经相当详细地绘制了这个区域的地图，并在周围放了一些便携酒瓶。
+| "取回一个酒瓶，交还给我，我会停止计时。"(orange)
+| 我也设定了一些任意时间，我认为会给你一个现实的挑战 - 毕竟这必须看起来合理。
+| 我这里有{#@innis-nametag}提供的慷慨废料零件资助，所以我可以"慷慨地奖励你的参与"(orange)。
+| "给我一秒钟"(orange)打个电话，然后我们就可以"开始"(orange)。
+! eval (activate 'sq9-race)
+! eval (complete task)
+! eval (reset interaction)
+
+# leave
+~ semi-spy
+| 好吧。但如果你改变主意，我真的可以用你的帮助。
+
+; "make a call" - communicating with Semi HQ perhaps, via modified FFCS

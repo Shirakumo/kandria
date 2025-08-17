@@ -1,0 +1,166 @@
+# task-reminder/interact-islay
+~ islay
+| (:normal)记住在哪里"安放它们"(orange)：
+| "Zenith Hub西面的旧Brother办公室；"(orange)
+| "水泵旁边的下沉房间；"(orange)
+| "旧Rootless医院公寓东面。"(orange)
+| 好运。
+
+# task-reminder/interact-fi
+~ fi
+| {#@islay-nametag}可以提醒你在哪里安放炸弹。
+| (:unsure)对不起，我的心思在别的地方。
+| (:normal)一个是水泵旁边的下沉房间，我记得这些。
+| (:happy)小心点，{(nametag player)}。拜托了。
+
+# task-reminder/interact-catherine
+~ catherine
+| 嘉，{(nametag player)}！你还能行吗？如果你需要什么，去找{#@islay-nametag}说。
+| (:excited)我迫不及待地想看到我们胜利，你将成为英雄。
+| (:normal)我很高兴能帮助制造炸弹。感觉像是我亲自去报复Wraw一样。
+| 你要小心，好吗？
+
+# task-reminder/interact-innis
+~ innis
+| {#@islay-nametag}可以告诉你你的任务。如果她告诉你她说会告诉你的事情，我认为我没什么可添加的。
+| (:sly)我希望我对你的看法是错的，机器人。
+
+# task-reminder/interact-jack
+~ jack
+| 我帮不了你，我现在被排除在外了。他们甚至都不需要我来制造炸弹。
+| 我能做的就是留意每个人，确保他们不会失控。
+| (:annoyed)你越早出发，人们就越不会失控。
+
+# task-bomb-1/interact-bomb
+~ player
+! eval (retrieve 'item:explosive 1)
+! eval (status "Lost 1 Explosive")
+| "这是"Brother办公室里的炸弹点"(red)。"(light-gray, italic)
+| "是的，在一个巨大蘑菇旁边！ - 当他们通过时，不如让他们被真菌覆盖。"(light-gray, italic)
+! eval (retrieve 'item:receiver 2)
+! eval (status "Lost 2 RF Detonator")
+| "射频引爆器已插入，我们准备好了。它已经准备好了。"(light-gray, italic)
+? (not (var 'first-bomb-done))
+| | "检查"FFCS…… 没有信号。Wraw干扰"(orange)，如预期的一样。"(light-gray, italic)
+| | "好的，"还有两个炸弹要安放"(orange)。"(light-gray, italic)
+| ! eval (setf (var 'first-bomb-done) T)
+| ! eval (activate 'task-part-move-wraw)
+|? (complete-p 'task-bomb-2 'task-bomb-3)
+| | "检查"FFCS…… 更多干扰"(orange)。"(light-gray, italic)
+| | "这是最后一个安放的炸弹。"(light-gray, italic)
+| | "我最好尽快"返回Zenith Hub"(orange)并请求引爆。"(light-gray, italic)
+| ! eval (deactivate 'task-reminder)
+| ! eval (activate 'task-return-bombs)
+| ! eval (activate 'task-return-bombs-station)
+| ! eval (activate (unit 'ffcs-bomb-1))
+| ! eval (activate (unit 'ffcs-bomb-2))
+| ! eval (activate (unit 'ffcs-bomb-3))
+| ! eval (activate (unit 'ffcs-bomb-4))
+| ! eval (activate (unit 'station-surface-trigger))
+|?
+| | "检查"FFCS…… 仍然有干扰"(orange)。"(light-gray, italic)
+| | "现在我只有"最后一个炸弹要安放"(orange)。"(light-gray, italic)
+
+# task-bomb-2/interact-bomb
+~ player
+! eval (retrieve 'item:explosive 1)
+! eval (status "Lost 1 Explosive")
+! eval (retrieve 'item:receiver 2)
+! eval (status "Lost 2 RF Detonator")
+| "这是"水泵房下面的炸弹点"(red)。"(light-gray, italic)
+| "尽管被水淇没，炸药应该能粘在水泥上。"(light-gray, italic)
+| "幸运的是射频引爆器也似乎是防水的。"(light-gray, italic)
+| "它准备好了。"(light-gray, italic)
+? (not (var 'first-bomb-done))
+| | "检查"FFCS…… 没有信号。Wraw干扰"(orange)，如预期的一样。"(light-gray, italic)
+| | "好的，"还有两个炸弹要安放"(orange)。"(light-gray, italic)
+| ! eval (setf (var 'first-bomb-done) T)
+| ! eval (activate 'task-part-move-wraw)
+|? (complete-p 'task-bomb-1 'task-bomb-3)
+| | "检查"FFCS…… 更多干扰"(orange)。"(light-gray, italic)
+| | "这是最后一个安放的炸弹。"(light-gray, italic)
+| | "我最好尽快"返回Zenith Hub"(orange)并请求引爆。"(light-gray, italic)
+| ! eval (deactivate 'task-reminder)
+| ! eval (activate 'task-return-bombs)
+| ! eval (activate 'task-return-bombs-station)
+| ! eval (activate (unit 'ffcs-bomb-1))
+| ! eval (activate (unit 'ffcs-bomb-2))
+| ! eval (activate (unit 'ffcs-bomb-3))
+| ! eval (activate (unit 'ffcs-bomb-4))
+| ! eval (activate (unit 'station-surface-trigger))
+|?
+| | "检查"FFCS…… 仍然有干扰"(orange)。"(light-gray, italic)
+| | "现在我只有"最后一个炸弹要安放"(orange)。"(light-gray, italic)
+
+# task-bomb-3/interact-bomb
+~ player
+! eval (retrieve 'item:explosive 1)
+! eval (status "Lost 1 Explosive")
+| "这是"医院公寓之外的炸弹点"(red)。"(light-gray, italic)
+| "成型到那个瓷砖上应该很好。"(light-gray, italic)
+| "只需要将射频引爆器推入塑料中。就这样。"(light-gray, italic)
+! eval (retrieve 'item:receiver 2)
+! eval (status "Lost 2 RF Detonator")
+| "它准备好了。"(light-gray, italic)
+? (not (var 'first-bomb-done))
+| | "检查"FFCS…… 没有信号。Wraw干扰"(orange)，如预期的一样。"(light-gray, italic)
+| | "好的，"还有两个炸弹要安放"(orange)。"(light-gray, italic)
+| ! eval (setf (var 'first-bomb-done) T)
+| ! eval (activate 'task-part-move-wraw)
+|? (complete-p 'task-bomb-1 'task-bomb-2)
+| | "检查"FFCS…… 更多干扰"(orange)。"(light-gray, italic)
+| | "这是最后一个安放的炸弹。"(light-gray, italic)
+| | "我最好尽快"返回Zenith Hub"(orange)并请求引爆。"(light-gray, italic)
+| ! eval (deactivate 'task-reminder)
+| ! eval (activate 'task-return-bombs)
+| ! eval (activate 'task-return-bombs-station)
+| ! eval (activate (unit 'ffcs-bomb-1))
+| ! eval (activate (unit 'ffcs-bomb-2))
+| ! eval (activate (unit 'ffcs-bomb-3))
+| ! eval (activate (unit 'ffcs-bomb-4))
+| ! eval (activate (unit 'station-surface-trigger))
+|?
+| | "检查"FFCS…… 仍然有干扰"(orange)。"(light-gray, italic)
+| | "现在我只有"最后一个炸弹要安放"(orange)。"(light-gray, italic)
+
+# task-return-bombs/call-bomb
+~ player
+| "这应该足够远了。"(light-gray, italic)
+| "检查"FFCS…… 好的。我有信号"(orange)。"(light-gray, italic)
+| {#@islay-nametag}，你听得到吗？炸弹已经引发并就位。
+| …… 喂，{#@islay-nametag}？
+| 有人吗？
+| (:thinking)"…… 连接是开放的。"(light-gray, italic)
+~ islay
+| (:nervous){(nametag player)}，我听得到。我们有问题 - "现在就返回地面"(orange)。
+~ player
+- 炸弹怎么办？
+- 什么问题？
+- 我可以和{#@fi-nametag}说话吗？
+~ player
+| "…… 她关闭了连接。"(light-gray, italic)
+| <-糟糕。->
+| "我最好"回到营地"(orange)。"(light-gray, italic)
+! eval (complete 'task-return-bombs-station)
+
+; alternate return of the quest, if go via Noka train station - slightly different wording to suit different context
+# task-return-bombs-station/station-surface-trigger
+~ player
+| "我最好赶紧抨打这个电话。"(light-gray, italic)
+| "检查"FFCS…… 好的。我有信号"(orange)。"(light-gray, italic)
+| {#@islay-nametag}，你听得到吗？炸弹已经引发并就位。
+| …… 喂，{#@islay-nametag}？
+| 有人吗？
+| (:thinking)"…… 连接是开放的。从这里直接走可能更快。"(light-gray, italic)
+~ islay
+| (:nervous){(nametag player)}，我听得到。我们有问题 - "现在就返回地面"(orange)。
+~ player
+- 炸弹怎么办？
+- 什么问题？
+- 我实际上已经在这里了。
+~ player
+| "…… 她关闭了连接。"(light-gray, italic)
+| <-糟糕。->
+| "我最好"回到营地"(orange)。"(light-gray, italic)
+! eval (complete 'task-return-bombs)
+

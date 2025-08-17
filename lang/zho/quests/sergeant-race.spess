@@ -1,0 +1,74 @@
+# hub
+~ wraw-sergeant
+| 那么，你还感兴趣吗？现在没有回头路了。
+| "找到地点，不要被杀死，摧毁目标"(orange)。即使这是我做的最后一件事，我也要把这些鈽进你的脑袋里。
+| 你将面对"训练人偶和野狗"(orange)。
+| 你期望什么？这就是外面对我们威胁的程度，所以这就是你要做的。
+| 他们说这些人偶就是机器人在旧世界的样子 - 所以不要害怕！
+| 你的奖品就是Wraw的不死。听起来不错吧？
+| <-好！->
+| 有"5个课程"(orange)供你参加，从简单到困难。不过说实话，我看不出你能通过第一个。
+| 那好吧："你准备好去死了吗"(orange)？
+! eval (clear-pending-interactions)
+
+;  "They say the mannequins are what androids used to look like" - a joke amongst the Wraw. Ofc, few know that Zelah actually has an android (you), if that's even true that he has one...
+
+# start
+? (timer-quest)
+| ~ wraw-sergeant
+| | 你在搞什么？"你已经开始计时了"(orange)！
+| < quit
+
+~ wraw-sergeant
+| 这是你的任务：
+| "{(quest:title (quest:find-named 'race task))}."(orange)
+| 我在这个课程上要打败的时间是："金牌："(orange) {(format-relative-time gold)} - "银牌："(orange) {(format-relative-time silver)} - "铜牌："(orange) {(format-relative-time bronze)}。
+? (var 'pb)
+| | 你在这个课程上的"个人最佳成绩"(orange)是"{(format-relative-time pb)}"(orange)。
+~ wraw-sergeant
+| 部署！
+! eval (complete task)
+! eval (clear-pending-interactions)
+
+# cancel
+~ wraw-sergeant
+| 我就知道这对你来说太多了。"你确定你想停止比赛吗"(orange)？这有很大的羞耻。
+~ player
+- 不，我会继续比赛。
+  ~ wraw-sergeant
+  | 这才是精神。现在<-动起来！->
+- 是的，结束吧。
+  ~ wraw-sergeant
+  | 你永远都会是新手。或者懦夫。
+  ! eval (activate 'cancel-it)
+
+# return
+~ wraw-sergeant
+| 停止计时！
+| 报告确认你消灭了目标。做得好。
+| 时间是："{(format-relative-time (clock quest))}"(orange)。
+? (and pb (< pb (clock quest)))
+| | 你"没有打破"(orange)你的记录"{(format-relative-time pb)}"(orange)。
+| | 所以你今天不会加入Wraw。我们的幸运。
+|?
+| ? (not (null pb))
+| | | 你得到了一个"个人最佳成绩"(orange) - 哇哇。
+| ! eval (setf pb (clock quest))
+| ? (< pb gold)
+| | | …… 等等。这怎么比我的"金牌"(orange)时间还快？！……
+| | | <-什么-> 你没有告诉我？
+| |? (< pb silver)
+| | | 这比我的"银牌"(orange)时间还快……
+| | | 不，这不可能是对的。有问题。有很大的问题。
+| |? (< pb bronze)
+| | | 等等，这比我的"铜牌"(orange)时间还快……
+| | | 这里有什么可疑的。
+| |?
+| | | 但这比我的铜牌时间还慢"(orange)。在意料之中。
+| | | 这没什么可羞耻的。你只是达不到我的水准。或者任何Wraw的水准。
+  
+~ wraw-sergeant
+| 你还不是真正的料。继续尝试。
+! eval (activate 'complete-it)
+
+# quit

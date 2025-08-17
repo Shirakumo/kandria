@@ -1,0 +1,106 @@
+# talk-trader/talk-to-trader
+~ trader
+| (:jolly)哈哈…… 你是我想的那个人吗？
+~ player
+- 你觉得我是谁？
+- 很有可能。
+~ trader
+| (:jolly)你就是{#@player-name-1}！…… (:normal)还是只是{#@player-name-1}？
+? (not (complete-p 'q7-my-name))
+| ~ player
+| - 从技术上讲只是{(nametag player)}。
+|   ~ trader
+|   | (:jolly)你说得对，{(nametag player)}！
+| - 你自己选。
+|   ~ trader
+|   | (:jolly)但这是__你的__名字。现在我想想，我确定只是{(nametag player)}。
+| - 我以前有个不同的名字。
+|   ~ trader
+|   | 不过你记不起来了，对吗？
+|   | 不要担心。说到记忆，我确定只是{(nametag player)}。
+|?
+| ? (string= (@ player-name-1) (nametag player))
+| | ~ player
+| | - 是{(nametag player)}。
+| |   ~ trader
+| |   | (:jolly)你说得对，{(nametag player)}！
+| | - 是{(nametag player)}，但我以前有个不同的名字。
+| |   ~ trader
+| |   | 不过你记不起来了，对吗？
+| |   | (:jolly)很高兴见到你，{(nametag player)}！
+| | - 是{(nametag player)}。从来不是那个{(nametag player)}。
+| |   ~ trader
+| |   | 哦，我的错，habibti。
+| |   | (:jolly)很高兴见到你，{(nametag player)}！
+| |?
+| | ~ player
+| | - 实际上现在是{(nametag player)}。
+| |   ~ trader
+| |   | 老{#@trader-nametag}得到的是老信息，对吗？我很抱歉，habibti。
+| |   ! eval (setf (nametag (unit 'trader)) (@ trader-nametag))
+| |   ~ trader
+| |   | (:jolly)很高兴见到你，{(nametag player)}！
+| | - 以前是{#@player-name-1}。
+| |   ~ trader
+| |   | 以前是？老{#@trader-nametag}得到的是老信息，对吗？
+| |   ! eval (setf (nametag (unit 'trader)) (@ trader-nametag))
+| |   ~ trader
+| |   | 抱歉，habibti。现在是什么？
+| |   ~ player
+| |   | {(nametag player)}。
+| |   ~ trader
+| |   | (:jolly)很高兴见到你，{(nametag player)}！
+| | - 现在是{(nametag player)}，这可能是我的原名。
+| |   ~ trader
+| |   | 对 - 因为你记不起来了。
+| |   | (:jolly)很高兴见到你，{(nametag player)}！
+~ trader
+| (:jolly)消息在这里传播得很快。而且{#@catherine-nametag}不停地谈论你。
+| 你知道吗，这个孩子真不错？也是个有才华的工程师。让我想起了……
+| (:normal)噢-…… 好吧，算了。
+| 所以你来和老{#@trader-nametag}做交易，对吗？
+! eval (setf (nametag (unit 'trader)) (@ trader-nametag))
+~ player
+- 你卖什么？
+  ~ trader
+  | 老{#@trader-nametag}不卖什么！
+  | 听着：{#@catherine-nametag}告诉我你在这下面怎么帮助她的 - 听起来狠狠教训了一些伺服机器人。
+- 我需要什么？
+  ~ trader
+  | 我不知道。你在做什么工作？
+  | {#@catherine-nametag}说你在这下面帮助了她 - 听起来狠狠教训了一些伺服机器人。
+- 我觉得我自己能行。
+  ~ trader
+  | 胡说！你帮助了{#@catherine-nametag} - 听起来狠狠教训了一些伺服机器人。
+~ trader
+| 我至少能做的就是帮你保持最佳状态。
+| 我听说过安卓人 - 你和那些伺服机器人不同。你这里面有更多东西，这是肯定的。
+~ player
+| "他用手指敲着太阳穴。是的，水晶矩阵相当复杂"(light-gray, italic) (:embarassed)"- 当它不腐蚀你的记忆时。"(light-gray, italic)
+~ trader
+| 不过我听说内部构造还是有些相似的。无意冒犯。
+| 来，我可以把一些有用的零件组装成一个方便的修理包给你。
+~ player
+| "他为什么在那些架子上翻来翻去？从掉在地板上的垃圾来看，那后面肯定没什么有价值的东西。"(light-gray, italic)
+| "也许我说得太早了：他正在把旧电路板、剪断的电线和焊料卷塞进几个不同大小的罐子里。"(light-gray, italic)
+| "甚至还有针线。"(light-gray, italic)
+~ trader
+| (:jolly)瞧！我给你："安卓人治疗包"(orange)！专为你定制。
+~ player
+| "虽然粗糙，但确实像我以前使用的那些。"(light-gray, italic)
+| "我相信我能用它做点什么 - 哪怕只是戳出我的镜头。"(light-gray, italic)
+~ player
+- 谢谢！
+  ~ trader
+  | (:jolly)别客气！
+- 你从哪里弄到这些东西的？
+  ~ trader
+  | 我在路上遇到各种各样的人。有时我只是发现一些四处散落的东西。
+- 免费的吗？
+  ~ trader
+  | (:jolly)哈哈，恐怕不是。我也得谋生。
+  | 但我的价格公道，我可以向你保证！
+~ trader
+| 只要"告诉我你什么时候想交易"(orange)，好吗？
+| (:jolly)保重，habibti。
+; habibti = dear, my love, buddy (Arabic) (female form)

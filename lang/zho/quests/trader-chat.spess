@@ -1,0 +1,242 @@
+# chat-trader/chat-with-trader
+? (not (string= (@ trader-nametag) (nametag (unit 'trader))))
+| ! eval (setf (nametag (unit 'trader)) (@ trader-nametag))
+  
+~ trader
+? (complete-p 'q13-planting-bomb)
+| | 如果必须的话，habibti。
+|? (complete-p 'q10a-return-to-fi)
+| | ... 对不起，{(nametag player)}，我不能。
+| | 不过如果你想要，我仍然可以交易。
+|?
+| | (:jolly)Assalam alaikum！来聊聊吧。
+| ? (< 80 (health-percentage player))
+| | | (:jolly)[? 你看起来很好，{(nametag player)}！ | 你看起来多么健壮！ | 我觉得我从没看到你状态这么好。]
+| |? (< 50 (health-percentage player))
+| | | [? 你在打架吗，{(nametag player)}？ | 你还好吗？你看起来有点...疲惫不堪。 | 你又在痛打伺服机器人了，是吗？]
+| |?
+| | | [? 不过我觉得你以前状态更好。 | 你看起来真的需要我的帮助。 | 你看起来就像被在沙漠里倒着拖了一遍。 | 原谅我过问，但你全身都是划痕和擦伤 - 有什么我能做的吗？]
+  
+! label talk
+? (not (complete-p 'q4-find-alex))
+| ~ player
+| - 你的故事是什么？
+|   ~ trader
+|   | 恐怕是个漫长而悲伤的故事...就像大多数人一样。
+|   | 我以前也和Wraw混，就像"诺卡族"(red)那样。
+|   | 我也跑出来了，只不过带着我的商队而不是复仇。
+|   | 现在我在各个定居点巡回，做资源交易，(:jolly)并试图不被杀死，哈哈。
+|   < talk
+| - 你对这个地方怎么看？
+|   ~ trader
+|   | "诺卡族"(red)？他们是一群好人，我还能说什么？
+|   | {#@fi-nametag}是个好人，这在如今很罕见。
+|   | 他们靠自己的力量突围出来，对Wraw的胡说八道忐够了。
+|   | 不能怪他们。这很勇敢。也可能证明是愚蠢的。
+|   < talk
+| - {#@catherine-nametag}说你来得比预期晚。
+|   ~ trader
+|   | 是的，那些该死的伺服机器人在周围游荡。不过要感谢你，他们似乎逃跑了。
+|   | 不要误会，我能照顾好自己。但当你要自己拉商队时就不容易了。
+|   | 信不信，我以前有一头牛。哈，一头牛，在这个地狱里！很难想象。
+|   | 不过在狼咬断她的喉咙后就没持续多久。可怜的Celina。
+|   < talk
+| - 你知道怎么检查我吗？
+|   ? (not (var 'examine-chat))
+|   | ~ trader
+|   | | 啊...检查你？
+|   | | (:jolly)哦，检查你！
+|   | | 有人给你热情欢迎了，是吗？
+|   | ~ player
+|   | - {#@jack-nametag}。
+|   |   ~ trader
+|   |   | 是的，这很正常。他不喜欢新来的人。
+|   |   | 该死，他还是不喜欢我 - 我是说，有什么不值得喜欢的？
+|   | - {#@jack-nametag}和{#@fi-nametag}。
+|   |   ~ trader
+|   |   | 真的吗？{#@jack-nametag}的反应在我意料之中。{#@fi-nametag}的反应让我吃惊。
+|   |   | 不过你要知道，她手头有很多糟糕事。给她一点时间。
+|   | - 所有人。
+|   |   ~ trader
+|   |   | 人可能是最糟糕的。这与末日无关 - 他们以前就是这样，我相信你记得。
+|   | - 除了你和{#@catherine-nametag}以外的所有人。
+|   |   ~ trader
+|   |   | 人可能是最糟糕的。这与末日无关 - 他们以前就是这样，我相信你记得。
+|   |   | 不过我很高兴能帮到忙。而{#@catherine-nametag}，好吧...就像我说的，她是个好孩子。
+|   | - Let's talk about something else.
+|   |   < talk
+|   | ~ trader
+|   | | (:jolly)至少你有把剑。任何不喜欢你的人，在他们面前挥挥这把剑，他们很快就会安分下来。
+|   | | (:normal)是的...信任。这一直是安卓人的常见问题。
+|   | | 但如果你想让我检查你的内部，说你是好的还是坏的，恐怕我做不到。
+|   | | 我可以修复表面损伤，但我不是工程师。更别说软件工程师了。
+|   | | 对不起，habibti。看来你只能用老办法改变他们的想法。
+|   | ! eval (setf (var 'examine-chat) T)
+|   | < talk
+|   |?
+|   | ~ trader
+|   | | 恐怕还是不行，habibti。
+|   | | 我希望你能向他们证明你可以被信任。我真的希望如此。
+|   | < talk
+| - That'll do.
+|   < leave
+|? (and (complete-p 'q4-find-alex) (not (complete-p 'q7-my-name)))
+| ~ player
+| - When are you moving on?
+|   ~ trader
+|   | Tired of me already? (:jolly)I'm just kidding.
+|   | (:normal)You're right habibti, that is what I do. I'll be gone soon.
+|   | If I stayed in one place too long I'd either run out of stock, or get run through by Rogues. (:jolly)I'm not sure which is worse.
+|   | (:normal)It feels good to have something to look after, you know? Even if a business is no replacement for Khawla.
+|   ~ player
+|   - Who's Khawla?
+|     ~ trader
+|     | She was my daughter. She's long dead.
+|     ! eval (setf (var 'trader-daughter) T)
+|     ~ player
+|     - I'm sorry.
+|       ~ trader
+|       | Me too. It is what it is. Everyone's lost someone.
+|     - What happened?
+|       ~ trader
+|       | I... I'd rather not talk about it, if it's all the same.
+|     - Let's talk about something else.
+|   - Let's talk about something else.
+|   < talk
+| - What do you know of the Semi Sisters?
+|   ~ trader
+|   | They're our resident tech gurus! (:jolly)Ha, remember those?
+|   | (:normal)I remember a presentation from the head of Semi - don't remember his name - unveiling new models of android, just like you.
+|   | The sisters used to work on the production line, in the factories down here. Conditions were terrible by all accounts.
+|   | I quite like they've adopted the name. It stokes the revolutionary in me. Which don't get stoked very often.
+|   | Needless to say they aren't too popular, what with their past associations with androids.
+|   < talk
+| - That'll do.
+|   < leave
+|? (and (complete-p 'q7-my-name) (not (complete-p 'q10-wraw)))
+| ~ player
+| - When are you moving on?
+|   ? (not (var 'rumours-told))
+|   | ~ trader
+|   | | (:jolly)What, you don't want to buy supplies?
+|   | | (:normal)Truth be told, I heard the rumours about the Wraw in Cerebat territory.
+|   | | I would've moved on already if not for that.
+|   | | Are they true, the rumours?
+|   | ~ player
+|   | - [(complete-p 'q8a-bribe-trader) I'm afraid so - but there's a good reason.|]
+|   |   ~ trader
+|   |   | Alqarf!
+|   |   | I'm sure there is. I'd better let you get on. It sounds like you have bigger fish to fry than old {#@trader-nametag}.
+|   | - [(not (complete-p 'q8a-bribe-trader)) That's what I'm trying to find out.|]
+|   |   ~ trader
+|   |   | Well in that case I'd better not keep you. You have bigger fish to fry than old {#@trader-nametag}.
+|   | -  [(complete-p 'q8a-bribe-trader) (Lie) I'm not sure.|]
+|   |   ~ trader
+|   |   | Still, I'd rather not risk it. I think I'll stay here a while longer.
+|   | - [(not (complete-p 'q8a-bribe-trader)) I'm not sure.|]
+|   |   ~ trader
+|   |   | Still, I'd rather not risk it. I think I'll stay here a while longer.
+|   | - [(not (complete-p 'q8a-bribe-trader)) I don't think so.|]
+|   |   ~ trader
+|   |   | Well that's something. But I think I'll stay here a while longer, just in case.
+|   | - I can't say.
+|   |   ~ trader
+|   |   | I understand, habibti.
+|   |   | Still, I think it would be unwise for me to leave your borders right now. I'm staying right here.
+|   | - Let's talk about something else.
+|   | ! eval (setf (var 'rumours-told) T)
+|   | < talk
+|   |?
+|   | ~ trader
+|   | | Not yet, that's for sure - not with these Wraw and Cerebat rumours swilling around like... well, like swill.
+|   | < talk
+| - What do you know about the Cerebats?
+|   ~ trader
+|   | They're the self-proclaimed council down here, I know that much.
+|   | But what good's a council that can't enforce its laws?
+|   | The only people that can enforce anything down here are the Wraw. Maybe the Semis.
+|   | (:jolly)Maybe you, too!
+|   < talk
+| - Have you seen {#@alex-nametag}?
+|   ~ trader
+|   | I'm afraid not, habibti.
+|   < talk
+| - [(var 'trader-daughter) What happened to your daughter?|]
+|   ? (not (var 'daughter-told))
+|   | ~ trader
+|   | | ...
+|   | | ... I suppose with everything that's happening, now's as good a time as any to talk about her.
+|   | | Her name was Khawla - I think I told you that before. She was a great engineer - almost as good as {#@catherine-nametag}.
+|   | | I lost her on the roads, just like Celina, my ox.
+|   | | 'Cept it wasn't wolves that got her. It was people.
+|   | | Rogues, I think. Maybe a Wraw hunting pack. I wasn't really in a fit state to see who they were.
+|   | | They took her, anyway. And I never saw her again.
+|   | ~ player
+|   | - I'm so sorry.
+|   |   ~ trader
+|   |   | Thank you, {(nametag player)}.
+|   |   | It's okay. Khawla should be remembered and talked about. I should speak her name like I always did.
+|   | - Sorry for making you relive it.
+|   |   ~ trader
+|   |   | It's okay, {(nametag player)}.
+|   |   | Khawla should be remembered and talked about. I should speak her name like I always did.
+|   | - Could she still be alive?
+|   |   ~ trader
+|   |   | No. Khawla's dead. Slaves don't live very long.
+|   |   | Or she met an even worse end.
+|   |   | ... I'd rather not think about that.
+|   |   | Now I remember the good times instead.
+|   |   | Times that should be remembered and talked about. I should speak her name like I always did.
+|   | - Let's talk about something else.
+|   | ! eval (setf (var 'daughter-told) T)
+|   | < talk
+|   |?
+|   | ~ trader
+|   | | Khawla's gone, that's all there is to it. Now I just have to remember the good times instead.
+|   | < talk
+| - I need to go.
+|   < leave
+|? (and (complete-p 'q10-wraw) (not (complete-p 'q10a-return-to-fi)))
+| ~ player
+| - The Wraw are coming.
+|   ~ trader
+|   | What, right now?
+|   ~ player
+|   - I think so.
+|     ~ trader
+|     | They're coming for the Noka?
+|   - Save yourself!
+|     ~ trader
+|     | (:jolly)Oh, that's a good one!
+|   - They're planning to invade the entire valley.
+|     ~ trader
+|     | (:jolly)Oh, that's a good one!
+|   ~ player
+|   | They've amassed an invasion force, mechs and soldiers, big enough to take the whole valley.
+|   ~ trader
+|   | You're not joking are you?...
+|   | That would explain why traders haven't been allowed on Wraw land for some time.
+|   | Thank you for telling me, {(nametag player)}.
+|   < talk
+| - Do androids live in the mountains?
+|   ~ trader
+|   | Ha, I wondered when you might hear about that.
+|   | I like to think they do - especially since I met you. Lots of other {(nametag player)}s running around like gazelles. A real haven.
+|   | Assuming they're friendly, of course.
+|   | But I think I'm in the minority on that particular issue.
+|   < talk
+| - I need to go.
+|   < leave
+|? (complete-p 'q13-planting-bomb)
+| ~ trader
+| | Look, I'm not proud that I ran. But I'm here now, and I'm ready to fight.
+| | Let's talk later, okay?
+
+# leave
+~ trader
+| [? See you later habibti. | You take it easy. | Goodbye for now. | Take care. Masalamah!]
+
+; habibti = dear, my love, buddy (Arabic) (female form)
+; nadhil = bastard (Arabic) - unused at the moment
+; alqarf = shit (Arabic), pronounce: al-kara-fu
+; masalamah = goodbye (Arabic)

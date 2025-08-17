@@ -1,0 +1,64 @@
+# 3-interact-islay/interaction
+~ fi
+| (:unsure)怎么了？我们现在应该引爆炸弹吗？
+~ islay
+| {#@zelah-nametag}还在附近。如果他知道它们怎么办？他的军队不会撤退吗？
+~ fi
+| (:annoyed)他不知道它们。
+~ islay
+| ……
+| 好吧。
+| 我们现在就做。堵塔隧道，然后俺获任何幸存者 - 除非他们战死，这是他们的一贯作风。
+~ fi
+| 如果你确定的话。
+~ islay
+| 我确定。
+| 开始了。发送信号……
+| ……
+~ fi
+| ……
+~ islay
+| (:nervous)"它没有工作。"(orange)
+~ fi
+| (:annoyed)什么？…… 为什么？
+~ islay
+| (:nervous)我不知道。
+| (:normal)"信号正在通过"(orange)；他们的通讯干扰还没有运行 - {#@zelah-nametag}可能正在组织他自己的人。
+| 而且它应该能够通过 - 我们就是这样设计的。
+~ fi
+| (:unsure)他们可能找到了炸弹吗？
+~ islay
+| …… 希望不是。
+| (:nervous)糟糕。
+| 需要有人去那里。
+~ player
+- 我去。
+  ~ fi
+  | (:happy)……
+- 这就是我在这里的原因。
+  ~ fi
+  | (:happy)……
+- 我想这意味着是我。
+~ islay
+| 不。你对炸弹了解不够。"必须是{#@catherine-nametag}"(orange)。
+~ fi
+| (:annoyed)你不相信她？
+~ islay
+| 不是这样的。
+~ player
+- 教我如何检查它们。
+  ~ islay
+  | (:nervous)没有时间了。如果你想不出来，那太危险了。
+- {#@catherine-nametag}可能会受伤。
+  ~ fi
+  | (:annoyed)她只是个孩子，{#@islay-nametag}。
+  ~ islay
+  | 她不是。而且她知道自己在做什么。
+~ islay
+| 但你可以和{#@catherine-nametag}一起去，{(nametag player)}。保护她。
+~ islay
+| 请"去找她"(orange)。
+| 还有"如果你想交易请告诉我"(orange) - 这"可能是你的最后机会"(orange)。
+
+; hint that Islay is about to lose her trader abilities due to the focus of the final mission; can see it as a hint from her she's about to leave too
+

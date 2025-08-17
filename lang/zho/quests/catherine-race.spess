@@ -1,0 +1,75 @@
+# hub
+~ catherine
+| 所以"比赛"(orange)，是的："找到我们放置的罐子"(orange)。
+| (:excited)"拿到它，把它带回这里，我就停止计时"(orange)。"你越快，你就能得到越多零件"(orange)！
+| (:normal)我们为你准备了"5条路线"(orange)。一旦你"完成了一条，我就告诉你下一条"(orange)。这就是规则。
+| 你可以尝试路线任意次数，但你"只有在打破之前的最好成绩时才能在后续运行中获得奖励"(orange)。
+| 我们还为每个地点准备了"谜题"(orange)，给你一些线索。刚开始解决这些可能会让你放慢速度。
+| 但一旦你知道它们在哪里，(:excited)我相信你会记录更快的时间。
+| (:normal)我们将"从路线1开始"(orange)，这很简单。(:excited)只需"说你准备好了"(orange)。这太令人兴奋了！
+! eval (clear-pending-interactions)
+
+# start
+? (timer-quest)
+| ~ catherine
+| | (:concerned)看起来你已经在计时赛中"开始计时"(orange)了。你必须"先完成或停止那个"(orange)。
+| < quit
+
+~ catherine
+| (:cheer)好的，让我们比赛吧！
+| (:excited)"{(quest:title (quest:find-named 'race task))}."(orange)
+| (:normal)时间段是："金牌："(orange) {(format-relative-time gold)} - "银牌："(orange) {(format-relative-time silver)} - "铜牌："(orange) {(format-relative-time bronze)}。
+? (var 'pb)
+| | 你在这条路线上的"个人最佳成绩"(orange)是"{(format-relative-time pb)}"(orange)。
+~ catherine
+| (:excited)[? 计时开始……现在！ | 准备好了吗？……预备……出发！ | 三……二……一……出发{(nametag player)}！ | 同步你的计时器然后……出发！]
+! eval (complete task)
+! eval (clear-pending-interactions)
+
+# cancel
+~ catherine
+| "你想停止比赛"(orange)？如果我们这样做，我不能给你任何废料零件，我也不会记录你的时间。
+~ player
+- 不，我会继续比赛。
+  ~ catherine
+  | 当然(:excited) - 时间在流逝！
+- 是的，结束吧。
+  ~ catherine
+  | 没问题。(:excited)让我们快点再做一次。
+  ! eval (activate 'cancel-it)
+
+# return
+~ catherine
+| (:cheer)停止计时！
+| (:excited)这是正确的罐子，没错 - 很好。
+| (:normal)你的时间是："{(format-relative-time (clock quest))}"(orange)。
+? (and pb (< pb (clock quest)))
+| | (:concerned)啊该死，恐怕你的记录"{(format-relative-time pb)}"(orange)"没有改善"(orange)。
+|?
+| ? (not (null pb))
+| | | (:cheer)这是一个"新的个人最佳成绩"(orange)！
+| ! eval (setf pb (clock quest))
+| ? (< pb gold)
+| | | (:cheer)你怎么做得这么快？这是"金牌段位"(orange)。
+| | | 你获得最高奖励 - "250废料零件"(orange)！
+| | ! eval (store 'item:parts 250)
+| | ! eval (status "Received 250 Scrap Part")
+| |? (< pb silver)
+| | | (:excited)这相当快！"银牌段位"(orange)。
+| | | 这让你获得"150废料零件"(orange)。
+| | ! eval (store 'item:parts 150)
+| | ! eval (status "Received 150 Scrap Part")
+| |? (< pb bronze)
+| | | (:excited)这一点也不差 - "铜牌段位"(orange)。
+| | | 这让你获得"100废料零件"(orange)。
+| | ! eval (store 'item:parts 100)
+| | ! eval (status "Received 100 Scrap Part")
+| |?
+| | | (:concerned)但这"超出了铜牌范围"(orange)。我不知道人工肌肉也会酸痛。
+| | | (:normal)不要担心，你总是可以再试一次。(:concerned)但我"不认为我可以为此给你任何零件"(orange)，抱歉。
+  
+~ catherine
+| (:excited)让我们快点再做一次！
+! eval (activate 'complete-it)
+
+# quit

@@ -1,0 +1,65 @@
+# contact-fi/fi-ffcs-cerebat
+~ player
+| “这样应该足够远了。”(light-gray, italic)
+| (:normal){#@fi-nametag}，你在吗？你能听到我吗？
+~ fi
+| 声音清晰。你在哪里？
+~ player
+| Cerebat市场。议会没了。他们关了Wraw的水。Wraw已经接管了。
+~ fi
+| ……
+| 发生了什么？你还好吗？
+~ player
+- 我很好。
+  ~ fi
+  | (:happy)好的。
+  | (:normal)那么情况怎么样？
+- 我错误地帮助了Wraw。
+  ~ fi
+  | 你是什么意思？
+- 我想回家。
+  ~ fi
+  | 先给我你的报告。
+~ player
+| 我找到了一个愿意谈话的商人 - 如果我给他一些废斜零件。
+| 我给了，然后他告诉了我。他还告诉我他为Wraw工作。
+~ fi
+| (:annoyed)……
+| 好吧，你不可能知道。
+| 但现在他是我们的敌人。
+| (:normal)至少这“解释了为什么Wraw入侵。关水肯定会引起{#@zelah-nametag}的注意”(orange)。
+| 这不仅仅是他们的饮用水 - 他们的发电站也需要水。
+| 我知道{#@innis-nametag}对Wraw入侵Semi Sisters也反应过度。
+| (:unsure)但我仍然需要知道“Wraw何时以及在哪里试图捕获我们”(orange)。
+| (:normal)很抱歉要派你去“更深入，但我们真的需要知道{#@zelah-nametag}的计划”(orange)。
+| 你能做吗？“进入Wraw领土”(orange)？
+~ player
+- 这是我的工作。
+  ~ fi
+  | (:happy)你做得很好。
+- 这会很有趣。
+  ~ fi
+  | (:happy)我很高兴你喜欢你的工作。但这可能很危险。请小心。
+- 我必须吗？
+  ~ fi
+  | 你总是有选择的。但我需要你做这件事。
+- 我会为你做的。
+  ~ fi
+  | (:happy)……
+- 从技术上讲，我现在已经在Wraw领土了。
+  ~ fi
+  | (:unsure)是的，你现在在。但我说的是他们的"核心领土，更深入的地方"(orange)。
+~ fi
+| (:unsure)试试在他们的"主要房间，在他们领土的西部"(orange) - 那是一个好的开始。
+| (:normal)你的"FFCS在那么深的地方可能不管用"(orange)。但是"尽快联系我"(orange)。
+| 保重。
+~ player
+| "我在地图上标记了可能的调查地点。"(orange, italic)
+! eval (deactivate (unit 'fi-ffcs-cerebat-1))
+! eval (deactivate (unit 'fi-ffcs-cerebat-2))
+
+; Cannot give a reward here, as the player isn't in proximity to Fi. However, can sell stuff to the trader for parts.
+
+; Fi's parting words about a bad feeling here, is a clue that most if not all sidequests will get invalidated once q10 is complete, as the plot escalates
+
+; "if I paid him in scrap parts" - could inflect this base on number of parts given/haggled. But I think it automatically inflects based on how many you know you paid

@@ -1,0 +1,65 @@
+; character voice: London cockney
+; short and sweet questions and answers here, as this guy isn't really your friend. Also no need to conditional the questions, as he'll be gone before long
+# chat-trader/chat-with-trader
+? (not (complete-p 'q10a-return-to-fi))
+| ~ cerebat-trader-quest
+| | 说吧。
+| ! label questions
+| ~ player
+| - 你为什么帮助Wraw？
+|   ~ cerebat-trader-quest
+|   | 我知道看起来怎么样。
+|   | 但他们库存充足，这就是我关心的全部。人总得谋生。
+|   < questions
+| - 脑蝠族议会怎么了？
+|   ~ cerebat-trader-quest
+|   | 就像我说的，他们没了。
+|   | 不过可能有些还活着，在Wraw监狱里腐烂。
+|   < questions
+| - 你叫什么名字？
+|   ? (not (var 'name-known))
+|   | ~ cerebat-trader-quest
+|   | | 你以为我能在生意上走这么远是靠分享我的名字？
+|   | | 你可以叫我... //{#@cerebat-trader-nametag}//。
+|   | ! eval (setf (nametag (unit 'cerebat-trader-quest)) (@ cerebat-trader-nametag))
+|   | ~ player
+|   | - 你是认真的吗？
+|   |   ~ cerebat-trader-quest
+|   |   | 你不喜欢吗？
+|   | - 好的，{#@cerebat-trader-nametag}。
+|   | - 你为什么选这个名字？
+|   |   ~ cerebat-trader-quest
+|   |   | 你喜欢吗？我刚编的。
+|   | ~ cerebat-trader-quest
+|   | | 你叫什么名字？
+|   | ~ player
+|   | - 想得美。
+|   |   ~ cerebat-trader-quest
+|   |   | 确实想得美，是吧。
+|   | - [(string= (@ player-name-1) (nametag player)) (撒谎) 不是{#@player-name-1}。|]
+|   |   ~ cerebat-trader-quest
+|   |   | 真的吗？如果是的话那可真是出人意料。
+|   | - [(not (string= (@ player-name-1) (nametag player))) 不是{#@player-name-1}。|]
+|   |   ~ cerebat-trader-quest
+|   |   | 如果是的话那可真是出人意料。
+|   | - 我不记得我的名字了。
+|   |   ~ cerebat-trader-quest
+|   |   | 我也不记得我的。
+|   | ! eval (setf (var 'name-known) T)
+|   | < questions
+|   |?
+|   | ~ cerebat-trader-quest
+|   | | 是{#@cerebat-trader-nametag}，不是吗。朋友，你需要仔细点。你的呢？
+|   | | 冷静点，我只是开玩笑。
+|   | < questions
+| - 我说完了。
+| ~ cerebat-trader-quest
+| | 回头见。
+|? (and (complete-p 'q10a-return-to-fi) (not (complete-p 'q11a-bomb-recipe)))
+| ~ cerebat-trader-quest
+| | 抱歉伙计，没时间。事情很多。不过如果你想要的话我可以交易。
+|? (complete-p 'q11a-bomb-recipe)
+| ~ cerebat-trader-quest
+| | 恐怕不行。趁着还有机会我得走了。
+| | 祝你好运，伙计。
+

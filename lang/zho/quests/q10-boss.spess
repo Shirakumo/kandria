@@ -1,0 +1,35 @@
+# 6-interact-/interaction
+~ player
+| (:embarassed)"所以他们有能工作的机甲...这很不妙。"(light-gray, italic)
+| (:thinking)"他们用钻头和涡轮机建造了这个 - 可能还有更多。"(light-gray, italic)
+| "也许我可以验证它的目的是什么 - 除了杀死我之外。"(light-gray, italic)
+| (:normal)"残骸中有一个接口端口。"(light-gray, italic) (:giggle)"只需要把我的手指插在这里...不好意思。"(light-gray, italic)
+| (:normal)"等等，这是什么？"(light-gray, italic)
+| "调查获取额外机器人的可能性："西部山区"(red)的"Genera"(red)。"
+| (:thinking)"...一个机器人派系，在山区？"(light-gray, italic)
+| "我不是孤单一人？"(light-gray, italic)
+? (complete-p (find-task 'q10-wraw 'wraw-warehouse))
+| | (:embarassed)"无论如何：鉴于我在仓库中看到的原材料，他们的制造野心是__巨大的__。"(light-gray, italic)
+| | (:normal)"就是"入侵整个山谷"(orange)那么巨大 - 从山区到海岸。"(light-gray, italic)
+| | "我需要"联系{#@fi-nametag}"(orange)。"(light-gray, italic)
+| | "..."FFCS无法穿透"(orange) - 要么是来自岩浆的磁干扰，要么是"Wraw正在行动"(orange)。"(light-gray, italic)
+| | "我最好"离开这里"(orange)并"以任何必要的方式传达我的报告"(orange)。"(light-gray, italic)
+| ! eval (complete (find-task 'q10-wraw 'wraw-objective))
+| ! eval (activate 'q10a-return-to-fi)
+| ! eval (setf (music-state 'region3) :normal)
+| ! eval (setf (music-state 'camp) :ambient)
+| ! eval (setf (music-state 'desert) :ambient)
+| ! eval (activate (unit 'wraw-border-1))
+| ! eval (activate (unit 'wraw-border-2))
+| ! eval (activate (unit 'wraw-border-3))
+| ! eval (activate (unit 'station-east-lab-trigger))
+| ! eval (activate (unit 'station-cerebat-trigger))
+| ! eval (activate (unit 'station-semi-trigger))
+| ! eval (activate (unit 'station-surface-trigger))
+|?
+| ~ player
+| | "我最好"检查地图上最后一个要找的地方"(orange)并"完成探索这个区域"(orange)。希望不会有更多的惊喜。"(light-gray, italic)
+
+; the mech explodes on death, but we can assume part of it remains for the player to "examine"
+; "working mechs" - chances are you saw only wrecked mechs / parts in the Wraw area, even if only in the boss room
+; "android acquisitions" - this hints that Zelah may have previously "acquired" you (q14-envoy relevant); or it could just mean he's trying to acquire you

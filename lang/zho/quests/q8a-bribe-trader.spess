@@ -1,0 +1,64 @@
+; character voice: London cockney
+# return-parts/parts-return
+~ cerebat-trader-quest
+| 你"准备好交出那些废料零件"(orange)了吗？我记得我们同意了"用{(var 'trader-bribe)}个换取议会的信息"(orange)。
+~ player
+- 还没有。
+  ~ cerebat-trader-quest
+  | 那就走吧。这里没什么好看的。
+- [(> (var 'trader-bribe) (item-count 'item:parts)) I don't have enough.|]
+  ~ cerebat-trader-quest
+  | 那是谁的错？不是我的！
+  ~ player
+  | "我需要赚一些钱。我可以试试"清道或捕鱼，然后卖给像{#@islay-nametag}和{#@trader-nametag}这样的商人"(orange)。"(light-gray, italic)
+- [(<= (var 'trader-bribe) (item-count 'item:parts)) I'm ready.]
+  < outcome
+
+; " could try" - amongst other activities
+
+# outcome
+~ cerebat-trader-quest
+| 给我！
+! eval (retrieve 'item:parts (var 'trader-bribe))
+! eval (status (concatenate 'string "Lost " (write-to-string (var 'trader-bribe)) " Scrap Part"))
+| 只需要一秒钟来数数它们。
+| ……
+| 对我来说看起来不错！现在我们可以做交易了。
+| 我就把它们放在一边。为这些废料零件的特殊客户做了安排。
+~ player
+- 现在给我信息。
+  ~ cerebat-trader-quest
+  | 我得说，我想你现在可能已经想出来了。
+- 咒咒。
+  ~ cerebat-trader-quest
+  | 别担心，我没忘记。不过我想你现在可能已经想出来了。
+- 什么客户？
+  ~ cerebat-trader-quest
+  | 我得说，我想你现在可能已经想出来了。
+~ cerebat-trader-quest
+| "Wraw"(orange)。
+| 我在和Wraw做交易，不是吗。
+| 这是"他们迁入"(orange)带来的唯一好事，相信我。不过不要告诉任何人我说过这话。
+| 所以现在你知道了。
+| 这就是为什么你不能见到"议会：不再有议会了。他们死了"(orange)。
+| 也许"他们不应该关闭Wraw的水源"(orange)。
+| 我告诉过你他们不会见任何人！
+| 无论如何，现在我知道我可以信任你，我很"乐意做交易"(orange)。
+| "这里的其他人可能也想这样做"(orange)。
+| 再见。
+~ player
+| (:embarassed)……
+| 糟糕。
+| (:normal)"我需要"联系{#@fi-nametag}"(orange)。不过首先我应该"距离这个滑头远一点"(orange)。"(light-gray, italic)
+! eval (complete task)
+! eval (reset interaction)
+! eval (activate (unit 'fi-ffcs-cerebat-1))
+! eval (activate (unit 'fi-ffcs-cerebat-2))
+! eval (setf (music-state 'region1) :normal)
+! eval (setf (music-state 'region2) :normal)
+! eval (setf (music-state 'underground-camp) :normal)
+! eval (setf (music-state 'region3) :ambient)
+? (active-p 'q8-meet-council)
+| ! eval (deactivate (unit 'player-council-chamber))
+
+; "shouldn't have turned the Wraw's water off" - part of what led to the invasion; the Wraw are reliant on their Cerebat puppets for water to drink and power the geothermal power station (less so than most as the "potion" helps their endurance - but they also work in stifling conditions)

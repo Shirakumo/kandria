@@ -1,0 +1,551 @@
+; Lore interacts that can be accessed throughout the entire game at ANY time if the player explores far enough.
+; Some are conditional to determine which line is shown; however, most are written in a way that works no matter what point in the story the player discovers them.
+; They are written as the thoughts or inner monologue of the player character.
+
+; REGION 1 UPPER
+; Storage interior area
+# task-world-all/storage-shelves
+~ player
+| "他们的储藏棚。物资不多，闻起来像交配的老鼠。"(light-gray, italic)
+
+; a half-ruined train from the old-world
+# task-world-all/noka-train
+~ player
+| "这是一列火车。当然，只有半列。"(light-gray, italic)
+| "我想知道在大灾难期间，人们是否使用这个车站逃到地下。"(light-gray, italic)
+
+; Large stone rock/gate
+# task-world-all/stone-gate-large
+~ player
+| "他们是在这块石板上切出了一道门，还是它本来就是这样倒的？"(light-gray, italic)
+
+; Trashed apartment from the old world, with a broken window
+# task-world-all/housing-apartment
+~ player
+| "我脚下碎裂的是玻璃，还是骨头？我不想看。"(light-gray, italic)
+
+; a sandstorm blocks the player from crossing further into the desert to the east
+# task-world-all/storm-east-view
+~ player
+| "风在咆哮，像被烧着的狗一样。"(light-gray, italic)
+
+; the remains of an apartment stairwell, with the rest of the skyscraper missing ("used to be much taller" - sarcastic joke)
+# task-world-all/housing-stairs
+~ player
+| "这是楼梯间。这栋建筑曾经高得多。"(light-gray, italic)
+
+; a dirty kitchen the survivors use to cook
+; they have some electricity, but while they're still getting set up on the surface, they haven't got it in the kitchen yet - prioritised comms
+# task-world-all/housing-kitchen
+~ player
+| "没有燃气或电力供应。闻起来像失事的油轮。"(light-gray, italic)
+| (:thinking)"不过我检测到了淀粉土豆的味道，那是…… 甜菜吗？"(light-gray, italic)
+
+; a ruined cafe from the old world called Café Alpha according to its sign. Joke about there being no waiters or waitresses any more
+# task-world-all/housing-cafe
+~ player
+| (:thinking)""Alpha咖啡厅"(red)。我以前常来这里吗？"(light-gray, italic)
+| (:giggle)"如果是的话，我相信当时的服务要好得多。"(light-gray, italic)
+
+; a shelf of books and figurines (visually obvious/implied) in one of the old apartment rooms - someone's assembled them neatly
+# task-world-all/housing-shelf
+~ player
+| "这些收藏品怎么能幸存下来，而却有这么多人死了？有人足够关心来救了它们。"(light-gray, italic)
+
+; vista of the ruined city in the background, collapsed skyscrapers, etc.
+# task-world-all/ruins-view
+~ player
+| "这座城市被粉碎了。发生了什么？"(light-gray, italic)
+
+; Jack's workbench in the engineering workshop; "work out" = exercise/gym
+; "who come to think of it looks like he wants to kill me." - this is before the player has met Jack, so we can imagine he's glaring at them
+# task-world-all/engineering-bench
+~ player
+? (complete-p 'q0-find-jack)
+| | "{#@jack-nametag}的工作台。我能闻到体味 - 他是在这里工作，还是在这里锻炼？"(light-gray, italic)
+|?
+| | "这是个工作台。也许它属于这个人 - 现在想想，他看起来像想杀死我。"(light-gray, italic)
+
+; a sandstorm blocks the player from crossing further into the desert to the west
+; does this say androids are bulletproof? Perhaps, though could just be a turn of phrase. Guns don't feature in the game, except when people are massing arms at the end;
+; which could suggest the android would be formidable on the battlefield, if bulletproof, and thus why Zelah wants them out of the way.
+# task-world-all/sandstorm-view
+~ player
+| "小颗粒撞击我的身体，像子弹一样。"(light-gray, italic)
+| "山脉在远方，不过在这场风暴中我几乎看不到它们。"(light-gray, italic)
+
+; Zenith was the name of the city in the old world. The city's logo is presented front and centre on the wall, a star glowing over a valley, which the player's character notices resembles an explosion levelling a city... Is that what happened?
+  ; central station = railway station
+# task-world-all/zenith-hub
+~ player
+| ""Zenith"(red) - 那是这座城市的名字，这里是中央车站。"(light-gray, italic)
+| (:thinking)"是我的错觉，还是那个徽章奇怪地具有预言性？"(light-gray, italic)
+
+; Rootless was the name of a hospital organisation in the old world
+# task-world-all/east-apartments
+~ player
+| "这些是"Rootless医院公寓"(red)。人们是在病床上死去的吗？"(light-gray, italic)
+
+; a market area; behind dark glass windows stand the shadows of clothing mannequins from the old world
+# task-world-all/market
+~ player
+| ""中西部市场"(red)。玻璃后面的那些人体模型几乎像真人。"(light-gray, italic)
+| (:embarassed)"好像这个地方还不够毛骨悚然似的。"(light-gray, italic)
+
+; ruined luxury apartments from the old world, now buried in the ground
+# task-world-all/west-apartments
+~ player
+| ""Dreamscape西区"(red) - 曾经是奢华的巅峰，现在是地下的地狱。"(light-gray, italic)
+
+; a flooded room near the water pump
+# task-world-all/water-cave
+~ player
+| (:thinking)"这个下沉的房间必须是他们水库的一部分，水泵从这里抽水。"(light-gray, italic)
+
+; large mushrooms which the player can climb up and stand on
+# task-world-all/mush-cave-1
+~ player
+| (:thinking)"这些蘑菇到底是怎么长得这么大的？"(light-gray, italic)
+? (or (active-p 'sq2-mushrooms) (complete-p 'sq2-mushrooms))
+| | (:normal)"想必它们是不能吃的，否则他们的食物问题就解决了。"(light-gray, italic)
+
+; the sarcastic player character laments there are no truffles, only these huge giant mushrooms everywhere
+# task-world-all/mush-cave-1a
+~ player
+| "我想松露可能要求过高了。"(light-gray, italic)
+
+; when the player is stood on top of a giant mushroom
+# task-world-all/mush-cave-2
+~ player
+| "就像在果冻上走路一样。"(light-gray, italic)
+
+; ruined offices of two companies from the old world, Brother and North Star
+; a joke about their surveillance not helping them predict the end of the world
+# task-world-all/offices
+~ player
+| (:thinking)""Brother"(red)和"North Star"(red)办公室。他们制造导航、卫星和监控系统。"(light-gray, italic)
+| (:normal)"我打赌他们从未预见这一切。"(light-gray, italic)
+
+; Semi were a company in the old world, which made androids and parts for androids. It's where the Semi Sisters faction take their name from, as well as an ironic reference to the old-world surveillance company, Brother.
+# task-world-all/factory
+~ player
+| ""Semi"(red)是电子元件的制造商，尤其是机器人的元件。"(light-gray, italic)
+| "看到工厂如此安静真令人悲伤。"(light-gray, italic)
+
+; view from the top of a ruined skyscraper if the player manages to climb up there (the player can't actually see these things due to the camera, but we describe them anyway)
+# task-world-all/skyscraper
+~ player
+| "这景色相当不错。"(light-gray, italic)
+| "沙漠四面都被山脉包围。"(light-gray, italic)
+| "从云层的形成来判断，东面山脉的另一边有海洋。"(light-gray, italic)
+
+; the settlement's farmland on the surface; the first line shows if the player has done the quest to restore the water supply; otherwise the other one shows
+# task-world-all/farm-view
+~ player
+? (complete-p 'q1-water)
+| | "灌溉系统又工作了。不过庄稼可能已经太糟糕了，没法救活。"(light-gray, italic)
+|?
+| | "这些是土豆 - 从外观看正在死去。"(light-gray, italic)
+
+; the area of rubble where the player character is first awakened; they're reflecting on what happened in their previous life that led to their stranding here (which they can't fully remember, and the player themselves is not privy too). A bit of humour about their bad back due to lying on rocks for thirty years.
+; needs to work whether they encounter this at the beginning of the game, or at any point later
+; The first "examine" encountered by the player in the game!
+# task-world-all/grave
+~ player
+| (:thinking)"所以这就是结束的地方。也是开始的地方。"(light-gray, italic)
+| (:giggle)"在这里度过几十年并不是最舒适的地方。难怪我背痛。"(light-gray, italic)
+
+; above the rubble area where the player character is first awakened, there's a huge, collapsed gasworks building visible
+; perhaps the old gasworks was being converted into something more modern, when an accident happened, perhaps involving the android. Like this explosion in Sheffield when an old gasworks was being converted in the 1970s: https://www.bbc.co.uk/news/uk-england-south-yorkshire-45097740
+# task-world-all/grave-cliff
+~ player
+| "旧的燃气厂爆炸了。这和我有关吗？"(light-gray, italic)
+? (complete-p 'q0-find-jack)
+| | "是甚气：气体持有装置本可以改造成粮仓。"(light-gray, italic)
+
+; REGION 1 LOWER
+
+; the character reflects while navigating deep and complex tunnels through the ground
+# task-world-all/semi-cave-east-1
+~ player
+| "即使在数据丢失之前，我的历史知识也很糙糟 - 这些隗道是专门为居住挖掘的，还是原本就是矿井？"(light-gray, italic)
+
+; another old Semi factory space
+# task-world-all/semi-cave-east-3
+~ player
+| "我觉得他们在这条生产线上组装机器人。"(light-gray, italic)
+| "也许甚至包括我。"(light-gray, italic)
+
+; a scenic picture on the wall from pre-Calamity times - now it seems as ancient as a cave painting once did
+; And technically it is now a painting, in a cave...
+# task-world-all/semi-cave-east-4
+~ player
+| "我想这就是当今时代的岩洞壁画等价物。"(light-gray, italic)
+
+; the player character reflects on their artificial method of swimming
+# task-world-all/semi-cave-east-5
+~ player
+| "幸好我会游泳。"(light-gray, italic)
+| (:giggle)"游泳的意思是激活我的水下推进器。"(light-gray, italic)
+
+; examining one of the old-world trains refitted by the Semi Sisters
+; It was a maglev train, which has now had traditional rail wheels welded onto it, to work with the Semis' electrical railway
+# task-world-all/semi-train
+~ player
+| "这是一列磁悬浮子弹列车 - 底盘上焦接了铁轨车轮！"(light-gray, italic)
+
+; while examining the Semi Sisters' storage area
+# task-world-all/semi-hub-1
+~ player
+| "他们做走私生意吗？我想现在什么都不算非法了。"(light-gray, italic)
+
+; a bar in the Semi Sisters hub area
+; conditional for when the base is empty later on
+# task-world-all/semi-hub-2
+~ player
+? (not (complete-p (find-task 'q11a-bomb-recipe 'task-move-semis)))
+| | "我想人们无论到哪里都需要一个酒吧。"(light-gray, italic)
+| | "这里的喊叫声和我记忆中的任何地方一样大 - 但他们碰撞的不是玻璃杯而是马口铁罐。"(light-gray, italic)
+|?
+| | "看起来我错过了最后一单。"(light-gray, italic)
+
+; another scenic picture on the wall from pre-Calamity times
+; the player character doubts it either because things are too far gone, or because even if society recovers, they'll hopefully do things differently
+# task-world-all/semi-hub-3
+~ player
+| "也许有一天世界会再次看起来像这幅画一样。但我表示怀疑。"(light-gray, italic)
+
+; the Semi Sisters' council chamber / control room, where Innis and Islay, the leaders, mostly hang out. It's quite deluxe and well-furnished compared to the makeshift areas of the rest of their base
+; conditional for when the base is empty later on
+# task-world-all/semi-hub-4
+~ player
+? (not (complete-p (find-task 'q11a-bomb-recipe 'task-move-semis)))
+| | "基地的喘杂声在这里逐渐消失 - 除了模糊的视频信号和通讯喊叫声的干扰。"(light-gray, italic)
+|?
+| | "黑屏。隗道里不是一片漆黑，就是他们其余的CCTV摄像头都失效了。"(light-gray, italic)
+
+; exploring a ruined underground "subscraper" - a skyscraper that goes down into the ground, rather than up into the sky (they built buildings like this before the Calamity)
+# task-world-all/semi-hub-5
+~ player
+| "这个地下摩天大楼怎么没有完全倒塔，超出了我的理解。"(light-gray, italic)
+
+; makeshift areas of the Semi Sisters' base, where people have strung up modesty curtains on rails to give themselves privacy amongst the old factories and machinery where they now live
+# task-world-all/semi-hub-6
+~ player
+| "机械和遐羞帘子 - 这不是我所期望的。我想他们只能凑合使用手头有的东西。"(light-gray, italic)
+
+; a hydroponic "garden" in the Semi Sisters' base. Compared to the Noka faction on the surface, they're doing very well here at growing food and they have plenty of water
+# task-world-all/semi-hub-7
+~ player
+| "这是一个水培天堂。我觉得这些人在食物和水方面不缺乏。"(light-gray, italic)
+
+; a mostly empty vending machine from the old world.
+; Candy Android = a candy bar from the old world. Suggests maybe it was a PR thing to make people more amenable to androids, by making chocolate bars that resemble them.
+# task-world-all/semi-hub-8
+~ player
+| "这里剩下的食物都已经变质了。包括那些机器人糖果，通过破碎的玻璃哀伤地凝视着我。"(light-gray, italic)
+
+; an old office building is now a sleeping area in the Semi Sisters' base.
+; sly joke reference to crunch culture and sleeping under your desk.
+# task-world-all/semi-hub-9
+~ player
+| "办公室变成了卧室。"(light-gray, italic) (:giggle)"给'在办公桌下睡觉'赋予了新的含义。"(light-gray, italic)
+
+; a calendar still on the wall in an old office block; March 2368 is when the Calamity happened. There are faces on the calendar too.
+# task-world-all/semi-hub-10
+~ player
+| "一本2368年的日历，仍然显示着三月。那些约会中的一些永远不会发生了。"(light-gray, italic)
+| "那是在这里工作的人的照片吗？"(light-gray, italic)
+
+; a fluorescent painted sign in the caves near the Semi Sisters base, directing people towards it.
+; The player may or may not have encountered the Semi Sisters when they find this.
+# task-world-all/semi-cave-west-1
+~ player
+| "这真是荧光的。"(light-gray, italic) (:thinking)"想知道他们是怎么制作这种油漆的。"(light-gray, italic)
+
+; spike traps and barbed wire litter areas around the Semi Sisters base - lethal to an android, as they reflect on police states from before the Calamity.
+; Maybe the Semi Sisters planted them for defence, even though it makes it harder for their own people to get around. Or maybe it's a legacy from when the militaristic Wraw faction inhabited this area?
+# task-world-all/semi-cave-west-2
+~ player
+| "谁在这里放置了所有这些尖刺？这像个警察国家。"(light-gray, italic)
+
+; these are the rail engineers from the Semi Sisters, who are digging out more of the old metro tunnels and expanding the rail network, but who got cut off when the tunnel collapsed.
+; The player may encounter them before the quest from the Semis to actually rescue them.
+# task-world-all/semi-cave-west-3
+~ player
+| "这是一个临时的"工程师营地"(red)。他们有足够的食物能够自给自足，至少在一段时间内。"(light-gray, italic)
+
+; the caved-in tunnel that trapped the Semi Sisters engineers. A different line plays depending on whether or not the debris has been cleared yet, and whether or not the player knows about the trapped engineers quests yet
+; the "UP and around" clue is important here, to tell the player they need to go up not down. We can imagine the player character has used FFCS to scan and know there's a way up but not down
+# task-world-all/engineers-wall
+~ player
+? (active-p (unit 'blocker-engineers))
+| ? (active-p 'q5a-rescue-engineers)
+| | | "这可能就是困住"半兄工程师"(orange)的"倒塔隗道"(orange)。"(light-gray, italic)
+| | | "我觉得我不能从这一边清理它。"(light-gray, italic)
+| | | (:thinking)"我需要"找到另一条向上和绕行的路"(orange)。"(light-gray, italic)
+| |?
+| | | "一个倒塔的隗道。我觉得我不能从这一边清理它。"(light-gray, italic)
+| | | (:thinking)"我需要"找到另一条向上和绕行的路"(orange)。"(light-gray, italic)
+|?
+| ? (or (active-p 'q5a-rescue-engineers) (complete-p 'q5a-rescue-engineers))
+| | | "倒塔铁路隗道的残骨。看起来足够稳定 - 目前如此。"(light-gray, italic)
+| |?
+| | | "倒塔隗道的残骨。看起来足够稳定 - 目前如此。"(light-gray, italic)
+
+; REGION 2
+
+; abandoned laboratory
+; The player does know the term "Calamity" by this point
+# task-world-all/cerebat-lab-1
+~ player
+| "看着这些表面上的多层灰尘，我觉得这个实验室自大灾雾之前就没有被使用过。"(light-gray, italic)
+
+; abandoned lab, looking at an unusual sample in a glass tube (like something from Aliens)
+# task-world-all/cerebat-lab-2
+~ player
+| (:embarassed)"那到底是什么鬼东西？我觉得它是有机物。而且是死的。"(light-gray, italic)
+| "好吧，让它待在原地。我不希望有什么东西跳到我脸上。"(light-gray, italic)
+
+; in a big lush water cave
+; (works even if they've seen the deeper volcanic Wraw area, since here they're comparing it to the drier less habitable areas above)
+# task-world-all/cerebat-water-cave
+~ player
+| "在这个深度我预期的是岩浆而不是水。"(light-gray, italic)
+
+; big mushrooms in a big lush water cave, different to the ones higher up. And hence the drinkable joke
+# task-world-all/cerebat-mush-cave
+~ player
+| "这些是不同种类的巨型蘑菇。我不知道它们是否可食用。"(light-gray, italic)
+| (:giggle)"不过鉴于这个地方如此潮湿，它们可能可以喝。"(light-gray, italic)
+
+; bottomless pit which would cause insta-death
+# task-world-all/cerebat-pit
+~ player
+| (:embarassed)"我掉进去的话，没人能找到我。"(light-gray, italic)
+
+; a painted Cerebats faction sign and direction arrow, though it only says "BATS"
+; character turns it into a joke, since chances are they've seen bats flying around in the caves before. Even if they haven't, they'll know the meaning.
+; They may or may not have encountered / know about the Cerebats faction at this point
+# task-world-all/cerebat-bats-1
+~ player
+| (:giggle)"是的，这些地方确实有蝙蝠。"(light-gray, italic)
+
+; another painted Cerebats faction sign and direction arrow, though it only says "BATS" (and is written in red paint, the same colour as blood AND thermal fluid in androids)
+; They may or may not have encountered / know about the Cerebats faction at this point
+# task-world-all/cerebat-bats-2
+~ player
+| (:embarassed)"我希望那不是用血写的。或者热液。"(light-gray, italic)
+
+; a mushroom cave, but also referring to the lush backdrop
+# task-world-all/cerebat-mush
+~ player
+| "这里如此潮湿，难怪如此繁茂。"(light-gray, italic)
+| (:giggle)"感谢上帝我不出汗，否则我就要用我的腋窝给植物浇水了。"(light-gray, italic)
+
+; a lake area; the water is pumped from here to the Semis and Noka living areas far above
+; may or may not know the names of the factions in the levels above at this point, hence ambiguity
+# task-world-all/cerebat-lake
+~ player
+| (:thinking)"水一定是从这些湖泊被泵送到上面的层次。"(light-gray, italic)
+
+; because this is a light area, even though it's deep underground
+; teasing the concept of big phosphorescent (radioactive?) fauna - though you never see anything
+# task-world-all/cerebat-light
+~ player
+| (:thinking)"所有的光线都从哪里来？荧光植物？"(light-gray, italic)
+| (:embarassed)"荧光动物？..."(light-gray, italic)
+
+; wind in the tunnels, caused by difference in temperature with the levels above, and with the air over water and land
+# task-world-all/cerebat-wind
+~ player
+| (:thinking)"水一定是在冷却热空气并造成风。"(light-gray, italic)
+
+; wind power
+; may have encountered wind farming in the tunnels already in Semi/Cerebat territory (sidequest), or may not have - but can assume the character has observed this in the environment while exploring
+; not "the doldrums" - since the wind is light, and so is the mood here; not what she was expecting deep underground
+; her thrusters use power for wind!
+# task-world-all/cerebat-wind-power
+~ player
+| "这里绝不是无风带。"(light-gray, italic)
+| "难怪他们用风力发电 -"(light-gray, italic) (:giggle)"就像我的推进器做相反的事情一样。"(light-gray, italic)
+
+; bouncing springs like in Sonic
+; Helps people/hunters/androids (assuming you know of hunters at this point) to navigate these tunnels
+; Derived from old railway buffers (those round sprung buffers, use in pairs on the front and back of rail carriages/trucks/cars, to help avoid impacts when connecting them together)
+# task-world-all/cerebat-bouncer
+~ player
+| "那些弹簧板是改造的铁路缓冲器...真是天才！"(light-gray, italic)
+
+; a hideout of neutral Rogue enemies, who ambush passers by (might not be obvious to player, so description clarifies). Well stocked due to all the item spawners.
+; player may or may not know about Rogues by this point
+# task-world-all/cerebat-hideout
+~ player
+| "一个富裕的隐藏地。不过如果那股臭味说明什么的话，"(light-gray, italic) (:giggle)"它严重缺乏洗手间设施。"(light-gray, italic)
+
+; an abandoned hideout of neutral Rogue enemies, who used to ambush passers by (might not be obvious to player, so description clarifies)
+; player may or may not know about Rogues by this point, and the Semi Sisters (by name) on the level above; though to reach here, they will have seen that the level above is populated/watched
+# task-world-all/cerebat-old-hideout
+~ player
+| "一个长期被废弃的隐藏地 - 大部分垃圾都被吹走了，但还有一些脚印。"(light-gray, italic)
+| (:thinking)"它可能太开放和暴露了，更不用说离上面的层次太近。"(light-gray, italic)
+
+; an encampment of raiders on the edge of the Cerebat base
+; player may or may not have discovered the Cerebat base by this point - if they have, then this makes sense; if not, then it's a slight clue (but not a spoiler) that a base is nearby
+; player may or may not suspect/know that the Wraw have taken over the Cerebats by this point (depending where they are in the plot); if they do suspect, then this fuels the fire
+# task-world-all/cerebat-encampment
+~ player
+| "这让我想起了可疑的后街储藏地。我觉得他们在这里经营黑市。"(light-gray, italic)
+
+; cerebat council chamber - it's empty, no Council
+; the room is modern and shiny, like the Calamity never happened (unlike most other places the player has seen)
+; player may or may not suspect/know that the Wraw have taken over the Cerebats by this point (depending where they are in the plot)
+; the player does know the term "Calamity" by this point
+# task-world-all/cerebat-council
+~ player
+| "从闪亮的黑色地板上，没有阴影，只有倒影在凝视着我。"(light-gray, italic)
+| "你会觉得大灾雾在这里从未发生过。"(light-gray, italic)
+
+; living quarters - tents set up in rooms, deep underground
+; player may or may not suspect/know that the Wraw have taken over the Cerebats by this point (depending where they are in the plot)
+# task-world-all/cerebat-housing
+~ player
+| "这是个舒适的小角落可以安营。不过不是在星空下。"(light-gray, italic)
+
+; shady backstreets
+; player may or may not suspect/know that the Wraw have taken over the Cerebats by this point (depending where they are in the plot)
+# task-world-all/cerebat-backstreet
+~ player
+| "你见过一条阴暗的后街，你就见过了所有的。"(light-gray, italic)
+
+; busy market
+; player may or may not suspect/know that the Wraw have taken over the Cerebats by this point (depending where they are in the plot) - thus we raise suspicion here if they don't know, or confirm suspicion if they do (or it may just be interpreted as prejudice towards androids)
+# task-world-all/cerebat-market
+~ player
+| "这是个繁忙的市场，而我正在获得不成比例的侧目。"(light-gray, italic)
+
+; warehouse/factory
+; "Some of the boxes are covered in ash." - this is a clue that the Wraw have been suppling / have taken over the Cerebats. But it needs to be vague enough to make sense both before and after the player has discovered the Wraw takeover, at a time when they may or may not know as well that the Wraw come from a volcanic area. It also can't be too specific to serve as a plot clue, since this confirmation only comes from the cerebat trader during q8a.
+# task-world-all/cerebat-warehouse
+~ player
+| "我不认为我见过储备更充足的仓库，这包括大灾雾之前。"(light-gray, italic)
+| "一些箱子上覆盖着灰烬。"(light-gray, italic)
+
+; REGION 3
+; fewer lore entries here, to preserve the mystery
+
+; geothermal tube
+; part of the old underground power station, which circulated water into the heat of the earth to produce steam, which in turn powered a turbine
+; parts of it are still active, used exclusively by the Wraw faction
+; the Cerebats did cut off this water supply before the game started, leading to the Wraw invasion (before/early game); but now the Wraw have taken over, the flow is running again
+; this particular pipe is damaged already, because the Wraw have been pushing too hard with their various invasion schemes (or because the Cerebats sabotaged it to cut off the water?...); this ties into Jack's sq11 when he wants you to sabotage it - however, from this cursory inspection during exploration, the PC doesn't know for sure if the pipe is still operational - it requires a closer inspection on Jack's quest to confirm this.
+# task-world-all/wraw-tube
+~ player
+| "这是Trickle的地热发电站之一。管道将水输送到这里烧开。"(light-gray, italic)
+| "然后蒸汽驱动涡轮机发电。"(light-gray, italic)
+
+; lava fishing spot
+; the player can fish certain rare and exotic (and machine) types of fish/waste from the lava
+# task-world-all/wraw-fish
+~ player
+| "需要一种特殊的生物才能在岩浆中游泳。"(light-gray, italic) (:embarassed)"而我不是。"(light-gray, italic)
+
+; lava and spikes area
+; "smell" because of the burning everywhere, accentuated by the blasts of hot air that the player can ride to platform around
+; android may or may not be religious - probably not. But keeps it open for the player. If not, then ofc this is just a turn of phrase
+# task-world-all/wraw-lava
+~ player
+| (:embarassed)"这个地方开始看起来和闻起来越来越像地狱。"(light-gray, italic)
+
+; peoples' homes
+; the player may or may not know that these people are the enemy Wraw faction by this point; if they don't, then the negative tone here can be because this lava area seems a stupid place to live
+# task-world-all/wraw-people
+~ player
+| "选择在岩浆管中生活的一群硬汉，我承认这一点。"(light-gray, italic)
+
+; cache of supplies (and weapons)
+; the player may or may not know that these people are the enemy Wraw faction by this point; so this is a more general comment about their living conditions
+# task-world-all/wraw-cache
+~ player
+| "在这里生活可能相当舒适 - 如果你不是生活在岩浆泛滥平原上的话。"(light-gray, italic)
+
+; NOKA SEEDS
+; can be done before q2-seeds is given
+# task-world-seeds/seeds-arrive
+~ player
+| (:thinking)"嗯，这是什么？一个旧世界的地堡？"(light-gray, italic)
+| "我觉得这是一个"储存缓存"(orange)，但它闻起来和看起来一样古老。容器和种子袋散落在四周。以前有人来过这里。"(light-gray, italic)
+| (:normal)"大部分都已经变质了，但一些抽屉可能仍然放着"可用的种子 - 可能对某人有用"(orange)。让我看看..."(light-gray, italic)
+! eval (store 'item:seeds 24)
+! eval (status "Received 24 Seed Sachet")
+| "这就是剩下的全部："24个小袋"(orange)。每个里面的种子都很小很硬，像砂粒一样。"(light-gray, italic)
+| (:thinking)"它们还会生长吗？"(light-gray, italic)
+
+; SEMI SISTERS ENGINEERS
+
+; conversation with a Semi Sisters rail engineer, if you encounter them independently of the quest to rescue them.
+; This is dialogue with the player, not inner monologue.
+; Conditionals determine what they say based on first of all whether you've cleared the tunnel yet that's blocking them in, and second whether you've spoken to them before.
+; Task resolves once all the Semis move to the surface during q11a-bomb-recipe
+# task-world-engineers/trapped-engineers
+? (active-p (unit 'blocker-engineers))
+| ? (not (var 'engineers-first-talk))
+| | ~ semi-engineer-chief
+| | | 以上帝的名义，你是怎么进来的？
+| | ~ player
+| | | 这个竖井上面有一条隧道 - 不过不是人类能够通行的。
+| | ~ semi-engineer-chief
+| | | ...一个//人类//？那么你是...
+| | ~ player
+| | - 不是人类，是的。
+| |   ~ semi-engineer-chief
+| |   | ...一个机器人，我可以作证。
+| | - 一个机器人。
+| |   ~ semi-engineer-chief
+| |   | ... As I live and breathe.
+| | - 你们在这里做什么？
+| | ~ semi-engineer-chief
+| | | 我们很高兴你出现了。我们是Semi Sisters的铁路工程师。
+| | | 隧道倒塌了；我们失去了首席和一半的同事。
+| | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
+| | ~ semi-engineer-chief
+| | | 我们"无法突破"(orange) - 你能吗？机器人能做到吗？
+| | | "倒塌就在前面。"(orange)
+| | ! eval (setf (var 'engineers-first-talk) T)
+| | ! eval (activate 'world-engineers-wall)
+| | ! eval (deactivate 'task-engineers-wall-listen)
+| |?
+| | ~ semi-engineer-chief
+| | | "倒塌的墙壁"(orange)怎么样了？我们不能永远待在这里。
+|?
+| ? (not (var 'engineers-first-talk))
+| | ~ semi-engineer-chief
+| | | 你是谁？你是怎么突破倒塌的隧道的？
+| | ~ player
+| | - 我...不是人类。
+| |   ~ semi-engineer-chief
+| |   | ...一个机器人，我可以作证。
+| | - 我是个机器人。
+| |   ~ semi-engineer-chief
+| |   | ... As I live and breathe.
+| | - 你们在这里做什么？
+| | ~ semi-engineer-chief
+| | | 我们很高兴你出现了。我们是Semi Sisters的铁路工程师。
+| | | 隧道倒塌时我们失去了首席和一半的同事。
+| | ! eval (setf (nametag (unit 'semi-engineer-chief)) (@ semi-engineer-nametag))
+| | ~ semi-engineer-chief
+| | | 但现在路线开通了，情况在好转。
+| | | 谢谢你。
+| | ! eval (setf (var 'engineers-first-talk) T)
+| |?
+| | ~ semi-engineer-chief
+| | | 我不相信你竟然能通过...现在食物和医疗用品也能通过了。谢谢你。
+| | | 我们可以恢复挖掘工作。会很慢，但我们会完成的。
+
+; replacement interact when the engineer is now on the surface in the final act, preparing for the battle
+; They're not too impressed with the nearby water pipe that you and Catherine worked on in act 1
+# task-engineers-surface/engineer-surface
+~ semi-engineer-chief
+| 在地面上很奇怪。你住在这里？很热。
+| 我希望我们的地铁会比这条粗制的水管表现得更好。
+

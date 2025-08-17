@@ -1,0 +1,104 @@
+# talk-to-fi/talk-fi
+~ fi
+| 问候，{(nametag player)}。
+~ player
+- 我能帮忙做什么吗？
+  ~ fi
+  | 是的，我想你可以。但首先……
+- 所以你是这里的领导者？
+  ~ fi
+  | 差不多是这样。
+- 水供应怎么样？
+  ~ fi
+  | 已经完全恢复，要感谢你和{#@catherine-nametag}的努力。
+  | 我们可能欠你一命。
+~ fi
+| 我想为{#@jack-nametag}的行为道歉 - 以及我自己的短视。你是我们的客人，你帮助了我们。
+| 但你也必须理解，作为首领我有责任。我必须勤勉。
+| 但我想我有一个方法让你再次帮助我们。
+| 虽然水回来了，但我们的庄稼不太可能再坚持太久。
+| 我知道来这里会很困难，但我们在悬崖边缘 - 如果我们不饿死，那么看起来Wraw最终会抓到我们。
+| 他们早晚会来的 - 没有人能逃脱他们并活很久。
+! label questions
+~ player
+- Wraw是谁？
+  ~ fi
+  | 另一个派系，在深地下。我们曾经是他们的一部分。
+  | 这么说吧，他们对剩余的地热发电机拥有垄断权。而且他们不喜欢分享。
+  < questions
+- 你们不能搬到地下吗？
+  ~ fi
+  | 我们下面的层级不稳定。如果我们去更低的地方，我们就会进入其他派系的领土。
+  | 我们来到地面是因为我们真的认为我们可以像以前的人那样种植食物。
+  | 但我们也认为Wraw不会跟来。
+  | (:annoyed)我想我们错了。好吧，是我错了。
+  < questions
+- 为什么我突然成了你的知己？
+  ~ fi
+  | 我不知道。你是个陌生人，如果你原谅这个双关语的话。但你帮助了我们。
+  | 我珍视新鲜的视角。我在这里得不到太多这样的东西。
+  < questions
+- 接下来怎么办？
+~ fi
+| 我没有告诉其他人庄稼失败的事，但他们不是瞎子。我告诉你是因为我觉得你能帮忙。
+| 有一个地方“穿过地面向东”(orange)，在“废墟”(red)下面，我们最初在那里找到了你看到在这里生长的种子。
+| “{#@alex-nametag}”(yellow)发现了它，我们的猎人。我希望你追溯他们的足迹，“找到藏处”(orange)，如果它仍然完好，“回收所有剩余的种子”(orange)。
+| 如果我们能播种足够多的种子，且足够快，那么……
+| 好吧，我们不要过于超前，对吧。
+? (complete-p (find-task 'world 'task-world-seeds))
+| ~ player
+| - 实际上我这里就有种子。
+| - 我有个惊喜给你。
+| - （给她种子）
+| < early-end
+|?
+| ~ player
+| - 你可以依靠我。
+|   ~ fi
+|   | 谢谢你。
+| - 我会尽力找回我能找到的。
+|   ~ fi
+|   | 这就是我要求的全部。
+| - 如果我失败了怎么办？
+|   ~ fi
+|   | 我不知道你来自哪个世界，但我很久以前就发现最好一次制定一个计划。
+|   | 这个世界试图把你拉下水，所以你必须快速行动，随机应变。
+| ~ fi
+| | {#@alex-nametag}一直是我们唯一的猎人。我觉得你也可以成为猎人，甚至更多。
+| | 好运。
+| ! eval (deactivate (find-task 'world 'task-world-seeds))
+| ! eval (activate 'q2-seeds)
+
+;; very similar dialogue to q2-seeds/return-seeds/seeds-return-fi - just different context. Quest logic is identical though.
+# early-end
+~ fi
+! eval (retrieve 'item:seeds T)
+! eval (status "Lost 24 Seed Sachet")
+| (:happy)哦天哪，你已经去过藏处了？这里必须有…… 二十包。全部装满。这是全部吗？
+~ player
+- It was.
+- There are 24 actually.
+- I was thorough.
+~ fi
+| (:happy)You've done well. Very well. I'll see these are sown right away.
+| This buys us hope I never thought we'd have.
+| (:normal)Know that you are earning my trust, {(nametag player)}. Perhaps you will become a part of the "Noka"(red) yourself.
+| {#@alex-nametag} has been our sole hunter for some time. You could be a hunter too, and more besides I think.
+| But for now, please "accept these parts"(orange) as a token of my appreciation.
+! eval (store 'item:parts 200)
+! eval (status "Received 200 Scrap Part")
+~ fi
+? (complete-p 'q3-new-home)
+| | You should "check in with {#@catherine-nametag}"(orange) - I'm sure she'd like to see you again.
+| | (:happy)I think I know what I'd like you to do next as well. "Let me know"(orange) when you're ready.
+| ! eval (activate 'sq-act1-intro)
+| ! eval (activate 'q4-intro)
+|?
+| ? (not (active-p 'q3-new-home))
+| | | Oh, I've also "given {#@jack-nametag} a special job"(orange) - something I think you'll be well-suited to help with.
+| | | He'll be in "Engineering"(orange).
+|   
+| | I also heard "{#@trader-nametag} is here - our trader friend"(orange). His caravan is down in the Midwest Market, beneath the "Zenith Hub"(red).
+| | You would be wise to equip well for your work.
+| ! eval (activate 'trader-arrive)
+! eval (complete 'q2-seeds)

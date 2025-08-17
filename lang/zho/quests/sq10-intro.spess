@@ -1,0 +1,34 @@
+; Wraw drill sergeant, female, organising troops in Cerebat territory after the invasion
+; Northern/pirate accent, similar to Zelah
+# intro/intro-chat
+~ wraw-sergeant
+| 你是谁？你为什么没穿制服？
+| 天哪，我们现在真是饥不择食了。我怎么就摊上这倒霉差事...
+| 如果你想加入Wraw，最好快点让我看看你能做什么。
+! eval (setf (nametag (unit 'wraw-sergeant)) (@ wraw-sergeant-nametag))
+~ player
+- 是，长官！
+  ~ wraw-sergeant
+  | 嗯，也许你还有希望。
+- 我需要做什么？
+  ~ wraw-sergeant
+  | 哈哈，你//不//需要做什么呢。
+- 不用了，谢谢。
+  < leave
+~ wraw-sergeant
+| 我们把你这样的新兵扔进绞肉机。
+| 这是个突击训练场 - 当然是我亲自设计的，自然所有记录都是我保持的。
+| "找到地点，不要被杀死，摧毁目标"(orange)。这就是你的命令。
+| 打破我的记录 - 见鬼，只要让我印象深刻 - 也许你就能称自己为Wraw了。总比做胆小的脑蝠族强，对吧？
+| "我会等着"(orange)，菜鸟。
+! eval (activate 'sq10-race)
+! eval (complete task)
+! eval (reset interaction)
+
+# leave
+~ wraw-sergeant
+| 滚出我的视线。
+
+; player can never join the Wraw, no matter how well they do - if they do badly, then it speaks for itself, if they do well, then the sergeant is spiteful; and before long the quest is curtailed since both the player, and the sergeant have bigger things to worry about - the full-scale Wraw invasion
+; We don't clarify here either, but hopefully through gameplay the player will understand, that they are basically using the Wraw here for practice - the quest log does acknowledge this though
+; these par times are supposedly set by the sergeant themselves, but given they're challenging even for an android, I think we can doubt that

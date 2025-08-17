@@ -1,0 +1,412 @@
+# 2-interact-catherine/interaction
+~ catherine
+| 好的，这里有个漏水点。
+| 这很奇怪，管道裂了。
+~ player
+- 你能修好吗？
+  ~ catherine
+  | 如果我修不好，我就不算是个工程师了。
+- 是什么造成的？
+  ~ catherine
+  | 很可能是地面下沉。不过没有山体滑坡的迹象。
+- 为什么说很奇怪？
+  ~ catherine
+  | 裂缝通常是地面下沉的结果。但没有山体滑坡的迹象。
+~ catherine
+| 算了，开始吧。我要然接它，所以最好不要看焦光 - 不想烤坏你的相机。
+~ player
+| “{#@catherine-nametag}戴着护目镜看起来很威风，但她稳稳地拿着焦接炬。”(light-gray, italic)
+~ player
+- （启用紫外线过滤器）
+  ~ player
+  | “这样好多了 - 焦光在我的过滤器后面变暗了。但不至于让我看不到火花在唴唴作响和飞溅。”(light-gray, italic)
+- （不启用过滤器）
+  ~ player
+  | “就像直视太阳。直视大灾难的中心。”(light-gray, italic)
+  ! eval (setf (var 'q1-weld-burn) T)
+  | (:embarassed)“哎呀。我觉得那损坏了我的镜头。”(light-gray, italic)
+! eval (start-animation 'repair2 'catherine)
+! eval (setf (animation (unit 'main-leak-1)) 'normal)
+~ catherine
+| 这样就能固定住了。
+~ catherine
+| {#@jack-nametag}，我已经修好了漏水 - 管道裂了。水压怎么样？完毕。
+~ jack
+| 弱得要命。还必须有另一个漏水点。完毕。
+~ catherine
+| 好的 - 我们会继续找。完毕。
+| 走吧…… (:concerned)呀 - 你真的需要一个名字。
+| 机器人有名字吗？
+~ player
+- 我不记得我的名字。
+  ~ catherine
+  | (:concerned)哦，真的吗？我很抱歉。
+  ~ player
+  | (:thinking)我也不记得其他太多东西。
+  ~ catherine
+  | 我相信没问题。可能只是一点数据丢失。
+- 是的，我们有名字！
+  ~ catherine
+  | (:concerned)当然你们有，我很抱歉。你的名字是什么？
+  ~ player
+  | (:thinking)问题就在这里：我不记得我的名字。我不记得很多东西。
+  ~ catherine
+  | 没关系…… 不要担心。可能只是一点数据丢失。
+- 现在真的是时候吗？
+  ~ catherine
+  | (:concerned)你说得对 - 抱歉。
+  ~ player
+  | (:thinking)实际上，你这么一说…… 我不记得我的名字。
+  ~ catherine
+  | (:concerned)哦，真的吗？我很抱歉。
+  ~ player
+  | (:thinking)我也不记得其他太多东西。
+  ~ catherine
+  | 我相信没问题。可能只是一点数据丢失。
+~ catherine
+| 好吧，在你想起来之前，或者你决定你想被叫什么之前，我要叫你 (:excited)“__{#@player-name-1}__”(yellow)。
+! eval (setf (nametag player) (@ player-name-1))
+| (:excited)很酷，对吧？
+| (:normal)好的，我们需要“沿着管道再往下走”(orange)。
+| (:excited)我们走吧，{(nametag player)}！
+  
+# 4-interact-catherine/interaction
+~ catherine
+| (:concerned)看 - 和我们在上一根管道上看到的同样的裂缝。这不对。
+| {#@jack-nametag}，我觉得我们遇到麻烦了。完毕。
+~ jack
+| 是什么？
+~ catherine
+| (:concerned)我们在“中西部市场”(red) - 就像之前一样，管道裂了，但没有坑道坡塌的迹象。完毕。
+~ jack
+| ...
+| (:annoyed)这是破坏。我早就知道。
+| (:normal)好的，Cathy，你待在原地。我要下来。完毕。
+~ catherine
+| 不！我没事。我能修好。完毕。
+~ jack
+| 好吧，就是要小心。我会告诉其他人发生了什么。
+| 你最好“一直沿着管道到泵房”(orange)，以确保你找到了所有的漏水点。
+| 对讲机在下面不能工作 - 完成后使用泵房旁的电话。
+| 并且要保持警觉。完毕。
+~ catherine
+| 好的，让我把这个封住。
+! eval (start-animation 'repair2 'catherine)
+! eval (setf (animation (unit 'main-leak-2)) 'normal)
+| (:concerned)等等…… 谁在那里？
+  
+# 11-interact-catherine/interaction
+~ catherine
+| 天哪，我很高兴你跟来了。
+| 我已经然好了 - 如新的一样。
+| "我们下到泵房去。"(orange)
+
+# 15-interact-catherine/interaction
+? (not (complete-p (unit 'q1-fight2)))
+| ~ catherine
+| | (:concerned)这是怎么回事？！-"伺服机器人"(red)？在这里？
+| ~ player
+| - 我觉得我们找到了破坏者。
+|   ~ catherine
+|   | (:excited)"做你的事！"(orange)
+| - 有伺服机构的机器人？
+|   ~ catherine
+|   | (:excited)没时间解释！"做你的事！"(orange)
+| - (Fight)
+| ! eval (setf (var 'servos-cath-know) T)
+|?
+| ~ catherine
+| | (:concerned)这是怎么回事？！-"让我看看那个泵"(orange)。
+| ~ player
+| - 出什么事了？
+|   ~ catherine
+|   | (:concerned)这是该死的"伺服机器人"(red)的破坏！
+| - 你看到什么了？
+|   ~ catherine
+|   | (:concerned)该死的"伺服机器人"(red)的破坏！
+| - 这里以前有机器人。
+|   ~ catherine
+|   | (:concerned)"伺服机器人"(red)？他们在哪里？
+| ! eval (setf (var 'servos-early) T)
+
+
+# 21-interact-catherine/interaction
+~ catherine
+| (:concerned)他们做了什么？...
+| 天哪，我们来得正是时候。他们正在拆除涡轮机。
+? (var 'servos-early)
+| ~ catherine
+| | 想知道他们发生了什么吗？地板上都是碎片。
+| ~ player
+| - 咐咐。
+|   ~ catherine
+|   | 你做的？
+|   | (:excited)哇。现在我//真的//很高兴你跟来了。
+|   ! eval (setf (var 'servos-cath-know) T)
+| - 你正在看他们发生了什么。
+|   ~ catherine
+|   | ...
+|   | (:excited)哦，伙计。提醒我永远不要成为你的敌人！
+|   ! eval (setf (var 'servos-cath-know) T)
+| - （说谎）不知道。
+  
+~ catherine
+| 我需要修理这个。“电话在后面 - 给{#@jack-nametag}打电话告诉他发生了什么”(orange)。
+~ player
+- 好的。
+- 我必须和那个家伙说话吗？
+  ~ catherine
+  | (:concerned)这很重要。请。
+- 我可以使用我的FFCS吗？
+  ~ catherine
+  | 你的通信系统？我不怀疑那会起作用，但它绝对会吓到{#@jack-nametag}。
+  | 现在使用电话。
+
+# 23-interact-jack/interaction
+~ jack
+| 谢天谢地。做得好，Cathy - 水来了。
+~ player
+- 你好。
+  ~ jack
+  | (:shocked)...你！Cathy在哪里？
+- 这不是{#@catherine-nametag}。
+  ~ jack
+  | (:shocked)...你！Cathy在哪里？
+- 这是{(nametag player)}。
+  ~ jack
+  | (:annoyed)谁是{(nametag player)}？
+  | (:shocked)...这是机器人，不是吗。Cathy在哪里？！
+~ player
+| 她在修理泵。它被伺服机器人破坏了。
+~ jack
+| (:shocked)<-伺服机器人->?!...他们现在在哪里？
+~ player
+- 我解决了他们。
+- 在地板上成了碎片。
+- 不在这里。
+~ jack
+| (:annoyed)...
+| 你最好说的是实话。
+| (:normal)伺服机器人，呵？...听起来很对。如果我们不是被他们包围，就是被"流氓机器人"(red)包围。
+~ jack
+| 听着，“叫 Cathy 赶紧回来”(orange)。
+| 而且“你也必须来”(orange)，//机器人// - “{#@fi-nametag}”(yellow)正在发火。
+~ player
+| "他挂断了。"(light-gray, italic)
+
+; using frequent repetition of Catherine speaker tag initially here, in case she's far away at first (radio effect), but then comes closer - to refresh it
+# 26-interact-catherine/interaction
+~ catherine
+| 我临时修理了泵。应该能坚持一段时间 - 但以后需要更永久的修理。
+~ catherine
+| {#@jack-nametag}说了什么？
+~ player
+- 他希望我们回去 - {#@fi-nametag}正在发火。
+- 他说做得好，但是……
+  ~ catherine
+  | 但是什么？
+  ~ player
+  | 但你应该尽快回去，我也应该在那里 - {#@fi-nametag}正在发火。
+- 他听到我的声音很不高兴。
+  ~ catherine
+  | (:concerned)我能理解。(:normal)他还说了其他什么吗？
+  ~ player
+  | 你应该尽快回去，我也应该在那里 - {#@fi-nametag}正在发火。
+~ catherine
+| (:concerned)这听起来不太好。
+~ catherine
+| (:normal)看来我们得再等一会儿才能得到我们应得的欢迎回家。
+~ catherine
+| 为什么不“你来带路”(orange)？看看你是否找到了方向。
+~ player
+- 当然。
+  ~ catherine
+  | (:excited)太好了！
+- 我没有找到方向。
+  ~ catherine
+  | 哦…… 我相信你会想明白的。这很重要。
+- {#@fi-nametag}是谁？
+  ~ catherine
+  | 她是我们的领导者。她会很高兴见到你的，我相信。
+~ catherine
+| 让我们“回到营地”(orange)，看看发生了什么。
+! eval (setf (location 'fi) (location 'shutter-2))
+! setf (direction 'fi) -1
+! eval (setf (location 'jack) (location 'shutter-3))
+! setf (direction 'jack) -1
+
+# 29-interact-catherine/interaction
+! eval (stop-following 'catherine)
+! eval (ensure-nearby 'shutter-1 'catherine)
+! eval (setf (nametag (unit 'fi)) (@ fi-nametag))
+~ catherine
+| (:cheer)我们回来了！你们想我们吗？
+~ jack
+| (:annoyed)我被该死的。
+~ catherine
+| 怎么了？不觉得我会完好无损地回家吗？
+~ jack
+| (:annoyed)差不多是这样。
+~ fi
+| 你做得很好，{#@catherine-nametag}。一个机器人对我们来说将是一个巨大的财富。
+| “假设它可以被信任。”(orange)
+~ catherine
+| (:concerned)我不明白。
+~ fi
+| 你在我们的供水被破坏的同时发现了它，这不是巧合吗？很可能是Wraw干的。
+? (not (var 'servos-early))
+| ~ catherine
+| | 但我们看到了伺服机器人，他们正在拆除泵。不是她 - 她把他们打成了碎片！
+|? (var 'servos-cath-know)
+| ~ catherine
+| | 但我们看到了伺服机器人对泵造成的损坏 - 他们一直在拆除它。
+| | 她告诉我她把他们打成了碎片！
+| ~ jack
+| | 你就相信了？！
+| | 听着……
+|?
+| | ~ catherine
+| | 但我们看到了伺服机器人对泵造成的损坏 - 他们一直在拆除它。 不是她干的！
+| ~ jack
+| | 但你怎么知道呢？
+| | 你还知道其他事情吗？……
+  
+~ jack
+| 也许这东西能控制他们？你想过这个吗？
+~ catherine
+| (:concerned)...
+| (:concerned)机器人确实有FFCS- 嘘，远程通信系统。
+| 我猜这样的东西可以比我们的无线电更深入地下。
+| (:normal)但不，不是这样的。她已经离线几十年了，我可以肯定。
+| 而且自从我让她上线以来，她一直和我在一起！她不可能做这些。
+~ jack
+| 但我们对机器人真正了解多少，Cathy？什么都不知道，就是这样。
+~ catherine
+| 好吧，问问她。“你背叛过我们吗，{(nametag player)}？”(orange)
+~ player
+- 不，我没有。
+  ~ catherine
+  | 看吧。我知道她的记忆全都混乱了，但这一点她是肯定的。
+  ~ fi
+  | 好吧。让我们希望它说的是实话。(:annoyed)如果不是，那么Wraw知道我们的位置，他们的狩猎队已经在路上了。
+- 我不认为我有。
+  ~ catherine
+  | 她的记忆在我让她上线之前都很混乱。她没有，相信我。
+  ~ fi
+  | 好的。让我们希望这是真的。(:annoyed)如果不是，那么Wraw知道我们的位置，他们的猎杀小队已经在路上了。
+- 我想我可能有过。
+  ~ catherine
+  | (:concerned)她不知道自己在说什么 - 她的记忆在我让她上线之前都很混乱。她甚至不记得自己的名字！
+  ~ fi
+  | 好的。这很难说是结论性的，但现在我们最好希望{#@catherine-nametag}是对的。
+  | (:annoyed)如果不是，那么Wraw知道我们的位置，他们的猎杀小队已经在路上了。
+- 是的。
+  ~ catherine
+  | (:concerned)...
+  | (:excited)是的，当然她有。她是个叛徒。
+  | (:concerned)拜托，伙计们！？我知道我可能很容易受骗，但如果我认为是这样，你们真的认为我会和她在一起吗？
+  | 无论如何，她的记忆在我让她上线之前都很混乱。她甚至不记得自己的名字！
+  ~ fi
+  | 好的。这很难说是结论性的，但现在我们最好希望{#@catherine-nametag}是对的。
+  | (:annoyed)如果不是，那么Wraw知道我们的位置，他们的猎杀小队已经在路上了。
+~ jack
+| (:shocked)天哪，{#@fi-nametag}...你就要接受这个？
+~ fi
+| 我有什么选择？
+~ jack
+| 检查这个东西，确定一下。
+~ fi
+| (:unsure){#@catherine-nametag}，机器人不是有黑匣子吗？这能显示给我们看是否...是的，FFCS，最近是否活跃？
+~ catherine
+| ...我想我们需要找到某种接口端口。
+| (:concerned)哦，我们还需要一台能工作的电脑，而自从我出生以来就没人有过。
+| 但即使我们有所有这些，你不认为你应该问问她把她拆开是否可以吗？
+~ fi
+| 你说得对，{#@catherine-nametag}。
+| 我很抱歉...{(nametag player)}，是吗？
+~ jack
+| (:annoyed)...
+~ fi
+| "你会允许{#@catherine-nametag}检查你吗"(orange)，假设我们能找到方法？
+~ player
+- 我宁愿她不要。
+  ~ fi
+  | 这当然是你的选择。
+  ~ jack
+  | (:annoyed)真的吗？你要让这个东西做主？
+  ~ fi
+  | 这个"东西"是一个人。我期望你把她当作这样对待。
+  | 我相信{#@catherine-nametag}的判断。目前，{(nametag player)}是我们的客人。
+  | 不过，{#@jack-nametag} - 当他到达时与"{#@trader-nametag}"(yellow)谈谈，看看他对机器人了解多少。
+  | 如果{(nametag player)}有记忆问题，我们能做的就是尽力帮助她。
+  ~ jack
+  | (:annoyed)如果你坚持的话。
+- 当然，为什么不呢。
+  ~ fi
+  | 好的。{#@jack-nametag}，当他到达时与"{#@trader-nametag}"(yellow)谈谈，看看他对机器人了解多少。
+  ~ jack
+  | (:annoyed)如果你坚持的话。
+- 只要之后我还在线就行。
+  ~ catherine
+  | 不用担心，我不会让他们关闭你。
+  ~ fi
+  | 那就解决了。{#@jack-nametag}，当他到达时与"{#@trader-nametag}"(yellow)谈谈，看看他对机器人了解多少。
+  ~ jack
+  | (:annoyed)如果你坚持的话。
+~ fi
+| (:annoyed)但不管怎样，我确信"Wraw是我们的攻击者"(orange)，无论如何。
+| 这意味着他们即将发现我们的位置。
+| (:normal)"我必须考虑我们下一步的行动方案。"(orange)
+~ catherine
+| 如果没有其他事情，我稍后见你们。
+| 嘿{(nametag player)}，等等 - "我想聊聊"(orange)。
+~ fi
+| 再见{#@catherine-nametag}，{(nametag player)}。
+~ jack
+| 照顾好自己，Cathy。
+! eval (move-to 'fi-farm 'fi)
+! eval (setf (walk 'fi) T)
+! eval (move-to 'eng-jack 'jack)
+! eval (setf (walk 'jack) T)
+~ catherine
+| (:concerned)喔，大人们。我的意思是，从技术上讲我是个成年人，但不像那些恐龙。
+| (:normal)哦！我差点忘了：我们的传统是给那些帮助我们的人一些礼物。
+| 既然那两个人不太可能慰慨，我将"给你这些零件"(orange)。
+! eval (store 'item:parts 200)
+! eval (status "Received 200 Scrap Part")
+| 不多，但你可以用它们"交易"(orange)你可能想要的东西。或者你将能够"一旦{#@trader-nametag}到这里"(orange)。
+| (:concerned)他延迟了，这一点也不像他。也许那些伺服机器人把他吓跑了。
+| (:normal)无论如何，不要担心{#@jack-nametag}和{#@fi-nametag}。他们很快就会看到我看到的：(:excited)一个__大__又__友好__的__狠角色__，可以保护我们！
+| (:normal)好吧，我有工作要做。
+| 去"看看{#@fi-nametag}"(orange)不会有坏处。我相信有什么你可以帮她做的，向她证明你可以被信任。
+| "了解{#@jack-nametag}，他也会有事情给你做"(orange) - (:concerned)如果只是一堆谩骂的话。
+| (:normal)但现在你是个自由代理人。我怀疑这在这里不会持续太久，所以要充分利用。
+| (:excited)"四处看看和探索"(orange)！(:normal)虽然最好不要离营地太远。
+| 再见，{(nametag player)}！
+
+; "And since I brought her online she's been with me the whole time" - might not be totally true at this point, but Catherine is more than happy to "white lie" for you. It also contradicts an earlier argument she made on the branch where she says you told her you'd killed the Servos - clearly she wasn't with you the whole time then. But Jack is too stupid (or angry) to pick up on that contradiction, and clearly Fi doesn't believe you were at fault too much, otherwise she'd not and let that go nor welcome you into the fold.
+; The line can't really say "been with me most of the time" either, as critical path players will have been with her the whole time
+; Catherine is perhaps then aware that you could be guilty, but she's too much your biggest fan to believe it, so it never comes up again with her
+
+; when the NPCs here talk about figuring out if the FFCS was active lately, it's to see if it was active with a view to communing with Servos, not just that it was active in itself - which of course it is active all the time during the game, which most of these NPCs come to know about. We can put this slightly clunky wording on their part down to being lay with respect to FFCS
+
+; reading between the lines here as well, and something that ties into q14-envoy, is that if the suspect you being involved with the Servos, AND that the Wraw are the attackers, then they are implying that you work for the Wraw... The player of course is none the wiser at this point, so with the inducting into the gang, the player may feel these people are dangerously letting their guard down
+
+# main-leak-2/walkntalk
+~ catherine
+| (:excited)能追上我就追！
+
+# q1-fight1/walkntalk
+~ catherine
+| (:concerned)小心！
+
+# q1-fight2/walkntalk
+~ catherine
+| (:concerned)小心，附近可能还有更多的潜伏着...
+; needs to work whether the player is fighting the Servos now, or if Catherine is running to the sabotaged pump dismayed
+
+# shutter-1/walkntalk
+~ catherine
+| (:excited)"带我们回家"(orange)，{(nametag player)}！
+
+; ^ might not play in the edge case the player jumps into water before talking to Catherine, as it will be replaced by the "This doesn't look safe..." walkntalk
